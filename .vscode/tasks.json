@@ -1,0 +1,162 @@
+/*{
+	"version": "0.1.0",
+
+	// The command is tsc. Assumes that tsc has been installed using npm install -g typescript
+	"command": "tsc",
+
+	// The command is a shell script
+	"isShellCommand": true,
+
+	// Show the output window only if unrecognized errors occur.
+	"showOutput": "silent",
+
+	// Tell the tsc compiler to use the tsconfig.json from the open folder.
+	"args": ["--p", "${workspaceRoot}", "--watch"],
+
+	// use the standard tsc problem matcher to find compile problems
+	// in the output.
+	"problemMatcher": "$tsc"
+}*/
+
+/*{
+    "version": "0.1.0",
+    "command": "lessc",
+    "isShellCommand": true,
+    "args": ["${workspaceRoot}/app/app.component.less", "${workspaceRoot}/app/app.component.css"]
+}*/
+
+{
+    "version": "0.1.0",
+    "command": "gulp",
+    // "args": [
+    //     "--cwd ${workspaceRoot}"
+    // ],
+    // "options": {
+    //     "cwd": "${workspaceRoot}",
+    //     "env": {
+    //         "--cwd": "${workspaceRoot}"
+    //     }
+    // },
+    //"cwd": "${workspaceRoot}",
+    "isShellCommand": true,
+    "echoCommand": true,
+    "showOutput": "always",
+    //"suppressTaskName": true,
+    "tasks": [
+        {
+            "taskName": "default",
+            "suppressTaskName": true,
+            "isBuildCommand": true,
+            "showOutput": "always",
+            "echoCommand": true,
+            "isWatching": true
+        }
+   ]
+}
+
+/*{
+    "version": "0.1.0",
+    "command": "cmd",
+    "args": [
+        "/C"
+    ],
+    "cwd": "${workspaceRoot}",
+    "isShellCommand": true,
+    "echoCommand": true,
+    "showOutput": "always",
+    //"suppressTaskName": true
+    "isWatching": true,
+     "tasks": [
+        {
+            "taskName": "tsc",
+            "args": ["tsc -p ${workspaceRoot}"],
+            "suppressTaskName": true,
+            "isBuildCommand": true,
+            "showOutput": "always",
+            "echoCommand": true,
+            "isWatching": true
+        },
+        {
+            "taskName": "less",
+            "args": ["lessc ${workspaceRoot}/app/app.component.less", "${workspaceRoot}/app/app.component.css"],
+            "suppressTaskName": true,
+            "isBuildCommand": true,
+            "showOutput": "always",
+            "echoCommand": true,
+            "isWatching": true
+        }
+    ]
+}*/
+
+/*{
+  "name": "npmTask",
+  "version": "0.1.0",
+ //...
+  "suppressTaskName": true,
+  "command": "npm",
+  "isShellCommand": true,
+  "args": [
+    "run"
+  ],
+  "tasks": [
+    {
+      //Build Task
+      "taskName": "tsc",
+      //Run On Shift+Ctrl+B
+      "isBuildCommand": true,
+      //Don't run when Shift+Ctrl+T
+      "isTestCommand": false,
+      // Show the output window if error any
+      	//"command": "tsc",
+
+	// // The command is a shell script
+	// "isShellCommand": true,
+
+	// Show the output window only if unrecognized errors occur.
+	"showOutput": "silent",
+
+	// Tell the tsc compiler to use the tsconfig.json from the open folder.
+	"args": ["tsc"],
+
+	// use the standard tsc problem matcher to find compile problems
+	// in the output.
+	"problemMatcher": "$tsc"
+    //   "showOutput": "silent",
+    //   //Npm Task Name
+    //   "args": [
+    //     "webpack"
+    //   ],
+    //   // use 2 regex:
+    //   // 1st the file, then the problem       
+    //   "problemMatcher": {
+    //     "owner": "webpack",
+    //     "severity": "error",
+    //     "fileLocation": "relative",
+    //     "pattern": [
+    //       {
+    //         "regexp": "ERROR in (.*)",
+    //         "file": 1
+    //       },
+    //       {
+    //         "regexp": "\\((\\d+),(\\d+)\\):(.*)",
+    //         "line": 1,
+    //         "column": 2,
+    //         "message": 3
+    //       }
+    //     ]
+    //   }
+    },
+    {
+      //Test Task   
+      "taskName": "gulp",
+      // Don't run on Shift+Ctrl+B
+      "isBuildCommand": true,
+      // Run on Shift+Ctrl+T
+      "isTestCommand": false,
+      "showOutput": "always",
+      "args": [
+        "gulp"
+      ]
+    }
+  ]
+}*/
