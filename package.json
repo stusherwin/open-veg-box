@@ -15,7 +15,8 @@
     "tsc:w": "tsc -w",
     "typings": "typings",
     "webdriver:update": "webdriver-manager update",
-    "gulp": "gulp"
+    "gulp": "gulp",
+    "serve": "serve"
   },
   "keywords": [],
   "author": "",

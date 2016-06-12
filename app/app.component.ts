@@ -1,11 +1,45 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
+import { HeaderComponent } from './header/header.component';
+import { ProductsComponent } from './products/products.component';
+import { CustomersComponent } from './customers/customers.component';
+import { CollectionPointsComponent } from './collection-points/collection-points.component';
+import { BoxesComponent } from './boxes/boxes.component';
+import { DeliveriesComponent } from './deliveries/deliveries.component';
+import { RouteConfig, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 
 @Component({
-    selector: 'my-app',
-    styleUrls: ['app/app.component.css'],
-    template: `
-<h1>My First Angular 2 STU dfs</h1>
-<my-stu></my-stu>
-`
+  selector: 'cc-app',
+  styleUrls: ['app/app.component.css'],
+  templateUrl: 'app/app.component.html',
+  directives: [ROUTER_DIRECTIVES, HeaderComponent]
 })
+
+@RouteConfig([
+  {
+    path: 'products',
+    name: 'Products',
+    component: ProductsComponent
+  },
+  {
+    path: 'boxes',
+    name: 'Boxes',
+    component: BoxesComponent
+  },
+  {
+    path: 'customers',
+    name: 'Customers',
+    component: CustomersComponent
+  },
+  {
+    path: 'collection-points',
+    name: 'CollectionPoints',
+    component: CollectionPointsComponent
+  },
+  {
+    path: 'deliveries',
+    name: 'Deliveries',
+    component: DeliveriesComponent
+  }
+])
+
 export class AppComponent { }
