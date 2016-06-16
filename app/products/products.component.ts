@@ -1,8 +1,23 @@
 import { Component } from '@angular/core';
 
+export class Product {
+  constructor(name:string, price:number) {
+    this.name = name;
+    this.price = price;
+  }
+    
+  name: string;
+  price: number;
+}
+
 @Component({
   selector: 'cc-products',
-  template: '<h2>Products</h2>'
+  styleUrls: ['app/products/products.component.css'],
+  templateUrl: 'app/products/products.component.html'
 })
-
-export class ProductsComponent { } 
+export class ProductsComponent {
+  products: Product[] = [
+    new Product("Carrots", 1.2),
+    new Product("Garlic (bulb)", 0.7)
+  ];
+}
