@@ -4,8 +4,7 @@ import { ROUTER_DIRECTIVES, Router } from '@angular/router-deprecated';
 @Component({
   selector: 'cc-nav-bar-link',
   template: `
-  <a *ngIf="!isCurrent()" [routerLink]="linkParams">{{ text }}</a>
-  <strong *ngIf="isCurrent()">{{ text }}</strong>  
+  <a [class.selected]="isCurrent()" [routerLink]="linkParams"><ng-content></ng-content></a>
   `,
   directives: [ROUTER_DIRECTIVES]
 })

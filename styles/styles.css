@@ -130,19 +130,17 @@ table {
 h1,
 h2,
 h3 {
-  font-family: 'Roboto Slab', serif;
   margin-bottom: 10px;
+  color: #444;
+  font-weight: 300;
 }
 h1 {
-  color: black;
   font-size: 250%;
 }
-h2,
-h3 {
-  color: #444;
-  font-weight: lighter;
-}
 h2 {
+  font-size: 200%;
+}
+h3 {
   font-size: 150%;
 }
 body {
@@ -151,7 +149,6 @@ body {
 body,
 input[text],
 button {
-  font-family: Cambria, Georgia;
   background: #333;
 }
 a {
@@ -159,7 +156,6 @@ a {
   cursor: hand;
 }
 button {
-  font-family: Arial;
   background-color: #eee;
   border: none;
   padding: 5px 10px;
@@ -177,7 +173,7 @@ button:disabled {
 }
 /* everywhere else */
 * {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Josefin Sans', sans-serif;
   box-sizing: border-box;
 }
 .container {
@@ -185,14 +181,16 @@ button:disabled {
   height: 100%;
   margin-left: 40px;
   margin-right: 40px;
-  padding-top: 85px;
+  padding-top: 105px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 .header {
   background: #579532;
   position: absolute;
   width: 100%;
   box-shadow: #333 0px 5px 10px;
-  border-top: 1px solid #8BB572;
+  border-top: 1px solid #89ca63;
   margin-top: 20px;
   padding: 10px;
 }
@@ -200,7 +198,6 @@ button:disabled {
   color: white;
   float: left;
   margin: 0 0 0 50px;
-  font-family: 'Josefin Sans', sans-serif;
 }
 .header nav {
   margin-top: 18px;
@@ -212,32 +209,30 @@ button:disabled {
   padding: 0;
 }
 .header nav ul li {
-  margin: 0 5px;
+  margin: 0 10px;
   padding: 0;
   display: inline-block;
 }
-.header nav ul li a,
-.header nav ul li strong {
+.header nav ul li a {
   margin: 0;
-  color: #fff;
-  font-family: 'Josefin Sans', sans-serif;
+  color: #c3e4af;
   font-size: 120%;
   font-weight: 300;
+  text-decoration: none;
 }
 .header nav ul li a:hover,
-.header nav ul li a:visited {
+.header nav ul li a.selected {
   color: white;
 }
-.header nav ul li strong {
-  font-weight: 400;
-}
 .products .product {
-  margin: 20px;
+  margin-top: 20px;
+  border-radius: 2px;
   padding: 10px;
   background: #fafafa;
   box-shadow: #aaa 0px 5px 10px;
-  border-top: 1px solid #fff;
+  border-top: 2px solid white;
 }
 .products .product:hover {
-  background: #eee;
+  background: #ededed;
+  border-top-color: #f2f2f2;
 }

@@ -1,0 +1,4 @@
+{
+  "injectChanges": true,
+  "files": ["./src/**/*.{html,htm,css,js}"]
+}

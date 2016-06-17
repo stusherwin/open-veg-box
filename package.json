@@ -16,7 +16,7 @@
     "typings": "typings",
     "webdriver:update": "webdriver-manager update",
     "gulp": "gulp",
-    "serve": "serve"
+    "serve": "http-server"
   },
   "keywords": [],
   "author": "",

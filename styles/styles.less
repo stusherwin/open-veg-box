@@ -51,19 +51,17 @@ table {
 
 /* Master Styles */
 h1, h2, h3 {
-  //font-family: Arial, Helvetica, sans-serif;
-  font-family: 'Roboto Slab', serif;
   margin-bottom:10px;   
+  color: @heading;
+  font-weight: 300;
 }
 h1 {
-  color: black; 
   font-size: 250%;
 }
-h2, h3 { 
-  color: #444;
-  font-weight: lighter;
-}
 h2 {
+  font-size: 200%;  
+}
+h3 {
   font-size: 150%;  
 }
 body { 
@@ -71,15 +69,14 @@ body {
 }
 body, input[text], button { 
   //color: #888; 
-  font-family: Cambria, Georgia;
-  background: #333;//ddd; 
+  //font-family: Cambria, Georgia;
+  background: @background; 
 }
 a {
   cursor: pointer;
   cursor: hand;
 }
 button {
-  font-family: Arial;
   background-color: #eee;
   border: none;
   padding: 5px 10px;
@@ -98,48 +95,37 @@ button:disabled {
 
 /* everywhere else */
 * { 
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Josefin Sans', sans-serif;
   box-sizing: border-box; 
 }
 
 .container {
-    background: #ddd;
-    //padding: 10px;
+    background: @container;
     height: 100%;
-    //width: 800px;
-    //margin: 0 auto;
     margin-left:40px;
     margin-right:40px;
-    padding-top:85px;
+    padding-top:105px;
+    padding-left:20px;
+    padding-right:20px;
 }
 
 .header {
-    background: #579532; // url('img/carrot-white.png') no-repeat 0 0;
+    background: @header;
     position:absolute;
-    //margin-left:-40px;
     width:100%;
-    box-shadow: #333 0px 5px 10px;
-    border-top: 1px solid #8BB572;
-    //border-bottom: 1px solid #333;
-    //border: 1px solid #1B4900;
-    //border-radius: 10px;
-    //margin-bottom: 0px;
+    box-shadow: @background 0px 5px 10px;
+    border-top: 1px solid @headerHighlight;
     margin-top:20px;
     padding: 10px;
 
     h1 {
-        color: white;
+        color: @headerText;
         float:left;
         margin: 0 0 0 50px;
-        //text-align: center;
-        font-family: 'Josefin Sans', sans-serif;
+        //margin: 0 0 0 -6px;
     }
 
     nav {
-        //background: #666;
-        //padding: 10px;
-        //border-radius: 0 0 5px 5px;
-        //text-align: center;
         margin-top:18px;
         margin-left:100px;
         float: left;
@@ -149,22 +135,20 @@ button:disabled {
             padding: 0;
 
             li {
-                margin: 0 5px;
+                margin: 0 10px;
                 padding: 0;
                 display: inline-block;
 
-                a, strong {
+                a {
                     margin: 0;
-                    color: #fff;
-                    font-family: 'Josefin Sans', sans-serif;
+                    color: @headerNavLink;
                     font-size: 120%;
                     font-weight: 300;
-                }
-                a:hover, a:visited {
-                    color: white;
-                }
-                strong {
-                  font-weight: 400;
+                    text-decoration: none;
+
+                    &:hover, &.selected {
+                      color: @headerText;
+                    }
                 }
             }
         }
@@ -172,27 +156,17 @@ button:disabled {
 }
 
 .products {
-  //border: 1px solid #444;
-  //border-radius: 10px;
-  //padding: 10px;
-
   .product {
-    //border-bottom: 1px solid #666;
-    margin: 20px;
+    margin-top: 20px;
+    border-radius:2px;
     padding: 10px;
-    background: #fafafa;
-    box-shadow: #aaa 0px 5px 10px;
-    border-top: 1px solid #fff;
+    background: @product;
+    box-shadow: @productShadow 0px 5px 10px;
+    border-top: 2px solid @productHighlight;
     
-    &:first-child {
-      //border-radius: 10px 10px 0 0;
-    }
-    &:last-child {
-      //border: 0;
-      //border-radius: 0 0 10px 10px;      
-    }
     &:hover {
-      background: #eee;
+      background: darken(@product, 5%); 
+      border-top-color: darken(@productHighlight, 5%);
     }
   }
 }
