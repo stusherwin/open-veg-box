@@ -1,0 +1,17 @@
+.box(@background, @shadowLength) {
+    background: @background;
+    border:none;
+    border-top: 1px solid lighten(@background, 20%);
+    border-bottom: none;//1px solid rgba(0, 0, 0, 0);    
+    border-radius:2px;
+    box-shadow: rgba(0,0,0,0.3) 0px @shadowLength 10px;  
+}
+
+.box-inverted(@background, @shadowLength) {
+    background: @background;
+    border:none;
+    border-top: none;//1px solid rgba(0, 0, 0, 0);    
+    border-bottom: 1px solid lighten(@background, 20%);    
+    border-radius:2px;
+    box-shadow: inset rgba(0,0,0,0.2) 0px @shadowLength 10px;      
+}

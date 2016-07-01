@@ -1,7 +1,10 @@
-<h2>Products</h2>
-<div class="products">
-  <div class="product" *ngFor="let p of products">
-    <h3>{{ p.name }}</h3>
-    <span>£{{ p.price }}</span>
-  </div>
+<div class="page-header">
+  <button (click)="startAdd()" [disabled]="adding || editing"><i class="icon-add"></i> Add</button>
+  <h2>Products</h2>
+</div>
+
+<cc-product-edit *ngIf="adding" [product]="adding" (onSave)="completeAdd()" (onCancel)="cancel()"></cc-product-edit>
+<div *ngFor="let p of products">
+  <cc-product-display *ngIf="!editing || editing.id != p.id" [product]="p" (onEdit)="startEdit(p)" [editDisabled]="adding || editing"></cc-product-display>
+  <cc-product-edit *ngIf="editing && editing.id == p.id" [product]="editing" (onSave)="completeEdit()" (onCancel)="cancel()"></cc-product-edit>
 </div>

@@ -149,6 +149,7 @@ body {
 body,
 input[text],
 button {
+  color: #888;
   background: #333;
 }
 a {
@@ -156,20 +157,31 @@ a {
   cursor: hand;
 }
 button {
-  background-color: #eee;
-  border: none;
   padding: 5px 10px;
-  border-radius: 4px;
+  padding-left: 5px;
   cursor: pointer;
   cursor: hand;
+  color: white;
+  background: #5e85a9;
+  border: none;
+  border-top: 1px solid #a0b7cd;
+  border-bottom: none;
+  border-radius: 2px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 10px;
 }
 button:hover {
-  background-color: #cfd8dc;
+  background-color: #7f9ebb;
 }
 button:disabled {
   background-color: #eee;
   color: #aaa;
   cursor: auto;
+}
+button:active {
+  background-color: #7f9ebb;
+}
+button:focus {
+  outline: 0;
 }
 /* everywhere else */
 * {
@@ -181,16 +193,19 @@ button:disabled {
   height: 100%;
   margin-left: 40px;
   margin-right: 40px;
-  padding-top: 105px;
+  padding-top: 100px;
   padding-left: 20px;
   padding-right: 20px;
 }
 .header {
-  background: #579532;
   position: absolute;
   width: 100%;
-  box-shadow: #333 0px 5px 10px;
+  background: #579532;
+  border: none;
   border-top: 1px solid #89ca63;
+  border-bottom: none;
+  border-radius: 2px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 5px 10px;
   margin-top: 20px;
   padding: 10px;
 }
@@ -222,17 +237,32 @@ button:disabled {
 }
 .header nav ul li a:hover,
 .header nav ul li a.selected {
-  color: white;
+  color: #fcfefb;
 }
-.products .product {
+.page-header > button {
+  margin-right: 10px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  float: right;
+}
+.page-header h2 {
+  margin-top: 0;
+}
+.product {
+  clear: right;
   margin-top: 20px;
-  border-radius: 2px;
   padding: 10px;
   background: #fafafa;
-  box-shadow: #aaa 0px 5px 10px;
-  border-top: 2px solid white;
+  border: none;
+  border-top: 1px solid #ffffff;
+  border-bottom: none;
+  border-radius: 2px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 5px 10px;
+  cursor: pointer;
+  cursor: hand;
 }
-.products .product:hover {
-  background: #ededed;
-  border-top-color: #f2f2f2;
+.product button {
+  float: right;
+  clear: right;
+  margin-bottom: 10px;
 }

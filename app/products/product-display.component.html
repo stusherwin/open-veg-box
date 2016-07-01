@@ -1,0 +1,5 @@
+<div class="product" [class.editing]="editing">
+  <button (click)="edit()" [disabled]="editDisabled"><i class="icon-edit"></i> Edit</button>  
+  <h3>{{ product.name }}</h3>
+  <span>&pound;{{ product.price | number:'1.2' }}</span>
+</div>

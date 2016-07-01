@@ -1,0 +1,11 @@
+<div class="product" [class.editing]="editing">
+  <form (ngSubmit)="save()" #f="ngForm">
+    <button type="submit" [disabled]="!f.valid"><i class="icon-ok"></i> Save</button>  
+    <button (click)="cancel()"><i class="icon-cancel"></i> Cancel</button>  
+    <h3>{{ product.name }}</h3>
+    <input type="text" [(ngModel)]="product.name"/><br />
+    <p>Price: &pound;{{product.price}}</p>
+    <input type="text" ngControl="x" pattern="ABC"/>
+    &pound;<cc-currency [(ngModel)]="product.price" ngControl="price" pattern="[0-9]+(\.[0-9][0-9]?)?" required ></cc-currency>
+  </form>
+</div>
