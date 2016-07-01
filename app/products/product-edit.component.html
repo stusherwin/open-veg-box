@@ -3,9 +3,8 @@
     <button type="submit" [disabled]="!f.valid"><i class="icon-ok"></i> Save</button>  
     <button (click)="cancel()"><i class="icon-cancel"></i> Cancel</button>  
     <h3>{{ product.name }}</h3>
-    <input type="text" [(ngModel)]="product.name"/><br />
-    <p>Price: &pound;{{product.price}}</p>
-    <input type="text" ngControl="x" pattern="ABC"/>
-    &pound;<cc-currency [(ngModel)]="product.price" ngControl="price" pattern="[0-9]+(\.[0-9][0-9]?)?" required ></cc-currency>
+    <input type="text" [(ngModel)]="product.name" ngControl="name" required/><br />
+    <p>Price: &pound;{{product.price | number:'1.2'}}</p>
+    &pound;<cc-currency [(ngModel)]="product.price" ngControl="price" required ></cc-currency>
   </form>
 </div>

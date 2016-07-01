@@ -1,62 +1,45 @@
-import { Component, Input, Output, EventEmitter, Provider, forwardRef, OnInit, ChangeDetectorRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, CORE_DIRECTIVES, Control, Validators } from "@angular/common"
+import { Component, Input, Provider, forwardRef } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, CORE_DIRECTIVES } from "@angular/common"
 
 const noop = () => {};
 
-const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR = new Provider( NG_VALUE_ACCESSOR, {
+const CURRENCY_CONTROL_VALUE_ACCESSOR = new Provider( NG_VALUE_ACCESSOR, {
   useExisting: forwardRef(() => CurrencyComponent),
   multi: true
 });
 
 @Component({
   selector: 'cc-currency',
-  template: `
-        <input type="text" class="form-control" (blur)="onTouched()" [(ngModel)]="value" />
-  `,
-  // <input type="text" class="form-control" (blur)="onTouched()" [ngModel]="valueText" (ngModelChange)="valueTextChanged($event)" pattern="ABC" />
-  // pattern="([0-9]+)(\.[0-9][0-9]?)?"
+  template: '<input type="text" (blur)="onBlur()" [(ngModel)]="stringValue" />',
   directives: [CORE_DIRECTIVES],
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
+  providers: [CURRENCY_CONTROL_VALUE_ACCESSOR]
 })
-export class CurrencyComponent implements ControlValueAccessor, OnInit {
-  private _value: number;
-  //private valueText: string;
-
+export class CurrencyComponent implements ControlValueAccessor {
+  private _stringValue: string;
+  private _decimalValue: number;
   private _onTouchedCallback: () => void = noop;
-  private _onChangeCallback: (_:any) => void = noop;
+  private _onChangeCallback: (_:number) => void = noop;
 
-  // private valueTextChanged(event: any) {
-  //   this.valueText = event;
-  //   var parsed = parseFloat(event) 
-  //   if (this.valueText == '' + parsed) {
-  //     this._value = parsed;
-  //     this.valueChange.emit(this._value);
-  //   }
-  // }
-
-  ngOnInit() {
-  }
-
-  @Input() formCtrl: any;
-  @Input() inputField: string;
   @Input()
-  get value() {
-    return this._value;
+  get stringValue() {
+    return this._stringValue;
   }
-  set value(v: number) {
-    if ( v !== this._value) {
-      this._value = v;
-      //this.valueText = '' + v;
-      this._onChangeCallback(v);
+  set stringValue(v:string) {
+    if ( v !== this._stringValue) {
+      this._stringValue = v;
+      this._decimalValue = this.toDecimalValue(v);
+      this._onChangeCallback(this._decimalValue);
     }
   }
 
-  onTouched() {
+  onBlur() {
+    this._stringValue = this.toStringValue(this._decimalValue);
     this._onTouchedCallback();
   }
 
   writeValue(value: any) {
-    this._value = value;
+    this._decimalValue = typeof(value) == "number" ? value : 0;
+    this._stringValue = this.toStringValue(this._decimalValue);
   }
 
   registerOnChange(fn: any) {
@@ -67,6 +50,15 @@ export class CurrencyComponent implements ControlValueAccessor, OnInit {
     this._onTouchedCallback = fn;
   }
 
-  // @Output()
-  // valueChange = new EventEmitter<number>();
+  private toStringValue(value: number): string {
+    return '' + value.toFixed(2);
+  }
+
+  private toDecimalValue(value: string): number {
+    var parsed = parseFloat(value);
+    if( isNaN(parsed) ) {
+      return 0;
+    }
+    return parsed;
+  }
 }
