@@ -148,7 +148,7 @@ body {
 }
 body {
   color: #888;
-  background: #333;
+  background: #579532;
 }
 a {
   cursor: pointer;
@@ -159,10 +159,6 @@ a {
   font-family: 'Josefin Sans', sans-serif;
   box-sizing: border-box;
 }
-input[type="text"],
-button {
-  color: #888;
-}
 input[type="text"] {
   color: #999;
   padding: 2px 4px;
@@ -171,152 +167,83 @@ input[type="text"] {
   font-size: 100%;
   width: 80%;
 }
-button {
-  padding: 5px 10px;
-  padding-left: 5px;
-  cursor: pointer;
-  cursor: hand;
-  color: white;
-  background: #5e85a9;
-  border: none;
-  border-top: 1px solid #6f92b2;
-  border-bottom: 1px solid #4a6b8a;
-  border-left: 1px solid #5880a5;
-  border-right: 1px solid #5880a5;
-  border-radius: 2px;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 10px;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 10px, inset rgba(127, 158, 187, 0.5) 0px 2px 10px, inset rgba(74, 107, 138, 0.5) 0px -2px 10px 1px;
-}
-button:hover {
-  background: #7f9ebb;
-  border: none;
-  border-top: 1px solid #90abc4;
-  border-bottom: 1px solid #5e85a9;
-  border-left: 1px solid #7999b7;
-  border-right: 1px solid #7999b7;
-  border-radius: 2px;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 10px;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 10px, inset rgba(160, 183, 205, 0.5) 0px 2px 10px, inset rgba(94, 133, 169, 0.5) 0px -2px 10px 1px;
-}
-button:disabled {
-  background: #ddd;
-  border: none;
-  border-top: 1px solid #eaeaea;
-  border-bottom: 1px solid #c4c4c4;
-  border-left: 1px solid #d8d8d8;
-  border-right: 1px solid #d8d8d8;
-  border-radius: 2px;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 10px;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 10px, inset rgba(247, 247, 247, 0.5) 0px 2px 10px, inset rgba(196, 196, 196, 0.5) 0px -2px 10px 1px;
-  color: #aaa;
-  cursor: auto;
-}
-button:disabled:active {
-  background: #f7f7f7;
-  border: none;
-  border-top: 1px solid #ffffff;
-  border-bottom: 1px solid #dddddd;
-  border-left: 1px solid #f1f1f1;
-  border-right: 1px solid #f1f1f1;
-  border-radius: 2px;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 10px;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 10px, inset rgba(255, 255, 255, 0.5) 0px 2px 10px, inset rgba(221, 221, 221, 0.5) 0px -2px 10px 1px;
-  background-color: #f7f7f7;
-}
-button:active {
-  background: #7f9ebb;
-  border: none;
-  border-top: 1px solid #90abc4;
-  border-bottom: 1px solid #5e85a9;
-  border-left: 1px solid #7999b7;
-  border-right: 1px solid #7999b7;
-  border-radius: 2px;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 10px;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 10px, inset rgba(160, 183, 205, 0.5) 0px 2px 10px, inset rgba(94, 133, 169, 0.5) 0px -2px 10px 1px;
-  background-color: #7f9ebb;
-}
-button:focus {
-  outline: 0;
+.outer {
+  background: #579532;
+  padding: 10px;
 }
 .container {
-  background: #ddd;
-  height: 100%;
-  margin-left: 40px;
-  margin-right: 40px;
-  padding-top: 100px;
-  padding-left: 20px;
-  padding-right: 20px;
+  border-radius: 7px;
+  background: #fff;
+  padding: 3px;
+  box-shadow: inset rgba(0, 0, 0, 0.3) 0px 2px 2px -1px;
+}
+.container2 {
+  border-radius: 5px;
+  border: 1px solid #579532;
+  border-bottom: 1px solid #89ca63;
+  box-shadow: inset rgba(0, 0, 0, 0.3) 0px 3px 10px 0px, rgba(0, 0, 0, 0.3) 0px 2px 2px -1px;
+  padding: 10px;
+  background: #fff;
+}
+.filler {
+  float: right;
+  height: 485px;
+}
+.after {
+  clear: right;
 }
 .header {
-  position: absolute;
-  width: 100%;
-  background: #579532;
-  border: none;
-  border-top: 1px solid #62a838;
-  border-bottom: 1px solid #416f25;
-  border-left: 1px solid #538d2f;
-  border-right: 1px solid #538d2f;
-  border-radius: 2px;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 10px;
-  margin-top: 20px;
-  padding: 10px;
+  margin-bottom: 5px;
+}
+.header h1,
+.header h2,
+.header h3,
+.header a {
+  color: white;
 }
 .header h1 {
-  color: white;
-  float: left;
-  margin: 0 0 0 50px;
+  position: absolute;
+  top: 30px;
 }
 .header nav {
-  margin-top: 18px;
-  margin-left: 100px;
+  display: block;
+  margin-left: 450px;
+}
+.header nav li {
+  display: block;
   float: left;
+  margin: 10px;
 }
-.header nav ul {
-  margin: 0;
-  padding: 0;
-}
-.header nav ul li {
-  margin: 0 10px;
-  padding: 0;
-  display: inline-block;
-}
-.header nav ul li a {
-  margin: 0;
-  color: #c3e4af;
-  font-size: 120%;
-  font-weight: 300;
+.header nav li a {
   text-decoration: none;
+  display: block;
+  color: #c3e4af;
 }
-.header nav ul li a:hover,
-.header nav ul li a.selected {
-  color: #fcfefb;
+.header nav li a:hover,
+.header nav li a.selected {
+  color: white;
 }
-.page-header > button {
-  margin-right: 10px;
-  margin-bottom: 20px;
+.header nav li a i {
+  font-size: 200%;
+  text-align: center;
+  width: 100%;
+  display: block;
+}
+.header nav li a span {
   margin-top: 10px;
-  float: right;
+  font-size: 60%;
+  font-weight: 300;
+  text-transform: uppercase;
+  text-align: center;
+  display: block;
+  width: 60px;
 }
-.page-header h2 {
-  margin-top: 0;
+.page-header {
+  margin-top: 10px;
+}
+button {
+  display: none;
 }
 .product {
-  clear: right;
-  margin-top: 20px;
-  padding: 10px;
-  background: #fafafa;
-  border: none;
-  border-top: 1px solid #ffffff;
-  border-bottom: 1px solid #e1e1e1;
-  border-left: 1px solid #f5f5f5;
-  border-right: 1px solid #f5f5f5;
-  border-radius: 2px;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 10px;
-  cursor: pointer;
-  cursor: hand;
-}
-.product button {
-  float: right;
-  clear: right;
-  margin-bottom: 10px;
+  margin-top: 30px;
 }
