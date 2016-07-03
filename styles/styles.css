@@ -182,12 +182,12 @@ input[type="text"] {
   border: 1px solid #579532;
   border-bottom: 1px solid #89ca63;
   box-shadow: inset rgba(0, 0, 0, 0.3) 0px 3px 10px 0px, rgba(0, 0, 0, 0.3) 0px 2px 2px -1px;
-  padding: 10px;
+  padding: 20px 10px 10px 10px;
   background: #fff;
 }
 .filler {
   float: right;
-  height: 485px;
+  height: 475px;
 }
 .after {
   clear: right;
@@ -207,7 +207,7 @@ input[type="text"] {
 }
 .header nav {
   display: block;
-  margin-left: 450px;
+  margin-left: 440px;
 }
 .header nav li {
   display: block;
@@ -238,12 +238,46 @@ input[type="text"] {
   display: block;
   width: 60px;
 }
-.page-header {
-  margin-top: 10px;
-}
 button {
-  display: none;
+  float: right;
+  background: none;
+  border: none;
+  color: #888;
+}
+button i {
+  border: 1px solid red;
+  border-radius: 30px;
+  height: 30px;
+  width: 30px;
+  font-size: 200%;
+  text-align: center;
+  display: block;
+}
+button span {
+  margin-top: 10px;
+  font-size: 60%;
+  font-weight: 300;
+  text-transform: uppercase;
+  text-align: center;
+  display: block;
+  width: 30px;
+}
+.page-header {
+  margin-bottom: 30px;
 }
 .product {
-  margin-top: 30px;
+  padding: 20px 10px;
+  border-top: 1px dashed #ddd;
+}
+.product:hover {
+  background: orange;
+}
+.item:last-child .product {
+  border-bottom: 1px dashed #ddd;
+}
+hr {
+  display: none;
+  border: 1px dashed #ddd;
+  border-bottom: none;
+  padding: 0;
 }

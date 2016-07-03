@@ -1,10 +1,10 @@
 <div class="page-header">
-  <button (click)="startAdd()" [disabled]="adding || editing"><i class="icon-add"></i> Add</button>
+  <button (click)="startAdd()" [disabled]="adding || editing"><i class="icon-add"></i><span>Add</span></button>
   <h2>Products</h2>
 </div>
 
 <cc-product-edit *ngIf="adding" [product]="adding" (onSave)="completeAdd()" (onCancel)="cancel()"></cc-product-edit>
-<div *ngFor="let p of products">
+<div class="item" *ngFor="let p of products; let i = index">
   <cc-product-display *ngIf="!editing || editing.id != p.id" [product]="p" (onEdit)="startEdit(p)" [editDisabled]="adding || editing"></cc-product-display>
   <cc-product-edit *ngIf="editing && editing.id == p.id" [product]="editing" (onSave)="completeEdit()" (onCancel)="cancel()"></cc-product-edit>
 </div>
