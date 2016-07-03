@@ -68,7 +68,7 @@ h3 {
 body { 
   margin: 0; 
 }
-body, input[text], button { 
+body { 
   color: #888; 
   //font-family: Cambria, Georgia;
   background: @background; 
@@ -78,37 +78,52 @@ a {
   cursor: hand;
 }
 
-button {
-  //background-color: #eee;
-  //border: none;
-  padding: 5px 10px;
-  padding-left: 5px;
-  //border-radius: 4px;
-  cursor: pointer;
-  cursor: hand;
-  color: white;
-  .box(@button, 2px);
-  &:hover {
-    background-color: lighten(@button, 10%);
-  }
-  &:disabled {
-    background-color: #eee;
-    color: #aaa; 
-    cursor: auto;
-  }
-  &:active {
-    background-color: lighten(@button, 10%);
-//    .box-inverted(lighten(@button, 10%), 2px);
-  }
-  &:focus {
-    outline: 0;
-  }
-}
-
 /* everywhere else */
 * { 
   font-family: 'Josefin Sans', sans-serif;
   box-sizing: border-box; 
+}
+
+input[type="text"], button { 
+  color: #888; 
+  //font-family: sans-serif;// Cambria, Georgia;
+}
+
+input[type="text"] {
+  color: #999; 
+  padding: 2px 4px;
+  border: 1px solid #bbb;
+  border-radius: 2px;
+  font-size: 100%; 
+  width:80%;
+}
+
+button {
+  padding: 5px 10px;
+  padding-left: 5px;
+  cursor: pointer;
+  cursor: hand;
+  color: white;
+  .boxBump(@button, 2px);
+  &:hover {
+    .boxBump(lighten(@button, 10%), 2px);
+  }
+  &:disabled {
+   .boxBump(@buttonDisabled, 2px);
+    color: #aaa; 
+    cursor: auto;
+    &:active {
+      .boxBump(lighten(@buttonDisabled, 10%), 2px);
+      background-color: lighten(@buttonDisabled, 10%);
+    }
+  }
+  &:active {
+    .boxBump(lighten(@button, 10%), 2px);    
+    background-color: lighten(@button, 10%);
+  }
+  &:focus {
+    outline: 0;
+  }
 }
 
 .container {

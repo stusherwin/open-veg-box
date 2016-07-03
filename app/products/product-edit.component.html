@@ -2,9 +2,8 @@
   <form (ngSubmit)="save()" #f="ngForm">
     <button type="submit" [disabled]="!f.valid"><i class="icon-ok"></i> Save</button>  
     <button (click)="cancel()"><i class="icon-cancel"></i> Cancel</button>  
-    <h3>{{ product.name }}</h3>
+    <h3>{{ product.name || '(No name)' }}</h3>
     <input type="text" [(ngModel)]="product.name" ngControl="name" required/><br />
-    <p>Price: &pound;{{product.price | number:'1.2'}}</p>
-    &pound;<cc-currency [(ngModel)]="product.price" ngControl="price" required ></cc-currency>
+    <cc-currency [(ngModel)]="product.price" ngControl="price" required ></cc-currency>
   </form>
 </div>

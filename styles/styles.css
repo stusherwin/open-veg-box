@@ -146,15 +146,30 @@ h3 {
 body {
   margin: 0;
 }
-body,
-input[text],
-button {
+body {
   color: #888;
   background: #333;
 }
 a {
   cursor: pointer;
   cursor: hand;
+}
+/* everywhere else */
+* {
+  font-family: 'Josefin Sans', sans-serif;
+  box-sizing: border-box;
+}
+input[type="text"],
+button {
+  color: #888;
+}
+input[type="text"] {
+  color: #999;
+  padding: 2px 4px;
+  border: 1px solid #bbb;
+  border-radius: 2px;
+  font-size: 100%;
+  width: 80%;
 }
 button {
   padding: 5px 10px;
@@ -164,29 +179,64 @@ button {
   color: white;
   background: #5e85a9;
   border: none;
-  border-top: 1px solid #a0b7cd;
-  border-bottom: none;
+  border-top: 1px solid #6f92b2;
+  border-bottom: 1px solid #4a6b8a;
+  border-left: 1px solid #5880a5;
+  border-right: 1px solid #5880a5;
   border-radius: 2px;
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 10px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 10px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 10px, inset rgba(127, 158, 187, 0.5) 0px 2px 10px, inset rgba(74, 107, 138, 0.5) 0px -2px 10px 1px;
 }
 button:hover {
-  background-color: #7f9ebb;
+  background: #7f9ebb;
+  border: none;
+  border-top: 1px solid #90abc4;
+  border-bottom: 1px solid #5e85a9;
+  border-left: 1px solid #7999b7;
+  border-right: 1px solid #7999b7;
+  border-radius: 2px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 10px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 10px, inset rgba(160, 183, 205, 0.5) 0px 2px 10px, inset rgba(94, 133, 169, 0.5) 0px -2px 10px 1px;
 }
 button:disabled {
-  background-color: #eee;
+  background: #ddd;
+  border: none;
+  border-top: 1px solid #eaeaea;
+  border-bottom: 1px solid #c4c4c4;
+  border-left: 1px solid #d8d8d8;
+  border-right: 1px solid #d8d8d8;
+  border-radius: 2px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 10px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 10px, inset rgba(247, 247, 247, 0.5) 0px 2px 10px, inset rgba(196, 196, 196, 0.5) 0px -2px 10px 1px;
   color: #aaa;
   cursor: auto;
 }
+button:disabled:active {
+  background: #f7f7f7;
+  border: none;
+  border-top: 1px solid #ffffff;
+  border-bottom: 1px solid #dddddd;
+  border-left: 1px solid #f1f1f1;
+  border-right: 1px solid #f1f1f1;
+  border-radius: 2px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 10px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 10px, inset rgba(255, 255, 255, 0.5) 0px 2px 10px, inset rgba(221, 221, 221, 0.5) 0px -2px 10px 1px;
+  background-color: #f7f7f7;
+}
 button:active {
+  background: #7f9ebb;
+  border: none;
+  border-top: 1px solid #90abc4;
+  border-bottom: 1px solid #5e85a9;
+  border-left: 1px solid #7999b7;
+  border-right: 1px solid #7999b7;
+  border-radius: 2px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 10px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 10px, inset rgba(160, 183, 205, 0.5) 0px 2px 10px, inset rgba(94, 133, 169, 0.5) 0px -2px 10px 1px;
   background-color: #7f9ebb;
 }
 button:focus {
   outline: 0;
-}
-/* everywhere else */
-* {
-  font-family: 'Josefin Sans', sans-serif;
-  box-sizing: border-box;
 }
 .container {
   background: #ddd;
@@ -202,10 +252,12 @@ button:focus {
   width: 100%;
   background: #579532;
   border: none;
-  border-top: 1px solid #89ca63;
-  border-bottom: none;
+  border-top: 1px solid #62a838;
+  border-bottom: 1px solid #416f25;
+  border-left: 1px solid #538d2f;
+  border-right: 1px solid #538d2f;
   border-radius: 2px;
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 5px 10px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 10px;
   margin-top: 20px;
   padding: 10px;
 }
@@ -255,9 +307,11 @@ button:focus {
   background: #fafafa;
   border: none;
   border-top: 1px solid #ffffff;
-  border-bottom: none;
+  border-bottom: 1px solid #e1e1e1;
+  border-left: 1px solid #f5f5f5;
+  border-right: 1px solid #f5f5f5;
   border-radius: 2px;
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 5px 10px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 10px;
   cursor: pointer;
   cursor: hand;
 }
