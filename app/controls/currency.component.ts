@@ -10,7 +10,7 @@ const CURRENCY_CONTROL_VALUE_ACCESSOR = new Provider( NG_VALUE_ACCESSOR, {
 
 @Component({
   selector: 'cc-currency',
-  template: '<div style="display:inline-block;position:relative"><span style="position:absolute;top:5px;left:4px;color:#999">&pound;</span><input style="padding-left: 13px" type="text" (blur)="onBlur()" [(ngModel)]="stringValue" /></div>',
+  template: '<div style="display:inline-block;position:relative"><span style="position:absolute;top:5px;left:4px;color:#999">&pound;</span><input style="padding-left: 13px" type="text" (blur)="onBlur()" [(ngModel)]="stringValue" tabindex="0" /></div>',
   directives: [CORE_DIRECTIVES],
   providers: [CURRENCY_CONTROL_VALUE_ACCESSOR]
 })

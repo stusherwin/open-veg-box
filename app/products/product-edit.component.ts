@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { Product } from './product';
 import { CurrencyComponent } from '../controls/currency.component';
 
@@ -7,12 +7,9 @@ import { CurrencyComponent } from '../controls/currency.component';
   templateUrl: 'app/products/product-edit.component.html',
   directives: [CurrencyComponent]
 })
-export class ProductEditComponent {
+export class ProductEditComponent implements AfterViewInit {
   @Input()
   product: Product;
-
-  @ViewChild('f')
-  f: ElementRef;
 
   @Output()
   onSave = new EventEmitter<Product>();
@@ -20,21 +17,19 @@ export class ProductEditComponent {
   @Output()
   onCancel = new EventEmitter();
 
+  @ViewChild('name')
+  name: ElementRef; 
+
+  ngAfterViewInit() {
+    this.name.nativeElement.focus();
+    console.log(this.name.nativeElement);
+  }
+
   cancel() {
-    console.log('cancel');
     this.onCancel.emit({});
   }
 
-  log(x: any) {
-    console.log(x);
-  }
-
   save() {
-    console.log('save()');
     this.onSave.emit(this.product);
-  }
-
-  parsePrice(text: string) {
-    return parseFloat(text);
   }
 }

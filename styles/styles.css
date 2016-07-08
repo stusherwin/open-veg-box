@@ -166,6 +166,10 @@ input[type="text"] {
   border-radius: 2px;
   font-size: 100%;
   width: 80%;
+  margin-bottom: 10px;
+}
+input[type="text"]:last-child {
+  margin-bottom: 0;
 }
 .outer {
   background: #579532;
@@ -182,7 +186,7 @@ input[type="text"] {
   border: 1px solid #579532;
   border-bottom: 1px solid #89ca63;
   box-shadow: inset rgba(0, 0, 0, 0.3) 0px 3px 10px 0px, rgba(0, 0, 0, 0.3) 0px 2px 2px -1px;
-  padding: 20px 10px 10px 10px;
+  padding: 10px 10px 10px 10px;
   background: #fff;
 }
 .filler {
@@ -239,45 +243,139 @@ input[type="text"] {
   width: 60px;
 }
 button {
-  float: right;
   background: none;
   border: none;
   color: #888;
-}
-button i {
-  border: 1px solid red;
-  border-radius: 30px;
-  height: 30px;
-  width: 30px;
-  font-size: 200%;
-  text-align: center;
+  padding: 0;
   display: block;
+  cursor: pointer;
+  border-radius: 2px;
+  position: relative;
+  width: 66px;
+}
+button .icon {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  border: 1px solid #888;
+  border-radius: 46px;
+  height: 46px;
+  width: 46px;
+}
+button .icon i {
+  border: 1px solid #ccc;
+  border-radius: 40px;
+  height: 40px;
+  width: 40px;
+  font-size: 200%;
+  display: block;
+  margin: 2px 0 0 2px;
+  padding-top: 6px;
 }
 button span {
-  margin-top: 10px;
-  font-size: 60%;
-  font-weight: 300;
+  position: absolute;
+  top: 61px;
+  width: 100%;
+  font-size: 75%;
   text-transform: uppercase;
   text-align: center;
   display: block;
-  width: 30px;
+  width: 46 px;
 }
-.page-header {
-  margin-bottom: 30px;
+button:focus {
+  outline: 0;
 }
-.product {
-  padding: 20px 10px;
-  border-top: 1px dashed #ddd;
+button:hover,
+button:focus {
+  background: #fda;
+  color: #777;
 }
-.product:hover {
-  background: orange;
+button:hover .icon,
+button:focus .icon {
+  background: white;
+  border-color: #777;
 }
-.item:last-child .product {
-  border-bottom: 1px dashed #ddd;
+button:hover .icon i,
+button:focus .icon i {
+  border-color: #e4c392;
+  background: #fda;
+  box-shadow: inset rgba(255, 255, 255, 0.7) 0px 2px 10px, inset rgba(0, 0, 0, 0.1) 0px -2px 10px;
 }
-hr {
-  display: none;
-  border: 1px dashed #ddd;
-  border-bottom: none;
-  padding: 0;
+button:hover span,
+button:focus span {
+  color: #777;
+}
+button:active .icon i {
+  background: #ffd390;
+  box-shadow: inset rgba(255, 255, 255, 0.7) 0px -2px 10px, inset rgba(0, 0, 0, 0.1) 0px 2px 10px;
+}
+button[disabled],
+button[disabled]:hover {
+  color: #ccc;
+  background: none;
+  cursor: default;
+}
+button[disabled] .icon,
+button[disabled]:hover .icon {
+  border-color: #ccc;
+  background: none;
+}
+button[disabled] .icon i,
+button[disabled]:hover .icon i {
+  border-color: #ccc;
+  background: none;
+  box-shadow: none;
+}
+button[disabled] span,
+button[disabled]:hover span {
+  color: #ccc;
+}
+h2 {
+  margin: 20px 0 30px 10px;
+}
+button.x {
+  height: 83px;
+  float: right;
+}
+.icon .icon-edit {
+  padding-left: 2px;
+}
+.icon .icon-add {
+  padding-top: 8px;
+  padding-left: 1px;
+}
+.icon .icon-ok {
+  padding-top: 7px;
+}
+.products .product {
+  min-height: 83px;
+  border-top: 1px dashed #ccc;
+  padding: 10px 140px 10px 10px;
+  position: relative;
+}
+.products .product:last-child {
+  border-bottom: 1px dashed #ccc;
+}
+.products .product:hover,
+.products .product.editing {
+  background: #fff1dd;
+}
+.products .product h3 {
+  margin: 5px 0 15px 0;
+}
+.products .product .actions {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  right: 0;
+}
+.products .product .actions button {
+  height: 100%;
+  float: left;
+}
+.products.editing .product:hover {
+  background: inherit;
+}
+.products.editing .product.editing {
+  background: #fff1dd;
 }
