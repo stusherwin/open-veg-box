@@ -66,7 +66,8 @@ h3 {
   font-size: 150%;  
 }
 body { 
-  margin: 0; 
+  margin: 0;
+  padding:0; 
 }
 body { 
   color: #888; 
@@ -100,10 +101,11 @@ input[type="text"] {
 
 .outer {
   background: @header;
-  padding:10px;
+  padding:0 10px 10px 10px;
 }
 
 .container {
+  margin:0;
   border-radius: 7px;
   background: #fff;
   padding: 3px;
@@ -122,15 +124,23 @@ input[type="text"] {
 
 .filler {
   float: right;
-  height:475px;
+  height:483px;
 }
 
 .after {
   clear:right;
 }
 
+.icon {
+  i {
+    padding-left:3px;
+    padding-top:6px;
+  }
+}
+
 .header {
-  margin-bottom: 5px;
+  margin:0;
+  padding:5px;
 
   h1, h2, h3, a {
     color: white;
@@ -138,55 +148,90 @@ input[type="text"] {
 
   h1 {
     position: absolute;
-    top:30px;
+    top:25px;
   }
 
   nav {
+    margin:0;
     display: block;
     margin-left: 440px;
-
+    
     li {
       display: block;
       float:left;
-      margin: 10px;
+      margin: 0 10px 10px 10px;
 
       a {
-        text-decoration: none;
-        display: block;
-        color: @headerNavLink;
+        .iconCaptionButton();
+
+        .iconCaptionButtonColors(
+          @background: none;
+          @text: lighten(@header, 40%);
+          @iconBackground: none;
+          @iconBorder: lighten(@header, 40%);
+          @iconInnerBackground: none;  
+          @iconInnerBorder: lighten(desaturate(@header, 15%), 20%)
+        );
+
         &:hover, &.selected {
-          color: @headerText;
+          .iconCaptionButtonColors(
+            @background: none;
+            @text: #fff; 
+            @iconBackground: none;
+            @iconBorder: #fff;
+            @iconInnerBackground: @header;  
+            @iconInnerBorder: lighten(desaturate(@header, 15%), 40%)
+          );
         }
 
-        i {
-          font-size:200%;
-          text-align: center;
-          width: 100%;
-          display: block;
-        }
-        span {
-          margin-top:10px;
-          font-size: 60%;
-          font-weight: 300;
-          text-transform: uppercase;
-          text-align: center;
-          display: block;
-          width: 60px;
+        font-size:80%;
+        text-decoration: none;
+        height: 80px;
+
+        .icon {
+          i {
+            font-size: 170%;
+          }
         }
       }
     }
   }
 }
 
-@buttonHoverColor: #fda;
-@buttonDisabledColor: #ccc;
-@buttonTextColor: #888;
-@buttonTextHoverColor: #777;
-@buttonIconBackgroundColor: white;
-@buttonIconInnerBorderColor: #ccc;
-
 button {
-  .iconCaptionButton()
+  .iconCaptionButton();
+  .iconCaptionButtonRaised(@backgroundActive: darken(#fda, 5%));
+
+  .iconCaptionButtonColors(
+    @background: none;
+    @text: #888;
+    @iconBackground: none;
+    @iconBorder: #888;
+    @iconInnerBackground: none;  
+    @iconInnerBorder: #ccc
+  );
+
+  &:hover, &:focus {
+    .iconCaptionButtonColors(
+      @background: #fda;
+      @text: #777;
+      @iconBackground: white;
+      @iconBorder: #777;
+      @iconInnerBackground: #fda;  
+      @iconInnerBorder: darken(desaturate(#fda, 40%), 10%)
+    );
+  }
+
+  &[disabled], &[disabled]:hover {
+    .iconCaptionButtonColors(
+      @background: none;
+      @text: #ccc;
+      @iconBackground: none;
+      @iconBorder: #ccc;
+      @iconInnerBackground: none;  
+      @iconInnerBorder: #ccc
+    );
+  }
 }
 
 h2 {
@@ -209,6 +254,30 @@ button.x {
 
 .icon .icon-ok {
   padding-top: 7px;
+}
+
+.icon i.icon-box {
+  padding-top: 8px;
+  padding-left: 4px;
+}
+
+.icon i.icon-carrot {
+  padding-top: 8px;
+  padding-left: 3px;
+}
+
+.icon i.icon-person {
+  padding-top: 7px;
+}
+
+.icon i.icon-truck {
+  padding-top: 7px;
+  padding-left: 2px;
+}
+
+.icon i.icon-flag {
+  padding-top: 8px;
+  padding-left: 3px;
 }
 
 @productHoverColor: lighten(#fda, 10%);

@@ -145,6 +145,7 @@ h3 {
 }
 body {
   margin: 0;
+  padding: 0;
 }
 body {
   color: #888;
@@ -173,9 +174,10 @@ input[type="text"]:last-child {
 }
 .outer {
   background: #579532;
-  padding: 10px;
+  padding: 0 10px 10px 10px;
 }
 .container {
+  margin: 0;
   border-radius: 7px;
   background: #fff;
   padding: 3px;
@@ -191,13 +193,18 @@ input[type="text"]:last-child {
 }
 .filler {
   float: right;
-  height: 475px;
+  height: 483px;
 }
 .after {
   clear: right;
 }
+.icon i {
+  padding-left: 3px;
+  padding-top: 6px;
+}
 .header {
-  margin-bottom: 5px;
+  margin: 0;
+  padding: 5px;
 }
 .header h1,
 .header h2,
@@ -207,70 +214,133 @@ input[type="text"]:last-child {
 }
 .header h1 {
   position: absolute;
-  top: 30px;
+  top: 25px;
 }
 .header nav {
+  margin: 0;
   display: block;
   margin-left: 440px;
 }
 .header nav li {
   display: block;
   float: left;
-  margin: 10px;
+  margin: 0 10px 10px 10px;
 }
 .header nav li a {
-  text-decoration: none;
-  display: block;
-  color: #c3e4af;
-}
-.header nav li a:hover,
-.header nav li a.selected {
-  color: white;
-}
-.header nav li a i {
-  font-size: 200%;
-  text-align: center;
-  width: 100%;
-  display: block;
-}
-.header nav li a span {
-  margin-top: 10px;
-  font-size: 60%;
-  font-weight: 300;
-  text-transform: uppercase;
-  text-align: center;
-  display: block;
-  width: 60px;
-}
-button {
-  background: none;
   border: none;
-  color: #888;
+  border-radius: 2px;
   padding: 0;
   display: block;
   cursor: pointer;
-  border-radius: 2px;
   position: relative;
   width: 66px;
+  background: none;
+  color: #c3e4af;
+  font-size: 80%;
+  text-decoration: none;
+  height: 80px;
 }
-button .icon {
+.header nav li a .icon {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 46px;
   position: absolute;
   top: 10px;
   left: 10px;
-  border: 1px solid #888;
-  border-radius: 46px;
   height: 46px;
   width: 46px;
 }
-button .icon i {
-  border: 1px solid #ccc;
+.header nav li a .icon i {
+  border-width: 1px;
+  border-style: solid;
   border-radius: 40px;
   height: 40px;
   width: 40px;
   font-size: 200%;
   display: block;
   margin: 2px 0 0 2px;
-  padding-top: 6px;
+}
+.header nav li a span {
+  position: absolute;
+  top: 61px;
+  width: 100%;
+  font-size: 75%;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 10px;
+  display: block;
+  width: 46 px;
+}
+.header nav li a:focus {
+  outline: 0;
+}
+.header nav li a[disabled],
+.header nav li a[disabled]:hover {
+  cursor: default;
+}
+.header nav li a .icon {
+  background: none;
+  border-color: #c3e4af;
+}
+.header nav li a .icon i {
+  border-color: #8dbb72;
+  background: none;
+}
+.header nav li a span {
+  color: #c3e4af;
+}
+.header nav li a:hover,
+.header nav li a.selected {
+  background: none;
+  color: #fff;
+}
+.header nav li a:hover .icon,
+.header nav li a.selected .icon {
+  background: none;
+  border-color: #fff;
+}
+.header nav li a:hover .icon i,
+.header nav li a.selected .icon i {
+  border-color: #c5dcb7;
+  background: #579532;
+}
+.header nav li a:hover span,
+.header nav li a.selected span {
+  color: #fff;
+}
+.header nav li a .icon i {
+  font-size: 170%;
+}
+button {
+  border: none;
+  border-radius: 2px;
+  padding: 0;
+  display: block;
+  cursor: pointer;
+  position: relative;
+  width: 66px;
+  background: none;
+  color: #888;
+}
+button .icon {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 46px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  height: 46px;
+  width: 46px;
+}
+button .icon i {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 40px;
+  height: 40px;
+  width: 40px;
+  font-size: 200%;
+  display: block;
+  margin: 2px 0 0 2px;
 }
 button span {
   position: absolute;
@@ -279,11 +349,39 @@ button span {
   font-size: 75%;
   text-transform: uppercase;
   text-align: center;
+  line-height: 10px;
   display: block;
   width: 46 px;
 }
 button:focus {
   outline: 0;
+}
+button[disabled],
+button[disabled]:hover {
+  cursor: default;
+}
+button:hover .icon i,
+button:focus .icon i {
+  box-shadow: inset rgba(255, 255, 255, 0.7) 0px 2px 10px, inset rgba(0, 0, 0, 0.1) 0px -2px 10px;
+}
+button:active .icon i {
+  background: #ffd390;
+  box-shadow: inset rgba(255, 255, 255, 0.7) 0px -2px 10px, inset rgba(0, 0, 0, 0.1) 0px 2px 10px;
+}
+button[disabled] .icon i,
+button[disabled]:hover .icon i {
+  box-shadow: none;
+}
+button .icon {
+  background: none;
+  border-color: #888;
+}
+button .icon i {
+  border-color: #ccc;
+  background: none;
+}
+button span {
+  color: #888;
 }
 button:hover,
 button:focus {
@@ -299,32 +397,25 @@ button:hover .icon i,
 button:focus .icon i {
   border-color: #e4c392;
   background: #fda;
-  box-shadow: inset rgba(255, 255, 255, 0.7) 0px 2px 10px, inset rgba(0, 0, 0, 0.1) 0px -2px 10px;
 }
 button:hover span,
 button:focus span {
   color: #777;
 }
-button:active .icon i {
-  background: #ffd390;
-  box-shadow: inset rgba(255, 255, 255, 0.7) 0px -2px 10px, inset rgba(0, 0, 0, 0.1) 0px 2px 10px;
-}
 button[disabled],
 button[disabled]:hover {
-  color: #ccc;
   background: none;
-  cursor: default;
+  color: #ccc;
 }
 button[disabled] .icon,
 button[disabled]:hover .icon {
-  border-color: #ccc;
   background: none;
+  border-color: #ccc;
 }
 button[disabled] .icon i,
 button[disabled]:hover .icon i {
   border-color: #ccc;
   background: none;
-  box-shadow: none;
 }
 button[disabled] span,
 button[disabled]:hover span {
@@ -346,6 +437,25 @@ button.x {
 }
 .icon .icon-ok {
   padding-top: 7px;
+}
+.icon i.icon-box {
+  padding-top: 8px;
+  padding-left: 4px;
+}
+.icon i.icon-carrot {
+  padding-top: 8px;
+  padding-left: 3px;
+}
+.icon i.icon-person {
+  padding-top: 7px;
+}
+.icon i.icon-truck {
+  padding-top: 7px;
+  padding-left: 2px;
+}
+.icon i.icon-flag {
+  padding-top: 8px;
+  padding-left: 3px;
 }
 .products .product {
   min-height: 83px;
