@@ -85,18 +85,18 @@ a {
   box-sizing: border-box; 
 }
 
-input[type="text"] {
+input[type="text"], select {
   color: #999; 
   padding: 2px 4px;
   border: 1px solid #bbb;
   border-radius: 2px;
   font-size: 100%; 
-  width:80%;
-  margin-bottom:10px;
+  width:100px;
+  margin:0;
+}
 
-  &:last-child {
-    margin-bottom: 0; 
-  }
+select {
+  padding: 1px 0px;
 }
 
 .outer {
@@ -163,26 +163,28 @@ input[type="text"] {
 
       a {
         .iconCaptionButton();
-
+        
         .iconCaptionButtonColors(
           @background: none;
           @text: lighten(@header, 40%);
           @iconBackground: none;
           @iconBorder: lighten(@header, 40%);
           @iconInnerBackground: none;  
-          @iconInnerBorder: lighten(desaturate(@header, 15%), 20%)
+          @iconInnerBorder: lighten(desaturate(@header, 10%), 10%)
         );
 
         &:hover, &.selected {
           .iconCaptionButtonColors(
             @background: none;
             @text: #fff; 
-            @iconBackground: none;
+            @iconBackground: #fff;//none; //lighten(@header, 5%);
             @iconBorder: #fff;
-            @iconInnerBackground: @header;  
-            @iconInnerBorder: lighten(desaturate(@header, 15%), 40%)
+            @iconInnerBackground: lighten(desaturate(@header, 15%), 20%);  
+            @iconInnerBorder: lighten(desaturate(@header, 15%), 10%)
           );
-        }
+
+          .iconCaptionButtonRaised(out; @highlight: rgba(255, 255, 255, 0.2); @lowlight: rgba(0, 0, 0, 0.1); @background: lighten(desaturate(@header, 15%), 10%));
+        } 
 
         font-size:80%;
         text-decoration: none;
@@ -197,10 +199,9 @@ input[type="text"] {
     }
   }
 }
-
+ 
 button {
   .iconCaptionButton();
-  .iconCaptionButtonRaised(@backgroundActive: darken(#fda, 5%));
 
   .iconCaptionButtonColors(
     @background: none;
@@ -220,6 +221,12 @@ button {
       @iconInnerBackground: #fda;  
       @iconInnerBorder: darken(desaturate(#fda, 40%), 10%)
     );
+
+    .iconCaptionButtonRaised(out);
+  }
+
+  &:active {
+    .iconCaptionButtonRaised(in; @background: darken(#fda, 5%));
   }
 
   &[disabled], &[disabled]:hover {
@@ -254,6 +261,12 @@ button.x {
 
 .icon .icon-ok {
   padding-top: 7px;
+  padding-left:0px;
+}
+
+.icon .icon-cancel {
+  padding-top: 7px;
+  padding-left:0px;
 }
 
 .icon i.icon-box {
@@ -323,4 +336,52 @@ button.x {
       background: @productHoverColor;      
     }
   }
+}
+
+.currency {
+  padding: 4px 4px;
+  display:inline-block;
+  position:relative;
+  width:86px;
+  background: white;
+  color:#999;
+  padding-top:5px;
+  padding-left:4px;
+  
+  input {
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    padding-left: 13px;
+    background: none;
+  }
+}
+
+form {
+  max-width:500px;  
+}
+
+.field {
+  //border: 1px solid red;
+  margin-top:10px;
+  margin-right:10px;
+  float: left;
+  //width: 100px;
+  &:first-of-type {
+    margin-top:0;
+  }
+
+  &.full {
+    width:100%;
+  }
+
+  &>input, &>select, &>.currency {
+    width: 100%;
+  }
+}
+
+.clearfix {
+  clear: left;
 }

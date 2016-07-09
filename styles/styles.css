@@ -160,17 +160,18 @@ a {
   font-family: 'Josefin Sans', sans-serif;
   box-sizing: border-box;
 }
-input[type="text"] {
+input[type="text"],
+select {
   color: #999;
   padding: 2px 4px;
   border: 1px solid #bbb;
   border-radius: 2px;
   font-size: 100%;
-  width: 80%;
-  margin-bottom: 10px;
+  width: 100px;
+  margin: 0;
 }
-input[type="text"]:last-child {
-  margin-bottom: 0;
+select {
+  padding: 1px 0px;
 }
 .outer {
   background: #579532;
@@ -231,7 +232,6 @@ input[type="text"]:last-child {
   border-radius: 2px;
   padding: 0;
   display: block;
-  cursor: pointer;
   position: relative;
   width: 66px;
   background: none;
@@ -249,6 +249,7 @@ input[type="text"]:last-child {
   left: 10px;
   height: 46px;
   width: 46px;
+  padding: 2px 0 0 2px;
 }
 .header nav li a .icon i {
   border-width: 1px;
@@ -258,7 +259,6 @@ input[type="text"]:last-child {
   width: 40px;
   font-size: 200%;
   display: block;
-  margin: 2px 0 0 2px;
 }
 .header nav li a span {
   position: absolute;
@@ -274,6 +274,10 @@ input[type="text"]:last-child {
 .header nav li a:focus {
   outline: 0;
 }
+.header nav li a,
+.header nav li a:active {
+  cursor: pointer;
+}
 .header nav li a[disabled],
 .header nav li a[disabled]:hover {
   cursor: default;
@@ -283,7 +287,7 @@ input[type="text"]:last-child {
   border-color: #c3e4af;
 }
 .header nav li a .icon i {
-  border-color: #8dbb72;
+  border-color: #70af4b;
   background: none;
 }
 .header nav li a span {
@@ -296,17 +300,28 @@ input[type="text"]:last-child {
 }
 .header nav li a:hover .icon,
 .header nav li a.selected .icon {
-  background: none;
+  background: #fff;
   border-color: #fff;
 }
 .header nav li a:hover .icon i,
 .header nav li a.selected .icon i {
-  border-color: #c5dcb7;
-  background: #579532;
+  border-color: #72a852;
+  background: #8dbb72;
 }
 .header nav li a:hover span,
 .header nav li a.selected span {
   color: #fff;
+}
+.header nav li a:hover .icon i,
+.header nav li a.selected .icon i {
+  background: #72a852;
+  box-shadow: inset rgba(255, 255, 255, 0.2) 0px 2px 10px, inset rgba(0, 0, 0, 0.1) 0px -2px 10px;
+}
+.header nav li a:hover[disabled] .icon i,
+.header nav li a.selected[disabled] .icon i,
+.header nav li a:hover[disabled]:hover .icon i,
+.header nav li a.selected[disabled]:hover .icon i {
+  box-shadow: none;
 }
 .header nav li a .icon i {
   font-size: 170%;
@@ -316,7 +331,6 @@ button {
   border-radius: 2px;
   padding: 0;
   display: block;
-  cursor: pointer;
   position: relative;
   width: 66px;
   background: none;
@@ -331,6 +345,7 @@ button .icon {
   left: 10px;
   height: 46px;
   width: 46px;
+  padding: 2px 0 0 2px;
 }
 button .icon i {
   border-width: 1px;
@@ -340,7 +355,6 @@ button .icon i {
   width: 40px;
   font-size: 200%;
   display: block;
-  margin: 2px 0 0 2px;
 }
 button span {
   position: absolute;
@@ -356,21 +370,13 @@ button span {
 button:focus {
   outline: 0;
 }
+button,
+button:active {
+  cursor: pointer;
+}
 button[disabled],
 button[disabled]:hover {
   cursor: default;
-}
-button:hover .icon i,
-button:focus .icon i {
-  box-shadow: inset rgba(255, 255, 255, 0.7) 0px 2px 10px, inset rgba(0, 0, 0, 0.1) 0px -2px 10px;
-}
-button:active .icon i {
-  background: #ffd390;
-  box-shadow: inset rgba(255, 255, 255, 0.7) 0px -2px 10px, inset rgba(0, 0, 0, 0.1) 0px 2px 10px;
-}
-button[disabled] .icon i,
-button[disabled]:hover .icon i {
-  box-shadow: none;
 }
 button .icon {
   background: none;
@@ -401,6 +407,25 @@ button:focus .icon i {
 button:hover span,
 button:focus span {
   color: #777;
+}
+button:hover .icon i,
+button:focus .icon i {
+  background: #fda;
+  box-shadow: inset rgba(255, 255, 255, 0.7) 0px 2px 10px, inset rgba(0, 0, 0, 0.1) 0px -2px 10px;
+}
+button:hover[disabled] .icon i,
+button:focus[disabled] .icon i,
+button:hover[disabled]:hover .icon i,
+button:focus[disabled]:hover .icon i {
+  box-shadow: none;
+}
+button:active .icon i {
+  background: #ffd390;
+  box-shadow: inset rgba(255, 255, 255, 0.7) 0px -2px 10px, inset rgba(0, 0, 0, 0.1) 0px 2px 10px;
+}
+button:active[disabled] .icon i,
+button:active[disabled]:hover .icon i {
+  box-shadow: none;
 }
 button[disabled],
 button[disabled]:hover {
@@ -437,6 +462,11 @@ button.x {
 }
 .icon .icon-ok {
   padding-top: 7px;
+  padding-left: 0px;
+}
+.icon .icon-cancel {
+  padding-top: 7px;
+  padding-left: 0px;
 }
 .icon i.icon-box {
   padding-top: 8px;
@@ -488,4 +518,45 @@ button.x {
 }
 .products.editing .product.editing {
   background: #fff1dd;
+}
+.currency {
+  padding: 4px 4px;
+  display: inline-block;
+  position: relative;
+  width: 86px;
+  background: white;
+  color: #999;
+  padding-top: 5px;
+  padding-left: 4px;
+}
+.currency input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding-left: 13px;
+  background: none;
+}
+form {
+  max-width: 500px;
+}
+.field {
+  margin-top: 10px;
+  margin-right: 10px;
+  float: left;
+}
+.field:first-of-type {
+  margin-top: 0;
+}
+.field.full {
+  width: 100%;
+}
+.field > input,
+.field > select,
+.field > .currency {
+  width: 100%;
+}
+.clearfix {
+  clear: left;
 }
