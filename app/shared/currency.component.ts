@@ -57,7 +57,7 @@ export class CurrencyComponent implements ControlValueAccessor {
   }
 
   private toStringValue(value: number): string {
-    return '' + value.toFixed(2);
+    return value.toFixed(2);
   }
 
   private toDecimalValue(value: string): number {

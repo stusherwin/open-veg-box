@@ -160,19 +160,6 @@ a {
   font-family: 'Josefin Sans', sans-serif;
   box-sizing: border-box;
 }
-input[type="text"],
-select {
-  color: #999;
-  padding: 2px 4px;
-  border: 1px solid #bbb;
-  border-radius: 2px;
-  font-size: 100%;
-  width: 100px;
-  margin: 0;
-}
-select {
-  padding: 1px 0px;
-}
 .outer {
   background: #579532;
   padding: 0 10px 10px 10px;
@@ -205,7 +192,7 @@ select {
 }
 .header {
   margin: 0;
-  padding: 5px;
+  padding: 0;
 }
 .header h1,
 .header h2,
@@ -215,7 +202,7 @@ select {
 }
 .header h1 {
   position: absolute;
-  top: 25px;
+  top: 20px;
 }
 .header nav {
   margin: 0;
@@ -225,7 +212,7 @@ select {
 .header nav li {
   display: block;
   float: left;
-  margin: 0 10px 10px 10px;
+  margin: 0;
 }
 .header nav li a {
   border: none;
@@ -238,7 +225,8 @@ select {
   color: #c3e4af;
   font-size: 80%;
   text-decoration: none;
-  height: 80px;
+  height: 90px;
+  width: 80px;
 }
 .header nav li a .icon {
   border-width: 1px;
@@ -295,7 +283,7 @@ select {
 }
 .header nav li a:hover,
 .header nav li a.selected {
-  background: none;
+  background: #548f30;
   color: #fff;
 }
 .header nav li a:hover .icon,
@@ -322,6 +310,24 @@ select {
 .header nav li a:hover[disabled]:hover .icon i,
 .header nav li a.selected[disabled]:hover .icon i {
   box-shadow: none;
+}
+.header nav li a.selected {
+  background: #508a2e;
+  color: #fff;
+}
+.header nav li a.selected .icon {
+  background: #fff;
+  border-color: #fff;
+}
+.header nav li a.selected .icon i {
+  border-color: #72a852;
+  background: #8dbb72;
+}
+.header nav li a.selected span {
+  color: #fff;
+}
+.header nav li a .icon {
+  left: 17px;
 }
 .header nav li a .icon i {
   font-size: 170%;
@@ -501,7 +507,7 @@ button.x {
   background: #fff1dd;
 }
 .products .product h3 {
-  margin: 5px 0 15px 0;
+  margin: 5px 0 5px 0;
 }
 .products .product .actions {
   position: absolute;
@@ -519,44 +525,79 @@ button.x {
 .products.editing .product.editing {
   background: #fff1dd;
 }
-.currency {
-  padding: 4px 4px;
-  display: inline-block;
-  position: relative;
-  width: 86px;
-  background: white;
+input[type="text"],
+select {
   color: #999;
-  padding-top: 5px;
-  padding-left: 4px;
+  padding: 2px 4px;
+  border: 1px solid #bbb;
+  border-radius: 2px;
+  font-size: 100%;
+  margin: 0;
 }
-.currency input {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  padding-left: 13px;
-  background: none;
+select {
+  padding: 1px 0px;
 }
-form {
-  max-width: 500px;
+.field-row {
+  max-width: 400px;
 }
-.field {
+.field-row .field {
   margin-top: 10px;
-  margin-right: 10px;
   float: left;
 }
-.field:first-of-type {
-  margin-top: 0;
-}
-.field.full {
+.field-row .field.full {
   width: 100%;
 }
-.field > input,
-.field > select,
-.field > .currency {
+.field-row .field.w1_2 {
+  width: 195px;
+}
+.field-row .field.w3_4 {
+  width: 295px;
+}
+.field-row .field.w1_4 {
+  width: 95px;
+}
+.field-row .field.w2_3 {
+  width: 261px;
+}
+.field-row .field.w1_3 {
+  width: 133px;
+}
+.field-row .field.right {
+  float: right;
+}
+.field-row .field .input {
+  display: inline-block;
+}
+.field-row .field .input input {
   width: 100%;
 }
-.clearfix {
+.field-row .field .input.full {
+  width: 400px;
+}
+.field-row .field .input.tiny {
+  width: 42px;
+}
+.field-row .field .input.price {
+  width: 86px;
+  margin-left: 3px;
+}
+.field-row .field .input + .input {
+  margin-left: 10px;
+}
+.field-row .field .input + select.input {
+  margin-left: 5px;
+}
+.field-row .field + .field {
+  margin-left: 10px;
+}
+.field-row:after {
+  content: '';
   clear: left;
+  display: block;
+}
+.muted {
+  color: #bbb;
+}
+.r {
+  border: 1px solid red;
 }

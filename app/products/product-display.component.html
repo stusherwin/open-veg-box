@@ -1,5 +1,8 @@
 <h3>{{ product.name }}</h3>
-<span>&pound;{{ product.price | number:'1.2' }}</span>
+<div class="field-row">
+  <div class="field w1_2"><span [innerHTML]="product.price | money"></span> <span class="muted">{{ product.unitType.name }}</span></div>
+  <div class="field right" *ngIf="product.unitType.value == 'perKg'"><span class="muted">sold in units of</span> {{ product.unitQuantity | weight }}</div>
+</div>
 <div class="actions">
   <button (click)="edit()" [disabled]="editDisabled">
     <div class="icon"><i class="icon-edit"></i></div>

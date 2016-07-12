@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from './product'
+import { Product, UnitType } from './product'
 import { ProductService } from './product.service'
 import { ProductDisplayComponent } from './product-display.component'
 import { ProductEditComponent } from './product-edit.component'
@@ -31,7 +31,7 @@ export class ProductsComponent implements OnInit {
   }
 
   startAdd() {
-    this.adding = new Product(0, 'New product', 1.0);
+    this.adding = new Product(0, 'New product', 1.0, UnitType.All.each, 1);
   }
 
   startEdit(product: Product) {

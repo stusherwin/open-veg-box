@@ -1,11 +1,11 @@
 import { Component, Input, Output, EventEmitter, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { Product } from './product';
-import { CurrencyComponent } from '../controls/currency.component';
+import { Product, UnitType } from './product';
+import { NumberComponent } from '../shared/number.component';
 
 @Component({
   selector: 'cc-product-edit',
   templateUrl: 'app/products/product-edit.component.html',
-  directives: [CurrencyComponent]
+  directives: [NumberComponent]
 })
 export class ProductEditComponent implements AfterViewInit {
   @Input()
@@ -18,11 +18,16 @@ export class ProductEditComponent implements AfterViewInit {
   onCancel = new EventEmitter();
 
   @ViewChild('name')
-  name: ElementRef; 
+  name: ElementRef;
+
+  unitTypes: UnitType[];
+
+  constructor() {
+    this.unitTypes = Object.values(UnitType.All);
+  }
 
   ngAfterViewInit() {
     this.name.nativeElement.focus();
-    console.log(this.name.nativeElement);
   }
 
   cancel() {
