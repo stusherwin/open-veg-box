@@ -156,15 +156,15 @@ a {
           @iconBackground: none;
           @iconBorder: lighten(@header, 40%);
           @iconInnerBackground: none;  
-          @iconInnerBorder: lighten(desaturate(@header, 10%), 10%)
+          @iconInnerBorder: lighten(desaturate(@header, 15%), 10%)
         );
 
-        &:hover, &.selected {
+        &:hover {
           .iconCaptionButtonColors(
             @background: darken(@header, 1.5%);
-            @text: #fff; 
-            @iconBackground: #fff;
-            @iconBorder: #fff;
+            @text: lighten(desaturate(@header, 30%), 50%); 
+            @iconBackground: lighten(desaturate(@header, 30%), 50%);
+            @iconBorder: lighten(desaturate(@header, 30%), 50%);
             @iconInnerBackground: lighten(desaturate(@header, 15%), 20%);  
             @iconInnerBorder: lighten(desaturate(@header, 15%), 10%)
           );
@@ -181,6 +181,8 @@ a {
             @iconInnerBackground: lighten(desaturate(@header, 15%), 20%);  
             @iconInnerBorder: lighten(desaturate(@header, 15%), 10%)
           );
+
+          .iconCaptionButtonRaised(out; @highlight: rgba(255, 255, 255, 0.2); @lowlight: rgba(0, 0, 0, 0.1); @background: lighten(desaturate(@header, 15%), 15%));
         }
  
         font-size:80%;
