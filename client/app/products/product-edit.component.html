@@ -9,7 +9,7 @@
     <div class="field w1_2">
       &pound;<cc-number class="input price" [(ngModel)]="product.price" ngControl="price" fixedDecimals="2" required ></cc-number>
       <select class="input" [(ngModel)]="product.unitType" tabindex="0">
-        <option *ngFor="let ut of unitTypes" [ngValue]="ut">{{ ut.name }}</option>
+        <option *ngFor="let ut of unitTypes" [ngValue]="ut.value">{{ ut.name }}</option>
       </select>
     </div>
     <div class="field right" *ngIf="product.unitType.value == 'perKg'">

@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { Product, UnitType } from './product';
+import { Product, UnitType, unitTypes } from './product';
 import { NumberComponent } from '../shared/number.component';
 
 @Component({
@@ -23,7 +23,7 @@ export class ProductEditComponent implements AfterViewInit {
   unitTypes: UnitType[];
 
   constructor() {
-    this.unitTypes = Object.values(UnitType.All);
+    this.unitTypes = unitTypes;
   }
 
   ngAfterViewInit() {

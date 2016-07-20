@@ -1,7 +1,7 @@
 <h3>{{ product.name }}</h3>
 <div class="field-row">
-  <div class="field w1_2"><span [innerHTML]="product.price | money"></span> <span class="muted">{{ product.unitType.name }}</span></div>
-  <div class="field right" *ngIf="product.unitType.value == 'perKg'"><span class="muted">sold in units of</span> {{ product.unitQuantity | weight }}</div>
+  <div class="field w1_2"><span [innerHTML]="product.price | money"></span> <span class="muted">{{ product.unitTypeName }}</span></div>
+  <div class="field right" *ngIf="product.unitType == 'perKg'"><span class="muted">sold in units of</span> {{ product.unitQuantity | weight }}</div>
 </div>
 <div class="actions">
   <button (click)="edit()" [disabled]="editDisabled">
