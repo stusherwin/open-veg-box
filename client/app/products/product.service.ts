@@ -11,6 +11,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/toPromise';
 
+const paramsWhiteList = { p: 'page', ps: 'pageSize' };
+
 @Injectable()
 export class ProductService {
   http: Http;
@@ -19,28 +21,35 @@ export class ProductService {
     this.http = http;
   }
 
-  getAll(): Observable<Product[]> {
-    return this.http.get('/api/products')
+  private toQueryString(queryParams: {[key: string]: string}) {
+    return Object.keys(queryParams)
+                 .filter(k => paramsWhiteList.hasOwnProperty(k))
+                 .map(k => paramsWhiteList[k] + '=' + queryParams[k])
+                 .join('&');
+  }
+
+  getAll(queryParams: {[key: string]: string}): Observable<Product[]> {
+    return this.http.get('/api/products?' + this.toQueryString(queryParams))
                     .map(res => res.json())
                     .map(ps => ps.map(this.hydrate));
   }
 
-  add(product: Product): Observable<Product> {
+  add(params: any, queryParams: {[key: string]: string}): Observable<Product[]> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.put('api/products', JSON.stringify(product), options)
+    return this.http.put('api/products?' + this.toQueryString(queryParams), JSON.stringify(params), options)
                     .map(res => res.json())
-                    .map(this.hydrate);
+                    .map(ps => ps.map(this.hydrate));
   }
 
-  save(product: Product): Observable<Product> {
+  update(id: number, params: any, queryParams: {[key: string]: string}): Observable<Product[]> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.post('api/products/' + product.id, JSON.stringify(product), options)
+    return this.http.post('api/products/' + id + '?' + this.toQueryString(queryParams), JSON.stringify(params), options)
                     .map(res => res.json())
-                    .map(this.hydrate);
+                    .map(ps => ps.map(this.hydrate));
   }
 
   private hydrate(p: any) {

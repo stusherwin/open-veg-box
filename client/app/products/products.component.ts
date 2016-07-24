@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Product, UnitType } from './product'
 import { ProductService } from './product.service'
 import { ProductDisplayComponent } from './product-display.component'
 import { ProductEditComponent } from './product-edit.component'
 import { Observable } from 'rxjs/Observable';
+import { RouteParams } from '@angular/router-deprecated';
 
 @Component({
   selector: 'cc-products',
@@ -16,16 +17,18 @@ export class ProductsComponent implements OnInit {
   private adding: Product;
   private editing: Product;
 
-  constructor(productService: ProductService) {
+  constructor(productService: ProductService, routeParams: RouteParams) {
     this.productService = productService;
+    this.queryParams = routeParams.params;
   }
 
   productService: ProductService;
   products: Product[] = [];
 
+  queryParams: {[key: string]: string};
+
   ngOnInit() {
-    this.productService.getAll().subscribe(p => {
-      console.log(p);
+    this.productService.getAll(this.queryParams).subscribe(p => {
       this.products = p;
     } );
   }
@@ -39,17 +42,16 @@ export class ProductsComponent implements OnInit {
   }
 
   completeAdd() {
-    this.productService.add(this.adding).subscribe(added => {
+    this.productService.add(this.adding, this.queryParams).subscribe(products => {
       this.adding = null;
-      this.products.splice(0, 0, added);
+      this.products = products;
     });
   }
 
   completeEdit() {
-    this.productService.save(this.editing).subscribe(edited => {
-      var index = this.products.findIndex(p => p.id === this.editing.id);
+    this.productService.update(this.editing.id, this.editing, this.queryParams).subscribe(products => {
       this.editing = null;
-      this.products.splice(index, 1, edited);
+      this.products = products;
     });
   }
 

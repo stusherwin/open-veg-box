@@ -9,38 +9,27 @@ var productsService = new ProductsService();
 
 export let products = express.Router();
 
+var whiteList = function(query: any) {
+  return { page: query.page, pageSize: query.pageSize };
+}
+
 products.get('/', function(req: any, res: any) {
-  var products = productsService.getAll();
+  var products = productsService.getAll(whiteList(req.query));
 
   res.json(products);
 });
 
-products.get('/:id', function(req: any, res: any) {
-  var product = productsService.get(req.params.id);
-
-  if (product) {
-    res.json(product);
-  } else {
-    res.sendStatus(404);
-  }
-});
-
 products.post('/:id', function(req: any, res: any) {
-  var product = productsService.update(req.params.id,
-    new Product(req.body.id, req.body.name, req.body.price, req.body.unitType, req.body.unitQuantity) );
+  var products = productsService.update(req.params.id, req.body, whiteList(req.query));
 
-  if (product) {
-    res.json(product);
+  if (products) {
+    res.json(products);
   } else {
     res.sendStatus(404);
   }
 });
 
 products.put('/', function(req: any, res: any) {
-  var product = productsService.add(new Product(req.body.id, req.body.name, req.body.price, req.body.unitType, req.body.unitQuantity));
-  if (product) {
-    res.json(product);
-  } else {
-    res.sendStatus(404);
-  }
+  var products = productsService.add(req.body, whiteList(req.query));
+  res.json(products);
 });
