@@ -14,22 +14,19 @@ var whiteList = function(query: any) {
 }
 
 products.get('/', function(req: any, res: any) {
-  var products = productsService.getAll(whiteList(req.query));
-
-  res.json(products);
+  productsService.getAll(whiteList(req.query)).subscribe(products => res.json(products));
 });
 
 products.post('/:id', function(req: any, res: any) {
-  var products = productsService.update(req.params.id, req.body, whiteList(req.query));
+  productsService.update(req.params.id, req.body, whiteList(req.query)).subscribe(products => res.json(products));
 
-  if (products) {
-    res.json(products);
-  } else {
-    res.sendStatus(404);
-  }
+  // if (products) {
+  //   res.json(products);
+  // } else {
+  //   res.sendStatus(404);
+  // }
 });
 
 products.put('/', function(req: any, res: any) {
-  var products = productsService.add(req.body, whiteList(req.query));
-  res.json(products);
+  productsService.add(req.body, whiteList(req.query)).subscribe(products => res.json(products));
 });

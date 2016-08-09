@@ -1,57 +1,70 @@
 import {Product} from './product'
+import { Observable } from 'rxjs/Observable';
+// import { Rx } from 'rxjs/Rx'
+import 'rxjs/add/observable/throw';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/fromPromise'
+
+var sqlite = require('sqlite3').verbose();
+var db = new sqlite.Database('C:/Dev/angular-quickstart/data.db');
 
 const defaultPageSize: number = 10;
 
 export class ProductsService {
-
-  private products: Product[] = [
-    new Product(1, 'Carrots', 1.2, "perKg", 0.5),
-    new Product(2, 'Garlic (bulb) 1', 0.7, "each", 1),
-    new Product(3, 'Garlic (bulb) 2', 0.7, "each", 1),
-    new Product(4, 'Garlic (bulb) 3', 0.7, "each", 1),
-    new Product(5, 'Garlic (bulb) 4', 0.7, "each", 1),
-    new Product(6, 'Garlic (bulb) 5', 0.7, "each", 1),
-    new Product(7, 'Garlic (bulb) 6', 0.7, "each", 1),
-    new Product(8, 'Garlic (bulb) 7', 0.7, "each", 1),
-    new Product(9, 'Garlic (bulb) 8', 0.7, "each", 1),
-    new Product(10, 'Garlic (bulb) 9', 0.7, "each", 1),
-    new Product(11, 'Garlic (bulb) 10', 0.7, "each", 1),
-    new Product(12, 'Garlic (bulb) 11', 0.7, "each", 1)
-  ];
-
   private updateProperty(dest: any, source: any, propertyName: string) {
     if(Object.getOwnPropertyNames(source).indexOf(propertyName) >= 0) {
       dest[propertyName] = source[propertyName];
     }
   }
 
-  getAll(queryParams: any): Product[] {
-    console.log(queryParams);
-    var pageSize = +(queryParams.pageSize || defaultPageSize);
-    var startIndex = (+(queryParams.page || 1) - 1) * pageSize;
-    var endIndex = startIndex + pageSize;
-
-    return this.products.slice(startIndex, endIndex); 
+  private hasProperty(source: any, propertyName: string) {
+    return Object.getOwnPropertyNames(source).indexOf(propertyName) >= 0;
   }
 
-  add(params: any, queryParams: any): Product[] {
-    var id = this.products.map(p => p.id).reduce((m, c) => c > m ? c : m, 0) + 1;
-    var product = new Product(id, params.name, params.price, params.unitType, params.unitQuantity);
-    this.products.splice(0, 0, product);
+  private getProperties(source: any, whiteList: string[]) {
+    return Object.keys(source)
+                 .filter(k => whiteList.indexOf(k) >= 0);
+  }
+
+  getAll(queryParams: any): Observable<Product[]> {
+    console.log(queryParams);
+    return Observable.create((o: any) => {
+      var pageSize = +(queryParams.pageSize || defaultPageSize);
+      var startIndex = (+(queryParams.page || 1) - 1) * pageSize;
+      db.all('select * from product order by id desc limit $count offset $skip', {
+        $count: pageSize,
+        $skip: startIndex
+      }, (err: any, rows: any) => {
+        var products: Product[] = rows.map((row:any) => new Product(row.id, row.name, row.price, row.unitType, row.unitQuantity));
+        o.next(products);
+        o.complete();
+      });
+    });
+  }
+
+  add(params: any, queryParams: any): Observable<Product[]> {
+    db.run('insert into product (name, price, unitType, unitQuantity) values ($name, $price, $unitType, $unitQuantity)', {
+      $name: params.name,
+      $price: params.price,
+      $unitType: params.unitType,
+      $unitQuantity: params.unitQuantity
+    });
 
     return this.getAll(queryParams);
   }
 
-  update(id: number, params: any, queryParams: any): Product[] {
-    var product = this.products.find(p => p.id == id);
-    if(product == null) {
-      return null;
-    }
-
-    this.updateProperty(product, params, 'name');
-    this.updateProperty(product, params, 'price');
-    this.updateProperty(product, params, 'unitType');
-    this.updateProperty(product, params, 'unitQuantity');
+  update(id: number, params: any, queryParams: any): Observable<Product[]> {
+    var properties:string[] = this.getProperties(params, ['name', 'price', 'unitType', 'unitQuantity']);
+    var updateSql = 'update product set ' + properties.map(p => p + ' = $' + p).join(', ') + ' where id = $id';
+    
+    db.run(updateSql, {
+      $id: id,
+      $name: params.name,
+      $price: params.price,
+      $unitType: params.unitType,
+      $unitQuantity: params.unitQuantity
+    });
 
     return this.getAll(queryParams);
   }

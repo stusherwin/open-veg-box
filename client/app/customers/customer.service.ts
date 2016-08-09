@@ -3,35 +3,52 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
+import 'rxjs/add/observable/throw';
+import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
-import 'rxjs/Rx'
+
+const paramsWhiteList = { p: 'page', ps: 'pageSize' };
 
 @Injectable()
 export class CustomerService {
   http: Http;
 
-  customers: Customer[] = [
-    new Customer(1, "Fred Bloggs"),
-    new Customer(2, "Jane Doe")
-  ];
+  constructor(http: Http) {
+    this.http = http;
+  }
+
+  private toQueryString(queryParams: {[key: string]: string}) {
+    return Object.keys(queryParams)
+                 .filter(k => paramsWhiteList.hasOwnProperty(k))
+                 .map(k => paramsWhiteList[k] + '=' + queryParams[k])
+                 .join('&');
+  }
 
   getAll(queryParams: {[key: string]: string}): Observable<Customer[]> {
-    console.log(this.customers);
-    return Observable.of(this.customers);
+    return this.http.get('/api/customers?' + this.toQueryString(queryParams))
+                    .map(res => res.json())
+                    .map(ps => ps.map(this.hydrate));
   }
 
   add(params: any, queryParams: {[key: string]: string}): Observable<Customer[]> {
-    var id = this.customers.map(c => c.id).reduce((m, c) => c > m ? c : m, 0) + 1;
-    var customer = new Customer(id, params.name);
-    this.customers.splice(0, 0, customer);
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
 
-    return Observable.of(this.customers);
+    return this.http.put('api/customers?' + this.toQueryString(queryParams), JSON.stringify(params), options)
+                    .map(res => res.json())
+                    .map(ps => ps.map(this.hydrate));
   }
 
   update(id: number, params: any, queryParams: {[key: string]: string}): Observable<Customer[]> {
-    var customer = this.customers.find(c => c.id == id);
-    customer.name = params.name;
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
 
-    return Observable.of(this.customers);
+    return this.http.post('api/customers/' + id + '?' + this.toQueryString(queryParams), JSON.stringify(params), options)
+                    .map(res => res.json())
+                    .map(ps => ps.map(this.hydrate));
+  }
+
+  private hydrate(p: any) {
+    return new Customer( p.id, p.name);
   }
 }

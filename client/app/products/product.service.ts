@@ -42,7 +42,6 @@ export class ProductService {
   update(id: number, params: any, queryParams: {[key: string]: string}): Observable<Product[]> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-
     return this.http.post('api/products/' + id + '?' + this.toQueryString(queryParams), JSON.stringify(params), options)
                     .map(res => res.json())
                     .map(ps => ps.map(this.hydrate));
