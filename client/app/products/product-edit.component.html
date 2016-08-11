@@ -12,7 +12,7 @@
         <option *ngFor="let ut of unitTypes" [ngValue]="ut.value">{{ ut.name }}</option>
       </select>
     </div>
-    <div class="field right" *ngIf="product.unitType.value == 'perKg'">
+    <div class="field right" *ngIf="product.unitType == 'perKg'">
       sold in units of
       <cc-number class="input tiny" [(ngModel)]="product.unitQuantity" ngControl="unitQuantity" maxDecimals="3" required ></cc-number>
       Kg
