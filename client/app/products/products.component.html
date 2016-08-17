@@ -1,16 +1,20 @@
-<button class="top-level" (click)="startAdd()" [disabled]="adding || editing">
-  <div class="icon"><i class="icon-add"></i></div>
-  <span>Add</span>
-</button>
-<h2>Products</h2>
+<div class="container">
+  <div class="container2">
+    <button class="top-level" (click)="startAdd()" [disabled]="adding || editing">
+      <div class="icon"><i class="icon-add"></i></div>
+      <span>Add</span>
+    </button>
+    <h2>Products</h2>
 
-<div class="products" [class.editing]="editing || adding">
-  <div class="product editing" *ngIf="adding">
-    <cc-product-edit [product]="adding" (onSave)="completeAdd()" (onCancel)="cancel()"></cc-product-edit>
-  </div>
-  <div class="product" *ngFor="let p of products; let i = index" [class.editing]="editing && editing.id == p.id">
-    <cc-product-display *ngIf="!editing || editing.id != p.id" [product]="p" (onEdit)="startEdit(p)" [editDisabled]="adding || editing"></cc-product-display>
-    <cc-product-edit *ngIf="editing && editing.id == p.id" [product]="editing" (onSave)="completeEdit()" (onCancel)="cancel()"></cc-product-edit>
+    <div class="products" [class.editing]="editing || adding">
+      <div class="product editing" *ngIf="adding">
+        <cc-product-edit [product]="adding" (onSave)="completeAdd()" (onCancel)="cancel()"></cc-product-edit>
+      </div>
+      <div class="product" *ngFor="let p of products; let i = index" [class.editing]="editing && editing.id == p.id">
+        <cc-product-display *ngIf="!editing || editing.id != p.id" [product]="p" (onEdit)="startEdit(p)" [editDisabled]="adding || editing"></cc-product-display>
+        <cc-product-edit *ngIf="editing && editing.id == p.id" [product]="editing" (onSave)="completeEdit()" (onCancel)="cancel()"></cc-product-edit>
+      </div>
+    </div>
+    <div class="after"></div>
   </div>
 </div>
-

@@ -77,6 +77,9 @@ body {
 a {
   cursor: pointer;
   cursor: hand;
+  &:focus {
+    outline:0;
+  }
 }
 
 /* everywhere else */
@@ -148,6 +151,10 @@ a {
     color: white;
   }
 
+  a {
+    text-decoration: none;
+  }
+
   h1 {
     display:block;
     text-align: center;
@@ -159,7 +166,15 @@ a {
       display:inline-block;
       margin-top: 20px;
       margin-left:13px;
-      margin-right: 0;
+      margin-right: 13px;
+    }
+  }
+
+  &.home-header {
+    h1 {
+      @media @header-side-by-side { 
+        display:block;
+      }      
     }
   }
 
@@ -299,7 +314,18 @@ button {
 }
 
 h2 {
-  margin: 20px 0 30px 10px;
+  margin: 20px 0 30px 0;
+}
+
+.container2 {
+  h2, p {
+    margin-left:10px;
+  }
+  p {
+    font-weight: 300;
+    color:black;
+    font-size:110%;
+  }
 }
 
 button.top-level {
@@ -328,26 +354,27 @@ button.top-level {
 
 .icon i.icon-box {
   padding-top: 8px;
-  padding-left: 4px;
+  padding-left: 5px;
 }
 
 .icon i.icon-carrot {
   padding-top: 8px;
-  padding-left: 3px;
+  padding-left: 4px;
 }
 
 .icon i.icon-person {
   padding-top: 7px;
+  padding-left: 4px;
 }
 
 .icon i.icon-truck {
   padding-top: 7px;
-  padding-left: 2px;
+  padding-left: 3px;
 }
 
 .icon i.icon-flag {
   padding-top: 8px;
-  padding-left: 3px;
+  padding-left: 4px;
 }
 
 @productHoverColor: lighten(#fda, 10%);
@@ -489,4 +516,132 @@ select {
 
 .r {
   border: 1px solid red;
+}
+
+.home {
+  p {
+    margin-top: 70px;
+    color: lighten(desaturate(@header, 10%), 40%);
+    text-align: center;
+    font-size: 150%;
+    font-weight:300;
+  }
+
+  ul {
+    width: 540px;
+    margin: 30px auto;
+    overflow: hidden;
+  
+    li {
+      float: left;
+
+      &:nth-child(1) {
+        margin-left:0px;
+      }
+      
+      &:nth-child(3) {
+        margin-right:0px;
+      }
+    
+      &:nth-child(4) {
+        margin-left:90px;
+      }
+
+      a {
+        .iconCaptionButton();
+
+        font-size:120%;
+        text-decoration: none;
+        height: 180px;
+        width: 180px;
+        border-radius:10px;
+
+        .icon {
+          height:100px;
+          width:100px;
+          border-radius: 100px;
+          top:20px;
+          left:40px;
+          padding: 5px 0 0 5px;
+
+          i {
+            border-radius: 88px;
+            height: 88px;
+            width: 88px;
+            padding-top:20px;
+            padding-left:15px;
+
+            font-size: 200%;
+          }
+        }
+
+        span {
+          top:140px;
+          font-size: 15px;
+          line-height: 15px;
+        }
+
+        .iconCaptionButtonColors(
+          @background: none;
+          @text: lighten(desaturate(@header, 10%), 40%);
+          @iconBackground: lighten(desaturate(@header, 10%), 40%);
+          @iconBorder: lighten(desaturate(@header, 10%), 40%);
+          @iconInnerBackground: none;  
+          @iconInnerBorder: lighten(desaturate(@header, 15%), 10%)
+        );
+
+        .iconCaptionButtonRaised(out; @highlight: rgba(255, 255, 255, 0.2); @lowlight: rgba(0, 0, 0, 0.1); @background: lighten(desaturate(@header, 10%), 8%));
+        .icon {
+          i {
+            box-shadow: inset rgba(255, 255, 255, 0.2) 0px 10px 50px,
+                        inset rgba(0, 0, 0, 0.1) 0px -10px 50px;
+          }
+        }
+
+        &:hover {
+          .iconCaptionButtonColors(
+            @background: darken(@header, 1.5%);
+            @text: lighten(desaturate(@header, 30%), 50%); 
+            @iconBackground: lighten(desaturate(@header, 30%), 50%);
+            @iconBorder: lighten(desaturate(@header, 30%), 50%);
+            @iconInnerBackground: lighten(desaturate(@header, 15%), 20%);  
+            @iconInnerBorder: lighten(desaturate(@header, 15%), 10%)
+          );
+
+          .iconCaptionButtonRaised(out; @highlight: rgba(255, 255, 255, 0.2); @lowlight: rgba(0, 0, 0, 0.1); @background: lighten(desaturate(@header, 15%), 15%));
+          .icon {
+            i {
+              box-shadow: inset rgba(255, 255, 255, 0.2) 0px 10px 50px,
+                          inset rgba(0, 0, 0, 0.1) 0px -10px 50px;
+            }
+          }
+        }
+
+        i.icon-box {
+          padding-left: 17px;
+          padding-top:22px;
+        }
+
+        i.icon-carrot {
+          padding-left: 15px;
+          padding-top:22px;
+        }
+
+        i.icon-person {
+          padding-left: 15px;
+          padding-top:22px;
+        }
+
+        i.icon-truck {
+          padding-left: 14px;
+          padding-top:22px;
+        }
+
+        i.icon-flag {
+          padding-left: 16px;
+          padding-top:22px;
+        }
+      }
+    }
+  }
 }

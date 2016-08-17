@@ -155,6 +155,9 @@ a {
   cursor: pointer;
   cursor: hand;
 }
+a:focus {
+  outline: 0;
+}
 /* everywhere else */
 * {
   font-family: 'Josefin Sans', sans-serif;
@@ -214,6 +217,9 @@ a {
 .header a {
   color: white;
 }
+.header a {
+  text-decoration: none;
+}
 .header h1 {
   display: block;
   text-align: center;
@@ -226,7 +232,12 @@ a {
     display: inline-block;
     margin-top: 20px;
     margin-left: 13px;
-    margin-right: 0;
+    margin-right: 13px;
+  }
+}
+@media only screen and (min-width : 730px) {
+  .header.home-header h1 {
+    display: block;
   }
 }
 .header nav {
@@ -512,7 +523,16 @@ button[disabled]:hover span {
   color: #ccc;
 }
 h2 {
-  margin: 20px 0 30px 10px;
+  margin: 20px 0 30px 0;
+}
+.container2 h2,
+.container2 p {
+  margin-left: 10px;
+}
+.container2 p {
+  font-weight: 300;
+  color: black;
+  font-size: 110%;
 }
 button.top-level {
   height: 83px;
@@ -535,22 +555,23 @@ button.top-level {
 }
 .icon i.icon-box {
   padding-top: 8px;
-  padding-left: 4px;
+  padding-left: 5px;
 }
 .icon i.icon-carrot {
   padding-top: 8px;
-  padding-left: 3px;
+  padding-left: 4px;
 }
 .icon i.icon-person {
   padding-top: 7px;
+  padding-left: 4px;
 }
 .icon i.icon-truck {
   padding-top: 7px;
-  padding-left: 2px;
+  padding-left: 3px;
 }
 .icon i.icon-flag {
   padding-top: 8px;
-  padding-left: 3px;
+  padding-left: 4px;
 }
 .products .product {
   min-height: 83px;
@@ -659,4 +680,174 @@ select {
 }
 .r {
   border: 1px solid red;
+}
+.home p {
+  margin-top: 70px;
+  color: #c4dfb4;
+  text-align: center;
+  font-size: 150%;
+  font-weight: 300;
+}
+.home ul {
+  width: 540px;
+  margin: 30px auto;
+  overflow: hidden;
+}
+.home ul li {
+  float: left;
+}
+.home ul li:nth-child(1) {
+  margin-left: 0px;
+}
+.home ul li:nth-child(3) {
+  margin-right: 0px;
+}
+.home ul li:nth-child(4) {
+  margin-left: 90px;
+}
+.home ul li a {
+  border: none;
+  border-radius: 2px;
+  padding: 0;
+  display: block;
+  position: relative;
+  width: 66px;
+  font-size: 120%;
+  text-decoration: none;
+  height: 180px;
+  width: 180px;
+  border-radius: 10px;
+  background: none;
+  color: #c4dfb4;
+}
+.home ul li a .icon {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 46px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  height: 46px;
+  width: 46px;
+  padding: 2px 0 0 2px;
+}
+.home ul li a .icon i {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 40px;
+  height: 40px;
+  width: 40px;
+  font-size: 200%;
+  display: block;
+}
+.home ul li a span {
+  position: absolute;
+  top: 61px;
+  width: 100%;
+  font-size: 75%;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 10px;
+  display: block;
+  width: 46 px;
+}
+.home ul li a:focus {
+  outline: 0;
+}
+.home ul li a,
+.home ul li a:active {
+  cursor: pointer;
+}
+.home ul li a[disabled],
+.home ul li a[disabled]:hover {
+  cursor: default;
+}
+.home ul li a .icon {
+  height: 100px;
+  width: 100px;
+  border-radius: 100px;
+  top: 20px;
+  left: 40px;
+  padding: 5px 0 0 5px;
+}
+.home ul li a .icon i {
+  border-radius: 88px;
+  height: 88px;
+  width: 88px;
+  padding-top: 20px;
+  padding-left: 15px;
+  font-size: 200%;
+}
+.home ul li a span {
+  top: 140px;
+  font-size: 15px;
+  line-height: 15px;
+}
+.home ul li a .icon {
+  background: #c4dfb4;
+  border-color: #c4dfb4;
+}
+.home ul li a .icon i {
+  border-color: #72a852;
+  background: none;
+}
+.home ul li a span {
+  color: #c4dfb4;
+}
+.home ul li a .icon i {
+  background: #6ca848;
+  box-shadow: inset rgba(255, 255, 255, 0.2) 0px 2px 10px, inset rgba(0, 0, 0, 0.1) 0px -2px 10px;
+}
+.home ul li a[disabled] .icon i,
+.home ul li a[disabled]:hover .icon i {
+  box-shadow: none;
+}
+.home ul li a .icon i {
+  box-shadow: inset rgba(255, 255, 255, 0.2) 0px 10px 50px, inset rgba(0, 0, 0, 0.1) 0px -10px 50px;
+}
+.home ul li a:hover {
+  background: #548f30;
+  color: #e2e9dd;
+}
+.home ul li a:hover .icon {
+  background: #e2e9dd;
+  border-color: #e2e9dd;
+}
+.home ul li a:hover .icon i {
+  border-color: #72a852;
+  background: #8dbb72;
+}
+.home ul li a:hover span {
+  color: #e2e9dd;
+}
+.home ul li a:hover .icon i {
+  background: #7fb261;
+  box-shadow: inset rgba(255, 255, 255, 0.2) 0px 2px 10px, inset rgba(0, 0, 0, 0.1) 0px -2px 10px;
+}
+.home ul li a:hover[disabled] .icon i,
+.home ul li a:hover[disabled]:hover .icon i {
+  box-shadow: none;
+}
+.home ul li a:hover .icon i {
+  box-shadow: inset rgba(255, 255, 255, 0.2) 0px 10px 50px, inset rgba(0, 0, 0, 0.1) 0px -10px 50px;
+}
+.home ul li a i.icon-box {
+  padding-left: 17px;
+  padding-top: 22px;
+}
+.home ul li a i.icon-carrot {
+  padding-left: 15px;
+  padding-top: 22px;
+}
+.home ul li a i.icon-person {
+  padding-left: 15px;
+  padding-top: 22px;
+}
+.home ul li a i.icon-truck {
+  padding-left: 14px;
+  padding-top: 22px;
+}
+.home ul li a i.icon-flag {
+  padding-left: 16px;
+  padding-top: 22px;
 }

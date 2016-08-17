@@ -1,5 +1,5 @@
-<div class="header">
-  <h1>Umbel Organics</h1>
-  <cc-nav-bar></cc-nav-bar>
+<div class="header" [class.home-header]="isHome()">
+  <a [routerLink]="['Home']"><h1>Umbel Organics</h1></a>
+  <cc-nav-bar *ngIf="!isHome()"></cc-nav-bar>
   <div style="clear:left;"></div>
 </div>

@@ -5,7 +5,8 @@ import { CustomersComponent } from './customers/customers.component';
 import { CollectionPointsComponent } from './collection-points/collection-points.component';
 import { BoxesComponent } from './boxes/boxes.component';
 import { DeliveriesComponent } from './deliveries/deliveries.component';
-import { RouteConfig, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
+import { HomeComponent } from './home/home.component';
+import { RouteConfig, Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 
 @Component({
   selector: 'cc-app',
@@ -15,6 +16,11 @@ import { RouteConfig, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 })
 
 @RouteConfig([
+  {
+    path: '',
+    name: 'Home',
+    component: HomeComponent
+  },
   {
     path: 'products',
     name: 'Products',
@@ -42,4 +48,5 @@ import { RouteConfig, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
   }
 ])
 
-export class AppComponent { }
+export class AppComponent {
+}
