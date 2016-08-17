@@ -681,12 +681,55 @@ select {
 .r {
   border: 1px solid red;
 }
+.home p,
+.home label {
+  color: #c4dfb4;
+}
+.home form {
+  display: block;
+  position: relative;
+  width: 370px;
+  margin: 20px auto;
+}
+.home .form-row {
+  float: left;
+  margin-top: 10px;
+}
+.home label {
+  display: block;
+  float: left;
+  font-size: 130%;
+  font-weight: 300;
+  width: 100px;
+  margin-top: 5px;
+}
+.home input[type="text"] {
+  float: left;
+  width: 250px;
+  height: 30px;
+  border-radius: 3px;
+  border: 1px solid #548f30;
+}
+.home input[type="text"]:focus {
+  outline: 0;
+}
+.home input[type="submit"] {
+  width: 100px;
+  height: 30px;
+  margin: 20px auto;
+  background: #579532;
+  border: 1px solid white;
+  border-radius: 3px;
+  color: #c4dfb4;
+}
+.home input[type="submit"]:focus {
+  outline: 0;
+}
 .home p {
   margin-top: 70px;
-  color: #c4dfb4;
   text-align: center;
-  font-size: 150%;
   font-weight: 300;
+  font-size: 150%;
 }
 .home ul {
   width: 540px;

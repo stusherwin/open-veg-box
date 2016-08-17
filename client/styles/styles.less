@@ -519,12 +519,61 @@ select {
 }
 
 .home {
+  p, label{
+    color: lighten(desaturate(@header, 10%), 40%);
+  }
+
+  form {
+    display:block;
+    position:relative;
+    width:370px;
+    margin:20px auto;
+  }
+
+  .form-row {
+    float:left;
+    margin-top:10px
+  }
+
+  label {
+    display:block;
+    float:left;
+    font-size:130%;
+    font-weight: 300;
+    width: 100px;
+    margin-top:5px;
+  }
+
+  input[type="text"] {
+    float:left;
+    width: 250px;
+    height:30px;
+    border-radius:3px;
+    border: 1px solid darken(@header, 1.5%);
+    &:focus{
+      outline:0;
+    }
+  }
+
+  input[type="submit"] {
+    width: 100px;
+    height: 30px;
+    margin: 20px auto;
+
+    &:focus {
+      outline:0;
+    }
+    background: @header;
+    border: 1px solid white;
+    border-radius:3px;
+    color: lighten(desaturate(@header, 10%), 40%);
+  }
+
   p {
     margin-top: 70px;
-    color: lighten(desaturate(@header, 10%), 40%);
     text-align: center;
-    font-size: 150%;
     font-weight:300;
+    font-size: 150%;
   }
 
   ul {
