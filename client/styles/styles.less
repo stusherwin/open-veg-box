@@ -173,6 +173,7 @@ a {
   &.home-header {
     h1 {
       @media @header-side-by-side { 
+        margin-top:10px;
         display:block;
       }      
     }
@@ -220,28 +221,64 @@ a {
 
       a {
         .iconCaptionButton();
-        
+
         .iconCaptionButtonColors(
-          @background: none;
-          @text: lighten(@header, 40%);
-          @iconBackground: none;
-          @iconBorder: lighten(@header, 40%);
-          @iconInnerBackground: none;  
-          @iconInnerBorder: lighten(desaturate(@header, 15%), 10%)
-        );
+      @background: none;
+      @text: lighten(desaturate(@header, 10%), 40%);
+      @iconBackground: lighten(desaturate(@header, 10%), 40%);
+      @iconBorder: lighten(desaturate(@header, 10%), 40%);
+      @iconInnerBackground: none;  
+      @iconInnerBorder: lighten(desaturate(@header, 15%), 10%)
+    );
 
-        &:hover {
-          .iconCaptionButtonColors(
-            @background: darken(@header, 1.5%);
-            @text: lighten(desaturate(@header, 30%), 50%); 
-            @iconBackground: lighten(desaturate(@header, 30%), 50%);
-            @iconBorder: lighten(desaturate(@header, 30%), 50%);
-            @iconInnerBackground: lighten(desaturate(@header, 15%), 20%);  
-            @iconInnerBorder: lighten(desaturate(@header, 15%), 10%)
-          );
+    .iconCaptionButtonRaised(out; @highlight: rgba(255, 255, 255, 0.2); @lowlight: rgba(0, 0, 0, 0.1); @background: lighten(desaturate(@header, 10%), 8%));
+    .icon {
+      i {
+        box-shadow: inset rgba(255, 255, 255, 0.2) 0px 10px 50px,
+                    inset rgba(0, 0, 0, 0.1) 0px -10px 50px;
+      }
+    }
 
-          .iconCaptionButtonRaised(out; @highlight: rgba(255, 255, 255, 0.2); @lowlight: rgba(0, 0, 0, 0.1); @background: lighten(desaturate(@header, 15%), 10%));
+    &:hover {
+      .iconCaptionButtonColors(
+        @background: darken(@header, 1.5%);
+        @text: lighten(desaturate(@header, 30%), 50%); 
+        @iconBackground: lighten(desaturate(@header, 30%), 50%);
+        @iconBorder: lighten(desaturate(@header, 30%), 50%);
+        @iconInnerBackground: lighten(desaturate(@header, 15%), 20%);  
+        @iconInnerBorder: lighten(desaturate(@header, 15%), 10%)
+      );
+
+      .iconCaptionButtonRaised(out; @highlight: rgba(255, 255, 255, 0.2); @lowlight: rgba(0, 0, 0, 0.1); @background: lighten(desaturate(@header, 15%), 15%));
+      .icon {
+        i {
+          box-shadow: inset rgba(255, 255, 255, 0.2) 0px 10px 50px,
+                      inset rgba(0, 0, 0, 0.1) 0px -10px 50px;
         }
+      }
+    }
+        
+        // .iconCaptionButtonColors(
+        //   @background: none;
+        //   @text: lighten(@header, 40%);
+        //   @iconBackground: none;
+        //   @iconBorder: lighten(@header, 40%);
+        //   @iconInnerBackground: none;  
+        //   @iconInnerBorder: lighten(desaturate(@header, 15%), 10%)
+        // );
+
+        // &:hover {
+        //   .iconCaptionButtonColors(
+        //     @background: darken(@header, 1.5%);
+        //     @text: lighten(desaturate(@header, 30%), 50%); 
+        //     @iconBackground: lighten(desaturate(@header, 30%), 50%);
+        //     @iconBorder: lighten(desaturate(@header, 30%), 50%);
+        //     @iconInnerBackground: lighten(desaturate(@header, 15%), 20%);  
+        //     @iconInnerBorder: lighten(desaturate(@header, 15%), 10%)
+        //   );
+
+        //   .iconCaptionButtonRaised(out; @highlight: rgba(255, 255, 255, 0.2); @lowlight: rgba(0, 0, 0, 0.1); @background: lighten(desaturate(@header, 15%), 10%));
+        // }
 
         &.selected {
           .iconCaptionButtonColors(
@@ -364,7 +401,7 @@ button.top-level {
 
 .icon i.icon-person {
   padding-top: 7px;
-  padding-left: 4px;
+  padding-left: 3px;
 }
 
 .icon i.icon-truck {
@@ -525,23 +562,37 @@ select {
 
   form {
     display:block;
+    overflow: hidden;
     position:relative;
-    width:370px;
+    width:438px;
+    height:340px;
     margin:20px auto;
+
+    p {
+      text-align: left;
+      margin-top:70px;
+      margin-left:10px;
+      display: block;
+      float:left;
+      width:330px;
+      margin-bottom:10px;
+    }
   }
 
   .form-row {
     float:left;
-    margin-top:10px
+    margin-top:10px;
+    margin-left:10px;
   }
 
   label {
     display:block;
     float:left;
-    font-size:130%;
+    font-size:110%;
     font-weight: 300;
-    width: 100px;
-    margin-top:5px;
+    width: 85px;
+    height:30px;
+    padding-top:5px;
   }
 
   input[type="text"] {
@@ -555,32 +606,89 @@ select {
     }
   }
 
-  input[type="submit"] {
-    width: 100px;
-    height: 30px;
-    margin: 20px auto;
-
-    &:focus {
-      outline:0;
+  button {
+    float: left;
+    display: block;
+    margin-top:-40px;
+    margin-left:10px;
+    height: 90px;
+    .iconCaptionButton();
+    border-radius: 4px;
+    .icon {
+      margin-top:2px;      
     }
-    background: @header;
-    border: 1px solid white;
-    border-radius:3px;
-    color: lighten(desaturate(@header, 10%), 40%);
+    span {
+      margin-top:5px;
+    }
+    .iconCaptionButtonColors(
+      @background: none;
+      @text: lighten(desaturate(@header, 10%), 40%);
+      @iconBackground: lighten(desaturate(@header, 10%), 40%);
+      @iconBorder: lighten(desaturate(@header, 10%), 40%);
+      @iconInnerBackground: none;  
+      @iconInnerBorder: lighten(desaturate(@header, 15%), 10%)
+    );
+
+    .iconCaptionButtonRaised(out; @highlight: rgba(255, 255, 255, 0.2); @lowlight: rgba(0, 0, 0, 0.1); @background: lighten(desaturate(@header, 10%), 8%));
+    .icon {
+      i {
+        box-shadow: inset rgba(255, 255, 255, 0.2) 0px 10px 50px,
+                    inset rgba(0, 0, 0, 0.1) 0px -10px 50px;
+      }
+    }
+
+    &:hover {
+      .iconCaptionButtonColors(
+        @background: darken(@header, 1.5%);
+        @text: lighten(desaturate(@header, 30%), 50%); 
+        @iconBackground: lighten(desaturate(@header, 30%), 50%);
+        @iconBorder: lighten(desaturate(@header, 30%), 50%);
+        @iconInnerBackground: lighten(desaturate(@header, 15%), 20%);  
+        @iconInnerBorder: lighten(desaturate(@header, 15%), 10%)
+      );
+
+      .iconCaptionButtonRaised(out; @highlight: rgba(255, 255, 255, 0.2); @lowlight: rgba(0, 0, 0, 0.1); @background: lighten(desaturate(@header, 15%), 15%));
+      .icon {
+        i {
+          box-shadow: inset rgba(255, 255, 255, 0.2) 0px 10px 50px,
+                      inset rgba(0, 0, 0, 0.1) 0px -10px 50px;
+        }
+      }
+    }
+
+    &.look-around {
+      margin-left:15px;
+      height:90px;
+      margin-top:48px;
+    }
+
+    i.icon-login {
+      padding-left: 0px;
+      padding-top: 7px;
+    }
+
+    i.icon-eye {
+      padding-left: 0px;
+      padding-top: 6px;
+    }
   }
 
   p {
-    margin-top: 70px;
     text-align: center;
     font-weight:300;
     font-size: 150%;
   }
 
-  ul {
+  .sections {
     width: 540px;
-    margin: 30px auto;
+    margin: 70px auto;
     overflow: hidden;
-  
+  }
+
+  ul {
+    margin-top:30px;
+    width: 100%;
+
     li {
       float: left;
 

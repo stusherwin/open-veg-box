@@ -237,6 +237,7 @@ a:focus {
 }
 @media only screen and (min-width : 730px) {
   .header.home-header h1 {
+    margin-top: 10px;
     display: block;
   }
 }
@@ -291,7 +292,7 @@ a:focus {
   position: relative;
   width: 66px;
   background: none;
-  color: #c3e4af;
+  color: #c4dfb4;
   font-size: 80%;
   text-decoration: none;
   height: 90px;
@@ -340,15 +341,26 @@ a:focus {
   cursor: default;
 }
 .header nav li a .icon {
-  background: none;
-  border-color: #c3e4af;
+  background: #c4dfb4;
+  border-color: #c4dfb4;
 }
 .header nav li a .icon i {
   border-color: #72a852;
   background: none;
 }
 .header nav li a span {
-  color: #c3e4af;
+  color: #c4dfb4;
+}
+.header nav li a .icon i {
+  background: #6ca848;
+  box-shadow: inset rgba(255, 255, 255, 0.2) 0px 2px 10px, inset rgba(0, 0, 0, 0.1) 0px -2px 10px;
+}
+.header nav li a[disabled] .icon i,
+.header nav li a[disabled]:hover .icon i {
+  box-shadow: none;
+}
+.header nav li a .icon i {
+  box-shadow: inset rgba(255, 255, 255, 0.2) 0px 10px 50px, inset rgba(0, 0, 0, 0.1) 0px -10px 50px;
 }
 .header nav li a:hover {
   background: #548f30;
@@ -366,12 +378,15 @@ a:focus {
   color: #e2e9dd;
 }
 .header nav li a:hover .icon i {
-  background: #72a852;
+  background: #7fb261;
   box-shadow: inset rgba(255, 255, 255, 0.2) 0px 2px 10px, inset rgba(0, 0, 0, 0.1) 0px -2px 10px;
 }
 .header nav li a:hover[disabled] .icon i,
 .header nav li a:hover[disabled]:hover .icon i {
   box-shadow: none;
+}
+.header nav li a:hover .icon i {
+  box-shadow: inset rgba(255, 255, 255, 0.2) 0px 10px 50px, inset rgba(0, 0, 0, 0.1) 0px -10px 50px;
 }
 .header nav li a.selected {
   background: #508a2e;
@@ -563,7 +578,7 @@ button.top-level {
 }
 .icon i.icon-person {
   padding-top: 7px;
-  padding-left: 4px;
+  padding-left: 3px;
 }
 .icon i.icon-truck {
   padding-top: 7px;
@@ -687,21 +702,34 @@ select {
 }
 .home form {
   display: block;
+  overflow: hidden;
   position: relative;
-  width: 370px;
+  width: 438px;
+  height: 340px;
   margin: 20px auto;
+}
+.home form p {
+  text-align: left;
+  margin-top: 70px;
+  margin-left: 10px;
+  display: block;
+  float: left;
+  width: 330px;
+  margin-bottom: 10px;
 }
 .home .form-row {
   float: left;
   margin-top: 10px;
+  margin-left: 10px;
 }
 .home label {
   display: block;
   float: left;
-  font-size: 130%;
+  font-size: 110%;
   font-weight: 300;
-  width: 100px;
-  margin-top: 5px;
+  width: 85px;
+  height: 30px;
+  padding-top: 5px;
 }
 .home input[type="text"] {
   float: left;
@@ -713,28 +741,143 @@ select {
 .home input[type="text"]:focus {
   outline: 0;
 }
-.home input[type="submit"] {
-  width: 100px;
-  height: 30px;
-  margin: 20px auto;
-  background: #579532;
-  border: 1px solid white;
-  border-radius: 3px;
+.home button {
+  float: left;
+  margin-top: -40px;
+  margin-left: 10px;
+  height: 90px;
+  border: none;
+  border-radius: 2px;
+  padding: 0;
+  display: block;
+  position: relative;
+  width: 66px;
+  border-radius: 4px;
+  background: none;
   color: #c4dfb4;
 }
-.home input[type="submit"]:focus {
+.home button .icon {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 46px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  height: 46px;
+  width: 46px;
+  padding: 2px 0 0 2px;
+}
+.home button .icon i {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 40px;
+  height: 40px;
+  width: 40px;
+  font-size: 200%;
+  display: block;
+}
+.home button span {
+  position: absolute;
+  top: 61px;
+  width: 100%;
+  font-size: 75%;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 10px;
+  display: block;
+  width: 46 px;
+}
+.home button:focus {
   outline: 0;
 }
+.home button,
+.home button:active {
+  cursor: pointer;
+}
+.home button[disabled],
+.home button[disabled]:hover {
+  cursor: default;
+}
+.home button .icon {
+  margin-top: 2px;
+}
+.home button span {
+  margin-top: 5px;
+}
+.home button .icon {
+  background: #c4dfb4;
+  border-color: #c4dfb4;
+}
+.home button .icon i {
+  border-color: #72a852;
+  background: none;
+}
+.home button span {
+  color: #c4dfb4;
+}
+.home button .icon i {
+  background: #6ca848;
+  box-shadow: inset rgba(255, 255, 255, 0.2) 0px 2px 10px, inset rgba(0, 0, 0, 0.1) 0px -2px 10px;
+}
+.home button[disabled] .icon i,
+.home button[disabled]:hover .icon i {
+  box-shadow: none;
+}
+.home button .icon i {
+  box-shadow: inset rgba(255, 255, 255, 0.2) 0px 10px 50px, inset rgba(0, 0, 0, 0.1) 0px -10px 50px;
+}
+.home button:hover {
+  background: #548f30;
+  color: #e2e9dd;
+}
+.home button:hover .icon {
+  background: #e2e9dd;
+  border-color: #e2e9dd;
+}
+.home button:hover .icon i {
+  border-color: #72a852;
+  background: #8dbb72;
+}
+.home button:hover span {
+  color: #e2e9dd;
+}
+.home button:hover .icon i {
+  background: #7fb261;
+  box-shadow: inset rgba(255, 255, 255, 0.2) 0px 2px 10px, inset rgba(0, 0, 0, 0.1) 0px -2px 10px;
+}
+.home button:hover[disabled] .icon i,
+.home button:hover[disabled]:hover .icon i {
+  box-shadow: none;
+}
+.home button:hover .icon i {
+  box-shadow: inset rgba(255, 255, 255, 0.2) 0px 10px 50px, inset rgba(0, 0, 0, 0.1) 0px -10px 50px;
+}
+.home button.look-around {
+  margin-left: 15px;
+  height: 90px;
+  margin-top: 48px;
+}
+.home button i.icon-login {
+  padding-left: 0px;
+  padding-top: 7px;
+}
+.home button i.icon-eye {
+  padding-left: 0px;
+  padding-top: 6px;
+}
 .home p {
-  margin-top: 70px;
   text-align: center;
   font-weight: 300;
   font-size: 150%;
 }
-.home ul {
+.home .sections {
   width: 540px;
-  margin: 30px auto;
+  margin: 70px auto;
   overflow: hidden;
+}
+.home ul {
+  margin-top: 30px;
+  width: 100%;
 }
 .home ul li {
   float: left;

@@ -1,6 +1,6 @@
 <div class="home">
-  <div *ngIf="loggedIn">
-    <p>Hi Jannine, please choose a section to manage:</p>
+  <div class="sections" *ngIf="loggedIn">
+    <p>Hi {{userName}}, please choose a section to manage:</p>
     <ul>
       <li>
         <a [routerLink]="['Products']">
@@ -34,13 +34,23 @@
       </li>
     </ul>
   </div>
+
   <div *ngIf="!loggedIn">
-    <p>Please log in:</p>
     <form>
+      <p>Enter your acount details:</p>
       <div class="form-row"><label>Username:</label> <input type="text" /></div>
       <div class="form-row"><label>Password:</label> <input type="text" /></div>
-      
-      <input type="submit" value="Log in" />
+
+      <button type="button">
+        <div class="icon"><i class="icon-login"></i></div>
+        <span>Log in</span>
+      </button>
+
+      <p>Don't have an account?</p>
+      <button type="button" class="look-around" (click)="userName = 'Mystery Guest'; loggedIn = true">
+        <div class="icon"><i class="icon-eye"></i></div>
+        <span>Look inside</span>
+      </button>
     </form>
   </div>
 </div>
