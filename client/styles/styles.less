@@ -172,10 +172,12 @@ a {
 
   &.home-header {
     h1 {
+      margin-top:40px;
+      
       @media @header-side-by-side { 
-        margin-top:10px;
+        margin-top:40px;
         display:block;
-      }      
+      }
     }
   }
 
@@ -680,13 +682,14 @@ select {
   }
 
   .sections {
-    width: 540px;
-    margin: 70px auto;
+    width: 570px;
+    margin: 50px auto 0 auto;
     overflow: hidden;
   }
 
   ul {
     margin-top:30px;
+    margin-left:10px;
     width: 100%;
 
     li {
@@ -739,7 +742,7 @@ select {
         }
 
         .iconCaptionButtonColors(
-          @background: none;
+          @background: none; //darken(@header, 1.5%);
           @text: lighten(desaturate(@header, 10%), 40%);
           @iconBackground: lighten(desaturate(@header, 10%), 40%);
           @iconBorder: lighten(desaturate(@header, 10%), 40%);
