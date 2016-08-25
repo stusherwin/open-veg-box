@@ -8,11 +8,11 @@
     </button>
     <h2>Customers</h2>
 
-    <div class="products" [class.editing]="editing || adding">
-      <div class="product editing" *ngIf="adding">
+    <div class="items" [class.editing]="editing || adding">
+      <div class="item editing" *ngIf="adding">
         <cc-customer-edit [customer]="adding" (onSave)="completeAdd()" (onCancel)="cancel()"></cc-customer-edit>
       </div>
-      <div class="product" *ngFor="let c of customers" [class.editing]="editing && editing.id == c.id">
+      <div class="item" *ngFor="let c of customers" [class.editing]="editing && editing.id == c.id">
         <cc-customer-display *ngIf="!editing || editing.id != c.id" [customer]="c" (onEdit)="startEdit(c)" [editDisabled]="adding || editing"></cc-customer-display>
         <cc-customer-edit *ngIf="editing && editing.id == c.id" [customer]="editing" (onSave)="completeEdit()" (onCancel)="cancel()"></cc-customer-edit>
       </div>

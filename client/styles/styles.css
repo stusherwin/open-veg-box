@@ -202,10 +202,6 @@ a:focus {
 .after {
   clear: right;
 }
-.icon i {
-  padding-left: 3px;
-  padding-top: 6px;
-}
 .header {
   position: relative;
   padding: 0;
@@ -233,15 +229,6 @@ a:focus {
     margin-top: 20px;
     margin-left: 13px;
     margin-right: 13px;
-  }
-}
-.header.home-header h1 {
-  margin-top: 40px;
-}
-@media only screen and (min-width : 730px) {
-  .header.home-header h1 {
-    margin-top: 40px;
-    display: block;
   }
 }
 .header nav {
@@ -556,71 +543,36 @@ button.top-level {
   height: 83px;
   float: right;
 }
-.icon .icon-edit {
-  padding-left: 2px;
-}
-.icon .icon-add {
-  padding-top: 8px;
-  padding-left: 1px;
-}
-.icon .icon-ok {
-  padding-top: 7px;
-  padding-left: 0px;
-}
-.icon .icon-cancel {
-  padding-top: 7px;
-  padding-left: 0px;
-}
-.icon i.icon-box {
-  padding-top: 8px;
-  padding-left: 5px;
-}
-.icon i.icon-carrot {
-  padding-top: 8px;
-  padding-left: 4px;
-}
-.icon i.icon-person {
-  padding-top: 7px;
-  padding-left: 3px;
-}
-.icon i.icon-truck {
-  padding-top: 7px;
-  padding-left: 3px;
-}
-.icon i.icon-flag {
-  padding-top: 8px;
-  padding-left: 4px;
-}
-.products .product {
+.items .item {
   min-height: 83px;
   border-top: 1px dashed #ccc;
   padding: 10px 140px 10px 10px;
   position: relative;
 }
-.products .product:last-child {
+.items .item:last-child {
   border-bottom: 1px dashed #ccc;
 }
-.products .product:hover,
-.products .product.editing {
+.items .item:hover,
+.items .item.editing {
   background: #fff1dd;
 }
-.products .product h3 {
+.items .item h3 {
   margin: 5px 0 5px 0;
 }
-.products .product .actions {
+.items .item .actions {
   position: absolute;
   height: 100%;
   top: 0;
   right: 0;
 }
-.products .product .actions button {
+.items .item .actions button {
   height: 100%;
   float: left;
 }
-.products.editing .product:hover {
+.items.editing .item:hover {
   background: inherit;
 }
-.products.editing .product.editing {
+.items.editing .item.editing {
   background: #fff1dd;
 }
 input[type="text"],
@@ -647,21 +599,6 @@ select {
 }
 .field-row .field.w1_2 {
   width: 195px;
-}
-.field-row .field.w3_4 {
-  width: 295px;
-}
-.field-row .field.w1_4 {
-  width: 95px;
-}
-.field-row .field.w2_3 {
-  width: 261px;
-}
-.field-row .field.w1_3 {
-  width: 133px;
-}
-.field-row .field.right {
-  float: right;
 }
 .field-row .field .input {
   display: inline-block;
@@ -698,6 +635,20 @@ select {
 }
 .r {
   border: 1px solid red;
+}
+.header.home-header {
+  width: 570px;
+  margin: 0 auto;
+}
+.header.home-header h1 {
+  display: block;
+  margin-top: 40px;
+}
+@media only screen and (min-width : 730px) {
+  .header.home-header h1 {
+    margin-left: 13px;
+    margin-right: 13px;
+  }
 }
 .home p,
 .home label {
@@ -755,9 +706,9 @@ select {
   display: block;
   position: relative;
   width: 66px;
-  border-radius: 4px;
   background: none;
   color: #c4dfb4;
+  border-radius: 4px;
 }
 .home button .icon {
   border-width: 1px;
@@ -800,12 +751,6 @@ select {
 .home button[disabled],
 .home button[disabled]:hover {
   cursor: default;
-}
-.home button .icon {
-  margin-top: 2px;
-}
-.home button span {
-  margin-top: 5px;
 }
 .home button .icon {
   background: #c4dfb4;
@@ -855,18 +800,39 @@ select {
 .home button:hover .icon i {
   box-shadow: inset rgba(255, 255, 255, 0.2) 0px 10px 50px, inset rgba(0, 0, 0, 0.1) 0px -10px 50px;
 }
+.home button.selected {
+  background: #508a2e;
+  color: #fff;
+}
+.home button.selected .icon {
+  background: #fff;
+  border-color: #fff;
+}
+.home button.selected .icon i {
+  border-color: #72a852;
+  background: #8dbb72;
+}
+.home button.selected span {
+  color: #fff;
+}
+.home button.selected .icon i {
+  background: #7fb261;
+  box-shadow: inset rgba(255, 255, 255, 0.2) 0px 2px 10px, inset rgba(0, 0, 0, 0.1) 0px -2px 10px;
+}
+.home button.selected[disabled] .icon i,
+.home button.selected[disabled]:hover .icon i {
+  box-shadow: none;
+}
+.home button .icon {
+  margin-top: 2px;
+}
+.home button span {
+  margin-top: 5px;
+}
 .home button.look-around {
   margin-left: 15px;
   height: 90px;
   margin-top: 48px;
-}
-.home button i.icon-login {
-  padding-left: 0px;
-  padding-top: 7px;
-}
-.home button i.icon-eye {
-  padding-left: 0px;
-  padding-top: 6px;
 }
 .home p {
   text-align: center;
@@ -902,13 +868,13 @@ select {
   display: block;
   position: relative;
   width: 66px;
+  background: none;
+  color: #c4dfb4;
   font-size: 120%;
   text-decoration: none;
   height: 180px;
   width: 180px;
   border-radius: 10px;
-  background: none;
-  color: #c4dfb4;
 }
 .home ul li a .icon {
   border-width: 1px;
@@ -951,27 +917,6 @@ select {
 .home ul li a[disabled],
 .home ul li a[disabled]:hover {
   cursor: default;
-}
-.home ul li a .icon {
-  height: 100px;
-  width: 100px;
-  border-radius: 100px;
-  top: 20px;
-  left: 40px;
-  padding: 5px 0 0 5px;
-}
-.home ul li a .icon i {
-  border-radius: 88px;
-  height: 88px;
-  width: 88px;
-  padding-top: 20px;
-  padding-left: 15px;
-  font-size: 200%;
-}
-.home ul li a span {
-  top: 140px;
-  font-size: 15px;
-  line-height: 15px;
 }
 .home ul li a .icon {
   background: #c4dfb4;
@@ -1020,6 +965,97 @@ select {
 }
 .home ul li a:hover .icon i {
   box-shadow: inset rgba(255, 255, 255, 0.2) 0px 10px 50px, inset rgba(0, 0, 0, 0.1) 0px -10px 50px;
+}
+.home ul li a.selected {
+  background: #508a2e;
+  color: #fff;
+}
+.home ul li a.selected .icon {
+  background: #fff;
+  border-color: #fff;
+}
+.home ul li a.selected .icon i {
+  border-color: #72a852;
+  background: #8dbb72;
+}
+.home ul li a.selected span {
+  color: #fff;
+}
+.home ul li a.selected .icon i {
+  background: #7fb261;
+  box-shadow: inset rgba(255, 255, 255, 0.2) 0px 2px 10px, inset rgba(0, 0, 0, 0.1) 0px -2px 10px;
+}
+.home ul li a.selected[disabled] .icon i,
+.home ul li a.selected[disabled]:hover .icon i {
+  box-shadow: none;
+}
+.home ul li a .icon {
+  height: 100px;
+  width: 100px;
+  border-radius: 100px;
+  top: 20px;
+  left: 40px;
+  padding: 5px 0 0 5px;
+}
+.home ul li a .icon i {
+  border-radius: 88px;
+  height: 88px;
+  width: 88px;
+  padding-top: 20px;
+  padding-left: 15px;
+  font-size: 200%;
+}
+.home ul li a span {
+  top: 140px;
+  font-size: 15px;
+  line-height: 15px;
+}
+.icon i {
+  padding-left: 3px;
+  padding-top: 6px;
+}
+.icon .icon-edit {
+  padding-left: 2px;
+}
+.icon .icon-add {
+  padding-top: 8px;
+  padding-left: 1px;
+}
+.icon .icon-ok {
+  padding-top: 7px;
+  padding-left: 0px;
+}
+.icon .icon-cancel {
+  padding-top: 7px;
+  padding-left: 0px;
+}
+.icon i.icon-box {
+  padding-top: 8px;
+  padding-left: 5px;
+}
+.icon i.icon-carrot {
+  padding-top: 8px;
+  padding-left: 4px;
+}
+.icon i.icon-person {
+  padding-top: 7px;
+  padding-left: 3px;
+}
+.icon i.icon-truck {
+  padding-top: 7px;
+  padding-left: 3px;
+}
+.icon i.icon-flag {
+  padding-top: 8px;
+  padding-left: 4px;
+}
+.home button i.icon-login {
+  padding-left: 0px;
+  padding-top: 7px;
+}
+.home button i.icon-eye {
+  padding-left: 0px;
+  padding-top: 6px;
 }
 .home ul li a i.icon-box {
   padding-left: 17px;

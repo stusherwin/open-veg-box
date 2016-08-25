@@ -1,0 +1,67 @@
+.icon i {
+  padding-left: 3px;
+  padding-top: 6px;
+}
+.icon .icon-edit {
+  padding-left: 2px;
+}
+.icon .icon-add {
+  padding-top: 8px;
+  padding-left: 1px;
+}
+.icon .icon-ok {
+  padding-top: 7px;
+  padding-left: 0px;
+}
+.icon .icon-cancel {
+  padding-top: 7px;
+  padding-left: 0px;
+}
+.icon i.icon-box {
+  padding-top: 8px;
+  padding-left: 5px;
+}
+.icon i.icon-carrot {
+  padding-top: 8px;
+  padding-left: 4px;
+}
+.icon i.icon-person {
+  padding-top: 7px;
+  padding-left: 3px;
+}
+.icon i.icon-truck {
+  padding-top: 7px;
+  padding-left: 3px;
+}
+.icon i.icon-flag {
+  padding-top: 8px;
+  padding-left: 4px;
+}
+.home button i.icon-login {
+  padding-left: 0px;
+  padding-top: 7px;
+}
+.home button i.icon-eye {
+  padding-left: 0px;
+  padding-top: 6px;
+}
+.home ul li a i.icon-box {
+  padding-left: 17px;
+  padding-top: 22px;
+}
+.home ul li a i.icon-carrot {
+  padding-left: 15px;
+  padding-top: 22px;
+}
+.home ul li a i.icon-person {
+  padding-left: 15px;
+  padding-top: 22px;
+}
+.home ul li a i.icon-truck {
+  padding-left: 14px;
+  padding-top: 22px;
+}
+.home ul li a i.icon-flag {
+  padding-left: 16px;
+  padding-top: 22px;
+}
