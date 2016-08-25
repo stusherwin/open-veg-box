@@ -204,26 +204,14 @@ a {
       margin: 0;
 
       a {
-        .iconCaptionButtonSolid(@color: @header);
-        
-        font-size:80%;
-        text-decoration: none;
-        height: 90px;
-        width: 80px; 
-
-        .icon {
-          left:17px;
-          i {
-            font-size: 170%;
-          }
-        }
+        .button(solid, small, @header);
       }
     }
   }
 }
  
 button {
-  .iconCaptionButtonOutline(@color: @highlight);
+  .button(outline; small; @highlight);
 }
 
 h2 {
@@ -437,13 +425,11 @@ select {
     display: block;
     margin-top:-40px;
     margin-left:10px;
-    height: 90px;
 
-    .iconCaptionButtonSolidHome(@color: @header);
+    .button(solid; home; @header);
 
     &.look-around {
       margin-left:15px;
-      height:90px;
       margin-top:48px;
     }
   }
@@ -481,7 +467,7 @@ select {
       }
 
       a {
-        .iconCaptionButtonSolidLarge(@color: @header);
+        .button(solid; large; @header);
       }
     }
   }

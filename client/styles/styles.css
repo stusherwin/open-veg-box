@@ -414,6 +414,7 @@ button {
   display: block;
   position: relative;
   width: 66px;
+  text-decoration: none;
   background: none;
   color: #888;
 }
@@ -699,15 +700,16 @@ select {
   float: left;
   margin-top: -40px;
   margin-left: 10px;
-  height: 90px;
   border: none;
   border-radius: 2px;
   padding: 0;
   display: block;
   position: relative;
   width: 66px;
+  text-decoration: none;
   background: none;
   color: #c4dfb4;
+  height: 90px;
   border-radius: 4px;
 }
 .home button .icon {
@@ -831,7 +833,6 @@ select {
 }
 .home button.look-around {
   margin-left: 15px;
-  height: 90px;
   margin-top: 48px;
 }
 .home p {
@@ -868,10 +869,10 @@ select {
   display: block;
   position: relative;
   width: 66px;
+  text-decoration: none;
   background: none;
   color: #c4dfb4;
   font-size: 120%;
-  text-decoration: none;
   height: 180px;
   width: 180px;
   border-radius: 10px;
