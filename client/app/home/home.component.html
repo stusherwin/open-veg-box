@@ -1,6 +1,6 @@
 <div class="home">
-  <div class="sections" *ngIf="loggedIn">
-    <p>Hi {{userName}}, please choose a section to manage:</p>
+  <div class="sections" *ngIf="currentUser">
+    <p>Hi {{currentUser.name}}, please choose a section to manage:</p>
     <ul>
       <li>
         <a [routerLink]="['Products']">
@@ -35,22 +35,26 @@
     </ul>
   </div>
 
-  <div *ngIf="!loggedIn">
+  <div *ngIf="!currentUser">
     <form>
       <p>Enter your acount details:</p>
-      <div class="form-row"><label>Username:</label> <input type="text" /></div>
-      <div class="form-row"><label>Password:</label> <input type="text" /></div>
+      <div class="form-row"><label>Username:</label> <input #username type="text" /></div>
+      <div class="form-row"><label>Password:</label> <input #password type="text" /></div>
 
-      <button type="button">
+      <button type="button" (click)="login(username.value, password.value)">
         <div class="icon"><i class="icon-login"></i></div>
         <span>Log in</span>
       </button>
 
       <p>Don't have an account?</p>
-      <button type="button" class="look-around" (click)="userName = 'Mystery Guest'; loggedIn = true">
+      <button type="button" class="look-around" (click)="login('guest', '')">
         <div class="icon"><i class="icon-eye"></i></div>
         <span>Look inside</span>
       </button>
     </form>
   </div>
+  <button *ngIf="currentUser" type="button" (click)="logout()" style="position: absolute; top: 50px; right: 10px">
+    <div class="icon"><i class="icon-logout"></i></div>
+    <span>Log out</span>
+  </button>
 </div>

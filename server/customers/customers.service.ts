@@ -16,7 +16,6 @@ export class CustomersService {
   }
 
   getAll(queryParams: any): Customer[] {
-    console.log(queryParams);
     var pageSize = +(queryParams.pageSize || defaultPageSize);
     var startIndex = (+(queryParams.page || 1) - 1) * pageSize;
     var endIndex = startIndex + pageSize;

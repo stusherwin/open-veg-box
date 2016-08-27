@@ -1,5 +1,6 @@
 import {Product} from './product'
 import {ProductsService} from './products.service'
+import {wl} from '../shared/helpers'
 
 var express = require('express');
 
@@ -9,16 +10,14 @@ var productsService = new ProductsService();
 
 export let products = express.Router();
 
-var whiteList = function(query: any) {
-  return { page: query.page, pageSize: query.pageSize };
-}
-
 products.get('/', function(req: any, res: any) {
-  productsService.getAll(whiteList(req.query)).subscribe(products => res.json(products));
+  productsService.getAll(wl(['page', 'pageSize'], req.query))
+                 .subscribe(products => res.json(products));
 });
 
 products.post('/:id', function(req: any, res: any) {
-  productsService.update(req.params.id, req.body, whiteList(req.query)).subscribe(products => res.json(products));
+  productsService.update(req.params.id, req.body, wl(['page', 'pageSize'], req.query))
+                 .subscribe(products => res.json(products));
 
   // if (products) {
   //   res.json(products);
@@ -28,5 +27,6 @@ products.post('/:id', function(req: any, res: any) {
 });
 
 products.put('/', function(req: any, res: any) {
-  productsService.add(req.body, whiteList(req.query)).subscribe(products => res.json(products));
+  productsService.add(req.body, wl(['page', 'pageSize'], req.query))
+                 .subscribe(products => res.json(products));
 });
