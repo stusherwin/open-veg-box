@@ -1,5 +1,5 @@
 import {User} from './user'
-import {UsersService} from './users.service'
+import {AuthenticationService} from './authentication.service'
 import 'rxjs/add/observable/of';
 import {makeWl} from '../shared/helpers'
 
@@ -7,24 +7,24 @@ var express = require('express');
 
 var app = express();
 
-var usersService = new UsersService();
+var authService = new AuthenticationService();
 
-export let users = express.Router();
+export let auth = express.Router();
 
-users.get('/current', function(req: any, res: any) {
-  usersService.getCurrent()
+auth.get('/current-user', function(req: any, res: any) {
+  authService.getCurrentUser()
               .map(makeWl(['username', 'name']))
               .subscribe(user => res.json(user));
 });
 
-users.post('/login', function(req: any, res: any) {
-  usersService.login(req.body)
+auth.post('/login', function(req: any, res: any) {
+  authService.login(req.body)
               .map(makeWl(['username', 'name']))
               .subscribe(user => res.json(user));
 });
 
-users.post('/logout', function(req: any, res: any) {
-  usersService.logout()
+auth.post('/logout', function(req: any, res: any) {
+  authService.logout()
               .map(makeWl(['username', 'name']))
               .subscribe(user => res.json(user));
 });

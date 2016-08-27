@@ -16,7 +16,7 @@ export class UsersService {
   currentUser: User;
 
   getCurrent(): Observable<User> {
-    return this.http.get('/api/users/current')
+    return this.http.get('/api/auth/current-user')
                     .map(this.hydrate);
   }
 
@@ -24,26 +24,23 @@ export class UsersService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     let params = {username: username, password: password};
-    return this.http.post('api/users/login', JSON.stringify(params), options)
+    return this.http.post('api/auth/login', JSON.stringify(params), options)
                     .map(this.hydrate);
   }
 
   logout(): Observable<User> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post('api/users/logout', JSON.stringify({}), options)
+    return this.http.post('api/auth/logout', JSON.stringify({}), options)
                     .map(this.hydrate);
   }
 
   private hydrate(res: Response): User {
-    console.log(res);
-    console.log(res.text());
     if (!res.text()) {
       return null;
     }
 
     var user = res.json();
-    console.log(user);
     return user? new User(user.username, user.name) : null;
   }
 }

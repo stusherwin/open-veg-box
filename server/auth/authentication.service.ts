@@ -5,7 +5,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/fromPromise'
 
-export class UsersService {
+export class AuthenticationService {
   private users: User[] = [
     new User(1, 'Guest', 'guest', ''),
     new User(2, 'Stu', 'stu', 'password')
@@ -13,19 +13,19 @@ export class UsersService {
 
   private currentUser: User = null;
 
-  getCurrent(): Observable<User> {
+  getCurrentUser(): Observable<User> {
     return Observable.of(this.currentUser);
   }
 
   login(params: any): Observable<User> {
     this.currentUser = this.users.find(u => u.username === params.username && u.password === params.password);
 
-    return this.getCurrent();
+    return this.getCurrentUser();
   }
 
   logout(): Observable<User> {
     this.currentUser = null;
     
-    return this.getCurrent();
+    return this.getCurrentUser();
   }
 }
