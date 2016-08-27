@@ -4,9 +4,9 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/fromPromise'
-
+import * as path from 'path';
 var sqlite = require('sqlite3').verbose();
-var db = new sqlite.Database('C:/Dev/angular-quickstart/data.db');
+var db = new sqlite.Database(path.resolve(__dirname, '../data.db'));
 
 const defaultPageSize: number = 10;
 
