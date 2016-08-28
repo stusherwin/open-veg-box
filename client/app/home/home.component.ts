@@ -17,23 +17,15 @@ export class HomeComponent {
     this.usersService = usersService;
   }
 
-  currentUser: User;
+  currentUser() {
+    return this.usersService.getCurrentUser();
+  }
 
   login(username: string, password: string) {
-    this.usersService.login(username, password).subscribe(u => {
-      this.currentUser = u;
-    } );
+    this.usersService.login(username, password);
   }
 
   logout() {
-    this.usersService.logout().subscribe(u => {
-      this.currentUser = u;
-    } );
-  }
-
-  ngOnInit() {
-    this.usersService.getCurrent().subscribe(u => {
-      this.currentUser = u;
-    } );
+    this.usersService.logout();
   }
 } 

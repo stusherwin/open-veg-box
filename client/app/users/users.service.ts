@@ -4,6 +4,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/of';
 
 @Injectable()
 export class UsersService {
@@ -13,26 +14,44 @@ export class UsersService {
     this.http = http;
   }
 
-  currentUser: User;
-
-  getCurrent(): Observable<User> {
-    return this.http.get('/api/auth/current-user')
-                    .map(this.hydrate);
+  getCurrentUser(): User {
+    return this.getUser();
   }
 
-  login(username: string, password: string): Observable<User> {
+  private getUser(): User {
+    if (!localStorage.length) {
+      return null;
+    }
+
+    var user = new User(localStorage.getItem('name'), localStorage.getItem('authToken'));
+    return user;
+  }
+
+  private saveUser(user: User) {
+    localStorage.setItem('name', user.name);
+    localStorage.setItem('authToken', user.authToken);
+  }
+
+  private clearUser() {
+    localStorage.clear();
+  }
+
+  login(username: string, password: string): void {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     let params = {username: username, password: password};
-    return this.http.post('api/auth/login', JSON.stringify(params), options)
-                    .map(this.hydrate);
+    var obs = this.http.post('api/auth/login', JSON.stringify(params), options)
+                       .map(this.hydrate);
+    obs.subscribe(u => this.saveUser(u));
   }
 
-  logout(): Observable<User> {
+  logout(): void {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post('api/auth/logout', JSON.stringify({}), options)
-                    .map(this.hydrate);
+    var user = this.getUser();
+    var obs = this.http.post('api/auth/logout/' + user.authToken, JSON.stringify({}), options)
+                       .map(r => true);
+    obs.subscribe(u => this.clearUser());
   }
 
   private hydrate(res: Response): User {
@@ -41,6 +60,6 @@ export class UsersService {
     }
 
     var user = res.json();
-    return user? new User(user.username, user.name) : null;
+    return user? new User(user.customerName, user.authToken) : null;
   }
 }

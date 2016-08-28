@@ -1,6 +1,6 @@
 <div class="home">
-  <div class="sections" *ngIf="currentUser">
-    <p>Hi {{currentUser.name}}, please choose a section to manage:</p>
+  <div class="sections" *ngIf="currentUser()">
+    <p>Hi {{currentUser().name}}, please choose a section to manage:</p>
     <ul>
       <li>
         <a [routerLink]="['Products']">
@@ -35,7 +35,7 @@
     </ul>
   </div>
 
-  <div *ngIf="!currentUser">
+  <div *ngIf="!currentUser()">
     <form>
       <p>Enter your acount details:</p>
       <div class="form-row"><label>Username:</label> <input #username type="text" /></div>
