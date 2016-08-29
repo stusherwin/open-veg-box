@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Product, UnitType } from './product'
 import { ProductService } from './product.service'
+import { UsersService } from '../users/users.service'
 import { ProductDisplayComponent } from './product-display.component'
 import { ProductEditComponent } from './product-edit.component'
 import { Observable } from 'rxjs/Observable';
@@ -11,7 +12,7 @@ import { RouteParams } from '@angular/router-deprecated';
   styleUrls: ['app/products/products.component.css'],
   templateUrl: 'app/products/products.component.html',
   directives: [ProductDisplayComponent, ProductEditComponent],
-  providers: [ProductService]
+  providers: [ProductService, UsersService]
 })
 export class ProductsComponent implements OnInit {
   private adding: Product;

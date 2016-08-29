@@ -23,13 +23,14 @@ export class UsersService {
       return null;
     }
 
-    var user = new User(localStorage.getItem('name'), localStorage.getItem('authToken'));
+    var user = new User(localStorage.getItem('username'), localStorage.getItem('password'), localStorage.getItem('customerName'));
     return user;
   }
 
-  private saveUser(user: User) {
-    localStorage.setItem('name', user.name);
-    localStorage.setItem('authToken', user.authToken);
+  private saveUser(username: string, password: string, customerName: string) {
+    localStorage.setItem('username', username);
+    localStorage.setItem('password', password);
+    localStorage.setItem('customerName', customerName);
   }
 
   private clearUser() {
@@ -40,26 +41,33 @@ export class UsersService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     let params = {username: username, password: password};
-    var obs = this.http.post('api/auth/login', JSON.stringify(params), options)
-                       .map(this.hydrate);
-    obs.subscribe(u => this.saveUser(u));
+    this.http.post('api/auth/login', JSON.stringify(params), options)
+             .map(res => res.json())
+             .subscribe(u => this.saveUser(username, password, u.customerName));
   }
 
   logout(): void {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    var user = this.getUser();
-    var obs = this.http.post('api/auth/logout/' + user.authToken, JSON.stringify({}), options)
-                       .map(r => true);
-    obs.subscribe(u => this.clearUser());
+    this.clearUser();
+    // let headers = new Headers({ 'Content-Type': 'application/json' });
+    // let options = new RequestOptions({ headers: headers });
+    // let params = {username: 'bad', password: 'credentials'};
+    // var obs = this.http.post('api/auth/login', JSON.stringify(params), options)
+    //                    .map(this.hydrate);
+    // obs.subscribe(u => this.saveUser(u));
+    // let headers = new Headers({ 'Content-Type': 'application/json' });
+    // let options = new RequestOptions({ headers: headers });
+    // var user = this.getUser();
+    // var obs = this.http.post('api/auth/logout', JSON.stringify({}), options)
+    //                    .map(r => true);
+    // obs.subscribe(u => this.clearUser());
   }
 
-  private hydrate(res: Response): User {
-    if (!res.text()) {
-      return null;
-    }
+  // private hydrate(res: Response): User {
+  //   if (!res.text()) {
+  //     return null;
+  //   }
 
-    var user = res.json();
-    return user? new User(user.customerName, user.authToken) : null;
-  }
+  //   var user = res.json();
+  //   return user? new User(user.customerName, user.authToken) : null;
+  // }
 }

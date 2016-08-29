@@ -1,40 +1,39 @@
 import {Customer} from './customer'
-import {Session} from './session'
+import {User} from './user'
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/fromPromise'
 import 'rxjs/add/observable/of';
+import * as path from 'path';
 
-function newGuid(): string {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-    var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
-    return v.toString(16);
-  });
+let customers: Customer[] = [
+  new Customer(1, 'Guest', 'guest', '', 'guest'),
+  new Customer(2, 'Umbel Organics', 'umbel', 'password', 'umbel')
+];
+
+var sqlite = require('sqlite3').verbose();
+var databases: { [username: string]: any; } = {};
+
+for(var c of customers) {
+  databases[c.username] = new sqlite.Database(path.resolve(__dirname, '../', c.db + '.sqlite'));
 }
 
 export class AuthenticationService {
-  private customers: Customer[] = [
-    new Customer(1, 'Guest', 'guest', '', 'guest'),
-    new Customer(2, 'Umbel Organics', 'umbel', 'password', 'umbel')
-  ];
-
-  private sessions: { [token: string]: Customer; } = {
+  getDb(username: string) {
+    return databases[username];    
   }
 
-  login(params: any): Observable<Session> {
-    let customer = this.customers.find(c => c.username === params.username && c.password === params.password);
+  login(username: string, password: string): Observable<User> {
+    let customer = customers.find(c => c.username === username && c.password === password);
     if (customer != null) {
-      let token = newGuid();
-      this.sessions[token] = customer; 
-      return Observable.of(new Session(token, customer.name));
+      return Observable.of(new User(customer.username, customer.name));
     }
     return Observable.throw('not found');
   }
 
-  logout(token: string): Observable<boolean> {
-    delete this.sessions[token];
-    return Observable.of(true);
-  }
+  // logout(token: string): Observable<boolean> {
+  //   return Observable.of(true);
+  // }
 }

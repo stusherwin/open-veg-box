@@ -1,17 +1,17 @@
 import {Product} from './product'
-import { Observable } from 'rxjs/Observable';
+import {Observable} from 'rxjs/Observable';
+import {AuthenticationService} from '../auth/authentication.service'
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/fromPromise'
-import * as path from 'path';
-var sqlite = require('sqlite3').verbose();
-var db = new sqlite.Database(path.resolve(__dirname, '../data.db'));
 
 const defaultPageSize: number = 10;
 
 export class ProductsService {
-  getAll(queryParams: any): Observable<Product[]> {
+  private authService: AuthenticationService = new AuthenticationService();
+
+  getAll(queryParams: any, db: any): Observable<Product[]> {
     return Observable.create((o: any) => {
       var pageSize = +(queryParams.pageSize || defaultPageSize);
       var startIndex = (+(queryParams.page || 1) - 1) * pageSize;
@@ -26,7 +26,7 @@ export class ProductsService {
     });
   }
 
-  add(params: any, queryParams: any): Observable<Product[]> {
+  add(params: any, queryParams: any, db: any): Observable<Product[]> {
     db.run('insert into product (name, price, unitType, unitQuantity) values ($name, $price, $unitType, $unitQuantity)', {
       $name: params.name,
       $price: params.price,
@@ -34,10 +34,10 @@ export class ProductsService {
       $unitQuantity: params.unitQuantity
     });
 
-    return this.getAll(queryParams);
+    return this.getAll(queryParams, db);
   }
 
-  update(id: number, params: any, queryParams: any): Observable<Product[]> {
+  update(id: number, params: any, queryParams: any, db: any): Observable<Product[]> {
     var updateSql = 'update product set '
       + ['name', 'price', 'unitType', 'unitQuantity'].map(p => p + ' = $' + p).join(', ')
       + ' where id = $id';
@@ -50,6 +50,6 @@ export class ProductsService {
       $unitQuantity: params.unitQuantity
     });
 
-    return this.getAll(queryParams);
+    return this.getAll(queryParams, db);
   }
 }

@@ -9,11 +9,16 @@ var authService = new AuthenticationService();
 export let auth = express.Router();
 
 auth.post('/login', function(req: any, res: any) {
-  authService.login(req.body)
-             .subscribe(session => res.json(session), e => res.status(401));
+  authService.login(req.body.username, req.body.password)
+             .subscribe(user => res.json(user), e => {
+                res.set('WWW-Authenticate', 'X-Basic realm="Restricted Area"');
+                res.sendStatus(401)
+             });
 });
 
-auth.post('/logout/:token', function(req: any, res: any) {
-  authService.logout(req.params.token)
-             .subscribe(result => res.json(result));
+auth.post('/logout', function(req: any, res: any) {
+  res.set('WWW-Authenticate', 'X-Basic realm="Restricted Area"');
+  res.sendStatus(401);
+  // authService.logout(req.params.token)
+  //            .subscribe(result => res.json(result));
 });
