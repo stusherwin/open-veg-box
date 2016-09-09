@@ -32,66 +32,25 @@ export class ProductService {
   }
 
   getAll(queryParams: {[key: string]: string}): Observable<Product[]> {
-    var user = this.usersService.getCurrentUser();
-    if (user == null) {
-      this.router.navigate(['Login']);
-      return Observable.empty();
-    }
-    let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'X-Basic ' + window.btoa(user.username + ':' + user.password) });
-    let options = new RequestOptions({ headers: headers });
-    var obs = this.http.get('/api/products?' + this.toQueryString(queryParams), options)
+    return this.http.get('/api/products?' + this.toQueryString(queryParams))
                        .map(res => res.json())
                        .map(ps => ps.map(this.hydrate));
-    obs.subscribe(s => {}, e => {
-      if(e.status == 401) {
-        localStorage.clear();
-        this.router.navigate(['Login']);
-      }
-    });
-    return obs;
   }
 
   add(params: any, queryParams: {[key: string]: string}): Observable<Product[]> {
-    var user = this.usersService.getCurrentUser();
-    if (user == null) {
-      this.router.navigate(['Login']);
-      return Observable.empty();
-    }
-    let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'X-Basic ' + window.btoa(user.username + ':' + user.password) });
-    let options = new RequestOptions({ headers: headers });
+    let options = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' }) });
 
-    var obs = this.http.put('api/products?' + this.toQueryString(queryParams), JSON.stringify(params), options)
+    return this.http.put('api/products?' + this.toQueryString(queryParams), JSON.stringify(params), options)
                     .map(res => res.json())
                     .map(ps => ps.map(this.hydrate));
-    obs.subscribe(s => {}, e => {
-      if(e.status == 401) {
-        localStorage.clear();
-        this.router.navigate(['Login']);
-      }
-    });
-    return obs;
   }
 
   update(id: number, params: any, queryParams: {[key: string]: string}): Observable<Product[]> {
-    var user = this.usersService.getCurrentUser();
-    if (user == null) {
-      this.router.navigate(['Login']);
-      return Observable.empty();
-    }
-    let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'X-Basic ' + window.btoa(user.username + ':' + user.password) });
-    let options = new RequestOptions({ headers: headers });
+    let options = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' }) });
 
-    var obs = this.http.post('api/products/' + id + '?' + this.toQueryString(queryParams), JSON.stringify(params), options)
+    return this.http.post('api/products/' + id + '?' + this.toQueryString(queryParams), JSON.stringify(params), options)
                     .map(res => res.json())
                     .map(ps => ps.map(this.hydrate));
-
-    obs.subscribe(s => {}, e => {
-      if(e.status == 401) {
-        localStorage.clear();
-        this.router.navigate(['Login']);
-      }
-    });
-    return obs;
   }
 
   private hydrate(p: any) {

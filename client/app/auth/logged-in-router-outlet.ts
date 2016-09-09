@@ -1,39 +1,32 @@
-import { 
-  ViewContainerRef, DynamicComponentLoader, AttributeMetadata, Directive, Attribute 
-} from '@angular/core';
+import { ViewContainerRef, DynamicComponentLoader, AttributeMetadata, Directive, Attribute } from '@angular/core';
 import { Router, RouterOutlet, ComponentInstruction } from '@angular/router-deprecated';
-
 import { UsersService } from '../users/users.service';
 
 @Directive({
   selector: 'router-outlet'
 })
 export class LoggedInRouterOutlet extends RouterOutlet {
-  publicRoutes: string[];
-  private parentRouter: Router;
-  private usersService: UsersService;
+  private publicRoutes: string[] = ['login']; 
 
   constructor(
-    _elementRef: ViewContainerRef, _loader: DynamicComponentLoader,
-    _parentRouter: Router, @Attribute('name') nameAttr: string,
-    private _usersService: UsersService
+    elementRef: ViewContainerRef,
+    loader: DynamicComponentLoader,
+    private router: Router,
+    @Attribute('name') nameAttr: string,
+    private usersService: UsersService
   ) {
-    super(_elementRef, _loader, _parentRouter, nameAttr);
-
-    this.parentRouter = _parentRouter;
-    this.publicRoutes = ['login'];
-    this.usersService = _usersService;
+    super(elementRef, loader, router, nameAttr);
   }
 
   activate(instruction: ComponentInstruction) {
-    if (this._canActivate(instruction.urlPath)) {
+    if (this.canActivate(instruction.urlPath)) {
       return super.activate(instruction);
     }
 
-    this.parentRouter.navigate(['Login']);
+    this.router.navigate(['Login']);
   }
 
-  _canActivate(url: string) {
-    return this.publicRoutes.indexOf(url) !== -1 || this.usersService.getCurrentUser();
+  private canActivate(url: string) {
+    return this.publicRoutes.indexOf(url) !== -1 || this.usersService.isLoggedIn();
   }
 }

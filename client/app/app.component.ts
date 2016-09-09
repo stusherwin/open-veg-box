@@ -21,11 +21,6 @@ import { UsersService } from './users/users.service'
 
 @RouteConfig([
   {
-    path: '',
-    name: 'Home',
-    component: HomeComponent
-  },
-  {
     path: 'login',
     name: 'Login',
     component: LoginComponent
@@ -54,6 +49,11 @@ import { UsersService } from './users/users.service'
     path: 'deliveries',
     name: 'Deliveries',
     component: DeliveriesComponent
+  },
+  {
+    path: '',
+    name: 'Home',
+    component: HomeComponent
   }
 ])
 

@@ -1,6 +1,7 @@
 import { User } from './user'
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Response, Headers, RequestOptions } from '@angular/http';
+import { NonAuthHttp } from '../auth/auth-http';
 import { Observable } from 'rxjs/Observable';
 
 import 'rxjs/add/operator/map';
@@ -8,14 +9,23 @@ import 'rxjs/add/observable/of';
 
 @Injectable()
 export class UsersService {
-  http: Http;
+  http: NonAuthHttp;
 
-  constructor(http: Http) {
+  constructor(http: NonAuthHttp) {
     this.http = http;
+  }
+
+  isLoggedIn(): boolean {
+    return this.getUser() != null;
   }
 
   getCurrentUser(): User {
     return this.getUser();
+  }
+
+  getAuthToken(): string {
+    var user = this.getUser();
+    return user == null? '' : window.btoa(user.username + ':' + user.password);
   }
 
   private getUser(): User {
@@ -53,26 +63,5 @@ export class UsersService {
     this.clearUser();
 
     return Observable.of(true);
-    // let headers = new Headers({ 'Content-Type': 'application/json' });
-    // let options = new RequestOptions({ headers: headers });
-    // let params = {username: 'bad', password: 'credentials'};
-    // var obs = this.http.post('api/auth/login', JSON.stringify(params), options)
-    //                    .map(this.hydrate);
-    // obs.subscribe(u => this.saveUser(u));
-    // let headers = new Headers({ 'Content-Type': 'application/json' });
-    // let options = new RequestOptions({ headers: headers });
-    // var user = this.getUser();
-    // var obs = this.http.post('api/auth/logout', JSON.stringify({}), options)
-    //                    .map(r => true);
-    // obs.subscribe(u => this.clearUser());
   }
-
-  // private hydrate(res: Response): User {
-  //   if (!res.text()) {
-  //     return null;
-  //   }
-
-  //   var user = res.json();
-  //   return user? new User(user.customerName, user.authToken) : null;
-  // }
 }
