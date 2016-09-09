@@ -2,16 +2,18 @@ import { Component } from '@angular/core';
 import { Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { UsersService } from '../users/users.service'
 import { User } from '../users/user'
-import { LogoutComponent } from '../auth/logout.component'
 
 @Component({
-  selector: 'cc-home',
-  templateUrl: 'app/home/home.component.html',
-  directives: [ROUTER_DIRECTIVES, LogoutComponent],
+  selector: 'cc-logout',
+  template: `
+    <button class="logout-button" type="button" (click)="logout()">
+      <div class="icon"><i class="icon-logout"></i></div>
+      <span>Log out</span>
+    </button>`,
   providers: [UsersService]
 })
 
-export class HomeComponent { 
+export class LogoutComponent { 
   usersService: UsersService;
   router: Router;
 
@@ -20,7 +22,7 @@ export class HomeComponent {
     this.router = router;
   }
 
-  currentUser() {
-    return this.usersService.getCurrentUser();
+  logout() {
+    this.usersService.logout().subscribe(_ => this.router.navigate(['Login']));
   }
 } 

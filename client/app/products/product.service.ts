@@ -34,7 +34,7 @@ export class ProductService {
   getAll(queryParams: {[key: string]: string}): Observable<Product[]> {
     var user = this.usersService.getCurrentUser();
     if (user == null) {
-      this.router.navigate(['Home']);
+      this.router.navigate(['Login']);
       return Observable.empty();
     }
     let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'X-Basic ' + window.btoa(user.username + ':' + user.password) });
@@ -45,7 +45,7 @@ export class ProductService {
     obs.subscribe(s => {}, e => {
       if(e.status == 401) {
         localStorage.clear();
-        this.router.navigate(['Home']);
+        this.router.navigate(['Login']);
       }
     });
     return obs;
@@ -54,7 +54,7 @@ export class ProductService {
   add(params: any, queryParams: {[key: string]: string}): Observable<Product[]> {
     var user = this.usersService.getCurrentUser();
     if (user == null) {
-      this.router.navigate(['Home']);
+      this.router.navigate(['Login']);
       return Observable.empty();
     }
     let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'X-Basic ' + window.btoa(user.username + ':' + user.password) });
@@ -66,7 +66,7 @@ export class ProductService {
     obs.subscribe(s => {}, e => {
       if(e.status == 401) {
         localStorage.clear();
-        this.router.navigate(['Home']);
+        this.router.navigate(['Login']);
       }
     });
     return obs;
@@ -75,7 +75,7 @@ export class ProductService {
   update(id: number, params: any, queryParams: {[key: string]: string}): Observable<Product[]> {
     var user = this.usersService.getCurrentUser();
     if (user == null) {
-      this.router.navigate(['Home']);
+      this.router.navigate(['Login']);
       return Observable.empty();
     }
     let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'X-Basic ' + window.btoa(user.username + ':' + user.password) });
@@ -88,7 +88,7 @@ export class ProductService {
     obs.subscribe(s => {}, e => {
       if(e.status == 401) {
         localStorage.clear();
-        this.router.navigate(['Home']);
+        this.router.navigate(['Login']);
       }
     });
     return obs;

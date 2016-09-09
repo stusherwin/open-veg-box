@@ -1,5 +1,5 @@
 <div class="home">
-  <div class="sections" *ngIf="currentUser()">
+  <div class="sections">
     <p>Hi {{currentUser().customerName}}, please choose a section to manage:</p>
     <ul>
       <li>
@@ -34,27 +34,6 @@
       </li>
     </ul>
   </div>
-
-  <div *ngIf="!currentUser()">
-    <form>
-      <p>Enter your acount details:</p>
-      <div class="form-row"><label>Username:</label> <input #username type="text" /></div>
-      <div class="form-row"><label>Password:</label> <input #password type="text" /></div>
-
-      <button type="button" (click)="login(username.value, password.value)">
-        <div class="icon"><i class="icon-login"></i></div>
-        <span>Log in</span>
-      </button>
-
-      <p>Don't have an account?</p>
-      <button type="button" class="look-around" (click)="login('guest', '')">
-        <div class="icon"><i class="icon-eye"></i></div>
-        <span>Look inside</span>
-      </button>
-    </form>
-  </div>
-  <button *ngIf="currentUser" type="button" (click)="logout()" style="position: absolute; top: 50px; right: 10px">
-    <div class="icon"><i class="icon-logout"></i></div>
-    <span>Log out</span>
-  </button>
+  
+  <cc-logout ></cc-logout>
 </div>

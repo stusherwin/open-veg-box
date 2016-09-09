@@ -6,13 +6,17 @@ import { CollectionPointsComponent } from './collection-points/collection-points
 import { BoxesComponent } from './boxes/boxes.component';
 import { DeliveriesComponent } from './deliveries/deliveries.component';
 import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './auth/login.component';
 import { RouteConfig, Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
+import { LoggedInRouterOutlet } from './auth/logged-in-router-outlet';
+import { UsersService } from './users/users.service'
 
 @Component({
   selector: 'cc-app',
   styleUrls: ['app/app.component.css'],
   templateUrl: 'app/app.component.html',
-  directives: [ROUTER_DIRECTIVES, HeaderComponent]
+  directives: [LoggedInRouterOutlet, HeaderComponent],
+  providers: [UsersService]
 })
 
 @RouteConfig([
@@ -20,6 +24,11 @@ import { RouteConfig, Router, ROUTER_DIRECTIVES } from '@angular/router-deprecat
     path: '',
     name: 'Home',
     component: HomeComponent
+  },
+  {
+    path: 'login',
+    name: 'Login',
+    component: LoginComponent
   },
   {
     path: 'products',

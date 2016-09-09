@@ -1,0 +1,20 @@
+<div class="home">
+  <div>
+    <form>
+      <p>Enter your acount details:</p>
+      <div class="form-row"><label>Username:</label> <input #username type="text" /></div>
+      <div class="form-row"><label>Password:</label> <input #password type="text" /></div>
+
+      <button type="button" (click)="login(username.value, password.value)">
+        <div class="icon"><i class="icon-login"></i></div>
+        <span>Log in</span>
+      </button>
+
+      <p>Don't have an account?</p>
+      <button type="button" class="look-around" (click)="login('guest', '')">
+        <div class="icon"><i class="icon-eye"></i></div>
+        <span>Look inside</span>
+      </button>
+    </form>
+  </div>
+</div>

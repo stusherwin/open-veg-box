@@ -1011,6 +1011,11 @@ select {
   font-size: 15px;
   line-height: 15px;
 }
+.home .logout-button {
+  position: absolute;
+  top: 50px;
+  right: 10px;
+}
 .icon i {
   padding-left: 3px;
   padding-top: 6px;

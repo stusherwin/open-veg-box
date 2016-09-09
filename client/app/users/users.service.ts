@@ -37,17 +37,22 @@ export class UsersService {
     localStorage.clear();
   }
 
-  login(username: string, password: string): void {
+  login(username: string, password: string): Observable<boolean> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     let params = {username: username, password: password};
-    this.http.post('api/auth/login', JSON.stringify(params), options)
-             .map(res => res.json())
-             .subscribe(u => this.saveUser(username, password, u.customerName));
+    let obs = this.http.post('api/auth/login', JSON.stringify(params), options);
+
+    obs.map(res => res.json())
+       .subscribe(u => this.saveUser(username, password, u.customerName));
+
+    return obs.map(_ => true);
   }
 
-  logout(): void {
+  logout(): Observable<boolean> {
     this.clearUser();
+
+    return Observable.of(true);
     // let headers = new Headers({ 'Content-Type': 'application/json' });
     // let options = new RequestOptions({ headers: headers });
     // let params = {username: 'bad', password: 'credentials'};

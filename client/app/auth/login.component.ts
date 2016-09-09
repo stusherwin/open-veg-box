@@ -2,16 +2,15 @@ import { Component } from '@angular/core';
 import { Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { UsersService } from '../users/users.service'
 import { User } from '../users/user'
-import { LogoutComponent } from '../auth/logout.component'
 
 @Component({
-  selector: 'cc-home',
-  templateUrl: 'app/home/home.component.html',
-  directives: [ROUTER_DIRECTIVES, LogoutComponent],
+  selector: 'cc-login',
+  templateUrl: 'app/auth/login.component.html',
+  directives: [ROUTER_DIRECTIVES],
   providers: [UsersService]
 })
 
-export class HomeComponent { 
+export class LoginComponent { 
   usersService: UsersService;
   router: Router;
 
@@ -22,5 +21,9 @@ export class HomeComponent {
 
   currentUser() {
     return this.usersService.getCurrentUser();
+  }
+
+  login(username: string, password: string) {
+    this.usersService.login(username, password).subscribe(_ => this.router.navigate(['Home']));
   }
 } 

@@ -13,6 +13,6 @@ export class HeaderComponent {
   constructor(private router: Router) { }
 
   isHome() {
-    return this.router.isRouteActive(this.router.generate(['Home']));
+    return this.router.isRouteActive(this.router.generate(['Home'])) || this.router.isRouteActive(this.router.generate(['Login']));
   }
 }
