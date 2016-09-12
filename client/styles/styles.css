@@ -194,7 +194,7 @@ a:focus {
     margin-top: -200px;
   }
 }
-@media only screen and (min-width : 730px) {
+@media only screen and (min-width : 780px) {
   .filler {
     margin-top: -140px;
   }
@@ -235,7 +235,7 @@ a:focus {
   color: #ffa850;
   font-weight: 400;
 }
-@media only screen and (min-width : 730px) {
+@media only screen and (min-width : 780px) {
   .header h1 {
     display: inline-block;
     margin-top: 15px;
@@ -249,14 +249,16 @@ a:focus {
   height: 92px;
   display: block;
 }
-@media only screen and (min-width : 730px) {
+@media only screen and (min-width : 780px) {
   .header nav {
     margin-top: -109px;
+    padding-right: 72px;
   }
 }
 @media only screen and (min-width : 1020px) {
   .header nav {
     padding-left: 0px;
+    padding-right: 0px;
   }
 }
 .header nav ul {
@@ -267,7 +269,7 @@ a:focus {
   margin-left: auto;
   margin-right: auto;
 }
-@media only screen and (min-width : 730px) {
+@media only screen and (min-width : 780px) {
   .header nav ul {
     margin-top: 0;
     margin-right: 10px;
@@ -657,7 +659,7 @@ select {
   margin-top: 50px;
   margin-bottom: 0;
 }
-@media only screen and (min-width : 730px) {
+@media only screen and (min-width : 780px) {
   .header.home-header h1 {
     margin-left: auto;
     margin-right: auto;
@@ -1022,6 +1024,150 @@ select {
   top: 140px;
   font-size: 15px;
   line-height: 15px;
+}
+.header .logout-button {
+  display: none;
+}
+@media only screen and (min-width : 780px) {
+  .header .logout-button {
+    border: none;
+    border-radius: 2px;
+    padding: 0;
+    display: block;
+    position: relative;
+    width: 66px;
+    background: none;
+    color: #c4dfb4;
+    font-size: 80%;
+    text-decoration: none;
+    height: 90px;
+    width: 80px;
+    position: absolute;
+    top: 0px;
+    right: 2px;
+  }
+  .header .logout-button .icon {
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 46px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    height: 46px;
+    width: 46px;
+    padding: 2px 0 0 2px;
+  }
+  .header .logout-button .icon i {
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 40px;
+    height: 40px;
+    width: 40px;
+    font-size: 200%;
+    display: block;
+  }
+  .header .logout-button span {
+    position: absolute;
+    top: 61px;
+    width: 100%;
+    font-size: 75%;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 10px;
+    display: block;
+    width: 46 px;
+  }
+  .header .logout-button:focus {
+    outline: 0;
+  }
+  .header .logout-button,
+  .header .logout-button:active {
+    cursor: pointer;
+  }
+  .header .logout-button[disabled],
+  .header .logout-button[disabled]:hover {
+    cursor: default;
+  }
+  .header .logout-button .icon {
+    background: #c4dfb4;
+    border-color: #c4dfb4;
+  }
+  .header .logout-button .icon i {
+    border-color: #72a852;
+    background: none;
+  }
+  .header .logout-button span {
+    color: #c4dfb4;
+  }
+  .header .logout-button .icon i {
+    background: #6ca848;
+    box-shadow: inset rgba(255, 255, 255, 0.2) 0px 2px 10px, inset rgba(0, 0, 0, 0.1) 0px -2px 10px;
+  }
+  .header .logout-button[disabled] .icon i,
+  .header .logout-button[disabled]:hover .icon i {
+    box-shadow: none;
+  }
+  .header .logout-button .icon i {
+    box-shadow: inset rgba(255, 255, 255, 0.2) 0px 10px 50px, inset rgba(0, 0, 0, 0.1) 0px -10px 50px;
+  }
+  .header .logout-button:hover {
+    background: #548f30;
+    color: #e2e9dd;
+  }
+  .header .logout-button:hover .icon {
+    background: #e2e9dd;
+    border-color: #e2e9dd;
+  }
+  .header .logout-button:hover .icon i {
+    border-color: #72a852;
+    background: #8dbb72;
+  }
+  .header .logout-button:hover span {
+    color: #e2e9dd;
+  }
+  .header .logout-button:hover .icon i {
+    background: #7fb261;
+    box-shadow: inset rgba(255, 255, 255, 0.2) 0px 2px 10px, inset rgba(0, 0, 0, 0.1) 0px -2px 10px;
+  }
+  .header .logout-button:hover[disabled] .icon i,
+  .header .logout-button:hover[disabled]:hover .icon i {
+    box-shadow: none;
+  }
+  .header .logout-button:hover .icon i {
+    box-shadow: inset rgba(255, 255, 255, 0.2) 0px 10px 50px, inset rgba(0, 0, 0, 0.1) 0px -10px 50px;
+  }
+  .header .logout-button.selected {
+    background: #508a2e;
+    color: #fff;
+  }
+  .header .logout-button.selected .icon {
+    background: #fff;
+    border-color: #fff;
+  }
+  .header .logout-button.selected .icon i {
+    border-color: #72a852;
+    background: #8dbb72;
+  }
+  .header .logout-button.selected span {
+    color: #fff;
+  }
+  .header .logout-button.selected .icon i {
+    background: #7fb261;
+    box-shadow: inset rgba(255, 255, 255, 0.2) 0px 2px 10px, inset rgba(0, 0, 0, 0.1) 0px -2px 10px;
+  }
+  .header .logout-button.selected[disabled] .icon i,
+  .header .logout-button.selected[disabled]:hover .icon i {
+    box-shadow: none;
+  }
+  .header .logout-button .icon {
+    left: 17px;
+  }
+  .header .logout-button .icon i {
+    font-size: 170%;
+  }
+  .header .logout-button i {
+    padding-top: 8px;
+  }
 }
 .home .logout-button {
   position: absolute;

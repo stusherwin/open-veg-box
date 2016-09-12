@@ -114,7 +114,7 @@ a {
 }
 
 @header-min-size: ~"only screen and (min-width : 400px)";
-@header-side-by-side: ~"only screen and (min-width : 730px)";
+@header-side-by-side: ~"only screen and (min-width : 780px)";
 @header-full-width: ~"only screen and (min-width : 1020px)";
 
 .filler {
@@ -183,10 +183,12 @@ a {
   
     @media @header-side-by-side {
       margin-top:-109px;
+      padding-right:72px;
     }
 
     @media @header-full-width {
       padding-left: 0px;
+      padding-right: 0px;
     }
 	
     ul {
@@ -481,6 +483,20 @@ select {
       a {
         .button(solid; large; @header);
       }
+    }
+  }
+}
+
+.header .logout-button {
+  display: none;
+
+  @media @header-side-by-side {
+    .button(solid; small; @header);
+    position: absolute;
+    top: 0px;
+    right: 2px;
+    i {
+      padding-top:8px;
     }
   }
 }
