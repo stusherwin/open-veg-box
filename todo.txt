@@ -1,0 +1,12 @@
+* Show log in error message
+* Create SQL db creation script
+* Buttons: circular shadow on hover instead of rectangle?
+* Rows: only show edit button on hover?
+* Log out button slightly different on home page
+* Redirect to original page on log in
+* Header takes up too much space on small browser width
+* Add padding between text and bottom border on screens with little content (e.g. /boxes)
+* Center alignment off on home page header
+* Header/home/nav structure is messy
+* Hosting
+* Customer area
