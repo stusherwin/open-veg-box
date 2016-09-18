@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Product } from './product';
+import { Product, UnitType, unitTypes } from './product';
 import { WeightPipe, MoneyPipe } from '../shared/pipes';
 
 @Component({
@@ -8,6 +8,14 @@ import { WeightPipe, MoneyPipe } from '../shared/pipes';
   pipes: [WeightPipe, MoneyPipe]
 })
 export class ProductDisplayComponent {
+  unitTypes: {[key: string]: string } = {};
+
+  constructor() {
+    for( var ut of unitTypes) {
+      this.unitTypes[ut.value] = ut.name;
+    }
+  }
+
   @Input()
   product: Product;
 
