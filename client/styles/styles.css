@@ -189,7 +189,7 @@ a:focus {
   height: 100%;
   margin-top: -185px;
 }
-@media only screen and (min-width : 400px) {
+@media only screen and (min-width : @headerMinSize) {
   .filler {
     margin-top: -200px;
   }
@@ -541,6 +541,128 @@ button[disabled] span,
 button[disabled]:hover span {
   color: #ccc;
 }
+a.button {
+  font-size: 80%;
+  border: none;
+  border-radius: 2px;
+  padding: 0;
+  display: block;
+  position: relative;
+  width: 66px;
+  text-decoration: none;
+  background: none;
+  color: #888;
+}
+a.button .icon {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 46px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  height: 46px;
+  width: 46px;
+  padding: 2px 0 0 2px;
+}
+a.button .icon i {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 40px;
+  height: 40px;
+  width: 40px;
+  font-size: 200%;
+  display: block;
+}
+a.button span {
+  position: absolute;
+  top: 61px;
+  width: 100%;
+  font-size: 75%;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 10px;
+  display: block;
+  width: 46 px;
+}
+a.button:focus {
+  outline: 0;
+}
+a.button,
+a.button:active {
+  cursor: pointer;
+}
+a.button[disabled],
+a.button[disabled]:hover {
+  cursor: default;
+}
+a.button .icon {
+  background: none;
+  border-color: #888;
+}
+a.button .icon i {
+  border-color: #ccc;
+  background: none;
+}
+a.button span {
+  color: #888;
+}
+a.button:hover,
+a.button:focus {
+  background: #fda;
+  color: #777;
+}
+a.button:hover .icon,
+a.button:focus .icon {
+  background: white;
+  border-color: #777;
+}
+a.button:hover .icon i,
+a.button:focus .icon i {
+  border-color: #e4c392;
+  background: #fda;
+}
+a.button:hover span,
+a.button:focus span {
+  color: #777;
+}
+a.button:hover .icon i,
+a.button:focus .icon i {
+  background: #fda;
+  box-shadow: inset rgba(255, 255, 255, 0.7) 0px 2px 10px, inset rgba(0, 0, 0, 0.1) 0px -2px 10px;
+}
+a.button:hover[disabled] .icon i,
+a.button:focus[disabled] .icon i,
+a.button:hover[disabled]:hover .icon i,
+a.button:focus[disabled]:hover .icon i {
+  box-shadow: none;
+}
+a.button:active .icon i {
+  background: #ffd390;
+  box-shadow: inset rgba(255, 255, 255, 0.7) 0px -2px 10px, inset rgba(0, 0, 0, 0.1) 0px 2px 10px;
+}
+a.button:active[disabled] .icon i,
+a.button:active[disabled]:hover .icon i {
+  box-shadow: none;
+}
+a.button[disabled],
+a.button[disabled]:hover {
+  background: none;
+  color: #ccc;
+}
+a.button[disabled] .icon,
+a.button[disabled]:hover .icon {
+  background: none;
+  border-color: #ccc;
+}
+a.button[disabled] .icon i,
+a.button[disabled]:hover .icon i {
+  border-color: #ccc;
+  background: none;
+}
+a.button[disabled] span,
+a.button[disabled]:hover span {
+  color: #ccc;
+}
 h2 {
   margin: 20px 0 30px 0;
 }
@@ -553,14 +675,19 @@ h2 {
   color: black;
   font-size: 110%;
 }
-button.top-level {
+.items {
+  position: relative;
+}
+.items button.top-level {
+  position: absolute;
+  top: -83px;
   height: 83px;
-  float: right;
+  right: 0;
 }
 .items .item {
   min-height: 83px;
   border-top: 1px dashed #ccc;
-  padding: 10px 140px 10px 10px;
+  padding: 10px 0px 10px 10px;
   position: relative;
 }
 .items .item:last-child {
@@ -579,7 +706,8 @@ button.top-level {
   top: 0;
   right: 0;
 }
-.items .item .actions button {
+.items .item .actions button,
+.items .item .actions a.button {
   height: 100%;
   float: left;
 }
@@ -601,9 +729,6 @@ select {
 select {
   padding: 1px 0px;
 }
-.field-row {
-  max-width: 400px;
-}
 .field-row .field {
   margin-top: 10px;
   float: left;
@@ -612,7 +737,10 @@ select {
   width: 100%;
 }
 .field-row .field.w1_2 {
-  width: 195px;
+  width: 50%;
+}
+.field-row .field.w1_3 {
+  width: 30%;
 }
 .field-row .field .input {
   display: inline-block;
@@ -1174,6 +1302,83 @@ select {
   top: 50px;
   right: 10px;
 }
+.items {
+  min-width: 380px;
+}
+.customer-details {
+  margin-top: 15px;
+  padding-right: 142px;
+}
+.customer-details .detail {
+  margin-top: 10px;
+  padding-left: 22px;
+  position: relative;
+}
+.customer-details .detail i {
+  color: #bbb;
+  position: absolute;
+  left: 0;
+}
+.customer-details .detail i::before {
+  margin: 0;
+  padding: 0;
+}
+.customer-details .detail:first-child {
+  margin-top: 0;
+}
+.customer-details .customer-actions {
+  position: absolute;
+  height: 100%;
+  right: 0;
+  top: 0;
+}
+.customer-details .customer-actions > div {
+  width: 66px;
+  display: inline-block;
+}
+.customer-details .customer-actions > div .button,
+.customer-details .customer-actions > div button {
+  position: absolute;
+  height: 100%;
+  top: 0px;
+}
+@media only screen and (min-width : 669px) {
+  .customer-details {
+    padding-right: 0;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 0;
+    justify-content: space-between;
+  }
+  .customer-details .detail {
+    margin: 0 20px;
+  }
+  .customer-details .detail div {
+    display: inline-block;
+  }
+  .customer-details .detail:first-child {
+    margin-left: 0;
+  }
+  .customer-details .address {
+    width: 400px;
+    flex-shrink: 2;
+    min-width: 120px;
+  }
+  .customer-details .email {
+    width: 200px;
+    min-width: 150px;
+    flex-shrink: 1;
+  }
+  .customer-details .tel {
+    width: 120px;
+    flex-shrink: 0;
+  }
+  .customer-details .customer-actions {
+    position: static;
+    height: auto;
+    flex-shrink: 0;
+  }
+}
 .icon i {
   padding-left: 3px;
   padding-top: 6px;
@@ -1215,6 +1420,13 @@ select {
 }
 .icon i.icon-swing {
   padding-left: 0;
+}
+.icon i.icon-mail-dark {
+  padding-left: 4px;
+  padding-top: 8px;
+}
+.icon i.icon-mail-dark:before {
+  font-size: 85%;
 }
 .home button i.icon-login {
   padding-left: 0px;

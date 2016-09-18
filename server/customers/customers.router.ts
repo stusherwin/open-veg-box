@@ -1,6 +1,7 @@
 import {Customer} from './customer'
 import {CustomersService} from './customers.service'
 import {wl} from '../shared/helpers'
+import {authorize} from '../auth/auth.middleware'
 
 var express = require('express');
 
@@ -10,23 +11,19 @@ var customersService = new CustomersService();
 
 export let customers = express.Router();
 
-customers.get('/', function(req: any, res: any) {
-  var customers = customersService.getAll(wl(['page', 'pageSize'], req.query));
+customers.use(authorize);
 
-  res.json(customers);
+customers.get('/', function(req: any, res: any) {
+  customersService.getAll(wl(['page', 'pageSize'], req.query), req.db)
+                  .subscribe(customers => res.json(customers));
 });
 
 customers.post('/:id', function(req: any, res: any) {
-  var customers = customersService.update(req.params.id, req.body, wl(['page', 'pageSize'], req.query));
-
-  if (customers) {
-    res.json(customers);
-  } else {
-    res.sendStatus(404);
-  }
+  customersService.update(req.params.id, req.body, wl(['page', 'pageSize'], req.query), req.db)
+                  .subscribe(customers => res.json(customers));
 });
 
 customers.put('/', function(req: any, res: any) {
-  var customers = customersService.add(req.body, wl(['page', 'pageSize'], req.query));
-  res.json(customers);
+  customersService.add(req.body, wl(['page', 'pageSize'], req.query), req.db)
+                  .subscribe(customers => res.json(customers));
 });

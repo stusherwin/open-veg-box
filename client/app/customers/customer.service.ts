@@ -49,6 +49,6 @@ export class CustomerService {
   }
 
   private hydrate(p: any) {
-    return new Customer( p.id, p.name);
+    return new Customer(p.id, p.name, p.address, p.tel1, p.tel2, p.email);
   }
 }

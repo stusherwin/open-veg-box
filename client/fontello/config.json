@@ -167,6 +167,30 @@
       "search": [
         "swing"
       ]
+    },
+    {
+      "uid": "9f7e588c66cfd6891f6f507cf6f6596b",
+      "css": "phone",
+      "code": 59416,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "ae3so8q0b0n2h8esv9flua2nmwswa8fd",
+      "css": "mail-1",
+      "code": 59417,
+      "src": "modernpics"
+    },
+    {
+      "uid": "bf882b30900da12fca090d9796bc3030",
+      "css": "mail",
+      "code": 59415,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "ccc2329632396dc096bb638d4b46fb98",
+      "css": "mail-dark",
+      "code": 61664,
+      "src": "fontawesome"
     }
   ]
 }

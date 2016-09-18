@@ -1,10 +1,10 @@
-import { bootstrap } from '@angular/platform-browser-dynamic';
-import { AppComponent } from './app.component';
-import { ROUTER_PROVIDERS, Router } from '@angular/router-deprecated';
+import {bootstrap} from '@angular/platform-browser-dynamic';
+import {AppComponent} from './app.component';
+import {ROUTER_PROVIDERS, Router} from '@angular/router-deprecated';
 import {HTTP_PROVIDERS, Http, Request, RequestOptionsArgs, Response, XHRBackend, RequestOptions, ConnectionBackend, Headers} from '@angular/http';
 import {provide} from '@angular/core';
 import {AuthHttp, NonAuthHttp} from './auth/auth-http';
-import { UsersService } from './users/users.service';
+import {UsersService} from './users/users.service';
 
 bootstrap(AppComponent, [
   ROUTER_PROVIDERS,

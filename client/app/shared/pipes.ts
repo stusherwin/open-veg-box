@@ -13,3 +13,17 @@ export class WeightPipe implements PipeTransform {
     return value < 1 ? (value * 1000).toFixed(0) + 'g' : value + ' Kg';
   }
 }
+
+@Pipe({name: 'singleline'})
+export class SingleLinePipe implements PipeTransform {
+  transform(value: string, separator: string): string {
+    return value.split('\n').map(l => '<span style="white-space: nowrap">' + l + '</span>').join( separator );
+  }
+}
+
+@Pipe({name: 'preservelines'})
+export class PreserveLinesPipe implements PipeTransform {
+  transform(value: string): string {
+    return value.replace(/\n/g, '<br />');
+  }
+}

@@ -112,8 +112,8 @@ a {
   padding: 10px 10px 10px 10px;  
   background: #fff;
 }
-
-@header-min-size: ~"only screen and (min-width : 400px)";
+@headerMinSize: 400px;
+@header-min-size: ~"only screen and (min-width : @headerMinSize)";
 @header-side-by-side: ~"only screen and (min-width : 780px)";
 @header-full-width: ~"only screen and (min-width : 1020px)";
 
@@ -227,6 +227,12 @@ button {
   .button(outline; small; @highlight);
 }
 
+a.button {
+  display:block;
+  font-size:80%;
+  .button(outline; small; @highlight);
+}
+
 h2 {
   margin: 20px 0 30px 0;
 }
@@ -242,16 +248,20 @@ h2 {
   }
 }
 
-button.top-level {
-  height: 83px;
-  float:right;
-}
-
 .items {
+  position: relative;
+
+  button.top-level {
+    position: absolute;
+    top:-83px;
+    height: 83px;
+    right:0;
+  }
+
   .item {
     min-height: 83px;
     border-top: 1px dashed @itemBorderColor; 
-    padding: 10px 140px 10px 10px;
+    padding: 10px 0px 10px 10px; // 10px 140px 10px 10px;
     position: relative;
 
     &:last-child {
@@ -272,7 +282,7 @@ button.top-level {
       top:0;
       right:0;
 
-      button {
+      button, a.button {
         height:100%;
         float:left;
       }
@@ -303,7 +313,7 @@ select {
 }
 
 .field-row {
-  max-width:400px;  
+  //max-width:400px;  
 
   .field {
     margin-top:10px;
@@ -314,7 +324,11 @@ select {
     }
 
     &.w1_2 {
-      width: 195px;
+      width: 50%;
+    }
+
+    &.w1_3 {
+      width: 30%;
     }
 
     .input {
@@ -505,6 +519,97 @@ select {
    position: absolute;
    top: 50px;
    right: 10px;
+}
+
+.items {
+  min-width: @headerMinSize - 20px;
+}
+
+.customer-details {
+  margin-top:15px;
+  padding-right:142px;
+  
+  .detail {
+    margin-top:10px;
+    padding-left:22px;
+    position: relative;
+
+    i { 
+      color:#bbb;
+      position: absolute;
+      left:0;
+    }
+    i::before {
+      margin:0;
+      padding:0;
+    }
+    &:first-child {
+      margin-top:0;
+    }
+  }
+
+  .customer-actions {
+    position: absolute;
+    height:100%;
+    right: 0;
+    top: 0;
+
+    & > div {
+      width:66px;
+      display:inline-block;
+
+      .button, button {
+        position:absolute;
+        height:100%;
+        top:0px;
+      }
+    }
+  }
+}
+
+@customers-min-size: ~"only screen and (min-width : 669px)";
+@media @customers-min-size {
+  .customer-details {
+    padding-right:0;
+    display:flex; 
+    flex-direction:row; 
+    flex-grow:0; 
+    justify-content: space-between;
+
+    .detail {
+      margin: 0 20px;
+
+      div {
+        display: inline-block;
+      }
+      &:first-child {
+        margin-left:0;
+      }
+    }
+
+    .address {
+      width:400px;
+      flex-shrink:2;
+      min-width:120px;
+    }
+
+    .email {
+      width: 200px;
+      min-width:150px;
+      flex-shrink:1;
+    }
+
+    .tel {
+      width: 120px;
+      flex-shrink:0;
+    }
+
+    .customer-actions {
+      position: static;
+      height: auto;
+      flex-shrink:0;
+    }
+  }
 }
 
 @import "icons";

@@ -40,6 +40,13 @@
 .icon i.icon-swing {
   padding-left: 0;
 }
+.icon i.icon-mail-dark {
+  padding-left: 4px;
+  padding-top: 8px;
+}
+.icon i.icon-mail-dark:before {
+  font-size: 85%;
+}
 .home button i.icon-login {
   padding-left: 0px;
   padding-top: 7px;

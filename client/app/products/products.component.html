@@ -1,12 +1,12 @@
 <div class="container">
   <div class="container2">
-    <button class="top-level" (click)="startAdd()" [disabled]="adding || editing">
-      <div class="icon"><i class="icon-add"></i></div>
-      <span>Add</span>
-    </button>
     <h2>Products</h2>
 
     <div class="items" [class.editing]="editing || adding">
+      <button class="top-level" (click)="startAdd()" [disabled]="adding || editing">
+        <div class="icon"><i class="icon-add"></i></div>
+        <span>Add</span>
+      </button>
       <div class="item editing" *ngIf="adding">
         <cc-product-edit [product]="adding" (onSave)="completeAdd()" (onCancel)="cancel()"></cc-product-edit>
       </div>

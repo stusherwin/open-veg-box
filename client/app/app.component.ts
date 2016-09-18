@@ -9,14 +9,12 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './auth/login.component';
 import { RouteConfig, Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { LoggedInRouterOutlet } from './auth/logged-in-router-outlet';
-import { UsersService } from './users/users.service'
 
 @Component({
   selector: 'cc-app',
   styleUrls: ['app/app.component.css'],
   templateUrl: 'app/app.component.html',
-  directives: [LoggedInRouterOutlet, HeaderComponent],
-  providers: [UsersService]
+  directives: [LoggedInRouterOutlet, HeaderComponent]
 })
 
 @RouteConfig([

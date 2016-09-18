@@ -10,3 +10,6 @@
 * Header/home/nav structure is messy
 * Hosting
 * Customer area
+* Turn off paging by default
+* Implement JWT
+* Browser testing

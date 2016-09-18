@@ -22,3 +22,7 @@
 .icon-logout:before { content: '\e814'; } /* '' */
 .icon-eye:before { content: '\e815'; } /* '' */
 .icon-swing:before { content: '\e816'; } /* '' */
+.icon-mail:before { content: '\e817'; } /* '' */
+.icon-phone:before { content: '\e818'; } /* '' */
+.icon-mail-1:before { content: '\e819'; } /* '' */
+.icon-mail-dark:before { content: '\f0e0'; } /* '' */

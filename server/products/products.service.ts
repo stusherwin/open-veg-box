@@ -1,16 +1,9 @@
 import {Product} from './product'
 import {Observable} from 'rxjs/Observable';
-import {AuthenticationService} from '../auth/authentication.service'
-import 'rxjs/add/observable/throw';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/observable/fromPromise'
 
-const defaultPageSize: number = 10;
+const defaultPageSize: number = 1000;
 
 export class ProductsService {
-  private authService: AuthenticationService = new AuthenticationService();
-
   getAll(queryParams: any, db: any): Observable<Product[]> {
     return Observable.create((o: any) => {
       var pageSize = +(queryParams.pageSize || defaultPageSize);
