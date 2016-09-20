@@ -1,9 +1,11 @@
 import { Component, Input, Output, EventEmitter, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { Customer } from './customer';
+import { SingleLinePipe } from '../shared/pipes';
 
 @Component({
   selector: 'cc-customer-edit',
   templateUrl: 'app/customers/customer-edit.component.html',
+  pipes: [SingleLinePipe]
 })
 export class CustomerEditComponent implements AfterViewInit {
   @Input()

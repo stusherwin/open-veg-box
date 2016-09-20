@@ -718,7 +718,8 @@ h2 {
   background: #fff1dd;
 }
 input[type="text"],
-select {
+select,
+textarea {
   color: #999;
   padding: 2px 4px;
   border: 1px solid #bbb;
@@ -1326,6 +1327,13 @@ select {
 .customer-details .detail:first-child {
   margin-top: 0;
 }
+.customer-details .detail textarea,
+.customer-details .detail input[type="text"] {
+  width: 378px;
+}
+.customer-details .detail textarea {
+  height: 80px;
+}
 .customer-details .customer-actions {
   position: absolute;
   height: 100%;
@@ -1359,18 +1367,24 @@ select {
   .customer-details .detail:first-child {
     margin-left: 0;
   }
+  .customer-details .detail textarea,
+  .customer-details .detail input[type="text"] {
+    width: 100%;
+    position: relative;
+    bottom: 3px;
+  }
   .customer-details .address {
     width: 400px;
     flex-shrink: 2;
     min-width: 120px;
   }
   .customer-details .email {
-    width: 200px;
+    width: 250px;
     min-width: 150px;
     flex-shrink: 1;
   }
   .customer-details .tel {
-    width: 120px;
+    width: 140px;
     flex-shrink: 0;
   }
   .customer-details .customer-actions {

@@ -29,13 +29,12 @@ export class CustomersComponent implements OnInit {
 
   ngOnInit() {
     this.customerService.getAll(this.queryParams).subscribe(c => {
-      console.log(c);
       this.customers = c;
     } );
   }
 
   startAdd() {
-    this.adding = new Customer(0, 'New customer');
+    this.adding = new Customer(0, 'New customer', '', '', '', '');
   }
 
   startEdit(customer: Customer) {

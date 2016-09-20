@@ -1,48 +1,25 @@
 import {Product} from './product'
 import {Observable} from 'rxjs/Observable';
-
-const defaultPageSize: number = 1000;
+import {SqlHelper} from '../shared/helpers';
 
 export class ProductsService {
+  sqlHelper = new SqlHelper<Product>('product',
+    ['name', 'price', 'unitType', 'unitQuantity'],
+    r => new Product(r.id, r.name, r.price, r.unitType, r.unitQuantity));
+
   getAll(queryParams: any, db: any): Observable<Product[]> {
-    return Observable.create((o: any) => {
-      var pageSize = +(queryParams.pageSize || defaultPageSize);
-      var startIndex = (+(queryParams.page || 1) - 1) * pageSize;
-      db.all('select * from product order by id desc limit $count offset $skip', {
-        $count: pageSize,
-        $skip: startIndex
-      }, (err: any, rows: any) => {
-        var products: Product[] = rows.map((row:any) => new Product(row.id, row.name, row.price, row.unitType, row.unitQuantity));
-        o.next(products);
-        o.complete();
-      });
-    });
+    return this.sqlHelper.selectAll(db, queryParams);
   }
 
   add(params: any, queryParams: any, db: any): Observable<Product[]> {
-    db.run('insert into product (name, price, unitType, unitQuantity) values ($name, $price, $unitType, $unitQuantity)', {
-      $name: params.name,
-      $price: params.price,
-      $unitType: params.unitType,
-      $unitQuantity: params.unitQuantity
-    });
+    this.sqlHelper.insert(db, params);
 
-    return this.getAll(queryParams, db);
+    return this.sqlHelper.selectAll(db, queryParams);
   }
 
   update(id: number, params: any, queryParams: any, db: any): Observable<Product[]> {
-    var updateSql = 'update product set '
-      + ['name', 'price', 'unitType', 'unitQuantity'].map(p => p + ' = $' + p).join(', ')
-      + ' where id = $id';
-    
-    db.run(updateSql, {
-      $id: id,
-      $name: params.name,
-      $price: params.price,
-      $unitType: params.unitType,
-      $unitQuantity: params.unitQuantity
-    });
+    this.sqlHelper.update(db, id, params);
 
-    return this.getAll(queryParams, db);
+    return this.sqlHelper.selectAll(db, queryParams);
   }
 }

@@ -1,36 +1,25 @@
 import {Customer} from './customer'
 import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-
-const defaultPageSize: number = 1000;
+import {SqlHelper} from '../shared/helpers';
 
 export class CustomersService {
-  private updateProperty(dest: any, source: any, propertyName: string) {
-    if(Object.getOwnPropertyNames(source).indexOf(propertyName) >= 0) {
-      dest[propertyName] = source[propertyName];
-    }
-  }
+  sqlHelper = new SqlHelper<Customer>('customer',
+    ['name', 'address', 'tel1', 'tel2', 'email'],
+    r => new Customer(r.id, r.name, r.address, r.tel1, r.tel2, r.email));
 
   getAll(queryParams: any, db: any): Observable<Customer[]> {
-    return Observable.create((o: any) => {
-      var pageSize = +(queryParams.pageSize || defaultPageSize);
-      var startIndex = (+(queryParams.page || 1) - 1) * pageSize;
-      db.all('select * from customer order by id desc limit $count offset $skip', {
-        $count: pageSize,
-        $skip: startIndex
-      }, (err: any, rows: any) => {
-        var customers: Customer[] = rows.map((row:any) => new Customer(row.id, row.name, row.address, row.tel1, row.tel2, row.email));
-        o.next(customers);
-        o.complete();
-      });
-    });
+    return this.sqlHelper.selectAll(db, queryParams);
   }
 
   add(params: any, queryParams: any, db: any): Observable<Customer[]> {
-    return this.getAll(queryParams, db);
+    this.sqlHelper.insert(db, params);
+
+    return this.sqlHelper.selectAll(db, queryParams);
   }
 
   update(id: number, params: any, queryParams: any, db: any): Observable<Customer[]> {
-    return this.getAll(queryParams, db);
+    this.sqlHelper.update(db, id, params);
+
+    return this.sqlHelper.selectAll(db, queryParams);
   }
 }

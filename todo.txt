@@ -1,5 +1,4 @@
 * Show log in error message
-* Create SQL db creation script
 * Buttons: circular shadow on hover instead of rectangle?
 * Rows: only show edit button on hover?
 * Log out button slightly different on home page
@@ -9,7 +8,8 @@
 * Center alignment off on home page header
 * Header/home/nav structure is messy
 * Hosting
-* Customer area
-* Turn off paging by default
 * Implement JWT
 * Browser testing
+* Inline logo svg
+* Split out schema sql from data
+* Un-hardcode usernames/passwords
