@@ -1,15 +1,15 @@
-export class Customer {
-  constructor(id: number, name:string, username:string, password: string, db: string) {
+export class Organisation {
+  constructor(id: number, name:string, username:string, password: string, dbName: string) {
     this.id = id;
     this.name = name;
     this.username = username;
     this.password = password;
-    this.db = db;
+    this.dbName = dbName;
   }
     
   id: number;
   name: string;
   username: string;
   password: string;
-  db: string;
+  dbName: string;
 }

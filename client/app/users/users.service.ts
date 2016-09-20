@@ -33,14 +33,14 @@ export class UsersService {
       return null;
     }
 
-    var user = new User(localStorage.getItem('username'), localStorage.getItem('password'), localStorage.getItem('customerName'));
+    var user = new User(localStorage.getItem('username'), localStorage.getItem('password'), localStorage.getItem('organisation'));
     return user;
   }
 
-  private saveUser(username: string, password: string, customerName: string) {
+  private saveUser(username: string, password: string, organisation: string) {
     localStorage.setItem('username', username);
     localStorage.setItem('password', password);
-    localStorage.setItem('customerName', customerName);
+    localStorage.setItem('organisation', organisation);
   }
 
   private clearUser() {
@@ -54,7 +54,7 @@ export class UsersService {
     let obs = this.http.post('api/auth/login', JSON.stringify(params), options);
 
     obs.map(res => res.json())
-       .subscribe(u => this.saveUser(username, password, u.customerName));
+       .subscribe(u => this.saveUser(username, password, u.organisation));
 
     return obs.map(_ => true);
   }

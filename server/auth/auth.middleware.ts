@@ -9,9 +9,9 @@ export let authorize = function (req: any, res: any, next:() => void) {
     res.sendStatus(401);
   }
 
-  authService.login(credentials.username, credentials.password)
-    .subscribe(user => {
-      req.db = authService.getDb(user.username);
+  authService.authenticate(credentials.username, credentials.password)
+    .subscribe(org => {
+      req.db = authService.getDb(org.id);
       next();
     }, e => {
       res.set('WWW-Authenticate', 'X-Basic realm="Restricted Area"');

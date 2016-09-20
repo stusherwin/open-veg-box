@@ -35,9 +35,21 @@ export class SqlHelper<T> {
     this.defaultPageSize = defaultPageSize || 1000;
   }
 
+  private getFields = function(obj: any): string[] {
+    var properties = Object.getOwnPropertyNames(obj);
+    var result: string[] = [];
+    for(var property of properties) {
+      if(this.fields.indexOf(property) > -1) {
+        result.push(property);
+      }
+    }
+
+    return result;
+  }
+
   private buildSqlParams = function(params: any, id?: number): any {
     var sqlParams = {};
-    for(var field of this.fields) {
+    for(var field in wl(this.fields, params)) {
       sqlParams['$' + field] = params[field];
     }
     if (id){
@@ -61,11 +73,27 @@ export class SqlHelper<T> {
     });
   }
 
+  select = function(db: any, params: any): Observable<T> {
+    var selectSql = 'select * from ' 
+        + this.table 
+        + ' where '
+        + this.getFields(params).map((f:string) => f + ' = $' + f).join(' and ')
+        
+        return Observable.create((o: any) => {
+      
+      db.get(selectSql, this.buildSqlParams(params), (err: any, row: any) => {
+        var result: T = row ? this.create(row) : null;
+        o.next(result);
+        o.complete();
+      });
+    });
+  }
+
   update = function(db: any, id: number, params: any) {
    var updateSql = 'update '
       + this.table 
       + ' set '
-      + this.fields.map((f:string) => f + ' = $' + f).join(', ')
+      + this.getFields(params).map((f:string) => f + ' = $' + f).join(', ')
       + ' where id = $id';
       
     db.run(updateSql, this.buildSqlParams(params, id));
@@ -75,9 +103,9 @@ export class SqlHelper<T> {
     var insertSql = 'insert into '
       + this.table 
       + ' ('
-      + this.fields.join(', ')
+      + this.getFields(params).join(', ')
       + ') values ('
-      + this.fields.map((f:string) => '$' + f).join(', ')
+      + this.getFields(params).map((f:string) => '$' + f).join(', ')
       + ')';
 
     db.run(insertSql, this.buildSqlParams(params));

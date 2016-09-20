@@ -1,4 +1,4 @@
-import {Customer} from './customer'
+import {Organisation} from './organisation'
 import {User} from './user'
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
@@ -7,33 +7,31 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/fromPromise'
 import 'rxjs/add/observable/of';
 import * as path from 'path';
-
-let customers: Customer[] = [
-  new Customer(1, 'Guest', 'guest', '', 'guest'),
-  new Customer(2, 'Umbel Organics', 'umbel', 'password', 'umbel')
-];
+import {SqlHelper} from '../shared/helpers'
 
 var sqlite = require('sqlite3').verbose();
-var databases: { [username: string]: any; } = {};
+var mainDb = new sqlite.Database(path.resolve(__dirname, '../main.sqlite'));
+var organisationDbs: { [id: number]: any; } = {};
 
-for(var c of customers) {
-  databases[c.username] = new sqlite.Database(path.resolve(__dirname, '../', c.db + '.sqlite'));
-}
+var sqlHelper = new SqlHelper<Organisation>('organisation',
+  ['name', 'username', 'password', 'dbName'],
+  r => new Organisation(r.id, r.name, r.username, r.password, r.dbName));
+
+sqlHelper.selectAll(mainDb, {}).subscribe(organisations => {
+  for(var o of organisations) {
+    organisationDbs[o.id] = new sqlite.Database(path.resolve(__dirname, '../', o.dbName + '.sqlite'));
+  }
+});
 
 export class AuthenticationService {
-  getDb(username: string) {
-    return databases[username];    
+  getDb(organisationId: number) {
+    return organisationDbs[organisationId];    
   }
 
-  login(username: string, password: string): Observable<User> {
-    let customer = customers.find(c => c.username === username && c.password === password);
-    if (customer != null) {
-      return Observable.of(new User(customer.username, customer.name));
-    }
-    return Observable.throw('not found');
+  authenticate(username: string, password: string): Observable<Organisation> {
+    return sqlHelper.select(mainDb, { username: username, password: password })
+                    .map( o => { 
+                      if(o == null) { throw 'not found'; }
+                      return o; });
   }
-
-  // logout(token: string): Observable<boolean> {
-  //   return Observable.of(true);
-  // }
 }
