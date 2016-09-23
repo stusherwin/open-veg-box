@@ -14,3 +14,4 @@
 * Split out schema sql from data
 * Remove plaintext passwords
 * Delete for products/customers
+* Split up styles.css
