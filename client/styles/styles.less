@@ -261,7 +261,7 @@ h2 {
   .item {
     min-height: 83px;
     border-top: 1px dashed @itemBorderColor; 
-    padding: 10px 0px 10px 10px; // 10px 140px 10px 10px;
+    padding: 0;//10px 0px 10px 10px; // 10px 140px 10px 10px;
     position: relative;
 
     &:last-child {
@@ -273,19 +273,43 @@ h2 {
     }
 
     h3 {
-      margin:5px 0 5px 0;
+      margin:15px 0 0 10px;
     }
 
-    .actions {
-      position:absolute;
-      height:100%;
-      top:0;
-      right:0;
+    // .actions {
+    //   position:absolute;
+    //   height:100%;
+    //   top:0;
+    //   right:0;
 
-      button, a.button {
-        height:100%;
-        float:left;
+    //   button, a.button {
+    //     height:100%;
+    //     float:left;
+    //   }
+    // }
+
+    .actions {
+      float: right;
+      height:30px;
+      padding-right:4px;
+      
+      .action {
+        margin-right: -4px;
+        display: inline-block;
+        width: 66px;
+        height: 83px;
+
+        button, a.button {
+          position: absolute;
+          height:100%;
+          top:0;
+        }
       }
+    }
+
+    .details {
+      overflow: hidden;
+      padding: 15px 10px 10px 10px;
     }
   }
 
@@ -313,33 +337,33 @@ select {
 }
 
 .field-row {
-  //max-width:400px;  
-
   .field {
     margin-top:10px;
-    float: left;
+    //float: left;
 
-    &.full {
-      width:100%;
-    }
+    // &.full {
+    //   width:100%;
+    // }
 
-    &.w1_2 {
-      width: 50%;
-    }
+    // &.w1_2 {
+    //   width: 50%;
+    // }
 
-    &.w1_3 {
-      width: 30%;
-    }
+    // &.w1_3 {
+    //   width: 30%;
+    // }
 
     .input {
       display: inline-block;
     
       input {
         width: 100%;
+        max-width: 100%;
       }
 
       &.full {
         width: 400px;
+        max-width: 100%;
       }
 
       &.tiny {
@@ -368,6 +392,12 @@ select {
     content: '';
     clear: left;
     display: block;
+  }
+
+  &:first-child {
+    .field {
+      margin-top:0;
+    }
   }
 }
 
@@ -522,14 +552,43 @@ select {
 }
 
 .items {
-  min-width: @headerMinSize - 20px;
+  &, & .item {
+    min-width: @headerMinSize - 20px;
+  }
+}
+
+.price-detail {
+  width: 300px;
+}
+
+.unit-type-detail {
+  width: 300px;
+}
+
+.flex {
+  display:flex; 
+  flex-direction:row; 
+  flex-grow:0; 
+  justify-content: space-between;
+
+  & > div {
+    margin: 0 20px;
+
+    div {
+      display: inline-block;
+    }
+    &:first-child {
+      margin-left:0;
+    }
+  }
+
+  .field-row + & {
+    margin-top:10px;
+  }
 }
 
 .customer-details {
-  margin-top:15px;
-  padding-right:142px;
-  
-  .detail {
+  & > div {
     margin-top:10px;
     padding-left:22px;
     position: relative;
@@ -555,48 +614,16 @@ select {
       height: 80px;
     }
   }
-
-  .customer-actions {
-    position: absolute;
-    height:100%;
-    right: 0;
-    top: 0; 
-
-    & > div {
-      width:66px;
-      display:inline-block;
-
-      .button, button {
-        position:absolute;
-        height:100%;
-        top:0px;
-      }
-    }
-  }
-}
+} 
 
 @customers-same-line: ~"only screen and (min-width : 669px)";
 @media @customers-same-line {
   .customer-details {
-    padding-right:0;
-    display:flex; 
-    flex-direction:row; 
-    flex-grow:0; 
-    justify-content: space-between;
+    .flex;
 
-    .detail {
-      margin: 0 20px;
-
-      div {
-        display: inline-block;
-      }
-      &:first-child {
-        margin-left:0;
-      }
+    & > div {
       textarea, input[type="text"] {
         width: 100%;
-        position:relative;
-        bottom:3px;
       }
     }
 
@@ -614,12 +641,6 @@ select {
 
     .tel {
       width: 140px;
-      flex-shrink:0;
-    }
-
-    .customer-actions {
-      position: static;
-      height: auto;
       flex-shrink:0;
     }
   }

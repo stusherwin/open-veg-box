@@ -1,36 +1,38 @@
 <form (ngSubmit)="save()" #f="ngForm">
   <h3>{{ customer.name || 'The Customer With No Name' }}</h3>
-  <div class="field-row">
-    <div class="field full">
-      <input type="text" class="input full" [(ngModel)]="customer.name" #name ngControl="name" tabindex="0" required/>
+  <div class="actions">
+    <div class="action">
+      <button type="submit" [disabled]="!f.valid" tabindex="0">
+        <div class="icon"><i class="icon-ok"></i></div>
+        <span>Save</span>
+      </button>
     </div>
+    <div class="action">  
+      <button (click)="cancel()" tabindex="0">
+        <div class="icon"><i class="icon-cancel"></i></div>
+        <span>Cancel</span>
+      </button>
+    </div>  
   </div>
-  <div class="customer-details">
-    <div class="address detail">
-      <i class="icon-home"></i>
-      <textarea [(ngModel)]="customer.address"></textarea>
+  <div class="details">
+    <div class="field-row">
+      <div class="field full">
+        <input type="text" class="input full" [(ngModel)]="customer.name" #name ngControl="name" tabindex="0" required/>
+      </div>
     </div>
-    <div class="email detail">
-      <i class="icon-mail"></i>
-      <input type="text" [(ngModel)]="customer.email" />
-    </div>
-    <div class="tel detail">
-      <i class="icon-phone"></i>
-      <input type="text" [(ngModel)]="customer.tel1" />
-    </div>
-    <div class="customer-actions">
-      <div>
-        <button type="submit" [disabled]="!f.valid" tabindex="0">
-          <div class="icon"><i class="icon-ok"></i></div>
-          <span>Save</span>
-        </button>
-      </div><!--
-      --><div>  
-        <button (click)="cancel()" tabindex="0">
-          <div class="icon"><i class="icon-cancel"></i></div>
-          <span>Cancel</span>
-        </button>
-      </div>  
+    <div class="customer-details">
+      <div class="address">
+        <i class="icon-home"></i>
+        <textarea [(ngModel)]="customer.address"></textarea>
+      </div>
+      <div class="email">
+        <i class="icon-mail"></i>
+        <input type="text" [(ngModel)]="customer.email" />
+      </div>
+      <div class="tel">
+        <i class="icon-phone"></i>
+        <input type="text" [(ngModel)]="customer.tel1" />
+      </div>
     </div>
   </div>
 </form>

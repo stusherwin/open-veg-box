@@ -75,8 +75,29 @@
   &, &:active {
     cursor: pointer;
   }
-  &[disabled], &[disabled]:hover {
+  &[disabled], &[disabled]:hover, &.disabled, &.disabled:hover {
     cursor:default;
+  }
+
+  &[disabled], &[disabled]:hover, &.disabled, &.disabled:hover {
+    background:none;
+    color: #ccc;
+    cursor:default;
+
+    .icon {
+      background: none;
+      border-color: #ccc; 
+      
+      i {
+        background:none;
+        border-color: #ccc;
+        box-shadow: none;
+      }
+    }
+    
+    span {
+      color: #ccc;
+    }
   }
 }
 
@@ -142,41 +163,11 @@
   @lowlight: rgba(0, 0, 0, 0.1);
   @background: none;
 ) {
-  &[disabled], &[disabled]:hover {
+  &[disabled], &[disabled]:hover, &.disabled, &.disabled:hover {
     .icon {
       i {
         box-shadow: none;
       }
-    }
-  }
-}
-
-.iconCaptionButtonDisabled(
-  @background: none;
-  @text: #ccc;
-  @iconBackground: none;
-  @iconBorder: #ccc;
-  @iconInnerBackground: none;  
-  @iconInnerBorder: #ccc
-) {
-  &[disabled], &[disabled]:hover {
-    background:@background;
-    color: @text;
-    cursor:default;
-
-    .icon {
-      background: @iconBackground;
-      border-color: @iconBorder; 
-      
-      i {
-        background:@iconInnerBackground;
-        border-color: @iconInnerBorder;
-        box-shadow: none;
-      }
-    }
-    
-    span {
-      color: @text;
     }
   }
 }
@@ -212,7 +203,7 @@
     .iconCaptionButtonRaised(in; @background: darken(@color, 5%));
   }
 
-  &[disabled], &[disabled]:hover {
+  &[disabled], &[disabled]:hover, &.disabled, &.disabled:hover {
     .iconCaptionButtonColors(
       @background: none;
       @text: #ccc;

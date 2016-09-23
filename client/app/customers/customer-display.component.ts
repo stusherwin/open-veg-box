@@ -20,4 +20,8 @@ export class CustomerDisplayComponent {
   edit() {
     this.onEdit.emit(this.customer);
   } 
+
+  clickEmail(event:any) {
+    if(this.editDisabled) { event.preventDefault(); return false;} return true;
+  }
 }

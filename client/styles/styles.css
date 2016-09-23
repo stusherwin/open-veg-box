@@ -340,8 +340,39 @@ a:focus {
   cursor: pointer;
 }
 .header nav li a[disabled],
-.header nav li a[disabled]:hover {
+.header nav li a[disabled]:hover,
+.header nav li a.disabled,
+.header nav li a.disabled:hover {
   cursor: default;
+}
+.header nav li a[disabled],
+.header nav li a[disabled]:hover,
+.header nav li a.disabled,
+.header nav li a.disabled:hover {
+  background: none;
+  color: #ccc;
+  cursor: default;
+}
+.header nav li a[disabled] .icon,
+.header nav li a[disabled]:hover .icon,
+.header nav li a.disabled .icon,
+.header nav li a.disabled:hover .icon {
+  background: none;
+  border-color: #ccc;
+}
+.header nav li a[disabled] .icon i,
+.header nav li a[disabled]:hover .icon i,
+.header nav li a.disabled .icon i,
+.header nav li a.disabled:hover .icon i {
+  background: none;
+  border-color: #ccc;
+  box-shadow: none;
+}
+.header nav li a[disabled] span,
+.header nav li a[disabled]:hover span,
+.header nav li a.disabled span,
+.header nav li a.disabled:hover span {
+  color: #ccc;
 }
 .header nav li a .icon {
   background: #c4dfb4;
@@ -359,7 +390,9 @@ a:focus {
   box-shadow: inset rgba(255, 255, 255, 0.2) 0px 2px 10px, inset rgba(0, 0, 0, 0.1) 0px -2px 10px;
 }
 .header nav li a[disabled] .icon i,
-.header nav li a[disabled]:hover .icon i {
+.header nav li a[disabled]:hover .icon i,
+.header nav li a.disabled .icon i,
+.header nav li a.disabled:hover .icon i {
   box-shadow: none;
 }
 .header nav li a .icon i {
@@ -385,7 +418,9 @@ a:focus {
   box-shadow: inset rgba(255, 255, 255, 0.2) 0px 2px 10px, inset rgba(0, 0, 0, 0.1) 0px -2px 10px;
 }
 .header nav li a:hover[disabled] .icon i,
-.header nav li a:hover[disabled]:hover .icon i {
+.header nav li a:hover[disabled]:hover .icon i,
+.header nav li a:hover.disabled .icon i,
+.header nav li a:hover.disabled:hover .icon i {
   box-shadow: none;
 }
 .header nav li a:hover .icon i {
@@ -411,7 +446,9 @@ a:focus {
   box-shadow: inset rgba(255, 255, 255, 0.2) 0px 2px 10px, inset rgba(0, 0, 0, 0.1) 0px -2px 10px;
 }
 .header nav li a.selected[disabled] .icon i,
-.header nav li a.selected[disabled]:hover .icon i {
+.header nav li a.selected[disabled]:hover .icon i,
+.header nav li a.selected.disabled .icon i,
+.header nav li a.selected.disabled:hover .icon i {
   box-shadow: none;
 }
 .header nav li a .icon {
@@ -470,8 +507,39 @@ button:active {
   cursor: pointer;
 }
 button[disabled],
-button[disabled]:hover {
+button[disabled]:hover,
+button.disabled,
+button.disabled:hover {
   cursor: default;
+}
+button[disabled],
+button[disabled]:hover,
+button.disabled,
+button.disabled:hover {
+  background: none;
+  color: #ccc;
+  cursor: default;
+}
+button[disabled] .icon,
+button[disabled]:hover .icon,
+button.disabled .icon,
+button.disabled:hover .icon {
+  background: none;
+  border-color: #ccc;
+}
+button[disabled] .icon i,
+button[disabled]:hover .icon i,
+button.disabled .icon i,
+button.disabled:hover .icon i {
+  background: none;
+  border-color: #ccc;
+  box-shadow: none;
+}
+button[disabled] span,
+button[disabled]:hover span,
+button.disabled span,
+button.disabled:hover span {
+  color: #ccc;
 }
 button .icon {
   background: none;
@@ -511,7 +579,11 @@ button:focus .icon i {
 button:hover[disabled] .icon i,
 button:focus[disabled] .icon i,
 button:hover[disabled]:hover .icon i,
-button:focus[disabled]:hover .icon i {
+button:focus[disabled]:hover .icon i,
+button:hover.disabled .icon i,
+button:focus.disabled .icon i,
+button:hover.disabled:hover .icon i,
+button:focus.disabled:hover .icon i {
   box-shadow: none;
 }
 button:active .icon i {
@@ -519,26 +591,36 @@ button:active .icon i {
   box-shadow: inset rgba(255, 255, 255, 0.7) 0px -2px 10px, inset rgba(0, 0, 0, 0.1) 0px 2px 10px;
 }
 button:active[disabled] .icon i,
-button:active[disabled]:hover .icon i {
+button:active[disabled]:hover .icon i,
+button:active.disabled .icon i,
+button:active.disabled:hover .icon i {
   box-shadow: none;
 }
 button[disabled],
-button[disabled]:hover {
+button[disabled]:hover,
+button.disabled,
+button.disabled:hover {
   background: none;
   color: #ccc;
 }
 button[disabled] .icon,
-button[disabled]:hover .icon {
+button[disabled]:hover .icon,
+button.disabled .icon,
+button.disabled:hover .icon {
   background: none;
   border-color: #ccc;
 }
 button[disabled] .icon i,
-button[disabled]:hover .icon i {
+button[disabled]:hover .icon i,
+button.disabled .icon i,
+button.disabled:hover .icon i {
   border-color: #ccc;
   background: none;
 }
 button[disabled] span,
-button[disabled]:hover span {
+button[disabled]:hover span,
+button.disabled span,
+button.disabled:hover span {
   color: #ccc;
 }
 a.button {
@@ -592,8 +674,39 @@ a.button:active {
   cursor: pointer;
 }
 a.button[disabled],
-a.button[disabled]:hover {
+a.button[disabled]:hover,
+a.button.disabled,
+a.button.disabled:hover {
   cursor: default;
+}
+a.button[disabled],
+a.button[disabled]:hover,
+a.button.disabled,
+a.button.disabled:hover {
+  background: none;
+  color: #ccc;
+  cursor: default;
+}
+a.button[disabled] .icon,
+a.button[disabled]:hover .icon,
+a.button.disabled .icon,
+a.button.disabled:hover .icon {
+  background: none;
+  border-color: #ccc;
+}
+a.button[disabled] .icon i,
+a.button[disabled]:hover .icon i,
+a.button.disabled .icon i,
+a.button.disabled:hover .icon i {
+  background: none;
+  border-color: #ccc;
+  box-shadow: none;
+}
+a.button[disabled] span,
+a.button[disabled]:hover span,
+a.button.disabled span,
+a.button.disabled:hover span {
+  color: #ccc;
 }
 a.button .icon {
   background: none;
@@ -633,7 +746,11 @@ a.button:focus .icon i {
 a.button:hover[disabled] .icon i,
 a.button:focus[disabled] .icon i,
 a.button:hover[disabled]:hover .icon i,
-a.button:focus[disabled]:hover .icon i {
+a.button:focus[disabled]:hover .icon i,
+a.button:hover.disabled .icon i,
+a.button:focus.disabled .icon i,
+a.button:hover.disabled:hover .icon i,
+a.button:focus.disabled:hover .icon i {
   box-shadow: none;
 }
 a.button:active .icon i {
@@ -641,26 +758,36 @@ a.button:active .icon i {
   box-shadow: inset rgba(255, 255, 255, 0.7) 0px -2px 10px, inset rgba(0, 0, 0, 0.1) 0px 2px 10px;
 }
 a.button:active[disabled] .icon i,
-a.button:active[disabled]:hover .icon i {
+a.button:active[disabled]:hover .icon i,
+a.button:active.disabled .icon i,
+a.button:active.disabled:hover .icon i {
   box-shadow: none;
 }
 a.button[disabled],
-a.button[disabled]:hover {
+a.button[disabled]:hover,
+a.button.disabled,
+a.button.disabled:hover {
   background: none;
   color: #ccc;
 }
 a.button[disabled] .icon,
-a.button[disabled]:hover .icon {
+a.button[disabled]:hover .icon,
+a.button.disabled .icon,
+a.button.disabled:hover .icon {
   background: none;
   border-color: #ccc;
 }
 a.button[disabled] .icon i,
-a.button[disabled]:hover .icon i {
+a.button[disabled]:hover .icon i,
+a.button.disabled .icon i,
+a.button.disabled:hover .icon i {
   border-color: #ccc;
   background: none;
 }
 a.button[disabled] span,
-a.button[disabled]:hover span {
+a.button[disabled]:hover span,
+a.button.disabled span,
+a.button.disabled:hover span {
   color: #ccc;
 }
 h2 {
@@ -687,7 +814,7 @@ h2 {
 .items .item {
   min-height: 83px;
   border-top: 1px dashed #ccc;
-  padding: 10px 0px 10px 10px;
+  padding: 0;
   position: relative;
 }
 .items .item:last-child {
@@ -698,18 +825,28 @@ h2 {
   background: #fff1dd;
 }
 .items .item h3 {
-  margin: 5px 0 5px 0;
+  margin: 15px 0 0 10px;
 }
 .items .item .actions {
+  float: right;
+  height: 30px;
+  padding-right: 4px;
+}
+.items .item .actions .action {
+  margin-right: -4px;
+  display: inline-block;
+  width: 66px;
+  height: 83px;
+}
+.items .item .actions .action button,
+.items .item .actions .action a.button {
   position: absolute;
   height: 100%;
   top: 0;
-  right: 0;
 }
-.items .item .actions button,
-.items .item .actions a.button {
-  height: 100%;
-  float: left;
+.items .item .details {
+  overflow: hidden;
+  padding: 15px 10px 10px 10px;
 }
 .items.editing .item:hover {
   background: inherit;
@@ -732,25 +869,17 @@ select {
 }
 .field-row .field {
   margin-top: 10px;
-  float: left;
-}
-.field-row .field.full {
-  width: 100%;
-}
-.field-row .field.w1_2 {
-  width: 50%;
-}
-.field-row .field.w1_3 {
-  width: 30%;
 }
 .field-row .field .input {
   display: inline-block;
 }
 .field-row .field .input input {
   width: 100%;
+  max-width: 100%;
 }
 .field-row .field .input.full {
   width: 400px;
+  max-width: 100%;
 }
 .field-row .field .input.tiny {
   width: 42px;
@@ -772,6 +901,9 @@ select {
   content: '';
   clear: left;
   display: block;
+}
+.field-row:first-child .field {
+  margin-top: 0;
 }
 .muted {
   color: #bbb;
@@ -894,8 +1026,39 @@ select {
   cursor: pointer;
 }
 .home button[disabled],
-.home button[disabled]:hover {
+.home button[disabled]:hover,
+.home button.disabled,
+.home button.disabled:hover {
   cursor: default;
+}
+.home button[disabled],
+.home button[disabled]:hover,
+.home button.disabled,
+.home button.disabled:hover {
+  background: none;
+  color: #ccc;
+  cursor: default;
+}
+.home button[disabled] .icon,
+.home button[disabled]:hover .icon,
+.home button.disabled .icon,
+.home button.disabled:hover .icon {
+  background: none;
+  border-color: #ccc;
+}
+.home button[disabled] .icon i,
+.home button[disabled]:hover .icon i,
+.home button.disabled .icon i,
+.home button.disabled:hover .icon i {
+  background: none;
+  border-color: #ccc;
+  box-shadow: none;
+}
+.home button[disabled] span,
+.home button[disabled]:hover span,
+.home button.disabled span,
+.home button.disabled:hover span {
+  color: #ccc;
 }
 .home button .icon {
   background: #c4dfb4;
@@ -913,7 +1076,9 @@ select {
   box-shadow: inset rgba(255, 255, 255, 0.2) 0px 2px 10px, inset rgba(0, 0, 0, 0.1) 0px -2px 10px;
 }
 .home button[disabled] .icon i,
-.home button[disabled]:hover .icon i {
+.home button[disabled]:hover .icon i,
+.home button.disabled .icon i,
+.home button.disabled:hover .icon i {
   box-shadow: none;
 }
 .home button .icon i {
@@ -939,7 +1104,9 @@ select {
   box-shadow: inset rgba(255, 255, 255, 0.2) 0px 2px 10px, inset rgba(0, 0, 0, 0.1) 0px -2px 10px;
 }
 .home button:hover[disabled] .icon i,
-.home button:hover[disabled]:hover .icon i {
+.home button:hover[disabled]:hover .icon i,
+.home button:hover.disabled .icon i,
+.home button:hover.disabled:hover .icon i {
   box-shadow: none;
 }
 .home button:hover .icon i {
@@ -965,7 +1132,9 @@ select {
   box-shadow: inset rgba(255, 255, 255, 0.2) 0px 2px 10px, inset rgba(0, 0, 0, 0.1) 0px -2px 10px;
 }
 .home button.selected[disabled] .icon i,
-.home button.selected[disabled]:hover .icon i {
+.home button.selected[disabled]:hover .icon i,
+.home button.selected.disabled .icon i,
+.home button.selected.disabled:hover .icon i {
   box-shadow: none;
 }
 .home button .icon {
@@ -1059,8 +1228,39 @@ select {
   cursor: pointer;
 }
 .home ul li a[disabled],
-.home ul li a[disabled]:hover {
+.home ul li a[disabled]:hover,
+.home ul li a.disabled,
+.home ul li a.disabled:hover {
   cursor: default;
+}
+.home ul li a[disabled],
+.home ul li a[disabled]:hover,
+.home ul li a.disabled,
+.home ul li a.disabled:hover {
+  background: none;
+  color: #ccc;
+  cursor: default;
+}
+.home ul li a[disabled] .icon,
+.home ul li a[disabled]:hover .icon,
+.home ul li a.disabled .icon,
+.home ul li a.disabled:hover .icon {
+  background: none;
+  border-color: #ccc;
+}
+.home ul li a[disabled] .icon i,
+.home ul li a[disabled]:hover .icon i,
+.home ul li a.disabled .icon i,
+.home ul li a.disabled:hover .icon i {
+  background: none;
+  border-color: #ccc;
+  box-shadow: none;
+}
+.home ul li a[disabled] span,
+.home ul li a[disabled]:hover span,
+.home ul li a.disabled span,
+.home ul li a.disabled:hover span {
+  color: #ccc;
 }
 .home ul li a .icon {
   background: #c4dfb4;
@@ -1078,7 +1278,9 @@ select {
   box-shadow: inset rgba(255, 255, 255, 0.2) 0px 2px 10px, inset rgba(0, 0, 0, 0.1) 0px -2px 10px;
 }
 .home ul li a[disabled] .icon i,
-.home ul li a[disabled]:hover .icon i {
+.home ul li a[disabled]:hover .icon i,
+.home ul li a.disabled .icon i,
+.home ul li a.disabled:hover .icon i {
   box-shadow: none;
 }
 .home ul li a .icon i {
@@ -1104,7 +1306,9 @@ select {
   box-shadow: inset rgba(255, 255, 255, 0.2) 0px 2px 10px, inset rgba(0, 0, 0, 0.1) 0px -2px 10px;
 }
 .home ul li a:hover[disabled] .icon i,
-.home ul li a:hover[disabled]:hover .icon i {
+.home ul li a:hover[disabled]:hover .icon i,
+.home ul li a:hover.disabled .icon i,
+.home ul li a:hover.disabled:hover .icon i {
   box-shadow: none;
 }
 .home ul li a:hover .icon i {
@@ -1130,7 +1334,9 @@ select {
   box-shadow: inset rgba(255, 255, 255, 0.2) 0px 2px 10px, inset rgba(0, 0, 0, 0.1) 0px -2px 10px;
 }
 .home ul li a.selected[disabled] .icon i,
-.home ul li a.selected[disabled]:hover .icon i {
+.home ul li a.selected[disabled]:hover .icon i,
+.home ul li a.selected.disabled .icon i,
+.home ul li a.selected.disabled:hover .icon i {
   box-shadow: none;
 }
 .home ul li a .icon {
@@ -1214,8 +1420,39 @@ select {
     cursor: pointer;
   }
   .header .logout-button[disabled],
-  .header .logout-button[disabled]:hover {
+  .header .logout-button[disabled]:hover,
+  .header .logout-button.disabled,
+  .header .logout-button.disabled:hover {
     cursor: default;
+  }
+  .header .logout-button[disabled],
+  .header .logout-button[disabled]:hover,
+  .header .logout-button.disabled,
+  .header .logout-button.disabled:hover {
+    background: none;
+    color: #ccc;
+    cursor: default;
+  }
+  .header .logout-button[disabled] .icon,
+  .header .logout-button[disabled]:hover .icon,
+  .header .logout-button.disabled .icon,
+  .header .logout-button.disabled:hover .icon {
+    background: none;
+    border-color: #ccc;
+  }
+  .header .logout-button[disabled] .icon i,
+  .header .logout-button[disabled]:hover .icon i,
+  .header .logout-button.disabled .icon i,
+  .header .logout-button.disabled:hover .icon i {
+    background: none;
+    border-color: #ccc;
+    box-shadow: none;
+  }
+  .header .logout-button[disabled] span,
+  .header .logout-button[disabled]:hover span,
+  .header .logout-button.disabled span,
+  .header .logout-button.disabled:hover span {
+    color: #ccc;
   }
   .header .logout-button .icon {
     background: #c4dfb4;
@@ -1233,7 +1470,9 @@ select {
     box-shadow: inset rgba(255, 255, 255, 0.2) 0px 2px 10px, inset rgba(0, 0, 0, 0.1) 0px -2px 10px;
   }
   .header .logout-button[disabled] .icon i,
-  .header .logout-button[disabled]:hover .icon i {
+  .header .logout-button[disabled]:hover .icon i,
+  .header .logout-button.disabled .icon i,
+  .header .logout-button.disabled:hover .icon i {
     box-shadow: none;
   }
   .header .logout-button .icon i {
@@ -1259,7 +1498,9 @@ select {
     box-shadow: inset rgba(255, 255, 255, 0.2) 0px 2px 10px, inset rgba(0, 0, 0, 0.1) 0px -2px 10px;
   }
   .header .logout-button:hover[disabled] .icon i,
-  .header .logout-button:hover[disabled]:hover .icon i {
+  .header .logout-button:hover[disabled]:hover .icon i,
+  .header .logout-button:hover.disabled .icon i,
+  .header .logout-button:hover.disabled:hover .icon i {
     box-shadow: none;
   }
   .header .logout-button:hover .icon i {
@@ -1285,7 +1526,9 @@ select {
     box-shadow: inset rgba(255, 255, 255, 0.2) 0px 2px 10px, inset rgba(0, 0, 0, 0.1) 0px -2px 10px;
   }
   .header .logout-button.selected[disabled] .icon i,
-  .header .logout-button.selected[disabled]:hover .icon i {
+  .header .logout-button.selected[disabled]:hover .icon i,
+  .header .logout-button.selected.disabled .icon i,
+  .header .logout-button.selected.disabled:hover .icon i {
     box-shadow: none;
   }
   .header .logout-button .icon {
@@ -1303,75 +1546,80 @@ select {
   top: 50px;
   right: 10px;
 }
-.items {
+.items,
+.items .item {
   min-width: 380px;
 }
-.customer-details {
-  margin-top: 15px;
-  padding-right: 142px;
+.price-detail {
+  width: 300px;
 }
-.customer-details .detail {
+.unit-type-detail {
+  width: 300px;
+}
+.flex {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 0;
+  justify-content: space-between;
+}
+.flex > div {
+  margin: 0 20px;
+}
+.flex > div div {
+  display: inline-block;
+}
+.flex > div:first-child {
+  margin-left: 0;
+}
+.field-row + .flex {
+  margin-top: 10px;
+}
+.customer-details > div {
   margin-top: 10px;
   padding-left: 22px;
   position: relative;
 }
-.customer-details .detail i {
+.customer-details > div i {
   color: #bbb;
   position: absolute;
   left: 0;
 }
-.customer-details .detail i::before {
+.customer-details > div i::before {
   margin: 0;
   padding: 0;
 }
-.customer-details .detail:first-child {
+.customer-details > div:first-child {
   margin-top: 0;
 }
-.customer-details .detail textarea,
-.customer-details .detail input[type="text"] {
+.customer-details > div textarea,
+.customer-details > div input[type="text"] {
   width: 378px;
 }
-.customer-details .detail textarea {
+.customer-details > div textarea {
   height: 80px;
-}
-.customer-details .customer-actions {
-  position: absolute;
-  height: 100%;
-  right: 0;
-  top: 0;
-}
-.customer-details .customer-actions > div {
-  width: 66px;
-  display: inline-block;
-}
-.customer-details .customer-actions > div .button,
-.customer-details .customer-actions > div button {
-  position: absolute;
-  height: 100%;
-  top: 0px;
 }
 @media only screen and (min-width : 669px) {
   .customer-details {
-    padding-right: 0;
     display: flex;
     flex-direction: row;
     flex-grow: 0;
     justify-content: space-between;
   }
-  .customer-details .detail {
+  .customer-details > div {
     margin: 0 20px;
   }
-  .customer-details .detail div {
+  .customer-details > div div {
     display: inline-block;
   }
-  .customer-details .detail:first-child {
+  .customer-details > div:first-child {
     margin-left: 0;
   }
-  .customer-details .detail textarea,
-  .customer-details .detail input[type="text"] {
+  .field-row + .customer-details {
+    margin-top: 10px;
+  }
+  .customer-details > div textarea,
+  .customer-details > div input[type="text"] {
     width: 100%;
-    position: relative;
-    bottom: 3px;
   }
   .customer-details .address {
     width: 400px;
@@ -1385,11 +1633,6 @@ select {
   }
   .customer-details .tel {
     width: 140px;
-    flex-shrink: 0;
-  }
-  .customer-details .customer-actions {
-    position: static;
-    height: auto;
     flex-shrink: 0;
   }
 }

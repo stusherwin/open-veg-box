@@ -1,31 +1,38 @@
 <form (ngSubmit)="save()" #f="ngForm">
   <h3>{{ product.name || 'The Product With No Name' }}</h3>
-  <div class="field-row">
-    <div class="field full">
-      <input type="text" class="input full" [(ngModel)]="product.name" #name ngControl="name" tabindex="0" required/>
-    </div>
-  </div>
-  <div class="field-row">
-    <div class="field w1_2">
-      &pound;<cc-number class="input price" [(ngModel)]="product.price" ngControl="price" fixedDecimals="2" required ></cc-number>
-      <select class="input" [(ngModel)]="product.unitType" tabindex="0">
-        <option *ngFor="let ut of unitTypes" [ngValue]="ut.value">{{ ut.name }}</option>
-      </select>
-    </div>
-    <div class="field right" *ngIf="product.unitType == 'perKg'">
-      sold in units of
-      <cc-number class="input tiny" [(ngModel)]="product.unitQuantity" ngControl="unitQuantity" maxDecimals="3" required ></cc-number>
-      Kg
-    </div>
-  </div>
   <div class="actions">
-    <button type="submit" [disabled]="!f.valid" tabindex="0">
-      <div class="icon"><i class="icon-ok"></i></div>
-      <span>Save</span>
-    </button>  
-    <button (click)="cancel()" tabindex="0">
-      <div class="icon"><i class="icon-cancel"></i></div>
-      <span>Cancel</span>
-    </button>  
+    <div class="action">
+      <button type="submit" [disabled]="!f.valid" tabindex="0">
+        <div class="icon"><i class="icon-ok"></i></div>
+        <span>Save</span>
+      </button>  
+    </div>
+    <div class="action">
+      <button (click)="cancel()" tabindex="0">
+        <div class="icon"><i class="icon-cancel"></i></div>
+        <span>Cancel</span>
+      </button>  
+    </div>
+  </div>
+  <div class="details">
+    <div class="field-row">
+      <div class="field full">
+        <input type="text" class="input full" [(ngModel)]="product.name" #name ngControl="name" tabindex="0" required/>
+      </div>
+    </div>
+    <div class="flex">
+      <div class="field price-detail">
+        &pound;<cc-number class="input price" [(ngModel)]="product.price" ngControl="price" fixedDecimals="2" required ></cc-number>
+        <select class="input" [(ngModel)]="product.unitType" tabindex="0">
+          <option *ngFor="let ut of unitTypes" [ngValue]="ut.value">{{ ut.name }}</option>
+        </select>
+      </div>
+      <div class="field unit-type-detail" *ngIf="product.unitType == 'perKg'">
+        sold in units of
+        <cc-number class="input tiny" [(ngModel)]="product.unitQuantity" ngControl="unitQuantity" maxDecimals="3" required ></cc-number>
+        Kg
+      </div>
+      <div>&nbsp;</div>
+    </div>
   </div>
 </form>
