@@ -82,10 +82,16 @@ a {
   }
 }
 
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 /* everywhere else */
 * { 
   font-family: 'Josefin Sans', sans-serif;
-  box-sizing: border-box; 
 }
 
 .outer {

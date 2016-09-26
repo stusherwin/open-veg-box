@@ -158,10 +158,17 @@ a {
 a:focus {
   outline: 0;
 }
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
 /* everywhere else */
 * {
   font-family: 'Josefin Sans', sans-serif;
-  box-sizing: border-box;
 }
 .outer {
   background: #579532;

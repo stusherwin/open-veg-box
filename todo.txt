@@ -15,3 +15,6 @@
 * Remove plaintext passwords
 * Delete for products/customers
 * Split up styles.css
+* Implement sqlite backup strategy
+* Better sqlite error handling (handle sql errors)
+* Edit individual fields
