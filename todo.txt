@@ -18,3 +18,4 @@
 * Better sqlite error handling (handle sql errors)
 * Edit individual fields
 * Fix login form resizing/header centring
+* Buttons: wierd chrome border < 1px issue
