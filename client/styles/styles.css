@@ -862,6 +862,7 @@ h2 {
   background: #fff1dd;
 }
 input[type="text"],
+input[type="password"],
 select,
 textarea {
   color: #999;
@@ -942,7 +943,6 @@ select {
   overflow: hidden;
   position: relative;
   width: 438px;
-  height: 340px;
   margin: 0px auto;
 }
 .home form p {
@@ -959,6 +959,10 @@ select {
   margin-top: 10px;
   margin-left: 10px;
 }
+.home .form-validation-message {
+  color: #ffa850;
+  margin-bottom: 10px;
+}
 .home label {
   display: block;
   float: left;
@@ -968,14 +972,16 @@ select {
   height: 30px;
   padding-top: 5px;
 }
-.home input[type="text"] {
+.home input[type="text"],
+.home input[type="password"] {
   float: left;
   width: 250px;
   height: 30px;
   border-radius: 3px;
   border: 1px solid #548f30;
 }
-.home input[type="text"]:focus {
+.home input[type="text"]:focus,
+.home input[type="password"]:focus {
   outline: 0;
 }
 .home button {
@@ -1599,7 +1605,8 @@ select {
   margin-top: 0;
 }
 .customer-details > div textarea,
-.customer-details > div input[type="text"] {
+.customer-details > div input[type="text"],
+.customer-details > div input[type="password"] {
   width: 378px;
 }
 .customer-details > div textarea {
@@ -1625,7 +1632,8 @@ select {
     margin-top: 10px;
   }
   .customer-details > div textarea,
-  .customer-details > div input[type="text"] {
+  .customer-details > div input[type="text"],
+  .customer-details > div input[type="password"] {
     width: 100%;
   }
   .customer-details .address {

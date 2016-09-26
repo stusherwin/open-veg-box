@@ -2,8 +2,13 @@
   <div>
     <form>
       <p>Enter your acount details:</p>
-      <div class="form-row"><label>Username:</label> <input #username type="text" /></div>
-      <div class="form-row"><label>Password:</label> <input #password type="text" /></div>
+      <div class="form-row">
+        <div *ngIf="invalidLogin" class="form-validation-message">Didn't recognise that username or password.</div>
+        <label>Username:</label> <input #username type="text" />
+      </div>
+      <div class="form-row">
+        <label>Password:</label> <input #password type="password" />
+      </div>
 
       <button type="button" (click)="login(username.value, password.value)">
         <div class="icon"><i class="icon-login"></i></div>

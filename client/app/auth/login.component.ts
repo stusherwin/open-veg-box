@@ -13,6 +13,7 @@ import { User } from '../users/user'
 export class LoginComponent { 
   usersService: UsersService;
   router: Router;
+  invalidLogin: boolean = false;
 
   constructor(usersService: UsersService, router: Router) {
     this.usersService = usersService;
@@ -24,6 +25,11 @@ export class LoginComponent {
   }
 
   login(username: string, password: string) {
-    this.usersService.login(username, password).subscribe(_ => this.router.navigate(['Home']));
+    this.invalidLogin = false;
+    
+    this.usersService.login(username, password).subscribe(
+      _ => { this.invalidLogin = false; this.router.navigate(['Home']); },
+      _ => this.invalidLogin = true
+    );
   }
 } 

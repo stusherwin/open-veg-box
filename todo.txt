@@ -1,4 +1,3 @@
-* Show login error message
 * Buttons: circular shadow on hover instead of rectangle?
 * Rows: only show edit button on hover?
 * Log out button slightly different on home page
@@ -18,3 +17,4 @@
 * Implement sqlite backup strategy
 * Better sqlite error handling (handle sql errors)
 * Edit individual fields
+* Fix login form resizing/header centring

@@ -329,7 +329,7 @@ h2 {
   }
 }
 
-input[type="text"], select, textarea {
+input[type="text"], input[type="password"], select, textarea {
   color: #999; 
   padding: 2px 4px;
   border: 1px solid #bbb;
@@ -443,7 +443,7 @@ select {
     overflow: hidden;
     position:relative;
     width:438px;
-    height:340px;
+    //height:340px;
     margin:0px auto;
 
     p {
@@ -463,6 +463,11 @@ select {
     margin-left:10px;
   }
 
+  .form-validation-message {
+    color:#ffa850;
+    margin-bottom:10px
+  }
+
   label {
     display:block;
     float:left;
@@ -473,7 +478,7 @@ select {
     padding-top:5px;
   }
 
-  input[type="text"] {
+  input[type="text"], input[type="password"] {
     float:left;
     width: 250px;
     height:30px;
@@ -612,7 +617,7 @@ select {
       margin-top:0;
     }
    
-    textarea, input[type="text"] {
+    textarea, input[type="text"], input[type="password"] {
       width: 400px - 22px;
     }
 
@@ -628,7 +633,7 @@ select {
     .flex;
 
     & > div {
-      textarea, input[type="text"] {
+      textarea, input[type="text"], input[type="password"] {
         width: 100%;
       }
     }
