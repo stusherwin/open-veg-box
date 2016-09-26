@@ -1,20 +1,38 @@
-* Buttons: circular shadow on hover instead of rectangle?
-* Rows: only show edit button on hover?
-* Log out button slightly different on home page
-* Redirect to original page on log in
+Header
+======
 * Header takes up too much space on small browser width
-* Add padding between text and bottom border on screens with little content (e.g. /boxes)
 * Center alignment off on home page header
 * Header/home/nav structure is messy
-* Hosting
-* Implement JWT
-* Browser testing
+* Fix login form resizing/header centring
 * Inline logo svg
-* Split out schema sql from data
-* Remove plaintext passwords
+
+Editing
+=======
+* Rows: only show edit button on hover?
+* Edit individual fields
 * Delete for products/customers
-* Split up styles.css
+
+Auth
+====
+* Log out button slightly different on home page
+* Redirect to original page on log in
+* Implement JWT
+
+Database
+========
+* Split out schema sql from data
 * Implement sqlite backup strategy
 * Better sqlite error handling (handle sql errors)
-* Edit individual fields
-* Fix login form resizing/header centring
+
+Deployment
+==========
+* Hosting
+
+General Styling
+===============
+* Buttons: circular shadow on hover instead of rectangle?
+* Add padding between text and bottom border on screens with little content (e.g. /boxes)
+* Browser testing
+* Split up styles.css
+* .item is smaller than .items on resize even with max-width
+* Chrome rendering issue with 1px border width
