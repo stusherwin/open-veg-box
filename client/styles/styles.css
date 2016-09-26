@@ -223,6 +223,10 @@ html {
 .header a {
   text-decoration: none;
 }
+.header a svg {
+  width: 50px;
+  height: 50px;
+}
 .header h1 {
   display: block;
   width: 280px;
@@ -230,17 +234,25 @@ html {
   margin-left: auto;
   margin-right: auto;
   margin-top: 2px;
-  background-image: url(../img/logo.svg);
+  background-image: url(../img/logo-colored.svg);
   background-size: 50px;
   background-repeat: no-repeat;
   background-position: 0px 5px;
   padding-left: 65px;
   padding-top: 3px;
   height: 84px;
+  color: #eff4ec;
 }
 .header h1 span {
   color: #ffa850;
   font-weight: 400;
+}
+.header h1:hover {
+  background-image: url(../img/logo-white.svg);
+  color: white;
+}
+.header h1:hover span {
+  color: #ffb264;
 }
 @media only screen and (min-width : 780px) {
   .header h1 {

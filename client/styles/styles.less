@@ -152,6 +152,11 @@ html {
 
   a {
     text-decoration: none;
+
+    svg {
+      width: 50px;
+      height: 50px;
+    }
   }
 
   h1 {
@@ -161,16 +166,26 @@ html {
     margin-left: auto;
     margin-right: auto;
     margin-top:2px;
-    background-image: url(../img/logo.svg);
+    background-image: url(../img/logo-colored.svg);
     background-size: 50px;
     background-repeat: no-repeat;
     background-position: 0px 5px;
     padding-left:65px;
     padding-top:3px;
     height: 84px;
+    color: lighten(desaturate(@header, 25%), 55%);
+    
     span {
       color:lighten(#ff8f1d, 10%);
       font-weight: 400;
+    }
+
+    &:hover {
+      background-image: url(../img/logo-white.svg);
+      color: white;
+      span {
+        color: lighten(#ff8f1d, 14%);
+      }
     }
 
     @media @header-side-by-side {
