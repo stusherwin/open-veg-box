@@ -31,8 +31,5 @@ Deployment
 General Styling
 ===============
 * Buttons: circular shadow on hover instead of rectangle?
-* Add padding between text and bottom border on screens with little content (e.g. /boxes)
 * Browser testing
-* Split up styles.css
-* .item is smaller than .items on resize even with max-width
 * Chrome rendering issue with 1px border width

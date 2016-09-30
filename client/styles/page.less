@@ -1,0 +1,255 @@
+@import "variables";
+@import "mixins";
+
+.page-outer {
+  min-width: 400px;
+  margin:0;
+  border-left: none;
+  border-right: none;
+  background: #fff;
+  padding: 3px 0 3px 0;
+  box-shadow: inset rgba(0, 0, 0, 0.3) 0px 2px 2px -1px;  
+}
+
+.page-inner {
+  min-width: 400px;
+  border: 1px solid @header;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid lighten(@header, 20%);    
+  box-shadow: inset rgba(0, 0, 0, 0.3) 0px 3px 10px 0px,
+                    rgba(0, 0, 0, 0.3) 0px 2px 2px -1px;
+  padding: 10px 10px 10px 10px;  
+  background: #fff;
+  min-height:70%;
+
+  @media @header-side-by-side {
+    min-height:81%;
+  }
+
+  h2, p {
+    margin-left:10px;
+  }
+  p {
+    font-weight: 300;
+    color:black;
+    font-size:110%;
+  }  
+}
+
+.row-view {
+  position: relative;
+
+  button.top-level {
+    position: absolute;
+    top:-83px;
+    height: 83px;
+    right:0;
+  }
+
+  .row {
+    min-height: 83px;
+    border-top: 1px dashed @itemBorderColor; 
+    padding: 0;//10px 0px 10px 10px; // 10px 140px 10px 10px;
+    position: relative;
+
+    &:last-child {
+      border-bottom: 1px dashed @itemBorderColor; 
+    }
+
+    &:hover, &.editing {
+      background: @itemHoverColor;
+    }
+
+    h3 {
+      margin:15px 0 0 10px;
+    }
+
+    .actions {
+      float: right;
+      height:30px;
+      padding-right:4px;
+      
+      .action {
+        margin-right: -4px;
+        display: inline-block;
+        width: 66px;
+        height: 83px;
+
+        button, a.button {
+          position: absolute;
+          height:100%;
+          top:0;
+        }
+      }
+    }
+
+    .details {
+      overflow: hidden;
+      padding: 15px 10px 10px 10px;
+    }
+  }
+
+  &.editing {
+    .row:hover {
+      background:inherit;
+    }
+    .row.editing {
+      background: @itemHoverColor;      
+    }
+  }
+}
+
+input[type="text"], input[type="password"], select, textarea {
+  color: #999; 
+  padding: 2px 4px;
+  border: 1px solid #bbb;
+  border-radius: 2px;
+  font-size: 100%; 
+  margin:0;
+}
+
+select {
+  padding: 1px 0px;
+}
+
+.field-row {
+  .field {
+    margin-top:10px;
+
+    .input {
+      display: inline-block;
+    
+      input {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      &.full {
+        width: 400px;
+        max-width: 100%;
+      }
+
+      &.tiny {
+        width: 42px;
+      }
+
+      &.price {
+        width: 86px;
+        margin-left: 3px;
+      }
+      
+      & + .input {
+        margin-left: 10px;
+      }
+      & + select.input {
+        margin-left: 5px;
+      }
+    }
+
+    & + .field {
+      margin-left:10px;
+    }
+  }
+
+  &:after {
+    content: '';
+    clear: left;
+    display: block;
+  }
+
+  &:first-child {
+    .field {
+      margin-top:0;
+    }
+  }
+}
+
+.price-detail {
+  width: 300px;
+}
+
+.unit-type-detail {
+  width: 300px;
+}
+
+.flex {
+  display:flex; 
+  flex-direction:row; 
+  flex-grow:0; 
+  justify-content: space-between;
+
+  & > div {
+    margin: 0 20px;
+
+    div {
+      display: inline-block;
+    }
+    &:first-child {
+      margin-left:0;
+    }
+  }
+
+  .field-row + & {
+    margin-top:10px;
+  }
+}
+
+.customer-details {
+  & > div {
+    margin-top:10px;
+    padding-left:22px;
+    position: relative;
+
+    i { 
+      color:#bbb;
+      position: absolute;
+      left:0;
+    }
+    i::before {
+      margin:0;
+      padding:0;
+    }
+    &:first-child {
+      margin-top:0;
+    }
+   
+    textarea, input[type="text"], input[type="password"] {
+      width: 400px - 22px;
+    }
+
+    textarea {
+      height: 80px;
+    }
+  }
+} 
+
+@customers-same-line: ~"only screen and (min-width : 669px)";
+@media @customers-same-line {
+  .customer-details {
+    .flex;
+
+    & > div {
+      textarea, input[type="text"], input[type="password"] {
+        width: 100%;
+      }
+    }
+
+    .address {
+      width:400px;
+      flex-shrink:2;
+      min-width:120px;
+    }
+
+    .email {
+      width: 250px;
+      min-width:150px;
+      flex-shrink:1;
+    }
+
+    .tel {
+      width: 140px;
+      flex-shrink:0;
+    }
+  }
+}

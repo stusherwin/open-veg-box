@@ -1,0 +1,135 @@
+@import "variables";
+@import "mixins";
+
+.header {
+  &.home-header {
+    width: 570px;
+    margin: 0 auto;
+    
+    h1 {
+      display:block;
+      margin-top:50px;
+      margin-bottom: 0;
+      
+      @media @header-side-by-side { 
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+  }
+}
+
+.home {
+  p, label{
+    color: lighten(desaturate(@header, 10%), 40%);
+  }
+
+  form {
+    display:block;
+    overflow: hidden;
+    position:relative;
+    width:438px;
+    //height:340px;
+    margin:0px auto;
+
+    p {
+      text-align: left;
+      margin-top:70px;
+      margin-left:10px;
+      display: block;
+      float:left;
+      width:330px;
+      margin-bottom:10px;
+    }
+  }
+
+  .form-row {
+    float:left;
+    margin-top:10px;
+    margin-left:10px;
+  }
+
+  .form-validation-message {
+    color:#ffa850;
+    margin-bottom:10px
+  }
+
+  label {
+    display:block;
+    float:left;
+    font-size:110%;
+    font-weight: 300;
+    width: 85px;
+    height:30px;
+    padding-top:5px;
+  }
+
+  input[type="text"], input[type="password"] {
+    float:left;
+    width: 250px;
+    height:30px;
+    border-radius:3px;
+    border: 1px solid darken(@header, 1.5%);
+    &:focus{
+      outline:0;
+    }
+  }
+
+  button {
+    float: left;
+    display: block;
+    margin-top:-40px;
+    margin-left:10px;
+
+    .button(solid; home; @header);
+
+    &.look-around {
+      margin-left:15px;
+      margin-top:48px;
+    }
+  }
+
+  p {
+    text-align: center;
+    font-weight:300;
+    font-size: 150%;
+  }
+
+  .sections {
+    width: 570px;
+    margin: 0px auto 0 auto;
+    overflow: hidden;
+  }
+
+  ul {
+    margin-top:30px;
+    margin-left:10px;
+    width: 100%;
+
+    li {
+      float: left;
+
+      &:nth-child(1) {
+        margin-left:0px;
+      }
+      
+      &:nth-child(3) {
+        margin-right:0px;
+      }
+    
+      &:nth-child(4) {
+        margin-left:90px;
+      }
+
+      a {
+        .button(solid; large; @header);
+      }
+    }
+  }
+}
+
+.home .logout-button {
+   position: absolute;
+   top: 50px;
+   right: 10px;
+}

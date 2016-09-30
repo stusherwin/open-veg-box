@@ -1,0 +1,226 @@
+.page-outer {
+  min-width: 400px;
+  margin: 0;
+  border-left: none;
+  border-right: none;
+  background: #fff;
+  padding: 3px 0 3px 0;
+  box-shadow: inset rgba(0, 0, 0, 0.3) 0px 2px 2px -1px;
+}
+.page-inner {
+  min-width: 400px;
+  border: 1px solid #579532;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid #89ca63;
+  box-shadow: inset rgba(0, 0, 0, 0.3) 0px 3px 10px 0px, rgba(0, 0, 0, 0.3) 0px 2px 2px -1px;
+  padding: 10px 10px 10px 10px;
+  background: #fff;
+  min-height: 70%;
+}
+@media only screen and (min-width : 780px) {
+  .page-inner {
+    min-height: 81%;
+  }
+}
+.page-inner h2,
+.page-inner p {
+  margin-left: 10px;
+}
+.page-inner p {
+  font-weight: 300;
+  color: black;
+  font-size: 110%;
+}
+.row-view {
+  position: relative;
+}
+.row-view button.top-level {
+  position: absolute;
+  top: -83px;
+  height: 83px;
+  right: 0;
+}
+.row-view .row {
+  min-height: 83px;
+  border-top: 1px dashed #ccc;
+  padding: 0;
+  position: relative;
+}
+.row-view .row:last-child {
+  border-bottom: 1px dashed #ccc;
+}
+.row-view .row:hover,
+.row-view .row.editing {
+  background: #fff1dd;
+}
+.row-view .row h3 {
+  margin: 15px 0 0 10px;
+}
+.row-view .row .actions {
+  float: right;
+  height: 30px;
+  padding-right: 4px;
+}
+.row-view .row .actions .action {
+  margin-right: -4px;
+  display: inline-block;
+  width: 66px;
+  height: 83px;
+}
+.row-view .row .actions .action button,
+.row-view .row .actions .action a.button {
+  position: absolute;
+  height: 100%;
+  top: 0;
+}
+.row-view .row .details {
+  overflow: hidden;
+  padding: 15px 10px 10px 10px;
+}
+.row-view.editing .row:hover {
+  background: inherit;
+}
+.row-view.editing .row.editing {
+  background: #fff1dd;
+}
+input[type="text"],
+input[type="password"],
+select,
+textarea {
+  color: #999;
+  padding: 2px 4px;
+  border: 1px solid #bbb;
+  border-radius: 2px;
+  font-size: 100%;
+  margin: 0;
+}
+select {
+  padding: 1px 0px;
+}
+.field-row .field {
+  margin-top: 10px;
+}
+.field-row .field .input {
+  display: inline-block;
+}
+.field-row .field .input input {
+  width: 100%;
+  max-width: 100%;
+}
+.field-row .field .input.full {
+  width: 400px;
+  max-width: 100%;
+}
+.field-row .field .input.tiny {
+  width: 42px;
+}
+.field-row .field .input.price {
+  width: 86px;
+  margin-left: 3px;
+}
+.field-row .field .input + .input {
+  margin-left: 10px;
+}
+.field-row .field .input + select.input {
+  margin-left: 5px;
+}
+.field-row .field + .field {
+  margin-left: 10px;
+}
+.field-row:after {
+  content: '';
+  clear: left;
+  display: block;
+}
+.field-row:first-child .field {
+  margin-top: 0;
+}
+.price-detail {
+  width: 300px;
+}
+.unit-type-detail {
+  width: 300px;
+}
+.flex {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 0;
+  justify-content: space-between;
+}
+.flex > div {
+  margin: 0 20px;
+}
+.flex > div div {
+  display: inline-block;
+}
+.flex > div:first-child {
+  margin-left: 0;
+}
+.field-row + .flex {
+  margin-top: 10px;
+}
+.customer-details > div {
+  margin-top: 10px;
+  padding-left: 22px;
+  position: relative;
+}
+.customer-details > div i {
+  color: #bbb;
+  position: absolute;
+  left: 0;
+}
+.customer-details > div i::before {
+  margin: 0;
+  padding: 0;
+}
+.customer-details > div:first-child {
+  margin-top: 0;
+}
+.customer-details > div textarea,
+.customer-details > div input[type="text"],
+.customer-details > div input[type="password"] {
+  width: 378px;
+}
+.customer-details > div textarea {
+  height: 80px;
+}
+@media only screen and (min-width : 669px) {
+  .customer-details {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 0;
+    justify-content: space-between;
+  }
+  .customer-details > div {
+    margin: 0 20px;
+  }
+  .customer-details > div div {
+    display: inline-block;
+  }
+  .customer-details > div:first-child {
+    margin-left: 0;
+  }
+  .field-row + .customer-details {
+    margin-top: 10px;
+  }
+  .customer-details > div textarea,
+  .customer-details > div input[type="text"],
+  .customer-details > div input[type="password"] {
+    width: 100%;
+  }
+  .customer-details .address {
+    width: 400px;
+    flex-shrink: 2;
+    min-width: 120px;
+  }
+  .customer-details .email {
+    width: 250px;
+    min-width: 150px;
+    flex-shrink: 1;
+  }
+  .customer-details .tel {
+    width: 140px;
+    flex-shrink: 0;
+  }
+}
