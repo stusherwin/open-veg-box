@@ -14,3 +14,7 @@ C33 3CC','07324 358774',null,'christine@cook.com');
 INSERT INTO "customer" VALUES(1,'Derek Draper','4 Durian Drive
 Digby
 D44 4DD','07324 358774',null,'derek@draper.com');
+
+CREATE TABLE delivery(id integer primary key, name text);
+INSERT INTO "delivery" VALUES(2,'Delivery 1');
+INSERT INTO "delivery" VALUES(1,'Delivery 2');

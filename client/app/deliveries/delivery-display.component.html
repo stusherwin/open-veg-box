@@ -1,0 +1,21 @@
+<h3>{{ delivery.name }}</h3>
+<div class="actions">
+  <div class="action">
+    <a class="button" href="#" [class.disabled]="editDisabled" (click)="clickEmail($event)">
+      <div class="icon"><i class="icon-mail-dark"></i></div>
+      <span>Email</span>
+    </a>
+  </div>
+  <div class="action">
+    <button (click)="edit()" [disabled]="editDisabled">
+      <div class="icon"><i class="icon-edit"></i></div>
+      <span>Edit</span>
+    </button>
+  </div>
+  <div class="action">
+    <button (click)="delete()" [disabled]="editDisabled">
+      <div class="icon"><i class="icon-trash"></i></div>
+      <span>Delete</span>
+    </button>
+  </div>
+</div>

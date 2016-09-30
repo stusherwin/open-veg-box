@@ -1,52 +1,20 @@
 <div class="page-outer">
   <div class="page-inner">
+    <cc-header></cc-header>
     <h2>Deliveries</h2>
-    <div class="row-view">
-      <button class="top-level">
+
+    <div class="row-view" [class.editing]="editing || adding">
+      <button class="top-level" (click)="startAdd()" [disabled]="adding || editing">
         <div class="icon"><i class="icon-add"></i></div>
         <span>Add</span>
       </button>
-      <div class="row">
-        <h3>Delivery 1</h3>
-        <div class="actions">
-          <div class="action">
-            <a class="button" href="mailto:">
-              <div class="icon"><i class="icon-mail-dark"></i></div>
-              <span>Email</span>
-            </a>
-          </div>
-          <div class="action">
-            <button>
-              <div class="icon"><i class="icon-edit"></i></div>
-              <span>Edit</span>
-            </button>
-          </div>
-        </div>
-        <div class="details">
-          Delivery details go here...
-        </div>
+      <div class="row editing" *ngIf="adding">
+        <cc-delivery-edit [delivery]="adding" (onSave)="completeAdd()" (onCancel)="cancel()"></cc-delivery-edit>
       </div>
-      <div class="row">
-        <h3>Delivery 2</h3>
-        <div class="actions">
-          <div class="action">
-            <a class="button" href="mailto:">
-              <div class="icon"><i class="icon-mail-dark"></i></div>
-              <span>Email</span>
-            </a>
-          </div>
-          <div class="action">
-            <button>
-              <div class="icon"><i class="icon-edit"></i></div>
-              <span>Edit</span>
-            </button>
-          </div>
-        </div>
-        <div class="details">
-          Delivery details go here...          
-        </div>
+      <div class="row" *ngFor="let d of deliveries" [class.editing]="editing && editing.id == d.id">
+        <cc-delivery-display *ngIf="!editing || editing.id != d.id" [delivery]="d" (onEdit)="startEdit(d)" (onDelete)="delete(d)" [editDisabled]="adding || editing"></cc-delivery-display>
+        <cc-delivery-edit *ngIf="editing && editing.id == d.id" [delivery]="editing" (onSave)="completeEdit()" (onCancel)="cancel()"></cc-delivery-edit>
       </div>
-
     </div>
   </div>
 </div>
