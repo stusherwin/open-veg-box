@@ -55,6 +55,13 @@ export class ProductsComponent implements OnInit {
       this.products = products;
     });
   }
+  
+  delete(product: Product) {
+    this.productService.delete(product.id, this.queryParams).subscribe(products => {
+      this.editing = null;
+      this.products = products;
+    });
+  }
 
   cancel() {
     this.editing = null;

@@ -27,3 +27,8 @@ customers.put('/', function(req: any, res: any) {
   customersService.add(req.body, wl(['page', 'pageSize'], req.query), req.db)
                   .subscribe(customers => res.json(customers));
 });
+
+customers.delete('/:id', function(req: any, res: any) {
+  customersService.delete(req.params.id, wl(['page', 'pageSize'], req.query), req.db)
+                  .subscribe(customers => res.json(customers));
+});

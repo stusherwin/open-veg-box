@@ -25,7 +25,7 @@ export class AuthHttp extends Http {
   }
   
   delete(url: string, options?: RequestOptionsArgs): Observable<Response> {
-    return this.intercept(super.delete(url, options));
+    return this.intercept(super.delete(url, this.getRequestOptionArgs(options)));
   }
   
   getRequestOptionArgs(options?: RequestOptionsArgs) : RequestOptionsArgs {

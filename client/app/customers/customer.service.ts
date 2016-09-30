@@ -48,6 +48,15 @@ export class CustomerService {
                     .map(ps => ps.map(this.hydrate));
   }
 
+  delete(id: number, queryParams: {[key: string]: string}): Observable<Customer[]> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.delete('api/customers/' + id + '?' + this.toQueryString(queryParams), options)
+                    .map(res => res.json())
+                    .map(ps => ps.map(this.hydrate));
+  }
+
   private hydrate(p: any) {
     return new Customer(p.id, p.name, p.address, p.tel1, p.tel2, p.email);
   }

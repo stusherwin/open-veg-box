@@ -15,12 +15,10 @@ const paramsWhiteList = { p: 'page', ps: 'pageSize' };
 @Injectable()
 export class ProductService {
   private http: Http;
-  private usersService: UsersService;
   private router: Router;
 
-  constructor(http: Http, usersService: UsersService, router: Router) {
+  constructor(http: Http, router: Router) {
     this.http = http;
-    this.usersService = usersService;
     this.router = router;
   }
 
@@ -49,6 +47,14 @@ export class ProductService {
     let options = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' }) });
 
     return this.http.post('api/products/' + id + '?' + this.toQueryString(queryParams), JSON.stringify(params), options)
+                    .map(res => res.json())
+                    .map(ps => ps.map(this.hydrate));
+  }
+
+  delete(id: number, queryParams: {[key: string]: string}): Observable<Product[]> {
+    let options = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' }) });
+
+    return this.http.delete('api/products/' + id + '?' + this.toQueryString(queryParams), options)
                     .map(res => res.json())
                     .map(ps => ps.map(this.hydrate));
   }

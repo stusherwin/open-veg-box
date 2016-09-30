@@ -7,6 +7,7 @@ export let authorize = function (req: any, res: any, next:() => void) {
   if (credentials == null) {
     res.set('WWW-Authenticate', 'X-Basic realm="Restricted Area"');
     res.sendStatus(401);
+    return;
   }
 
   authService.authenticate(credentials.username, credentials.password)

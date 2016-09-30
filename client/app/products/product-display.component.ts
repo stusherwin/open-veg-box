@@ -25,7 +25,14 @@ export class ProductDisplayComponent {
   @Output()
   onEdit = new EventEmitter<Product>();
 
+  @Output()
+  onDelete = new EventEmitter<Product>();
+
   edit() {
     this.onEdit.emit(this.product);
+  }
+
+  delete() {
+    this.onDelete.emit(this.product);
   } 
 }

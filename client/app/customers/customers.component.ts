@@ -55,6 +55,13 @@ export class CustomersComponent implements OnInit {
     });
   }
 
+  delete(customer: Customer) {
+    this.customerService.delete(customer.id, this.queryParams).subscribe(c => {
+      this.editing = null;
+      this.customers = c;
+    });
+  }
+
   cancel() {
     this.editing = null;
     this.adding = null;

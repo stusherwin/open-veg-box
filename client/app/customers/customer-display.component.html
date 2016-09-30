@@ -12,6 +12,12 @@
       <span>Edit</span>
     </button>
   </div>
+  <div class="action">
+    <button (click)="delete()" [disabled]="editDisabled">
+      <div class="icon"><i class="icon-trash"></i></div>
+      <span>Delete</span>
+    </button>
+  </div>
 </div>
 <div class="details customer-details">  
   <div class="address">
@@ -22,5 +28,7 @@
   </div>
   <div class="tel">
     <i class="icon-phone"></i><div><span>{{ customer.tel1 }}</span></div>
+  </div>
+  <div>
   </div>
 </div>

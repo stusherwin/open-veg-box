@@ -113,12 +113,6 @@
       "src": "fontawesome"
     },
     {
-      "uid": "f48ae54adfb27d8ada53d0fd9e34ee10",
-      "css": "trash",
-      "code": 59409,
-      "src": "fontawesome"
-    },
-    {
       "uid": "57a0ac800df728aad61a7cf9e12f5fef",
       "css": "flag",
       "code": 59407,
@@ -190,6 +184,12 @@
       "uid": "ccc2329632396dc096bb638d4b46fb98",
       "css": "mail-dark",
       "code": 61664,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "bbfb51903f40597f0b70fd75bc7b5cac",
+      "css": "trash",
+      "code": 59418,
       "src": "fontawesome"
     }
   ]

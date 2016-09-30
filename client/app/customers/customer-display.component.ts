@@ -17,8 +17,15 @@ export class CustomerDisplayComponent {
   @Output()
   onEdit = new EventEmitter<Customer>();
 
+  @Output()
+  onDelete = new EventEmitter<Customer>();
+
   edit() {
     this.onEdit.emit(this.customer);
+  } 
+
+  delete() {
+    this.onDelete.emit(this.customer);
   } 
 
   clickEmail(event:any) {

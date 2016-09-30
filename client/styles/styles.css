@@ -1698,6 +1698,9 @@ select {
 .icon i.icon-mail-dark:before {
   font-size: 85%;
 }
+.icon i.icon-trash {
+  padding-left: 1px;
+}
 .home button i.icon-login {
   padding-left: 0px;
   padding-top: 7px;

@@ -16,7 +16,6 @@
 .icon-home:before { content: '\e80e'; } /* '' */
 .icon-flag:before { content: '\e80f'; } /* '' */
 .icon-print:before { content: '\e810'; } /* '' */
-.icon-trash:before { content: '\e811'; } /* '' */
 .icon-spinner:before { content: '\e812'; } /* '' */
 .icon-login:before { content: '\e813'; } /* '' */
 .icon-logout:before { content: '\e814'; } /* '' */
@@ -25,4 +24,5 @@
 .icon-mail:before { content: '\e817'; } /* '' */
 .icon-phone:before { content: '\e818'; } /* '' */
 .icon-mail-1:before { content: '\e819'; } /* '' */
+.icon-trash:before { content: '\e81a'; } /* '' */
 .icon-mail-dark:before { content: '\f0e0'; } /* '' */

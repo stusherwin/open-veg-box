@@ -22,4 +22,10 @@ export class CustomersService {
 
     return this.sqlHelper.selectAll(db, queryParams);
   }
+
+  delete(id: number, queryParams: any, db: any): Observable<Customer[]> {
+    this.sqlHelper.delete(db, id);
+
+    return this.sqlHelper.selectAll(db, queryParams);
+  }
 }

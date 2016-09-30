@@ -110,4 +110,12 @@ export class SqlHelper<T> {
 
     db.run(insertSql, this.buildSqlParams(params));
   }
+
+  delete = function(db: any, id: number) {
+   var updateSql = 'delete from '
+      + this.table 
+      + ' where id = $id';
+      
+    db.run(updateSql, { $id: id });
+  }
 }

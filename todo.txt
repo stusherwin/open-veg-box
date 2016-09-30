@@ -10,7 +10,6 @@ Editing
 =======
 * Rows: only show edit button on hover?
 * Edit individual fields
-* Delete for products/customers
 
 Auth
 ====
