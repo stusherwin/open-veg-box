@@ -41,6 +41,9 @@
   height: 83px;
   right: 0;
 }
+.row-view p {
+  margin-top: 20px;
+}
 .row-view .row {
   min-height: 83px;
   border-top: 1px dashed #ccc;

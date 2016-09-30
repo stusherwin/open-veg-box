@@ -4,6 +4,7 @@
     <h2>Deliveries</h2>
 
     <div class="row-view" [class.editing]="editing || adding">
+      <p *ngIf="!deliveries.length">There are no deliveries yet.</p>
       <button class="top-level" (click)="startAdd()" [disabled]="adding || editing">
         <div class="icon"><i class="icon-add"></i></div>
         <span>Add</span>

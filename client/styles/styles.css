@@ -511,7 +511,7 @@ h2 {
   margin: 20px 0 30px 0;
 }
 .muted {
-  color: #bbb;
+  color: #bbb !important;
 }
 .r {
   border: 1px solid red;
@@ -1006,6 +1006,9 @@ h2 {
   top: -83px;
   height: 83px;
   right: 0;
+}
+.row-view p {
+  margin-top: 20px;
 }
 .row-view .row {
   min-height: 83px;
