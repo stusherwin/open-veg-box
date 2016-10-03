@@ -7,6 +7,13 @@ CREATE TABLE customer(id integer primary key, name text, address text, tel1 text
 DROP TABLE IF EXISTS round;
 CREATE TABLE round(id integer primary key, name text);
 
+DROP TABLE IF EXISTS round_customer;
+CREATE TABLE round_customer(
+  roundId integer NOT NULL REFERENCES round(id),
+  customerId integer NOT NULL REFERENCES customer(id),
+  PRIMARY KEY(roundId, customerId)
+);
+
 ------
 ------
 
@@ -27,3 +34,8 @@ D44 4DD','07324 358774',null,'derek@draper.com');
 
 INSERT INTO round VALUES(2,'Round 1');
 INSERT INTO round VALUES(1,'Round 2');
+
+INSERT INTO round_customer VALUES(2, 4);
+INSERT INTO round_customer VALUES(2, 3);
+INSERT INTO round_customer VALUES(1, 2);
+INSERT INTO round_customer VALUES(1, 1);

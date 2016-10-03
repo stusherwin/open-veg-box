@@ -25,13 +25,11 @@ export let makeWl = function(props: any): (o:any) => any {
 export class SqlHelper<T> {
   private table: string;
   private fields: string[];
-  private create: (row: any) => T;
   private defaultPageSize: number;
 
-  constructor(table: string, fields: string[], create: (row: any) => T, defaultPageSize?: number) {
+  constructor(table: string, fields: string[], defaultPageSize?: number) {
     this.table = table;
     this.fields = fields;
-    this.create = create;
     this.defaultPageSize = defaultPageSize || 1000;
   }
 
@@ -58,7 +56,7 @@ export class SqlHelper<T> {
     return sqlParams;  
   }
 
-  selectAll = function(db: any, queryParams: any): Observable<T[]> {
+  selectAll = function(db: any, queryParams: any, create: (row: any) => T): Observable<T[]> {
     return Observable.create((o: any) => {
       var pageSize = +(queryParams.pageSize || this.defaultPageSize);
       var startIndex = (+(queryParams.page || 1) - 1) * pageSize;
@@ -66,14 +64,29 @@ export class SqlHelper<T> {
         $count: pageSize,
         $skip: startIndex
       }, (err: any, rows: any) => {
-        var results: T[] = rows.map(this.create);
+        var results: T[] = rows.map(create);
         o.next(results);
         o.complete();
       });
     });
   }
 
-  select = function(db: any, params: any): Observable<T> {
+  selectSql = function(db: any, sql: string, queryParams: any, create: (rows: any[]) => T[]): Observable<T[]> {
+    return Observable.create((o: any) => {
+      var pageSize = +(queryParams.pageSize || this.defaultPageSize);
+      var startIndex = (+(queryParams.page || 1) - 1) * pageSize;
+      db.all(sql + ' limit $count offset $skip', {
+        $count: pageSize,
+        $skip: startIndex
+      }, (err: any, rows: any) => {
+        var results = create(rows);
+        o.next(results);
+        o.complete();
+      });
+    });
+  }
+
+  select = function(db: any, params: any, create: (row: any) => T): Observable<T> {
     var selectSql = 'select * from ' 
         + this.table 
         + ' where '
@@ -82,7 +95,7 @@ export class SqlHelper<T> {
         return Observable.create((o: any) => {
       
       db.get(selectSql, this.buildSqlParams(params), (err: any, row: any) => {
-        var result: T = row ? this.create(row) : null;
+        var result: T = row ? create(row) : null;
         o.next(result);
         o.complete();
       });

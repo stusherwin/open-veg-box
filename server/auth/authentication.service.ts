@@ -13,15 +13,14 @@ var sqlite = require('sqlite3').verbose();
 var mainDb = new sqlite.Database(path.resolve(__dirname, '../main.sqlite'));
 var organisationDbs: { [id: number]: any; } = {};
 
-var sqlHelper = new SqlHelper<Organisation>('organisation',
-  ['name', 'username', 'password', 'dbName'],
-  r => new Organisation(r.id, r.name, r.username, r.password, r.dbName));
+var sqlHelper = new SqlHelper<Organisation>('organisation', ['name', 'username', 'password', 'dbName']);
 
-sqlHelper.selectAll(mainDb, {}).subscribe(organisations => {
-  for(var o of organisations) {
-    organisationDbs[o.id] = new sqlite.Database(path.resolve(__dirname, '../', o.dbName + '.sqlite'));
-  }
-});
+sqlHelper.selectAll(mainDb, {}, r => new Organisation(r.id, r.name, r.username, r.password, r.dbName))
+         .subscribe(organisations => {
+           for(var o of organisations) {
+             organisationDbs[o.id] = new sqlite.Database(path.resolve(__dirname, '../', o.dbName + '.sqlite'));
+           }
+         });
 
 export class AuthenticationService {
   getDb(organisationId: number) {
@@ -29,7 +28,9 @@ export class AuthenticationService {
   }
 
   authenticate(username: string, password: string): Observable<Organisation> {
-    return sqlHelper.select(mainDb, { username: username, password: password })
+    return sqlHelper.select(mainDb,
+                      { username: username, password: password },
+                      r => new Organisation(r.id, r.name, r.username, r.password, r.dbName))
                     .map( o => { 
                       if(o == null) { throw 'not found'; }
                       return o; });
