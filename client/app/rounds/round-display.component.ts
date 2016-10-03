@@ -1,31 +1,31 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Delivery } from './delivery';
+import { Round } from './round';
 import { SingleLinePipe } from '../shared/pipes';
 
 @Component({
-  selector: 'cc-delivery-display',
-  templateUrl: 'app/deliveries/delivery-display.component.html',
+  selector: 'cc-round-display',
+  templateUrl: 'app/rounds/round-display.component.html',
   pipes: [SingleLinePipe]
 })
-export class DeliveryDisplayComponent {
+export class RoundDisplayComponent {
   @Input()
-  delivery: Delivery;
+  round: Round;
 
   @Input()
   editDisabled: boolean;
 
   @Output()
-  onEdit = new EventEmitter<Delivery>();
+  onEdit = new EventEmitter<Round>();
 
   @Output()
-  onDelete = new EventEmitter<Delivery>();
+  onDelete = new EventEmitter<Round>();
 
   edit() {
-    this.onEdit.emit(this.delivery);
+    this.onEdit.emit(this.round);
   } 
 
   delete() {
-    this.onDelete.emit(this.delivery);
+    this.onDelete.emit(this.round);
   } 
 
   clickEmail(event:any) {

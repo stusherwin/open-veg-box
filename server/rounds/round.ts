@@ -1,4 +1,4 @@
-export class Delivery {
+export class Round {
   constructor(id: number, name:string) {
     this.id = id;
     this.name = name;

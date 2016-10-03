@@ -1,4 +1,4 @@
-export class Delivery {
+export class Round {
   constructor(id: number, name:string) {
     this.id = id;
     this.name = name;
@@ -8,6 +8,6 @@ export class Delivery {
   name: string;
 
   clone() {
-    return new Delivery(this.id, this.name);
+    return new Round(this.id, this.name);
   }
 }

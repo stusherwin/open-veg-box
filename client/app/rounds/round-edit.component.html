@@ -1,5 +1,5 @@
 <form (ngSubmit)="save()" #f="ngForm">
-  <h3>{{ delivery.name || 'The Delivery With No Name' }}</h3>
+  <h3>{{ round.name || 'The Round With No Name' }}</h3>
   <div class="actions">
     <div class="action"></div>
     <div class="action">
@@ -18,7 +18,7 @@
   <div class="details">
     <div class="field-row">
       <div class="field full">
-        <input type="text" class="input full" [(ngModel)]="delivery.name" #name ngControl="name" tabindex="0" required/>
+        <input type="text" class="input full" [(ngModel)]="round.name" #name ngControl="name" tabindex="0" required/>
       </div>
     </div>
   </div>

@@ -1,4 +1,4 @@
-import { Delivery } from './delivery'
+import { Round } from './round'
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -10,7 +10,7 @@ import 'rxjs/add/operator/map';
 const paramsWhiteList = { p: 'page', ps: 'pageSize' };
 
 @Injectable()
-export class DeliveryService {
+export class RoundService {
   http: Http;
 
   constructor(http: Http) {
@@ -24,40 +24,40 @@ export class DeliveryService {
                  .join('&');
   }
 
-  getAll(queryParams: {[key: string]: string}): Observable<Delivery[]> {
-    return this.http.get('/api/deliveries?' + this.toQueryString(queryParams))
+  getAll(queryParams: {[key: string]: string}): Observable<Round[]> {
+    return this.http.get('/api/rounds?' + this.toQueryString(queryParams))
                     .map(res => res.json())
                     .map(ps => ps.map(this.hydrate));
   }
 
-  add(params: any, queryParams: {[key: string]: string}): Observable<Delivery[]> {
+  add(params: any, queryParams: {[key: string]: string}): Observable<Round[]> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.put('api/deliveries?' + this.toQueryString(queryParams), JSON.stringify(params), options)
+    return this.http.put('api/rounds?' + this.toQueryString(queryParams), JSON.stringify(params), options)
                     .map(res => res.json())
                     .map(ps => ps.map(this.hydrate));
   }
 
-  update(id: number, params: any, queryParams: {[key: string]: string}): Observable<Delivery[]> {
+  update(id: number, params: any, queryParams: {[key: string]: string}): Observable<Round[]> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.post('api/deliveries/' + id + '?' + this.toQueryString(queryParams), JSON.stringify(params), options)
+    return this.http.post('api/rounds/' + id + '?' + this.toQueryString(queryParams), JSON.stringify(params), options)
                     .map(res => res.json())
                     .map(ps => ps.map(this.hydrate));
   }
 
-  delete(id: number, queryParams: {[key: string]: string}): Observable<Delivery[]> {
+  delete(id: number, queryParams: {[key: string]: string}): Observable<Round[]> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.delete('api/deliveries/' + id + '?' + this.toQueryString(queryParams), options)
+    return this.http.delete('api/rounds/' + id + '?' + this.toQueryString(queryParams), options)
                     .map(res => res.json())
                     .map(ps => ps.map(this.hydrate));
   }
 
   private hydrate(p: any) {
-    return new Delivery(p.id, p.name);
+    return new Round(p.id, p.name);
   }
 }

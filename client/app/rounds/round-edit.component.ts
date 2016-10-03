@@ -1,16 +1,16 @@
 import { Component, Input, Output, EventEmitter, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { Delivery } from './delivery';
+import { Round } from './round';
 
 @Component({
-  selector: 'cc-delivery-edit',
-  templateUrl: 'app/deliveries/delivery-edit.component.html',
+  selector: 'cc-round-edit',
+  templateUrl: 'app/rounds/round-edit.component.html',
 })
-export class DeliveryEditComponent implements AfterViewInit {
+export class RoundEditComponent implements AfterViewInit {
   @Input()
-  delivery: Delivery;
+  round: Round;
 
   @Output()
-  onSave = new EventEmitter<Delivery>();
+  onSave = new EventEmitter<Round>();
 
   @Output()
   onCancel = new EventEmitter();
@@ -27,6 +27,6 @@ export class DeliveryEditComponent implements AfterViewInit {
   }
 
   save() {
-    this.onSave.emit(this.delivery);
+    this.onSave.emit(this.round);
   }
 }

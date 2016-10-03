@@ -1,0 +1,21 @@
+<div class="page-outer">
+  <div class="page-inner">
+    <cc-header></cc-header>
+    <h2>Rounds</h2>
+
+    <div class="row-view" [class.editing]="editing || adding">
+      <p *ngIf="!rounds.length">There are no rounds yet.</p>
+      <button class="top-level" (click)="startAdd()" [disabled]="adding || editing">
+        <div class="icon"><i class="icon-add"></i></div>
+        <span>Add</span>
+      </button>
+      <div class="row editing" *ngIf="adding">
+        <cc-round-edit [round]="adding" (onSave)="completeAdd()" (onCancel)="cancel()"></cc-round-edit>
+      </div>
+      <div class="row" *ngFor="let d of rounds" [class.editing]="editing && editing.id == d.id">
+        <cc-round-display *ngIf="!editing || editing.id != d.id" [round]="d" (onEdit)="startEdit(d)" (onDelete)="delete(d)" [editDisabled]="adding || editing"></cc-round-display>
+        <cc-round-edit *ngIf="editing && editing.id == d.id" [round]="editing" (onSave)="completeEdit()" (onCancel)="cancel()"></cc-round-edit>
+      </div>
+    </div>
+  </div>
+</div>
