@@ -10,11 +10,11 @@
         <span>Add</span>
       </button>
       <div class="row editing" *ngIf="adding">
-        <cc-round-edit [round]="adding" (onSave)="completeAdd()" (onCancel)="cancel()"></cc-round-edit>
+        <cc-round-edit [round]="adding" [customers]="customers" (onSave)="completeAdd()" (onCancel)="cancel()"></cc-round-edit>
       </div>
       <div class="row" *ngFor="let d of rounds" [class.editing]="editing && editing.id == d.id">
         <cc-round-display *ngIf="!editing || editing.id != d.id" [round]="d" (onEdit)="startEdit(d)" (onDelete)="delete(d)" [editDisabled]="adding || editing"></cc-round-display>
-        <cc-round-edit *ngIf="editing && editing.id == d.id" [round]="editing" (onSave)="completeEdit()" (onCancel)="cancel()"></cc-round-edit>
+        <cc-round-edit *ngIf="editing && editing.id == d.id" [round]="editing" [customers]="customers" (onSave)="completeEdit()" (onCancel)="cancel()"></cc-round-edit>
       </div>
     </div>
   </div>

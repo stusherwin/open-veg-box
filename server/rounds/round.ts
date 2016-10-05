@@ -11,11 +11,13 @@ export class Round {
 }
 
 export class RoundCustomer {
-  constructor(id: number, name:string) {
+  constructor(id: number, name:string, address: string) {
     this.id = id;
     this.name = name;
+    this.address = address;
   }
     
   id: number;
   name: string;
+  address: string;
 }

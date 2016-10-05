@@ -1,4 +1,4 @@
-import { Round } from './round'
+import { Round, RoundCustomer } from './round'
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -57,7 +57,25 @@ export class RoundService {
                     .map(ps => ps.map(this.hydrate));
   }
 
-  private hydrate(p: any) {
-    return new Round(p.id, p.name);
+  addCustomer(id: number, customerId: number, queryParams: {[key: string]: string}): Observable<Round[]> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.put('api/rounds/' + id + '/customers/' + customerId + '?' + this.toQueryString(queryParams), '', options)
+                    .map(res => res.json())
+                    .map(ps => ps.map(this.hydrate));
+  }
+
+  removeCustomer(id: number, customerId: number, queryParams: {[key: string]: string}): Observable<Round[]> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.delete('api/rounds/' + id + '/customers/' + customerId + '?' + this.toQueryString(queryParams), options)
+                    .map(res => res.json())
+                    .map(ps => ps.map(this.hydrate));
+  }
+
+  private hydrate(r: any) {
+    return new Round(r.id, r.name, r.customers.map((c:any) => new RoundCustomer(c.id, c.name, c.address)));
   }
 }

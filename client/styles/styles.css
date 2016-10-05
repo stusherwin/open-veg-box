@@ -1025,6 +1025,9 @@ h2 {
 .row-view .row h3 {
   margin: 15px 0 0 10px;
 }
+.row-view .row ul li {
+  margin-top: 10px;
+}
 .row-view .row .actions {
   float: right;
   height: 30px;
@@ -1062,6 +1065,9 @@ textarea {
   border-radius: 2px;
   font-size: 100%;
   margin: 0;
+}
+input[type="checkbox"] {
+  outline: 0;
 }
 select {
   padding: 1px 0px;

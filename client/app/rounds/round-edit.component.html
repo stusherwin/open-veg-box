@@ -18,7 +18,15 @@
   <div class="details">
     <div class="field-row">
       <div class="field full">
-        <input type="text" class="input full" [(ngModel)]="round.name" #name ngControl="name" tabindex="0" required/>
+        <input type="text" class="input full" [(ngModel)]="round.name" #name ngControl="name" tabindex="0" required />
+      </div>
+      <div class="field-row">
+        <ul>
+          <li *ngFor="let c of customers">
+            <input [id]="'customer' + c.id" type="checkbox" (change)="setOnRound(c, $event)" [checked]="isOnRound(c)" />
+            <label [htmlFor]="'customer' + c.id">{{c.name}}</label>
+          </li>
+        </ul>
       </div>
     </div>
   </div>

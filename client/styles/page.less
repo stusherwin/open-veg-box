@@ -1,6 +1,11 @@
 @import "variables";
 @import "mixins";
 
+// * {
+//   background: rgba(255,0,0,0.1) !important;
+//   border-color: black !important;
+//}
+
 .page-outer {
   min-width: 400px;
   margin:0;
@@ -46,7 +51,7 @@
     height: 83px;
     right:0;
   }
-  
+
   p {
     margin-top:20px;
   }
@@ -67,6 +72,12 @@
 
     h3 {
       margin:15px 0 0 10px;
+    }
+
+    ul {
+      li {
+        margin-top:10px;
+      }      
     }
 
     .actions {
@@ -111,6 +122,10 @@ input[type="text"], input[type="password"], select, textarea {
   border-radius: 2px;
   font-size: 100%; 
   margin:0;
+}
+
+input[type="checkbox"] {
+  outline: 0;
 }
 
 select {
