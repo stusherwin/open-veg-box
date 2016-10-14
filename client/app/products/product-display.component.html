@@ -1,4 +1,3 @@
-<h3>{{ product.name }}</h3>
 <div class="actions">
   <div class="action">
     <button (click)="edit()" [disabled]="editDisabled">
@@ -13,12 +12,15 @@
     </button>
   </div>
 </div>
-<div class="details flex">
-  <div class="field price-detail">
-    <span [innerHTML]="product.price | money"></span> <span class="muted">{{ unitTypes[product.unitType] }}</span>
+<div class="details">
+  <cc-heading [value]="product.name"></cc-heading>
+  <div class="flex">
+    <div class="field price-detail">
+      <cc-product-price [price]="product.price" [unitType]="product.unitType"></cc-product-price>
+    </div>
+    <div class="field unit-type-detail" *ngIf="product.unitType == 'perKg'">
+      <span class="muted">sold in units of</span> {{ product.unitQuantity | weight }}
+    </div>
+    <div>&nbsp;</div>
   </div>
-  <div class="field unit-type-detail" *ngIf="product.unitType == 'perKg'">
-    <span class="muted">sold in units of</span> {{ product.unitQuantity | weight }}
-  </div>
-  <div>&nbsp;</div>
 </div>

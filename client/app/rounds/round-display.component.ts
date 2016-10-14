@@ -1,11 +1,13 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Round } from './round';
 import { SingleLinePipe } from '../shared/pipes';
+import { HeadingComponent } from '../shared/heading.component';
 
 @Component({
   selector: 'cc-round-display',
   templateUrl: 'app/rounds/round-display.component.html',
-  pipes: [SingleLinePipe]
+  pipes: [SingleLinePipe],
+  directives: [HeadingComponent]
 })
 export class RoundDisplayComponent {
   @Input()

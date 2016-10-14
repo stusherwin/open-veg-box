@@ -8,10 +8,60 @@ const NUMBER_CONTROL_VALUE_ACCESSOR = new Provider( NG_VALUE_ACCESSOR, {
   multi: true
 });
 
+
+import {Directive, ElementRef} from '@angular/core';
+@Directive({
+  selector: '[numeric]'
+})
+export class NumericDirective {
+  constructor(private el: ElementRef) {}
+  @Input()
+  fixedDecimals: number = null
+  
+  @Input()
+  maxDecimals: number = null
+
+  ngAfterViewInit() {
+    console.log(this.fixedDecimals);
+    console.log(this.maxDecimals);
+    this.el.nativeElement.onfocus = () => console.log(this.el.nativeElement.value); // this.reformat.apply(this);
+  }
+
+  private reformat() {
+    console.log('reformatting...')
+    console.log(this.el.nativeElement.value);
+    console.log(this.toDecimalValue(this.el.nativeElement.value));
+    console.log(this.toStringValue(this.toDecimalValue(this.el.nativeElement.value)));
+    this.el.nativeElement.value = this.toStringValue(this.toDecimalValue(this.el.nativeElement.value));
+  }
+
+  private toStringValue(value: number): string {
+    if(this.fixedDecimals) {
+      return value.toFixed(this.fixedDecimals);
+    } else if(this.maxDecimals) {
+      var result = value.toFixed(this.maxDecimals);
+      while (result !== '0' && (result.endsWith('.') || result.endsWith('0'))) {
+        result = result.substring(0, result.length - 1);
+      }
+      return result;
+    } else {
+      return '' + value;
+    }
+  }
+
+  private toDecimalValue(value: string): number {
+    var parsed = parseFloat(value);
+    if( isNaN(parsed) ) {
+      return 0;
+    }
+    return parsed;
+  }
+}
+
 @Component({
   selector: 'cc-number',
-  template: '<input type="text" (blur)="onBlur()" [(ngModel)]="stringValue" tabindex="0" />',
-  directives: [CORE_DIRECTIVES],
+  template: '<input type="text" (blur)="onBlur()" [(ngModel)]="stringValue" tabindex="0" numeric />',
+  directives: [CORE_DIRECTIVES, NumericDirective],
   providers: [NUMBER_CONTROL_VALUE_ACCESSOR]
 })
 export class NumberComponent implements ControlValueAccessor {

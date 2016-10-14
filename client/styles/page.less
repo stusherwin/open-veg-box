@@ -59,20 +59,92 @@
   .row {
     min-height: 83px;
     border-top: 1px dashed @itemBorderColor; 
-    padding: 0;//10px 0px 10px 10px; // 10px 140px 10px 10px;
+    padding: 0;
     position: relative;
 
     &:last-child {
       border-bottom: 1px dashed @itemBorderColor; 
     }
 
-    &:hover, &.editing {
+    &:hover, &.editing, &:focus {
       background: @itemHoverColor;
     }
 
     h3 {
-      margin:15px 0 0 10px;
+      margin: 0;
+      margin-bottom: 10px;
+      height: 34px;
     }
+
+    .heading {
+      h3:hover {
+        position: relative;
+        margin:-5px 0 15px -4px;
+        
+        border: 1px dashed desaturate(darken(@itemHoverColor, 20%),10%);
+        border-radius: 2px;
+        
+        background: lighten(@itemHoverColor, 4%);
+        padding-left: 3px;
+        padding-top: 4px;
+        cursor: pointer;
+        width: 100%;
+        &:after {
+          position: absolute;
+          content: '\e807';
+          right: 8px;
+          top: 8px;
+          font-family: "fontello";
+          font-size:16px;
+          color: desaturate(darken(@itemHoverColor, 20%),50%);
+        }
+      }
+
+      input[type="text"] {
+        display: block;
+        margin:-5px 0 15px -4px;
+        font-size: 150%;
+        font-weight: 300;
+        width: 100%;
+        &:focus {
+          outline: 0;
+        }
+      }
+    }
+    
+    .product-price {
+      border: 1px solid red;
+      .product-price-display:hover {
+        position: relative;
+        margin:-5px 0 -4px -4px;
+        
+        border: 1px dashed desaturate(darken(@itemHoverColor, 20%),10%);
+        border-radius: 2px;
+        
+        background: lighten(@itemHoverColor, 4%);
+        padding-left: 3px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        cursor: pointer;
+        width: 100%;
+
+        &:after {
+          position: absolute;
+          content: '\e807';
+          right: 8px;
+          top: 4px;
+          font-family: "fontello";
+          font-size:16px;
+          color: desaturate(darken(@itemHoverColor, 20%),50%);
+        }
+      }
+
+      .product-price-edit {
+        input {
+          width: 50px;
+        }
+      }
+    }   
 
     ul {
       li {
@@ -100,6 +172,7 @@
     }
 
     .details {
+      // border: 1px solid red;
       overflow: hidden;
       padding: 15px 10px 10px 10px;
     }
@@ -201,9 +274,6 @@ select {
   & > div {
     margin: 0 20px;
 
-    div {
-      display: inline-block;
-    }
     &:first-child {
       margin-left:0;
     }

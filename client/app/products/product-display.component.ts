@@ -1,11 +1,14 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Product, UnitType, unitTypes } from './product';
 import { WeightPipe, MoneyPipe } from '../shared/pipes';
+import { HeadingComponent } from '../shared/heading.component';
+import { ProductPriceComponent } from './product-price.component';
 
 @Component({
   selector: 'cc-product-display',
   templateUrl: 'app/products/product-display.component.html',
-  pipes: [WeightPipe, MoneyPipe]
+  pipes: [WeightPipe, MoneyPipe],
+  directives: [HeadingComponent, ProductPriceComponent]
 })
 export class ProductDisplayComponent {
   unitTypes: {[key: string]: string } = {};
