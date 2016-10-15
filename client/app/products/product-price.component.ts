@@ -9,8 +9,8 @@ import { NumericDirective } from '../shared/number.component';
   directives: [GrabFocusDirective, NumericDirective],
   pipes: [MoneyPipe],
   template: `
-    <div class="product-price">
-      <div class="product-price-display" *ngIf="!editing" (click)="startEdit()">
+    <div class="product-price editable">
+      <div class="product-price-display editable-display" *ngIf="!editing" (click)="startEdit()">
         <span [innerHTML]="price | money"></span> <span class="muted">{{ unitTypeName(unitType) }}</span>
       </div>
       <div class="product-price-edit" *ngIf="editing">

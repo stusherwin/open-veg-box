@@ -5,9 +5,9 @@ import { GrabFocusDirective } from './grab-focus.directive'
   selector: 'cc-heading',
   directives: [GrabFocusDirective],
   template: `
-    <div class="heading">
+    <div class="heading editable">
       <input type="checkbox" style="position: absolute;left:-1000px" (focus)="startEdit()" />
-      <h3 *ngIf="!editing" (click)="startEdit()">{{value}}</h3>
+      <h3 *ngIf="!editing" class="editable-display" (click)="startEdit()">{{value}}</h3>
       <input *ngIf="editing" grabFocus (blur)="endEdit()" type="text" [value]="value" />
     </div>
   `

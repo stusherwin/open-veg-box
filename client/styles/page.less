@@ -76,33 +76,45 @@
       height: 34px;
     }
 
-    .heading {
-      h3:hover {
-        position: relative;
-        margin:-5px 0 15px -4px;
-        
-        border: 1px dashed desaturate(darken(@itemHoverColor, 20%),10%);
-        border-radius: 2px;
-        
-        background: lighten(@itemHoverColor, 4%);
-        padding-left: 3px;
+    .editable {
+      bottom: 4px;
+      right: 4px;
+      position: relative;
+      cursor: pointer;
+      width: 100%;
+
+      .editable-display {
+        border: 1px solid transparent;
         padding-top: 4px;
-        cursor: pointer;
-        width: 100%;
-        &:after {
-          position: absolute;
-          content: '\e807';
-          right: 8px;
-          top: 8px;
-          font-family: "fontello";
-          font-size:16px;
-          color: desaturate(darken(@itemHoverColor, 20%),50%);
+        padding-left: 4px;
+
+        &:hover {
+          border: 1px dashed desaturate(darken(@itemHoverColor, 20%),10%);
+          border-radius: 2px;
+          background: lighten(@itemHoverColor, 4%);
+          // padding-top: 3px;
+          // padding-left: 3px;
+
+          &:after {
+            position: absolute;
+            content: '\e807';
+            right: 6px;
+            top: 6px;
+            font-family: "fontello";
+            font-size:16px;
+            color: desaturate(darken(@itemHoverColor, 20%),50%);
+          }
         }
+      }
+    }
+
+    .heading {
+      h3 {
+        margin:0;
       }
 
       input[type="text"] {
         display: block;
-        margin:-5px 0 15px -4px;
         font-size: 150%;
         font-weight: 300;
         width: 100%;
@@ -113,31 +125,31 @@
     }
     
     .product-price {
-      border: 1px solid red;
-      .product-price-display:hover {
-        position: relative;
-        margin:-5px 0 -4px -4px;
+      // border: 1px solid red;
+      // .product-price-display:hover {
+        // position: relative;
+        // margin:-5px 0 -4px -4px;
         
-        border: 1px dashed desaturate(darken(@itemHoverColor, 20%),10%);
-        border-radius: 2px;
+        // border: 1px dashed desaturate(darken(@itemHoverColor, 20%),10%);
+        // border-radius: 2px;
         
-        background: lighten(@itemHoverColor, 4%);
-        padding-left: 3px;
-        padding-top: 4px;
-        padding-bottom: 4px;
-        cursor: pointer;
-        width: 100%;
+        // background: lighten(@itemHoverColor, 4%);
+        // padding-left: 3px;
+        // padding-top: 4px;
+        // padding-bottom: 4px;
+        // cursor: pointer;
+        // width: 100%;
 
-        &:after {
-          position: absolute;
-          content: '\e807';
-          right: 8px;
-          top: 4px;
-          font-family: "fontello";
-          font-size:16px;
-          color: desaturate(darken(@itemHoverColor, 20%),50%);
-        }
-      }
+        // &:after {
+        //   position: absolute;
+        //   content: '\e807';
+        //   right: 8px;
+        //   top: 4px;
+        //   font-family: "fontello";
+        //   font-size:16px;
+        //   color: desaturate(darken(@itemHoverColor, 20%),50%);
+        // }
+      // }
 
       .product-price-edit {
         input {
