@@ -83,26 +83,31 @@
 .row-view .row .editable .editable-display:hover:after {
   position: absolute;
   content: '\e807';
-  right: 6px;
-  top: 6px;
+  right: 5px;
+  top: 5px;
   font-family: "fontello";
   font-size: 16px;
   color: #ddc299;
-}
-.row-view .row .heading h3 {
-  margin: 0;
 }
 .row-view .row .heading input[type="text"] {
   display: block;
   font-size: 150%;
   font-weight: 300;
+  margin-bottom: 10px;
   width: 100%;
 }
 .row-view .row .heading input[type="text"]:focus {
   outline: 0;
 }
-.row-view .row .product-price .product-price-edit input {
-  width: 50px;
+.row-view .row .product-price .editable-display {
+  height: 25px;
+}
+.row-view .row .product-price .editable-edit {
+  padding-left: 4px;
+}
+.row-view .row .product-price .editable-edit .price {
+  width: 86px;
+  margin-left: 3px;
 }
 .row-view .row ul li {
   margin-top: 10px;
@@ -126,7 +131,7 @@
 }
 .row-view .row .details {
   overflow: hidden;
-  padding: 15px 10px 10px 10px;
+  padding: 15px 10px 0px 10px;
 }
 .row-view.editing .row:hover {
   background: inherit;
@@ -167,10 +172,6 @@ select {
 }
 .field-row .field .input.tiny {
   width: 42px;
-}
-.field-row .field .input.price {
-  width: 86px;
-  margin-left: 3px;
 }
 .field-row .field .input + .input {
   margin-left: 10px;

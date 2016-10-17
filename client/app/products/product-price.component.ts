@@ -10,11 +10,12 @@ import { NumericDirective } from '../shared/number.component';
   pipes: [MoneyPipe],
   template: `
     <div class="product-price editable">
-      <div class="product-price-display editable-display" *ngIf="!editing" (click)="startEdit()">
+      <input type="checkbox" style="position: absolute;left:-1000px" (focus)="startEdit()" />
+      <div class="editable-display" *ngIf="!editing" (click)="startEdit()">
         <span [innerHTML]="price | money"></span> <span class="muted">{{ unitTypeName(unitType) }}</span>
       </div>
-      <div class="product-price-edit" *ngIf="editing">
-        &pound;&nbsp;<input type="text" class="input price" #priceElem grabFocus (focus)="focus()" (blur)="blur()" [(ngModel)]="priceString" tabindex="0" required (ngModelChange)="priceChanged()" />
+      <div class="editable-edit" *ngIf="editing">
+        &pound;<input type="text" class="input price" #priceElem grabFocus (focus)="focus()" (blur)="blur()" [(ngModel)]="priceString" tabindex="0" required (ngModelChange)="priceChanged()" />
         <select class="input" #unitTypeElem [(ngModel)]="unitType" tabindex="0" (focus)="focus()" (blur)="blur()">
           <option *ngFor="let ut of unitTypes" [ngValue]="ut.value">{{ ut.name }}</option>
         </select>
