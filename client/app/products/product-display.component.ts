@@ -3,12 +3,13 @@ import { Product, UnitType, unitTypes } from './product';
 import { WeightPipe, MoneyPipe } from '../shared/pipes';
 import { HeadingComponent } from '../shared/heading.component';
 import { ProductPriceComponent } from './product-price.component';
+import { ProductUnitQuantityComponent } from './product-unit-quantity.component';
 
 @Component({
   selector: 'cc-product-display',
   templateUrl: 'app/products/product-display.component.html',
   pipes: [WeightPipe, MoneyPipe],
-  directives: [HeadingComponent, ProductPriceComponent]
+  directives: [HeadingComponent, ProductPriceComponent, ProductUnitQuantityComponent]
 })
 export class ProductDisplayComponent {
   unitTypes: {[key: string]: string } = {};

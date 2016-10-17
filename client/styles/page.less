@@ -57,14 +57,6 @@
   }
 
   .row {
-    //border-left: 3px;
-    // border-image-source: url('/img/metrics.png');
-    // border-width: 10px;
-    // border-image-repeat: repeat;
-    // border-image-slice: 0 0 0 0 fill;
-    // border-top-width: 0;
-    // border-style: dashed;
-    // border-color: @itemBorderColor;
     min-height: 83px;
     border-top: 1px dashed @itemBorderColor; 
     padding: 0;
@@ -74,7 +66,7 @@
       border-bottom: 1px dashed @itemBorderColor; 
     }
 
-    &:hover, &.editing, &:focus {
+    &:hover, &.editing, &.focused {
       background: @itemHoverColor;
     }
 
@@ -90,7 +82,6 @@
       position: relative;
       cursor: pointer;
       width: 100%;
-      //border: 1px solid red;
 
       .editable-display {
         border: 1px solid transparent;
@@ -99,10 +90,8 @@
 
         &:hover {
           border: 1px dashed desaturate(darken(@itemHoverColor, 20%),10%);
-          border-radius: 2px;
+          border-radius: 3px;
           background: lighten(@itemHoverColor, 4%);
-          // padding-top: 3px;
-          // padding-left: 3px;
 
           &:after {
             position: absolute;
@@ -119,24 +108,21 @@
 
     .heading {
       h3 {
-        //margin:0;
+        margin-bottom: 5px;
       }
 
       input[type="text"] {
         display: block;
         font-size: 150%;
         font-weight: 300;
-        margin-bottom: 10px;
+        margin-bottom: 6px;
         width: 100%;
-        &:focus {
-          outline: 0;
-        }
       }
     }
     
     .product-price {
       .editable-display {
-        height: 25px;
+        min-height: 25px;
       }
       .editable-edit {
         padding-left:4px;
@@ -144,6 +130,18 @@
         .price {
           width: 86px;
           margin-left: 3px;
+        }
+      }
+    }
+
+    .product-unit-quantity {
+      .editable-display {
+        min-height: 25px;
+      }
+      .editable-edit {
+        padding-left:4px;
+        input {
+          width: 42px;
         }
       }
     }   
@@ -194,7 +192,7 @@ input[type="text"], input[type="password"], select, textarea {
   color: #999; 
   padding: 2px 4px;
   border: 1px solid #bbb;
-  border-radius: 2px;
+  border-radius: 3px;
   font-size: 100%; 
   margin:0;
 }

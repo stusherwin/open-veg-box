@@ -11,7 +11,7 @@
       <div class="row editing" *ngIf="adding">
         <cc-product-edit [product]="adding" (onSave)="completeAdd()" (onCancel)="cancel()"></cc-product-edit>
       </div>
-      <div class="row" *ngFor="let p of products; let i = index" [class.editing]="editing && editing.id == p.id">
+      <div class="row" cc-focusable *ngFor="let p of products; let i = index" [class.editing]="editing && editing.id == p.id">
         <cc-product-display *ngIf="!editing || editing.id != p.id" [product]="p" (onEdit)="startEdit(p)" (onDelete)="delete(p)" [editDisabled]="adding || editing"></cc-product-display>
         <cc-product-edit *ngIf="editing && editing.id == p.id" [product]="editing" (onSave)="completeEdit()" (onCancel)="cancel()"></cc-product-edit>
       </div>

@@ -1,22 +1,22 @@
 import { Component, Input, ViewChild, ElementRef } from '@angular/core';
 import { UnitType, unitTypes } from './product';
 import { MoneyPipe } from '../shared/pipes';
-import { GrabFocusDirective } from '../shared/grab-focus.directive'
+import { FocusDirective } from '../shared/focus.directive'
 import { NumericDirective } from '../shared/number.component';
 
 @Component({
   selector: 'cc-product-price',
-  directives: [GrabFocusDirective, NumericDirective],
+  directives: [FocusDirective, NumericDirective],
   pipes: [MoneyPipe],
   template: `
     <div class="product-price editable">
-      <input type="checkbox" style="position: absolute;left:-1000px" (focus)="startEdit()" />
+      <input type="checkbox" *ngIf="!editing" style="position: absolute;left:-1000px" (focus)="startEdit()" />
       <div class="editable-display" *ngIf="!editing" (click)="startEdit()">
         <span [innerHTML]="price | money"></span> <span class="muted">{{ unitTypeName(unitType) }}</span>
       </div>
       <div class="editable-edit" *ngIf="editing">
-        &pound;<input type="text" class="input price" #priceElem grabFocus (focus)="focus()" (blur)="blur()" [(ngModel)]="priceString" tabindex="0" required (ngModelChange)="priceChanged()" />
-        <select class="input" #unitTypeElem [(ngModel)]="unitType" tabindex="0" (focus)="focus()" (blur)="blur()">
+        &pound;<input type="text" class="input price" #priceElem cc-focus grab highlight (focus)="focus()" (blur)="blur()" [(ngModel)]="priceString" tabindex="0" required (ngModelChange)="priceChanged()" />
+        <select class="input" #unitTypeElem cc-focus highlight [(ngModel)]="unitType" tabindex="0" (focus)="focus()" (blur)="blur()">
           <option *ngFor="let ut of unitTypes" [ngValue]="ut.value">{{ ut.name }}</option>
         </select>
       </div>
@@ -99,6 +99,15 @@ export class ProductPriceComponent {
     if( isNaN(parsed) ) {
       return 0;
     }
+
+    if(this.fixedDecimals) {
+      return parseFloat(parsed.toFixed(this.fixedDecimals));
+    }
+    
+    if (this.maxDecimals) {
+      return parseFloat(parsed.toFixed(this.maxDecimals));
+    }
+
     return parsed;
   }
 }
