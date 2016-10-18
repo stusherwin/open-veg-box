@@ -8,7 +8,7 @@ import { FocusDirective } from './focus.directive'
     <div class="heading editable">
       <input type="checkbox" *ngIf="!editing" style="position: absolute;left:-1000px" (focus)="startEdit()" />
       <h3 *ngIf="!editing" class="editable-display" (click)="startEdit()">{{value}}</h3>
-      <input *ngIf="editing" cc-focus highlight="true" grab="true" (blur)="endEdit()" type="text" [value]="value" />
+      <input type="text" *ngIf="editing" cc-focus grab="true" highlight="true" [selectAll]="addMode" (blur)="endEdit()" [value]="value" />
     </div>
   `
 })
@@ -18,6 +18,12 @@ export class HeadingComponent {
 
   @Input()
   editing: boolean;
+
+  @Input()
+  addMode: boolean;
+
+  @ViewChild('focusable')
+  focusable: FocusDirective;
 
   startEdit() {
     this.editing = true;

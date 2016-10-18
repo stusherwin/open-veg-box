@@ -62,12 +62,24 @@
     padding: 0;
     position: relative;
 
-    &:last-child {
-      border-bottom: 1px dashed @itemBorderColor; 
+    &.addMode {
+      border-bottom: 1px dashed @itemBorderColor;
     }
 
     &:hover, &.editing, &.focused {
       background: @itemHoverColor;
+      .muted {
+        color: desaturate(darken(@itemHoverColor, 30%), 60%) !important;        
+      }
+    }
+
+    &.addMode:hover {
+      background: lighten(@itemHoverColor, 2%);
+      .details {
+        h3, div, span {
+          color: desaturate(darken(@itemHoverColor, 30%), 60%) !important;
+        }
+      }
     }
 
     h3 {
@@ -97,7 +109,9 @@
             position: absolute;
             content: '\e807';
             right: 5px;
-            top: 5px;
+            //top: 5px;
+            top: 50%;
+            margin-top: -8px;
             font-family: "fontello";
             font-size:16px;
             color: desaturate(darken(@itemHoverColor, 20%),50%);

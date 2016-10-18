@@ -50,13 +50,26 @@
   padding: 0;
   position: relative;
 }
-.row-view .row:last-child {
+.row-view .row.addMode {
   border-bottom: 1px dashed #ccc;
 }
 .row-view .row:hover,
 .row-view .row.editing,
 .row-view .row.focused {
   background: #fff1dd;
+}
+.row-view .row:hover .muted,
+.row-view .row.editing .muted,
+.row-view .row.focused .muted {
+  color: #c7a97c !important;
+}
+.row-view .row.addMode:hover {
+  background: #fff5e7;
+}
+.row-view .row.addMode:hover .details h3,
+.row-view .row.addMode:hover .details div,
+.row-view .row.addMode:hover .details span {
+  color: #c7a97c !important;
 }
 .row-view .row h3 {
   margin: 0;
@@ -84,7 +97,8 @@
   position: absolute;
   content: '\e807';
   right: 5px;
-  top: 5px;
+  top: 50%;
+  margin-top: -8px;
   font-family: "fontello";
   font-size: 16px;
   color: #ddc299;

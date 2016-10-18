@@ -15,8 +15,8 @@ import { NumericDirective } from '../shared/number.component';
         <span [innerHTML]="price | money"></span> <span class="muted">{{ unitTypeName(unitType) }}</span>
       </div>
       <div class="editable-edit" *ngIf="editing">
-        &pound;<input type="text" class="input price" #priceElem cc-focus grab highlight (focus)="focus()" (blur)="blur()" [(ngModel)]="priceString" tabindex="0" required (ngModelChange)="priceChanged()" />
-        <select class="input" #unitTypeElem cc-focus highlight [(ngModel)]="unitType" tabindex="0" (focus)="focus()" (blur)="blur()">
+        &pound;<input type="text" class="input price" #priceElem cc-focus grab="true" highlight="true" (focus)="focus()" (blur)="blur()" [(ngModel)]="priceString" tabindex="0" required (ngModelChange)="priceChanged()" />
+        <select class="input" #unitTypeElem cc-focus highlight="true" [(ngModel)]="unitType" tabindex="0" (focus)="focus()" (blur)="blur()">
           <option *ngFor="let ut of unitTypes" [ngValue]="ut.value">{{ ut.name }}</option>
         </select>
       </div>
@@ -48,6 +48,9 @@ export class ProductPriceComponent {
 
   @Input()
   editing: boolean;
+
+  @Input()
+  addMode: boolean;
 
   startEdit() {
     this.editing = true;

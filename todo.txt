@@ -5,11 +5,14 @@ Header
 * Header/home/nav structure is messy
 * Fix login form resizing/header centring
 * Inline logo svg
+* Change page title/favicon
 
 Editing
 =======
 * Rows: only show edit button on hover?
 * Edit individual fields
+* Fix numeric rounding issues: http://stackoverflow.com/questions/10015027/javascript-tofixed-not-rounding
+* Implement parent directive for row highlight
 
 Auth
 ====
@@ -31,4 +34,4 @@ General Styling
 ===============
 * Buttons: circular shadow on hover instead of rectangle?
 * Browser testing
-* Chrome rendering issue with 1px border width
+* Chrome rendering issue with 1px border width (fix by positioning from centre of circles not corner)

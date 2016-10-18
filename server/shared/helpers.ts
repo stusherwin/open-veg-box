@@ -60,7 +60,7 @@ export class SqlHelper<T> {
     return Observable.create((o: any) => {
       var pageSize = +(queryParams.pageSize || this.defaultPageSize);
       var startIndex = (+(queryParams.page || 1) - 1) * pageSize;
-      db.all('select * from ' + this.table + ' order by id desc limit $count offset $skip', {
+      db.all('select * from ' + this.table + ' order by id limit $count offset $skip', {
         $count: pageSize,
         $skip: startIndex
       }, (err: any, rows: any) => {

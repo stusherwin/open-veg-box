@@ -6,5 +6,5 @@
         "**/*.css": { "when": "$(basename).less"}
     },
     "editor.tabSize": 2,
-    "workbench.editor.showTabs": true,
+    "workbench.editor.showTabs": true
 }

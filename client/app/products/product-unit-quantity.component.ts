@@ -15,7 +15,7 @@ import { FocusDirective } from '../shared/focus.directive'
       </div>
       <div class="editable-edit" *ngIf="editing">
         <span class="muted">sold in units of</span>
-        <input type="text" class="input tiny" #unitQuantityElem cc-focus grab highlight [(ngModel)]="unitQuantityString" tabindex="0" required (ngModelChange)="unitQuantityChanged()" (blur)="endEdit()" />
+        <input type="text" class="input tiny" #unitQuantityElem cc-focus grab="true" highlight="true" [(ngModel)]="unitQuantityString" tabindex="0" required (ngModelChange)="unitQuantityChanged()" (blur)="endEdit()" />
         Kg
       </div>
     </div>
@@ -34,6 +34,9 @@ export class ProductUnitQuantityComponent {
 
   @Input()
   editing: boolean;
+
+  @Input()
+  addMode: boolean;
 
   startEdit() {
     this.editing = true;
