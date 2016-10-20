@@ -54,11 +54,14 @@ export class FocusDirective implements AfterViewInit {
     }
   }
 
-  focus(selectText: boolean) {
+  focus(selectText?: boolean) {
+    selectText = selectText || false;
     var elem = this.el.nativeElement;
-    this.renderer.invokeElementMethod(elem, 'focus', []);
-    if(selectText) {
-      this.renderer.invokeElementMethod(elem, 'setSelectionRange', [0, elem.value.length]);
-    }
+    setTimeout(() => {
+      this.renderer.invokeElementMethod(elem, 'focus', []);
+      if(selectText) {
+        this.renderer.invokeElementMethod(elem, 'setSelectionRange', [0, elem.value.length]);
+      }
+    }, 0);
   }
 }

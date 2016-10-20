@@ -4,8 +4,8 @@
 
     <div class="row-view">
       <p *ngIf="!products.length">There are no products yet.</p>
-      <cc-product-display *ngFor="let p of products" [product]="p" (onDelete)="delete(p)"></cc-product-display>
-      <cc-product-display addMode="true" (onSave)="add($event)"></cc-product-display>
+      <cc-product-display *ngFor="let p of products; let i = index" [product]="p" [index]="i" (onDelete)="delete(p)"></cc-product-display>
+      <cc-product-display addMode="true" (onSave)="add($event)" [index]="products.length"></cc-product-display>
     </div>
   </div>
 </div>

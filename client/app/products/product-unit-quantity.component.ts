@@ -9,13 +9,13 @@ import { FocusDirective } from '../shared/focus.directive'
   pipes: [WeightPipe],
   template: `
     <div class="product-unit-quantity editable">
-      <input type="checkbox" *ngIf="!editing" style="position: absolute;left:-1000px" (focus)="startEdit()" />
+      <input type="checkbox" info="product-unit-quantity" *ngIf="!editing" style="position: absolute;left:-1000px" [tabindex]="editTabindex" (focus)="startEdit()" />
       <div class="editable-display" *ngIf="!editing" (click)="startEdit()">
         <span class="muted">sold in units of</span> {{ unitQuantity | weight }}
       </div>
       <div class="editable-edit" *ngIf="editing">
         <span class="muted">sold in units of</span>
-        <input type="text" class="input tiny" #unitQuantityElem cc-focus grab="true" highlight="true" [(ngModel)]="unitQuantityString" tabindex="0" required (ngModelChange)="unitQuantityChanged()" (blur)="endEdit()" />
+        <input type="text" class="input tiny" #unitQuantityElem cc-focus grab="true" highlight="true" [(ngModel)]="unitQuantityString" [tabindex]="editTabindex" required (ngModelChange)="unitQuantityChanged()" (blur)="endEdit()" />
         Kg
       </div>
     </div>
@@ -37,6 +37,9 @@ export class ProductUnitQuantityComponent {
 
   @Input()
   addMode: boolean;
+
+  @Input()
+  editTabindex: number;
 
   startEdit() {
     this.editing = true;

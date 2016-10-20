@@ -10,13 +10,13 @@ import { NumericDirective } from '../shared/number.component';
   pipes: [MoneyPipe],
   template: `
     <div class="product-price editable">
-      <input type="checkbox" *ngIf="!editing" style="position: absolute;left:-1000px" (focus)="startEdit()" />
+      <input type="checkbox" info="product-price" *ngIf="!editing" style="position: absolute;left:-1000px" (focus)="startEdit()" [tabindex]="editTabindex" />
       <div class="editable-display" *ngIf="!editing" (click)="startEdit()">
         <span [innerHTML]="price | money"></span> <span class="muted">{{ unitTypeName(unitType) }}</span>
       </div>
       <div class="editable-edit" *ngIf="editing">
-        &pound;<input type="text" class="input price" #priceElem cc-focus grab="true" highlight="true" (focus)="focus()" (blur)="blur()" [(ngModel)]="priceString" tabindex="0" required (ngModelChange)="priceChanged()" />
-        <select class="input" #unitTypeElem cc-focus highlight="true" [(ngModel)]="unitType" tabindex="0" (focus)="focus()" (blur)="blur()">
+        &pound;<input type="text" class="input price" #priceElem cc-focus grab="true" highlight="true" (focus)="focus()" (blur)="blur()" [(ngModel)]="priceString" [tabindex]="editTabindex" required (ngModelChange)="priceChanged()" />
+        <select class="input" #unitTypeElem cc-focus highlight="true" [(ngModel)]="unitType" [tabindex]="editTabindex" (focus)="focus()" (blur)="blur()">
           <option *ngFor="let ut of unitTypes" [ngValue]="ut.value">{{ ut.name }}</option>
         </select>
       </div>
@@ -51,6 +51,9 @@ export class ProductPriceComponent {
 
   @Input()
   addMode: boolean;
+
+  @Input()
+  editTabindex: number;
 
   startEdit() {
     this.editing = true;

@@ -1,39 +1,39 @@
 <div class="row" [class.addMode]="addMode" [class.addPreview]="addPreview" cc-focusable>
-  <input type="checkbox" *ngIf="addMode && !adding" style="position: absolute;left:-1000px" (focus)="startAddPreview()" />
+  <input info="add" type="checkbox" *ngIf="addMode && !adding" style="position: absolute;left:-1000px" (focus)="startAdd()" [tabindex]="index * 2" />
   <div class="actions">
     <div class="action" *ngIf="!addMode">
-      <button (click)="delete()" [disabled]="editDisabled">
+      <button (click)="delete()" [disabled]="editDisabled" [tabindex]="(index * 2) + 2">
         <div class="icon"><i class="icon-trash"></i></div>
         <span>Delete</span>
       </button>
     </div>
-    <div class="action" *ngIf="addMode">
-      <button (click)="add()" (mouseover)="startAddPreview()" (mouseout)="endAddPreview()" tabindex="0">
+    <div class="action"[hidden]="!addMode || adding">
+      <button (click)="startAdd()" #addButton=cc-focus cc-focus (mouseover)="startAddPreview()" (mouseout)="endAddPreview()" [tabindex]="(index * 2) + 2">
         <div class="icon"><i class="icon-add"></i></div>
         <span>Add</span>
       </button>  
     </div>
-    <!--<div class="action" *ngIf="adding">
-      <button (click)="completeAdd()" tabindex="0">
+    <div class="action" *ngIf="addMode && adding">
+      <button (click)="completeAdd()" [tabindex]="(index * 2) + 2">
         <div class="icon"><i class="icon-ok"></i></div>
         <span>Save</span>
       </button>  
     </div>
-    <div class="action" *ngIf="adding">
-      <button (click)="cancel()" tabindex="0">
+    <div class="action" *ngIf="addMode && adding">
+      <button (click)="cancelAdd()" [tabindex]="(index * 2) + 2">
         <div class="icon"><i class="icon-cancel"></i></div>
         <span>Cancel</span>
       </button>  
-    </div>-->
+    </div>
   </div>
-  <div class="details" [hidden]="addMode && !addPreview">
-    <cc-heading [addMode]="addMode || product.justAdded" [editing]="product.justAdded" #productName [value]="product.name"></cc-heading>
+  <div class="details" [hidden]="addMode && !addPreview && !adding">
+    <cc-heading [addMode]="addMode" #productName [value]="product.name" [editTabindex]="(index * 2) + 1"></cc-heading>
     <div class="flex">
       <div class="field price-detail">
-        <cc-product-price [addMode]="addMode" [price]="product.price" [unitType]="product.unitType"></cc-product-price>
+        <cc-product-price [addMode]="addMode" [price]="product.price" [unitType]="product.unitType" [editTabindex]="(index * 2) + 1"></cc-product-price>
       </div>  
       <div class="field unit-type-detail" *ngIf="product.unitType == 'perKg'">
-        <cc-product-unit-quantity [addMode]="addMode" [unitQuantity]="product.unitQuantity"></cc-product-unit-quantity>
+        <cc-product-unit-quantity [addMode]="addMode" [unitQuantity]="product.unitQuantity" [editTabindex]="(index * 2) + 1"></cc-product-unit-quantity>
       </div>
       <div>&nbsp;</div>
     </div>

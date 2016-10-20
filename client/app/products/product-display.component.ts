@@ -4,40 +4,38 @@ import { WeightPipe, MoneyPipe } from '../shared/pipes';
 import { HeadingComponent } from '../shared/heading.component';
 import { ProductPriceComponent } from './product-price.component';
 import { ProductUnitQuantityComponent } from './product-unit-quantity.component';
+import { FocusDirective } from '../shared/focus.directive'
 
 @Component({
   selector: 'cc-product-display',
   templateUrl: 'app/products/product-display.component.html',
   pipes: [WeightPipe, MoneyPipe],
-  directives: [HeadingComponent, ProductPriceComponent, ProductUnitQuantityComponent]
+  directives: [HeadingComponent, ProductPriceComponent, ProductUnitQuantityComponent, FocusDirective]
 })
 export class ProductDisplayComponent implements AfterViewInit, OnInit {
   unitTypes: {[key: string]: string } = {};
   addPreview: boolean;
+  adding: boolean;
 
   constructor() {
     for( var ut of unitTypes) {
       this.unitTypes[ut.value] = ut.name;
     }
+
     this.product = new Product(0, 'New product', 1.0, "each", 1);
   }
 
   ngAfterViewInit() {
-    // if(this.product.justAdded){
-    //   console.log('justadded');
-    //   this.productName.startEdit();
-    // }
   }
 
   ngOnInit() {
-    // if(this.product.justAdded){
-    //   console.log('justadded');
-    //   this.productName.startEdit();
-    // }
   }
 
   @ViewChild('productName')
   productName: HeadingComponent;
+
+  @ViewChild('addButton')
+  addButton: FocusDirective;
 
   @Input()
   addMode: boolean;
@@ -48,26 +46,38 @@ export class ProductDisplayComponent implements AfterViewInit, OnInit {
   @Input()
   editDisabled: boolean;
 
+  @Input()
+  index: number;
+
   @Output()
   onDelete = new EventEmitter<Product>();
 
   @Output()
   onSave = new EventEmitter<Product>();
 
-  // startAdd() {
-  //   this.adding = true;
-  //   this.product = new Product(0, 'New product', 1.0, "each", 1);
-  //   this.productName.startEdit();
-  // }
+  @Output()
+  productChange = new EventEmitter<Product>();
+
+  startAdd() {
+    this.adding = true;
+    this.addPreview = false;
+    this.productName.startEdit();
+  }
 
   startAddPreview() {
-    // console.log('over');
+    console.log('start preview');
+    if(this.adding) {
+      return;
+    }
     this.addPreview = true;
   }
 
   endAddPreview() {
-    // console.log('out');
+    console.log('end preview');
     
+    if(this.adding) {
+      return;
+    }
     this.addPreview = false;
   }
 
@@ -76,15 +86,21 @@ export class ProductDisplayComponent implements AfterViewInit, OnInit {
     this.addPreview = false;    
   }
 
+  completeAdd() {
+    this.onSave.emit(this.product);
+    this.adding = false;
+    this.product = new Product(0, 'New product', 1.0, "each", 1);
+    this.addButton.focus();
+  }
+
   delete() {
     this.onDelete.emit(this.product);
   }
 
-  // cancel() {
-  //   this.adding = false;
-  // } 
-
-  // save() {
-  //   this.onSave.emit(this.product);
-  // }
+  cancelAdd() {
+    this.adding = false;
+    this.product = new Product(0, 'New product', 1.0, "each", 1);
+    console.log(this.product);
+    this.addButton.focus();
+  } 
 }
