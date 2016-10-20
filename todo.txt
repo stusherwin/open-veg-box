@@ -50,3 +50,6 @@ Edit Individual fields
   - focused button should not be highlighted if hovering over another row
   - when editing, should not highlight other rows on hover
   - if button focused, should highlight row
+* Figure out why clicking on page doesn't reset current tab index
+  (sets it to delete button, tabindex=2, which is first element on page with tabindex, but subsequent elements
+  have tabindex=1)

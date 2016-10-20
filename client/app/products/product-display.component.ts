@@ -65,7 +65,7 @@ export class ProductDisplayComponent implements AfterViewInit, OnInit {
     if(this.adding) {
       return;
     }
-    this.addPreview = true;
+//    this.addPreview = true;
   }
 
   endAddPreview() {
