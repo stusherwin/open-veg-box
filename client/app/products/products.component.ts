@@ -30,6 +30,7 @@ export class ProductsComponent implements OnInit {
   }
 
   add(product: Product) {
+    console.log(product);
     this.productService.add(product, this.queryParams).subscribe(products => {
       this.products = products;
       // this.products[this.products.length-1].justAdded = true;

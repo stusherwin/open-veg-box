@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { UnitType, unitTypes } from './product';
 import { WeightPipe } from '../shared/pipes';
 import { FocusDirective } from '../shared/focus.directive'
@@ -15,7 +15,7 @@ import { FocusDirective } from '../shared/focus.directive'
       </div>
       <div class="editable-edit" *ngIf="editing">
         <span class="muted">sold in units of</span>
-        <input type="text" class="input tiny" #unitQuantityElem cc-focus grab="true" highlight="true" [(ngModel)]="unitQuantityString" [tabindex]="editTabindex" required (ngModelChange)="unitQuantityChanged()" (blur)="endEdit()" />
+        <input type="text" class="input tiny" #unitQuantityElem cc-focus grab="true" highlight="true" [(ngModel)]="unitQuantityString" [tabindex]="editTabindex" required (ngModelChange)="unitQuantityChanged($event)" (blur)="endEdit()" />
         Kg
       </div>
     </div>
@@ -41,6 +41,9 @@ export class ProductUnitQuantityComponent {
   @Input()
   editTabindex: number;
 
+  @Output()
+  unitQuantityChange = new EventEmitter<number>();
+
   startEdit() {
     this.editing = true;
     this.unitQuantityString = this.toStringValue(this.unitQuantity);
@@ -50,9 +53,9 @@ export class ProductUnitQuantityComponent {
     this.editing = false;
   }
 
-  unitQuantityChanged() {
-    console.log('unitQuantityChanged');
+  unitQuantityChanged(value: string) {
     this.unitQuantity = this.toDecimalValue(this.unitQuantityString);
+    this.unitQuantityChange.emit(this.unitQuantity);
   }
 
   private toStringValue(value: number): string {

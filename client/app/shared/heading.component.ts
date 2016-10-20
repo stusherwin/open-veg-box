@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { FocusDirective } from './focus.directive'
 
 @Component({
@@ -8,7 +8,7 @@ import { FocusDirective } from './focus.directive'
     <div class="heading editable">
       <input type="checkbox" info="heading" *ngIf="!editing" style="position: absolute;left:-1000px" (focus)="startEdit()" [tabindex]="editTabindex" />
       <h3 *ngIf="!editing" class="editable-display" (click)="startEdit()">{{value}}</h3>
-      <input type="text" *ngIf="editing" cc-focus grab="true" highlight="true" [selectAll]="addMode" (blur)="endEdit()" [value]="value" [tabindex]="editTabindex" />
+      <input type="text" *ngIf="editing" cc-focus grab="true" highlight="true" [selectAll]="addMode" (blur)="endEdit()" [(ngModel)]="value" (ngModelChange)="valueChanged($event)" [tabindex]="editTabindex" />
     </div>
   `
 }) 
@@ -27,6 +27,13 @@ export class HeadingComponent {
 
   @ViewChild('focusable')
   focusable: FocusDirective;
+
+  @Output()
+  valueChange = new EventEmitter<string>();
+
+  valueChanged(value: string) {
+    this.valueChange.emit(value);
+  }
 
   startEdit() {
     this.editing = true;

@@ -55,9 +55,6 @@ export class ProductDisplayComponent implements AfterViewInit, OnInit {
   @Output()
   onSave = new EventEmitter<Product>();
 
-  @Output()
-  productChange = new EventEmitter<Product>();
-
   startAdd() {
     this.adding = true;
     this.addPreview = false;
@@ -65,7 +62,6 @@ export class ProductDisplayComponent implements AfterViewInit, OnInit {
   }
 
   startAddPreview() {
-    console.log('start preview');
     if(this.adding) {
       return;
     }
@@ -73,17 +69,10 @@ export class ProductDisplayComponent implements AfterViewInit, OnInit {
   }
 
   endAddPreview() {
-    console.log('end preview');
-    
     if(this.adding) {
       return;
     }
     this.addPreview = false;
-  }
-
-  add() {
-    this.onSave.emit(this.product);
-    this.addPreview = false;    
   }
 
   completeAdd() {
@@ -100,7 +89,6 @@ export class ProductDisplayComponent implements AfterViewInit, OnInit {
   cancelAdd() {
     this.adding = false;
     this.product = new Product(0, 'New product', 1.0, "each", 1);
-    console.log(this.product);
     this.addButton.focus();
   } 
 }

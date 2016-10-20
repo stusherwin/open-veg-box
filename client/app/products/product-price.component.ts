@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { UnitType, unitTypes } from './product';
 import { MoneyPipe } from '../shared/pipes';
 import { FocusDirective } from '../shared/focus.directive'
@@ -15,8 +15,8 @@ import { NumericDirective } from '../shared/number.component';
         <span [innerHTML]="price | money"></span> <span class="muted">{{ unitTypeName(unitType) }}</span>
       </div>
       <div class="editable-edit" *ngIf="editing">
-        &pound;<input type="text" class="input price" #priceElem cc-focus grab="true" highlight="true" (focus)="focus()" (blur)="blur()" [(ngModel)]="priceString" [tabindex]="editTabindex" required (ngModelChange)="priceChanged()" />
-        <select class="input" #unitTypeElem cc-focus highlight="true" [(ngModel)]="unitType" [tabindex]="editTabindex" (focus)="focus()" (blur)="blur()">
+        &pound;<input type="text" class="input price" #priceElem cc-focus grab="true" highlight="true" (focus)="focus()" (blur)="blur()" [(ngModel)]="priceString" [tabindex]="editTabindex" required (ngModelChange)="priceChanged($event)" />
+        <select class="input" #unitTypeElem cc-focus highlight="true" [(ngModel)]="unitType" [tabindex]="editTabindex" (focus)="focus()" (blur)="blur()" (ngModelChange)="unitTypeChanged($event)">
           <option *ngFor="let ut of unitTypes" [ngValue]="ut.value">{{ ut.name }}</option>
         </select>
       </div>
@@ -55,7 +55,13 @@ export class ProductPriceComponent {
   @Input()
   editTabindex: number;
 
-  startEdit() {
+  @Output()
+  priceChange = new EventEmitter<number>();
+
+  @Output()
+  unitTypeChange = new EventEmitter<string>();
+
+ startEdit() {
     this.editing = true;
     this.priceString = this.toStringValue(this.price);
   }
@@ -82,8 +88,13 @@ export class ProductPriceComponent {
     return this.unitTypes.find(ut => ut.value == value).name;
   }
 
-  priceChanged() {
-    this.price = this.toDecimalValue(this.priceString);
+  priceChanged(value: string) {
+    this.price = this.toDecimalValue(value);
+    this.priceChange.emit(this.price);
+  }
+
+  unitTypeChanged(value: string) {
+    this.unitTypeChange.emit(value);
   }
 
   private toStringValue(value: number): string {
@@ -117,4 +128,3 @@ export class ProductPriceComponent {
     return parsed;
   }
 }
-

@@ -12,7 +12,6 @@ Editing
 * Rows: only show edit button on hover?
 * Edit individual fields
 * Fix numeric rounding issues: http://stackoverflow.com/questions/10015027/javascript-tofixed-not-rounding
-* Implement parent directive for row highlight
 
 Auth
 ====
@@ -35,3 +34,19 @@ General Styling
 * Buttons: circular shadow on hover instead of rectangle?
 * Browser testing
 * Chrome rendering issue with 1px border width (fix by positioning from centre of circles not corner)
+
+Edit Individual fields
+======================
+* Parent directive for row highlight
+* Server side/parent component logic for field changes
+* Field save success indicator
+* Field validation (multiple field coordination?)
+* On delete, focus previous item delete button
+* Select all in add mode, only on first focus within add action
+* Animation (close row on delete, fade add preview in/out)
+* Only show add preview on new mouse over (i.e. shouldn't show after hitting cancel and mouse remains over add button)
+* If add button is focused, should we show add preview?
+* Row highlighting should be more intelligent:
+  - focused button should not be highlighted if hovering over another row
+  - when editing, should not highlight other rows on hover
+  - if button focused, should highlight row

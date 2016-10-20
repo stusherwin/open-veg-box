@@ -27,13 +27,13 @@
     </div>
   </div>
   <div class="details" [hidden]="addMode && !addPreview && !adding">
-    <cc-heading [addMode]="addMode" #productName [value]="product.name" [editTabindex]="(index * 2) + 1"></cc-heading>
+    <cc-heading [addMode]="addMode" #productName [(value)]="product.name" [editTabindex]="(index * 2) + 1"></cc-heading>
     <div class="flex">
       <div class="field price-detail">
-        <cc-product-price [addMode]="addMode" [price]="product.price" [unitType]="product.unitType" [editTabindex]="(index * 2) + 1"></cc-product-price>
+        <cc-product-price [addMode]="addMode" [(price)]="product.price" [(unitType)]="product.unitType" [editTabindex]="(index * 2) + 1"></cc-product-price>
       </div>  
       <div class="field unit-type-detail" *ngIf="product.unitType == 'perKg'">
-        <cc-product-unit-quantity [addMode]="addMode" [unitQuantity]="product.unitQuantity" [editTabindex]="(index * 2) + 1"></cc-product-unit-quantity>
+        <cc-product-unit-quantity [addMode]="addMode" [(unitQuantity)]="product.unitQuantity" [editTabindex]="(index * 2) + 1"></cc-product-unit-quantity>
       </div>
       <div>&nbsp;</div>
     </div>
