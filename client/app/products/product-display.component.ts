@@ -75,10 +75,12 @@ export class ProductDisplayComponent {
   } 
 
   blur(evnt: any) {
+    // console.log('blur');
+    
     if(this.focusedChild && this.focusedChild == evnt.srcElement){
       this.focusedChild = null;
     }
-    
+
     setTimeout(() => {
       if(!this.focusedChild) {
         if(this.adding) {
@@ -91,6 +93,7 @@ export class ProductDisplayComponent {
   }
 
   focus(evnt: any) {
+    // console.log('focus');
     if(!this.focused) {
       if(this.addMode) {
         this.startAdd();

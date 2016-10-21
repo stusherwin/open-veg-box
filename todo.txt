@@ -38,19 +38,21 @@ General Styling
 Edit Individual fields
 ======================
 * Parent directive for row highlight
-* Server side/parent component logic for field changes
-* Field save success indicator
-* Field validation (multiple field coordination?)
-* On delete, focus previous item delete button
-* Select all in add mode, only on first focus within add action
-* Animation (close row on delete, fade add preview in/out)
-* Only show add preview on new mouse over (i.e. shouldn't show after hitting cancel and mouse remains over add button)
-* If add button is focused, should we show add preview?
-* Row highlighting should be more intelligent:
   - focused button should not be highlighted if hovering over another row
   - when editing, should not highlight other rows on hover
   - if button focused, should highlight row
+* Add preview?
+  - Only show add preview on new mouse over (i.e. shouldn't show after hitting cancel and mouse remains over add button)
+  - If add button is focused, should we show add preview?
+* Save/add behaviour
+  - Server side/parent component logic for field changes
+  - Field save success indicator
+  - Field validation (multiple field coordination?)
+* On delete, focus previous item delete button
+* Select all in add mode, only on first focus within add action
+* Animation (close row on delete, fade add preview in/out)
 * Figure out why clicking on page doesn't reset current tab index
   (sets it to delete button, tabindex=2, which is first element on page with tabindex, but subsequent elements
   have tabindex=1)
 * On add, should scroll page to bring row being added into view
+* keydown: Enter to save, Esc to cancel
