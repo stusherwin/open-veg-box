@@ -41,6 +41,7 @@ Edit Individual fields
   - focused button should not be highlighted if hovering over another row
   - when editing, should not highlight other rows on hover
   - if button focused, should highlight row
+  - bug: when tabbing back out of add row, row stays highlighted (cc-focus on hidden input?)
 * Add preview?
   - Only show add preview on new mouse over (i.e. shouldn't show after hitting cancel and mouse remains over add button)
   - If add button is focused, should we show add preview?
@@ -56,3 +57,4 @@ Edit Individual fields
   have tabindex=1)
 * On add, should scroll page to bring row being added into view
 * keydown: Enter to save, Esc to cancel
+* Component focus behaviour: encapsulate in directive
