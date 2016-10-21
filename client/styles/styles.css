@@ -1028,14 +1028,6 @@ h2 {
 .row-view .row.focused .muted {
   color: #c7a97c !important;
 }
-.row-view .row.addPreview:hover {
-  background: #fff5e7;
-}
-.row-view .row.addPreview:hover .details h3,
-.row-view .row.addPreview:hover .details div,
-.row-view .row.addPreview:hover .details span {
-  color: #c7a97c !important;
-}
 .row-view .row h3 {
   margin: 0;
   margin-bottom: 10px;

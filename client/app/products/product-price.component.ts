@@ -15,8 +15,8 @@ import { NumericDirective } from '../shared/number.component';
         <span [innerHTML]="price | money"></span> <span class="muted">{{ unitTypeName(unitType) }}</span>
       </div>
       <div class="editable-edit" *ngIf="editing">
-        &pound;<input type="text" class="input price" #priceElem cc-focus grab="true" highlight="true" (focus)="focus()" (blur)="blur()" [(ngModel)]="priceString" [tabindex]="editTabindex" required (ngModelChange)="priceChanged($event)" />
-        <select class="input" #unitTypeElem cc-focus highlight="true" [(ngModel)]="unitType" [tabindex]="editTabindex" (focus)="focus()" (blur)="blur()" (ngModelChange)="unitTypeChanged($event)">
+        &pound;<input type="text" class="input price" #priceElem cc-focus grab="true" highlight="true" (focus)="onChildFocus()" (blur)="onChildBlur()" [(ngModel)]="priceString" [tabindex]="editTabindex" required (ngModelChange)="priceChanged($event)" />
+        <select class="input" #unitTypeElem cc-focus highlight="true" [(ngModel)]="unitType" [tabindex]="editTabindex" (focus)="onChildFocus()" (blur)="onChildBlur()" (ngModelChange)="unitTypeChanged($event)">
           <option *ngFor="let ut of unitTypes" [ngValue]="ut.value">{{ ut.name }}</option>
         </select>
       </div>
@@ -25,7 +25,7 @@ import { NumericDirective } from '../shared/number.component';
 })
 export class ProductPriceComponent {
   unitTypes: UnitType[];
-  cancelled: boolean;
+  shouldBlur: boolean;
   fixedDecimals: number = 2;
   maxDecimals: number = null;
   priceString: string;
@@ -61,27 +61,35 @@ export class ProductPriceComponent {
   @Output()
   unitTypeChange = new EventEmitter<string>();
 
- startEdit() {
+  @Output()
+  focus = new EventEmitter<any>();
+
+  @Output()
+  blur = new EventEmitter<any>();
+
+  startEdit() {
+    this.focus.emit({type: "focus", srcElement: this});
     this.editing = true;
     this.priceString = this.toStringValue(this.price);
   }
 
   endEdit() {
     this.editing = false;
+    this.blur.emit({type: "blur", srcElement: this});
   }
 
-  blur() {
-    this.cancelled = false;
+  onChildBlur() {
+    this.shouldBlur = true;
     setTimeout(() => {
-      if(!this.cancelled) {
+      if(this.shouldBlur) {
         this.endEdit();
-        this.cancelled = false;
+        this.shouldBlur = true;
       }
     }, 100);
   }
 
-  focus() {
-    this.cancelled = true;
+  onChildFocus() {
+    this.shouldBlur = false;
   }
 
   unitTypeName(value: string) {

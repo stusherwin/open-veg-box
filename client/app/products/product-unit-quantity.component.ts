@@ -44,13 +44,21 @@ export class ProductUnitQuantityComponent {
   @Output()
   unitQuantityChange = new EventEmitter<number>();
 
+  @Output()
+  focus = new EventEmitter<any>();
+
+  @Output()
+  blur = new EventEmitter<any>();
+  
   startEdit() {
+    this.focus.emit({type: "focus", srcElement: this});
     this.editing = true;
     this.unitQuantityString = this.toStringValue(this.unitQuantity);
   }
 
   endEdit() {
     this.editing = false;
+    this.blur.emit({type: "blur", srcElement: this});
   }
 
   unitQuantityChanged(value: string) {

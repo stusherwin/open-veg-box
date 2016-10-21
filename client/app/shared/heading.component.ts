@@ -31,15 +31,23 @@ export class HeadingComponent {
   @Output()
   valueChange = new EventEmitter<string>();
 
+  @Output()
+  focus = new EventEmitter<any>();
+
+  @Output()
+  blur = new EventEmitter<any>();
+
   valueChanged(value: string) {
     this.valueChange.emit(value);
   }
 
   startEdit() {
+    this.focus.emit({type: "focus", srcElement: this});
     this.editing = true;
   }
 
   endEdit() {
     this.editing = false;
+    this.blur.emit({type: "blur", srcElement: this});
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, AfterViewInit, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { Product, UnitType, unitTypes } from './product';
 import { WeightPipe, MoneyPipe } from '../shared/pipes';
 import { HeadingComponent } from '../shared/heading.component';
@@ -12,10 +12,11 @@ import { FocusDirective } from '../shared/focus.directive'
   pipes: [WeightPipe, MoneyPipe],
   directives: [HeadingComponent, ProductPriceComponent, ProductUnitQuantityComponent, FocusDirective]
 })
-export class ProductDisplayComponent implements AfterViewInit, OnInit {
+export class ProductDisplayComponent {
   unitTypes: {[key: string]: string } = {};
-  addPreview: boolean;
   adding: boolean;
+  focusedChild: any;
+  focused: boolean;
 
   constructor() {
     for( var ut of unitTypes) {
@@ -23,12 +24,6 @@ export class ProductDisplayComponent implements AfterViewInit, OnInit {
     }
 
     this.product = new Product(0, 'New product', 1.0, "each", 1);
-  }
-
-  ngAfterViewInit() {
-  }
-
-  ngOnInit() {
   }
 
   @ViewChild('productName')
@@ -57,29 +52,15 @@ export class ProductDisplayComponent implements AfterViewInit, OnInit {
 
   startAdd() {
     this.adding = true;
-    this.addPreview = false;
     this.productName.startEdit();
-  }
-
-  startAddPreview() {
-    if(this.adding) {
-      return;
-    }
-//    this.addPreview = true;
-  }
-
-  endAddPreview() {
-    if(this.adding) {
-      return;
-    }
-    this.addPreview = false;
   }
 
   completeAdd() {
     this.onSave.emit(this.product);
     this.adding = false;
     this.product = new Product(0, 'New product', 1.0, "each", 1);
-    this.addButton.focus();
+
+    this.startAdd();
   }
 
   delete() {
@@ -89,6 +70,34 @@ export class ProductDisplayComponent implements AfterViewInit, OnInit {
   cancelAdd() {
     this.adding = false;
     this.product = new Product(0, 'New product', 1.0, "each", 1);
+
     this.addButton.focus();
   } 
+
+  blur(evnt: any) {
+    if(this.focusedChild && this.focusedChild == evnt.srcElement){
+      this.focusedChild = null;
+    }
+    
+    setTimeout(() => {
+      if(!this.focusedChild) {
+        if(this.adding) {
+          this.adding = false;
+          this.product = new Product(0, 'New product', 1.0, "each", 1);
+        }
+        this.focused = false;
+      }
+    }, 100);
+  }
+
+  focus(evnt: any) {
+    if(!this.focused) {
+      if(this.addMode) {
+        this.startAdd();
+      }
+    }
+    
+    this.focusedChild = evnt.srcElement;
+    this.focused = true;
+  }
 }

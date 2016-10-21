@@ -53,3 +53,4 @@ Edit Individual fields
 * Figure out why clicking on page doesn't reset current tab index
   (sets it to delete button, tabindex=2, which is first element on page with tabindex, but subsequent elements
   have tabindex=1)
+* On add, should scroll page to bring row being added into view
