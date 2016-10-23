@@ -5,12 +5,13 @@ import { UsersService } from '../users/users.service'
 import { ProductDisplayComponent } from './product-display.component'
 import { Observable } from 'rxjs/Observable';
 import { RouteParams } from '@angular/router-deprecated';
+import { HighlightService } from '../shared/highlight.service';
 
 @Component({
   selector: 'cc-products',
   templateUrl: 'app/products/products.component.html',
   directives: [ProductDisplayComponent],
-  providers: [ProductService, UsersService]
+  providers: [ProductService, UsersService, HighlightService]
 })
 export class ProductsComponent implements OnInit {
   constructor(productService: ProductService, routeParams: RouteParams) {
@@ -33,7 +34,6 @@ export class ProductsComponent implements OnInit {
     console.log(product);
     this.productService.add(product, this.queryParams).subscribe(products => {
       this.products = products;
-      // this.products[this.products.length-1].justAdded = true;
     });
   }
 
