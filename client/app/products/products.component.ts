@@ -6,11 +6,12 @@ import { ProductDisplayComponent } from './product-display.component'
 import { Observable } from 'rxjs/Observable';
 import { RouteParams } from '@angular/router-deprecated';
 import { HighlightService } from '../shared/highlight.service';
+import { HighlightableDirective } from '../shared/highlightable.directive';
 
 @Component({
   selector: 'cc-products',
   templateUrl: 'app/products/products.component.html',
-  directives: [ProductDisplayComponent],
+  directives: [ProductDisplayComponent, HighlightableDirective],
   providers: [ProductService, UsersService, HighlightService]
 })
 export class ProductsComponent implements OnInit {

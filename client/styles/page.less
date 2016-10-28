@@ -66,10 +66,24 @@
       border-bottom: 1px dashed @itemBorderColor;
     }
 
-    &:hover, &.editing, &.focused {
+    // &:hover, &.editing, &.focused {
+    //   background: @itemHoverColor;
+    //   .muted {
+    //     color: desaturate(darken(@itemHoverColor, 30%), 60%) !important;        
+    //   }
+    // }
+
+    // &:hover {
+    //   background: @itemHoverColor;
+    //   button {
+    //     .button(outline; small; @highlight);
+    //   }
+    // }
+
+    &:hover, &.focused, &.focused:hover {
       background: @itemHoverColor;
-      .muted {
-        color: desaturate(darken(@itemHoverColor, 30%), 60%) !important;        
+      button {
+        .button(outline; small; @highlight);
       }
     }
 
@@ -191,6 +205,17 @@
       background: @itemHoverColor;      
     }
   }
+}
+
+.focused {
+   .row {
+     &:hover {
+       background: lighten(@itemHoverColor, 2%);
+       button {
+         .button(outline; small; darken(@itemHoverColor, 2%));
+       }
+     }
+   }
 }
 
 input[type="text"], input[type="password"], select, textarea {

@@ -2,18 +2,18 @@ import {HighlightableDirective} from './highlightable.directive';
 
 export class HighlightService {
   private highlightable: HighlightableDirective[] = [];
-  private parents: Lookup<HTMLElement, HighlightableDirective> = new Lookup<HTMLElement, HighlightableDirective>();
+  private parents: Lookup<HTMLElement, HighlightableDirective[]> = new Lookup<HTMLElement, HighlightableDirective[]>();
 
   registerHighlightable(highlightable: HighlightableDirective) {
     this.highlightable.push(highlightable);
   }
 
   highlight(childElement: HTMLElement) {
-    var h = this.highlightable.find(h => h.isAncestorOf(childElement));
+    var h = this.highlightable.filter(h => h.isAncestorOf(childElement));
     this.parents.put(childElement, h);
     
     if(h) {
-      h.highlight();
+      h.forEach( h => h.highlight());
     }
   }
 
@@ -21,7 +21,7 @@ export class HighlightService {
     var h = this.parents.get(childElement);
     
     if(h) {
-      h.unHighlight();
+      h.forEach( h => h.unHighlight());
     }
 
     this.parents.remove(childElement);

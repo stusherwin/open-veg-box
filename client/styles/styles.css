@@ -1019,14 +1019,313 @@ h2 {
   border-bottom: 1px dashed #ccc;
 }
 .row-view .row:hover,
-.row-view .row.editing,
-.row-view .row.focused {
+.row-view .row.focused,
+.row-view .row.focused:hover {
   background: #fff1dd;
 }
-.row-view .row:hover .muted,
-.row-view .row.editing .muted,
-.row-view .row.focused .muted {
-  color: #c7a97c !important;
+.row-view .row:hover button,
+.row-view .row.focused button,
+.row-view .row.focused:hover button {
+  border: none;
+  border-radius: 2px;
+  padding: 0;
+  display: block;
+  position: relative;
+  width: 66px;
+  text-decoration: none;
+  background: none;
+  color: #888;
+}
+.row-view .row:hover button .icon,
+.row-view .row.focused button .icon,
+.row-view .row.focused:hover button .icon {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 46px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  height: 46px;
+  width: 46px;
+  padding: 2px 0 0 2px;
+}
+.row-view .row:hover button .icon i,
+.row-view .row.focused button .icon i,
+.row-view .row.focused:hover button .icon i {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 40px;
+  height: 40px;
+  width: 40px;
+  font-size: 200%;
+  display: block;
+}
+.row-view .row:hover button span,
+.row-view .row.focused button span,
+.row-view .row.focused:hover button span {
+  position: absolute;
+  top: 61px;
+  width: 100%;
+  font-size: 75%;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 10px;
+  display: block;
+  width: 46 px;
+}
+.row-view .row:hover button:focus,
+.row-view .row.focused button:focus,
+.row-view .row.focused:hover button:focus {
+  outline: 0;
+}
+.row-view .row:hover button,
+.row-view .row.focused button,
+.row-view .row.focused:hover button,
+.row-view .row:hover button:active,
+.row-view .row.focused button:active,
+.row-view .row.focused:hover button:active {
+  cursor: pointer;
+}
+.row-view .row:hover button[disabled],
+.row-view .row.focused button[disabled],
+.row-view .row.focused:hover button[disabled],
+.row-view .row:hover button[disabled]:hover,
+.row-view .row.focused button[disabled]:hover,
+.row-view .row.focused:hover button[disabled]:hover,
+.row-view .row:hover button.disabled,
+.row-view .row.focused button.disabled,
+.row-view .row.focused:hover button.disabled,
+.row-view .row:hover button.disabled:hover,
+.row-view .row.focused button.disabled:hover,
+.row-view .row.focused:hover button.disabled:hover {
+  cursor: default;
+}
+.row-view .row:hover button[disabled],
+.row-view .row.focused button[disabled],
+.row-view .row.focused:hover button[disabled],
+.row-view .row:hover button[disabled]:hover,
+.row-view .row.focused button[disabled]:hover,
+.row-view .row.focused:hover button[disabled]:hover,
+.row-view .row:hover button.disabled,
+.row-view .row.focused button.disabled,
+.row-view .row.focused:hover button.disabled,
+.row-view .row:hover button.disabled:hover,
+.row-view .row.focused button.disabled:hover,
+.row-view .row.focused:hover button.disabled:hover {
+  background: none;
+  color: #ccc;
+  cursor: default;
+}
+.row-view .row:hover button[disabled] .icon,
+.row-view .row.focused button[disabled] .icon,
+.row-view .row.focused:hover button[disabled] .icon,
+.row-view .row:hover button[disabled]:hover .icon,
+.row-view .row.focused button[disabled]:hover .icon,
+.row-view .row.focused:hover button[disabled]:hover .icon,
+.row-view .row:hover button.disabled .icon,
+.row-view .row.focused button.disabled .icon,
+.row-view .row.focused:hover button.disabled .icon,
+.row-view .row:hover button.disabled:hover .icon,
+.row-view .row.focused button.disabled:hover .icon,
+.row-view .row.focused:hover button.disabled:hover .icon {
+  background: none;
+  border-color: #ccc;
+}
+.row-view .row:hover button[disabled] .icon i,
+.row-view .row.focused button[disabled] .icon i,
+.row-view .row.focused:hover button[disabled] .icon i,
+.row-view .row:hover button[disabled]:hover .icon i,
+.row-view .row.focused button[disabled]:hover .icon i,
+.row-view .row.focused:hover button[disabled]:hover .icon i,
+.row-view .row:hover button.disabled .icon i,
+.row-view .row.focused button.disabled .icon i,
+.row-view .row.focused:hover button.disabled .icon i,
+.row-view .row:hover button.disabled:hover .icon i,
+.row-view .row.focused button.disabled:hover .icon i,
+.row-view .row.focused:hover button.disabled:hover .icon i {
+  background: none;
+  border-color: #ccc;
+  box-shadow: none;
+}
+.row-view .row:hover button[disabled] span,
+.row-view .row.focused button[disabled] span,
+.row-view .row.focused:hover button[disabled] span,
+.row-view .row:hover button[disabled]:hover span,
+.row-view .row.focused button[disabled]:hover span,
+.row-view .row.focused:hover button[disabled]:hover span,
+.row-view .row:hover button.disabled span,
+.row-view .row.focused button.disabled span,
+.row-view .row.focused:hover button.disabled span,
+.row-view .row:hover button.disabled:hover span,
+.row-view .row.focused button.disabled:hover span,
+.row-view .row.focused:hover button.disabled:hover span {
+  color: #ccc;
+}
+.row-view .row:hover button .icon,
+.row-view .row.focused button .icon,
+.row-view .row.focused:hover button .icon {
+  background: none;
+  border-color: #888;
+}
+.row-view .row:hover button .icon i,
+.row-view .row.focused button .icon i,
+.row-view .row.focused:hover button .icon i {
+  border-color: #ccc;
+  background: none;
+}
+.row-view .row:hover button span,
+.row-view .row.focused button span,
+.row-view .row.focused:hover button span {
+  color: #888;
+}
+.row-view .row:hover button:hover,
+.row-view .row.focused button:hover,
+.row-view .row.focused:hover button:hover,
+.row-view .row:hover button:focus,
+.row-view .row.focused button:focus,
+.row-view .row.focused:hover button:focus {
+  background: #fda;
+  color: #777;
+}
+.row-view .row:hover button:hover .icon,
+.row-view .row.focused button:hover .icon,
+.row-view .row.focused:hover button:hover .icon,
+.row-view .row:hover button:focus .icon,
+.row-view .row.focused button:focus .icon,
+.row-view .row.focused:hover button:focus .icon {
+  background: white;
+  border-color: #777;
+}
+.row-view .row:hover button:hover .icon i,
+.row-view .row.focused button:hover .icon i,
+.row-view .row.focused:hover button:hover .icon i,
+.row-view .row:hover button:focus .icon i,
+.row-view .row.focused button:focus .icon i,
+.row-view .row.focused:hover button:focus .icon i {
+  border-color: #e4c392;
+  background: #fda;
+}
+.row-view .row:hover button:hover span,
+.row-view .row.focused button:hover span,
+.row-view .row.focused:hover button:hover span,
+.row-view .row:hover button:focus span,
+.row-view .row.focused button:focus span,
+.row-view .row.focused:hover button:focus span {
+  color: #777;
+}
+.row-view .row:hover button:hover .icon i,
+.row-view .row.focused button:hover .icon i,
+.row-view .row.focused:hover button:hover .icon i,
+.row-view .row:hover button:focus .icon i,
+.row-view .row.focused button:focus .icon i,
+.row-view .row.focused:hover button:focus .icon i {
+  background: #fda;
+  box-shadow: inset rgba(255, 255, 255, 0.7) 0px 2px 10px, inset rgba(0, 0, 0, 0.1) 0px -2px 10px;
+}
+.row-view .row:hover button:hover[disabled] .icon i,
+.row-view .row.focused button:hover[disabled] .icon i,
+.row-view .row.focused:hover button:hover[disabled] .icon i,
+.row-view .row:hover button:focus[disabled] .icon i,
+.row-view .row.focused button:focus[disabled] .icon i,
+.row-view .row.focused:hover button:focus[disabled] .icon i,
+.row-view .row:hover button:hover[disabled]:hover .icon i,
+.row-view .row.focused button:hover[disabled]:hover .icon i,
+.row-view .row.focused:hover button:hover[disabled]:hover .icon i,
+.row-view .row:hover button:focus[disabled]:hover .icon i,
+.row-view .row.focused button:focus[disabled]:hover .icon i,
+.row-view .row.focused:hover button:focus[disabled]:hover .icon i,
+.row-view .row:hover button:hover.disabled .icon i,
+.row-view .row.focused button:hover.disabled .icon i,
+.row-view .row.focused:hover button:hover.disabled .icon i,
+.row-view .row:hover button:focus.disabled .icon i,
+.row-view .row.focused button:focus.disabled .icon i,
+.row-view .row.focused:hover button:focus.disabled .icon i,
+.row-view .row:hover button:hover.disabled:hover .icon i,
+.row-view .row.focused button:hover.disabled:hover .icon i,
+.row-view .row.focused:hover button:hover.disabled:hover .icon i,
+.row-view .row:hover button:focus.disabled:hover .icon i,
+.row-view .row.focused button:focus.disabled:hover .icon i,
+.row-view .row.focused:hover button:focus.disabled:hover .icon i {
+  box-shadow: none;
+}
+.row-view .row:hover button:active .icon i,
+.row-view .row.focused button:active .icon i,
+.row-view .row.focused:hover button:active .icon i {
+  background: #ffd390;
+  box-shadow: inset rgba(255, 255, 255, 0.7) 0px -2px 10px, inset rgba(0, 0, 0, 0.1) 0px 2px 10px;
+}
+.row-view .row:hover button:active[disabled] .icon i,
+.row-view .row.focused button:active[disabled] .icon i,
+.row-view .row.focused:hover button:active[disabled] .icon i,
+.row-view .row:hover button:active[disabled]:hover .icon i,
+.row-view .row.focused button:active[disabled]:hover .icon i,
+.row-view .row.focused:hover button:active[disabled]:hover .icon i,
+.row-view .row:hover button:active.disabled .icon i,
+.row-view .row.focused button:active.disabled .icon i,
+.row-view .row.focused:hover button:active.disabled .icon i,
+.row-view .row:hover button:active.disabled:hover .icon i,
+.row-view .row.focused button:active.disabled:hover .icon i,
+.row-view .row.focused:hover button:active.disabled:hover .icon i {
+  box-shadow: none;
+}
+.row-view .row:hover button[disabled],
+.row-view .row.focused button[disabled],
+.row-view .row.focused:hover button[disabled],
+.row-view .row:hover button[disabled]:hover,
+.row-view .row.focused button[disabled]:hover,
+.row-view .row.focused:hover button[disabled]:hover,
+.row-view .row:hover button.disabled,
+.row-view .row.focused button.disabled,
+.row-view .row.focused:hover button.disabled,
+.row-view .row:hover button.disabled:hover,
+.row-view .row.focused button.disabled:hover,
+.row-view .row.focused:hover button.disabled:hover {
+  background: none;
+  color: #ccc;
+}
+.row-view .row:hover button[disabled] .icon,
+.row-view .row.focused button[disabled] .icon,
+.row-view .row.focused:hover button[disabled] .icon,
+.row-view .row:hover button[disabled]:hover .icon,
+.row-view .row.focused button[disabled]:hover .icon,
+.row-view .row.focused:hover button[disabled]:hover .icon,
+.row-view .row:hover button.disabled .icon,
+.row-view .row.focused button.disabled .icon,
+.row-view .row.focused:hover button.disabled .icon,
+.row-view .row:hover button.disabled:hover .icon,
+.row-view .row.focused button.disabled:hover .icon,
+.row-view .row.focused:hover button.disabled:hover .icon {
+  background: none;
+  border-color: #ccc;
+}
+.row-view .row:hover button[disabled] .icon i,
+.row-view .row.focused button[disabled] .icon i,
+.row-view .row.focused:hover button[disabled] .icon i,
+.row-view .row:hover button[disabled]:hover .icon i,
+.row-view .row.focused button[disabled]:hover .icon i,
+.row-view .row.focused:hover button[disabled]:hover .icon i,
+.row-view .row:hover button.disabled .icon i,
+.row-view .row.focused button.disabled .icon i,
+.row-view .row.focused:hover button.disabled .icon i,
+.row-view .row:hover button.disabled:hover .icon i,
+.row-view .row.focused button.disabled:hover .icon i,
+.row-view .row.focused:hover button.disabled:hover .icon i {
+  border-color: #ccc;
+  background: none;
+}
+.row-view .row:hover button[disabled] span,
+.row-view .row.focused button[disabled] span,
+.row-view .row.focused:hover button[disabled] span,
+.row-view .row:hover button[disabled]:hover span,
+.row-view .row.focused button[disabled]:hover span,
+.row-view .row.focused:hover button[disabled]:hover span,
+.row-view .row:hover button.disabled span,
+.row-view .row.focused button.disabled span,
+.row-view .row.focused:hover button.disabled span,
+.row-view .row:hover button.disabled:hover span,
+.row-view .row.focused button.disabled:hover span,
+.row-view .row.focused:hover button.disabled:hover span {
+  color: #ccc;
 }
 .row-view .row h3 {
   margin: 0;
@@ -1118,6 +1417,175 @@ h2 {
 }
 .row-view.editing .row.editing {
   background: #fff1dd;
+}
+.focused .row:hover {
+  background: #fff5e7;
+}
+.focused .row:hover button {
+  border: none;
+  border-radius: 2px;
+  padding: 0;
+  display: block;
+  position: relative;
+  width: 66px;
+  text-decoration: none;
+  background: none;
+  color: #888;
+}
+.focused .row:hover button .icon {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 46px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  height: 46px;
+  width: 46px;
+  padding: 2px 0 0 2px;
+}
+.focused .row:hover button .icon i {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 40px;
+  height: 40px;
+  width: 40px;
+  font-size: 200%;
+  display: block;
+}
+.focused .row:hover button span {
+  position: absolute;
+  top: 61px;
+  width: 100%;
+  font-size: 75%;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 10px;
+  display: block;
+  width: 46 px;
+}
+.focused .row:hover button:focus {
+  outline: 0;
+}
+.focused .row:hover button,
+.focused .row:hover button:active {
+  cursor: pointer;
+}
+.focused .row:hover button[disabled],
+.focused .row:hover button[disabled]:hover,
+.focused .row:hover button.disabled,
+.focused .row:hover button.disabled:hover {
+  cursor: default;
+}
+.focused .row:hover button[disabled],
+.focused .row:hover button[disabled]:hover,
+.focused .row:hover button.disabled,
+.focused .row:hover button.disabled:hover {
+  background: none;
+  color: #ccc;
+  cursor: default;
+}
+.focused .row:hover button[disabled] .icon,
+.focused .row:hover button[disabled]:hover .icon,
+.focused .row:hover button.disabled .icon,
+.focused .row:hover button.disabled:hover .icon {
+  background: none;
+  border-color: #ccc;
+}
+.focused .row:hover button[disabled] .icon i,
+.focused .row:hover button[disabled]:hover .icon i,
+.focused .row:hover button.disabled .icon i,
+.focused .row:hover button.disabled:hover .icon i {
+  background: none;
+  border-color: #ccc;
+  box-shadow: none;
+}
+.focused .row:hover button[disabled] span,
+.focused .row:hover button[disabled]:hover span,
+.focused .row:hover button.disabled span,
+.focused .row:hover button.disabled:hover span {
+  color: #ccc;
+}
+.focused .row:hover button .icon {
+  background: none;
+  border-color: #888;
+}
+.focused .row:hover button .icon i {
+  border-color: #ccc;
+  background: none;
+}
+.focused .row:hover button span {
+  color: #888;
+}
+.focused .row:hover button:hover,
+.focused .row:hover button:focus {
+  background: #ffedd3;
+  color: #777;
+}
+.focused .row:hover button:hover .icon,
+.focused .row:hover button:focus .icon {
+  background: white;
+  border-color: #777;
+}
+.focused .row:hover button:hover .icon i,
+.focused .row:hover button:focus .icon i {
+  border-color: #ecd5b3;
+  background: #ffedd3;
+}
+.focused .row:hover button:hover span,
+.focused .row:hover button:focus span {
+  color: #777;
+}
+.focused .row:hover button:hover .icon i,
+.focused .row:hover button:focus .icon i {
+  background: #ffedd3;
+  box-shadow: inset rgba(255, 255, 255, 0.7) 0px 2px 10px, inset rgba(0, 0, 0, 0.1) 0px -2px 10px;
+}
+.focused .row:hover button:hover[disabled] .icon i,
+.focused .row:hover button:focus[disabled] .icon i,
+.focused .row:hover button:hover[disabled]:hover .icon i,
+.focused .row:hover button:focus[disabled]:hover .icon i,
+.focused .row:hover button:hover.disabled .icon i,
+.focused .row:hover button:focus.disabled .icon i,
+.focused .row:hover button:hover.disabled:hover .icon i,
+.focused .row:hover button:focus.disabled:hover .icon i {
+  box-shadow: none;
+}
+.focused .row:hover button:active .icon i {
+  background: #ffe3b9;
+  box-shadow: inset rgba(255, 255, 255, 0.7) 0px -2px 10px, inset rgba(0, 0, 0, 0.1) 0px 2px 10px;
+}
+.focused .row:hover button:active[disabled] .icon i,
+.focused .row:hover button:active[disabled]:hover .icon i,
+.focused .row:hover button:active.disabled .icon i,
+.focused .row:hover button:active.disabled:hover .icon i {
+  box-shadow: none;
+}
+.focused .row:hover button[disabled],
+.focused .row:hover button[disabled]:hover,
+.focused .row:hover button.disabled,
+.focused .row:hover button.disabled:hover {
+  background: none;
+  color: #ccc;
+}
+.focused .row:hover button[disabled] .icon,
+.focused .row:hover button[disabled]:hover .icon,
+.focused .row:hover button.disabled .icon,
+.focused .row:hover button.disabled:hover .icon {
+  background: none;
+  border-color: #ccc;
+}
+.focused .row:hover button[disabled] .icon i,
+.focused .row:hover button[disabled]:hover .icon i,
+.focused .row:hover button.disabled .icon i,
+.focused .row:hover button.disabled:hover .icon i {
+  border-color: #ccc;
+  background: none;
+}
+.focused .row:hover button[disabled] span,
+.focused .row:hover button[disabled]:hover span,
+.focused .row:hover button.disabled span,
+.focused .row:hover button.disabled:hover span {
+  color: #ccc;
 }
 input[type="text"],
 input[type="password"],
