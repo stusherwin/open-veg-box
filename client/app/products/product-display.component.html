@@ -28,6 +28,7 @@
       </button>  
     </div>
   </div>
+  <p *ngIf="addMode && showAddMessage && !adding">There are no products yet.</p>
   <div class="details" [hidden]="addMode && !adding">
     <cc-heading (focus)="focus($event)" (blur)="blur($event)" [addMode]="addMode" #productName [(value)]="product.name" [editTabindex]="(index * 2) + 1"></cc-heading>
     <div class="flex">

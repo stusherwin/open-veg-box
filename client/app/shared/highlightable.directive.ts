@@ -1,11 +1,11 @@
-import {Directive, ElementRef, AfterViewInit, Renderer, Inject, forwardRef} from '@angular/core';
+import {Directive, ElementRef, OnInit, Renderer, Inject, forwardRef} from '@angular/core';
 import {HighlightService} from './highlight.service';
 
 @Directive({
   selector: '[cc-highlightable]',
   exportAs: 'cc-highlightable',
 })
-export class HighlightableDirective implements AfterViewInit {
+export class HighlightableDirective implements OnInit {
   constructor(
     private el: ElementRef,
     private renderer: Renderer, 
@@ -13,23 +13,16 @@ export class HighlightableDirective implements AfterViewInit {
     private service: HighlightService) {
   }
 
-  ngAfterViewInit() {
+  ngOnInit() {
     this.service.registerHighlightable(this);
   }
 
   highlight() {
-    var className = this.el.nativeElement.className;
-    if(!/\bfocused\b/.test(className)) {
-      if(className.length == 0) {
-        this.el.nativeElement.className = 'focused';   
-      } else {
-        this.el.nativeElement.className += ' focused';
-      }
-    }
+    this.renderer.setElementClass(this.el.nativeElement, 'focused', true); 
   }
 
   unHighlight() {
-    this.el.nativeElement.className = this.el.nativeElement.className.replace(/ focused\b/g, '').replace(/\bfocused /, '');
+    this.renderer.setElementClass(this.el.nativeElement, 'focused', false); 
   }
 
   isAncestorOf(element: any) {

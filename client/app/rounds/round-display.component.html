@@ -1,26 +1,40 @@
-<div class="actions">
-  <div class="action">
-    <a class="button" href="#" [class.disabled]="editDisabled" (click)="clickEmail($event)">
-      <div class="icon"><i class="icon-mail-dark"></i></div>
-      <span>Email</span>
-    </a>
+<div class="row" [class.addMode]="addMode" cc-highlightable>
+  <input info="add" type="checkbox" *ngIf="addMode && !focused" style="position: absolute;left:-1000px" (focus)="focus($event)" (blur)="blur($event)" [tabindex]="index * 2" />
+  <div class="actions">
+    <div class="action" *ngIf="!addMode">
+      <a class="button" href="#" cc-focus highlight="true" [class.disabled]="editDisabled" [tabindex]="(index * 2) + 2" (click)="clickEmail($event)">
+        <div class="icon"><i class="icon-mail-dark"></i></div>
+        <span>Email</span>
+      </a>
+    </div>
+    <div class="action" *ngIf="!addMode">
+      <button cc-focus highlight="true" (click)="delete()" [disabled]="editDisabled" [tabindex]="(index * 2) + 2" (focus)="focus($event)" (blur)="blur($event)">
+        <div class="icon"><i class="icon-trash"></i></div>
+        <span>Delete</span>
+      </button>
+    </div>
+    <div class="action" [hidden]="!addMode || adding">
+      <button #addButton=cc-focus cc-focus highlight="true" (click)="startAdd()" [tabindex]="(index * 2) + 2" (focus)="focus($event)" (blur)="blur($event)">
+        <div class="icon"><i class="icon-add"></i></div>
+        <span>Add</span>
+      </button>  
+    </div>
+    <div class="action" *ngIf="addMode && adding">
+      <button cc-focus highlight="true" (click)="completeAdd()" [tabindex]="(index * 2) + 2" (focus)="focus($event)" (blur)="blur($event)">
+        <div class="icon"><i class="icon-ok"></i></div>
+        <span>Save</span>
+      </button>  
+    </div>
+    <div class="action" *ngIf="addMode && adding">
+      <button cc-focus highlight="true" (click)="cancelAdd()" [tabindex]="(index * 2) + 2" (focus)="focus($event)" (blur)="blur($event)">
+        <div class="icon"><i class="icon-cancel"></i></div>
+        <span>Cancel</span>
+      </button>  
+    </div>
   </div>
-  <div class="action">
-    <button (click)="edit()" [disabled]="editDisabled">
-      <div class="icon"><i class="icon-edit"></i></div>
-      <span>Edit</span>
-    </button>
+  <p *ngIf="addMode && showAddMessage && !adding">There are no rounds yet.</p>
+  <div class="details" [hidden]="addMode && !adding">
+    <cc-heading (focus)="focus($event)" (blur)="blur($event)" [addMode]="addMode" #roundName [(value)]="round.name" [editTabindex]="(index * 2) + 1"></cc-heading>
+    <cc-round-customers (focus)="focus($event)" (blur)="blur($event)" [addMode]="addMode" [(value)]="round.customers" [customers]="customers" [editTabindex]="(index * 2) + 1"></cc-round-customers>
   </div>
-  <div class="action">
-    <button (click)="delete()" [disabled]="editDisabled">
-      <div class="icon"><i class="icon-trash"></i></div>
-      <span>Delete</span>
-    </button>
-  </div>
-</div>
-<div class="details">
-  <cc-heading [value]="round.name"></cc-heading>
-  <ul>
-    <li *ngFor="let c of round.customers">{{c.name}}</li>
-  </ul>
 </div>

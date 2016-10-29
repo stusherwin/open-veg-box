@@ -49,6 +49,9 @@ export class ProductDisplayComponent {
   @Input()
   index: number;
 
+  @Input()
+  showAddMessage: boolean;
+
   @Output()
   onDelete = new EventEmitter<Product>();
 
@@ -77,6 +80,17 @@ export class ProductDisplayComponent {
     this.product = new Product(0, 'New product', 1.0, "each", 1);
 
     this.addButton.focus();
+  }
+
+  focus(evnt: any) {
+    if(!this.focused) {
+      if(this.addMode) {
+        this.startAdd();
+      }
+    }
+    
+    this.focusedChild = evnt.srcElement;
+    this.focused = true;
   } 
 
   blur(evnt: any) {
@@ -93,16 +107,5 @@ export class ProductDisplayComponent {
         this.focused = false;
       }
     }, 100);
-  }
-
-  focus(evnt: any) {
-    if(!this.focused) {
-      if(this.addMode) {
-        this.startAdd();
-      }
-    }
-    
-    this.focusedChild = evnt.srcElement;
-    this.focused = true;
   }
 }

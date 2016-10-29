@@ -66,23 +66,9 @@
       border-bottom: 1px dashed @itemBorderColor;
     }
 
-    // &:hover, &.editing, &.focused {
-    //   background: @itemHoverColor;
-    //   .muted {
-    //     color: desaturate(darken(@itemHoverColor, 30%), 60%) !important;        
-    //   }
-    // }
-
-    // &:hover {
-    //   background: @itemHoverColor;
-    //   button {
-    //     .button(outline; small; @highlight);
-    //   }
-    // }
-
     &:hover, &.focused, &.focused:hover {
       background: @itemHoverColor;
-      button {
+      button, a.button {
         .button(outline; small; @highlight);
       }
     }
@@ -97,13 +83,13 @@
       bottom: 4px;
       right: 4px;
       position: relative;
-      cursor: pointer;
       width: 100%;
 
       .editable-display {
         border: 1px solid transparent;
         padding-top: 4px;
         padding-left: 4px;
+        cursor: pointer;
 
         &:hover {
           border: 1px dashed desaturate(darken(@itemHoverColor, 20%),10%);
@@ -114,9 +100,9 @@
             position: absolute;
             content: '\e807';
             right: 5px;
-            //top: 5px;
-            top: 50%;
-            margin-top: -8px;
+            top: 5px;
+            //top: 50%;
+            //margin-top: -8px;
             font-family: "fontello";
             font-size:16px;
             color: desaturate(darken(@itemHoverColor, 20%),50%);
@@ -163,11 +149,32 @@
           width: 42px;
         }
       }
-    }   
+    }
+
+    .round-customers {
+      .editable-display {
+        p {
+          margin:0px 0 5px 0;
+        }
+      }
+
+      .editable-edit {
+        padding-top: 4px;
+      }
+    }
 
     ul {
       li {
-        margin-top:10px;
+        margin-bottom:10px;
+        &:first-child {
+          margin-top: 5px;
+        }
+        &:last-child {
+          margin-bottom: 5px;
+        }
+        &.focused {
+          background: lighten(@itemHoverColor, 4%);
+        }
       }      
     }
 
@@ -211,7 +218,7 @@
    .row {
      &:hover {
        background: lighten(@itemHoverColor, 2%);
-       button {
+       button, a.button {
          .button(outline; small; darken(@itemHoverColor, 2%));
        }
      }

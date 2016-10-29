@@ -1,4 +1,4 @@
-import {Component, Input, Directive, ElementRef, AfterViewInit, Renderer, Host, Inject, forwardRef} from '@angular/core';
+import {Component, Input, Directive, ElementRef, OnInit, Renderer, Host, Inject, forwardRef} from '@angular/core';
 import {ProductDisplayComponent} from '../products/product-display.component'
 import {HighlightableDirective} from './highlightable.directive';
 import {HighlightService} from './highlight.service';
@@ -7,7 +7,7 @@ import {HighlightService} from './highlight.service';
   selector: '[cc-focus]',
   exportAs: 'cc-focus'
 })
-export class FocusDirective implements AfterViewInit {
+export class FocusDirective implements OnInit {
   constructor(private el: ElementRef, private renderer: Renderer, private service: HighlightService) {
   }
 
@@ -20,7 +20,7 @@ export class FocusDirective implements AfterViewInit {
   @Input()
   selectAll: boolean;
 
-  ngAfterViewInit() {
+  ngOnInit() {
     var elem = this.el.nativeElement;
 
     elem.onfocus = () => {

@@ -52,3 +52,11 @@ Edit Individual fields
   have tabindex=1)
 * On add, should scroll page to bring row being added into view
 * keydown: Enter to save, Esc to cancel
+
+~* Why is BrowserSync reloading multiple times??
+* Fix rounds add
+* Split out grab/highlight directives?
+* Extract out child focus behaviour
+* Fix customers page
+* Implement 'email all' feature on Round
+* Maybe add should show all fields in edit mode?
