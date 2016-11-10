@@ -1,5 +1,5 @@
 <div class="row" [class.addMode]="addMode" cc-highlightable>
-  <input info="add" type="checkbox" *ngIf="addMode && !focused" style="position: absolute;left:-1000px" (focus)="focus($event)" (blur)="blur($event)" [tabindex]="index * 2" />
+  <input type="checkbox" *ngIf="addMode && !focused" style="position: absolute;left:-1000px" (focus)="focus($event)" (blur)="blur($event)" [tabindex]="index * 2" />
   <div class="actions">
     <div class="action" *ngIf="!addMode || !adding">
     </div>
@@ -32,13 +32,13 @@
   <div class="details" [hidden]="addMode && !adding">
     <cc-heading (focus)="focus($event)" (blur)="blur($event)" [addMode]="addMode" #productName [(value)]="product.name" [editTabindex]="(index * 2) + 1"></cc-heading>
     <div class="flex">
-      <div class="field price-detail">
+      <div class="price-detail">
         <cc-product-price (focus)="focus($event)" (blur)="blur($event)" [addMode]="addMode" [(price)]="product.price" [(unitType)]="product.unitType" [editTabindex]="(index * 2) + 1"></cc-product-price>
       </div>  
-      <div class="field unit-type-detail" *ngIf="product.unitType == 'perKg'">
+      <div class="unit-type-detail" *ngIf="product.unitType == 'perKg'">
         <cc-product-unit-quantity (focus)="focus($event)" (blur)="blur($event)" [addMode]="addMode" [(unitQuantity)]="product.unitQuantity" [editTabindex]="(index * 2) + 1"></cc-product-unit-quantity>
       </div>
-      <div>&nbsp;</div>
+      <div></div>
     </div>
   </div>
 </div>

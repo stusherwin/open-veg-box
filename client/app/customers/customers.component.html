@@ -1,4 +1,4 @@
-<div class="page-outer">
+<!--<div class="page-outer">
   <div class="page-inner">
     <cc-header></cc-header>
     <h2>Customers</h2>
@@ -16,6 +16,17 @@
         <cc-customer-display *ngIf="!editing || editing.id != c.id" [customer]="c" (onEdit)="startEdit(c)" (onDelete)="delete(c)" [editDisabled]="adding || editing"></cc-customer-display>
         <cc-customer-edit *ngIf="editing && editing.id == c.id" [customer]="editing" (onSave)="completeEdit()" (onCancel)="cancel()"></cc-customer-edit>
       </div>
+    </div>
+  </div>
+</div>-->
+
+<div class="page-outer">
+  <div class="page-inner">
+    <h2>Customers</h2>
+
+    <div class="row-view" cc-highlightable>
+      <cc-customer-display *ngFor="let c of customers; let i = index" [customer]="c" [index]="i" (onDelete)="delete(c)"></cc-customer-display>
+      <cc-customer-display addMode="true" [showAddMessage]="!customers.length" (onSave)="add($event)" [index]="customers.length"></cc-customer-display>
     </div>
   </div>
 </div>

@@ -10,7 +10,7 @@ import { NumericDirective } from '../shared/number.component';
   pipes: [MoneyPipe],
   template: `
     <div class="product-price editable">
-      <input type="checkbox" info="product-price" *ngIf="!editing" style="position: absolute;left:-1000px" (focus)="startEdit()" [tabindex]="editTabindex" />
+      <input type="checkbox" *ngIf="!editing" style="position: absolute;left:-1000px" (focus)="startEdit()" [tabindex]="editTabindex" />
       <div class="editable-display" *ngIf="!editing" (click)="startEdit()">
         <span [innerHTML]="price | money"></span> <span class="muted">{{ unitTypeName(unitType) }}</span>
       </div>

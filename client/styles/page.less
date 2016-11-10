@@ -42,6 +42,23 @@
   }  
 }
 
+input[type="text"], input[type="password"], select, textarea {
+  color: #999; 
+  padding: 2px 4px;
+  border: 1px solid #bbb;
+  border-radius: 3px;
+  font-size: 100%; 
+  margin:0;
+}
+
+input[type="checkbox"] {
+  outline: 0;
+}
+
+select {
+  padding: 1px 0px;
+}
+
 .row-view {
   position: relative;
 
@@ -66,116 +83,8 @@
       border-bottom: 1px dashed @itemBorderColor;
     }
 
-    &:hover, &.focused, &.focused:hover {
+    &:hover {
       background: @itemHoverColor;
-      button, a.button {
-        .button(outline; small; @highlight);
-      }
-    }
-
-    h3 {
-      margin: 0;
-      margin-bottom: 10px;
-      height: 34px;
-    }
-
-    .editable {
-      bottom: 4px;
-      right: 4px;
-      position: relative;
-      width: 100%;
-
-      .editable-display {
-        border: 1px solid transparent;
-        padding-top: 4px;
-        padding-left: 4px;
-        cursor: pointer;
-
-        &:hover {
-          border: 1px dashed desaturate(darken(@itemHoverColor, 20%),10%);
-          border-radius: 3px;
-          background: lighten(@itemHoverColor, 4%);
-
-          &:after {
-            position: absolute;
-            content: '\e807';
-            right: 5px;
-            top: 5px;
-            //top: 50%;
-            //margin-top: -8px;
-            font-family: "fontello";
-            font-size:16px;
-            color: desaturate(darken(@itemHoverColor, 20%),50%);
-          }
-        }
-      }
-    }
-
-    .heading {
-      h3 {
-        margin-bottom: 5px;
-      }
-
-      input[type="text"] {
-        display: block;
-        font-size: 150%;
-        font-weight: 300;
-        margin-bottom: 6px;
-        width: 100%;
-      }
-    }
-    
-    .product-price {
-      .editable-display {
-        min-height: 25px;
-      }
-      .editable-edit {
-        padding-left:4px;
-
-        .price {
-          width: 86px;
-          margin-left: 3px;
-        }
-      }
-    }
-
-    .product-unit-quantity {
-      .editable-display {
-        min-height: 25px;
-      }
-      .editable-edit {
-        padding-left:4px;
-        input {
-          width: 42px;
-        }
-      }
-    }
-
-    .round-customers {
-      .editable-display {
-        p {
-          margin:0px 0 5px 0;
-        }
-      }
-
-      .editable-edit {
-        padding-top: 4px;
-      }
-    }
-
-    ul {
-      li {
-        margin-bottom:10px;
-        &:first-child {
-          margin-top: 5px;
-        }
-        &:last-child {
-          margin-bottom: 5px;
-        }
-        &.focused {
-          background: lighten(@itemHoverColor, 4%);
-        }
-      }      
     }
 
     .actions {
@@ -198,93 +107,203 @@
     }
 
     .details {
-      // border: 1px solid red;
       overflow: hidden;
       padding: 15px 10px 0px 10px;
     }
   }
-
-  &.editing {
-    .row:hover {
-      background:inherit;
-    }
-    .row.editing {
-      background: @itemHoverColor;      
-    }
-  }
 }
+
+
 
 .focused {
-   .row {
-     &:hover {
-       background: lighten(@itemHoverColor, 2%);
-       button, a.button {
-         .button(outline; small; darken(@itemHoverColor, 2%));
-       }
-     }
-   }
-}
-
-input[type="text"], input[type="password"], select, textarea {
-  color: #999; 
-  padding: 2px 4px;
-  border: 1px solid #bbb;
-  border-radius: 3px;
-  font-size: 100%; 
-  margin:0;
-}
-
-input[type="checkbox"] {
-  outline: 0;
-}
-
-select {
-  padding: 1px 0px;
-}
-
-.field-row {
-  .field {
-    margin-top:10px;
-
-    .input {
-      display: inline-block;
+  .row {
+    button, a.button {
+      .button(outline; small; darken(@itemHoverColor, 2%));
+    }
     
-      input {
-        width: 100%;
-        max-width: 100%;
-      }
-
-      &.full {
-        width: 400px;
-        max-width: 100%;
-      }
-
-      &.tiny {
-        width: 42px;
-      }
-
-      & + .input {
-        margin-left: 10px;
-      }
-      & + select.input {
-        margin-left: 5px;
+    &.focused {
+      background: @itemHoverColor;
+      button, a.button {
+        .button(outline; small; @highlight);
       }
     }
+    &.focused:hover {
+      background: @itemHoverColor;
+    }
 
-    & + .field {
-      margin-left:10px;
+    &:hover {
+      background: lighten(@itemHoverColor, 4%);
+    }
+    
+    .editable-display:hover {
+      background: lighten(@itemHoverColor, 6%);
+    }
+  }
+  .row.focused {
+    .editable-display:hover {
+      background: lighten(@itemHoverColor, 4%);
+    }
+  }
+}
+
+.editable {
+  bottom: 4px;
+  right: 4px;
+  position: relative;
+  width: 100%;
+
+  .editable-display {
+    border: 1px solid transparent;
+    padding-top: 4px;
+    padding-left: 4px;
+    cursor: pointer;
+
+    &:hover {
+      border: 1px dashed desaturate(darken(@itemHoverColor, 20%),10%);
+      border-radius: 3px;
+      background: lighten(@itemHoverColor, 4%);
+      padding-right: 20px;
+
+      &:after {
+        position: absolute;
+        content: '\e807';
+        right: 5px;
+        top: 5px;
+        font-family: "fontello";
+        font-size:16px;
+        color: desaturate(darken(@itemHoverColor, 20%),50%);
+      }
+    }
+  }
+}
+
+.heading {
+  margin-bottom: 5px;
+
+  .editable-display {
+    h3 {
+      margin: 0;
+      margin-bottom: 5px;
     }
   }
 
-  &:after {
-    content: '';
-    clear: left;
-    display: block;
+  .editable-edit {
+    input[type="text"] {
+      display: block;
+      font-size: 150%;
+      font-weight: 300;
+      margin-bottom: 6px;
+      width: 100%;
+    }
+  }
+}
+
+.product-price {
+  .editable-display {
+    min-height: 25px;
+  }
+  .editable-edit {
+    padding-left:5px;
+
+    .price {
+      width: 86px;
+      margin-left: 3px;
+    }
+  }
+}
+
+.product-unit-quantity {
+  .editable-display {
+    min-height: 25px;
+  }
+  .editable-edit {
+    padding-left:4px;
+    input {
+      width: 42px;
+    }
+  }
+}
+
+.round-customers {
+  .editable-display {
+    p {
+      margin:0px 0 5px 0;
+    }
   }
 
-  &:first-child {
-    .field {
-      margin-top:0;
+  .editable-edit {
+    padding-top: 4px;
+  }
+
+  ul {
+    li {
+      margin-bottom:10px;
+      &:first-child {
+        margin-top: 5px;
+      }
+      &:last-child {
+        margin-bottom: 5px;
+      }
+      &.focused {
+        background: lighten(@itemHoverColor, 4%);
+      }
+    }      
+  }
+}
+
+
+.address {
+  .editable {
+    padding-left:1px;     
+    margin-bottom: 3px;
+    
+    .editable-display {
+      min-height: 25px;
+      padding-bottom: 4px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .editable-edit {
+      margin-bottom: 1px;
+    }
+  }
+}
+
+.email {
+  .editable {
+    padding-left:2px;     
+    margin-bottom: 3px;
+    
+    .editable-display {
+      min-height: 25px;
+      padding-bottom: 4px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .editable-edit {
+      margin-bottom: 1px;
+    }
+  }
+}
+
+.tel {
+  .editable {
+    margin-bottom: 3px;
+
+    .editable-display {
+      min-height: 25px;
+      padding-bottom: 4px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .editable-edit {
+      margin-bottom: 1px;
     }
   }
 }
@@ -309,10 +328,6 @@ select {
     &:first-child {
       margin-left:0;
     }
-  }
-
-  .field-row + & {
-    margin-top:10px;
   }
 }
 
@@ -354,22 +369,29 @@ select {
       textarea, input[type="text"], input[type="password"] {
         width: 100%;
       }
+
+      &:last-of-type {
+        width: 1px;
+        flex-grow:0;
+        flex-shrink:0;
+      }
     }
 
     .address {
-      width:400px;
+      width: 50%;
       flex-shrink:2;
       min-width:120px;
     }
 
     .email {
-      width: 250px;
+      width: 40%;
       min-width:150px;
       flex-shrink:1;
     }
 
     .tel {
-      width: 140px;
+      width: 10%;
+      min-width: 145px;
       flex-shrink:0;
     }
   }

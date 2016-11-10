@@ -6,9 +6,13 @@ import { FocusDirective } from './focus.directive'
   directives: [FocusDirective],
   template: `
     <div class="heading editable">
-      <input type="checkbox" info="heading" *ngIf="!editing" style="position: absolute;left:-1000px" (focus)="startEdit()" [tabindex]="editTabindex" />
-      <h3 *ngIf="!editing" class="editable-display" (click)="startEdit()">{{value}}</h3>
-      <input type="text" *ngIf="editing" cc-focus grab="true" highlight="true" [selectAll]="addMode" (blur)="endEdit()" [(ngModel)]="value" (ngModelChange)="valueChanged($event)" [tabindex]="editTabindex" />
+      <input type="checkbox" *ngIf="!editing" style="position: absolute;left:-1000px" (focus)="startEdit()" [tabindex]="editTabindex" />
+      <div class="editable-display" *ngIf="!editing">
+        <h3 (click)="startEdit()">{{value}}</h3>
+      </div>
+      <div class="editable-edit" *ngIf="editing">
+        <input type="text" cc-focus grab="true" highlight="true" [selectAll]="addMode" (blur)="endEdit()" [(ngModel)]="value" (ngModelChange)="valueChanged($event)" [tabindex]="editTabindex" />
+      </div>
     </div>
   `
 }) 

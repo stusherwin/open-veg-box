@@ -1,34 +1,54 @@
-<h3>{{ customer.name }}</h3>
-<div class="actions">
-  <div class="action">
-    <a class="button" href="mailto:{{customer.email}}" [class.disabled]="editDisabled" (click)="clickEmail($event)">
-      <div class="icon"><i class="icon-mail-dark"></i></div>
-      <span>Email</span>
-    </a>
+<div class="row" [class.addMode]="addMode" cc-highlightable>
+  <input type="checkbox" *ngIf="addMode && !focused" style="position: absolute;left:-1000px" (focus)="focus($event)" (blur)="blur($event)" [tabindex]="index * 2" />
+  <div class="actions">
+    <div class="action" *ngIf="!addMode">
+      <a class="button" href="#" cc-focus highlight="true" [class.disabled]="editDisabled" [tabindex]="(index * 2) + 2" (click)="clickEmail($event)">
+        <div class="icon"><i class="icon-mail-dark"></i></div>
+        <span>Email</span>
+      </a>
+    </div>
+    <div class="action" *ngIf="!addMode">
+      <button cc-focus highlight="true" (click)="delete()" [disabled]="editDisabled" [tabindex]="(index * 2) + 2" (focus)="focus($event)" (blur)="blur($event)">
+        <div class="icon"><i class="icon-trash"></i></div>
+        <span>Delete</span>
+      </button>
+    </div>
+    <div class="action" [hidden]="!addMode || adding">
+      <button #addButton=cc-focus cc-focus highlight="true" (click)="startAdd()" [tabindex]="(index * 2) + 2" (focus)="focus($event)" (blur)="blur($event)">
+        <div class="icon"><i class="icon-add"></i></div>
+        <span>Add</span>
+      </button>  
+    </div>
+    <div class="action" *ngIf="addMode && adding">
+      <button cc-focus highlight="true" (click)="completeAdd()" [tabindex]="(index * 2) + 2" (focus)="focus($event)" (blur)="blur($event)">
+        <div class="icon"><i class="icon-ok"></i></div>
+        <span>Save</span>
+      </button>  
+    </div>
+    <div class="action" *ngIf="addMode && adding">
+      <button cc-focus highlight="true" (click)="cancelAdd()" [tabindex]="(index * 2) + 2" (focus)="focus($event)" (blur)="blur($event)">
+        <div class="icon"><i class="icon-cancel"></i></div>
+        <span>Cancel</span>
+      </button>  
+    </div>
   </div>
-  <div class="action">
-    <button (click)="edit()" [disabled]="editDisabled">
-      <div class="icon"><i class="icon-edit"></i></div>
-      <span>Edit</span>
-    </button>
-  </div>
-  <div class="action">
-    <button (click)="delete()" [disabled]="editDisabled">
-      <div class="icon"><i class="icon-trash"></i></div>
-      <span>Delete</span>
-    </button>
-  </div>
-</div>
-<div class="details customer-details">  
-  <div class="address">
-    <i class="icon-home"></i><div><span [innerHTML]="customer.address | singleline:', '"></span></div>
-  </div>
-  <div class="email">
-    <i class="icon-mail"></i><div><span>{{ customer.email }}</span></div>
-  </div>
-  <div class="tel">
-    <i class="icon-phone"></i><div><span>{{ customer.tel1 }}</span></div>
-  </div>
-  <div>
-  </div>
+  <p *ngIf="addMode && showAddMessage && !adding">There are no customers yet.</p>
+  <div class="details" [hidden]="addMode && !adding">
+    <cc-heading (focus)="focus($event)" (blur)="blur($event)" [addMode]="addMode" #customerName [(value)]="customer.name" [editTabindex]="(index * 2) + 1"></cc-heading>
+    <div class="customer-details">  
+      <div class="address">
+        <i class="icon-home"></i>
+        <cc-customer-address (focus)="focus($event)" (blur)="blur($event)" [addMode]="addMode" [(value)]="customer.address" [editTabindex]="(index * 2) + 1"></cc-customer-address>
+      </div>
+      <div class="email">
+        <i class="icon-mail"></i>
+        <cc-customer-email (focus)="focus($event)" (blur)="blur($event)" [addMode]="addMode" [(value)]="customer.email" [editTabindex]="(index * 2) + 1"></cc-customer-email>
+      </div>
+      <div class="tel">
+        <i class="icon-phone"></i>
+        <cc-customer-tel (focus)="focus($event)" (blur)="blur($event)" [addMode]="addMode" [(value)]="customer.tel1" [editTabindex]="(index * 2) + 1"></cc-customer-tel>
+      </div>
+      <div>
+      </div>
+    </div>
 </div>

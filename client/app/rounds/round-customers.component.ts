@@ -8,7 +8,7 @@ import { RoundCustomer } from './round'
   directives: [FocusDirective, HighlightableDirective],
   template: `
     <div class="round-customers editable">
-      <input type="checkbox" info="round-customers" *ngIf="!editing" style="position: absolute;left:-1000px" (focus)="startEdit()" [tabindex]="editTabindex" />
+      <input type="checkbox" *ngIf="!editing" style="position: absolute;left:-1000px" (focus)="startEdit()" [tabindex]="editTabindex" />
       <div class="editable-display" *ngIf="!editing" (click)="startEdit()">
         <p *ngIf="!value.length">No customers</p>
         <ul *ngIf="value.length">

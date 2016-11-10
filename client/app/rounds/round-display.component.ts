@@ -1,40 +1,3 @@
-// import { Component, Input, Output, EventEmitter } from '@angular/core';
-// import { Round } from './round';
-// import { SingleLinePipe } from '../shared/pipes';
-// import { HeadingComponent } from '../shared/heading.component';
-
-// @Component({
-//   selector: 'cc-round-display',
-//   templateUrl: 'app/rounds/round-display.component.html',
-//   pipes: [SingleLinePipe],
-//   directives: [HeadingComponent]
-// })
-// export class RoundDisplayComponent {
-//   @Input()
-//   round: Round;
-
-//   @Input()
-//   editDisabled: boolean;
-
-//   @Output()
-//   onEdit = new EventEmitter<Round>();
-
-//   @Output()
-//   onDelete = new EventEmitter<Round>();
-
-//   edit() {
-//     this.onEdit.emit(this.round);
-//   } 
-
-//   delete() {
-//     this.onDelete.emit(this.round);
-//   } 
-
-//   clickEmail(event:any) {
-//     if(this.editDisabled) { event.preventDefault(); return false;} return true;
-//   }
-// }
-
 import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject } from '@angular/core';
 import { Round, RoundCustomer } from './round';
 import { HeadingComponent } from '../shared/heading.component';
@@ -123,7 +86,7 @@ export class RoundDisplayComponent {
       if(!this.focusedChild) {
         if(this.adding) {
           this.adding = false;
-          this.round = new Round(0, 'New product', []);
+          this.round = new Round(0, 'New round', []);
         }
         this.focused = false;
       }
