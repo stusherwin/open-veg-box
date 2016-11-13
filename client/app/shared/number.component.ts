@@ -22,16 +22,10 @@ export class NumericDirective {
   maxDecimals: number = null
 
   ngAfterViewInit() {
-    console.log(this.fixedDecimals);
-    console.log(this.maxDecimals);
-    this.el.nativeElement.onfocus = () => console.log(this.el.nativeElement.value); // this.reformat.apply(this);
+    this.el.nativeElement.onfocus = () => this.reformat.apply(this);
   }
 
   private reformat() {
-    console.log('reformatting...')
-    console.log(this.el.nativeElement.value);
-    console.log(this.toDecimalValue(this.el.nativeElement.value));
-    console.log(this.toStringValue(this.toDecimalValue(this.el.nativeElement.value)));
     this.el.nativeElement.value = this.toStringValue(this.toDecimalValue(this.el.nativeElement.value));
   }
 

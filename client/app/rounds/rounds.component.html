@@ -3,8 +3,8 @@
     <h2>Rounds</h2>
 
     <div class="row-view" cc-highlightable>
-      <cc-round-display *ngFor="let r of rounds; let i = index" [round]="r" [customers]="customers" [index]="i" (delete)="onDelete($event)" (update)="onUpdate($event)"></cc-round-display>
-      <cc-round-display addMode="true" [showAddMessage]="!rounds.length" [customers]="customers" (add)="onAdd($event)" [index]="rounds.length"></cc-round-display>
+      <cc-round *ngFor="let r of rounds; let i = index" [round]="r" [customers]="customers" [index]="i" (delete)="onDelete($event)" (update)="onUpdate($event)"></cc-round>
+      <cc-round addMode="true" [showAddMessage]="!rounds.length" [customers]="customers" (add)="onAdd($event)" [index]="rounds.length"></cc-round>
     </div>
   </div>
 </div>

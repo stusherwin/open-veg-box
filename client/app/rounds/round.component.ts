@@ -6,11 +6,11 @@ import { HighlightableDirective } from '../shared/highlightable.directive'
 import { RoundCustomersComponent } from './round-customers.component';
 
 @Component({
-  selector: 'cc-round-display',
-  templateUrl: 'app/rounds/round-display.component.html',
+  selector: 'cc-round',
+  templateUrl: 'app/rounds/round.component.html',
   directives: [HeadingComponent, FocusDirective, HighlightableDirective, RoundCustomersComponent]
 })
-export class RoundDisplayComponent {
+export class RoundComponent {
   adding: boolean;
   focusedChild: any;
   focused: boolean;

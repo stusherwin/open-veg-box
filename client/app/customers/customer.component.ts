@@ -8,11 +8,11 @@ import { CustomerEmailComponent } from './customer-email.component'
 import { CustomerTelComponent } from './customer-tel.component'
 
 @Component({
-  selector: 'cc-customer-display',
-  templateUrl: 'app/customers/customer-display.component.html',
+  selector: 'cc-customer',
+  templateUrl: 'app/customers/customer.component.html',
   directives: [HeadingComponent, FocusDirective, HighlightableDirective, CustomerAddressComponent, CustomerEmailComponent, CustomerTelComponent],
 })
-export class CustomerDisplayComponent {
+export class CustomerComponent {
   adding: boolean;
   focusedChild: any;
   focused: boolean;
@@ -110,8 +110,6 @@ export class CustomerDisplayComponent {
   }
 
   onUpdate() {
-    console.log('onUpdate()');
-    console.log(this.customer);
     if(!this.addMode) {
       this.update.emit(this.customer);
     }

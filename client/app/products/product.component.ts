@@ -9,12 +9,12 @@ import { HighlightableDirective } from '../shared/highlightable.directive'
 import { ProductsComponent } from './products.component';
 
 @Component({
-  selector: 'cc-product-display',
-  templateUrl: 'app/products/product-display.component.html',
+  selector: 'cc-product',
+  templateUrl: 'app/products/product.component.html',
   pipes: [WeightPipe, MoneyPipe],
   directives: [HeadingComponent, ProductPriceComponent, ProductUnitQuantityComponent, FocusDirective, HighlightableDirective]
 })
-export class ProductDisplayComponent {
+export class ProductComponent {
   unitTypes: {[key: string]: string } = {};
   adding: boolean;
   focusedChild: any;

@@ -2,8 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Round, RoundCustomer } from './round'
 import { RoundService } from './round.service'
 import { CustomerService } from '../customers/customer.service'
-import { RoundEditComponent } from './round-edit.component'
-import { RoundDisplayComponent } from './round-display.component'
+import { RoundComponent } from './round.component'
 import { Observable } from 'rxjs/Observable';
 import { RouteParams } from '@angular/router-deprecated';
 import { HighlightService } from '../shared/highlight.service';
@@ -15,7 +14,7 @@ import 'rxjs/add/operator/last';
   selector: 'cc-rounds',
   styleUrls: ['app/rounds/rounds.component.css'],
   templateUrl: 'app/rounds/rounds.component.html',
-  directives: [RoundDisplayComponent, RoundEditComponent, HighlightableDirective],
+  directives: [RoundComponent, HighlightableDirective],
   providers: [RoundService, CustomerService, HighlightService]
 })
 export class RoundsComponent implements OnInit {
@@ -43,9 +42,7 @@ export class RoundsComponent implements OnInit {
   }
 
   onAdd(round: Round) {
-    console.log('onAdd()');
     this.roundService.add(round, this.queryParams).subscribe(rounds => {
-      console.log(rounds);
       this.rounds = rounds;
     });
   }

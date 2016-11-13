@@ -59,7 +59,6 @@ export class RoundCustomersComponent {
   startEdit() {
     this.focus.emit({type: "focus", srcElement: this});
     this.editing = true;
-    console.log(this.value);
   }
 
   endEdit() {

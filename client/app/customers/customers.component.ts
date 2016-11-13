@@ -1,8 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Customer } from './customer'
 import { CustomerService } from './customer.service'
-import { CustomerEditComponent } from './customer-edit.component'
-import { CustomerDisplayComponent } from './customer-display.component'
+import { CustomerComponent } from './customer.component'
 import { Observable } from 'rxjs/Observable';
 import { RouteParams } from '@angular/router-deprecated';
 import { HighlightService } from '../shared/highlight.service';
@@ -14,7 +13,7 @@ import 'rxjs/add/operator/last';
   selector: 'cc-customers',
   styleUrls: ['app/customers/customers.component.css'],
   templateUrl: 'app/customers/customers.component.html',
-  directives: [CustomerDisplayComponent, HighlightableDirective],
+  directives: [CustomerComponent, HighlightableDirective],
   providers: [CustomerService, HighlightService]
 })
 export class CustomersComponent implements OnInit {
@@ -47,7 +46,6 @@ export class CustomersComponent implements OnInit {
   }
 
   onUpdate(customer: Customer) {
-    console.log('onUpdate()');
     this.customerService.update(customer.id, customer, this.queryParams).subscribe(customers => {});
   }
 }

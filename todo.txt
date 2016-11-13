@@ -54,10 +54,9 @@ Edit Individual fields
 * keydown: Enter to save, Esc to cancel
 
 ~* Why is BrowserSync reloading multiple times??
-* Fix rounds add
 * Split out grab/highlight directives?
 * Extract out child focus behaviour
-* Fix customers page
 * Implement 'email all' feature on Round
 * Maybe add should show all fields in edit mode?
 * Fix add focus - when should it stay in add mode?
+* Update round customers

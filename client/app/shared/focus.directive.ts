@@ -1,5 +1,4 @@
 import {Component, Input, Directive, ElementRef, OnInit, Renderer, Host, Inject, forwardRef} from '@angular/core';
-import {ProductDisplayComponent} from '../products/product-display.component'
 import {HighlightableDirective} from './highlightable.directive';
 import {HighlightService} from './highlight.service';
 

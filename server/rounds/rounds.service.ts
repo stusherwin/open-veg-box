@@ -6,8 +6,6 @@ export class RoundsService {
   sqlHelper = new SqlHelper<Round>('round', ['name']);
 
   getAll(queryParams: any, db: any): Observable<Round[]> {
-    console.log(queryParams);
-    
     var sql = 'select r.id, r.name, c.id customerId, c.name customerName, c.address customerAddress from round r' 
             + ' left join round_customer rc on rc.roundId = r.id'
             + ' left join customer c on c.id = rc.customerId'
@@ -32,8 +30,6 @@ export class RoundsService {
   }
 
   add(params: any, queryParams: any, db: any): Observable<Round[]> {
-    console.log(params);
-    console.log(queryParams);
     this.sqlHelper.insert(db, params);
 
     return this.getAll(queryParams, db);
