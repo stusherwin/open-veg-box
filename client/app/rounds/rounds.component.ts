@@ -42,15 +42,21 @@ export class RoundsComponent implements OnInit {
     } );
   }
 
-  add(round: Round) {
+  onAdd(round: Round) {
+    console.log('onAdd()');
     this.roundService.add(round, this.queryParams).subscribe(rounds => {
+      console.log(rounds);
       this.rounds = rounds;
     });
   }
 
-  delete(round: Round) {
+  onDelete(round: Round) {
     this.roundService.delete(round.id, this.queryParams).subscribe(rounds => {
       this.rounds = rounds;
     });
+  }
+
+  onUpdate(round: Round) {
+    this.roundService.update(round.id, round, this.queryParams).subscribe(rounds => {});
   }
 }

@@ -67,6 +67,9 @@ export class ProductPriceComponent {
   @Output()
   blur = new EventEmitter<any>();
 
+  @Output()
+  update = new EventEmitter<any>();
+
   startEdit() {
     this.focus.emit({type: "focus", srcElement: this});
     this.editing = true;
@@ -76,6 +79,7 @@ export class ProductPriceComponent {
   endEdit() {
     this.editing = false;
     this.blur.emit({type: "blur", srcElement: this});
+    this.update.emit(null);
   }
 
   onChildBlur() {

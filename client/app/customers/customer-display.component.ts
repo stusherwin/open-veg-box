@@ -46,10 +46,13 @@ export class CustomerDisplayComponent {
   showAddMessage: boolean;
 
   @Output()
-  onDelete = new EventEmitter<Customer>();
+  delete = new EventEmitter<Customer>();
 
   @Output()
-  onSave = new EventEmitter<Customer>();
+  add = new EventEmitter<Customer>();
+  
+  @Output()
+  update = new EventEmitter<Customer>();
 
   startAdd() {
     this.adding = true;
@@ -57,15 +60,15 @@ export class CustomerDisplayComponent {
   }
 
   completeAdd() {
-    this.onSave.emit(this.customer);
+    this.add.emit(this.customer);
     this.adding = false;
     this.customer = new Customer(0, 'New customer', '', '', '', '');
 
     this.startAdd();
   }
 
-  delete() {
-    this.onDelete.emit(this.customer);
+  onDelete() {
+    this.delete.emit(this.customer);
   }
 
   cancelAdd() {
@@ -104,5 +107,13 @@ export class CustomerDisplayComponent {
   
   clickEmail(event:any) {
     if(this.editDisabled) { event.preventDefault(); return false;} return true;
+  }
+
+  onUpdate() {
+    console.log('onUpdate()');
+    console.log(this.customer);
+    if(!this.addMode) {
+      this.update.emit(this.customer);
+    }
   }
 }

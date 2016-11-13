@@ -53,10 +53,13 @@ export class ProductDisplayComponent {
   showAddMessage: boolean;
 
   @Output()
-  onDelete = new EventEmitter<Product>();
+  delete = new EventEmitter<Product>();
 
   @Output()
-  onSave = new EventEmitter<Product>();
+  add = new EventEmitter<Product>();
+
+  @Output()
+  update = new EventEmitter<Product>();
 
   startAdd() {
     this.adding = true;
@@ -64,15 +67,15 @@ export class ProductDisplayComponent {
   }
 
   completeAdd() {
-    this.onSave.emit(this.product);
+    this.add.emit(this.product);
     this.adding = false;
     this.product = new Product(0, 'New product', 1.0, "each", 1);
 
     this.startAdd();
   }
 
-  delete() {
-    this.onDelete.emit(this.product);
+  onDelete() {
+    this.delete.emit(this.product);
   }
 
   cancelAdd() {
@@ -107,5 +110,11 @@ export class ProductDisplayComponent {
         this.focused = false;
       }
     }, 100);
+  }
+
+  onUpdate() {
+    if(!this.addMode) {
+      this.update.emit(this.product);
+    }
   }
 }

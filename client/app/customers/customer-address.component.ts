@@ -13,7 +13,7 @@ import { SingleLinePipe } from '../shared/pipes';
       <div class="editable-display" *ngIf="!editing" (click)="startEdit()" [innerHTML]="value | singleline:', '">
       </div>
       <div class="editable-edit" *ngIf="editing">
-        <textarea [(ngModel)]="value" cc-focus grab="true" highlight="true" [tabindex]="editTabindex" (focus)="onChildFocus($event)" (blur)="onChildBlur($event)"></textarea>
+        <textarea [(ngModel)]="value" (ngModelChange)="valueChanged($event)" cc-focus grab="true" highlight="true" [tabindex]="editTabindex" (focus)="onChildFocus($event)" (blur)="onChildBlur($event)"></textarea>
       </div>
     </div>
   `
@@ -34,10 +34,16 @@ export class CustomerAddressComponent {
   value: string;
 
   @Output()
+  valueChange = new EventEmitter<string>();
+
+  @Output()
   focus = new EventEmitter<any>();
 
   @Output()
   blur = new EventEmitter<any>();
+
+  @Output()
+  update = new EventEmitter<any>();
 
   startEdit() {
     this.focus.emit({type: "focus", srcElement: this});
@@ -47,6 +53,7 @@ export class CustomerAddressComponent {
   endEdit() {
     this.editing = false;
     this.blur.emit({type: "blur", srcElement: this});
+    this.update.emit(null);
   }
 
   onChildFocus(event: FocusEvent) {
@@ -61,5 +68,9 @@ export class CustomerAddressComponent {
         this.shouldBlur = true;
       }
     }, 100);
+  } 
+  
+  valueChanged(value: string) {
+    this.valueChange.emit(value);
   }
 }

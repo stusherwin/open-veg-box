@@ -34,15 +34,20 @@ export class CustomersComponent implements OnInit {
     } );
   }
 
-  add(customer: Customer) {
+  onAdd(customer: Customer) {
     this.customerService.add(customer, this.queryParams).subscribe(customers => {
       this.customers = customers;
     });
   }
 
-  delete(customer: Customer) {
+  onDelete(customer: Customer) {
     this.customerService.delete(customer.id, this.queryParams).subscribe(customers => {
       this.customers = customers;
     });
+  }
+
+  onUpdate(customer: Customer) {
+    console.log('onUpdate()');
+    this.customerService.update(customer.id, customer, this.queryParams).subscribe(customers => {});
   }
 }

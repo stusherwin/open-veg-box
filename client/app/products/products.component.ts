@@ -31,15 +31,19 @@ export class ProductsComponent implements OnInit {
     } );
   }
 
-  add(product: Product) {
+  onAdd(product: Product) {
     this.productService.add(product, this.queryParams).subscribe(products => {
       this.products = products;
     });
   }
 
-  delete(product: Product) {
+  onDelete(product: Product) {
     this.productService.delete(product.id, this.queryParams).subscribe(products => {
       this.products = products;
     });
+  }
+
+  onUpdate(product: Product) {
+    this.productService.update(product.id, product, this.queryParams).subscribe(products => {});
   }
 }

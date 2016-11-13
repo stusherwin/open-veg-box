@@ -10,7 +10,7 @@ import { RoundCustomer } from './round'
     <div class="round-customers editable">
       <input type="checkbox" *ngIf="!editing" style="position: absolute;left:-1000px" (focus)="startEdit()" [tabindex]="editTabindex" />
       <div class="editable-display" *ngIf="!editing" (click)="startEdit()">
-        <p *ngIf="!value.length">No customers</p>
+        <p *ngIf="!value || !value.length">No customers</p>
         <ul *ngIf="value.length">
           <li *ngFor="let c of value">{{c.name}}</li>
         </ul>
@@ -59,6 +59,7 @@ export class RoundCustomersComponent {
   startEdit() {
     this.focus.emit({type: "focus", srcElement: this});
     this.editing = true;
+    console.log(this.value);
   }
 
   endEdit() {

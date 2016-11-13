@@ -12,7 +12,7 @@ import { HighlightableDirective } from '../shared/highlightable.directive'
         {{ value }}
       </div>
       <div class="editable-edit" *ngIf="editing">
-        <input type="text" [(ngModel)]="value" cc-focus grab="true" highlight="true" [tabindex]="editTabindex" (focus)="onChildFocus($event)" (blur)="onChildBlur($event)" />
+        <input type="text" [(ngModel)]="value" (ngModelChange)="valueChanged($event)" cc-focus grab="true" highlight="true" [tabindex]="editTabindex" (focus)="onChildFocus($event)" (blur)="onChildBlur($event)" />
       </div>
     </div>
   `
@@ -33,10 +33,16 @@ export class CustomerTelComponent {
   value: string;
 
   @Output()
+  valueChange = new EventEmitter<string>();
+
+  @Output()
   focus = new EventEmitter<any>();
 
   @Output()
   blur = new EventEmitter<any>();
+
+  @Output()
+  update = new EventEmitter<any>();
 
   startEdit() {
     this.focus.emit({type: "focus", srcElement: this});
@@ -46,6 +52,7 @@ export class CustomerTelComponent {
   endEdit() {
     this.editing = false;
     this.blur.emit({type: "blur", srcElement: this});
+    this.update.emit(null);
   }
 
   onChildFocus(event: FocusEvent) {
@@ -60,5 +67,9 @@ export class CustomerTelComponent {
         this.shouldBlur = true;
       }
     }, 100);
+  } 
+  
+  valueChanged(value: string) {
+    this.valueChange.emit(value);
   }
 }

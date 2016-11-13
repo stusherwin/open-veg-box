@@ -46,12 +46,14 @@ export class RoundDisplayComponent {
   @Input()
   customers: RoundCustomer[];
 
+  @Output()
+  delete = new EventEmitter<Round>();
 
   @Output()
-  onDelete = new EventEmitter<Round>();
+  add = new EventEmitter<Round>();
 
   @Output()
-  onSave = new EventEmitter<Round>();
+  update = new EventEmitter<Round>();
 
   startAdd() {
     this.adding = true;
@@ -59,15 +61,15 @@ export class RoundDisplayComponent {
   }
 
   completeAdd() {
-    this.onSave.emit(this.round);
+    this.add.emit(this.round);
     this.adding = false;
     this.round = new Round(0, 'New round', []);
 
     this.startAdd();
   }
 
-  delete() {
-    this.onDelete.emit(this.round);
+  onDelete() {
+    this.delete.emit(this.round);
   }
 
   cancelAdd() {
@@ -106,5 +108,11 @@ export class RoundDisplayComponent {
   
   clickEmail(event:any) {
     if(this.editDisabled) { event.preventDefault(); return false;} return true;
+  }
+
+  onUpdate() {
+    if(!this.addMode) {
+      this.update.emit(this.round);
+    }
   }
 }

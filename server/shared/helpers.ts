@@ -121,6 +121,9 @@ export class SqlHelper<T> {
       + this.getFields(params).map((f:string) => '$' + f).join(', ')
       + ')';
 
+    console.log(insertSql);
+    console.log(this.buildSqlParams(params));
+
     db.run(insertSql, this.buildSqlParams(params));
   }
 

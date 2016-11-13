@@ -4,7 +4,7 @@
     <div class="action" *ngIf="!addMode || !adding">
     </div>
     <div class="action" *ngIf="!addMode">
-      <button cc-focus highlight="true" (click)="delete()" [disabled]="editDisabled" [tabindex]="(index * 2) + 2" (focus)="focus($event)" (blur)="blur($event)">
+      <button cc-focus highlight="true" (click)="onDelete()" [disabled]="editDisabled" [tabindex]="(index * 2) + 2" (focus)="focus($event)" (blur)="blur($event)">
         <div class="icon"><i class="icon-trash"></i></div>
         <span>Delete</span>
       </button>
@@ -30,13 +30,13 @@
   </div>
   <p *ngIf="addMode && showAddMessage && !adding">There are no products yet.</p>
   <div class="details" [hidden]="addMode && !adding">
-    <cc-heading (focus)="focus($event)" (blur)="blur($event)" [addMode]="addMode" #productName [(value)]="product.name" [editTabindex]="(index * 2) + 1"></cc-heading>
+    <cc-heading (focus)="focus($event)" (blur)="blur($event)" [addMode]="addMode" #productName [(value)]="product.name" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-heading>
     <div class="flex">
       <div class="price-detail">
-        <cc-product-price (focus)="focus($event)" (blur)="blur($event)" [addMode]="addMode" [(price)]="product.price" [(unitType)]="product.unitType" [editTabindex]="(index * 2) + 1"></cc-product-price>
+        <cc-product-price (focus)="focus($event)" (blur)="blur($event)" [addMode]="addMode" [(price)]="product.price" [(unitType)]="product.unitType" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-product-price>
       </div>  
       <div class="unit-type-detail" *ngIf="product.unitType == 'perKg'">
-        <cc-product-unit-quantity (focus)="focus($event)" (blur)="blur($event)" [addMode]="addMode" [(unitQuantity)]="product.unitQuantity" [editTabindex]="(index * 2) + 1"></cc-product-unit-quantity>
+        <cc-product-unit-quantity (focus)="focus($event)" (blur)="blur($event)" [addMode]="addMode" [(unitQuantity)]="product.unitQuantity" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-product-unit-quantity>
       </div>
       <div></div>
     </div>

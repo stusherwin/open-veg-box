@@ -60,3 +60,4 @@ Edit Individual fields
 * Fix customers page
 * Implement 'email all' feature on Round
 * Maybe add should show all fields in edit mode?
+* Fix add focus - when should it stay in add mode?

@@ -8,7 +8,7 @@
       </a>
     </div>
     <div class="action" *ngIf="!addMode">
-      <button cc-focus highlight="true" (click)="delete()" [disabled]="editDisabled" [tabindex]="(index * 2) + 2" (focus)="focus($event)" (blur)="blur($event)">
+      <button cc-focus highlight="true" (click)="onDelete()" [disabled]="editDisabled" [tabindex]="(index * 2) + 2" (focus)="focus($event)" (blur)="blur($event)">
         <div class="icon"><i class="icon-trash"></i></div>
         <span>Delete</span>
       </button>
@@ -34,19 +34,19 @@
   </div>
   <p *ngIf="addMode && showAddMessage && !adding">There are no customers yet.</p>
   <div class="details" [hidden]="addMode && !adding">
-    <cc-heading (focus)="focus($event)" (blur)="blur($event)" [addMode]="addMode" #customerName [(value)]="customer.name" [editTabindex]="(index * 2) + 1"></cc-heading>
+    <cc-heading (focus)="focus($event)" (blur)="blur($event)" [addMode]="addMode" #customerName [(value)]="customer.name" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-heading>
     <div class="customer-details">  
       <div class="address">
         <i class="icon-home"></i>
-        <cc-customer-address (focus)="focus($event)" (blur)="blur($event)" [addMode]="addMode" [(value)]="customer.address" [editTabindex]="(index * 2) + 1"></cc-customer-address>
+        <cc-customer-address (focus)="focus($event)" (blur)="blur($event)" [addMode]="addMode" [(value)]="customer.address" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-customer-address>
       </div>
       <div class="email">
         <i class="icon-mail"></i>
-        <cc-customer-email (focus)="focus($event)" (blur)="blur($event)" [addMode]="addMode" [(value)]="customer.email" [editTabindex]="(index * 2) + 1"></cc-customer-email>
+        <cc-customer-email (focus)="focus($event)" (blur)="blur($event)" [addMode]="addMode" [(value)]="customer.email" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-customer-email>
       </div>
       <div class="tel">
         <i class="icon-phone"></i>
-        <cc-customer-tel (focus)="focus($event)" (blur)="blur($event)" [addMode]="addMode" [(value)]="customer.tel1" [editTabindex]="(index * 2) + 1"></cc-customer-tel>
+        <cc-customer-tel (focus)="focus($event)" (blur)="blur($event)" [addMode]="addMode" [(value)]="customer.tel1" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-customer-tel>
       </div>
       <div>
       </div>

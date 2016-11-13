@@ -41,6 +41,9 @@ export class HeadingComponent {
   @Output()
   blur = new EventEmitter<any>();
 
+  @Output()
+  update = new EventEmitter<any>();
+
   valueChanged(value: string) {
     this.valueChange.emit(value);
   }
@@ -51,7 +54,9 @@ export class HeadingComponent {
   }
 
   endEdit() {
+    console.log('endEdit()');
     this.editing = false;
     this.blur.emit({type: "blur", srcElement: this});
+    this.update.emit(null);
   }
 }

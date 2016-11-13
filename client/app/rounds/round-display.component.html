@@ -8,7 +8,7 @@
       </a>
     </div>
     <div class="action" *ngIf="!addMode">
-      <button cc-focus highlight="true" (click)="delete()" [disabled]="editDisabled" [tabindex]="(index * 2) + 2" (focus)="focus($event)" (blur)="blur($event)">
+      <button cc-focus highlight="true" (click)="onDelete()" [disabled]="editDisabled" [tabindex]="(index * 2) + 2" (focus)="focus($event)" (blur)="blur($event)">
         <div class="icon"><i class="icon-trash"></i></div>
         <span>Delete</span>
       </button>
@@ -34,7 +34,7 @@
   </div>
   <p *ngIf="addMode && showAddMessage && !adding">There are no rounds yet.</p>
   <div class="details" [hidden]="addMode && !adding">
-    <cc-heading (focus)="focus($event)" (blur)="blur($event)" [addMode]="addMode" #roundName [(value)]="round.name" [editTabindex]="(index * 2) + 1"></cc-heading>
+    <cc-heading (focus)="focus($event)" (blur)="blur($event)" [addMode]="addMode" #roundName [(value)]="round.name" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-heading>
     <cc-round-customers (focus)="focus($event)" (blur)="blur($event)" [addMode]="addMode" [(value)]="round.customers" [customers]="customers" [editTabindex]="(index * 2) + 1"></cc-round-customers>
   </div>
 </div>
