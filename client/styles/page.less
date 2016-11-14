@@ -396,3 +396,48 @@ select {
     }
   }
 }
+
+.round-customers-display, .round-customers-add {
+  position: relative;
+  top: -5px;
+  left: -5px;
+  padding: 5px;
+  
+  .round-customer {
+    display: flex;
+
+    .round-customer-detail {
+      margin: 5px;
+
+      &.round-customer-name {
+        margin-left: 0;
+        width: 40%;
+      }
+      &.round-customer-address {
+        width: 60%;
+      }
+      &.round-customer-action {
+        flex-shrink: 0;
+        flex-grow: 0;
+        width: 50px;
+      }
+    }
+  }
+}
+
+.round-customers-add {
+  margin-top:20px;
+  margin-bottom:20px;
+  background: #f9f9f9;
+  border-top: 1px dashed #999;
+  color: #aaa;
+  a {
+    color: #aaa;
+  }
+}
+
+.round-customers {
+  p {
+    margin:10px 0 15px 0;
+  }
+}

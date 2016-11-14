@@ -8,13 +8,25 @@ import { RoundCustomer } from './round'
   directives: [FocusDirective, HighlightableDirective],
   template: `
     <div class="round-customers">
-      <ul *ngIf="value.length">
-        <li *ngFor="let c of value">{{c.name}} <a href="#" cc-focus highlight="true" [tabindex]="editTabindex" (click)="$event.preventDefault();removeCustomerClick(c.id)">remove</a></li>
-      </ul>
-      <select class="input" cc-focus highlight="true" [tabindex]="editTabindex" (focus)="onChildFocus()" (blur)="addCustomerBlur();onChildBlur()" [(ngModel)]="customerIdToAdd" (ngModelChange)="addCustomerModelChange($event)" (click)="addCustomerClick($event)">
+      <p class="muted" *ngIf="!value.length">No customers assigned</p>
+      <div class="round-customers-display" *ngIf="value.length">
+        <div class="round-customer" *ngFor="let c of value">
+          <div class="round-customer-detail round-customer-name">{{c.name}}</div>
+          <div class="round-customer-detail round-customer-address">{{c.address}}</div>
+          <div class="round-customer-detail round-customer-action"><a href="#" cc-focus highlight="true" [tabindex]="editTabindex" (click)="$event.preventDefault();removeCustomerClick(c.id)">remove</a></div>
+        </div>
+      </div>
+      <div class="round-customers-add" *ngIf="customers.length">
+        <div class="round-customer" *ngFor="let c of customers">
+          <div class="round-customer-detail round-customer-name">{{c.name}}</div>
+          <div class="round-customer-detail round-customer-address">{{c.address}}</div>
+          <div class="round-customer-detail round-customer-action"><a href="#" cc-focus highlight="true" [tabindex]="editTabindex" (click)="$event.preventDefault();addCustomerClick(c.id)">add</a></div>
+        </div>
+      </div>
+      <!--<select class="input" *ngIf="customers.length" cc-focus highlight="true" [tabindex]="editTabindex" (focus)="onChildFocus()" (blur)="addCustomerBlur();onChildBlur()" [(ngModel)]="customerIdToAdd" (ngModelChange)="addCustomerModelChange($event)" (click)="addCustomerClick($event)">
         <option [ngValue]="0">Add a customer</option>
         <option *ngFor="let c of customers" [ngValue]="c.id">{{ c.name }}</option>
-      </select>
+      </select>-->
     </div>
   `
 })
@@ -108,6 +120,17 @@ export class RoundCustomersComponent {
       this.remove.emit(customerId);
     }
   }
+
+  addCustomerClick(customerId: number ) {
+    console.log('add');
+    console.log(customerId);
+    let customer = this.customers.find( c => c.id == customerId);
+    if(customer) {
+      this.customerIdToAdd = 0;      
+      this.value.push(customer);
+      this.add.emit(customer.id);
+    }
+  }
   
   addCustomerModelChange(customerId: any) {
     if(this.clicked) {
@@ -121,9 +144,11 @@ export class RoundCustomersComponent {
   }
 
   clicked: boolean;
-  addCustomerClick() {
-    this.clicked = true;
-  }
+  // addCustomerClick() {
+  //   this.clicked = true;
+  // }
+
+
 
   addCustomerBlur() {
     if(!this.clicked) {
