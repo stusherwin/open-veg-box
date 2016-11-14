@@ -1,0 +1,38 @@
+<div class="round-customers" [class.can-edit]="value.length || customers.length">
+  <div class="round-customers-display" *ngIf="value.length">
+    <div class="round-customer" *ngFor="let c of value" [class.muted]="focusedCustomerId == c.id">
+      <div class="round-customer-detail round-customer-name">{{c.name}}</div>
+      <div class="round-customer-detail round-customer-address">{{c.address}}</div>
+      <div class="round-customer-detail round-customer-action">
+        <a href="#" cc-focus highlight="true" [tabindex]="editTabindex" (mouseover)="focusCustomer(c.id)" (mouseleave)="unfocusCustomer()" (click)="$event.preventDefault();removeCustomerClick(c.id)">
+          <div class="icon">
+            <i class="icon-trash"></i>
+          </div>
+        </a>
+        <div class="spacer"></div>
+      </div>
+    </div>
+  </div>
+  <div class="round-customers-display" *ngIf="!value.length">
+    <div class="round-customer">
+      <div class="round-customer-detail round-customer-name"><span *ngIf="!value.length">No customers assigned</span>&nbsp;</div>
+      <div class="round-customer-detail round-customer-address">&nbsp;</div>
+      <div class="round-customer-detail round-customer-action">
+        <div class="spacer"></div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="customers.length" class="round-customers-add">
+    <div class="round-customer" *ngFor="let c of customers" [class.muted]="focusedCustomerId != c.id">
+      <div class="round-customer-detail round-customer-name">{{c.name}}</div>
+      <div class="round-customer-detail round-customer-address">{{c.address}}</div>
+      <div class="round-customer-detail round-customer-action">
+        <a href="#" cc-focus highlight="true" [tabindex]="editTabindex" (mouseover)="focusCustomer(c.id)" (mouseleave)="unfocusCustomer()" (click)="$event.preventDefault();addCustomerClick(c.id)">
+          <div class="icon">
+            <i class="icon-add"></i>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
