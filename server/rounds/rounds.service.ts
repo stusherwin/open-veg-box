@@ -10,7 +10,7 @@ export class RoundsService {
             + ' left join round_customer rc on rc.roundId = r.id'
             + ' left join customer c on c.id = rc.customerId'
             + ' order by r.id, c.id';
-    return this.sqlHelper.selectSql(db, sql, queryParams,
+    return this.sqlHelper.selectSqlRows(db, sql, queryParams,
       rows => {
         let rounds: { [id: number]: Round; } = {};
         for(let r of rows) {
@@ -43,6 +43,10 @@ export class RoundsService {
 
   delete(id: number, queryParams: any, db: any): Observable<Round[]> {
     this.sqlHelper.delete(db, id);
+    
+    db.run('delete from round_customer where roundId = $id', {
+      $id: id 
+    });
 
     return this.getAll(queryParams, db);
   }

@@ -36,7 +36,7 @@ export class RoundsComponent implements OnInit {
       this.rounds = rounds;
     } );
 
-    this.customerService.getAll(this.queryParams).subscribe(customers => {
+    this.customerService.getAllWithNoRound(this.queryParams).subscribe(customers => {
       this.customers = customers.map(c => new RoundCustomer(c.id, c.name, c.address));
     } );
   }
@@ -58,10 +58,18 @@ export class RoundsComponent implements OnInit {
   }
 
   onCustomerAdd(event: any) {
-    this.roundService.addCustomer(event.roundId, event.customerId, this.queryParams).subscribe(rounds => {});
+    this.roundService.addCustomer(event.roundId, event.customerId, this.queryParams).subscribe(rounds => {
+      this.customerService.getAllWithNoRound(this.queryParams).subscribe(customers => {
+        this.customers = customers.map(c => new RoundCustomer(c.id, c.name, c.address));
+      } );
+    });
   }
 
   onCustomerRemove(event: any) {
-    this.roundService.removeCustomer(event.roundId, event.customerId, this.queryParams).subscribe(rounds => {});
+    this.roundService.removeCustomer(event.roundId, event.customerId, this.queryParams).subscribe(rounds => {
+      this.customerService.getAllWithNoRound(this.queryParams).subscribe(customers => {
+        this.customers = customers.map(c => new RoundCustomer(c.id, c.name, c.address));
+      } );
+    });
   }
 }

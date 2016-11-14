@@ -7,27 +7,20 @@ import { RoundCustomer } from './round'
   selector: 'cc-round-customers',
   directives: [FocusDirective, HighlightableDirective],
   template: `
-    <div class="round-customers editable">
-      <input type="checkbox" *ngIf="!editing" style="position: absolute;left:-1000px" (focus)="startEdit()" [tabindex]="editTabindex" />
-      <div class="editable-display" *ngIf="!editing" (click)="startEdit()">
-        <p *ngIf="!value || !value.length">No customers</p>
-        <ul *ngIf="value.length">
-          <li *ngFor="let c of value">{{c.name}}</li>
-        </ul>
-      </div>
-      <div class="editable-edit" *ngIf="editing">
-        <ul>
-          <li *ngFor="let c of customers; let i = index" cc-highlightable>
-            <input [id]="'customer' + c.id" type="checkbox" cc-focus [grab]="i == 0" highlight="true" [checked]="isOnRound(c)" [tabindex]="editTabindex" (change)="setOnRound(c, $event)" (focus)="onChildFocus($event)" (blur)="onChildBlur($event)" />
-            <label [htmlFor]="'customer' + c.id" (focus)="onChildFocus($event)">{{c.name}}</label>
-          </li>
-        </ul>     
-      </div>
+    <div class="round-customers">
+      <ul *ngIf="value.length">
+        <li *ngFor="let c of value">{{c.name}} <a href="#" cc-focus highlight="true" [tabindex]="editTabindex" (click)="$event.preventDefault();removeCustomerClick(c.id)">remove</a></li>
+      </ul>
+      <select class="input" cc-focus highlight="true" [tabindex]="editTabindex" (focus)="onChildFocus()" (blur)="addCustomerBlur();onChildBlur()" [(ngModel)]="customerIdToAdd" (ngModelChange)="addCustomerModelChange($event)" (click)="addCustomerClick($event)">
+        <option [ngValue]="0">Add a customer</option>
+        <option *ngFor="let c of customers" [ngValue]="c.id">{{ c.name }}</option>
+      </select>
     </div>
   `
 })
 export class RoundCustomersComponent {
   shouldBlur: boolean;
+  customerIdToAdd: number = 0;
   
   @ViewChild('priceElem')
   priceElem: ElementRef;
@@ -106,5 +99,41 @@ export class RoundCustomersComponent {
     }
 
     this.valueChange.emit(this.value);
+  }
+  
+  removeCustomerClick(customerId: number) {
+    let index = this.value.findIndex( c => c.id == customerId);
+    if(index >= 0) {
+      this.value.splice(index, 1);
+      this.remove.emit(customerId);
+    }
+  }
+  
+  addCustomerModelChange(customerId: any) {
+    if(this.clicked) {
+      let customer = this.customers.find( c => c.id == this.customerIdToAdd);
+      if(customer) {
+        this.customerIdToAdd = 0;      
+        this.value.push(customer);
+        this.add.emit(customer.id);
+      }
+    }
+  }
+
+  clicked: boolean;
+  addCustomerClick() {
+    this.clicked = true;
+  }
+
+  addCustomerBlur() {
+    if(!this.clicked) {
+      let customer = this.customers.find( c => c.id == this.customerIdToAdd);
+      if(customer) {
+        this.customerIdToAdd = 0;      
+        this.value.push(customer);
+        this.add.emit(customer.id);
+      } 
+    }
+    this.clicked = false;
   }
 }

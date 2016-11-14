@@ -59,4 +59,7 @@ Edit Individual fields
 * Implement 'email all' feature on Round
 * Maybe add should show all fields in edit mode?
 * Fix add focus - when should it stay in add mode?
-* Update round customers
+* Catch sql errors instead of crashing (uq violation)
+  - handle in SqlHelper
+* When round customer removed, should switch focus to next customer / add dropdown
+* Up/down arrows should not select a customer, but clicking should
