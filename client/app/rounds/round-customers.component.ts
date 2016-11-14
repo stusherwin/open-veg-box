@@ -46,6 +46,9 @@ export class RoundCustomersComponent {
 
   @Input()
   value: RoundCustomer[];
+  
+  @Output()
+  valueChange = new EventEmitter<RoundCustomer[]>();
 
   @Input()
   customers: RoundCustomer[];
@@ -56,6 +59,12 @@ export class RoundCustomersComponent {
   @Output()
   blur = new EventEmitter<any>();
 
+  @Output()
+  add = new EventEmitter<number>();
+
+  @Output()
+  remove = new EventEmitter<number>();
+  
   startEdit() {
     this.focus.emit({type: "focus", srcElement: this});
     this.editing = true;
@@ -87,11 +96,15 @@ export class RoundCustomersComponent {
   setOnRound(customer: RoundCustomer, evt: any) {
     if( evt.target.checked ) {
       this.value.push(customer);
+      this.add.emit(customer.id);
     } else {
       let index = this.value.findIndex( c => c.id == customer.id);
       if(index >= 0) {
         this.value.splice(index, 1);
+        this.remove.emit(customer.id);
       }
     }
+
+    this.valueChange.emit(this.value);
   }
 }

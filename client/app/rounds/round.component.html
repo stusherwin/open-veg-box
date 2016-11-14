@@ -35,6 +35,6 @@
   <p *ngIf="addMode && showAddMessage && !adding">There are no rounds yet.</p>
   <div class="details" [hidden]="addMode && !adding">
     <cc-heading (focus)="focus($event)" (blur)="blur($event)" [addMode]="addMode" #roundName [(value)]="round.name" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-heading>
-    <cc-round-customers (focus)="focus($event)" (blur)="blur($event)" [addMode]="addMode" [(value)]="round.customers" [customers]="customers" [editTabindex]="(index * 2) + 1"></cc-round-customers>
+    <cc-round-customers *ngIf="!addMode" (focus)="focus($event)" (blur)="blur($event)" [addMode]="addMode" [(value)]="round.customers" (add)="onCustomerAdd($event)" (remove)="onCustomerRemove($event)" [customers]="customers" [editTabindex]="(index * 2) + 1"></cc-round-customers>
   </div>
 </div>

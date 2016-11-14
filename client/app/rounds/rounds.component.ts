@@ -56,4 +56,12 @@ export class RoundsComponent implements OnInit {
   onUpdate(round: Round) {
     this.roundService.update(round.id, round, this.queryParams).subscribe(rounds => {});
   }
+
+  onCustomerAdd(event: any) {
+    this.roundService.addCustomer(event.roundId, event.customerId, this.queryParams).subscribe(rounds => {});
+  }
+
+  onCustomerRemove(event: any) {
+    this.roundService.removeCustomer(event.roundId, event.customerId, this.queryParams).subscribe(rounds => {});
+  }
 }

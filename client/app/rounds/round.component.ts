@@ -55,6 +55,12 @@ export class RoundComponent {
   @Output()
   update = new EventEmitter<Round>();
 
+  @Output()
+  customerAdd = new EventEmitter<any>();
+
+  @Output()
+  customerRemove = new EventEmitter<any>();
+
   startAdd() {
     this.adding = true;
     this.roundName.startEdit();
@@ -114,5 +120,13 @@ export class RoundComponent {
     if(!this.addMode) {
       this.update.emit(this.round);
     }
+  }
+
+  onCustomerAdd(customerId: number) {
+    this.customerAdd.emit({roundId: this.round.id, customerId: customerId});
+  }
+
+  onCustomerRemove(customerId: number) {
+    this.customerRemove.emit({roundId: this.round.id, customerId: customerId});
   }
 }
