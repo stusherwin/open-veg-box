@@ -8,14 +8,14 @@ import { FocusDirective } from '../shared/focus.directive'
   directives: [FocusDirective],
   pipes: [WeightPipe],
   template: `
-    <div class="product-unit-quantity editable">
-      <input type="checkbox" *ngIf="!editing" style="position: absolute;left:-1000px" [tabindex]="editTabindex" (focus)="startEdit()" />
+    <div class="product-unit-quantity editable" cc-focus (ccFocus)="startEdit()" (ccBlur)="endEdit()">
+      <input type="checkbox" *ngIf="!editing" style="position: absolute;left:-1000px" [tabindex]="editTabindex" cc-focus noblur="true" />
       <div class="editable-display" *ngIf="!editing" (click)="startEdit()">
         <span class="muted">sold in units of</span> {{ unitQuantity | weight }}
       </div>
       <div class="editable-edit" *ngIf="editing">
         <span class="muted">sold in units of</span>
-        <input type="text" class="input tiny" #unitQuantityElem cc-focus grab="true" highlight="true" [(ngModel)]="unitQuantityString" [tabindex]="editTabindex" required (ngModelChange)="unitQuantityChanged($event)" (blur)="endEdit()" />
+        <input type="text" class="input tiny" #unitQuantityElem cc-focus grab="true" [(ngModel)]="unitQuantityString" [tabindex]="editTabindex" required (ngModelChange)="unitQuantityChanged($event)" />
         Kg
       </div>
     </div>
@@ -45,23 +45,15 @@ export class ProductUnitQuantityComponent {
   unitQuantityChange = new EventEmitter<number>();
 
   @Output()
-  focus = new EventEmitter<any>();
-
-  @Output()
-  blur = new EventEmitter<any>();
-
-  @Output()
   update = new EventEmitter<any>();
   
   startEdit() {
-    this.focus.emit({type: "focus", srcElement: this});
     this.editing = true;
     this.unitQuantityString = this.toStringValue(this.unitQuantity);
   }
 
   endEdit() {
     this.editing = false;
-    this.blur.emit({type: "blur", srcElement: this});
     this.update.emit(null);
   }
 

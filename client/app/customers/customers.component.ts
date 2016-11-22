@@ -4,8 +4,8 @@ import { CustomerService } from './customer.service'
 import { CustomerComponent } from './customer.component'
 import { Observable } from 'rxjs/Observable';
 import { RouteParams } from '@angular/router-deprecated';
-import { HighlightService } from '../shared/highlight.service';
-import { HighlightableDirective } from '../shared/highlightable.directive';
+import { FocusService } from '../shared/focus.service';
+import { FocusDirective } from '../shared/focus.directive';
 import 'rxjs/add/observable/concat';
 import 'rxjs/add/operator/last';
 
@@ -13,8 +13,8 @@ import 'rxjs/add/operator/last';
   selector: 'cc-customers',
   styleUrls: ['app/customers/customers.component.css'],
   templateUrl: 'app/customers/customers.component.html',
-  directives: [CustomerComponent, HighlightableDirective],
-  providers: [CustomerService, HighlightService]
+  directives: [CustomerComponent, FocusDirective],
+  providers: [CustomerService, FocusService]
 })
 export class CustomersComponent implements OnInit {
   constructor(customerService: CustomerService, routeParams: RouteParams) {

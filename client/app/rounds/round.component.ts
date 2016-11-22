@@ -2,13 +2,12 @@ import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject }
 import { Round, RoundCustomer } from './round';
 import { HeadingComponent } from '../shared/heading.component';
 import { FocusDirective } from '../shared/focus.directive'
-import { HighlightableDirective } from '../shared/highlightable.directive'
 import { RoundCustomersComponent } from './round-customers.component';
 
 @Component({
   selector: 'cc-round',
   templateUrl: 'app/rounds/round.component.html',
-  directives: [HeadingComponent, FocusDirective, HighlightableDirective, RoundCustomersComponent]
+  directives: [HeadingComponent, FocusDirective, RoundCustomersComponent]
 })
 export class RoundComponent {
   adding: boolean;
@@ -26,7 +25,7 @@ export class RoundComponent {
   addButton: FocusDirective;
 
   @ViewChild('row')
-  row: HighlightableDirective;
+  row: FocusDirective;
 
   @Input()
   addMode: boolean;

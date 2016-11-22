@@ -1,10 +1,9 @@
 import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { FocusDirective } from '../shared/focus.directive'
-import { HighlightableDirective } from '../shared/highlightable.directive'
 
 @Component({
   selector: 'cc-customer-email',
-  directives: [FocusDirective, HighlightableDirective],
+  directives: [FocusDirective],
   template: `
     <div class="editable">
       <input type="checkbox" *ngIf="!editing" style="position: absolute;left:-1000px" (focus)="startEdit()" [tabindex]="editTabindex" />
@@ -12,7 +11,7 @@ import { HighlightableDirective } from '../shared/highlightable.directive'
         {{ value }}
       </div>
       <div class="editable-edit" *ngIf="editing">
-        <input type="text" [(ngModel)]="value" (ngModelChange)="valueChanged($event)" cc-focus grab="true" highlight="true" [tabindex]="editTabindex" (focus)="onChildFocus($event)" (blur)="onChildBlur($event)" />
+        <input type="text" [(ngModel)]="value" (ngModelChange)="valueChanged($event)" cc-focus grab="true" [tabindex]="editTabindex" (focus)="onChildFocus($event)" (blur)="onChildBlur($event)" />
       </div>
     </div>
   `

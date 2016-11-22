@@ -1,11 +1,10 @@
 import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { FocusDirective } from '../shared/focus.directive'
-import { HighlightableDirective } from '../shared/highlightable.directive'
 import { SingleLinePipe } from '../shared/pipes';
 
 @Component({
   selector: 'cc-customer-address',
-  directives: [FocusDirective, HighlightableDirective],
+  directives: [FocusDirective],
   pipes: [SingleLinePipe],
   template: `
     <div class="editable">
@@ -13,7 +12,7 @@ import { SingleLinePipe } from '../shared/pipes';
       <div class="editable-display" *ngIf="!editing" (click)="startEdit()" [innerHTML]="value | singleline:', '">
       </div>
       <div class="editable-edit" *ngIf="editing">
-        <textarea [(ngModel)]="value" (ngModelChange)="valueChanged($event)" cc-focus grab="true" highlight="true" [tabindex]="editTabindex" (focus)="onChildFocus($event)" (blur)="onChildBlur($event)"></textarea>
+        <textarea [(ngModel)]="value" (ngModelChange)="valueChanged($event)" cc-focus grab="true" [tabindex]="editTabindex" (focus)="onChildFocus($event)" (blur)="onChildBlur($event)"></textarea>
       </div>
     </div>
   `

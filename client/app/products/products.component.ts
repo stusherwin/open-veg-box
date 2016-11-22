@@ -5,14 +5,14 @@ import { UsersService } from '../users/users.service'
 import { ProductComponent } from './product.component'
 import { Observable } from 'rxjs/Observable';
 import { RouteParams } from '@angular/router-deprecated';
-import { HighlightService } from '../shared/highlight.service';
-import { HighlightableDirective } from '../shared/highlightable.directive';
+import { FocusService } from '../shared/focus.service';
+import { FocusDirective } from '../shared/focus.directive';
 
 @Component({
   selector: 'cc-products',
   templateUrl: 'app/products/products.component.html',
-  directives: [ProductComponent, HighlightableDirective],
-  providers: [ProductService, UsersService, HighlightService]
+  directives: [ProductComponent, FocusDirective],
+  providers: [ProductService, UsersService, FocusService]
 })
 export class ProductsComponent implements OnInit {
   constructor(productService: ProductService, routeParams: RouteParams) {

@@ -1,30 +1,55 @@
-import {Component, Input, Directive, ElementRef, OnInit, Renderer, Host, Inject, forwardRef} from '@angular/core';
-import {HighlightableDirective} from './highlightable.directive';
-import {HighlightService} from './highlight.service';
+import {Component, Input, Directive, ElementRef, OnInit, Renderer, Host, Inject, forwardRef, Output, EventEmitter} from '@angular/core';
+import {FocusService} from './focus.service';
 
 @Directive({
   selector: '[cc-focus]',
   exportAs: 'cc-focus'
 })
 export class FocusDirective implements OnInit {
-  constructor(private el: ElementRef, private renderer: Renderer, private service: HighlightService) {
+  constructor(
+    private el: ElementRef, 
+    private renderer: Renderer, 
+    @Inject(forwardRef(() => FocusService))
+    private service: FocusService) {
   }
+  focused: boolean;
+  shouldBlur: boolean;
+
+  @Input()
+  id: string;
 
   @Input()
   grab: boolean;
 
   @Input()
-  highlight: HighlightableDirective;
+  noblur: boolean;
+
+  @Input()
+  focusedClass: string;
 
   @Input()
   selectAll: boolean;
 
+  @Input()
+  focusGroup: string;
+
+  @Input()
+  absorbEvents: boolean;
+
+  @Output()
+  ccFocus: EventEmitter<any> = new EventEmitter<any>();
+
+  @Output()
+  ccBlur: EventEmitter<any> = new EventEmitter<any>();
+
   ngOnInit() {
+    this.service.register(this);
     var elem = this.el.nativeElement;
 
     elem.onfocus = () => {
-      if(this.highlight) {
-        this.service.highlight(this.el.nativeElement);
+      this.setFocused(true);
+      if(!this.absorbEvents) {
+        this.service.focus(this);
       }
 
       if(this.selectAll) {
@@ -33,8 +58,9 @@ export class FocusDirective implements OnInit {
     };
       
     elem.onblur = () => {
-      if(this.highlight) {
-        this.service.unHighlight(this.el.nativeElement);
+      this.setFocused(false);
+      if(!this.noblur && !this.absorbEvents) {
+        this.service.blur(this);
       }
     };
 
@@ -51,6 +77,66 @@ export class FocusDirective implements OnInit {
       if(selectText) {
         this.renderer.invokeElementMethod(elem, 'setSelectionRange', [0, elem.value.length]);
       }
-    }, 0);
+    });
+  }
+
+  setFocused(focused: boolean) {
+    let focusChanged = this.focused != focused;
+    if(focusChanged) {
+      this.focused = focused;
+      if(this.focused) {
+        if(this.focusedClass) {
+          this.renderer.setElementClass(this.el.nativeElement, this.focusedClass, true);
+        }
+        this.ccFocus.emit(null);
+      } else {
+        if(this.focusedClass) {
+          this.renderer.setElementClass(this.el.nativeElement, this.focusedClass, false);
+        }
+        
+        this.ccBlur.emit(null); 
+      }
+    }
+  }
+
+  descendentFocus(descendent: any): boolean {
+    this.shouldBlur = false;
+    this.setFocused(true);
+    if(this.absorbEvents) {
+      this.service.focus(this);
+      return false;
+    }
+    return true;
+  }
+
+  descendentBlur(descendent: any): boolean {
+    this.shouldBlur = true;
+    setTimeout(() => {
+      if(this.shouldBlur) {
+        this.setFocused(false);
+        if(this.absorbEvents && !this.noblur) {
+          this.service.blur(this);
+        }
+        this.shouldBlur = false;
+      }
+    }, 100);
+
+    if(this.absorbEvents) {
+      return false;
+    }
+    return true;
+  }
+
+  getAncestorDepth(element: FocusDirective): number {
+    let depth = 0
+    var ancestor = element.el.nativeElement;
+    while(ancestor != null) {
+      if(ancestor == this.el.nativeElement) {
+        return depth;
+      }
+      ancestor = ancestor.parentNode;
+      depth ++;
+    }
+    return -1;
   }
 }

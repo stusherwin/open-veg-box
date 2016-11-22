@@ -5,20 +5,17 @@ import { HeadingComponent } from '../shared/heading.component';
 import { ProductPriceComponent } from './product-price.component';
 import { ProductUnitQuantityComponent } from './product-unit-quantity.component';
 import { FocusDirective } from '../shared/focus.directive'
-import { HighlightableDirective } from '../shared/highlightable.directive'
-import { ProductsComponent } from './products.component';
 
 @Component({
   selector: 'cc-product',
   templateUrl: 'app/products/product.component.html',
   pipes: [WeightPipe, MoneyPipe],
-  directives: [HeadingComponent, ProductPriceComponent, ProductUnitQuantityComponent, FocusDirective, HighlightableDirective]
+  directives: [HeadingComponent, ProductPriceComponent, ProductUnitQuantityComponent, FocusDirective]
 })
 export class ProductComponent {
   unitTypes: {[key: string]: string } = {};
   adding: boolean;
-  focusedChild: any;
-  focused: boolean;
+  rowFocused: boolean;
 
   constructor() {
     for( var ut of unitTypes) {
@@ -34,17 +31,11 @@ export class ProductComponent {
   @ViewChild('addButton')
   addButton: FocusDirective;
 
-  @ViewChild('row')
-  row: HighlightableDirective;
-
   @Input()
   addMode: boolean;
 
   @Input()
   product: Product;
-
-  @Input()
-  editDisabled: boolean;
 
   @Input()
   index: number;
@@ -85,36 +76,25 @@ export class ProductComponent {
     this.addButton.focus();
   }
 
-  focus(evnt: any) {
-    if(!this.focused) {
-      if(this.addMode) {
-        this.startAdd();
-      }
-    }
-    
-    this.focusedChild = evnt.srcElement;
-    this.focused = true;
-  } 
-
-  blur(evnt: any) {
-    if(this.focusedChild && this.focusedChild == evnt.srcElement){
-      this.focusedChild = null;
-    }
-
-    setTimeout(() => {
-      if(!this.focusedChild) {
-        if(this.adding) {
-          this.adding = false;
-          this.product = new Product(0, 'New product', 1.0, "each", 1);
-        }
-        this.focused = false;
-      }
-    }, 100);
-  }
-
   onUpdate() {
     if(!this.addMode) {
       this.update.emit(this.product);
     }
+  }
+
+  onRowFocus() {
+    var focusedChanged = !this.rowFocused;
+    this.rowFocused = true;
+    if(this.addMode && focusedChanged) {
+      this.startAdd();
+    }
+  }
+
+  onRowBlur() {
+    if(this.adding) {
+      this.adding = false;
+      this.product = new Product(0, 'New product', 1.0, "each", 1);
+    }
+    this.rowFocused = false;
   }
 }

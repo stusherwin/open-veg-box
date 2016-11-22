@@ -39,8 +39,10 @@
     // },
     //"cwd": "${workspaceRoot}",
     "isShellCommand": true,
+    //"isBuildCommand": true,
     "echoCommand": true,
     "showOutput": "always",
+    //"problemMatcher": "$tsc",
     //"suppressTaskName": true,
     "tasks": [
         {
@@ -50,6 +52,7 @@
             "showOutput": "always",
             "echoCommand": true,
             "isWatching": true
+            //"problemMatcher": "$tsc-watch"
         }
    ]
 }

@@ -9,14 +9,14 @@ import { NumericDirective } from '../shared/number.component';
   directives: [FocusDirective, NumericDirective],
   pipes: [MoneyPipe],
   template: `
-    <div class="product-price editable">
-      <input type="checkbox" *ngIf="!editing" style="position: absolute;left:-1000px" (focus)="startEdit()" [tabindex]="editTabindex" />
+    <div class="product-price editable" cc-focus (ccFocus)="startEdit()" (ccBlur)="endEdit()">
+      <input type="checkbox" *ngIf="!editing" style="position: absolute;left:-1000px" cc-focus noblur="true" [tabindex]="editTabindex" />
       <div class="editable-display" *ngIf="!editing" (click)="startEdit()">
         <span [innerHTML]="price | money"></span> <span class="muted">{{ unitTypeName(unitType) }}</span>
       </div>
       <div class="editable-edit" *ngIf="editing">
-        &pound;<input type="text" class="input price" #priceElem cc-focus grab="true" highlight="true" (focus)="onChildFocus()" (blur)="onChildBlur()" [(ngModel)]="priceString" [tabindex]="editTabindex" required (ngModelChange)="priceChanged($event)" />
-        <select class="input" #unitTypeElem cc-focus highlight="true" [(ngModel)]="unitType" [tabindex]="editTabindex" (focus)="onChildFocus()" (blur)="onChildBlur()" (ngModelChange)="unitTypeChanged($event)">
+        &pound;<input type="text" class="input price" #priceElem cc-focus grab="true" [(ngModel)]="priceString" [tabindex]="editTabindex" required (ngModelChange)="priceChanged($event)" />
+        <select class="input" #unitTypeElem cc-focus [(ngModel)]="unitType" [tabindex]="editTabindex" (ngModelChange)="unitTypeChanged($event)">
           <option *ngFor="let ut of unitTypes" [ngValue]="ut.value">{{ ut.name }}</option>
         </select>
       </div>
@@ -25,7 +25,6 @@ import { NumericDirective } from '../shared/number.component';
 })
 export class ProductPriceComponent {
   unitTypes: UnitType[];
-  shouldBlur: boolean;
   fixedDecimals: number = 2;
   maxDecimals: number = null;
   priceString: string;
@@ -62,38 +61,16 @@ export class ProductPriceComponent {
   unitTypeChange = new EventEmitter<string>();
 
   @Output()
-  focus = new EventEmitter<any>();
-
-  @Output()
-  blur = new EventEmitter<any>();
-
-  @Output()
   update = new EventEmitter<any>();
 
   startEdit() {
-    this.focus.emit({type: "focus", srcElement: this});
     this.editing = true;
     this.priceString = this.toStringValue(this.price);
   }
 
   endEdit() {
     this.editing = false;
-    this.blur.emit({type: "blur", srcElement: this});
     this.update.emit(null);
-  }
-
-  onChildBlur() {
-    this.shouldBlur = true;
-    setTimeout(() => {
-      if(this.shouldBlur) {
-        this.endEdit();
-        this.shouldBlur = true;
-      }
-    }, 100);
-  }
-
-  onChildFocus() {
-    this.shouldBlur = false;
   }
 
   unitTypeName(value: string) {

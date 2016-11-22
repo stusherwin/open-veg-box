@@ -5,13 +5,13 @@ import { FocusDirective } from './focus.directive'
   selector: 'cc-heading',
   directives: [FocusDirective],
   template: `
-    <div class="heading editable">
-      <input type="checkbox" *ngIf="!editing" style="position: absolute;left:-1000px" (focus)="startEdit()" [tabindex]="editTabindex" />
+    <div class="heading editable" cc-focus (ccFocus)="startEdit()" (ccBlur)="endEdit()">
+      <input type="checkbox" *ngIf="!editing" style="position: absolute;left:-1000px" cc-focus noblur="true" [tabindex]="editTabindex" />
       <div class="editable-display" *ngIf="!editing">
         <h3 (click)="startEdit()">{{value}}</h3>
       </div>
       <div class="editable-edit" *ngIf="editing">
-        <input type="text" cc-focus grab="true" highlight="true" [selectAll]="addMode" (blur)="endEdit()" [(ngModel)]="value" (ngModelChange)="valueChanged($event)" [tabindex]="editTabindex" />
+        <input type="text" cc-focus grab="true" [selectAll]="addMode" [(ngModel)]="value" (ngModelChange)="valueChanged($event)" [tabindex]="editTabindex" />
       </div>
     </div>
   `
@@ -36,12 +36,6 @@ export class HeadingComponent {
   valueChange = new EventEmitter<string>();
 
   @Output()
-  focus = new EventEmitter<any>();
-
-  @Output()
-  blur = new EventEmitter<any>();
-
-  @Output()
   update = new EventEmitter<any>();
 
   valueChanged(value: string) {
@@ -49,13 +43,15 @@ export class HeadingComponent {
   }
 
   startEdit() {
-    this.focus.emit({type: "focus", srcElement: this});
+//    console.log('startEdit()');
+ //   console.log('editing: ' + this.editing);
     this.editing = true;
   }
 
   endEdit() {
+   // console.log('endEdit()');
+    
     this.editing = false;
-    this.blur.emit({type: "blur", srcElement: this});
     this.update.emit(null);
   }
 }

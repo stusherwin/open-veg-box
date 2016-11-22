@@ -1,32 +1,32 @@
-<div class="row" [class.addMode]="addMode" cc-highlightable>
+<div class="row" [class.addMode]="addMode" cc-focus focusedClass="focused">
   <input type="checkbox" *ngIf="addMode && !focused" style="position: absolute;left:-1000px" (focus)="focus($event)" (blur)="blur($event)" [tabindex]="index * 2" />
   <div class="actions">
     <div class="action" *ngIf="!addMode">
-      <a class="button" href="#" cc-focus highlight="true" [class.disabled]="editDisabled" [tabindex]="(index * 2) + 2" (click)="clickEmail($event)">
+      <a class="button" href="#" cc-focus [class.disabled]="editDisabled" [tabindex]="(index * 2) + 2" (click)="clickEmail($event)">
         <div class="icon"><i class="icon-mail-dark"></i></div>
         <span>Email</span>
       </a>
     </div>
     <div class="action" *ngIf="!addMode">
-      <button cc-focus highlight="true" (click)="onDelete()" [disabled]="editDisabled" [tabindex]="(index * 2) + 2" (focus)="focus($event)" (blur)="blur($event)">
+      <button cc-focus (click)="onDelete()" [disabled]="editDisabled" [tabindex]="(index * 2) + 2" (focus)="focus($event)" (blur)="blur($event)">
         <div class="icon"><i class="icon-trash"></i></div>
         <span>Delete</span>
       </button>
     </div>
     <div class="action" [hidden]="!addMode || adding">
-      <button #addButton=cc-focus cc-focus highlight="true" (click)="startAdd()" [tabindex]="(index * 2) + 2" (focus)="focus($event)" (blur)="blur($event)">
+      <button #addButton=cc-focus cc-focus (click)="startAdd()" [tabindex]="(index * 2) + 2" (focus)="focus($event)" (blur)="blur($event)">
         <div class="icon"><i class="icon-add"></i></div>
         <span>Add</span>
       </button>  
     </div>
     <div class="action" *ngIf="addMode && adding">
-      <button cc-focus highlight="true" (click)="completeAdd()" [tabindex]="(index * 2) + 2" (focus)="focus($event)" (blur)="blur($event)">
+      <button cc-focus (click)="completeAdd()" [tabindex]="(index * 2) + 2" (focus)="focus($event)" (blur)="blur($event)">
         <div class="icon"><i class="icon-ok"></i></div>
         <span>Save</span>
       </button>  
     </div>
     <div class="action" *ngIf="addMode && adding">
-      <button cc-focus highlight="true" (click)="cancelAdd()" [tabindex]="(index * 2) + 2" (focus)="focus($event)" (blur)="blur($event)">
+      <button cc-focus (click)="cancelAdd()" [tabindex]="(index * 2) + 2" (focus)="focus($event)" (blur)="blur($event)">
         <div class="icon"><i class="icon-cancel"></i></div>
         <span>Cancel</span>
       </button>  

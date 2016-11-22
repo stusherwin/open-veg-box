@@ -5,8 +5,8 @@ import { CustomerService } from '../customers/customer.service'
 import { RoundComponent } from './round.component'
 import { Observable } from 'rxjs/Observable';
 import { RouteParams } from '@angular/router-deprecated';
-import { HighlightService } from '../shared/highlight.service';
-import { HighlightableDirective } from '../shared/highlightable.directive';
+import { FocusService } from '../shared/focus.service';
+import { FocusDirective } from '../shared/focus.directive';
 import 'rxjs/add/observable/concat';
 import 'rxjs/add/operator/last';
 
@@ -14,8 +14,8 @@ import 'rxjs/add/operator/last';
   selector: 'cc-rounds',
   styleUrls: ['app/rounds/rounds.component.css'],
   templateUrl: 'app/rounds/rounds.component.html',
-  directives: [RoundComponent, HighlightableDirective],
-  providers: [RoundService, CustomerService, HighlightService]
+  directives: [RoundComponent, FocusDirective],
+  providers: [RoundService, CustomerService, FocusService]
 })
 export class RoundsComponent implements OnInit {
   constructor(roundService: RoundService, customerService: CustomerService, routeParams: RouteParams) {

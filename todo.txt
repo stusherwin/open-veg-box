@@ -63,3 +63,4 @@ Edit Individual fields
   - handle in SqlHelper
 * When round customer removed, should switch focus to next customer / add dropdown
 * Up/down arrows should not select a customer, but clicking should
+* 1px wobble in product unit quantity

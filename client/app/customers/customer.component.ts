@@ -2,7 +2,6 @@ import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject }
 import { Customer } from './customer'
 import { HeadingComponent } from '../shared/heading.component'
 import { FocusDirective } from '../shared/focus.directive'
-import { HighlightableDirective } from '../shared/highlightable.directive'
 import { CustomerAddressComponent } from './customer-address.component'
 import { CustomerEmailComponent } from './customer-email.component'
 import { CustomerTelComponent } from './customer-tel.component'
@@ -10,7 +9,7 @@ import { CustomerTelComponent } from './customer-tel.component'
 @Component({
   selector: 'cc-customer',
   templateUrl: 'app/customers/customer.component.html',
-  directives: [HeadingComponent, FocusDirective, HighlightableDirective, CustomerAddressComponent, CustomerEmailComponent, CustomerTelComponent],
+  directives: [HeadingComponent, FocusDirective, CustomerAddressComponent, CustomerEmailComponent, CustomerTelComponent],
 })
 export class CustomerComponent {
   adding: boolean;
@@ -28,7 +27,7 @@ export class CustomerComponent {
   addButton: FocusDirective;
 
   @ViewChild('row')
-  row: HighlightableDirective;
+  row: FocusDirective;
 
   @Input()
   addMode: boolean;
