@@ -73,6 +73,10 @@ select {
     margin-top:20px;
   }
 
+  *:nth-child(2n - 1) > .row {
+    background: #fafafa;// lighten(desaturate(@highlight, 30%), 13%);
+  }
+
   .row {
     min-height: 83px;
     border-top: 1px dashed @itemBorderColor; 
@@ -112,8 +116,6 @@ select {
     }
   }
 }
-
-
 
 .focused {
   .row {
