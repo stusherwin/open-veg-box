@@ -22,9 +22,6 @@ export class FocusDirective implements OnInit {
   grab: boolean;
 
   @Input()
-  noblur: boolean;
-
-  @Input()
   focusedClass: string;
 
   @Input()
@@ -59,7 +56,7 @@ export class FocusDirective implements OnInit {
       
     elem.onblur = () => {
       this.setFocused(false);
-      if(!this.noblur && !this.absorbEvents) {
+      if(!this.absorbEvents) {
         this.service.blur(this);
       }
     };
@@ -114,7 +111,7 @@ export class FocusDirective implements OnInit {
     setTimeout(() => {
       if(this.shouldBlur) {
         this.setFocused(false);
-        if(this.absorbEvents && !this.noblur) {
+        if(this.absorbEvents) {
           this.service.blur(this);
         }
         this.shouldBlur = false;
