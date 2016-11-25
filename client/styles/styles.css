@@ -1030,6 +1030,9 @@ select {
 .row-view p {
   margin-top: 20px;
 }
+.row-view *:nth-child(2n - 1) > .row {
+  background: #fafafa;
+}
 .row-view .row {
   min-height: 83px;
   border-top: 1px dashed #ccc;
@@ -1603,7 +1606,7 @@ select {
   min-height: 25px;
 }
 .product-unit-quantity .editable-edit {
-  padding-left: 4px;
+  padding-left: 5px;
 }
 .product-unit-quantity .editable-edit input {
   width: 42px;

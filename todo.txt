@@ -22,6 +22,8 @@ Database
 * Split out schema sql from data
 * Implement sqlite backup strategy
 * Better sqlite error handling (handle sql errors)
+* Catch sql errors instead of crashing (uq violation)
+  - handle in SqlHelper
 
 Deployment
 ==========
@@ -32,12 +34,10 @@ General Styling
 ? Buttons: circular shadow on hover instead of rectangle?
 * Browser testing
 * Chrome rendering issue with 1px border width (fix by positioning from centre of circles not corner)
+~* Why is BrowserSync reloading multiple times??
 
 Edit Individual fields
 ======================
-? Add preview?
-  - Only show add preview on new mouse over (i.e. shouldn't show after hitting cancel and mouse remains over add button)
-  - If add button is focused, should we show add preview?
 * Save/add behaviour
   - Field save success indicator
   - Field validation (multiple field coordination?)
@@ -49,13 +49,15 @@ Edit Individual fields
   have tabindex=1)
 * On add, should scroll page to bring row being added into view
 * keydown: Enter to save, Esc to cancel
-
-~* Why is BrowserSync reloading multiple times??
-* Split out grab/highlight directives?
-* Implement 'email all' feature on Round
+? Split out grab/highlight directives?
 ? Maybe add should show all fields in edit mode?
 * Fix add focus - when should it stay in add mode?
-* Catch sql errors instead of crashing (uq violation)
-  - handle in SqlHelper
-* When round customer removed, should switch focus to next customer / add dropdown
 * 1px wobble in product unit quantity
+* Vertically centre 'edit' button
+* Change background of 'edit' button on mouseover? 
+
+Round customers
+===============
+* 'edit' highlight on mouseover like other controls - only enter edit mode on click.
+* Enable tab into field
+* Implement 'email all' feature on Round
