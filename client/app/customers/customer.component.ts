@@ -13,8 +13,7 @@ import { CustomerTelComponent } from './customer-tel.component'
 })
 export class CustomerComponent {
   adding: boolean;
-  focusedChild: any;
-  focused: boolean;
+  rowFocused: boolean;
 
   constructor() {
     this.customer = new Customer(0, 'New customer', '', '', '', '');
@@ -26,17 +25,11 @@ export class CustomerComponent {
   @ViewChild('addButton')
   addButton: FocusDirective;
 
-  @ViewChild('row')
-  row: FocusDirective;
-
   @Input()
   addMode: boolean;
 
   @Input()
   customer: Customer;
-
-  @Input()
-  editDisabled: boolean;
 
   @Input()
   index: number;
@@ -77,40 +70,29 @@ export class CustomerComponent {
     this.addButton.focus();
   } 
 
-  blur(evnt: any) {
-    if(this.focusedChild && this.focusedChild == evnt.srcElement){
-      this.focusedChild = null;
-    }
-
-    setTimeout(() => {
-      if(!this.focusedChild) {
-        if(this.adding) {
-          this.adding = false;
-          this.customer = new Customer(0, 'New customer', '', '', '', '');
-        }
-        this.focused = false;
-      }
-    }, 100);
-  }
-
-  focus(evnt: any) {
-    if(!this.focused) {
-      if(this.addMode) {
-        this.startAdd();
-      }
-    }
-    
-    this.focusedChild = evnt.srcElement;
-    this.focused = true;
-  }
-  
   clickEmail(event:any) {
-    if(this.editDisabled) { event.preventDefault(); return false;} return true;
+    return true;
   }
 
   onUpdate() {
     if(!this.addMode) {
       this.update.emit(this.customer);
     }
+  }
+
+  onRowFocus() {
+    var focusedChanged = !this.rowFocused;
+    this.rowFocused = true;
+    if(this.addMode && focusedChanged) {
+      this.startAdd();
+    }
+  }
+
+  onRowBlur() {
+    if(this.adding) {
+      this.adding = false;
+      this.customer = new Customer(0, 'New customer', '', '', '', '');
+    }
+    this.rowFocused = false;
   }
 }
