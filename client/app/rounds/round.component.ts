@@ -11,8 +11,7 @@ import { RoundCustomersComponent } from './round-customers.component';
 })
 export class RoundComponent {
   adding: boolean;
-  focusedChild: any;
-  focused: boolean;
+  rowFocused: boolean;
 
   constructor() {
     this.round = new Round(0, 'New round', []);
@@ -24,17 +23,11 @@ export class RoundComponent {
   @ViewChild('addButton')
   addButton: FocusDirective;
 
-  @ViewChild('row')
-  row: FocusDirective;
-
   @Input()
   addMode: boolean;
 
   @Input()
   round: Round;
-
-  @Input()
-  editDisabled: boolean;
 
   @Input()
   index: number;
@@ -84,35 +77,8 @@ export class RoundComponent {
     this.addButton.focus();
   } 
 
-  blur(evnt: any) {
-    if(this.focusedChild && this.focusedChild == evnt.srcElement){
-      this.focusedChild = null;
-    }
-
-    setTimeout(() => {
-      if(!this.focusedChild) {
-        if(this.adding) {
-          this.adding = false;
-          this.round = new Round(0, 'New round', []);
-        }
-        this.focused = false;
-      }
-    }, 100);
-  }
-
-  focus(evnt: any) {
-    if(!this.focused) {
-      if(this.addMode) {
-        this.startAdd();
-      }
-    }
-    
-    this.focusedChild = evnt.srcElement;
-    this.focused = true;
-  }
-  
   clickEmail(event:any) {
-    if(this.editDisabled) { event.preventDefault(); return false;} return true;
+    return true;
   }
 
   onUpdate() {
@@ -127,5 +93,21 @@ export class RoundComponent {
 
   onCustomerRemove(customerId: number) {
     this.customerRemove.emit({roundId: this.round.id, customerId: customerId});
+  }
+
+  onRowFocus() {
+    var focusedChanged = !this.rowFocused;
+    this.rowFocused = true;
+    if(this.addMode && focusedChanged) {
+      this.startAdd();
+    }
+  }
+
+  onRowBlur() {
+    if(this.adding) {
+      this.adding = false;
+      this.round = new Round(0, 'New round', []);
+    }
+    this.rowFocused = false;
   }
 }

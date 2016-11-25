@@ -23,12 +23,6 @@ export class RoundCustomersComponent {
   customers: RoundCustomer[];
 
   @Output()
-  focus = new EventEmitter<any>();
-
-  @Output()
-  blur = new EventEmitter<any>();
-
-  @Output()
   add = new EventEmitter<number>();
 
   @Output()
