@@ -7,12 +7,12 @@ import { SingleLinePipe } from '../shared/pipes';
   directives: [FocusDirective],
   pipes: [SingleLinePipe],
   template: `
-    <div class="editable" cc-focus (ccFocus)="startEdit()" (ccBlur)="endEdit()">
+    <div class="editable" cc-focus (focus)="startEdit()" (blur)="endEdit()">
       <input type="checkbox" *ngIf="!editing" style="position: absolute;left:-1000px" cc-focus [tabindex]="editTabindex" />
       <div class="editable-display" *ngIf="!editing" (click)="startEdit()" [innerHTML]="value | singleline:', '">
       </div>
       <div class="editable-edit" *ngIf="editing">
-        <textarea [(ngModel)]="value" (ngModelChange)="valueChanged($event)" cc-focus grab="true" [tabindex]="editTabindex"></textarea>
+        <textarea [(ngModel)]="value" (ngModelChange)="valueChanged($event)" cc-focus grab="true" [selectAll]="addMode" [tabindex]="editTabindex"></textarea>
       </div>
     </div>
   `

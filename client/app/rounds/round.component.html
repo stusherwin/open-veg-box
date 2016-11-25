@@ -1,4 +1,4 @@
-<div class="row" [class.addMode]="addMode" cc-focus focusedClass="focused" (ccFocus)="onRowFocus()" (ccBlur)="onRowBlur()">
+<div class="row" [class.addMode]="addMode" cc-focus focusedClass="focused" (focus)="onRowFocus()" (blur)="onRowBlur()">
   <input type="checkbox" *ngIf="addMode && !focused" style="position: absolute;left:-1000px" cc-focus [tabindex]="index * 2" />
   <div class="actions">
     <div class="action" *ngIf="!addMode">

@@ -5,7 +5,7 @@ import { FocusDirective } from './focus.directive'
   selector: 'cc-heading',
   directives: [FocusDirective],
   template: `
-    <div class="heading editable" cc-focus (ccFocus)="startEdit()" (ccBlur)="endEdit()">
+    <div class="heading editable" cc-focus (focus)="startEdit()" (blur)="endEdit()">
       <input type="checkbox" *ngIf="!editing" style="position: absolute;left:-1000px" cc-focus [tabindex]="editTabindex" />
       <div class="editable-display" *ngIf="!editing">
         <h3 (click)="startEdit()">{{value}}</h3>

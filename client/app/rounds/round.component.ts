@@ -74,7 +74,7 @@ export class RoundComponent {
     this.adding = false;
     this.round = new Round(0, 'New round', []);
 
-    this.addButton.focus();
+    this.addButton.focusElement();
   } 
 
   clickEmail(event:any) {

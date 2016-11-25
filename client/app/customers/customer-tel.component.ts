@@ -5,13 +5,13 @@ import { FocusDirective } from '../shared/focus.directive'
   selector: 'cc-customer-tel',
   directives: [FocusDirective],
   template: `
-    <div class="editable" cc-focus (ccFocus)="startEdit()" (ccBlur)="endEdit()">
+    <div class="editable" cc-focus (focus)="startEdit()" (blur)="endEdit()">
       <input type="checkbox" *ngIf="!editing" style="position: absolute;left:-1000px" cc-focus [tabindex]="editTabindex" />
       <div class="editable-display" *ngIf="!editing" (click)="startEdit()">
         {{ value }}
       </div>
       <div class="editable-edit" *ngIf="editing">
-        <input type="text" [(ngModel)]="value" (ngModelChange)="valueChanged($event)" cc-focus grab="true" [tabindex]="editTabindex" />
+        <input type="text" [(ngModel)]="value" (ngModelChange)="valueChanged($event)" cc-focus grab="true" [selectAll]="addMode" [tabindex]="editTabindex" />
       </div>
     </div>
   `

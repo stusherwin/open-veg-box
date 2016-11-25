@@ -5,12 +5,10 @@ Header
 * Header/home/nav structure is messy
 * Fix login form resizing/header centring
 * Inline logo svg
-* Change page title/favicon
+* Change favicon
 
 Editing
 =======
-* Rows: only show edit button on hover?
-* Edit individual fields
 * Fix numeric rounding issues: http://stackoverflow.com/questions/10015027/javascript-tofixed-not-rounding
 
 Auth
@@ -31,21 +29,20 @@ Deployment
 
 General Styling
 ===============
-* Buttons: circular shadow on hover instead of rectangle?
+? Buttons: circular shadow on hover instead of rectangle?
 * Browser testing
 * Chrome rendering issue with 1px border width (fix by positioning from centre of circles not corner)
 
 Edit Individual fields
 ======================
-* Add preview?
+? Add preview?
   - Only show add preview on new mouse over (i.e. shouldn't show after hitting cancel and mouse remains over add button)
   - If add button is focused, should we show add preview?
 * Save/add behaviour
-  - Server side/parent component logic for field changes
   - Field save success indicator
   - Field validation (multiple field coordination?)
 * On delete, focus previous item delete button
-* Select all in add mode, only on first focus within add action
+? Select all in add mode, only on first focus within add action
 * Animation (close row on delete, fade add preview in/out)
 * Figure out why clicking on page doesn't reset current tab index
   (sets it to delete button, tabindex=2, which is first element on page with tabindex, but subsequent elements
@@ -55,12 +52,10 @@ Edit Individual fields
 
 ~* Why is BrowserSync reloading multiple times??
 * Split out grab/highlight directives?
-* Extract out child focus behaviour
 * Implement 'email all' feature on Round
-* Maybe add should show all fields in edit mode?
+? Maybe add should show all fields in edit mode?
 * Fix add focus - when should it stay in add mode?
 * Catch sql errors instead of crashing (uq violation)
   - handle in SqlHelper
 * When round customer removed, should switch focus to next customer / add dropdown
-* Up/down arrows should not select a customer, but clicking should
 * 1px wobble in product unit quantity

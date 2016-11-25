@@ -16,7 +16,7 @@ export class CustomerComponent {
   rowFocused: boolean;
 
   constructor() {
-    this.customer = new Customer(0, 'New customer', '', '', '', '');
+    this.resetCustomer();
   }
 
   @ViewChild('customerName')
@@ -54,7 +54,7 @@ export class CustomerComponent {
   completeAdd() {
     this.add.emit(this.customer);
     this.adding = false;
-    this.customer = new Customer(0, 'New customer', '', '', '', '');
+    this.resetCustomer();
 
     this.startAdd();
   }
@@ -65,9 +65,9 @@ export class CustomerComponent {
 
   cancelAdd() {
     this.adding = false;
-    this.customer = new Customer(0, 'New customer', '', '', '', '');
+    this.resetCustomer();
 
-    this.addButton.focus();
+    this.addButton.focusElement();
   } 
 
   clickEmail(event:any) {
@@ -91,8 +91,12 @@ export class CustomerComponent {
   onRowBlur() {
     if(this.adding) {
       this.adding = false;
-      this.customer = new Customer(0, 'New customer', '', '', '', '');
+      this.resetCustomer();
     }
     this.rowFocused = false;
+  }
+
+  resetCustomer() {
+    this.customer = new Customer(0, 'New customer', '1 Some Street\nSomewhere\nSW12 3AB', '01234 567890', '', 'some.email@address.com');
   }
 }

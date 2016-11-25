@@ -14,9 +14,10 @@ export class FocusService {
       .filter(f => f.depth > 0)
       .sort((a, b) => a.depth < b.depth ? -1 : 1)
       .map(f => f.f);
+
     this.ancestorLookup.set(element, ancestors);
     for(let a of ancestors) {
-      let bubble = a.descendentFocus(element);
+      let bubble = a.descendentFocus();
       if(!bubble) {
         break;
       }
@@ -26,7 +27,7 @@ export class FocusService {
   blur(element: FocusDirective) {
     var ancestors = this.ancestorLookup.get(element);
     for(let a of ancestors) {
-      let bubble = a.descendentBlur(element);
+      let bubble = a.descendentBlur();
       if(!bubble) {
         break;
       }
