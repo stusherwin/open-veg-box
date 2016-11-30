@@ -788,64 +788,6 @@ select {
 }
 .round-customers {
   border: 1px solid transparent;
-  /*&.can-edit:hover {
-    background: red;
-    padding: 5px;
-    position: relative;
-    top:-5px;
-    left:-5px;
-    width: calc(~"100% + 10px");
-  
-    border: 1px dashed desaturate(darken(@itemHoverColor, 20%),10%);
-    border-radius: 3px;
-    //background: lighten(@itemHoverColor, 4%);
-
-    a {
-      display: block;
-      border-radius: 22px;
-      width:22px;
-      height:22px;
-      position: relative;
-      top:2px;
-
-      .icon {
-        width: 22px;
-        padding: 5px;
-
-        i {
-          position: relative;
-          left: -6px;
-          top: -2px;
-          color: #999;
-
-          &.icon-add {
-            top:-1px;
-          }
-        }
-      }
-
-      &:hover, &:focus {
-        background: @highlight;
-      }
-
-      .spacer {
-        display: none;
-      }
-    }
-
-    .round-customers-display{
-      margin-bottom: 5px;
-      &:last-child {
-        margin-bottom: 0;
-      }
-    }
-
-    .round-customers-add {
-      display: block;
-      padding-top: 5px;
-      border-top: 1px dashed desaturate(darken(@itemHoverColor, 20%),10%);
-    }
-  }*/
 }
 .round-customers .round-customer {
   display: flex;
@@ -865,16 +807,63 @@ select {
   flex-grow: 0;
   padding: 0;
 }
-.round-customers a {
-  display: none;
-}
 .round-customers .spacer {
   display: block;
   width: 22px;
 }
-.round-customers .round-customers-display:hover {
-  margin-right: -20px;
+.round-customers .editable-display {
+  padding: 0 4px;
+  margin-top: 0;
 }
-.round-customers .round-customers-add {
+.round-customers .editable-display:hover .round-customers-display {
+  margin-right: -16px;
+}
+.round-customers .editable-edit {
+  padding: 0 4px;
+  border: 1px dashed #f8c77e;
+  border-radius: 3px;
+  background: #fffaf1;
+}
+.round-customers .editable-edit a {
+  display: block;
+  border-radius: 22px;
+  width: 22px;
+  height: 22px;
+  position: relative;
+  top: 2px;
+}
+.round-customers .editable-edit a .icon {
+  width: 22px;
+  padding: 5px;
+}
+.round-customers .editable-edit a .icon i {
+  position: relative;
+  left: -6px;
+  top: -2px;
+  color: #999;
+}
+.round-customers .editable-edit a .icon i.icon-add {
+  top: -1px;
+}
+.round-customers .editable-edit a:hover,
+.round-customers .editable-edit a:focus {
+  background: #fda;
+}
+.round-customers .editable-edit a .spacer {
   display: none;
+}
+.round-customers .editable-edit .round-customers-display:last-child {
+  margin-bottom: 0;
+}
+.round-customers .editable-edit .round-customers-add {
+  position: relative;
+  left: -4px;
+  padding-left: 4px;
+  padding-right: 4px;
+  width: calc(100% + 8px);
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  color: #bbb;
+  display: block;
+  background: #fff;
 }

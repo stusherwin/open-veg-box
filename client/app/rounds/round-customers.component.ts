@@ -9,6 +9,7 @@ import { RoundCustomer } from './round'
 })
 export class RoundCustomersComponent {
   focusedCustomerId: number;
+  editing: boolean;
 
   @Input()
   editTabindex: number;
@@ -28,6 +29,14 @@ export class RoundCustomersComponent {
   @Output()
   remove = new EventEmitter<number>();
 
+  startEdit() {
+    this.editing = true;
+  }
+
+  endEdit() {
+    this.editing = false;
+  }
+
   removeCustomerClick(customerId: number) {
     let index = this.value.findIndex( c => c.id == customerId);
     if(index >= 0) {
@@ -43,7 +52,6 @@ export class RoundCustomersComponent {
     let customer = this.customers.find( c => c.id == customerId);
     if(customer) {
       let index = this.customers.findIndex( c => c.id == customerId);
-      //this.adding = false;
       this.value.push(customer);
       this.customers.splice(index, 1);
       this.add.emit(customer.id);
