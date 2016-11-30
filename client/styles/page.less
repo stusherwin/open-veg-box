@@ -435,14 +435,19 @@ select {
   }
 
   .round-customers-display {
-    margin-bottom: 10px;
+    //.r();
+    //margin-bottom: 10px;
+    &:hover {
+      margin-right: -20px;
+    }
   }
 
   .round-customers-add {
     display: none;
   }
 
-  &.can-edit:hover {
+  /*&.can-edit:hover {
+    background: red;
     padding: 5px;
     position: relative;
     top:-5px;
@@ -451,7 +456,7 @@ select {
   
     border: 1px dashed desaturate(darken(@itemHoverColor, 20%),10%);
     border-radius: 3px;
-    background: lighten(@itemHoverColor, 4%);
+    //background: lighten(@itemHoverColor, 4%);
 
     a {
       display: block;
@@ -498,5 +503,5 @@ select {
       padding-top: 5px;
       border-top: 1px dashed desaturate(darken(@itemHoverColor, 20%),10%);
     }
-  }
+  }*/
 }
