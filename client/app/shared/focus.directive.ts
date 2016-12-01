@@ -10,6 +10,7 @@ const BLUR_GRACE_PERIOD_MS: number = 10;
 export class FocusDirective implements OnInit {
   focused: boolean;
   shouldBlur: boolean;
+  closedFocusedDescendent: FocusDirective;
 
   constructor(
     private el: ElementRef, 
@@ -27,9 +28,6 @@ export class FocusDirective implements OnInit {
   @Input()
   selectAll: boolean;
 
-  @Input()
-  absorbEvents: boolean;
-
   @Output()
   focus: EventEmitter<any> = new EventEmitter<any>();
 
@@ -43,22 +41,10 @@ export class FocusDirective implements OnInit {
 
     elem.onfocus = () => {
       this.setFocused(true);
-
-      if(!this.absorbEvents) {
-        this.service.focus(this);
-      }
-
-      if(this.selectAll) {
-        this.renderer.invokeElementMethod(elem, 'setSelectionRange', [0, elem.value.length]);
-      }
     };
       
     elem.onblur = () => {
       this.setFocused(false);
-
-      if(!this.absorbEvents) {
-        this.service.blur(this);
-      }
     };
 
     if (this.grab) {
@@ -66,60 +52,87 @@ export class FocusDirective implements OnInit {
     }
   }
 
-  focusElement() {
-    setTimeout(() => this.renderer.invokeElementMethod(this.el.nativeElement, 'focus', []));
+  beFocused() {
+    let elem = this.el.nativeElement;
+    if(elem instanceof HTMLInputElement) {
+      setTimeout(() => this.renderer.invokeElementMethod(this.el.nativeElement, 'focus', []));
+    } else {
+      this.setFocused(true);
+    }
+  }
+
+  beBlurred() {
+    let elem = this.el.nativeElement;
+    if(elem instanceof HTMLInputElement) {
+      setTimeout(() => this.renderer.invokeElementMethod(this.el.nativeElement, 'blur', []));
+    } else {
+      this.setFocused(false);
+    }
+    this.service.blurDescendents(this);
   }
 
   setFocused(focused: boolean) {
     let focusChanged = this.focused != focused;
     if(focusChanged) {
+      let elem = this.el.nativeElement;
       this.focused = focused;
       if(this.focused) {
         if(this.focusedClass) {
-          this.renderer.setElementClass(this.el.nativeElement, this.focusedClass, true);
+          this.renderer.setElementClass(elem, this.focusedClass, true);
+        }
+        if(this.selectAll) {
+          this.renderer.invokeElementMethod(elem, 'setSelectionRange', [0, elem.value.length]);
         }
         this.focus.emit(null);
+        this.service.onFocus(this);
       } else {
         if(this.focusedClass) {
-          this.renderer.setElementClass(this.el.nativeElement, this.focusedClass, false);
+          this.renderer.setElementClass(elem, this.focusedClass, false);
         }
         
-        this.blur.emit(null); 
+        this.blur.emit(null);
+        this.service.onBlur(this);         
       }
     }
   }
 
-  descendentFocus(): boolean {
-    this.shouldBlur = false;
-
-    this.setFocused(true);
-
-    if(this.absorbEvents) {
-      this.service.focus(this);
-      return false;
+  descendentFocus(descendent: FocusDirective): boolean {
+    if(!this.closedFocusedDescendent) {
+      this.closedFocusedDescendent = descendent;
+    } else {
+      if(descendent.getAncestorDepth(this.closedFocusedDescendent) >= 0) {
+        // descendent is ancestor of closestFocusedDescendent
+        this.closedFocusedDescendent = descendent
+      } else if(this.closedFocusedDescendent.getAncestorDepth(descendent) >= 0) {
+        // closestFocusedDescendent is ancestor of descendent (ignore)
+      } else {
+        // descendent is not an ancestor of closedFocusedDescendent and is being focused
+        // so closedFocusedDescendent needs to be blurred.
+        // (we need this for directives that don't automatically blur themselves)
+        this.closedFocusedDescendent.beBlurred();
+        this.closedFocusedDescendent = descendent
+      }
     }
+
+    this.shouldBlur = false;
+    this.setFocused(true);
 
     return true;
   }
 
-  descendentBlur(): boolean {
+  descendentBlur(descendent: FocusDirective): boolean {
+    if(this.closedFocusedDescendent == descendent) {
+      this.closedFocusedDescendent = null;
+    }
+    
     this.shouldBlur = true;
 
     setTimeout(() => {
       if(this.shouldBlur) {
         this.setFocused(false);
-
-        if(this.absorbEvents) {
-          this.service.blur(this);
-        }
-
         this.shouldBlur = false;
       }
     }, BLUR_GRACE_PERIOD_MS);
-
-    if(this.absorbEvents) {
-      return false;
-    }
 
     return true;
   }
@@ -135,5 +148,15 @@ export class FocusDirective implements OnInit {
       depth++;
     }
     return -1;
+  }
+
+  stringify() {
+    let elem = this.el.nativeElement;
+    let result = '<' + elem.tagName.toLowerCase();
+    if(elem.tagName == "INPUT") {
+      result += ' type="' + elem.type + '"';
+    }
+    result += ' class="' + elem.className + '">';
+    return result;
   }
 }

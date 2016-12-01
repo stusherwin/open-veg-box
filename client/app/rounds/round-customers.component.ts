@@ -29,8 +29,12 @@ export class RoundCustomersComponent {
   @Output()
   remove = new EventEmitter<number>();
 
+  @ViewChild('parent')
+  parent: FocusDirective;
+
   startEdit() {
     this.editing = true;
+    this.parent.beFocused();
   }
 
   endEdit() {

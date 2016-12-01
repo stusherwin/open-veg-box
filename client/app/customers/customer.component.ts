@@ -67,7 +67,7 @@ export class CustomerComponent {
     this.adding = false;
     this.resetCustomer();
 
-    this.addButton.focusElement();
+    this.addButton.beFocused();
   } 
 
   clickEmail(event:any) {

@@ -73,7 +73,7 @@ export class ProductComponent {
     this.adding = false;
     this.product = new Product(0, 'New product', 1.0, "each", 1);
 
-    this.addButton.focusElement();
+    this.addButton.beFocused();
   }
 
   onUpdate() {

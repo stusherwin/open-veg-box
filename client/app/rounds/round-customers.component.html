@@ -1,4 +1,4 @@
-<div class="round-customers editable">
+<div class="round-customers editable" #parent=cc-focus cc-focus (focus)="startEdit()" (blur)="endEdit()">
   <div class="editable-display" *ngIf="!editing" (click)="startEdit()">
     <div class="round-customers-display" *ngIf="value.length">
       <div class="round-customer" *ngFor="let c of value">

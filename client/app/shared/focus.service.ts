@@ -2,38 +2,51 @@ import {FocusDirective} from './focus.directive';
 
 export class FocusService {
   private focusables: FocusDirective[] = [];
-  private ancestorLookup: Lookup<FocusDirective, FocusDirective[]> = new Lookup<FocusDirective, FocusDirective[]>();
 
   register(focusable: FocusDirective) {
     this.focusables.push(focusable);
   }
 
-  focus(element: FocusDirective) {
+  onFocus(focusable: FocusDirective) {
     var ancestors = this.focusables
-      .map(f => { return { f: f, depth: f.getAncestorDepth(element) }; })
+      .map(f => { return { f: f, depth: f.getAncestorDepth(focusable) }; })
       .filter(f => f.depth > 0)
       .sort((a, b) => a.depth < b.depth ? -1 : 1)
       .map(f => f.f);
 
-    this.ancestorLookup.set(element, ancestors);
     for(let a of ancestors) {
-      let bubble = a.descendentFocus();
+      let bubble = a.descendentFocus(focusable);
       if(!bubble) {
         break;
       }
     }
   }
 
-  blur(element: FocusDirective) {
-    var ancestors = this.ancestorLookup.get(element);
+  onBlur(focusable: FocusDirective) {
+    var ancestors = this.focusables
+      .map(f => { return { f: f, depth: f.getAncestorDepth(focusable) }; })
+      .filter(f => f.depth > 0)
+      .sort((a, b) => a.depth < b.depth ? -1 : 1)
+      .map(f => f.f);
+
     for(let a of ancestors) {
-      let bubble = a.descendentBlur();
+      let bubble = a.descendentBlur(focusable);
       if(!bubble) {
         break;
       }
     }
+  }
 
-    this.ancestorLookup.remove(element);
+  blurDescendents(focusable: FocusDirective) {
+    var descendents = this.focusables
+      .map(f => { return { f: f, depth: focusable.getAncestorDepth(f) }; })
+      .filter(f => f.depth > 0)
+      .sort((a, b) => a.depth > b.depth ? -1 : 1)
+      .map(f => f.f);
+
+    for(let d of descendents) {
+      d.beBlurred();
+    }
   }
 }
 
