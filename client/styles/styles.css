@@ -1821,9 +1821,6 @@ select {
 .round-customers .editable-edit a .spacer {
   display: none;
 }
-.round-customers .editable-edit .round-customers-display:last-child {
-  margin-bottom: 0;
-}
 .round-customers .editable-edit .round-customers-add {
   position: relative;
   left: -4px;

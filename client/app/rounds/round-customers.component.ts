@@ -1,6 +1,8 @@
-import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, ViewChildren, QueryList } from '@angular/core';
 import { FocusDirective } from '../shared/focus.directive'
 import { RoundCustomer } from './round'
+import { Subscription } from 'rxjs/Subscription' 
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'cc-round-customers',
@@ -9,6 +11,7 @@ import { RoundCustomer } from './round'
 })
 export class RoundCustomersComponent {
   editing: boolean;
+  pendingActions: { customerId: number; actionType: ActionType }[] = [];
 
   @Input()
   editTabindex: number;
@@ -31,12 +34,39 @@ export class RoundCustomersComponent {
   @ViewChild('parent')
   parent: FocusDirective;
 
-  startEdit() {
+  @ViewChildren('button')
+  buttons: QueryList<FocusDirective>
+
+  buttonsSubscription: Subscription;
+  firstTime: boolean;
+
+  startEdit(autoFocusFirstButton: boolean) {
+    if(this.editing) {
+      return;
+    }
+
+    if(!this.parent.focused) {
+      this.parent.beFocused();
+    }
+
     this.editing = true;
-    this.parent.beFocused();
+    let firstTime = true;
+    this.buttonsSubscription = this.buttons.changes.subscribe((buttons: QueryList<FocusDirective>) => {
+      if(firstTime) {
+        if(buttons.length && autoFocusFirstButton) {
+          buttons.first.beFocused();
+        }
+        firstTime = false;
+      } else {
+        if(buttons.length) {
+          buttons.first.beFocused();
+        }
+      }
+    });
   }
 
   endEdit() {
+    this.buttonsSubscription.unsubscribe();
     this.editing = false;
   }
 
@@ -59,4 +89,9 @@ export class RoundCustomersComponent {
       this.add.emit(customer.id);
     }
   }
+}
+
+enum ActionType {
+  Add,
+  Remove
 }

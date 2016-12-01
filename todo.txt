@@ -61,3 +61,4 @@ Round customers
 * 'edit' highlight on mouseover like other controls - only enter edit mode on click.
 * Enable tab into field
 * Implement 'email all' feature on Round
+* When start edit via mouse click, can't click away to stop editing.

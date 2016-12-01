@@ -1,7 +1,7 @@
 import {Component, Input, Directive, ElementRef, OnInit, Renderer, Host, Inject, forwardRef, Output, EventEmitter} from '@angular/core';
 import {FocusService} from './focus.service';
 
-const BLUR_GRACE_PERIOD_MS: number = 10;
+const BLUR_GRACE_PERIOD_MS: number = 100;
 
 @Directive({
   selector: '[cc-focus]',
@@ -56,8 +56,10 @@ export class FocusDirective implements OnInit {
   }
 
   beFocused() {
+    console.log(this.stringify() + ': beFocused()');
     let elem = this.el.nativeElement;
-    if(elem instanceof HTMLInputElement) {
+    if(this.isFocusable(elem)) {
+      console.log('focusing...');
       setTimeout(() => this.renderer.invokeElementMethod(this.el.nativeElement, 'focus', []));
     } else {
       this.setFocused(true);
@@ -66,12 +68,20 @@ export class FocusDirective implements OnInit {
 
   beBlurred() {
     let elem = this.el.nativeElement;
-    if(elem instanceof HTMLInputElement) {
+    if(this.isFocusable(elem)) {
       setTimeout(() => this.renderer.invokeElementMethod(this.el.nativeElement, 'blur', []));
     } else {
       this.setFocused(false);
     }
     this.service.blurDescendents(this);
+  }
+
+  isFocusable(element: any) {
+    return element instanceof HTMLInputElement
+        || element instanceof HTMLButtonElement
+        || element instanceof HTMLAnchorElement
+        || element instanceof HTMLSelectElement
+        || element instanceof HTMLTextAreaElement;
   }
 
   setFocused(focused: boolean) {
@@ -162,6 +172,10 @@ export class FocusDirective implements OnInit {
       result += ' type="' + elem.type + '"';
     }
     result += ' class="' + elem.className + '">';
+    
+    if(elem.tagName == "A") {
+      result += elem.innerHTML.replace(/\s+/g, '') + '</a>';
+    }
     return result;
   }
 }
