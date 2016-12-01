@@ -1,4 +1,5 @@
 <div class="round-customers editable" #parent=cc-focus cc-focus (focus)="startEdit()" (blur)="endEdit()">
+  <input type="checkbox" *ngIf="!editing" style="position: absolute;left:-1000px" cc-focus [tabindex]="editTabindex" />
   <div class="editable-display" *ngIf="!editing" (click)="startEdit()">
     <div class="round-customers-display" *ngIf="value.length">
       <div class="round-customer" *ngFor="let c of value">
@@ -21,11 +22,11 @@
   </div>
   <div class="editable-edit" *ngIf="editing">
     <div class="round-customers-display" *ngIf="value.length">
-      <div class="round-customer" *ngFor="let c of value">
+      <div class="round-customer" *ngFor="let c of value; let i = index">
         <div class="round-customer-detail round-customer-name">{{c.name}}</div>
         <div class="round-customer-detail round-customer-address">{{c.address}}</div>
         <div class="round-customer-detail round-customer-action">
-          <a href="#" cc-focus [tabindex]="editTabindex" (click)="$event.preventDefault();removeCustomerClick(c.id)">
+          <a href="#" cc-focus [grab]="i == 0" [tabindex]="editTabindex" (click)="$event.preventDefault();removeCustomerClick(c.id)">
             <div class="icon">
               <i class="icon-trash"></i>
             </div>
@@ -43,11 +44,11 @@
       </div>
     </div>
     <div *ngIf="customers.length" class="round-customers-add">
-      <div class="round-customer" *ngFor="let c of customers">
+      <div class="round-customer" *ngFor="let c of customers; let i = index">
         <div class="round-customer-detail round-customer-name">{{c.name}}</div>
         <div class="round-customer-detail round-customer-address">{{c.address}}</div>
         <div class="round-customer-detail round-customer-action">
-          <a href="#" cc-focus [tabindex]="editTabindex" (click)="$event.preventDefault();addCustomerClick(c.id)">
+          <a href="#" cc-focus [grab]="!value.length && i == 0" [tabindex]="editTabindex" (click)="$event.preventDefault();addCustomerClick(c.id)">
             <div class="icon">
               <i class="icon-add"></i>
             </div>

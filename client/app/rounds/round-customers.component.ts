@@ -8,7 +8,6 @@ import { RoundCustomer } from './round'
   templateUrl: 'app/rounds/round-customers.component.html'
 })
 export class RoundCustomersComponent {
-  focusedCustomerId: number;
   editing: boolean;
 
   @Input()
@@ -48,7 +47,6 @@ export class RoundCustomersComponent {
       this.value.splice(index, 1);
       this.customers.push(customer);
       this.remove.emit(customerId);
-      this.focusedCustomerId = null;
     }
   }
 
@@ -59,15 +57,6 @@ export class RoundCustomersComponent {
       this.value.push(customer);
       this.customers.splice(index, 1);
       this.add.emit(customer.id);
-      this.focusedCustomerId = null;
     }
-  }
-
-  focusCustomer(customerId: number) {
-    this.focusedCustomerId = customerId;
-  }
-
-  unfocusCustomer() {
-    this.focusedCustomerId = null;
   }
 }

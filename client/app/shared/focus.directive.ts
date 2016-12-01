@@ -28,6 +28,9 @@ export class FocusDirective implements OnInit {
   @Input()
   selectAll: boolean;
 
+  @Input()
+  noBlur: boolean;
+
   @Output()
   focus: EventEmitter<any> = new EventEmitter<any>();
 
@@ -91,7 +94,9 @@ export class FocusDirective implements OnInit {
         }
         
         this.blur.emit(null);
-        this.service.onBlur(this);         
+        if(!this.noBlur) {
+          this.service.onBlur(this);
+        }         
       }
     }
   }
