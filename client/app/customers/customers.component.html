@@ -1,21 +1,10 @@
 <div class="page-outer">
   <div class="page-inner">
-    <cc-header></cc-header>
     <h2>Customers</h2>
 
-    <div class="row-view" [class.editing]="editing || adding">
-      <p *ngIf="!customers.length">There are no customers yet.</p>
-      <button class="top-level" (click)="startAdd()" [disabled]="adding || editing">
-        <div class="icon"><i class="icon-add"></i></div>
-        <span>Add</span>
-      </button>
-      <div class="row editing" *ngIf="adding">
-        <cc-customer-edit [customer]="adding" (onSave)="completeAdd()" (onCancel)="cancel()"></cc-customer-edit>
-      </div>
-      <div class="row" *ngFor="let c of customers" [class.editing]="editing && editing.id == c.id">
-        <cc-customer-display *ngIf="!editing || editing.id != c.id" [customer]="c" (onEdit)="startEdit(c)" (onDelete)="delete(c)" [editDisabled]="adding || editing"></cc-customer-display>
-        <cc-customer-edit *ngIf="editing && editing.id == c.id" [customer]="editing" (onSave)="completeEdit()" (onCancel)="cancel()"></cc-customer-edit>
-      </div>
+    <div class="row-view" cc-focus focusedClass="focused">
+      <cc-customer *ngFor="let c of customers; let i = index" [customer]="c" [index]="i" (delete)="onDelete($event)" (update)="onUpdate($event)"></cc-customer>
+      <cc-customer addMode="true" [showAddMessage]="!customers.length" (add)="onAdd($event)" [index]="customers.length"></cc-customer>
     </div>
   </div>
 </div>

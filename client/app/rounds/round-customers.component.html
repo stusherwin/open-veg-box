@@ -1,0 +1,61 @@
+<div class="round-customers editable" #parent=cc-focus cc-focus (focus)="startEdit(true)" (blur)="endEdit()">
+  <input type="checkbox" *ngIf="!editing" style="position: absolute;left:-1000px" cc-focus noBlur="true" [tabindex]="editTabindex" />
+  <div class="editable-display" *ngIf="!editing" (click)="startEdit(false)">
+    <div class="round-customers-display" *ngIf="value.length">
+      <div class="round-customer" *ngFor="let c of value">
+        <div class="round-customer-detail round-customer-name">{{c.name}}</div>
+        <div class="round-customer-detail round-customer-address">{{c.address}}</div>
+        <div class="round-customer-detail round-customer-action">
+          <div class="spacer"></div>
+        </div>
+      </div>
+    </div>
+    <div class="round-customers-display" *ngIf="!value.length">
+      <div class="round-customer">
+        <div class="round-customer-detail round-customer-name">No customers assigned</div>
+        <div class="round-customer-detail round-customer-address">&nbsp;</div>
+        <div class="round-customer-detail round-customer-action">
+          <div class="spacer"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="editable-edit" *ngIf="editing">
+    <input type="checkbox" *ngIf="!customers.length && !value.length" style="position: absolute;left:-1000px" cc-focus noBlur="true" grab="true" [tabindex]="editTabindex" />
+    <div class="round-customers-display" *ngIf="value.length">
+      <div class="round-customer" *ngFor="let c of value; let i = index">
+        <div class="round-customer-detail round-customer-name">{{c.name}}</div>
+        <div class="round-customer-detail round-customer-address">{{c.address}}</div>
+        <div class="round-customer-detail round-customer-action">
+          <a href="#" cc-focus #button=cc-focus [tabindex]="editTabindex" (click)="$event.preventDefault();removeCustomerClick(c.id)">
+            <div class="icon">
+              <i class="icon-trash"></i>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="round-customers-display" *ngIf="!value.length && !customers.length">
+      <div class="round-customer">
+        <div class="round-customer-detail round-customer-name">No customers assigned</div>
+        <div class="round-customer-detail round-customer-address"><span class="muted">no more customers to add</span>&nbsp;</div>
+        <div class="round-customer-detail round-customer-action">
+          <div class="spacer"></div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="customers.length" class="round-customers-add">
+      <div class="round-customer" *ngFor="let c of customers; let i = index">
+        <div class="round-customer-detail round-customer-name">{{c.name}}</div>
+        <div class="round-customer-detail round-customer-address">{{c.address}}</div>
+        <div class="round-customer-detail round-customer-action">
+          <a href="#" cc-focus #button=cc-focus [tabindex]="editTabindex" (click)="$event.preventDefault();addCustomerClick(c.id)">
+            <div class="icon">
+              <i class="icon-add"></i>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

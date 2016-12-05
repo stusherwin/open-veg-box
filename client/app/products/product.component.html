@@ -1,0 +1,44 @@
+<div class="row" [class.addMode]="addMode" cc-focus focusedClass="focused" (focus)="onRowFocus()" (blur)="onRowBlur()">
+  <input type="checkbox" cc-focus *ngIf="addMode && !rowFocused" style="position: absolute;left:-1000px" [tabindex]="index * 2" />
+  <div class="actions">
+    <div class="action" *ngIf="!addMode || !adding">
+    </div>
+    <div class="action" *ngIf="!addMode">
+      <button cc-focus (click)="onDelete()" [tabindex]="(index * 2) + 2">
+        <div class="icon"><i class="icon-trash"></i></div>
+        <span>Delete</span>
+      </button>
+    </div>
+    <div class="action" [hidden]="!addMode || adding">
+      <button #addButton=cc-focus cc-focus (click)="startAdd()" [tabindex]="(index * 2) + 2">
+        <div class="icon"><i class="icon-add"></i></div>
+        <span>Add</span>
+      </button>  
+    </div>
+    <div class="action" *ngIf="addMode && adding">
+      <button cc-focus (click)="completeAdd()" [tabindex]="(index * 2) + 2">
+        <div class="icon"><i class="icon-ok"></i></div>
+        <span>Save</span>
+      </button>  
+    </div>
+    <div class="action" *ngIf="addMode && adding">
+      <button cc-focus (click)="cancelAdd()" [tabindex]="(index * 2) + 2">
+        <div class="icon"><i class="icon-cancel"></i></div>
+        <span>Cancel</span>
+      </button>  
+    </div>
+  </div>
+  <p *ngIf="addMode && showAddMessage && !adding">There are no products yet.</p>
+  <div class="details" [hidden]="addMode && !adding">
+    <cc-heading [addMode]="addMode" #productName [(value)]="product.name" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-heading>
+    <div class="flex">
+      <div class="price-detail">
+        <cc-product-price [addMode]="addMode" [(price)]="product.price" [(unitType)]="product.unitType" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-product-price>
+      </div>  
+      <div class="unit-type-detail" *ngIf="product.unitType == 'perKg'">
+        <cc-product-unit-quantity [addMode]="addMode" [(unitQuantity)]="product.unitQuantity" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-product-unit-quantity>
+      </div>
+      <div></div>
+    </div>
+  </div>
+</div>

@@ -5,11 +5,11 @@ Header
 * Header/home/nav structure is messy
 * Fix login form resizing/header centring
 * Inline logo svg
+* Change favicon
 
 Editing
 =======
-* Rows: only show edit button on hover?
-* Edit individual fields
+* Fix numeric rounding issues: http://stackoverflow.com/questions/10015027/javascript-tofixed-not-rounding
 
 Auth
 ====
@@ -22,6 +22,8 @@ Database
 * Split out schema sql from data
 * Implement sqlite backup strategy
 * Better sqlite error handling (handle sql errors)
+* Catch sql errors instead of crashing (uq violation)
+  - handle in SqlHelper
 
 Deployment
 ==========
@@ -29,6 +31,32 @@ Deployment
 
 General Styling
 ===============
-* Buttons: circular shadow on hover instead of rectangle?
+? Buttons: circular shadow on hover instead of rectangle?
 * Browser testing
-* Chrome rendering issue with 1px border width
+* Chrome rendering issue with 1px border width (fix by positioning from centre of circles not corner)
+~* Why is BrowserSync reloading multiple times??
+
+Edit Individual fields
+======================
+* Save/add behaviour
+  - Field save success indicator
+  - Field validation (multiple field coordination?)
+* On delete, focus previous item delete button
+? Select all in add mode, only on first focus within add action
+* Animation (close row on delete, fade add preview in/out)
+* Figure out why clicking on page doesn't reset current tab index
+  (sets it to delete button, tabindex=2, which is first element on page with tabindex, but subsequent elements
+  have tabindex=1)
+* On add, should scroll page to bring row being added into view
+* keydown: Enter to save, Esc to cancel
+? Split out grab/highlight directives?
+? Maybe add should show all fields in edit mode?
+* Fix add focus - when should it stay in add mode?
+* 1px wobble in product unit quantity
+* Vertically centre 'edit' button
+* Change background of 'edit' button on mouseover? 
+
+Round customers
+===============
+* Implement 'email all' feature on Round
+* Erratic expand/collapse behaviour if add/remove customer enough times

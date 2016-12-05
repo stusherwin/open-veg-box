@@ -2,19 +2,9 @@
   <div class="page-inner">
     <h2>Products</h2>
 
-    <div class="row-view" [class.editing]="editing || adding">
-     <p *ngIf="!products.length">There are no products yet.</p>
-     <button class="top-level" (click)="startAdd()" [disabled]="adding || editing">
-        <div class="icon"><i class="icon-add"></i></div>
-        <span>Add</span>
-      </button>
-      <div class="row editing" *ngIf="adding">
-        <cc-product-edit [product]="adding" (onSave)="completeAdd()" (onCancel)="cancel()"></cc-product-edit>
-      </div>
-      <div class="row" *ngFor="let p of products; let i = index" [class.editing]="editing && editing.id == p.id">
-        <cc-product-display *ngIf="!editing || editing.id != p.id" [product]="p" (onEdit)="startEdit(p)" (onDelete)="delete(p)" [editDisabled]="adding || editing"></cc-product-display>
-        <cc-product-edit *ngIf="editing && editing.id == p.id" [product]="editing" (onSave)="completeEdit()" (onCancel)="cancel()"></cc-product-edit>
-      </div>
+    <div class="row-view" cc-focus id="row-view" focusedClass="focused">
+      <cc-product *ngFor="let p of products; let i = index" [product]="p" [index]="i" (delete)="onDelete($event)" (update)="onUpdate($event)"></cc-product>
+      <cc-product addMode="true" [showAddMessage]="!products.length" (add)="onAdd($event)" [index]="products.length"></cc-product>
     </div>
   </div>
 </div>

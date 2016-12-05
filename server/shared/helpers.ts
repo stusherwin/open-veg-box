@@ -60,7 +60,7 @@ export class SqlHelper<T> {
     return Observable.create((o: any) => {
       var pageSize = +(queryParams.pageSize || this.defaultPageSize);
       var startIndex = (+(queryParams.page || 1) - 1) * pageSize;
-      db.all('select * from ' + this.table + ' order by id desc limit $count offset $skip', {
+      db.all('select * from ' + this.table + ' order by id limit $count offset $skip', {
         $count: pageSize,
         $skip: startIndex
       }, (err: any, rows: any) => {
@@ -71,7 +71,22 @@ export class SqlHelper<T> {
     });
   }
 
-  selectSql = function(db: any, sql: string, queryParams: any, create: (rows: any[]) => T[]): Observable<T[]> {
+  selectSql = function(db: any, sql: string, queryParams: any, create: (row: any) => T): Observable<T[]> {
+    return Observable.create((o: any) => {
+      var pageSize = +(queryParams.pageSize || this.defaultPageSize);
+      var startIndex = (+(queryParams.page || 1) - 1) * pageSize;
+      db.all(sql + ' limit $count offset $skip', {
+        $count: pageSize,
+        $skip: startIndex
+      }, (err: any, rows: any) => {
+        var results: T[] = rows.map(create);
+        o.next(results);
+        o.complete();
+      });
+    });
+  }
+
+  selectSqlRows = function(db: any, sql: string, queryParams: any, create: (rows: any[]) => T[]): Observable<T[]> {
     return Observable.create((o: any) => {
       var pageSize = +(queryParams.pageSize || this.defaultPageSize);
       var startIndex = (+(queryParams.page || 1) - 1) * pageSize;

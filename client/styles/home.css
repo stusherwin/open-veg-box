@@ -1,3 +1,6 @@
+.r {
+  border: 1px solid red;
+}
 .header.home-header {
   width: 570px;
   margin: 0 auto;

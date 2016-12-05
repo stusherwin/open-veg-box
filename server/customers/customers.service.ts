@@ -9,7 +9,16 @@ export class CustomersService {
     return this.sqlHelper.selectAll(db, queryParams,
       r => new Customer(r.id, r.name, r.address, r.tel1, r.tel2, r.email));
   }
-
+  
+  getAllWithNoRound(queryParams: any, db: any): Observable<Customer[]> {
+    var sql = 'select c.id, c.name, c.address, c.tel1, c.tel2, c.email from customer c' 
+            + ' left join round_customer rc on rc.customerId = c.id'
+            + ' where rc.roundId is null'
+            + ' order by c.name';
+    return this.sqlHelper.selectSql(db, sql, queryParams,
+      r => new Customer(r.id, r.name, r.address, r.tel1, r.tel2, r.email));
+  }
+  
   add(params: any, queryParams: any, db: any): Observable<Customer[]> {
     this.sqlHelper.insert(db, params);
 

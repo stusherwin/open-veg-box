@@ -18,6 +18,11 @@ customers.get('/', function(req: any, res: any) {
                   .subscribe(customers => res.json(customers));
 });
 
+customers.get('/no_round', function(req: any, res: any) {
+  customersService.getAllWithNoRound(wl(['page', 'pageSize'], req.query), req.db)
+                  .subscribe(rounds => res.json(rounds));
+});
+
 customers.post('/:id', function(req: any, res: any) {
   customersService.update(req.params.id, req.body, wl(['page', 'pageSize'], req.query), req.db)
                   .subscribe(customers => res.json(customers));

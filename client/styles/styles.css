@@ -1,3 +1,6 @@
+.r {
+  border: 1px solid red;
+}
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -509,11 +512,15 @@ a.button.disabled:hover span {
 h2 {
   margin: 20px 0 30px 0;
 }
+h4 {
+  font-size: 110%;
+  font-weight: 400;
+}
 .muted {
   color: #bbb !important;
 }
-.r {
-  border: 1px solid red;
+.italic {
+  font-style: italic;
 }
 .header {
   position: relative;
@@ -997,6 +1004,23 @@ h2 {
   color: black;
   font-size: 110%;
 }
+input[type="text"],
+input[type="password"],
+select,
+textarea {
+  color: #999;
+  padding: 2px 4px;
+  border: 1px solid #bbb;
+  border-radius: 3px;
+  font-size: 100%;
+  margin: 0;
+}
+input[type="checkbox"] {
+  outline: 0;
+}
+select {
+  padding: 1px 0px;
+}
 .row-view {
   position: relative;
 }
@@ -1009,24 +1033,20 @@ h2 {
 .row-view p {
   margin-top: 20px;
 }
+.row-view *:nth-child(2n - 1) > .row {
+  background: #fafafa;
+}
 .row-view .row {
   min-height: 83px;
-  border-top: 1px dashed #ccc;
+  border-top: 1px solid #e6e6e6;
   padding: 0;
   position: relative;
 }
-.row-view .row:last-child {
-  border-bottom: 1px dashed #ccc;
+.row-view .row.addMode {
+  border-bottom: 1px solid #e6e6e6;
 }
-.row-view .row:hover,
-.row-view .row.editing {
+.row-view .row:hover {
   background: #fff1dd;
-}
-.row-view .row h3 {
-  margin: 15px 0 0 10px;
-}
-.row-view .row ul li {
-  margin-top: 10px;
 }
 .row-view .row .actions {
   float: right;
@@ -1047,68 +1067,611 @@ h2 {
 }
 .row-view .row .details {
   overflow: hidden;
-  padding: 15px 10px 10px 10px;
+  padding: 15px 10px 0px 10px;
 }
-.row-view.editing .row:hover {
-  background: inherit;
-}
-.row-view.editing .row.editing {
-  background: #fff1dd;
-}
-input[type="text"],
-input[type="password"],
-select,
-textarea {
-  color: #999;
-  padding: 2px 4px;
-  border: 1px solid #bbb;
+.focused .row button,
+.focused .row a.button {
+  border: none;
   border-radius: 2px;
-  font-size: 100%;
-  margin: 0;
+  padding: 0;
+  display: block;
+  position: relative;
+  width: 66px;
+  text-decoration: none;
+  background: none;
+  color: #888;
 }
-input[type="checkbox"] {
+.focused .row button .icon,
+.focused .row a.button .icon {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 46px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  height: 46px;
+  width: 46px;
+  padding: 2px 0 0 2px;
+}
+.focused .row button .icon i,
+.focused .row a.button .icon i {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 40px;
+  height: 40px;
+  width: 40px;
+  font-size: 200%;
+  display: block;
+}
+.focused .row button span,
+.focused .row a.button span {
+  position: absolute;
+  top: 61px;
+  width: 100%;
+  font-size: 75%;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 10px;
+  display: block;
+  width: 46 px;
+}
+.focused .row button:focus,
+.focused .row a.button:focus {
   outline: 0;
 }
-select {
-  padding: 1px 0px;
+.focused .row button,
+.focused .row a.button,
+.focused .row button:active,
+.focused .row a.button:active {
+  cursor: pointer;
 }
-.field-row .field {
-  margin-top: 10px;
+.focused .row button[disabled],
+.focused .row a.button[disabled],
+.focused .row button[disabled]:hover,
+.focused .row a.button[disabled]:hover,
+.focused .row button.disabled,
+.focused .row a.button.disabled,
+.focused .row button.disabled:hover,
+.focused .row a.button.disabled:hover {
+  cursor: default;
 }
-.field-row .field .input {
-  display: inline-block;
+.focused .row button[disabled],
+.focused .row a.button[disabled],
+.focused .row button[disabled]:hover,
+.focused .row a.button[disabled]:hover,
+.focused .row button.disabled,
+.focused .row a.button.disabled,
+.focused .row button.disabled:hover,
+.focused .row a.button.disabled:hover {
+  background: none;
+  color: #ccc;
+  cursor: default;
 }
-.field-row .field .input input {
+.focused .row button[disabled] .icon,
+.focused .row a.button[disabled] .icon,
+.focused .row button[disabled]:hover .icon,
+.focused .row a.button[disabled]:hover .icon,
+.focused .row button.disabled .icon,
+.focused .row a.button.disabled .icon,
+.focused .row button.disabled:hover .icon,
+.focused .row a.button.disabled:hover .icon {
+  background: none;
+  border-color: #ccc;
+}
+.focused .row button[disabled] .icon i,
+.focused .row a.button[disabled] .icon i,
+.focused .row button[disabled]:hover .icon i,
+.focused .row a.button[disabled]:hover .icon i,
+.focused .row button.disabled .icon i,
+.focused .row a.button.disabled .icon i,
+.focused .row button.disabled:hover .icon i,
+.focused .row a.button.disabled:hover .icon i {
+  background: none;
+  border-color: #ccc;
+  box-shadow: none;
+}
+.focused .row button[disabled] span,
+.focused .row a.button[disabled] span,
+.focused .row button[disabled]:hover span,
+.focused .row a.button[disabled]:hover span,
+.focused .row button.disabled span,
+.focused .row a.button.disabled span,
+.focused .row button.disabled:hover span,
+.focused .row a.button.disabled:hover span {
+  color: #ccc;
+}
+.focused .row button .icon,
+.focused .row a.button .icon {
+  background: none;
+  border-color: #888;
+}
+.focused .row button .icon i,
+.focused .row a.button .icon i {
+  border-color: #ccc;
+  background: none;
+}
+.focused .row button span,
+.focused .row a.button span {
+  color: #888;
+}
+.focused .row button:hover,
+.focused .row a.button:hover,
+.focused .row button:focus,
+.focused .row a.button:focus {
+  background: #ffedd3;
+  color: #777;
+}
+.focused .row button:hover .icon,
+.focused .row a.button:hover .icon,
+.focused .row button:focus .icon,
+.focused .row a.button:focus .icon {
+  background: white;
+  border-color: #777;
+}
+.focused .row button:hover .icon i,
+.focused .row a.button:hover .icon i,
+.focused .row button:focus .icon i,
+.focused .row a.button:focus .icon i {
+  border-color: #ecd5b3;
+  background: #ffedd3;
+}
+.focused .row button:hover span,
+.focused .row a.button:hover span,
+.focused .row button:focus span,
+.focused .row a.button:focus span {
+  color: #777;
+}
+.focused .row button:hover .icon i,
+.focused .row a.button:hover .icon i,
+.focused .row button:focus .icon i,
+.focused .row a.button:focus .icon i {
+  background: #ffedd3;
+  box-shadow: inset rgba(255, 255, 255, 0.7) 0px 2px 10px, inset rgba(0, 0, 0, 0.1) 0px -2px 10px;
+}
+.focused .row button:hover[disabled] .icon i,
+.focused .row a.button:hover[disabled] .icon i,
+.focused .row button:focus[disabled] .icon i,
+.focused .row a.button:focus[disabled] .icon i,
+.focused .row button:hover[disabled]:hover .icon i,
+.focused .row a.button:hover[disabled]:hover .icon i,
+.focused .row button:focus[disabled]:hover .icon i,
+.focused .row a.button:focus[disabled]:hover .icon i,
+.focused .row button:hover.disabled .icon i,
+.focused .row a.button:hover.disabled .icon i,
+.focused .row button:focus.disabled .icon i,
+.focused .row a.button:focus.disabled .icon i,
+.focused .row button:hover.disabled:hover .icon i,
+.focused .row a.button:hover.disabled:hover .icon i,
+.focused .row button:focus.disabled:hover .icon i,
+.focused .row a.button:focus.disabled:hover .icon i {
+  box-shadow: none;
+}
+.focused .row button:active .icon i,
+.focused .row a.button:active .icon i {
+  background: #ffe3b9;
+  box-shadow: inset rgba(255, 255, 255, 0.7) 0px -2px 10px, inset rgba(0, 0, 0, 0.1) 0px 2px 10px;
+}
+.focused .row button:active[disabled] .icon i,
+.focused .row a.button:active[disabled] .icon i,
+.focused .row button:active[disabled]:hover .icon i,
+.focused .row a.button:active[disabled]:hover .icon i,
+.focused .row button:active.disabled .icon i,
+.focused .row a.button:active.disabled .icon i,
+.focused .row button:active.disabled:hover .icon i,
+.focused .row a.button:active.disabled:hover .icon i {
+  box-shadow: none;
+}
+.focused .row button[disabled],
+.focused .row a.button[disabled],
+.focused .row button[disabled]:hover,
+.focused .row a.button[disabled]:hover,
+.focused .row button.disabled,
+.focused .row a.button.disabled,
+.focused .row button.disabled:hover,
+.focused .row a.button.disabled:hover {
+  background: none;
+  color: #ccc;
+}
+.focused .row button[disabled] .icon,
+.focused .row a.button[disabled] .icon,
+.focused .row button[disabled]:hover .icon,
+.focused .row a.button[disabled]:hover .icon,
+.focused .row button.disabled .icon,
+.focused .row a.button.disabled .icon,
+.focused .row button.disabled:hover .icon,
+.focused .row a.button.disabled:hover .icon {
+  background: none;
+  border-color: #ccc;
+}
+.focused .row button[disabled] .icon i,
+.focused .row a.button[disabled] .icon i,
+.focused .row button[disabled]:hover .icon i,
+.focused .row a.button[disabled]:hover .icon i,
+.focused .row button.disabled .icon i,
+.focused .row a.button.disabled .icon i,
+.focused .row button.disabled:hover .icon i,
+.focused .row a.button.disabled:hover .icon i {
+  border-color: #ccc;
+  background: none;
+}
+.focused .row button[disabled] span,
+.focused .row a.button[disabled] span,
+.focused .row button[disabled]:hover span,
+.focused .row a.button[disabled]:hover span,
+.focused .row button.disabled span,
+.focused .row a.button.disabled span,
+.focused .row button.disabled:hover span,
+.focused .row a.button.disabled:hover span {
+  color: #ccc;
+}
+.focused .row.focused {
+  background: #fff1dd;
+}
+.focused .row.focused button,
+.focused .row.focused a.button {
+  border: none;
+  border-radius: 2px;
+  padding: 0;
+  display: block;
+  position: relative;
+  width: 66px;
+  text-decoration: none;
+  background: none;
+  color: #888;
+}
+.focused .row.focused button .icon,
+.focused .row.focused a.button .icon {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 46px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  height: 46px;
+  width: 46px;
+  padding: 2px 0 0 2px;
+}
+.focused .row.focused button .icon i,
+.focused .row.focused a.button .icon i {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 40px;
+  height: 40px;
+  width: 40px;
+  font-size: 200%;
+  display: block;
+}
+.focused .row.focused button span,
+.focused .row.focused a.button span {
+  position: absolute;
+  top: 61px;
   width: 100%;
-  max-width: 100%;
+  font-size: 75%;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 10px;
+  display: block;
+  width: 46 px;
 }
-.field-row .field .input.full {
-  width: 400px;
-  max-width: 100%;
+.focused .row.focused button:focus,
+.focused .row.focused a.button:focus {
+  outline: 0;
 }
-.field-row .field .input.tiny {
-  width: 42px;
+.focused .row.focused button,
+.focused .row.focused a.button,
+.focused .row.focused button:active,
+.focused .row.focused a.button:active {
+  cursor: pointer;
 }
-.field-row .field .input.price {
+.focused .row.focused button[disabled],
+.focused .row.focused a.button[disabled],
+.focused .row.focused button[disabled]:hover,
+.focused .row.focused a.button[disabled]:hover,
+.focused .row.focused button.disabled,
+.focused .row.focused a.button.disabled,
+.focused .row.focused button.disabled:hover,
+.focused .row.focused a.button.disabled:hover {
+  cursor: default;
+}
+.focused .row.focused button[disabled],
+.focused .row.focused a.button[disabled],
+.focused .row.focused button[disabled]:hover,
+.focused .row.focused a.button[disabled]:hover,
+.focused .row.focused button.disabled,
+.focused .row.focused a.button.disabled,
+.focused .row.focused button.disabled:hover,
+.focused .row.focused a.button.disabled:hover {
+  background: none;
+  color: #ccc;
+  cursor: default;
+}
+.focused .row.focused button[disabled] .icon,
+.focused .row.focused a.button[disabled] .icon,
+.focused .row.focused button[disabled]:hover .icon,
+.focused .row.focused a.button[disabled]:hover .icon,
+.focused .row.focused button.disabled .icon,
+.focused .row.focused a.button.disabled .icon,
+.focused .row.focused button.disabled:hover .icon,
+.focused .row.focused a.button.disabled:hover .icon {
+  background: none;
+  border-color: #ccc;
+}
+.focused .row.focused button[disabled] .icon i,
+.focused .row.focused a.button[disabled] .icon i,
+.focused .row.focused button[disabled]:hover .icon i,
+.focused .row.focused a.button[disabled]:hover .icon i,
+.focused .row.focused button.disabled .icon i,
+.focused .row.focused a.button.disabled .icon i,
+.focused .row.focused button.disabled:hover .icon i,
+.focused .row.focused a.button.disabled:hover .icon i {
+  background: none;
+  border-color: #ccc;
+  box-shadow: none;
+}
+.focused .row.focused button[disabled] span,
+.focused .row.focused a.button[disabled] span,
+.focused .row.focused button[disabled]:hover span,
+.focused .row.focused a.button[disabled]:hover span,
+.focused .row.focused button.disabled span,
+.focused .row.focused a.button.disabled span,
+.focused .row.focused button.disabled:hover span,
+.focused .row.focused a.button.disabled:hover span {
+  color: #ccc;
+}
+.focused .row.focused button .icon,
+.focused .row.focused a.button .icon {
+  background: none;
+  border-color: #888;
+}
+.focused .row.focused button .icon i,
+.focused .row.focused a.button .icon i {
+  border-color: #ccc;
+  background: none;
+}
+.focused .row.focused button span,
+.focused .row.focused a.button span {
+  color: #888;
+}
+.focused .row.focused button:hover,
+.focused .row.focused a.button:hover,
+.focused .row.focused button:focus,
+.focused .row.focused a.button:focus {
+  background: #fda;
+  color: #777;
+}
+.focused .row.focused button:hover .icon,
+.focused .row.focused a.button:hover .icon,
+.focused .row.focused button:focus .icon,
+.focused .row.focused a.button:focus .icon {
+  background: white;
+  border-color: #777;
+}
+.focused .row.focused button:hover .icon i,
+.focused .row.focused a.button:hover .icon i,
+.focused .row.focused button:focus .icon i,
+.focused .row.focused a.button:focus .icon i {
+  border-color: #e4c392;
+  background: #fda;
+}
+.focused .row.focused button:hover span,
+.focused .row.focused a.button:hover span,
+.focused .row.focused button:focus span,
+.focused .row.focused a.button:focus span {
+  color: #777;
+}
+.focused .row.focused button:hover .icon i,
+.focused .row.focused a.button:hover .icon i,
+.focused .row.focused button:focus .icon i,
+.focused .row.focused a.button:focus .icon i {
+  background: #fda;
+  box-shadow: inset rgba(255, 255, 255, 0.7) 0px 2px 10px, inset rgba(0, 0, 0, 0.1) 0px -2px 10px;
+}
+.focused .row.focused button:hover[disabled] .icon i,
+.focused .row.focused a.button:hover[disabled] .icon i,
+.focused .row.focused button:focus[disabled] .icon i,
+.focused .row.focused a.button:focus[disabled] .icon i,
+.focused .row.focused button:hover[disabled]:hover .icon i,
+.focused .row.focused a.button:hover[disabled]:hover .icon i,
+.focused .row.focused button:focus[disabled]:hover .icon i,
+.focused .row.focused a.button:focus[disabled]:hover .icon i,
+.focused .row.focused button:hover.disabled .icon i,
+.focused .row.focused a.button:hover.disabled .icon i,
+.focused .row.focused button:focus.disabled .icon i,
+.focused .row.focused a.button:focus.disabled .icon i,
+.focused .row.focused button:hover.disabled:hover .icon i,
+.focused .row.focused a.button:hover.disabled:hover .icon i,
+.focused .row.focused button:focus.disabled:hover .icon i,
+.focused .row.focused a.button:focus.disabled:hover .icon i {
+  box-shadow: none;
+}
+.focused .row.focused button:active .icon i,
+.focused .row.focused a.button:active .icon i {
+  background: #ffd390;
+  box-shadow: inset rgba(255, 255, 255, 0.7) 0px -2px 10px, inset rgba(0, 0, 0, 0.1) 0px 2px 10px;
+}
+.focused .row.focused button:active[disabled] .icon i,
+.focused .row.focused a.button:active[disabled] .icon i,
+.focused .row.focused button:active[disabled]:hover .icon i,
+.focused .row.focused a.button:active[disabled]:hover .icon i,
+.focused .row.focused button:active.disabled .icon i,
+.focused .row.focused a.button:active.disabled .icon i,
+.focused .row.focused button:active.disabled:hover .icon i,
+.focused .row.focused a.button:active.disabled:hover .icon i {
+  box-shadow: none;
+}
+.focused .row.focused button[disabled],
+.focused .row.focused a.button[disabled],
+.focused .row.focused button[disabled]:hover,
+.focused .row.focused a.button[disabled]:hover,
+.focused .row.focused button.disabled,
+.focused .row.focused a.button.disabled,
+.focused .row.focused button.disabled:hover,
+.focused .row.focused a.button.disabled:hover {
+  background: none;
+  color: #ccc;
+}
+.focused .row.focused button[disabled] .icon,
+.focused .row.focused a.button[disabled] .icon,
+.focused .row.focused button[disabled]:hover .icon,
+.focused .row.focused a.button[disabled]:hover .icon,
+.focused .row.focused button.disabled .icon,
+.focused .row.focused a.button.disabled .icon,
+.focused .row.focused button.disabled:hover .icon,
+.focused .row.focused a.button.disabled:hover .icon {
+  background: none;
+  border-color: #ccc;
+}
+.focused .row.focused button[disabled] .icon i,
+.focused .row.focused a.button[disabled] .icon i,
+.focused .row.focused button[disabled]:hover .icon i,
+.focused .row.focused a.button[disabled]:hover .icon i,
+.focused .row.focused button.disabled .icon i,
+.focused .row.focused a.button.disabled .icon i,
+.focused .row.focused button.disabled:hover .icon i,
+.focused .row.focused a.button.disabled:hover .icon i {
+  border-color: #ccc;
+  background: none;
+}
+.focused .row.focused button[disabled] span,
+.focused .row.focused a.button[disabled] span,
+.focused .row.focused button[disabled]:hover span,
+.focused .row.focused a.button[disabled]:hover span,
+.focused .row.focused button.disabled span,
+.focused .row.focused a.button.disabled span,
+.focused .row.focused button.disabled:hover span,
+.focused .row.focused a.button.disabled:hover span {
+  color: #ccc;
+}
+.focused .row.focused:hover {
+  background: #fff1dd;
+}
+.focused .row:hover {
+  background: #fffaf1;
+}
+.focused .row .editable-display:hover {
+  background: #fffefc;
+}
+.focused .row.focused .editable-display:hover {
+  background: #fffaf1;
+}
+.editable {
+  bottom: 4px;
+  right: 4px;
+  position: relative;
+  width: 100%;
+}
+.editable .editable-display {
+  border: 1px solid transparent;
+  padding-top: 4px;
+  padding-left: 4px;
+  cursor: pointer;
+}
+.editable .editable-display:hover {
+  border: 1px dashed #f8c77e;
+  border-radius: 3px;
+  background: #fffaf1;
+  padding-right: 20px;
+}
+.editable .editable-display:hover:after {
+  position: absolute;
+  content: '\e807';
+  right: 5px;
+  top: 5px;
+  font-family: "fontello";
+  font-size: 16px;
+  color: #ddc299;
+}
+.heading {
+  margin-bottom: 5px;
+}
+.heading .editable-display h3 {
+  margin: 0;
+  margin-bottom: 5px;
+}
+.heading .editable-edit input[type="text"] {
+  display: block;
+  font-size: 150%;
+  font-weight: 300;
+  margin-bottom: 6px;
+  width: 100%;
+}
+.product-price .editable-display {
+  min-height: 25px;
+}
+.product-price .editable-edit {
+  padding-left: 5px;
+}
+.product-price .editable-edit .price {
   width: 86px;
   margin-left: 3px;
 }
-.field-row .field .input + .input {
-  margin-left: 10px;
+.product-unit-quantity .editable-display {
+  min-height: 25px;
 }
-.field-row .field .input + select.input {
-  margin-left: 5px;
+.product-unit-quantity .editable-edit {
+  padding-left: 5px;
 }
-.field-row .field + .field {
-  margin-left: 10px;
+.product-unit-quantity .editable-edit input {
+  width: 42px;
 }
-.field-row:after {
-  content: '';
-  clear: left;
-  display: block;
+.round-customers .editable-display p {
+  margin: 0px 0 5px 0;
 }
-.field-row:first-child .field {
-  margin-top: 0;
+.round-customers .editable-edit {
+  padding-top: 4px;
+}
+.round-customers ul li {
+  margin-bottom: 10px;
+}
+.round-customers ul li:first-child {
+  margin-top: 5px;
+}
+.round-customers ul li:last-child {
+  margin-bottom: 5px;
+}
+.round-customers ul li.focused {
+  background: #fffaf1;
+}
+.address .editable {
+  padding-left: 1px;
+  margin-bottom: 3px;
+}
+.address .editable .editable-display {
+  min-height: 25px;
+  padding-bottom: 4px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.address .editable .editable-edit {
+  margin-bottom: 1px;
+}
+.email .editable {
+  padding-left: 2px;
+  margin-bottom: 3px;
+}
+.email .editable .editable-display {
+  min-height: 25px;
+  padding-bottom: 4px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.email .editable .editable-edit {
+  margin-bottom: 1px;
+}
+.tel .editable {
+  margin-bottom: 3px;
+}
+.tel .editable .editable-display {
+  min-height: 25px;
+  padding-bottom: 4px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.tel .editable .editable-edit {
+  margin-bottom: 1px;
 }
 .price-detail {
   width: 300px;
@@ -1125,14 +1688,8 @@ select {
 .flex > div {
   margin: 0 20px;
 }
-.flex > div div {
-  display: inline-block;
-}
 .flex > div:first-child {
   margin-left: 0;
-}
-.field-row + .flex {
-  margin-top: 10px;
 }
 .customer-details > div {
   margin-top: 10px;
@@ -1169,34 +1726,116 @@ select {
   .customer-details > div {
     margin: 0 20px;
   }
-  .customer-details > div div {
-    display: inline-block;
-  }
   .customer-details > div:first-child {
     margin-left: 0;
-  }
-  .field-row + .customer-details {
-    margin-top: 10px;
   }
   .customer-details > div textarea,
   .customer-details > div input[type="text"],
   .customer-details > div input[type="password"] {
     width: 100%;
   }
+  .customer-details > div:last-of-type {
+    width: 1px;
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
   .customer-details .address {
-    width: 400px;
+    width: 50%;
     flex-shrink: 2;
     min-width: 120px;
   }
   .customer-details .email {
-    width: 250px;
+    width: 40%;
     min-width: 150px;
     flex-shrink: 1;
   }
   .customer-details .tel {
-    width: 140px;
+    width: 10%;
+    min-width: 145px;
     flex-shrink: 0;
   }
+}
+.round-customers {
+  border: 1px solid transparent;
+}
+.round-customers .round-customer {
+  display: flex;
+}
+.round-customers .round-customer .round-customer-detail {
+  padding: 5px;
+}
+.round-customers .round-customer .round-customer-detail.round-customer-name {
+  padding-left: 0;
+  width: 40%;
+}
+.round-customers .round-customer .round-customer-detail.round-customer-address {
+  width: 60%;
+}
+.round-customers .round-customer .round-customer-detail.round-customer-action {
+  flex-shrink: 0;
+  flex-grow: 0;
+  padding: 0;
+}
+.round-customers .spacer {
+  display: block;
+  width: 22px;
+}
+.round-customers .editable-display {
+  padding: 0 4px;
+  margin-top: 0;
+}
+.round-customers .editable-display:hover .round-customers-display {
+  margin-right: -16px;
+}
+.round-customers .editable-edit {
+  padding: 0 4px;
+  border: 1px dashed #f8c77e;
+  border-radius: 3px;
+  background: #fffaf1;
+}
+.round-customers .editable-edit a {
+  display: block;
+  border-radius: 22px;
+  width: 22px;
+  height: 22px;
+  position: relative;
+  top: 2px;
+}
+.round-customers .editable-edit a .icon {
+  width: 22px;
+  padding: 5px;
+}
+.round-customers .editable-edit a .icon i {
+  position: relative;
+  left: -6px;
+  top: -2px;
+  color: #999;
+}
+.round-customers .editable-edit a .icon i.icon-add {
+  top: -1px;
+}
+.round-customers .editable-edit a:hover,
+.round-customers .editable-edit a:focus {
+  background: #fda;
+}
+.round-customers .editable-edit a .spacer {
+  display: none;
+}
+.round-customers .editable-edit .round-customers-add {
+  position: relative;
+  left: -4px;
+  padding-left: 4px;
+  padding-right: 4px;
+  width: calc(100% + 8px);
+  border-top: 1px solid #fff5e7;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  color: #bbb;
+  display: block;
+  background: #fff;
+}
+.round-customers .editable-edit .round-customers-add:first-child {
+  border-top: none;
 }
 .header.home-header {
   width: 570px;
@@ -1736,4 +2375,7 @@ select {
 .home ul li a i.icon-flag {
   padding-left: 16px;
   padding-top: 22px;
+}
+[hidden] {
+  display: none !important;
 }

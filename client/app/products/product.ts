@@ -12,6 +12,7 @@ export class Product {
   price: number;
   unitType: string;
   unitQuantity: number;
+  justAdded: boolean;
 
   clone() {
     return new Product(this.id, this.name, this.price, this.unitType, this.unitQuantity);

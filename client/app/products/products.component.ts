@@ -1,23 +1,20 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Product, UnitType } from './product'
+import { Product } from './product'
 import { ProductService } from './product.service'
 import { UsersService } from '../users/users.service'
-import { ProductDisplayComponent } from './product-display.component'
-import { ProductEditComponent } from './product-edit.component'
+import { ProductComponent } from './product.component'
 import { Observable } from 'rxjs/Observable';
 import { RouteParams } from '@angular/router-deprecated';
+import { FocusService } from '../shared/focus.service';
+import { FocusDirective } from '../shared/focus.directive';
 
 @Component({
   selector: 'cc-products',
-  styleUrls: ['app/products/products.component.css'],
   templateUrl: 'app/products/products.component.html',
-  directives: [ProductDisplayComponent, ProductEditComponent],
-  providers: [ProductService, UsersService]
+  directives: [ProductComponent, FocusDirective],
+  providers: [ProductService, UsersService, FocusService]
 })
 export class ProductsComponent implements OnInit {
-  private adding: Product;
-  private editing: Product;
-
   constructor(productService: ProductService, routeParams: RouteParams) {
     this.productService = productService;
     this.queryParams = routeParams.params;
@@ -34,37 +31,19 @@ export class ProductsComponent implements OnInit {
     } );
   }
 
-  startAdd() {
-    this.adding = new Product(0, 'New product', 1.0, "each", 1);
-  }
-
-  startEdit(product: Product) {
-    this.editing = product.clone();
-  }
-
-  completeAdd() {
-    this.productService.add(this.adding, this.queryParams).subscribe(products => {
-      this.adding = null;
+  onAdd(product: Product) {
+    this.productService.add(product, this.queryParams).subscribe(products => {
       this.products = products;
     });
   }
 
-  completeEdit() {
-    this.productService.update(this.editing.id, this.editing, this.queryParams).subscribe(products => {
-      this.editing = null;
-      this.products = products;
-    });
-  }
-  
-  delete(product: Product) {
+  onDelete(product: Product) {
     this.productService.delete(product.id, this.queryParams).subscribe(products => {
-      this.editing = null;
       this.products = products;
     });
   }
 
-  cancel() {
-    this.editing = null;
-    this.adding = null;
+  onUpdate(product: Product) {
+    this.productService.update(product.id, product, this.queryParams).subscribe(products => {});
   }
 }

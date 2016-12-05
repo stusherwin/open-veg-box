@@ -42,6 +42,23 @@
   }  
 }
 
+input[type="text"], input[type="password"], select, textarea {
+  color: #999; 
+  padding: 2px 4px;
+  border: 1px solid #bbb;
+  border-radius: 3px;
+  font-size: 100%; 
+  margin:0;
+}
+
+input[type="checkbox"] {
+  outline: 0;
+}
+
+select {
+  padding: 1px 0px;
+}
+
 .row-view {
   position: relative;
 
@@ -56,28 +73,22 @@
     margin-top:20px;
   }
 
+  *:nth-child(2n - 1) > .row {
+    background: #fafafa;
+  }
+
   .row {
     min-height: 83px;
-    border-top: 1px dashed @itemBorderColor; 
-    padding: 0;//10px 0px 10px 10px; // 10px 140px 10px 10px;
+    border-top: 1px solid lighten(@itemBorderColor, 10%); 
+    padding: 0;
     position: relative;
 
-    &:last-child {
-      border-bottom: 1px dashed @itemBorderColor; 
+    &.addMode {
+      border-bottom: 1px solid lighten(@itemBorderColor, 10%);
     }
 
-    &:hover, &.editing {
+    &:hover {
       background: @itemHoverColor;
-    }
-
-    h3 {
-      margin:15px 0 0 10px;
-    }
-
-    ul {
-      li {
-        margin-top:10px;
-      }      
     }
 
     .actions {
@@ -101,85 +112,200 @@
 
     .details {
       overflow: hidden;
-      padding: 15px 10px 10px 10px;
-    }
-  }
-
-  &.editing {
-    .row:hover {
-      background:inherit;
-    }
-    .row.editing {
-      background: @itemHoverColor;      
+      padding: 15px 10px 0px 10px;
     }
   }
 }
 
-input[type="text"], input[type="password"], select, textarea {
-  color: #999; 
-  padding: 2px 4px;
-  border: 1px solid #bbb;
-  border-radius: 2px;
-  font-size: 100%; 
-  margin:0;
-}
-
-input[type="checkbox"] {
-  outline: 0;
-}
-
-select {
-  padding: 1px 0px;
-}
-
-.field-row {
-  .field {
-    margin-top:10px;
-
-    .input {
-      display: inline-block;
+.focused {
+  .row {
+    button, a.button {
+      .button(outline; small; darken(@itemHoverColor, 2%));
+    }
     
-      input {
-        width: 100%;
-        max-width: 100%;
-      }
-
-      &.full {
-        width: 400px;
-        max-width: 100%;
-      }
-
-      &.tiny {
-        width: 42px;
-      }
-
-      &.price {
-        width: 86px;
-        margin-left: 3px;
-      }
-      
-      & + .input {
-        margin-left: 10px;
-      }
-      & + select.input {
-        margin-left: 5px;
+    &.focused {
+      background: @itemHoverColor;
+      button, a.button {
+        .button(outline; small; @highlight);
       }
     }
+    &.focused:hover {
+      background: @itemHoverColor;
+    }
 
-    & + .field {
-      margin-left:10px;
+    &:hover {
+      background: lighten(@itemHoverColor, 4%);
+    }
+    
+    .editable-display:hover {
+      background: lighten(@itemHoverColor, 6%);
+    }
+  }
+  .row.focused {
+    .editable-display:hover {
+      background: lighten(@itemHoverColor, 4%);
+    }
+  }
+}
+
+.editable {
+  bottom: 4px;
+  right: 4px;
+  position: relative;
+  width: 100%;
+
+  .editable-display {
+    border: 1px solid transparent;
+    padding-top: 4px;
+    padding-left: 4px;
+    cursor: pointer;
+
+    &:hover {
+      border: 1px dashed desaturate(darken(@itemHoverColor, 20%),10%);
+      border-radius: 3px;
+      background: lighten(@itemHoverColor, 4%);
+      padding-right: 20px;
+
+      &:after {
+        position: absolute;
+        content: '\e807';
+        right: 5px;
+        top: 5px;
+        font-family: "fontello";
+        font-size:16px;
+        color: desaturate(darken(@itemHoverColor, 20%),50%);
+      }
+    }
+  }
+}
+
+.heading {
+  margin-bottom: 5px;
+
+  .editable-display {
+    h3 {
+      margin: 0;
+      margin-bottom: 5px;
     }
   }
 
-  &:after {
-    content: '';
-    clear: left;
-    display: block;
+  .editable-edit {
+    input[type="text"] {
+      display: block;
+      font-size: 150%;
+      font-weight: 300;
+      margin-bottom: 6px;
+      width: 100%;
+    }
+  }
+}
+
+.product-price {
+  .editable-display {
+    min-height: 25px;
+  }
+  .editable-edit {
+    padding-left:5px;
+
+    .price {
+      width: 86px;
+      margin-left: 3px;
+    }
+  }
+}
+
+.product-unit-quantity {
+  .editable-display {
+    min-height: 25px;
+  }
+  .editable-edit {
+    padding-left:5px;
+    input {
+      width: 42px;
+    }
+  }
+}
+
+.round-customers {
+  .editable-display {
+    p {
+      margin:0px 0 5px 0;
+    }
   }
 
-  &:first-child {
-    .field {
-      margin-top:0;
+  .editable-edit {
+    padding-top: 4px;
+  }
+
+  ul {
+    li {
+      margin-bottom:10px;
+      &:first-child {
+        margin-top: 5px;
+      }
+      &:last-child {
+        margin-bottom: 5px;
+      }
+      &.focused {
+        background: lighten(@itemHoverColor, 4%);
+      }
+    }      
+  }
+}
+
+
+.address {
+  .editable {
+    padding-left:1px;     
+    margin-bottom: 3px;
+    
+    .editable-display {
+      min-height: 25px;
+      padding-bottom: 4px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .editable-edit {
+      margin-bottom: 1px;
+    }
+  }
+}
+
+.email {
+  .editable {
+    padding-left:2px;     
+    margin-bottom: 3px;
+    
+    .editable-display {
+      min-height: 25px;
+      padding-bottom: 4px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .editable-edit {
+      margin-bottom: 1px;
+    }
+  }
+}
+
+.tel {
+  .editable {
+    margin-bottom: 3px;
+
+    .editable-display {
+      min-height: 25px;
+      padding-bottom: 4px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .editable-edit {
+      margin-bottom: 1px;
     }
   }
 }
@@ -201,16 +327,9 @@ select {
   & > div {
     margin: 0 20px;
 
-    div {
-      display: inline-block;
-    }
     &:first-child {
       margin-left:0;
     }
-  }
-
-  .field-row + & {
-    margin-top:10px;
   }
 }
 
@@ -252,23 +371,130 @@ select {
       textarea, input[type="text"], input[type="password"] {
         width: 100%;
       }
+
+      &:last-of-type {
+        width: 1px;
+        flex-grow:0;
+        flex-shrink:0;
+      }
     }
 
     .address {
-      width:400px;
+      width: 50%;
       flex-shrink:2;
       min-width:120px;
     }
 
     .email {
-      width: 250px;
+      width: 40%;
       min-width:150px;
       flex-shrink:1;
     }
 
     .tel {
-      width: 140px;
+      width: 10%;
+      min-width: 145px;
       flex-shrink:0;
+    }
+  }
+}
+
+.round-customers {
+  border: 1px solid transparent;
+  
+  .round-customer {
+    display: flex;
+
+    .round-customer-detail {
+      padding: 5px;
+
+      &.round-customer-name {
+        padding-left: 0;
+        width: 40%;
+      }
+  
+      &.round-customer-address {
+        width: 60%;
+      }
+  
+      &.round-customer-action {
+        flex-shrink: 0;
+        flex-grow: 0;
+        padding: 0;
+      }
+    }
+  }
+
+  .spacer {
+    display: block;
+    width: 22px;
+  }
+
+  .editable-display {
+    padding: 0 4px;
+    margin-top: 0;
+  }
+
+  .editable-display:hover {
+    .round-customers-display {
+      margin-right: -16px;
+    }
+  }
+
+  .editable-edit {
+    padding: 0 4px;
+    border: 1px dashed desaturate(darken(@itemHoverColor, 20%),10%);
+    border-radius: 3px;
+    background: lighten(@itemHoverColor, 4%);
+
+    a {
+      display: block;
+      border-radius: 22px;
+      width:22px;
+      height:22px;
+      position: relative;
+      top:2px;
+
+      .icon {
+        width: 22px;
+        padding: 5px;
+
+        i {
+          position: relative;
+          left: -6px;
+          top: -2px;
+          color: #999;
+
+          &.icon-add {
+            top:-1px;
+          }
+        }
+      }
+
+      &:hover, &:focus {
+        background: @highlight;
+      }
+
+      .spacer {
+        display: none;
+      }
+    }
+
+    .round-customers-add {
+      position: relative;
+      left: -4px;
+      padding-left: 4px;
+      padding-right: 4px;
+      width: calc(~"100% + 8px");
+      border-top: 1px solid lighten(@itemHoverColor, 2%);
+      border-bottom-left-radius: 3px;
+      border-bottom-right-radius: 3px;
+      color: #bbb;
+      display: block;
+      background: #fff;
+      &:first-child {
+        border-top: none;
+      }
     }
   }
 }

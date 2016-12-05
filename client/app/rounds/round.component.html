@@ -1,0 +1,40 @@
+<div class="row" [class.addMode]="addMode" cc-focus focusedClass="focused" (focus)="onRowFocus()" (blur)="onRowBlur()">
+  <input type="checkbox" *ngIf="addMode && !focused" style="position: absolute;left:-1000px" cc-focus [tabindex]="index * 2" />
+  <div class="actions">
+    <div class="action" *ngIf="!addMode">
+      <a class="button" href="mailto:stu@gmail.com" cc-focus [tabindex]="(index * 2) + 2" (click)="$event.preventDefault();clickEmail()">
+        <div class="icon"><i class="icon-mail-dark"></i></div>
+        <span>Email</span>
+      </a>
+    </div>
+    <div class="action" *ngIf="!addMode">
+      <button cc-focus (click)="onDelete()" [tabindex]="(index * 2) + 2">
+        <div class="icon"><i class="icon-trash"></i></div>
+        <span>Delete</span>
+      </button>
+    </div>
+    <div class="action" [hidden]="!addMode || adding">
+      <button #addButton=cc-focus cc-focus (click)="startAdd()" [tabindex]="(index * 2) + 2">
+        <div class="icon"><i class="icon-add"></i></div>
+        <span>Add</span>
+      </button>  
+    </div>
+    <div class="action" *ngIf="addMode && adding">
+      <button cc-focus (click)="completeAdd()" [tabindex]="(index * 2) + 2">
+        <div class="icon"><i class="icon-ok"></i></div>
+        <span>Save</span>
+      </button>  
+    </div>
+    <div class="action" *ngIf="addMode && adding">
+      <button cc-focus (click)="cancelAdd()" [tabindex]="(index * 2) + 2">
+        <div class="icon"><i class="icon-cancel"></i></div>
+        <span>Cancel</span>
+      </button>  
+    </div>
+  </div>
+  <p *ngIf="addMode && showAddMessage && !adding">There are no rounds yet.</p>
+  <div class="details" [hidden]="addMode && !adding">
+    <cc-heading [addMode]="addMode" #roundName [(value)]="round.name" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-heading>
+    <cc-round-customers *ngIf="!addMode" [addMode]="addMode" [(value)]="round.customers" (add)="onCustomerAdd($event)" (remove)="onCustomerRemove($event)" [customers]="customers" [editTabindex]="(index * 2) + 1"></cc-round-customers>
+  </div>
+</div>
