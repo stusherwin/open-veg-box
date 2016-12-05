@@ -9,7 +9,7 @@ export class RoundsService {
     var sql = 'select r.id, r.name, c.id customerId, c.name customerName, c.address customerAddress from round r' 
             + ' left join round_customer rc on rc.roundId = r.id'
             + ' left join customer c on c.id = rc.customerId'
-            + ' order by r.id, c.id';
+            + ' order by r.id, c.name';
     return this.sqlHelper.selectSqlRows(db, sql, queryParams,
       rows => {
         let rounds: { [id: number]: Round; } = {};

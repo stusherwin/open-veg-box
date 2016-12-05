@@ -79,8 +79,6 @@ export class SqlHelper<T> {
         $count: pageSize,
         $skip: startIndex
       }, (err: any, rows: any) => {
-        console.log(err);
-        console.log(rows);
         var results: T[] = rows.map(create);
         o.next(results);
         o.complete();

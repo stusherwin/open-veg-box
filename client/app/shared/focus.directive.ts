@@ -10,7 +10,7 @@ const BLUR_GRACE_PERIOD_MS: number = 100;
 export class FocusDirective implements OnInit {
   focused: boolean;
   shouldBlur: boolean;
-  closedFocusedDescendent: FocusDirective;
+  closestFocusedDescendent: FocusDirective;
 
   constructor(
     private el: ElementRef, 
@@ -56,10 +56,8 @@ export class FocusDirective implements OnInit {
   }
 
   beFocused() {
-    console.log(this.stringify() + ': beFocused()');
     let elem = this.el.nativeElement;
     if(this.isFocusable(elem)) {
-      console.log('focusing...');
       setTimeout(() => this.renderer.invokeElementMethod(this.el.nativeElement, 'focus', []));
     } else {
       this.setFocused(true);
@@ -106,38 +104,38 @@ export class FocusDirective implements OnInit {
         this.blur.emit(null);
         if(!this.noBlur) {
           this.service.onBlur(this);
-        }         
+        }
       }
     }
   }
 
   descendentFocus(descendent: FocusDirective): boolean {
-    if(!this.closedFocusedDescendent) {
-      this.closedFocusedDescendent = descendent;
+    if(!this.closestFocusedDescendent) {
+      this.closestFocusedDescendent = descendent;
     } else {
-      if(descendent.getAncestorDepth(this.closedFocusedDescendent) >= 0) {
+      if(descendent.getAncestorDepth(this.closestFocusedDescendent) >= 0) {
         // descendent is ancestor of closestFocusedDescendent
-        this.closedFocusedDescendent = descendent
-      } else if(this.closedFocusedDescendent.getAncestorDepth(descendent) >= 0) {
+        this.closestFocusedDescendent = descendent
+      } else if(this.closestFocusedDescendent.getAncestorDepth(descendent) >= 0) {
         // closestFocusedDescendent is ancestor of descendent (ignore)
       } else {
-        // descendent is not an ancestor of closedFocusedDescendent and is being focused
-        // so closedFocusedDescendent needs to be blurred.
+        // descendent is not an ancestor of closestFocusedDescendent and is being focused
+        // so closestFocusedDescendent needs to be blurred.
         // (we need this for directives that don't automatically blur themselves)
-        this.closedFocusedDescendent.beBlurred();
-        this.closedFocusedDescendent = descendent
+        this.closestFocusedDescendent.beBlurred();
+        this.closestFocusedDescendent = descendent
       }
     }
 
     this.shouldBlur = false;
     this.setFocused(true);
 
-    return true;
+    return true;  
   }
 
   descendentBlur(descendent: FocusDirective): boolean {
-    if(this.closedFocusedDescendent == descendent) {
-      this.closedFocusedDescendent = null;
+    if(this.closestFocusedDescendent == descendent) {
+      this.closestFocusedDescendent = null;
     }
     
     this.shouldBlur = true;

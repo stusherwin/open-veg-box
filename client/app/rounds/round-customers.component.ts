@@ -7,11 +7,18 @@ import { Observable } from 'rxjs/Observable';
 @Component({
   selector: 'cc-round-customers',
   directives: [FocusDirective],
-  templateUrl: 'app/rounds/round-customers.component.html'
+  templateUrl: 'app/rounds/round-customers.component.html',
+  host: {
+    '(document:click)': 'onClickOutside($event)',
+  }
 })
 export class RoundCustomersComponent {
   editing: boolean;
-  pendingActions: { customerId: number; actionType: ActionType }[] = [];
+  buttonsSubscription: Subscription;
+  lastTouchedCustomerId: number;
+
+  constructor(private el: ElementRef) {
+  }
 
   @Input()
   editTabindex: number;
@@ -37,9 +44,6 @@ export class RoundCustomersComponent {
   @ViewChildren('button')
   buttons: QueryList<FocusDirective>
 
-  buttonsSubscription: Subscription;
-  firstTime: boolean;
-
   startEdit(autoFocusFirstButton: boolean) {
     if(this.editing) {
       return;
@@ -59,7 +63,10 @@ export class RoundCustomersComponent {
         firstTime = false;
       } else {
         if(buttons.length) {
-          buttons.first.beFocused();
+          let valueIndex = this.value.findIndex( c => c.id == this.lastTouchedCustomerId);
+          let customersIndex = this.customers.findIndex( c => c.id == this.lastTouchedCustomerId);
+          let index = valueIndex >= 0 ? valueIndex : (this.value.length + customersIndex);
+          buttons.toArray()[index].beFocused();
         }
       }
     });
@@ -76,7 +83,9 @@ export class RoundCustomersComponent {
       let customer = this.value.find( c => c.id == customerId);
       this.value.splice(index, 1);
       this.customers.push(customer);
+      this.customers.sort((a,b) => a.name < b.name? -1 : 1);
       this.remove.emit(customerId);
+      this.lastTouchedCustomerId = customerId;
     }
   }
 
@@ -87,11 +96,18 @@ export class RoundCustomersComponent {
       this.value.push(customer);
       this.customers.splice(index, 1);
       this.add.emit(customer.id);
+      this.lastTouchedCustomerId = customer.id;      
     }
   }
-}
 
-enum ActionType {
-  Add,
-  Remove
+  onClickOutside(event: MouseEvent) {
+    if(this.editing && event.clientX > 0 && event.clientY > 0) {
+      let clientRect = this.el.nativeElement.getBoundingClientRect();
+      let isInside = event.clientX >= clientRect.left && event.clientX <= clientRect.right
+                  && event.clientY >= clientRect.top && event.clientY <= clientRect.bottom;
+      if (!isInside) {
+        this.endEdit();
+      }
+    }
+  }
 }

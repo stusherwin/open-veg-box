@@ -1834,6 +1834,9 @@ select {
   display: block;
   background: #fff;
 }
+.round-customers .editable-edit .round-customers-add:first-child {
+  border-top: none;
+}
 .header.home-header {
   width: 570px;
   margin: 0 auto;

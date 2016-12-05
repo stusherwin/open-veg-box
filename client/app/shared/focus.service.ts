@@ -14,12 +14,8 @@ export class FocusService {
       .sort((a, b) => a.depth < b.depth ? -1 : 1)
       .map(f => f.f);
 
-    for(let a of ancestors) {
-      let bubble = a.descendentFocus(focusable);
-      if(!bubble) {
-        break;
-      }
-    }
+    let nearestAncestor = ancestors.length? ancestors[0] : null;
+    let bubble = nearestAncestor.descendentFocus(focusable);
   }
 
   onBlur(focusable: FocusDirective) {
@@ -29,12 +25,8 @@ export class FocusService {
       .sort((a, b) => a.depth < b.depth ? -1 : 1)
       .map(f => f.f);
 
-    for(let a of ancestors) {
-      let bubble = a.descendentBlur(focusable);
-      if(!bubble) {
-        break;
-      }
-    }
+    let nearestAncestor = ancestors.length? ancestors[0] : null;
+    let bubble = nearestAncestor.descendentBlur(focusable);
   }
 
   blurDescendents(focusable: FocusDirective) {
