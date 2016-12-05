@@ -64,7 +64,7 @@ export class SqlHelper<T> {
         $count: pageSize,
         $skip: startIndex
       }, (err: any, rows: any) => {
-        var results: T[] = rows.map(create);
+        var results: T[] = (rows || []).map(create);
         o.next(results);
         o.complete();
       });
@@ -79,7 +79,7 @@ export class SqlHelper<T> {
         $count: pageSize,
         $skip: startIndex
       }, (err: any, rows: any) => {
-        var results: T[] = rows.map(create);
+        var results: T[] = (rows || []).map(create);
         o.next(results);
         o.complete();
       });
@@ -94,7 +94,7 @@ export class SqlHelper<T> {
         $count: pageSize,
         $skip: startIndex
       }, (err: any, rows: any) => {
-        var results = create(rows);
+        var results = create(rows || []);
         o.next(results);
         o.complete();
       });

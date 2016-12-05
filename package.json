@@ -9,6 +9,8 @@
     "e2e": "tsc && concurrently \"http-server\" \"protractor protractor.config.js\"",
     "lint": "tslint ./app/**/*.ts -t verbose",
     "lite": "lite-server",
+    "postinstall": "typings install",
+    "heroku-postbuild": "tsc",
     "test": "tsc && concurrently \"tsc -w\" \"karma start karma.conf.js\"",
     "tsc": "tsc --p .",
     "tsc:w": "tsc -w",
@@ -44,7 +46,11 @@
     "rimraf": "2.5.4",
     "rxjs": "5.0.0-beta.6",
     "sqlite": "2.2.0",
+    "sqlite3": "^3.1.8",
     "systemjs": "0.19.27",
+    "tslint": "^3.7.4",
+    "typescript": "^1.8.10",
+    "typings": "^1.0.4",
     "zone.js": "^0.6.12"
   },
   "devDependencies": {
