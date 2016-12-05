@@ -60,3 +60,4 @@ Round customers
 ===============
 * Implement 'email all' feature on Round
 * Erratic expand/collapse behaviour if add/remove customer enough times
+* Move to postgres as sqlite not supported on Heroku?
