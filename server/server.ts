@@ -16,6 +16,6 @@ app.all('/*', function(req: any, res: any) {
   res.sendFile(path.resolve('client/index.html'));
 });
 
-app.listen(5000, function () {
+app.listen(+(process.argv[2]), function () {
   console.log('Started. Listening...');
 });
