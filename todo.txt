@@ -54,7 +54,8 @@ Edit Individual fields
 * Fix add focus - when should it stay in add mode?
 * 1px wobble in product unit quantity
 * Vertically centre 'edit' button
-* Change background of 'edit' button on mouseover? 
+* Change background of 'edit' button on mouseover?
+* Highlight/textbox border should be outside (encompass) icons on fields (address, email, tel)
 
 Round customers
 ===============

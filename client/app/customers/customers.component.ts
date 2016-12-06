@@ -11,7 +11,6 @@ import 'rxjs/add/operator/last';
 
 @Component({
   selector: 'cc-customers',
-  styleUrls: ['app/customers/customers.component.css'],
   templateUrl: 'app/customers/customers.component.html',
   directives: [CustomerComponent, FocusDirective],
   providers: [CustomerService, FocusService]

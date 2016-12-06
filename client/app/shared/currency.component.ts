@@ -10,7 +10,6 @@ const CURRENCY_CONTROL_VALUE_ACCESSOR = new Provider( NG_VALUE_ACCESSOR, {
 
 @Component({
   selector: 'cc-currency',
-  styleUrls: ['app/controls/currency.component.css'],
   template: `
     <div class="currency">
       &pound;

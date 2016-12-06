@@ -12,7 +12,6 @@ import 'rxjs/add/operator/last';
 
 @Component({
   selector: 'cc-rounds',
-  styleUrls: ['app/rounds/rounds.component.css'],
   templateUrl: 'app/rounds/rounds.component.html',
   directives: [RoundComponent, FocusDirective],
   providers: [RoundService, CustomerService, FocusService]

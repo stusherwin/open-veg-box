@@ -12,7 +12,6 @@ import { LoggedInRouterOutlet } from './auth/logged-in-router-outlet';
 
 @Component({
   selector: 'cc-app',
-  styleUrls: ['app/app.component.css'],
   templateUrl: 'app/app.component.html',
   directives: [LoggedInRouterOutlet, HeaderComponent]
 })
