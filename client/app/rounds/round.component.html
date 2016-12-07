@@ -2,7 +2,7 @@
   <input type="checkbox" *ngIf="addMode && !focused" style="position: absolute;left:-1000px" cc-focus [tabindex]="index * 2" />
   <div class="actions">
     <div class="action" *ngIf="!addMode">
-      <a class="button" href="mailto:stu@gmail.com" cc-focus [tabindex]="(index * 2) + 2" (click)="$event.preventDefault();clickEmail()">
+      <a class="button" [routerLink]="['../Email', {roundId: round.id}]" cc-focus [tabindex]="(index * 2) + 2">
         <div class="icon"><i class="icon-mail-dark"></i></div>
         <span>Email</span>
       </a>

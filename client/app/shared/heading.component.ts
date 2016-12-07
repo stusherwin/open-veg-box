@@ -43,14 +43,10 @@ export class HeadingComponent {
   }
 
   startEdit() {
-//    console.log('startEdit()');
- //   console.log('editing: ' + this.editing);
     this.editing = true;
   }
 
   endEdit() {
-   // console.log('endEdit()');
-    
     this.editing = false;
     this.update.emit(null);
   }

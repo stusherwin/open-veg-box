@@ -48,7 +48,7 @@ import { LoggedInRouterOutlet } from './auth/logged-in-router-outlet';
     component: CollectionPointsComponent
   },
   {
-    path: 'rounds',
+    path: 'rounds/...',
     name: 'Rounds',
     component: RoundsComponent
   },

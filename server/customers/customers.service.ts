@@ -15,7 +15,7 @@ export class CustomersService {
             + ' left join round_customer rc on rc.customerId = c.id'
             + ' where rc.roundId is null'
             + ' order by c.name';
-    return this.sqlHelper.selectSql(db, sql, queryParams,
+    return this.sqlHelper.selectSql(db, sql, queryParams, {},
       r => new Customer(r.id, r.name, r.address, r.tel1, r.tel2, r.email));
   }
   

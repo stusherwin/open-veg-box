@@ -34,7 +34,6 @@ General Styling
 ? Buttons: circular shadow on hover instead of rectangle?
 * Browser testing
 * Chrome rendering issue with 1px border width (fix by positioning from centre of circles not corner)
-~* Why is BrowserSync reloading multiple times??
 
 Edit Individual fields
 ======================

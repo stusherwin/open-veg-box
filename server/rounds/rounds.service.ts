@@ -10,7 +10,7 @@ export class RoundsService {
             + ' left join round_customer rc on rc.roundId = r.id'
             + ' left join customer c on c.id = rc.customerId'
             + ' order by r.id, c.name';
-    return this.sqlHelper.selectSqlRows(db, sql, queryParams,
+    return this.sqlHelper.selectSqlRows(db, sql, queryParams, {},
       rows => {
         let rounds: { [id: number]: Round; } = {};
         for(let r of rows) {
@@ -26,6 +26,27 @@ export class RoundsService {
           result.push(rounds[id]);
         }
         return result;
+      });
+  }
+
+  get(id: number, db: any): Observable<Round> {
+    var sql = 'select r.id, r.name, c.id customerId, c.name customerName, c.address customerAddress from round r' 
+            + ' left join round_customer rc on rc.roundId = r.id'
+            + ' left join customer c on c.id = rc.customerId'
+            + ' where r.id = $id'
+            + ' order by r.id, c.name';
+    return this.sqlHelper.selectSqlSingle(db, sql, {$id: id}, 
+      rows => {
+        let round: Round = null;
+        for(let r of rows) {
+          if(!round) {
+            round = new Round(r.id, r.name, []);
+          }
+          if(r.customerId) {
+            round.customers.push(new RoundCustomer(r.customerId, r.customerName, r.customerAddress));
+          }
+        }
+        return round;
       });
   }
 

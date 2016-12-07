@@ -1,26 +1,5 @@
 import {Observable} from 'rxjs/Observable';
-
-export let wl = function(props: any, obj: any): any {
-  return makeWl(props)(obj);
-}
-
-export let makeWl = function(props: any): (o:any) => any {
-  return function(obj: any) {
-    if(!obj) {
-      return obj;
-    }
-    
-    var result = {};
-    var destProps: string[] = props instanceof Array? props : Object.getOwnPropertyNames(props);
-    for(var srcProp in obj) {
-      if(destProps.indexOf(srcProp) >= 0) {
-        var destProp = props instanceof Array? srcProp : props[srcProp];
-        result[destProp] = obj[srcProp];
-      }
-    }
-    return result;
-  }
-}
+import {Objects} from './objects';
 
 export class SqlHelper<T> {
   private table: string;
@@ -34,36 +13,28 @@ export class SqlHelper<T> {
   }
 
   private getFields = function(obj: any): string[] {
-    var properties = Object.getOwnPropertyNames(obj);
-    var result: string[] = [];
-    for(var property of properties) {
-      if(this.fields.indexOf(property) > -1) {
-        result.push(property);
-      }
-    }
-
-    return result;
+    var whiteListed = Objects.whiteList(obj, this.fields);
+    return Object.getOwnPropertyNames(whiteListed);
   }
 
-  private buildSqlParams = function(params: any, id?: number): any {
-    var sqlParams = {};
-    for(var field in wl(this.fields, params)) {
-      sqlParams['$' + field] = params[field];
-    }
-    if (id){
-      sqlParams['$id'] = id;
-    }
-    return sqlParams;  
+  private buildSqlParams = function(params: any, extra: any): any {
+    var whiteListed = Objects.whiteList(params, this.fields); 
+    var sqlParams = Objects.prependPropertyNames(whiteListed, '$');
+    return Objects.extend(sqlParams, extra);  
+  }
+
+  private buildPagingParams = function(queryParams: any): any {
+    var pageSize = +(queryParams.pageSize || this.defaultPageSize);
+    var startIndex = (+(queryParams.page || 1) - 1) * pageSize;
+    return {
+      $count: pageSize,
+      $skip: startIndex
+    };
   }
 
   selectAll = function(db: any, queryParams: any, create: (row: any) => T): Observable<T[]> {
     return Observable.create((o: any) => {
-      var pageSize = +(queryParams.pageSize || this.defaultPageSize);
-      var startIndex = (+(queryParams.page || 1) - 1) * pageSize;
-      db.all('select * from ' + this.table + ' order by id limit $count offset $skip', {
-        $count: pageSize,
-        $skip: startIndex
-      }, (err: any, rows: any) => {
+      db.all('select * from ' + this.table + ' order by id limit $count offset $skip', this.buildPagingParams(queryParams), (err: any, rows: any) => {
         var results: T[] = (rows || []).map(create);
         o.next(results);
         o.complete();
@@ -71,14 +42,9 @@ export class SqlHelper<T> {
     });
   }
 
-  selectSql = function(db: any, sql: string, queryParams: any, create: (row: any) => T): Observable<T[]> {
+  selectSql = function(db: any, sql: string, queryParams: any, params: any, create: (row: any) => T): Observable<T[]> {
     return Observable.create((o: any) => {
-      var pageSize = +(queryParams.pageSize || this.defaultPageSize);
-      var startIndex = (+(queryParams.page || 1) - 1) * pageSize;
-      db.all(sql + ' limit $count offset $skip', {
-        $count: pageSize,
-        $skip: startIndex
-      }, (err: any, rows: any) => {
+      db.all(sql + ' limit $count offset $skip', Objects.extend(params, this.buildPagingParams(queryParams)), (err: any, rows: any) => {
         var results: T[] = (rows || []).map(create);
         o.next(results);
         o.complete();
@@ -86,16 +52,21 @@ export class SqlHelper<T> {
     });
   }
 
-  selectSqlRows = function(db: any, sql: string, queryParams: any, create: (rows: any[]) => T[]): Observable<T[]> {
+  selectSqlRows = function(db: any, sql: string, queryParams: any, params: any, create: (rows: any[]) => T[]): Observable<T[]> {
     return Observable.create((o: any) => {
-      var pageSize = +(queryParams.pageSize || this.defaultPageSize);
-      var startIndex = (+(queryParams.page || 1) - 1) * pageSize;
-      db.all(sql + ' limit $count offset $skip', {
-        $count: pageSize,
-        $skip: startIndex
-      }, (err: any, rows: any) => {
+      db.all(sql + ' limit $count offset $skip', Objects.extend(params, this.buildPagingParams(queryParams)), (err: any, rows: any) => {
         var results = create(rows || []);
         o.next(results);
+        o.complete();
+      });
+    });
+  }
+
+  selectSqlSingle = function(db: any, sql: string, params: any, create: (rows: any[]) => T): Observable<T> {
+    return Observable.create((o: any) => {
+      db.all(sql, params, (err: any, rows: any) => {
+        var result = create(rows || []);
+        o.next(result);
         o.complete();
       });
     });
@@ -124,7 +95,7 @@ export class SqlHelper<T> {
       + this.getFields(params).map((f:string) => f + ' = $' + f).join(', ')
       + ' where id = $id';
       
-    db.run(updateSql, this.buildSqlParams(params, id));
+    db.run(updateSql, this.buildSqlParams(params, {$id: id}));
   }
 
   insert = function(db: any, params: any) {

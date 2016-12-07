@@ -3,11 +3,12 @@ import { Round, RoundCustomer } from './round';
 import { HeadingComponent } from '../shared/heading.component';
 import { FocusDirective } from '../shared/focus.directive'
 import { RoundCustomersComponent } from './round-customers.component';
+import { ROUTER_DIRECTIVES, Router } from '@angular/router-deprecated';
 
 @Component({
   selector: 'cc-round',
   templateUrl: 'app/rounds/round.component.html',
-  directives: [HeadingComponent, FocusDirective, RoundCustomersComponent]
+  directives: [HeadingComponent, FocusDirective, RoundCustomersComponent, ROUTER_DIRECTIVES]
 })
 export class RoundComponent {
   adding: boolean;
