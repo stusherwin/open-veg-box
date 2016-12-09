@@ -5,11 +5,12 @@ import { FocusDirective } from '../shared/focus.directive'
 import { CustomerAddressComponent } from './customer-address.component'
 import { CustomerEmailComponent } from './customer-email.component'
 import { CustomerTelComponent } from './customer-tel.component'
+import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 
 @Component({
   selector: 'cc-customer',
   templateUrl: 'app/customers/customer.component.html',
-  directives: [HeadingComponent, FocusDirective, CustomerAddressComponent, CustomerEmailComponent, CustomerTelComponent],
+  directives: [HeadingComponent, FocusDirective, CustomerAddressComponent, CustomerEmailComponent, CustomerTelComponent, ROUTER_DIRECTIVES],
 })
 export class CustomerComponent {
   adding: boolean;

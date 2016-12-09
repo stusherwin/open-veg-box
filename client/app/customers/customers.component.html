@@ -1,10 +1,5 @@
 <div class="page-outer">
   <div class="page-inner">
-    <h2>Customers</h2>
-
-    <div class="row-view" cc-focus focusedClass="focused">
-      <cc-customer *ngFor="let c of customers; let i = index" [customer]="c" [index]="i" (delete)="onDelete($event)" (update)="onUpdate($event)"></cc-customer>
-      <cc-customer addMode="true" [showAddMessage]="!customers.length" (add)="onAdd($event)" [index]="customers.length"></cc-customer>
-    </div>
+    <router-outlet></router-outlet>
   </div>
 </div>

@@ -20,7 +20,12 @@ customers.get('/', function(req: any, res: any) {
 
 customers.get('/no_round', function(req: any, res: any) {
   customersService.getAllWithNoRound(Objects.whiteList(req.query, ['page', 'pageSize']), req.db)
-                  .subscribe(rounds => res.json(rounds));
+                  .subscribe(customers => res.json(customers));
+});
+
+customers.get('/:id', function(req: any, res: any) {
+  customersService.get(req.params.id, req.db)
+                  .subscribe(customer => res.json(customer));
 });
 
 customers.post('/:id', function(req: any, res: any) {

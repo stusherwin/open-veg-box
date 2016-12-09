@@ -38,7 +38,7 @@ import { LoggedInRouterOutlet } from './auth/logged-in-router-outlet';
     component: BoxesComponent
   },
   {
-    path: 'customers',
+    path: 'customers/...',
     name: 'Customers',
     component: CustomersComponent
   },

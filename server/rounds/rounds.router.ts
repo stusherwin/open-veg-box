@@ -20,7 +20,7 @@ rounds.get('/', function(req: any, res: any) {
 
 rounds.get('/:id', function(req: any, res: any) {
   roundsService.get(req.params.id, req.db)
-               .subscribe(rounds => res.json(rounds));
+               .subscribe(round => res.json(round));
 });
 
 rounds.post('/:id', function(req: any, res: any) {

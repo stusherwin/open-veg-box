@@ -1,0 +1,4 @@
+<div *ngIf="customer">
+  <h2>{{customer.name}}: Email</h2>
+  <cc-email-customers [customers]="customerEmails" [cancelLinkParams]="['../CustomersHome']"></cc-email-customers>
+</div>

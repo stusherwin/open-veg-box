@@ -12,6 +12,9 @@ import { FocusService } from '../shared/focus.service';
 export class EmailCustomersComponent {
   @Input()
   customers: CustomerEmail[]
+
+  @Input()
+  cancelLinkParams: any[]
 }
 
 export class CustomerEmail {

@@ -18,6 +18,17 @@ export class CustomersService {
     return this.sqlHelper.selectSql(db, sql, queryParams, {},
       r => new Customer(r.id, r.name, r.address, r.tel1, r.tel2, r.email));
   }
+
+  get(id: number, db: any): Observable<Customer> {
+    var sql = 'select id, name, address, tel1, tel2, email from customer' 
+            + ' where id = $id';
+    return this.sqlHelper.selectSqlSingle(db, sql, {$id: id}, 
+      rows => {
+        return rows.length
+          ? new Customer(rows[0].id, rows[0].name, rows[0].address, rows[0].tel1, rows[0].tel2, rows[0].email)
+          : null; 
+      });
+  }
   
   add(params: any, queryParams: any, db: any): Observable<Customer[]> {
     this.sqlHelper.insert(db, params);

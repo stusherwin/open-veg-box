@@ -30,6 +30,12 @@ export class CustomerService {
                     .map(ps => ps.map(this.hydrate));
   }
 
+  get(id: number): Observable<Customer> {
+    return this.http.get('/api/customers/' + id)
+                    .map(res => res.json())
+                    .map(this.hydrate);
+  }
+
   getAllWithNoRound(queryParams: {[key: string]: string}): Observable<Customer[]> {
     return this.http.get('/api/customers/no_round?' + this.toQueryString(queryParams))
                     .map(res => res.json())
