@@ -6,7 +6,7 @@ export class RoundsService {
   sqlHelper = new SqlHelper<Round>('round', ['name']);
 
   getAll(queryParams: any, db: any): Observable<Round[]> {
-    var sql = 'select r.id, r.name, c.id customerId, c.name customerName, c.address customerAddress from round r' 
+    var sql = 'select r.id, r.name, c.id customerId, c.name customerName, c.address customerAddress, c.email customerEmail from round r' 
             + ' left join round_customer rc on rc.roundId = r.id'
             + ' left join customer c on c.id = rc.customerId'
             + ' order by r.id, c.name';
@@ -18,7 +18,7 @@ export class RoundsService {
             rounds[r.id] = new Round(r.id, r.name, []);
           }
           if(r.customerId) {
-            rounds[r.id].customers.push(new RoundCustomer(r.customerId, r.customerName, r.customerAddress));
+            rounds[r.id].customers.push(new RoundCustomer(r.customerId, r.customerName, r.customerAddress, r.customerEmail));
           }
         }
         let result: Round[] = [];
@@ -30,7 +30,7 @@ export class RoundsService {
   }
 
   get(id: number, db: any): Observable<Round> {
-    var sql = 'select r.id, r.name, c.id customerId, c.name customerName, c.address customerAddress from round r' 
+    var sql = 'select r.id, r.name, c.id customerId, c.name customerName, c.address customerAddress, c.email customerEmail from round r' 
             + ' left join round_customer rc on rc.roundId = r.id'
             + ' left join customer c on c.id = rc.customerId'
             + ' where r.id = $id'
@@ -43,7 +43,7 @@ export class RoundsService {
             round = new Round(r.id, r.name, []);
           }
           if(r.customerId) {
-            round.customers.push(new RoundCustomer(r.customerId, r.customerName, r.customerAddress));
+            round.customers.push(new RoundCustomer(r.customerId, r.customerName, r.customerAddress, r.customerEmail));
           }
         }
         return round;

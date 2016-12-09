@@ -10,18 +10,20 @@ export class Round {
   customers: RoundCustomer[]
 
   clone() {
-    return new Round(this.id, this.name, this.customers.map(c => new RoundCustomer(c.id, c.name, c.address)));
+    return new Round(this.id, this.name, this.customers.map(c => new RoundCustomer(c.id, c.name, c.address, c.email)));
   }
 }
 
 export class RoundCustomer {
-  constructor(id: number, name:string, address: string) {
+  constructor(id: number, name:string, address: string, email: string) {
     this.id = id;
     this.name = name;
     this.address = address;
+    this.email = email;
   }
     
   id: number;
   name: string;
   address: string;
+  email: string;
 }

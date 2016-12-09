@@ -105,6 +105,9 @@
   display: block;
   position: relative;
   width: 66px;
+  text-align: start;
+  padding: none;
+  border-width: 0;
   background: none;
   color: #c4dfb4;
   font-size: 80%;
@@ -279,6 +282,9 @@
     display: block;
     position: relative;
     width: 66px;
+    text-align: start;
+    padding: none;
+    border-width: 0;
     background: none;
     color: #c4dfb4;
     font-size: 80%;

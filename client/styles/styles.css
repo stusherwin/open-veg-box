@@ -176,172 +176,7 @@ html {
 .outer {
   background: #579532;
 }
-button {
-  border: none;
-  border-radius: 2px;
-  padding: 0;
-  display: block;
-  position: relative;
-  width: 66px;
-  text-decoration: none;
-  background: none;
-  color: #888;
-}
-button .icon {
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 46px;
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  height: 46px;
-  width: 46px;
-  padding: 2px 0 0 2px;
-}
-button .icon i {
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 40px;
-  height: 40px;
-  width: 40px;
-  font-size: 200%;
-  display: block;
-}
-button span {
-  position: absolute;
-  top: 61px;
-  width: 100%;
-  font-size: 75%;
-  text-transform: uppercase;
-  text-align: center;
-  line-height: 10px;
-  display: block;
-  width: 46 px;
-}
-button:focus {
-  outline: 0;
-}
 button,
-button:active {
-  cursor: pointer;
-}
-button[disabled],
-button[disabled]:hover,
-button.disabled,
-button.disabled:hover {
-  cursor: default;
-}
-button[disabled],
-button[disabled]:hover,
-button.disabled,
-button.disabled:hover {
-  background: none;
-  color: #ccc;
-  cursor: default;
-}
-button[disabled] .icon,
-button[disabled]:hover .icon,
-button.disabled .icon,
-button.disabled:hover .icon {
-  background: none;
-  border-color: #ccc;
-}
-button[disabled] .icon i,
-button[disabled]:hover .icon i,
-button.disabled .icon i,
-button.disabled:hover .icon i {
-  background: none;
-  border-color: #ccc;
-  box-shadow: none;
-}
-button[disabled] span,
-button[disabled]:hover span,
-button.disabled span,
-button.disabled:hover span {
-  color: #ccc;
-}
-button .icon {
-  background: none;
-  border-color: #888;
-}
-button .icon i {
-  border-color: #ccc;
-  background: none;
-}
-button span {
-  color: #888;
-}
-button:hover,
-button:focus {
-  background: #fda;
-  color: #777;
-}
-button:hover .icon,
-button:focus .icon {
-  background: white;
-  border-color: #777;
-}
-button:hover .icon i,
-button:focus .icon i {
-  border-color: #e4c392;
-  background: #fda;
-}
-button:hover span,
-button:focus span {
-  color: #777;
-}
-button:hover .icon i,
-button:focus .icon i {
-  background: #fda;
-  box-shadow: inset rgba(255, 255, 255, 0.7) 0px 2px 10px, inset rgba(0, 0, 0, 0.1) 0px -2px 10px;
-}
-button:hover[disabled] .icon i,
-button:focus[disabled] .icon i,
-button:hover[disabled]:hover .icon i,
-button:focus[disabled]:hover .icon i,
-button:hover.disabled .icon i,
-button:focus.disabled .icon i,
-button:hover.disabled:hover .icon i,
-button:focus.disabled:hover .icon i {
-  box-shadow: none;
-}
-button:active .icon i {
-  background: #ffd390;
-  box-shadow: inset rgba(255, 255, 255, 0.7) 0px -2px 10px, inset rgba(0, 0, 0, 0.1) 0px 2px 10px;
-}
-button:active[disabled] .icon i,
-button:active[disabled]:hover .icon i,
-button:active.disabled .icon i,
-button:active.disabled:hover .icon i {
-  box-shadow: none;
-}
-button[disabled],
-button[disabled]:hover,
-button.disabled,
-button.disabled:hover {
-  background: none;
-  color: #ccc;
-}
-button[disabled] .icon,
-button[disabled]:hover .icon,
-button.disabled .icon,
-button.disabled:hover .icon {
-  background: none;
-  border-color: #ccc;
-}
-button[disabled] .icon i,
-button[disabled]:hover .icon i,
-button.disabled .icon i,
-button.disabled:hover .icon i {
-  border-color: #ccc;
-  background: none;
-}
-button[disabled] span,
-button[disabled]:hover span,
-button.disabled span,
-button.disabled:hover span {
-  color: #ccc;
-}
 a.button {
   font-size: 80%;
   border: none;
@@ -351,9 +186,13 @@ a.button {
   position: relative;
   width: 66px;
   text-decoration: none;
+  text-align: start;
+  padding: none;
+  border-width: 0;
   background: none;
   color: #888;
 }
+button .icon,
 a.button .icon {
   border-width: 1px;
   border-style: solid;
@@ -365,6 +204,7 @@ a.button .icon {
   width: 46px;
   padding: 2px 0 0 2px;
 }
+button .icon i,
 a.button .icon i {
   border-width: 1px;
   border-style: solid;
@@ -374,6 +214,7 @@ a.button .icon i {
   font-size: 200%;
   display: block;
 }
+button span,
 a.button span {
   position: absolute;
   top: 61px;
@@ -385,127 +226,192 @@ a.button span {
   display: block;
   width: 46 px;
 }
+button:focus,
 a.button:focus {
   outline: 0;
 }
+button,
 a.button,
+button:active,
 a.button:active {
   cursor: pointer;
 }
+button[disabled],
 a.button[disabled],
+button[disabled]:hover,
 a.button[disabled]:hover,
+button.disabled,
 a.button.disabled,
+button.disabled:hover,
 a.button.disabled:hover {
   cursor: default;
 }
+button[disabled],
 a.button[disabled],
+button[disabled]:hover,
 a.button[disabled]:hover,
+button.disabled,
 a.button.disabled,
+button.disabled:hover,
 a.button.disabled:hover {
   background: none;
   color: #ccc;
   cursor: default;
 }
+button[disabled] .icon,
 a.button[disabled] .icon,
+button[disabled]:hover .icon,
 a.button[disabled]:hover .icon,
+button.disabled .icon,
 a.button.disabled .icon,
+button.disabled:hover .icon,
 a.button.disabled:hover .icon {
   background: none;
   border-color: #ccc;
 }
+button[disabled] .icon i,
 a.button[disabled] .icon i,
+button[disabled]:hover .icon i,
 a.button[disabled]:hover .icon i,
+button.disabled .icon i,
 a.button.disabled .icon i,
+button.disabled:hover .icon i,
 a.button.disabled:hover .icon i {
   background: none;
   border-color: #ccc;
   box-shadow: none;
 }
+button[disabled] span,
 a.button[disabled] span,
+button[disabled]:hover span,
 a.button[disabled]:hover span,
+button.disabled span,
 a.button.disabled span,
+button.disabled:hover span,
 a.button.disabled:hover span {
   color: #ccc;
 }
+button .icon,
 a.button .icon {
   background: none;
   border-color: #888;
 }
+button .icon i,
 a.button .icon i {
   border-color: #ccc;
   background: none;
 }
+button span,
 a.button span {
   color: #888;
 }
+button:hover,
 a.button:hover,
+button:focus,
 a.button:focus {
   background: #fda;
   color: #777;
 }
+button:hover .icon,
 a.button:hover .icon,
+button:focus .icon,
 a.button:focus .icon {
   background: white;
   border-color: #777;
 }
+button:hover .icon i,
 a.button:hover .icon i,
+button:focus .icon i,
 a.button:focus .icon i {
   border-color: #e4c392;
   background: #fda;
 }
+button:hover span,
 a.button:hover span,
+button:focus span,
 a.button:focus span {
   color: #777;
 }
+button:hover .icon i,
 a.button:hover .icon i,
+button:focus .icon i,
 a.button:focus .icon i {
   background: #fda;
   box-shadow: inset rgba(255, 255, 255, 0.7) 0px 2px 10px, inset rgba(0, 0, 0, 0.1) 0px -2px 10px;
 }
+button:hover[disabled] .icon i,
 a.button:hover[disabled] .icon i,
+button:focus[disabled] .icon i,
 a.button:focus[disabled] .icon i,
+button:hover[disabled]:hover .icon i,
 a.button:hover[disabled]:hover .icon i,
+button:focus[disabled]:hover .icon i,
 a.button:focus[disabled]:hover .icon i,
+button:hover.disabled .icon i,
 a.button:hover.disabled .icon i,
+button:focus.disabled .icon i,
 a.button:focus.disabled .icon i,
+button:hover.disabled:hover .icon i,
 a.button:hover.disabled:hover .icon i,
+button:focus.disabled:hover .icon i,
 a.button:focus.disabled:hover .icon i {
   box-shadow: none;
 }
+button:active .icon i,
 a.button:active .icon i {
   background: #ffd390;
   box-shadow: inset rgba(255, 255, 255, 0.7) 0px -2px 10px, inset rgba(0, 0, 0, 0.1) 0px 2px 10px;
 }
+button:active[disabled] .icon i,
 a.button:active[disabled] .icon i,
+button:active[disabled]:hover .icon i,
 a.button:active[disabled]:hover .icon i,
+button:active.disabled .icon i,
 a.button:active.disabled .icon i,
+button:active.disabled:hover .icon i,
 a.button:active.disabled:hover .icon i {
   box-shadow: none;
 }
+button[disabled],
 a.button[disabled],
+button[disabled]:hover,
 a.button[disabled]:hover,
+button.disabled,
 a.button.disabled,
+button.disabled:hover,
 a.button.disabled:hover {
   background: none;
   color: #ccc;
 }
+button[disabled] .icon,
 a.button[disabled] .icon,
+button[disabled]:hover .icon,
 a.button[disabled]:hover .icon,
+button.disabled .icon,
 a.button.disabled .icon,
+button.disabled:hover .icon,
 a.button.disabled:hover .icon {
   background: none;
   border-color: #ccc;
 }
+button[disabled] .icon i,
 a.button[disabled] .icon i,
+button[disabled]:hover .icon i,
 a.button[disabled]:hover .icon i,
+button.disabled .icon i,
 a.button.disabled .icon i,
+button.disabled:hover .icon i,
 a.button.disabled:hover .icon i {
   border-color: #ccc;
   background: none;
 }
+button[disabled] span,
 a.button[disabled] span,
+button[disabled]:hover span,
 a.button[disabled]:hover span,
+button.disabled span,
 a.button.disabled span,
+button.disabled:hover span,
 a.button.disabled:hover span {
   color: #ccc;
 }
@@ -626,6 +532,9 @@ h4 {
   display: block;
   position: relative;
   width: 66px;
+  text-align: start;
+  padding: none;
+  border-width: 0;
   background: none;
   color: #c4dfb4;
   font-size: 80%;
@@ -800,6 +709,9 @@ h4 {
     display: block;
     position: relative;
     width: 66px;
+    text-align: start;
+    padding: none;
+    border-width: 0;
     background: none;
     color: #c4dfb4;
     font-size: 80%;
@@ -1045,8 +957,15 @@ select {
 .row-view .row.addMode {
   border-bottom: 1px solid #e6e6e6;
 }
+.row-view .row.no-border,
+.row-view .row.no-border.addMode {
+  border: none;
+}
 .row-view .row:hover {
   background: #fff1dd;
+}
+.row-view .row.no-hover:hover {
+  background: inherit;
 }
 .row-view .row .actions {
   float: right;
@@ -1078,6 +997,9 @@ select {
   position: relative;
   width: 66px;
   text-decoration: none;
+  text-align: start;
+  padding: none;
+  border-width: 0;
   background: none;
   color: #888;
 }
@@ -1316,6 +1238,9 @@ select {
   position: relative;
   width: 66px;
   text-decoration: none;
+  text-align: start;
+  padding: none;
+  border-width: 0;
   background: none;
   color: #888;
 }
@@ -1837,6 +1762,296 @@ select {
 .round-customers .editable-edit .round-customers-add:first-child {
   border-top: none;
 }
+.group:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.email-edit {
+  background: #fafafa;
+  margin-left: 0px;
+  padding: 10px;
+  padding-left: 12px;
+  border-top: 1px solid #e6e6e6;
+  border-bottom: 1px solid #e6e6e6;
+  padding-bottom: 0;
+}
+.email-edit label {
+  display: block;
+  float: left;
+  width: 70px;
+}
+.email-edit .field {
+  float: left;
+  width: calc(100% - 70px);
+}
+.email-edit .form-row {
+  margin-bottom: 10px;
+}
+.email-edit .form-row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.email-edit input[type="text"],
+.email-edit input[type="password"],
+.email-edit textarea {
+  position: relative;
+  top: -5px;
+}
+.email-edit textarea {
+  display: block;
+  height: 200px;
+  top: -4px;
+}
+.email-edit .recipients li {
+  margin-bottom: 5px;
+}
+.email-edit .row-view {
+  margin-top: -2px;
+  margin-right: -10px;
+}
+.email-edit.focused {
+  background: #fff1dd;
+}
+.email-edit.focused .row button,
+.email-edit.focused .row a.button {
+  border: none;
+  border-radius: 2px;
+  padding: 0;
+  display: block;
+  position: relative;
+  width: 66px;
+  text-decoration: none;
+  text-align: start;
+  padding: none;
+  border-width: 0;
+  background: none;
+  color: #888;
+}
+.email-edit.focused .row button .icon,
+.email-edit.focused .row a.button .icon {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 46px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  height: 46px;
+  width: 46px;
+  padding: 2px 0 0 2px;
+}
+.email-edit.focused .row button .icon i,
+.email-edit.focused .row a.button .icon i {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 40px;
+  height: 40px;
+  width: 40px;
+  font-size: 200%;
+  display: block;
+}
+.email-edit.focused .row button span,
+.email-edit.focused .row a.button span {
+  position: absolute;
+  top: 61px;
+  width: 100%;
+  font-size: 75%;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 10px;
+  display: block;
+  width: 46 px;
+}
+.email-edit.focused .row button:focus,
+.email-edit.focused .row a.button:focus {
+  outline: 0;
+}
+.email-edit.focused .row button,
+.email-edit.focused .row a.button,
+.email-edit.focused .row button:active,
+.email-edit.focused .row a.button:active {
+  cursor: pointer;
+}
+.email-edit.focused .row button[disabled],
+.email-edit.focused .row a.button[disabled],
+.email-edit.focused .row button[disabled]:hover,
+.email-edit.focused .row a.button[disabled]:hover,
+.email-edit.focused .row button.disabled,
+.email-edit.focused .row a.button.disabled,
+.email-edit.focused .row button.disabled:hover,
+.email-edit.focused .row a.button.disabled:hover {
+  cursor: default;
+}
+.email-edit.focused .row button[disabled],
+.email-edit.focused .row a.button[disabled],
+.email-edit.focused .row button[disabled]:hover,
+.email-edit.focused .row a.button[disabled]:hover,
+.email-edit.focused .row button.disabled,
+.email-edit.focused .row a.button.disabled,
+.email-edit.focused .row button.disabled:hover,
+.email-edit.focused .row a.button.disabled:hover {
+  background: none;
+  color: #ccc;
+  cursor: default;
+}
+.email-edit.focused .row button[disabled] .icon,
+.email-edit.focused .row a.button[disabled] .icon,
+.email-edit.focused .row button[disabled]:hover .icon,
+.email-edit.focused .row a.button[disabled]:hover .icon,
+.email-edit.focused .row button.disabled .icon,
+.email-edit.focused .row a.button.disabled .icon,
+.email-edit.focused .row button.disabled:hover .icon,
+.email-edit.focused .row a.button.disabled:hover .icon {
+  background: none;
+  border-color: #ccc;
+}
+.email-edit.focused .row button[disabled] .icon i,
+.email-edit.focused .row a.button[disabled] .icon i,
+.email-edit.focused .row button[disabled]:hover .icon i,
+.email-edit.focused .row a.button[disabled]:hover .icon i,
+.email-edit.focused .row button.disabled .icon i,
+.email-edit.focused .row a.button.disabled .icon i,
+.email-edit.focused .row button.disabled:hover .icon i,
+.email-edit.focused .row a.button.disabled:hover .icon i {
+  background: none;
+  border-color: #ccc;
+  box-shadow: none;
+}
+.email-edit.focused .row button[disabled] span,
+.email-edit.focused .row a.button[disabled] span,
+.email-edit.focused .row button[disabled]:hover span,
+.email-edit.focused .row a.button[disabled]:hover span,
+.email-edit.focused .row button.disabled span,
+.email-edit.focused .row a.button.disabled span,
+.email-edit.focused .row button.disabled:hover span,
+.email-edit.focused .row a.button.disabled:hover span {
+  color: #ccc;
+}
+.email-edit.focused .row button .icon,
+.email-edit.focused .row a.button .icon {
+  background: none;
+  border-color: #888;
+}
+.email-edit.focused .row button .icon i,
+.email-edit.focused .row a.button .icon i {
+  border-color: #ccc;
+  background: none;
+}
+.email-edit.focused .row button span,
+.email-edit.focused .row a.button span {
+  color: #888;
+}
+.email-edit.focused .row button:hover,
+.email-edit.focused .row a.button:hover,
+.email-edit.focused .row button:focus,
+.email-edit.focused .row a.button:focus {
+  background: #fda;
+  color: #777;
+}
+.email-edit.focused .row button:hover .icon,
+.email-edit.focused .row a.button:hover .icon,
+.email-edit.focused .row button:focus .icon,
+.email-edit.focused .row a.button:focus .icon {
+  background: white;
+  border-color: #777;
+}
+.email-edit.focused .row button:hover .icon i,
+.email-edit.focused .row a.button:hover .icon i,
+.email-edit.focused .row button:focus .icon i,
+.email-edit.focused .row a.button:focus .icon i {
+  border-color: #e4c392;
+  background: #fda;
+}
+.email-edit.focused .row button:hover span,
+.email-edit.focused .row a.button:hover span,
+.email-edit.focused .row button:focus span,
+.email-edit.focused .row a.button:focus span {
+  color: #777;
+}
+.email-edit.focused .row button:hover .icon i,
+.email-edit.focused .row a.button:hover .icon i,
+.email-edit.focused .row button:focus .icon i,
+.email-edit.focused .row a.button:focus .icon i {
+  background: #fda;
+  box-shadow: inset rgba(255, 255, 255, 0.7) 0px 2px 10px, inset rgba(0, 0, 0, 0.1) 0px -2px 10px;
+}
+.email-edit.focused .row button:hover[disabled] .icon i,
+.email-edit.focused .row a.button:hover[disabled] .icon i,
+.email-edit.focused .row button:focus[disabled] .icon i,
+.email-edit.focused .row a.button:focus[disabled] .icon i,
+.email-edit.focused .row button:hover[disabled]:hover .icon i,
+.email-edit.focused .row a.button:hover[disabled]:hover .icon i,
+.email-edit.focused .row button:focus[disabled]:hover .icon i,
+.email-edit.focused .row a.button:focus[disabled]:hover .icon i,
+.email-edit.focused .row button:hover.disabled .icon i,
+.email-edit.focused .row a.button:hover.disabled .icon i,
+.email-edit.focused .row button:focus.disabled .icon i,
+.email-edit.focused .row a.button:focus.disabled .icon i,
+.email-edit.focused .row button:hover.disabled:hover .icon i,
+.email-edit.focused .row a.button:hover.disabled:hover .icon i,
+.email-edit.focused .row button:focus.disabled:hover .icon i,
+.email-edit.focused .row a.button:focus.disabled:hover .icon i {
+  box-shadow: none;
+}
+.email-edit.focused .row button:active .icon i,
+.email-edit.focused .row a.button:active .icon i {
+  background: #ffd390;
+  box-shadow: inset rgba(255, 255, 255, 0.7) 0px -2px 10px, inset rgba(0, 0, 0, 0.1) 0px 2px 10px;
+}
+.email-edit.focused .row button:active[disabled] .icon i,
+.email-edit.focused .row a.button:active[disabled] .icon i,
+.email-edit.focused .row button:active[disabled]:hover .icon i,
+.email-edit.focused .row a.button:active[disabled]:hover .icon i,
+.email-edit.focused .row button:active.disabled .icon i,
+.email-edit.focused .row a.button:active.disabled .icon i,
+.email-edit.focused .row button:active.disabled:hover .icon i,
+.email-edit.focused .row a.button:active.disabled:hover .icon i {
+  box-shadow: none;
+}
+.email-edit.focused .row button[disabled],
+.email-edit.focused .row a.button[disabled],
+.email-edit.focused .row button[disabled]:hover,
+.email-edit.focused .row a.button[disabled]:hover,
+.email-edit.focused .row button.disabled,
+.email-edit.focused .row a.button.disabled,
+.email-edit.focused .row button.disabled:hover,
+.email-edit.focused .row a.button.disabled:hover {
+  background: none;
+  color: #ccc;
+}
+.email-edit.focused .row button[disabled] .icon,
+.email-edit.focused .row a.button[disabled] .icon,
+.email-edit.focused .row button[disabled]:hover .icon,
+.email-edit.focused .row a.button[disabled]:hover .icon,
+.email-edit.focused .row button.disabled .icon,
+.email-edit.focused .row a.button.disabled .icon,
+.email-edit.focused .row button.disabled:hover .icon,
+.email-edit.focused .row a.button.disabled:hover .icon {
+  background: none;
+  border-color: #ccc;
+}
+.email-edit.focused .row button[disabled] .icon i,
+.email-edit.focused .row a.button[disabled] .icon i,
+.email-edit.focused .row button[disabled]:hover .icon i,
+.email-edit.focused .row a.button[disabled]:hover .icon i,
+.email-edit.focused .row button.disabled .icon i,
+.email-edit.focused .row a.button.disabled .icon i,
+.email-edit.focused .row button.disabled:hover .icon i,
+.email-edit.focused .row a.button.disabled:hover .icon i {
+  border-color: #ccc;
+  background: none;
+}
+.email-edit.focused .row button[disabled] span,
+.email-edit.focused .row a.button[disabled] span,
+.email-edit.focused .row button[disabled]:hover span,
+.email-edit.focused .row a.button[disabled]:hover span,
+.email-edit.focused .row button.disabled span,
+.email-edit.focused .row a.button.disabled span,
+.email-edit.focused .row button.disabled:hover span,
+.email-edit.focused .row a.button.disabled:hover span {
+  color: #ccc;
+}
 .header.home-header {
   width: 570px;
   margin: 0 auto;
@@ -1913,6 +2128,9 @@ select {
   position: relative;
   width: 66px;
   text-decoration: none;
+  text-align: start;
+  padding: none;
+  border-width: 0;
   background: none;
   color: #c4dfb4;
   height: 90px;
@@ -2113,6 +2331,9 @@ select {
   position: relative;
   width: 66px;
   text-decoration: none;
+  text-align: start;
+  padding: none;
+  border-width: 0;
   background: none;
   color: #c4dfb4;
   font-size: 120%;
@@ -2300,20 +2521,20 @@ select {
   padding-left: 3px;
   padding-top: 6px;
 }
-.icon .icon-edit {
+.icon i.icon-edit {
   padding-left: 2px;
 }
-.icon .icon-add {
+.icon i.icon-add {
   padding-top: 8px;
-  padding-left: 1px;
+  padding-left: 2px;
 }
-.icon .icon-ok {
+.icon i.icon-ok {
   padding-top: 7px;
-  padding-left: 0px;
+  padding-left: 2px;
 }
-.icon .icon-cancel {
-  padding-top: 7px;
-  padding-left: 0px;
+.icon i.icon-cancel {
+  padding-top: 6px;
+  padding-left: 2px;
 }
 .icon i.icon-box {
   padding-top: 8px;
@@ -2346,35 +2567,39 @@ select {
   font-size: 85%;
 }
 .icon i.icon-trash {
-  padding-left: 1px;
+  padding-left: 2px;
 }
-.home button i.icon-login {
+.icon i.icon-logout {
+  padding-left: 6px;
+  padding-top: 9px;
+}
+.home i.icon-login {
   padding-left: 0px;
   padding-top: 7px;
 }
-.home button i.icon-eye {
-  padding-left: 0px;
-  padding-top: 6px;
+.home i.icon-logout {
+  padding-left: 4px;
+  padding-top: 7px;
 }
 .home ul li a i.icon-box {
-  padding-left: 17px;
-  padding-top: 22px;
+  padding-left: 18px;
+  padding-top: 24px;
 }
 .home ul li a i.icon-carrot {
-  padding-left: 15px;
-  padding-top: 22px;
+  padding-left: 16px;
+  padding-top: 24px;
 }
 .home ul li a i.icon-person {
-  padding-left: 15px;
+  padding-left: 16px;
   padding-top: 22px;
 }
 .home ul li a i.icon-truck {
-  padding-left: 14px;
-  padding-top: 22px;
+  padding-left: 15px;
+  padding-top: 24px;
 }
 .home ul li a i.icon-flag {
   padding-left: 16px;
-  padding-top: 22px;
+  padding-top: 25px;
 }
 [hidden] {
   display: none !important;

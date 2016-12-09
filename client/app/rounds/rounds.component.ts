@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { RoundsHomeComponent } from './rounds-home.component'
-import { RoundEmailComponent } from './round-email.component'
+import { EmailRoundComponent } from './email-round.component'
 import { RouteParams } from '@angular/router-deprecated';
 import { RouteConfig, Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 
@@ -19,7 +19,7 @@ import { RouteConfig, Router, ROUTER_DIRECTIVES } from '@angular/router-deprecat
   {
     path: 'email/:roundId',
     name: 'Email',
-    component: RoundEmailComponent
+    component: EmailRoundComponent
   },
   {
     path: '/*anything-else',

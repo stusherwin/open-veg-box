@@ -3,7 +3,6 @@ import { Round, RoundCustomer } from './round'
 import { RoundService } from './round.service'
 import { CustomerService } from '../customers/customer.service'
 import { RoundComponent } from './round.component'
-import { RoundEmailComponent } from './round-email.component'
 import { Observable } from 'rxjs/Observable';
 import { RouteParams } from '@angular/router-deprecated';
 import { FocusService } from '../shared/focus.service';
@@ -38,7 +37,7 @@ export class RoundsHomeComponent implements OnInit {
     } );
 
     this.customerService.getAllWithNoRound(this.queryParams).subscribe(customers => {
-      this.customers = customers.map(c => new RoundCustomer(c.id, c.name, c.address));
+      this.customers = customers.map(c => new RoundCustomer(c.id, c.name, c.address, c.email));
     } );
   }
 
@@ -61,7 +60,7 @@ export class RoundsHomeComponent implements OnInit {
   onCustomerAdd(event: any) {
     this.roundService.addCustomer(event.roundId, event.customerId, this.queryParams).subscribe(rounds => {
       this.customerService.getAllWithNoRound(this.queryParams).subscribe(customers => {
-        this.customers = customers.map(c => new RoundCustomer(c.id, c.name, c.address));
+        this.customers = customers.map(c => new RoundCustomer(c.id, c.name, c.address, c.email));
       } );
     });
   }
@@ -69,7 +68,7 @@ export class RoundsHomeComponent implements OnInit {
   onCustomerRemove(event: any) {
     this.roundService.removeCustomer(event.roundId, event.customerId, this.queryParams).subscribe(rounds => {
       this.customerService.getAllWithNoRound(this.queryParams).subscribe(customers => {
-        this.customers = customers.map(c => new RoundCustomer(c.id, c.name, c.address));
+        this.customers = customers.map(c => new RoundCustomer(c.id, c.name, c.address, c.email));
       } );
     });
   }

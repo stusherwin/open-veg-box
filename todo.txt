@@ -61,3 +61,10 @@ Round customers
 * Implement 'email all' feature on Round
 * Erratic expand/collapse behaviour if add/remove customer enough times
 * Move to postgres as sqlite not supported on Heroku?
+
+BUGS!!!!
+========
+* Adding round didn't update page with new round (hitting enter on save button?)
+* Deleting a round didn't update available customers, so couldn't add customers to new round
+* Add/remove button icons alignment out
+* Add row wasn't focused but other rows hover was as if it was focused
