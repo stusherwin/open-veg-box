@@ -13,6 +13,7 @@ export let authorize = function (req: any, res: any, next:() => void) {
   authService.authenticate(credentials.username, credentials.password)
     .subscribe(org => {
       req.db = authService.getDb(org.id);
+      req.organisation = org;
       next();
     }, e => {
       res.set('WWW-Authenticate', 'X-Basic realm="Restricted Area"');

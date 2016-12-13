@@ -1,4 +1,4 @@
 <div *ngIf="customer">
   <h2>{{customer.name}}: Email</h2>
-  <cc-email-customers [customers]="customerEmails" [cancelLinkParams]="['../CustomersHome']"></cc-email-customers>
+  <cc-send-email [recipients]="customerEmails" [cancelLinkParams]="['../CustomersHome']" [successLinkParams]="['../CustomersHome']"></cc-send-email>
 </div>

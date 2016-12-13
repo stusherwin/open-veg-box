@@ -2,7 +2,7 @@ import {Customer} from './customer'
 import {CustomersService} from './customers.service'
 import {Objects} from '../shared/objects'
 import {authorize} from '../auth/auth.middleware'
-
+ 
 var express = require('express');
 
 var app = express();

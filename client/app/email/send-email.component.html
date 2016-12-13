@@ -2,24 +2,24 @@
   <div class="form-row">
     <label>To:</label>
     <ul class="field recipients">
-      <li *ngFor="let c of customers">{{c.name}} <span class="muted">({{c.email}})</span></li>
+      <li *ngFor="let r of recipients">{{r.name}} <span class="muted">({{r.address}})</span></li>
     </ul>
   </div>
   <div class="form-row">
     <label>Subject:</label>
-    <input type="text" class="field" cc-focus grab="true" tabindex="1" />
+    <input type="text" class="field" cc-focus grab="true" tabindex="1" [(ngModel)]="subject" />
   </div>
   <div class="form-row">
     <label>Message:</label>
-    <textarea class="field" cc-focus tabindex="1"></textarea>
+    <textarea class="field" cc-focus tabindex="1" [(ngModel)]="body"></textarea>
   </div>
   <div class="row-view">
     <div class="row no-hover no-border">
       <div class="actions">
         <div class="action">
-          <a class="button" cc-focus tabindex="1">
+          <a class="button" cc-focus tabindex="1" (click)="send()">
             <div class="icon"><i class="icon-mail-dark"></i></div>
-            <span>Email</span>
+            <span>Send Email</span>
           </a>
         </div>
         <div class="action">

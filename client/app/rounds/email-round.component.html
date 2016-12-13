@@ -1,4 +1,4 @@
 <div *ngIf="round">
   <h2>{{round.name}}: Email</h2>
-  <cc-email-customers [customers]="customerEmails" [cancelLinkParams]="['../RoundsHome']"></cc-email-customers>
+  <cc-send-email [recipients]="customerEmails" [cancelLinkParams]="['../RoundsHome']" [successLinkParams]="['../RoundsHome']"></cc-send-email>
 </div>

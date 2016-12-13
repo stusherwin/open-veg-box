@@ -60,6 +60,7 @@ Round customers
 ===============
 * Implement 'email all' feature on Round
   - Disable email for guest users
+  - Create 'Send email' icon
 * Erratic expand/collapse behaviour if add/remove customer enough times
 * Move to postgres as sqlite not supported on Heroku?
 
@@ -69,3 +70,6 @@ BUGS!!!!
 * Deleting a round didn't update available customers, so couldn't add customers to new round
 * Add/remove button icons alignment out
 * Add row wasn't focused but other rows hover was as if it was focused
+* Logout button not visible on small screen
+* Why does throw sometimes kill app but sometimes not?
+* tsconfig watch: true - needed for dev but not for production - need to resolve this somehow.
