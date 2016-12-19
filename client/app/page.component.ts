@@ -5,41 +5,42 @@ import { CustomersComponent } from './customers/customers.component';
 import { CollectionPointsComponent } from './collection-points/collection-points.component';
 import { BoxesComponent } from './boxes/boxes.component';
 import { RoundsComponent } from './rounds/rounds.component';
-import { HomeSectionsComponent } from './home/home-sections.component';
-import { LoginComponent } from './home/login.component';
 import { RouteConfig, Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { LoggedInRouterOutlet } from './auth/logged-in-router-outlet';
-import { PageComponent } from './page.component';
-import { NotFoundComponent } from './not-found.component';
+import { ErrorNotifyComponent } from './shared/error-notify.component'
 
 @Component({
-  selector: 'cc-app',
-  templateUrl: 'app/app.component.html',
-  directives: [LoggedInRouterOutlet, HeaderComponent]
+  selector: 'cc-page',
+  templateUrl: 'app/page.component.html',
+  directives: [LoggedInRouterOutlet, HeaderComponent, ErrorNotifyComponent]
 })
 
 @RouteConfig([
   {
-    path: '',
-    name: 'Home',
-    component: HomeSectionsComponent
+    path: 'products',
+    name: 'Products',
+    component: ProductsComponent
   },
   {
-    path: 'login',
-    name: 'Login',
-    component: LoginComponent
+    path: 'boxes',
+    name: 'Boxes',
+    component: BoxesComponent
   },
   {
-    path: '...',
-    name: 'Page',
-    component: PageComponent
+    path: 'customers/...',
+    name: 'Customers',
+    component: CustomersComponent
   },
   {
-    path: '/*anything-else',
-    name: 'NotFound',
-    component: NotFoundComponent
+    path: 'collection-points',
+    name: 'CollectionPoints',
+    component: CollectionPointsComponent
+  },
+  {
+    path: 'rounds/...',
+    name: 'Rounds',
+    component: RoundsComponent
   }
 ])
-
-export class AppComponent {
+export class PageComponent {
 }

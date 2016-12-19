@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NavBarComponent } from './nav-bar.component';
 import { ROUTER_DIRECTIVES, Router } from '@angular/router-deprecated';
 import { LogoutComponent } from '../auth/logout.component'
@@ -12,7 +12,10 @@ import { LogoutComponent } from '../auth/logout.component'
 export class HeaderComponent {
   constructor(private router: Router) { }
 
-  isHome() {
-    return this.router.isRouteActive(this.router.generate(['Home'])) || this.router.isRouteActive(this.router.generate(['Login']));
-  }
+  @Input()
+  isHome: boolean;
+
+  // isHome() {
+  //   return this.router.isRouteActive(this.router.generate(['Home'])) || this.router.isRouteActive(this.router.generate(['Login']));
+  // }
 }

@@ -20,7 +20,7 @@ sqlHelper.selectAll(mainDb, {}, r => new Organisation(r.id, r.name, r.username, 
            for(var o of organisations) {
              organisationDbs[o.id] = new sqlite.Database(path.resolve(__dirname, '../', o.dbName + '.sqlite'));
            }
-         });
+         }, console.error);
 
 export class AuthenticationService {
   getDb(organisationId: number) {
@@ -28,11 +28,8 @@ export class AuthenticationService {
   }
 
   authenticate(username: string, password: string): Observable<Organisation> {
-    return sqlHelper.select(mainDb,
-                      { username: username, password: password },
-                      r => new Organisation(r.id, r.name, r.username, r.password, r.dbName, r.canSendEmails))
-                    .map( o => { 
-                      if(o == null) { throw 'not found'; }
-                      return o; });
+    return sqlHelper.select(mainDb, { username: username, password: password },
+      r => !r ? null 
+              : new Organisation(r.id, r.name, r.username, r.password, r.dbName, r.canSendEmails));
   }
 }

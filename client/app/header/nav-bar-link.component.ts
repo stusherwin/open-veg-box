@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, AfterViewInit } from '@angular/core';
 import { ROUTER_DIRECTIVES, Router } from '@angular/router-deprecated';
 
 @Component({
@@ -12,7 +12,7 @@ export class NavBarLinkComponent {
 
   @Input()
   linkParams:any[];
-  
+
   isCurrent() {
     return this.router.isRouteActive(this.router.generate(this.linkParams));
   }

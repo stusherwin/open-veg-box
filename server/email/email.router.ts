@@ -14,12 +14,8 @@ export let email = express.Router();
 
 email.use(authorize);
 
-email.post('/send', function(req: any, res: any) {
+email.post('/send', function(req: any, res: any, next: any) {
   let message = new EmailMessage(req.body.recipients.map((r: any) => new EmailRecipient(r.name, r.address)), req.body.subject, req.body.body);
   emailService.send(message, req.organisation)
-              .subscribe(r => res.json(r), e => {
-                let error = e instanceof Error ? '' + e : e;
-                console.error(error);
-                res.status(500).json({ error: error });
-              });
+              .subscribe(r => res.status(200), next);
 });

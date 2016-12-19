@@ -29,6 +29,67 @@ h4 {
   font-style: italic;
 }
 
+.error-notify {
+  position: relative;
+  background: #E56B6B;
+  border: 1px solid #E80000;
+  color: white;
+  border-radius: 2px;
+  padding: 5px 23px 5px 28px;
+  opacity: 1;
+  max-height: 100px;
+  overflow: hidden;
+
+  span {
+    // background: blue;
+  }
+
+  .icon-warning {
+    position: absolute;
+    left: 2px;
+    top: 5px;
+  }
+
+  a {
+    position: absolute;
+    right:0px;
+    top:5px;
+  }
+
+  &.hidden {
+     opacity: 0;
+     max-height: 0;
+     border: none;
+     padding-top: 0;
+     padding-bottom: 0;
+     animation-duration: 0.5s;
+     animation-name: fadeout;
+  }
+}
+
+@keyframes fadeout {
+  0% {
+    border: 1px solid #E80000;
+    opacity: 1;
+    padding: 5px 23px 5px 28px;
+    max-height: 100px;  
+  }
+
+  99% {
+    border: 1px solid #E80000;
+    opacity: 0;
+    padding: 5px 23px 5px 28px;
+    max-height: 100px;  
+  }
+
+  100% {
+    opacity: 0;
+    padding: 0;
+    max-height: 0;
+    border: none;
+  }
+}
+
 @import "header";
 @import "page";
 @import "home";

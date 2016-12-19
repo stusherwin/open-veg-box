@@ -13,22 +13,22 @@ export let products = express.Router();
 
 products.use(authorize);
 
-products.get('/', function(req: any, res: any) {
+products.get('/', function(req: any, res: any, next: any) {
   productsService.getAll(Objects.whiteList(req.query, ['page', 'pageSize']), req.db)
-                 .subscribe(products => res.json(products));
+                 .subscribe(products => res.json(products), next);
 });
 
-products.post('/:id', function(req: any, res: any) {
+products.post('/:id', function(req: any, res: any, next: any) {
   productsService.update(req.params.id, req.body, Objects.whiteList(req.query, ['page', 'pageSize']), req.db)
-                 .subscribe(products => res.json(products));
+                 .subscribe(products => res.json(products), next);
 });
 
-products.put('/', function(req: any, res: any) {
+products.put('/', function(req: any, res: any, next: any) {
   productsService.add(req.body, Objects.whiteList(req.query, ['page', 'pageSize']), req.db)
-                 .subscribe(products => res.json(products));
+                 .subscribe(products => res.json(products), next);
 });
 
-products.delete('/:id', function(req: any, res: any) {
+products.delete('/:id', function(req: any, res: any, next: any) {
   productsService.delete(req.params.id, Objects.whiteList(req.query, ['page', 'pageSize']), req.db)
-                 .subscribe(products => res.json(products));
+                 .subscribe(products => res.json(products), next);
 });

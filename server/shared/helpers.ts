@@ -76,10 +76,9 @@ export class SqlHelper<T> {
     var selectSql = 'select * from ' 
         + this.table 
         + ' where '
-        + this.getFields(params).map((f:string) => f + ' = $' + f).join(' and ')
+        + this.getFields(params).map((f:string) => f + ' = $' + f).join(' and ');
         
-        return Observable.create((o: any) => {
-      
+    return Observable.create((o: any) => {
       db.get(selectSql, this.buildSqlParams(params), (err: any, row: any) => {
         var result: T = row ? create(row) : null;
         o.next(result);
