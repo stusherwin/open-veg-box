@@ -23,7 +23,7 @@ Database
 * Implement sqlite backup strategy
 * Better sqlite error handling (handle sql errors)
 * Catch sql errors instead of crashing (uq violation)
-  - handle in SqlHelper
+  - handle in SqliteDb
 
 Deployment
 ==========
@@ -60,6 +60,7 @@ Round customers
 ===============
 * Erratic expand/collapse behaviour if add/remove customer enough times
 * Move to postgres as sqlite not supported on Heroku?
+* Subject & body should be mandatory email fields
 
 BUGS!!!!
 ========
@@ -69,3 +70,5 @@ BUGS!!!!
 * Add row wasn't focused but other rows hover was as if it was focused
 * Logout button not visible on small screen
 * tsconfig watch: true - needed for dev but not for production - need to resolve this somehow.
+* 401 (Unauthorized) exception breaking error notification - need to work out & handle all exception
+  shapes

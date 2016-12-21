@@ -1,4 +1,5 @@
 import {AuthenticationService} from './authentication.service'
+import {SqliteDb} from '../shared/sqlitedb';
 
 export let authorize = function (req: any, res: any, next:() => void) {
   var authService = new AuthenticationService();
@@ -12,7 +13,7 @@ export let authorize = function (req: any, res: any, next:() => void) {
 
   authService.authenticate(credentials.username, credentials.password)
     .subscribe(org => {
-      req.db = authService.getDb(org.id);
+      req.db = new SqliteDb(authService.getDb(org.id));
       req.organisation = org;
       next();
     }, e => {

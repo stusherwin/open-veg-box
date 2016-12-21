@@ -1,49 +1,48 @@
 import {Customer} from './customer'
 import {Observable} from 'rxjs/Observable';
-import {SqlHelper} from '../shared/helpers';
+import {Db} from '../shared/db';
 
 export class CustomersService {
-  sqlHelper = new SqlHelper<Customer>('customer', ['name', 'address', 'tel1', 'tel2', 'email']);
+  fields: string[] = ['name', 'address', 'tel1', 'tel2', 'email'];
 
-  getAll(queryParams: any, db: any): Observable<Customer[]> {
-    return this.sqlHelper.selectAll(db, queryParams,
-      r => new Customer(r.id, r.name, r.address, r.tel1, r.tel2, r.email));
+  getAll(queryParams: any, db: Db): Observable<Customer[]> {
+    return db.all<Customer>(
+      ' select c.id, c.name, c.address, c.tel1, c.tel2, c.email'
+    + ' from customer c'
+    + ' order by c.id',
+      {}, queryParams, r => new Customer(r.id, r.name, r.address, r.tel1, r.tel2, r.email));
   }
   
-  getAllWithNoRound(queryParams: any, db: any): Observable<Customer[]> {
-    var sql = 'select c.id, c.name, c.address, c.tel1, c.tel2, c.email from customer c' 
-            + ' left join round_customer rc on rc.customerId = c.id'
-            + ' where rc.roundId is null'
-            + ' order by c.name';
-    return this.sqlHelper.selectSql(db, sql, queryParams, {},
-      r => new Customer(r.id, r.name, r.address, r.tel1, r.tel2, r.email));
+  getAllWithNoRound(queryParams: any, db: Db): Observable<Customer[]> {
+    return db.all<Customer>(
+      ' select c.id, c.name, c.address, c.tel1, c.tel2, c.email from customer c' 
+    + ' left join round_customer rc on rc.customerId = c.id'
+    + ' where rc.roundId is null'
+    + ' order by c.name',
+      {}, queryParams, r => new Customer(r.id, r.name, r.address, r.tel1, r.tel2, r.email));
   }
 
-  get(id: number, db: any): Observable<Customer> {
-    var sql = 'select id, name, address, tel1, tel2, email from customer' 
-            + ' where id = $id';
-    return this.sqlHelper.selectSqlSingle(db, sql, {$id: id}, 
-      rows => {
-        return rows.length
-          ? new Customer(rows[0].id, rows[0].name, rows[0].address, rows[0].tel1, rows[0].tel2, rows[0].email)
-          : null; 
-      });
+  get(id: number, db: Db): Observable<Customer> {
+    return db.single<Customer>(
+      ' select c.id, c.name, c.address, c.tel1, c.tel2, c.email from customer c'
+    + ' where c.id = $id',
+      {$id: id}, r => new Customer(r.id, r.name, r.address, r.tel1, r.tel2, r.email));
   }
   
-  add(params: any, queryParams: any, db: any): Observable<Customer[]> {
-    this.sqlHelper.insert(db, params);
+  add(params: any, queryParams: any, db: Db): Observable<Customer[]> {
+    db.insert('customer', this.fields, params);
 
     return this.getAll(queryParams, db);
   }
 
-  update(id: number, params: any, queryParams: any, db: any): Observable<Customer[]> {
-    this.sqlHelper.update(db, id, params);
+  update(id: number, params: any, queryParams: any, db: Db): Observable<Customer[]> {
+    db.update('customer', this.fields, id, params);
 
     return this.getAll(queryParams, db);
   }
 
-  delete(id: number, queryParams: any, db: any): Observable<Customer[]> {
-    this.sqlHelper.delete(db, id);
+  delete(id: number, queryParams: any, db: Db): Observable<Customer[]> {
+    db.delete('customer', id);
 
     return this.getAll(queryParams, db);
   }

@@ -1,16 +1,16 @@
 import {Round, RoundCustomer} from './round'
 import {Observable} from 'rxjs/Observable';
-import {SqlHelper} from '../shared/helpers';
+import {Db} from '../shared/db';
 
 export class RoundsService {
-  sqlHelper = new SqlHelper<Round>('round', ['name']);
-
-  getAll(queryParams: any, db: any): Observable<Round[]> {
-    var sql = 'select r.id, r.name, c.id customerId, c.name customerName, c.address customerAddress, c.email customerEmail from round r' 
-            + ' left join round_customer rc on rc.roundId = r.id'
-            + ' left join customer c on c.id = rc.customerId'
-            + ' order by r.id, c.name';
-    return this.sqlHelper.selectSqlRows(db, sql, queryParams, {},
+  getAll(queryParams: any, db: Db): Observable<Round[]> {
+    return db.allWithReduce<Round>(
+      ' select r.id, r.name, c.id customerId, c.name customerName, c.address customerAddress, c.email customerEmail from round r' 
+    + ' left join round_customer rc on rc.roundId = r.id'
+    + ' left join customer c on c.id = rc.customerId'
+    + ' order by r.id, c.name',
+      {},
+      queryParams,
       rows => {
         let rounds: { [id: number]: Round; } = {};
         for(let r of rows) {
@@ -29,13 +29,14 @@ export class RoundsService {
       });
   }
 
-  get(id: number, db: any): Observable<Round> {
-    var sql = 'select r.id, r.name, c.id customerId, c.name customerName, c.address customerAddress, c.email customerEmail from round r' 
-            + ' left join round_customer rc on rc.roundId = r.id'
-            + ' left join customer c on c.id = rc.customerId'
-            + ' where r.id = $id'
-            + ' order by r.id, c.name';
-    return this.sqlHelper.selectSqlSingle(db, sql, {$id: id}, 
+  get(id: number, db: Db): Observable<Round> {
+    return db.singleWithReduce<Round>(
+      ' select r.id, r.name, c.id customerId, c.name customerName, c.address customerAddress, c.email customerEmail from round r' 
+    + ' left join round_customer rc on rc.roundId = r.id'
+    + ' left join customer c on c.id = rc.customerId'
+    + ' where r.id = $id'
+    + ' order by r.id, c.name',
+      {$id: id},
       rows => {
         let round: Round = null;
         for(let r of rows) {
@@ -50,30 +51,30 @@ export class RoundsService {
       });
   }
 
-  add(params: any, queryParams: any, db: any): Observable<Round[]> {
-    this.sqlHelper.insert(db, params);
+  add(params: any, queryParams: any, db: Db): Observable<Round[]> {
+    db.insert('round', ['name'], params);
 
     return this.getAll(queryParams, db);
   }
 
-  update(id: number, params: any, queryParams: any, db: any): Observable<Round[]> {
-    this.sqlHelper.update(db, id, params);
+  update(id: number, params: any, queryParams: any, db: Db): Observable<Round[]> {
+    db.update('round', ['name'], id, params);
 
     return this.getAll(queryParams, db);
   }
 
-  delete(id: number, queryParams: any, db: any): Observable<Round[]> {
-    this.sqlHelper.delete(db, id);
+  delete(id: number, queryParams: any, db: Db): Observable<Round[]> {
+    db.delete('round', id);
     
-    db.run('delete from round_customer where roundId = $id', {
+    db.execute('delete from round_customer where roundId = $id', {
       $id: id 
     });
 
     return this.getAll(queryParams, db);
   }
 
-  addCustomer(id: number, customerId: number, queryParams: any, db: any): Observable<Round[]> {
-    db.run('insert into round_customer (roundId, customerId) values ($id, $customerId)', {
+  addCustomer(id: number, customerId: number, queryParams: any, db: Db): Observable<Round[]> {
+    db.execute('insert into round_customer (roundId, customerId) values ($id, $customerId)', {
       $id: id, 
       $customerId: customerId
     });
@@ -81,8 +82,8 @@ export class RoundsService {
     return this.getAll(queryParams, db);
   }
   
-  removeCustomer(id: number, customerId: number, queryParams: any, db: any): Observable<Round[]> {
-    db.run('delete from round_customer where roundId = $id and customerId = $customerId', {
+  removeCustomer(id: number, customerId: number, queryParams: any, db: Db): Observable<Round[]> {
+    db.execute('delete from round_customer where roundId = $id and customerId = $customerId', {
       $id: id, 
       $customerId: customerId
     });
