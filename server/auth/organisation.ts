@@ -1,19 +1,17 @@
 export class Organisation {
-  constructor(id: number, name:string, username:string, password: string, dbName: string, canSendEmails: boolean, isPostGres: boolean) {
+  constructor(id: number, name:string, username:string, canSendEmails: boolean, dbType: string, dbConfig: string) {
     this.id = id;
     this.name = name;
     this.username = username;
-    this.password = password;
-    this.dbName = dbName;
     this.canSendEmails = canSendEmails;
-    this.isPostGres = isPostGres;
+    this.dbType = dbType;
+    this.dbConfig = dbConfig;
   }
     
   id: number;
   name: string;
   username: string;
-  password: string;
-  dbName: string;
   canSendEmails: boolean;
-  isPostGres: boolean;
+  dbType: string;
+  dbConfig: string;
 }

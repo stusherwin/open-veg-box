@@ -13,7 +13,7 @@ export let authorize = function (req: any, res: any, next:() => void) {
 
   authService.authenticate(credentials.username, credentials.password)
     .subscribe(org => {
-      req.db = new SqliteDb(authService.getDb(org.id));
+      req.db = authService.getDb(org.id);
       req.organisation = org;
       next();
     }, e => {

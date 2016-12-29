@@ -14,11 +14,11 @@ export class Objects {
     return result;
   }
 
-  static prependPropertyNames(obj: any, prefix: string) {
+  static convertPropertyNames(obj: any, convertFn: (property: string) => string) {
     let result = {};
     if(obj) {
       for(let prop in obj) {
-        result[(prefix || '') + prop] = obj[prop];
+        result[convertFn(prop)] = obj[prop];
       }
     }
     return result;

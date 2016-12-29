@@ -6,17 +6,29 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/fromPromise'
 import 'rxjs/add/observable/of';
-import * as path from 'path';
+import {Db} from '../shared/db'
 import {SqliteDb} from '../shared/sqlitedb'
+import {PostgresDb} from '../shared/postgresdb'
 
-var sqlite = require('sqlite3').verbose();
-var mainDb = new SqliteDb(new sqlite.Database(path.resolve(__dirname, '../main.sqlite')));
-var organisationDbs: { [id: number]: any; } = {};
+var mainDb = new SqliteDb({ dbName: 'main' });
+var organisationDbs: { [id: number]: Db; } = {};
 
-mainDb.all<Organisation>('select o.id, o.name, o.username, o.password, o.dbName, o.canSendEmails, o.isPostGres from organisation o', {}, {}, r => new Organisation(r.id, r.name, r.username, r.password, r.dbName, r.canSendEmails, r.isPostGres))
+mainDb.all<Organisation>(
+      ' select o.id, o.name, o.username, o.password, o.canSendEmails, o.dbType, o.dbConfig'
+      + ' from organisation o',
+        {}, {}, r => new Organisation(r.id, r.name, r.username, r.cansendemails, r.dbtype, r.dbconfig))
       .subscribe(organisations => {
         for(var o of organisations) {
-          organisationDbs[o.id] = new sqlite.Database(path.resolve(__dirname, '../', o.dbName + '.sqlite'));
+          let config = JSON.parse(o.dbConfig);
+
+          switch(o.dbType) {
+            case 'postgres':
+              organisationDbs[o.id] = new PostgresDb(config);
+              break;
+            case 'sqlite':
+              organisationDbs[o.id] = new SqliteDb(config);
+              break;
+          }
         }
       }, console.error);
 
@@ -27,10 +39,10 @@ export class AuthenticationService {
 
   authenticate(username: string, password: string): Observable<Organisation> {
     return mainDb.single<Organisation>(
-      ' select o.id, o.name, o.username, o.password, o.dbName, o.canSendEmails, o.isPostGres'
+      ' select o.id, o.name, o.username, o.password, o.canSendEmails, o.dbType, o.dbConfig'
     + ' from organisation o'
-    + ' where o.username = $username and o.password = $password',
-      { $username: username, $password: password },
-      r => new Organisation(r.id, r.name, r.username, r.password, r.dbName, r.canSendEmails, r.isPostGres));
+    + ' where o.username = @username and o.password = @password',
+      { username: username, password: password },
+      r => new Organisation(r.id, r.name, r.username, r.cansendemails, r.dbtype, r.dbconfig));
   }
 }

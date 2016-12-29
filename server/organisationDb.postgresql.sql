@@ -3,43 +3,49 @@ DROP TABLE IF EXISTS round;
 DROP TABLE IF EXISTS customer;
 DROP TABLE IF EXISTS product;
 
-CREATE TABLE round(id integer primary key, name text);
-CREATE TABLE customer(id integer primary key, name text, address text, tel1 text null, tel2 text null, email text null);
-CREATE TABLE product(id integer primary key, name text, price real, unitType text, unitQuantity real);
+CREATE TABLE round(id serial primary key, name text);
+CREATE TABLE customer(id serial primary key, name text, address text, tel1 text null, tel2 text null, email text null);
+CREATE TABLE product(id serial primary key, name text, price real, unitType text, unitQuantity real);
 CREATE TABLE round_customer(
   roundId integer NOT NULL REFERENCES round(id),
   customerId integer NOT NULL REFERENCES customer(id),
   PRIMARY KEY(roundId, customerId)
 );
 
+GRANT ALL ON ALL TABLES IN SCHEMA public TO openvegbox;
+GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO openvegbox;
+
 ------
 ------
 
-INSERT INTO product VALUES(1,'Potatoes',0.9,'perKg',1.0);
-INSERT INTO product VALUES(2,'Onions',1.1,'perKg',1.0);
-INSERT INTO product VALUES(3,'Carrots',1.2,'perKg',1.0);
-INSERT INTO product VALUES(4,'Garlic (bulb)',0.7,'each',1.0);
-INSERT INTO product VALUES(5,'Bananas',2.5,'perKg',0.5);
-INSERT INTO product VALUES(6,'Apples',3.0,'perKg',0.5);
-INSERT INTO product VALUES(7,'Lemons',0.5,'each',1.0);
+INSERT INTO product (name, price, unitType, unitQuantity) VALUES('Potatoes',0.9,'perKg',1.0);
+INSERT INTO product (name, price, unitType, unitQuantity) VALUES('Onions',1.1,'perKg',1.0);
+INSERT INTO product (name, price, unitType, unitQuantity) VALUES('Carrots',1.2,'perKg',1.0);
+INSERT INTO product (name, price, unitType, unitQuantity) VALUES('Garlic (bulb)',0.7,'each',1.0);
+INSERT INTO product (name, price, unitType, unitQuantity) VALUES('Bananas',2.5,'perKg',0.5);
+INSERT INTO product (name, price, unitType, unitQuantity) VALUES('Apples',3.0,'perKg',0.5);
+INSERT INTO product (name, price, unitType, unitQuantity) VALUES('Lemons',0.5,'each',1.0);
 
-INSERT INTO customer VALUES(1,'Andrew Atkinson','10 Acacia Avenue
+INSERT INTO round (name) VALUES('Ableton & Biddleton');
+
+INSERT INTO customer (name, address, tel1, email) VALUES('Andrew Atkinson','10 Acacia Avenue
 Ableton
-A11 1AA','07324 358774',null,'andrew@atkinson.com');
-INSERT INTO customer VALUES(2,'Betty Barnes','23 Beech Boulevard
+A11 1AA','07324 358774','andrew@atkinson.com');
+INSERT INTO round_customer (roundId, customerId) VALUES(currval(pg_get_serial_sequence('round','id')), currval(pg_get_serial_sequence('customer','id')));
+
+INSERT INTO customer (name, address, tel1, email) VALUES('Betty Barnes','23 Beech Boulevard
 Biddleton
-B22 2BB','07324 358774',null,'betty@barnes.com');
-INSERT INTO customer VALUES(3,'Christine Cook','3a Cedar Close
+B22 2BB','07324 358774','betty@barnes.com');
+INSERT INTO round_customer (roundId, customerId) VALUES(currval(pg_get_serial_sequence('round','id')), currval(pg_get_serial_sequence('customer','id')));
+
+INSERT INTO round (name) VALUES('Chompton & Digby');
+
+INSERT INTO customer (name, address, tel1, email) VALUES('Christine Cook','3a Cedar Close
 Chompton
-C33 3CC','07324 358774',null,'christine@cook.com');
-INSERT INTO customer VALUES(4,'Derek Draper','4 Durian Drive
+C33 3CC','07324 358774','christine@cook.com');
+INSERT INTO round_customer (roundId, customerId) VALUES(currval(pg_get_serial_sequence('round','id')), currval(pg_get_serial_sequence('customer','id')));
+
+INSERT INTO customer (name, address, tel1, email) VALUES('Derek Draper','4 Durian Drive
 Digby
-D44 4DD','07324 358774',null,'derek@draper.com');
-
-INSERT INTO round VALUES(1,'Ableton & Biddleton');
-INSERT INTO round VALUES(2,'Chompton & Digby');
-
-INSERT INTO round_customer VALUES(1, 1);
-INSERT INTO round_customer VALUES(1, 2);
-INSERT INTO round_customer VALUES(2, 3);
-INSERT INTO round_customer VALUES(2, 4);
+D44 4DD','07324 358774','derek@draper.com');
+INSERT INTO round_customer (roundId, customerId) VALUES(currval(pg_get_serial_sequence('round','id')), currval(pg_get_serial_sequence('customer','id')));

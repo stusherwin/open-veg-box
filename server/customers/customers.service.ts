@@ -1,6 +1,7 @@
 import {Customer} from './customer'
 import {Observable} from 'rxjs/Observable';
 import {Db} from '../shared/db';
+import 'rxjs/add/operator/mergeMap';
 
 export class CustomersService {
   fields: string[] = ['name', 'address', 'tel1', 'tel2', 'email'];
@@ -25,25 +26,22 @@ export class CustomersService {
   get(id: number, db: Db): Observable<Customer> {
     return db.single<Customer>(
       ' select c.id, c.name, c.address, c.tel1, c.tel2, c.email from customer c'
-    + ' where c.id = $id',
-      {$id: id}, r => new Customer(r.id, r.name, r.address, r.tel1, r.tel2, r.email));
+    + ' where c.id = @id',
+      {id: id}, r => new Customer(r.id, r.name, r.address, r.tel1, r.tel2, r.email));
   }
   
   add(params: any, queryParams: any, db: Db): Observable<Customer[]> {
-    db.insert('customer', this.fields, params);
-
-    return this.getAll(queryParams, db);
+    return db.insert('customer', this.fields, params)
+      .mergeMap(() => this.getAll(queryParams, db));
   }
 
   update(id: number, params: any, queryParams: any, db: Db): Observable<Customer[]> {
-    db.update('customer', this.fields, id, params);
-
-    return this.getAll(queryParams, db);
+    return db.update('customer', this.fields, id, params)
+      .mergeMap(() => this.getAll(queryParams, db));
   }
 
   delete(id: number, queryParams: any, db: Db): Observable<Customer[]> {
-    db.delete('customer', id);
-
-    return this.getAll(queryParams, db);
+    return db.delete('customer', id)
+      .mergeMap(() => this.getAll(queryParams, db));
   }
 }
