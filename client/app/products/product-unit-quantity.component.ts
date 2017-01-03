@@ -8,9 +8,9 @@ import { FocusDirective } from '../shared/focus.directive'
   directives: [FocusDirective],
   pipes: [WeightPipe],
   template: `
-    <div class="product-unit-quantity editable" cc-focus (focus)="startEdit()" (blur)="endEdit()">
+    <div class="product-unit-quantity editable" #parent=cc-focus cc-focus (focus)="startEdit()" (blur)="endEdit()">
       <input type="checkbox" *ngIf="!editing" style="position: absolute;left:-1000px" [tabindex]="editTabindex" cc-focus />
-      <div class="editable-display" *ngIf="!editing" (click)="startEdit()">
+      <div class="editable-display" *ngIf="!editing" (click)="click()">
         <span class="muted">sold in units of</span> {{ unitQuantity | weight }}
       </div>
       <div class="editable-edit" *ngIf="editing">
@@ -46,6 +46,13 @@ export class ProductUnitQuantityComponent {
 
   @Output()
   update = new EventEmitter<any>();
+
+  @ViewChild('parent')
+  parent: FocusDirective;
+
+  click() {
+    this.parent.beFocused();
+  }
   
   startEdit() {
     this.editing = true;

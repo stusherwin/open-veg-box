@@ -449,9 +449,9 @@ select {
 
   .editable-edit {
     padding: 0 4px;
-    border: 1px dashed desaturate(darken(@itemHoverColor, 20%),10%);
+    border: 1px solid desaturate(darken(@itemHoverColor, 20%),10%);
     border-radius: 3px;
-    background: lighten(@itemHoverColor, 4%);
+    background: #fff;
 
     a {
       display: block;
@@ -478,7 +478,9 @@ select {
       }
 
       &:hover, &:focus {
-        background: @highlight;
+        i {
+          color: desaturate(darken(@itemHoverColor, 20%),50%);
+        }
       }
 
       .spacer {
@@ -497,7 +499,7 @@ select {
       border-bottom-right-radius: 3px;
       color: #bbb;
       display: block;
-      background: #fff;
+      background: lighten(@itemHoverColor, 4%);
       &:first-child {
         border-top: none;
       }
@@ -570,5 +572,12 @@ select {
         .button(outline; small; @highlight);
       }
     }
+  }
+}
+
+input[type="text"], input[type="password"], textarea, select {
+  &:focus {
+    outline: 0;
+    border: 1px solid desaturate(darken(@itemHoverColor, 20%),10%);
   }
 }

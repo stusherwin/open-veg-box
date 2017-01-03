@@ -58,11 +58,8 @@ Edit Individual fields
 
 Round customers
 ===============
-* Erratic expand/collapse behaviour if add/remove customer enough times
-* Move to postgres as sqlite not supported on Heroku?
 * Subject & body should be mandatory email fields
 * Should BCC recipients, not TO
-* Add/remove button icons alignment out
 
 BUGS!!!!
 ========
@@ -74,9 +71,8 @@ BUGS!!!!
 * 401 (Unauthorized) exception breaking error notification - need to work out & handle all exception
   shapes
 * Sometimes have to click login button twice.
-* Click away from control in edit mode doesn't work first time (have to click twice)
-* add/delete entity doesn't work (asnyc problems?) (sqlite)
 * ref integrity issues in sqlite - allows references to deleted entity ids (check fk constraints?)
-* missing identity constraint in postgres on id columns
 * Permission denied in postgres kills server
 * Add button should be on top of page too (auto scroll down to bottom)
+* Grab focus doesn't work on product-price/unit quantity
+  (when not clicking directly on where input would be)

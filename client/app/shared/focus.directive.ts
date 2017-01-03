@@ -1,4 +1,4 @@
-import {Component, Input, Directive, ElementRef, OnInit, Renderer, Host, Inject, forwardRef, Output, EventEmitter} from '@angular/core';
+import {Component, Input, Directive, ElementRef, OnInit, Renderer, Host, Inject, forwardRef, Output, EventEmitter, OnDestroy} from '@angular/core';
 import {FocusService} from './focus.service';
 
 const BLUR_GRACE_PERIOD_MS: number = 100;
@@ -7,9 +7,10 @@ const BLUR_GRACE_PERIOD_MS: number = 100;
   selector: '[cc-focus]',
   exportAs: 'cc-focus'
 })
-export class FocusDirective implements OnInit {
+export class FocusDirective implements OnInit, OnDestroy {
   focused: boolean;
   shouldBlur: boolean;
+  directlyFocused: boolean;
   closestFocusedDescendent: FocusDirective;
 
   constructor(
@@ -38,24 +39,31 @@ export class FocusDirective implements OnInit {
   blur: EventEmitter<any> = new EventEmitter<any>();
 
   ngOnInit() {
-    this.service.register(this);
+    this.service.register(this, !this.isFocusable(elem));
 
     var elem = this.el.nativeElement;
 
-    elem.onfocus = () => {
-      this.setFocused(true);
-    };
-      
-    elem.onblur = () => {
-      this.setFocused(false);
-    };
-
+    if(this.isFocusable(elem)) {
+      elem.onfocus = () => {
+        this.setFocused(true);
+      };
+        
+      elem.onblur = () => {
+        this.setFocused(false);
+      };
+    }
+    
     if (this.grab) {
       this.renderer.invokeElementMethod(elem, 'focus', []);
     }
   }
 
+  ngOnDestroy() {
+    this.service.deregister(this);
+  }
+
   beFocused() {
+    this.directlyFocused = true;
     let elem = this.el.nativeElement;
     if(this.isFocusable(elem)) {
       setTimeout(() => this.renderer.invokeElementMethod(this.el.nativeElement, 'focus', []));
@@ -88,20 +96,22 @@ export class FocusDirective implements OnInit {
       let elem = this.el.nativeElement;
       this.focused = focused;
       if(this.focused) {
+        this.focus.emit(null);
+        this.shouldBlur = false;
         if(this.focusedClass) {
           this.renderer.setElementClass(elem, this.focusedClass, true);
         }
         if(this.selectAll) {
           this.renderer.invokeElementMethod(elem, 'setSelectionRange', [0, elem.value.length]);
         }
-        this.focus.emit(null);
         this.service.onFocus(this);
       } else {
+        this.blur.emit(null);
+        this.directlyFocused = false;
         if(this.focusedClass) {
           this.renderer.setElementClass(elem, this.focusedClass, false);
         }
         
-        this.blur.emit(null);
         if(!this.noBlur) {
           this.service.onBlur(this);
         }
@@ -138,7 +148,9 @@ export class FocusDirective implements OnInit {
       this.closestFocusedDescendent = null;
     }
     
-    this.shouldBlur = true;
+    if(!this.shouldBlur && !this.directlyFocused) {
+      this.shouldBlur = true;
+    }
 
     setTimeout(() => {
       if(this.shouldBlur) {
@@ -172,8 +184,14 @@ export class FocusDirective implements OnInit {
     result += ' class="' + elem.className + '">';
     
     if(elem.tagName == "A") {
-      result += elem.innerHTML.replace(/\s+/g, '') + '</a>';
+      result += elem.innerHTML.replace(/\s+/g, ' ') + '</a>';
     }
     return result;
+  }
+
+  isOutside(x: number, y: number) {
+    let clientRect = this.el.nativeElement.getBoundingClientRect();
+    return x < clientRect.left || x > clientRect.right
+        || y < clientRect.top || y > clientRect.bottom;
   }
 }

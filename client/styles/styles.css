@@ -1764,9 +1764,9 @@ select {
 }
 .round-customers .editable-edit {
   padding: 0 4px;
-  border: 1px dashed #f8c77e;
+  border: 1px solid #f8c77e;
   border-radius: 3px;
-  background: #fffaf1;
+  background: #fff;
 }
 .round-customers .editable-edit a {
   display: block;
@@ -1789,9 +1789,9 @@ select {
 .round-customers .editable-edit a .icon i.icon-add {
   top: -1px;
 }
-.round-customers .editable-edit a:hover,
-.round-customers .editable-edit a:focus {
-  background: #fda;
+.round-customers .editable-edit a:hover i,
+.round-customers .editable-edit a:focus i {
+  color: #ddc299;
 }
 .round-customers .editable-edit a .spacer {
   display: none;
@@ -1807,7 +1807,7 @@ select {
   border-bottom-right-radius: 3px;
   color: #bbb;
   display: block;
-  background: #fff;
+  background: #fffaf1;
 }
 .round-customers .editable-edit .round-customers-add:first-child {
   border-top: none;
@@ -2101,6 +2101,13 @@ select {
 .email-edit.focused .row button.disabled:hover span,
 .email-edit.focused .row a.button.disabled:hover span {
   color: #ccc;
+}
+input[type="text"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
+  outline: 0;
+  border: 1px solid #f8c77e;
 }
 .header.home-header {
   width: 570px;

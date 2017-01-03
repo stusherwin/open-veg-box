@@ -11,11 +11,12 @@ import { RouteConfig, Router, ROUTER_DIRECTIVES } from '@angular/router-deprecat
 import { LoggedInRouterOutlet } from './auth/logged-in-router-outlet';
 import { PageComponent } from './page.component';
 import { NotFoundComponent } from './not-found.component';
+import { ClickOutsideDirective } from './shared/click-outside.directive';
 
 @Component({
   selector: 'cc-app',
   templateUrl: 'app/app.component.html',
-  directives: [LoggedInRouterOutlet, HeaderComponent]
+  directives: [LoggedInRouterOutlet, HeaderComponent, ClickOutsideDirective]
 })
 
 @RouteConfig([

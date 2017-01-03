@@ -9,9 +9,9 @@ import { NumericDirective } from '../shared/number.component';
   directives: [FocusDirective, NumericDirective],
   pipes: [MoneyPipe],
   template: `
-    <div class="product-price editable" cc-focus (focus)="startEdit()" (blur)="endEdit()">
+    <div class="product-price editable" #parent=cc-focus cc-focus (focus)="startEdit()" (blur)="endEdit()">
       <input type="checkbox" *ngIf="!editing" style="position: absolute;left:-1000px" cc-focus [tabindex]="editTabindex" />
-      <div class="editable-display" *ngIf="!editing" (click)="startEdit()">
+      <div class="editable-display" *ngIf="!editing" (click)="click()">
         <span [innerHTML]="price | money"></span> <span class="muted">{{ unitTypeName(unitType) }}</span>
       </div>
       <div class="editable-edit" *ngIf="editing">
@@ -62,6 +62,13 @@ export class ProductPriceComponent {
 
   @Output()
   update = new EventEmitter<any>();
+
+  @ViewChild('parent')
+  parent: FocusDirective;
+
+  click() {
+    this.parent.beFocused();
+  }
 
   startEdit() {
     this.editing = true;

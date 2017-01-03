@@ -1,10 +1,29 @@
+import {Inject, forwardRef} from '@angular/core';
 import {FocusDirective} from './focus.directive';
+import {ClickOutsideService, IHandleOutsideClick} from './click-outside.service';
+import {Arrays} from './arrays';
+import {Lookup} from './lookup';
 
-export class FocusService {
+export class FocusService implements IHandleOutsideClick {
   private focusables: FocusDirective[] = [];
+  private outsideClickFocusables: FocusDirective[] = [];
 
-  register(focusable: FocusDirective) {
+  constructor(
+    @Inject(forwardRef(() => ClickOutsideService))
+    private clickOutsideService: ClickOutsideService) {
+  }
+
+  register(focusable: FocusDirective, handleOutsideClick: boolean) {
     this.focusables.push(focusable);
+    if(handleOutsideClick) {
+      this.outsideClickFocusables.push(focusable);
+      this.clickOutsideService.register(this);
+    }
+  }
+
+  deregister(focusable: FocusDirective) {
+    Arrays.remove(this.focusables, focusable);
+    Arrays.remove(this.outsideClickFocusables, focusable);
   }
 
   onFocus(focusable: FocusDirective) {
@@ -44,41 +63,12 @@ export class FocusService {
       d.beBlurred();
     }
   }
-}
 
-class Lookup<K, V> {
-  private pairs: Pair<K, V>[] = [];
-  get(key: K): V {
-    var p = this.pairs.find(p => p.key == key);
-    if(!p){
-      return undefined;
+  outsideClick(x: number, y: number) {
+    for(let f of this.outsideClickFocusables) {
+      if(f.focused && f.isOutside(x, y)) {
+        f.beBlurred();
+      }
     }
-    return p.value;
-  }
-
-  set(key: K, value: V) {
-    var p = this.pairs.find(p => p.key == key);
-    if(!p){
-      this.pairs.push(new Pair(key, value));
-    } else {
-      p.value = value;
-    }
-  }
-
-  remove(key: K) {
-    var i = this.pairs.findIndex(p => p.key == key);
-    if(i >=0){
-      this.pairs.splice(i, 1);
-    }
-  }
-}
-
-class Pair<K,V> {
-  key: K;
-  value: V;
-
-  constructor(key: K, value: V) {
-    this.key = key;
-    this.value = value; 
   }
 }
