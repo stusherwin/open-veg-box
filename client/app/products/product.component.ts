@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject }
 import { Product, UnitType, unitTypes } from './product';
 import { WeightPipe, MoneyPipe } from '../shared/pipes';
 import { HeadingComponent } from '../shared/heading.component';
-import { ProductPriceComponent } from './product-price.component';
+import { ProductPriceComponentNew } from './product-price.component';
 import { ProductUnitQuantityComponent } from './product-unit-quantity.component';
 import { FocusDirective } from '../shared/focus.directive'
 
@@ -10,7 +10,7 @@ import { FocusDirective } from '../shared/focus.directive'
   selector: 'cc-product',
   templateUrl: 'app/products/product.component.html',
   pipes: [WeightPipe, MoneyPipe],
-  directives: [HeadingComponent, ProductPriceComponent, ProductUnitQuantityComponent, FocusDirective]
+  directives: [HeadingComponent, ProductPriceComponentNew, ProductUnitQuantityComponent, FocusDirective]
 })
 export class ProductComponent {
   unitTypes: {[key: string]: string } = {};

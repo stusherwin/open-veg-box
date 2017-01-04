@@ -1,27 +1,24 @@
 import { Component, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { FocusDirective } from './focus.directive'
+import { EditableComponent } from '../shared/editable.component'
 
 @Component({
   selector: 'cc-heading',
-  directives: [FocusDirective],
+  directives: [FocusDirective, EditableComponent],
   template: `
-    <div class="heading editable" cc-focus (focus)="startEdit()" (blur)="endEdit()">
-      <input type="checkbox" *ngIf="!editing" style="position: absolute;left:-1000px" cc-focus [tabindex]="editTabindex" />
-      <div class="editable-display" *ngIf="!editing" (click)="startEdit()">
+    <cc-editable className="heading" [tabindex]="editTabindex" (startEdit)="startEdit()" (endEdit)="endEdit()">
+      <div display>
         <h3>{{value}}</h3>
       </div>
-      <div class="editable-edit" *ngIf="editing">
-        <input type="text" cc-focus grab="true" [selectAll]="addMode" [(ngModel)]="value" (ngModelChange)="valueChanged($event)" [tabindex]="editTabindex" />
+      <div edit>
+        <input type="text" #focusable=cc-focus cc-focus [selectAll]="addMode" [(ngModel)]="value" (ngModelChange)="valueChanged($event)" [tabindex]="editTabindex" />
       </div>
-    </div>
+    </cc-editable>
   `
 }) 
 export class HeadingComponent {
   @Input()
   value: string;
-
-  @Input()
-  editing: boolean;
 
   @Input()
   editTabindex: number;
@@ -43,11 +40,10 @@ export class HeadingComponent {
   }
 
   startEdit() {
-    this.editing = true;
+    this.focusable.beFocused();
   }
 
   endEdit() {
-    this.editing = false;
     this.update.emit(null);
   }
 }

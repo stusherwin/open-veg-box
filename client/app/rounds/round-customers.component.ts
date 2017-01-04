@@ -3,14 +3,15 @@ import { FocusDirective } from '../shared/focus.directive'
 import { RoundCustomer } from './round'
 import { Subscription } from 'rxjs/Subscription' 
 import { Observable } from 'rxjs/Observable';
+import { EditableComponent } from '../shared/editable.component'
 
 @Component({
   selector: 'cc-round-customers',
-  directives: [FocusDirective],
+  directives: [FocusDirective, EditableComponent],
   templateUrl: 'app/rounds/round-customers.component.html'
 })
 export class RoundCustomersComponent {
-  editing: boolean;
+  tabbedInto: boolean;
   buttonsSubscription: Subscription;
 
   constructor(private el: ElementRef) {
@@ -34,23 +35,18 @@ export class RoundCustomersComponent {
   @Output()
   remove = new EventEmitter<number>();
 
-  @ViewChild('parent')
-  parent: FocusDirective;
+  // @ViewChild('parent')
+  // parent: FocusDirective;
 
   @ViewChildren('button')
   buttons: QueryList<FocusDirective>
 
   startEdit(tabbedInto: boolean) {
-    if(this.editing) {
-      return;
-    }
-
-    if(!this.parent.focused) {
-      this.parent.beFocused();
-    }
-
-    this.editing = true;
+    this.tabbedInto = tabbedInto;
     if(tabbedInto) {
+      if(this.buttons.length) {
+        this.buttons.first.beFocused();
+      }
       this.buttonsSubscription = this.buttons.changes.subscribe((buttons: QueryList<FocusDirective>) => {
         if(buttons.length) {
           buttons.first.beFocused();
@@ -63,7 +59,6 @@ export class RoundCustomersComponent {
     if(this.buttonsSubscription) {
       this.buttonsSubscription.unsubscribe();
     }
-    this.editing = false;
   }
 
   removeCustomerClick(customerId: number) {
@@ -74,7 +69,14 @@ export class RoundCustomersComponent {
       this.customers.push(customer);
       this.customers.sort((a,b) => a.name < b.name? -1 : 1);
       this.remove.emit(customerId);
-      this.parent.beFocused();
+     
+      if(this.tabbedInto) {
+        setTimeout(() => {
+          if(this.buttons.length) {
+            this.buttons.first.beFocused();
+          }
+        });
+      }
     }
   }
 
@@ -85,7 +87,14 @@ export class RoundCustomersComponent {
       this.value.push(customer);
       this.customers.splice(index, 1);
       this.add.emit(customer.id);
-      this.parent.beFocused();
+     
+      if(this.tabbedInto) {
+        setTimeout(() => {
+          if(this.buttons.length) {
+            this.buttons.first.beFocused();
+          }
+        });
+      }
     }
   }
 }

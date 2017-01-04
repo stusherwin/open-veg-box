@@ -1,6 +1,5 @@
-<div class="round-customers editable" #parent=cc-focus cc-focus (focus)="startEdit(true)" (blur)="endEdit()">
-  <input type="checkbox" *ngIf="!editing" style="position: absolute;left:-1000px" cc-focus noBlur="true" [tabindex]="editTabindex" />
-  <div class="editable-display" *ngIf="!editing" (click)="startEdit(false)">
+<cc-editable className="round-customers" (startEdit)="startEdit($event)" (endEdit)="endEdit()" [tabindex]="editTabindex">
+  <div display>
     <div class="round-customers-display" *ngIf="value.length">
       <div class="round-customer" *ngFor="let c of value">
         <div class="round-customer-detail round-customer-name">{{c.name}}</div>
@@ -20,7 +19,7 @@
       </div>
     </div>
   </div>
-  <div class="editable-edit" *ngIf="editing">
+  <div edit>
     <input type="checkbox" *ngIf="!customers.length && !value.length" style="position: absolute;left:-1000px" cc-focus noBlur="true" grab="true" [tabindex]="editTabindex" />
     <div class="round-customers-display" *ngIf="value.length">
       <div class="round-customer" *ngFor="let c of value; let i = index">
@@ -58,4 +57,4 @@
       </div>
     </div>
   </div>
-</div>
+</cc-editable>

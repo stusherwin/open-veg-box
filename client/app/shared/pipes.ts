@@ -17,7 +17,7 @@ export class WeightPipe implements PipeTransform {
 @Pipe({name: 'singleline'})
 export class SingleLinePipe implements PipeTransform {
   transform(value: string, separator: string): string {
-    return value.split('\n').map(l => '<span style="white-space: nowrap">' + l + '</span>').join( separator );
+    return value.split(/[\r\n]+/g).map(l => '<span style="white-space: nowrap">' + l + '</span>').join( separator );
   }
 }
 

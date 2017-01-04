@@ -1,26 +1,23 @@
 import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { FocusDirective } from '../shared/focus.directive'
 import { SingleLinePipe } from '../shared/pipes';
+import { EditableComponent } from '../shared/editable.component'
 
 @Component({
   selector: 'cc-customer-address',
-  directives: [FocusDirective],
+  directives: [FocusDirective, EditableComponent],
   pipes: [SingleLinePipe],
   template: `
-    <div class="editable" cc-focus (focus)="startEdit()" (blur)="endEdit()">
-      <input type="checkbox" *ngIf="!editing" style="position: absolute;left:-1000px" cc-focus [tabindex]="editTabindex" />
-      <div class="editable-display" *ngIf="!editing" (click)="startEdit()" [innerHTML]="value | singleline:', '">
+    <cc-editable [tabindex]="editTabindex" (startEdit)="startEdit()" (endEdit)="endEdit()">
+      <div display [innerHTML]="value | singleline:', '">
       </div>
-      <div class="editable-edit" *ngIf="editing">
-        <textarea [(ngModel)]="value" (ngModelChange)="valueChanged($event)" cc-focus grab="true" [selectAll]="addMode" [tabindex]="editTabindex"></textarea>
+      <div edit>
+        <textarea [(ngModel)]="value" (ngModelChange)="valueChanged($event)" #focusable=cc-focus cc-focus [selectAll]="addMode" [tabindex]="editTabindex"></textarea>
       </div>
-    </div>
+    </cc-editable>
   `
 })
 export class CustomerAddressComponent {
-  @Input()
-  editing: boolean;
-
   @Input()
   addMode: boolean;
 
@@ -36,12 +33,14 @@ export class CustomerAddressComponent {
   @Output()
   update = new EventEmitter<any>();
 
+  @ViewChild('focusable')
+  focusable: FocusDirective;
+
   startEdit() {
-    this.editing = true;
+    this.focusable.beFocused();
   }
 
   endEdit() {
-    this.editing = false;
     this.update.emit(null);
   }
 

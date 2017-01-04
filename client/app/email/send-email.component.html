@@ -7,7 +7,7 @@
   </div>
   <div class="form-row">
     <label>Subject:</label>
-    <input type="text" class="field" cc-focus grab="true" tabindex="1" [(ngModel)]="subject" />
+    <input type="text" class="field" #focusable=cc-focus cc-focus tabindex="1" [(ngModel)]="subject" />
   </div>
   <div class="form-row">
     <label>Message:</label>

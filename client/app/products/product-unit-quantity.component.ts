@@ -2,23 +2,23 @@ import { Component, Input, ViewChild, ElementRef, Output, EventEmitter } from '@
 import { UnitType, unitTypes } from './product';
 import { WeightPipe } from '../shared/pipes';
 import { FocusDirective } from '../shared/focus.directive'
+import { EditableComponent } from '../shared/editable.component'
 
 @Component({
   selector: 'cc-product-unit-quantity',
-  directives: [FocusDirective],
+  directives: [FocusDirective, EditableComponent],
   pipes: [WeightPipe],
   template: `
-    <div class="product-unit-quantity editable" #parent=cc-focus cc-focus (focus)="startEdit()" (blur)="endEdit()">
-      <input type="checkbox" *ngIf="!editing" style="position: absolute;left:-1000px" [tabindex]="editTabindex" cc-focus />
-      <div class="editable-display" *ngIf="!editing" (click)="click()">
+    <cc-editable className="product-unit-quantity" [tabindex]="editTabindex" (startEdit)="startEdit()" (endEdit)="endEdit()">
+      <div display>
         <span class="muted">sold in units of</span> {{ unitQuantity | weight }}
       </div>
-      <div class="editable-edit" *ngIf="editing">
+      <div edit>
         <span class="muted">sold in units of</span>
-        <input type="text" class="input tiny" #unitQuantityElem cc-focus grab="true" [(ngModel)]="unitQuantityString" [tabindex]="editTabindex" required (ngModelChange)="unitQuantityChanged($event)" />
+        <input type="text" class="input tiny" #unitQuantityElem=cc-focus cc-focus [(ngModel)]="unitQuantityString" [tabindex]="editTabindex" required (ngModelChange)="unitQuantityChanged($event)" />
         Kg
       </div>
-    </div>
+    </cc-editable>
   `
 })
 export class ProductUnitQuantityComponent {
@@ -27,13 +27,10 @@ export class ProductUnitQuantityComponent {
   unitQuantityString: string;
   
   @ViewChild('unitQuantityElem')
-  unitQuantityElem: ElementRef;
+  unitQuantityElem: FocusDirective;
 
   @Input()
   unitQuantity: number;
-
-  @Input()
-  editing: boolean;
 
   @Input()
   addMode: boolean;
@@ -47,20 +44,12 @@ export class ProductUnitQuantityComponent {
   @Output()
   update = new EventEmitter<any>();
 
-  @ViewChild('parent')
-  parent: FocusDirective;
-
-  click() {
-    this.parent.beFocused();
-  }
-  
   startEdit() {
-    this.editing = true;
     this.unitQuantityString = this.toStringValue(this.unitQuantity);
+    this.unitQuantityElem.beFocused();
   }
 
   endEdit() {
-    this.editing = false;
     this.update.emit(null);
   }
 

@@ -1,25 +1,22 @@
 import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { FocusDirective } from '../shared/focus.directive'
+import { EditableComponent } from '../shared/editable.component'
 
 @Component({
   selector: 'cc-customer-email',
-  directives: [FocusDirective],
+  directives: [FocusDirective, EditableComponent],
   template: `
-    <div class="editable" cc-focus (focus)="startEdit()" (blur)="endEdit()">
-      <input type="checkbox" *ngIf="!editing" style="position: absolute;left:-1000px" cc-focus [tabindex]="editTabindex" />
-      <div class="editable-display" *ngIf="!editing" (click)="startEdit()">
+    <cc-editable [tabindex]="editTabindex" (startEdit)="startEdit()" (endEdit)="endEdit()">
+      <div display>
         {{ value }}
       </div>
-      <div class="editable-edit" *ngIf="editing">
-        <input type="text" [(ngModel)]="value" (ngModelChange)="valueChanged($event)" cc-focus grab="true" [selectAll]="addMode" [tabindex]="editTabindex" />
+      <div edit>
+        <input type="text" [(ngModel)]="value" (ngModelChange)="valueChanged($event)" #focusable=cc-focus cc-focus [selectAll]="addMode" [tabindex]="editTabindex" />
       </div>
-    </div>
+    </cc-editable>
   `
 })
 export class CustomerEmailComponent {
-  @Input()
-  editing: boolean;
-
   @Input()
   addMode: boolean;
 
@@ -34,13 +31,15 @@ export class CustomerEmailComponent {
 
   @Output()
   update = new EventEmitter<any>();
+
+  @ViewChild('focusable')
+  focusable: FocusDirective;
   
   startEdit() {
-    this.editing = true;
+    this.focusable.beFocused();
   }
 
   endEdit() {
-    this.editing = false;
     this.update.emit(null);
   }
 

@@ -2,28 +2,27 @@ import { Component, Input, ViewChild, ElementRef, Output, EventEmitter } from '@
 import { UnitType, unitTypes } from './product';
 import { MoneyPipe } from '../shared/pipes';
 import { FocusDirective } from '../shared/focus.directive'
-import { NumericDirective } from '../shared/number.component';
+import { EditableComponent } from '../shared/editable.component'
 
 @Component({
   selector: 'cc-product-price',
-  directives: [FocusDirective, NumericDirective],
+  directives: [FocusDirective, EditableComponent],
   pipes: [MoneyPipe],
   template: `
-    <div class="product-price editable" #parent=cc-focus cc-focus (focus)="startEdit()" (blur)="endEdit()">
-      <input type="checkbox" *ngIf="!editing" style="position: absolute;left:-1000px" cc-focus [tabindex]="editTabindex" />
-      <div class="editable-display" *ngIf="!editing" (click)="click()">
+    <cc-editable className="product-price" [tabindex]="editTabindex" (startEdit)="startEdit()" (endEdit)="endEdit()">
+      <div display>
         <span [innerHTML]="price | money"></span> <span class="muted">{{ unitTypeName(unitType) }}</span>
       </div>
-      <div class="editable-edit" *ngIf="editing">
-        &pound;<input type="text" class="input price" #priceElem cc-focus grab="true" [selectAll]="addMode" [(ngModel)]="priceString" [tabindex]="editTabindex" required (ngModelChange)="priceChanged($event)" />
-        <select class="input" #unitTypeElem cc-focus [(ngModel)]="unitType" [tabindex]="editTabindex" (ngModelChange)="unitTypeChanged($event)">
+      <div edit>
+        &pound;<input type="text" class="input price" #priceElem=cc-focus cc-focus [selectAll]="addMode" [(ngModel)]="priceString" [tabindex]="editTabindex" required (ngModelChange)="priceChanged($event)" />
+        <select class="input" cc-focus [(ngModel)]="unitType" [tabindex]="editTabindex" (ngModelChange)="unitTypeChanged($event)">
           <option *ngFor="let ut of unitTypes" [ngValue]="ut.value">{{ ut.name }}</option>
         </select>
       </div>
-    </div>
+    </cc-editable>
   `
 })
-export class ProductPriceComponent {
+export class ProductPriceComponentNew {
   unitTypes: UnitType[];
   fixedDecimals: number = 2;
   maxDecimals: number = null;
@@ -34,19 +33,13 @@ export class ProductPriceComponent {
   }
 
   @ViewChild('priceElem')
-  priceElem: ElementRef;
-
-  @ViewChild('unitTypeElem')
-  unitTypeElem: ElementRef;
+  priceElem: FocusDirective;
 
   @Input()
   price: number;
 
   @Input()
   unitType: string;
-
-  @Input()
-  editing: boolean;
 
   @Input()
   addMode: boolean;
@@ -63,20 +56,12 @@ export class ProductPriceComponent {
   @Output()
   update = new EventEmitter<any>();
 
-  @ViewChild('parent')
-  parent: FocusDirective;
-
-  click() {
-    this.parent.beFocused();
-  }
-
   startEdit() {
-    this.editing = true;
     this.priceString = this.toStringValue(this.price);
+    this.priceElem.beFocused();
   }
 
   endEdit() {
-    this.editing = false;
     this.update.emit(null);
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, AfterViewInit, ViewChild } from '@angular/core';
 import { ROUTER_DIRECTIVES, Router } from '@angular/router-deprecated';
 import { FocusDirective } from '../shared/focus.directive';
 import { FocusService } from '../shared/focus.service';
@@ -10,7 +10,7 @@ import { EmailService, EmailMessage, EmailRecipient } from '../email/email.servi
   providers: [FocusService, EmailService],
   directives: [FocusDirective, ROUTER_DIRECTIVES]
 })
-export class SendEmailComponent {
+export class SendEmailComponent implements AfterViewInit {
   constructor(private emailService: EmailService, private router: Router) {
   }
 
@@ -25,6 +25,13 @@ export class SendEmailComponent {
 
   @Input()
   successLinkParams: any[]
+
+  @ViewChild('focusable')
+  focusable: FocusDirective
+
+  ngAfterViewInit() {
+    this.focusable.beFocused();
+  }
 
   send() {
     this.emailService.send(new EmailMessage(this.recipients, this.subject, this.body))

@@ -34,7 +34,7 @@ export class PostgresDb implements Db {
   }
 
   private static convertParams(sql: string) {
-    return sql.replace(/@(\w+)/g, '${$1}');
+    return sql.replace(/@(\w+)/g, '$[$1]');
   }
 
   all<T>(sql: string, params: any, queryParams: any, create: (row: any) => T): Observable<T[]> {
@@ -46,11 +46,11 @@ export class PostgresDb implements Db {
   }
 
   single<T>(sql: string, params: any, create: (row: any) => T): Observable<T> {
-    return Observable.fromPromise<any>(this.db.one(PostgresDb.convertParams(sql), [])).map(create); 
+    return Observable.fromPromise<any>(this.db.one(PostgresDb.convertParams(sql), params)).map(create); 
   }
 
   singleWithReduce<T>(sql: string, params: any, create: (rows: any[]) => T): Observable<T> {
-    return Observable.fromPromise<any[]>(this.db.any(PostgresDb.convertParams(sql), [])).map(create);     
+    return Observable.fromPromise<any[]>(this.db.any(PostgresDb.convertParams(sql), params)).map(create);     
   }
 
   update(table: string, fields: string[], id: number, params: any) {

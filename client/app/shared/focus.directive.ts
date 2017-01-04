@@ -21,9 +21,6 @@ export class FocusDirective implements OnInit, OnDestroy {
   }
 
   @Input()
-  grab: boolean;
-
-  @Input()
   focusedClass: string;
 
   @Input()
@@ -51,10 +48,6 @@ export class FocusDirective implements OnInit, OnDestroy {
       elem.onblur = () => {
         this.setFocused(false);
       };
-    }
-    
-    if (this.grab) {
-      this.renderer.invokeElementMethod(elem, 'focus', []);
     }
   }
 

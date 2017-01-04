@@ -24,10 +24,12 @@ Database
 * Better sqlite error handling (handle sql errors)
 * Catch sql errors instead of crashing (uq violation)
   - handle in SqliteDb
+* Move organisation logins out of sqlite (env variables?)
 
 Deployment
 ==========
-* Hosting
+* Set up postgres db on heroku
+* Set up mailgun to use production settings
 
 General Styling
 ===============
@@ -48,18 +50,22 @@ Edit Individual fields
   have tabindex=1)
 * On add, should scroll page to bring row being added into view
 * keydown: Enter to save, Esc to cancel
-? Split out grab/highlight directives?
 ? Maybe add should show all fields in edit mode?
 * Fix add focus - when should it stay in add mode?
 * 1px wobble in product unit quantity
 * Vertically centre 'edit' button
-* Change background of 'edit' button on mouseover?
 * Highlight/textbox border should be outside (encompass) icons on fields (address, email, tel)
+* Need loading state (flashes 'No products' when loading)
 
 Round customers
 ===============
 * Subject & body should be mandatory email fields
 * Should BCC recipients, not TO
+* Still some issues with tabbing into
+  - sometimes flickers when tabbing into for first time
+  - hitting enter when button focused sometimes closes entire control
+  - sometimes misses entire row when tabbing away (tabs to following control on next row!)
+    (seems to be after opening control with click, then tabbing around + finally clicking on a button)
 
 BUGS!!!!
 ========
@@ -74,5 +80,3 @@ BUGS!!!!
 * ref integrity issues in sqlite - allows references to deleted entity ids (check fk constraints?)
 * Permission denied in postgres kills server
 * Add button should be on top of page too (auto scroll down to bottom)
-* Grab focus doesn't work on product-price/unit quantity
-  (when not clicking directly on where input would be)
