@@ -15,7 +15,7 @@ rounds.use(authorize);
 
 rounds.get('/', function(req: any, res: any, next: any) {
   roundsService.getAll(Objects.whiteList(req.query, ['page', 'pageSize']), req.db)
-               .subscribe(rounds => res.json(rounds));
+               .subscribe(rounds => res.json(rounds), next);
 });
 
 rounds.get('/:id', function(req: any, res: any, next: any) {

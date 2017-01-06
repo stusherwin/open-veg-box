@@ -75,8 +75,16 @@ BUGS!!!!
 * Logout button not visible on small screen
 * tsconfig watch: true - needed for dev but not for production - need to resolve this somehow.
 * 401 (Unauthorized) exception breaking error notification - need to work out & handle all exception
-  shapes
+  shapes (also breaks client app with uncaught exception!)
 * Sometimes have to click login button twice.
 * ref integrity issues in sqlite - allows references to deleted entity ids (check fk constraints?)
 * Permission denied in postgres kills server
+  (fixed if this was Rounds home)
 * Add button should be on top of page too (auto scroll down to bottom)
+* Doing nothing to round customers throws sql error (edit/cancel)
+* when no round customers should show 'no customers assigned' message
+* Sometimes click away from field doesn't work first time
+
+Ideas
+=====
+* Add warning message to guest user that data will not be kept

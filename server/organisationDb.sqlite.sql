@@ -1,8 +1,12 @@
+PRAGMA foreign_keys=on;
+
 DROP TABLE IF EXISTS round_customer;
 CREATE TABLE round_customer(
-  roundId integer NOT NULL REFERENCES round(id),
-  customerId integer NOT NULL REFERENCES customer(id),
-  PRIMARY KEY(roundId, customerId)
+  roundId integer NOT NULL,
+  customerId integer NOT NULL,
+  PRIMARY KEY(roundId, customerId),
+  FOREIGN KEY(roundId) REFERENCES round(id),
+  FOREIGN KEY(customerId) REFERENCES customer(id)
 );
 
 DROP TABLE IF EXISTS round;
