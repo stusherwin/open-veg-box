@@ -7,10 +7,6 @@ Header
 * Inline logo svg
 * Change favicon
 
-Editing
-=======
-* Fix numeric rounding issues: http://stackoverflow.com/questions/10015027/javascript-tofixed-not-rounding
-
 Auth
 ====
 * Log out button slightly different on home page
@@ -29,6 +25,7 @@ Database
 Deployment
 ==========
 * Set up postgres db on heroku
+* tsconfig watch: true - needed for dev but not for production - need to resolve this somehow.
 * Set up mailgun to use production settings
 
 General Styling
@@ -36,26 +33,32 @@ General Styling
 ? Buttons: circular shadow on hover instead of rectangle?
 * Browser testing
 * Chrome rendering issue with 1px border width (fix by positioning from centre of circles not corner)
+* Need row loading state (flashes 'No products' when loading)
+* Logout button not visible on small screen
+* when no round customers should show 'no customers assigned' message
 
-Edit Individual fields
-======================
-* Save/add behaviour
-  - Field save success indicator
-  - Field validation (multiple field coordination?)
-* On delete, focus previous item delete button
-? Select all in add mode, only on first focus within add action
-* Animation (close row on delete, fade add preview in/out)
+Editing
+=======
+* Fix numeric rounding issues: http://stackoverflow.com/questions/10015027/javascript-tofixed-not-rounding
+* Just show edit icon without dotted border
+  - Vertically centre 'edit' button
+  - 1px wobble in product unit quantity
+* Highlight/textbox border should be outside (encompass) icons on fields (address, email, tel)
+* Field save success indicator
+* Field validation (multiple field coordination?)
 * Figure out why clicking on page doesn't reset current tab index
   (sets it to delete button, tabindex=2, which is first element on page with tabindex, but subsequent elements
   have tabindex=1)
-* On add, should scroll page to bring row being added into view
 * keydown: Enter to save, Esc to cancel
+
+Row save/add/delete
+======================
+* On delete, focus previous item delete button
+? Select all in add mode, only on first focus within add action
+* Animation (close row on delete, fade add preview in/out)
+* On add, should scroll page to bring row being added into view
 ? Maybe add should show all fields in edit mode?
 * Fix add focus - when should it stay in add mode?
-* 1px wobble in product unit quantity
-* Vertically centre 'edit' button
-* Highlight/textbox border should be outside (encompass) icons on fields (address, email, tel)
-* Need loading state (flashes 'No products' when loading)
 
 Round customers
 ===============
@@ -72,17 +75,13 @@ BUGS!!!!
 * Adding round didn't update page with new round (hitting enter on save button?)
 * Deleting a round didn't update available customers, so couldn't add customers to new round
 * (after add + cancel) Add row wasn't focused but other rows hover was as if it was focused
-* Logout button not visible on small screen
-* tsconfig watch: true - needed for dev but not for production - need to resolve this somehow.
 * 401 (Unauthorized) exception breaking error notification - need to work out & handle all exception
   shapes (also breaks client app with uncaught exception!)
 * Sometimes have to click login button twice.
-* ref integrity issues in sqlite - allows references to deleted entity ids (check fk constraints?)
 * Permission denied in postgres kills server
   (fixed if this was Rounds home)
 * Add button should be on top of page too (auto scroll down to bottom)
 * Doing nothing to round customers throws sql error (edit/cancel)
-* when no round customers should show 'no customers assigned' message
 * Sometimes click away from field doesn't work first time
 
 Ideas

@@ -44,7 +44,7 @@ export class FocusDirective implements OnInit, OnDestroy {
     var elem = this.el.nativeElement;
     if(this.isFocusable()) {
       elem.onfocus = () => {
-        this.setFocused(true);
+        setTimeout(() => this.setFocused(true));
       };
     }
   }

@@ -55,7 +55,7 @@ export class RoundCustomersComponent {
     }
   }
 
-  onEditEnd() {
+  onEditEnd(success: boolean) {
     if(this.buttonsSubscription) {
       this.buttonsSubscription.unsubscribe();
     }

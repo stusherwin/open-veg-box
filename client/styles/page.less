@@ -51,10 +51,6 @@ input[type="text"], input[type="password"], select, textarea {
   margin:0;
 }
 
-input[type="checkbox"] {
-  outline: 0;
-}
-
 select {
   padding: 1px 0px;
 }
@@ -577,7 +573,13 @@ select {
 
 input[type="text"], input[type="password"], textarea, select {
   &:focus {
-    outline: 0;
     border: 1px solid desaturate(darken(@itemHoverColor, 20%),10%);
   }
+}
+
+:focus, :active {outline:0;}
+::-moz-focus-inner {border:0;}
+select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #aaa;
 }

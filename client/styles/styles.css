@@ -977,9 +977,6 @@ textarea {
   font-size: 100%;
   margin: 0;
 }
-input[type="checkbox"] {
-  outline: 0;
-}
 select {
   padding: 1px 0px;
 }
@@ -2106,8 +2103,18 @@ input[type="text"]:focus,
 input[type="password"]:focus,
 textarea:focus,
 select:focus {
-  outline: 0;
   border: 1px solid #f8c77e;
+}
+:focus,
+:active {
+  outline: 0;
+}
+::-moz-focus-inner {
+  border: 0;
+}
+select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #aaa;
 }
 .header.home-header {
   width: 570px;

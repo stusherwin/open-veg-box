@@ -9,7 +9,7 @@ import { EditableComponent } from '../shared/editable.component'
   directives: [FocusDirective, EditableComponent],
   pipes: [MoneyPipe],
   template: `
-    <cc-editable className="product-price" [tabindex]="editTabindex" (editStart)="onEditStart()" (editEnd)="onEditEnd()">
+    <cc-editable className="product-price" [tabindex]="editTabindex" (editStart)="onEditStart($event)" (editEnd)="onEditEnd($event)">
       <div display>
         <span [innerHTML]="price | money"></span> <span class="muted">{{ unitTypeName(unitType) }}</span>
       </div>
@@ -22,7 +22,7 @@ import { EditableComponent } from '../shared/editable.component'
     </cc-editable>
   `
 })
-export class ProductPriceComponentNew {
+export class ProductPriceComponent {
   unitTypes: UnitType[];
   fixedDecimals: number = 2;
   maxDecimals: number = null;
@@ -56,13 +56,15 @@ export class ProductPriceComponentNew {
   @Output()
   update = new EventEmitter<any>();
 
-  onEditStart() {
+  onEditStart(tabbedInto: boolean) {
     this.priceString = this.toStringValue(this.price);
     this.priceElem.beFocused();
   }
 
-  onEditEnd() {
-    this.update.emit(null);
+  onEditEnd(success: boolean) {
+    if(success) {
+      this.update.emit(null);
+    }
   }
 
   unitTypeName(value: string) {

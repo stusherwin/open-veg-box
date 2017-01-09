@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { FocusDirective } from './focus.directive'
 import { EditableComponent } from '../shared/editable.component'
 
@@ -6,7 +6,7 @@ import { EditableComponent } from '../shared/editable.component'
   selector: 'cc-heading',
   directives: [FocusDirective, EditableComponent],
   template: `
-    <cc-editable #editable className="heading" [tabindex]="editTabindex" (editStart)="onEditStart()" (editEnd)="onEditEnd()">
+    <cc-editable #editable className="heading" [tabindex]="editTabindex" (editStart)="onEditStart($event)" (editEnd)="onEditEnd($event)">
       <div display>
         <h3>{{value}}</h3>
       </div>
@@ -16,7 +16,7 @@ import { EditableComponent } from '../shared/editable.component'
     </cc-editable>
   `
 }) 
-export class HeadingComponent {
+export class HeadingComponent implements AfterViewInit {
   @Input()
   value: string;
 
@@ -38,6 +38,9 @@ export class HeadingComponent {
   @Output()
   update = new EventEmitter<any>();
 
+  ngAfterViewInit() {
+  }
+
   valueChanged(value: string) {
     this.valueChange.emit(value);
   }
@@ -46,11 +49,11 @@ export class HeadingComponent {
     this.editable.startEdit();
   }
 
-  onEditStart() {
+  onEditStart(tabbedInto: boolean) {
     this.focusable.beFocused();
   }
 
-  onEditEnd() {
+  onEditEnd(success: boolean) {
     this.update.emit(null);
   }
 }

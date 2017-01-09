@@ -8,6 +8,7 @@ link-checker-results.txt
 *.js.map
 _test-output
 _temp
+*.orig
 
 !**/*e2e-spec.js
 !karma*.js
