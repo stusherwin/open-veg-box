@@ -1,16 +1,16 @@
 import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, ViewChildren, QueryList } from '@angular/core';
 import { FocusDirective } from '../shared/focus.directive'
-import { RoundCustomer } from './round'
+import { BoxProduct } from './box'
 import { Subscription } from 'rxjs/Subscription' 
 import { Observable } from 'rxjs/Observable';
 import { EditableComponent } from '../shared/editable.component'
 
 @Component({
-  selector: 'cc-round-customers',
+  selector: 'cc-box-products',
   directives: [FocusDirective, EditableComponent],
-  templateUrl: 'app/rounds/round-customers.component.html'
+  templateUrl: 'app/boxes/box-products.component.html'
 })
-export class RoundCustomersComponent {
+export class BoxProductsComponent {
   tabbedInto: boolean;
   buttonsSubscription: Subscription;
 
@@ -18,13 +18,13 @@ export class RoundCustomersComponent {
   editTabindex: number;
 
   @Input()
-  value: RoundCustomer[];
+  value: BoxProduct[];
   
   @Output()
-  valueChange = new EventEmitter<RoundCustomer[]>();
+  valueChange = new EventEmitter<BoxProduct[]>();
 
   @Input()
-  customers: RoundCustomer[];
+  products: BoxProduct[];
 
   @Output()
   add = new EventEmitter<number>();
@@ -55,14 +55,14 @@ export class RoundCustomersComponent {
     }
   }
 
-  removeCustomerClick(customerId: number) {
-    let index = this.value.findIndex( c => c.id == customerId);
+  removeProductClick(productId: number) {
+    let index = this.value.findIndex(p => p.id == productId);
     if(index >= 0) {
-      let customer = this.value.find( c => c.id == customerId);
+      let product = this.value.find(p => p.id == productId);
       this.value.splice(index, 1);
-      this.customers.push(customer);
-      this.customers.sort((a,b) => a.name < b.name? -1 : 1);
-      this.remove.emit(customerId);
+      this.products.push(product);
+      this.products.sort((a,b) => a.name < b.name? -1 : 1);
+      this.remove.emit(productId);
      
       if(this.tabbedInto) {
         setTimeout(() => {
@@ -74,13 +74,13 @@ export class RoundCustomersComponent {
     }
   }
 
-  addCustomerClick(customerId: number ) {
-    let customer = this.customers.find( c => c.id == customerId);
-    if(customer) {
-      let index = this.customers.findIndex( c => c.id == customerId);
-      this.value.push(customer);
-      this.customers.splice(index, 1);
-      this.add.emit(customer.id);
+  addProductClick(productId: number ) {
+    let product = this.products.find(p => p.id == productId);
+    if(product) {
+      let index = this.products.findIndex(p => p.id == productId);
+      this.value.push(product);
+      this.products.splice(index, 1);
+      this.add.emit(product.id);
      
       if(this.tabbedInto) {
         setTimeout(() => {

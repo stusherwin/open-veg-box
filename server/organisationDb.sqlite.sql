@@ -15,6 +15,18 @@ CREATE TABLE round(id integer primary key, name text);
 DROP TABLE IF EXISTS customer;
 CREATE TABLE customer(id integer primary key, name text, address text, tel1 text null, tel2 text null, email text null);
 
+DROP TABLE IF EXISTS box_product;
+CREATE TABLE box_product(
+  boxId integer NOT NULL,
+  productId integer NOT NULL,
+  PRIMARY KEY(boxId, productId),
+  FOREIGN KEY(boxId) REFERENCES box(id),
+  FOREIGN KEY(productId) REFERENCES product(id)
+);
+
+DROP TABLE IF EXISTS box;
+CREATE TABLE box(id integer primary key, name text, price real);
+
 DROP TABLE IF EXISTS product;
 CREATE TABLE product(id integer primary key, name text, price real, unitType text, unitQuantity real);
 
@@ -49,3 +61,23 @@ INSERT INTO round_customer VALUES(1, 1);
 INSERT INTO round_customer VALUES(1, 2);
 INSERT INTO round_customer VALUES(2, 3);
 INSERT INTO round_customer VALUES(2, 4);
+
+INSERT INTO box VALUES(1,'Big Box', 20.0);
+INSERT INTO box VALUES(2,'Medium Box', 15.0);
+INSERT INTO box VALUES(3,'Little Box', 10.0);
+
+INSERT INTO box_product VALUES(1, 1);
+INSERT INTO box_product VALUES(1, 2);
+INSERT INTO box_product VALUES(1, 3);
+INSERT INTO box_product VALUES(1, 4);
+INSERT INTO box_product VALUES(1, 5);
+INSERT INTO box_product VALUES(1, 6);
+INSERT INTO box_product VALUES(1, 7);
+
+INSERT INTO box_product VALUES(2, 1);
+INSERT INTO box_product VALUES(2, 2);
+INSERT INTO box_product VALUES(2, 3);
+INSERT INTO box_product VALUES(2, 4);
+
+INSERT INTO box_product VALUES(3, 1);
+INSERT INTO box_product VALUES(3, 2);

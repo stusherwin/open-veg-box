@@ -1,0 +1,27 @@
+export class Box {
+  constructor(id: number, name:string, price: number, products: BoxProduct[]) {
+    this.id = id;
+    this.name = name;
+    this.price = price;
+    this.products = products;
+  }
+    
+  id: number;
+  name: string;
+  price: number;
+  products: BoxProduct[]
+
+  clone() {
+    return new Box(this.id, this.name, this.price, this.products.map(c => new BoxProduct(c.id, c.name)));
+  }
+}
+
+export class BoxProduct {
+  constructor(id: number, name:string) {
+    this.id = id;
+    this.name = name;
+  }
+    
+  id: number;
+  name: string;
+}

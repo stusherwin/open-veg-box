@@ -1,0 +1,42 @@
+<div class="row" [class.addMode]="addMode" cc-focus focusedClass="focused" [handleClickOutside]="true" (focus)="onRowFocus()" (blur)="onRowBlur()">
+  <input type="checkbox" cc-focus *ngIf="addMode && !rowFocused" style="position: absolute;left:-1000px" [tabindex]="index * 2" />
+  <div class="actions">
+    <div class="action" *ngIf="!addMode || !adding">
+    </div>
+    <div class="action" *ngIf="!addMode">
+      <button cc-focus (click)="onDelete()" [tabindex]="(index * 2) + 2">
+        <div class="icon"><i class="icon-trash"></i></div>
+        <span>Delete</span>
+      </button>
+    </div>
+    <div class="action" [hidden]="!addMode || adding">
+      <button #addButton=cc-focus cc-focus (click)="startAdd()" [tabindex]="(index * 2) + 2">
+        <div class="icon"><i class="icon-add"></i></div>
+        <span>Add</span>
+      </button>  
+    </div>
+    <div class="action" *ngIf="addMode && adding">
+      <button cc-focus (click)="completeAdd()" [tabindex]="(index * 2) + 2">
+        <div class="icon"><i class="icon-ok"></i></div>
+        <span>Save</span>
+      </button>  
+    </div>
+    <div class="action" *ngIf="addMode && adding">
+      <button cc-focus (click)="cancelAdd()" [tabindex]="(index * 2) + 2">
+        <div class="icon"><i class="icon-cancel"></i></div>
+        <span>Cancel</span>
+      </button>  
+    </div>
+  </div>
+  <p *ngIf="addMode && showAddMessage && !adding">There are no boxes yet.</p>
+  <div class="details" [hidden]="addMode && !adding">
+    <cc-heading [addMode]="addMode" #boxName [(value)]="box.name" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-heading>
+    <div class="flex">
+      <div class="price-detail">
+        <cc-box-price [addMode]="addMode" [(price)]="box.price" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-box-price>
+      </div>  
+      <div></div>
+    </div>
+    <cc-box-products *ngIf="!addMode" [addMode]="addMode" [(value)]="box.products" (add)="onProductAdd($event)" (remove)="onProductRemove($event)" [products]="products" [editTabindex]="(index * 2) + 1"></cc-box-products>
+  </div>
+</div>
