@@ -1,6 +1,6 @@
 <h2>Products</h2>
 
-<div class="row-view" cc-focus id="row-view" focusedClass="focused">
+<div class="row-view" cc-focus id="row-view" focusedClass="focused" [handleClickOutside]="true">
   <cc-product *ngFor="let p of products; let i = index" [product]="p" [index]="i" (delete)="onDelete($event)" (update)="onUpdate($event)"></cc-product>
   <cc-product addMode="true" [showAddMessage]="!products.length" (add)="onAdd($event)" [index]="products.length"></cc-product>
 </div>

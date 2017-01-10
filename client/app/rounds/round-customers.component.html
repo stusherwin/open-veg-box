@@ -1,4 +1,4 @@
-<cc-editable className="round-customers" (startEdit)="startEdit($event)" (endEdit)="endEdit()" [tabindex]="editTabindex">
+<cc-editable className="round-customers" (editStart)="onEditStart($event)" (editEnd)="onEditEnd()" [tabindex]="editTabindex" cc-focus [handleClickOutside]="true">
   <div display>
     <div class="round-customers-display" *ngIf="value.length">
       <div class="round-customer" *ngFor="let c of value">

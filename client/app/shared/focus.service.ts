@@ -5,70 +5,79 @@ import {Arrays} from './arrays';
 import {Lookup} from './lookup';
 
 export class FocusService implements IHandleOutsideClick {
-  private focusables: FocusDirective[] = [];
+  focusables: FocusDirective[] = [];
+  focusablesByDepth: {[depth: number]: FocusDirective[]} = { 0: [] };
+  maxDepth: number = 0;
   private outsideClickFocusables: FocusDirective[] = [];
 
   constructor(
     @Inject(forwardRef(() => ClickOutsideService))
     private clickOutsideService: ClickOutsideService) {
+      this.clickOutsideService.register(this);
   }
-
+  
   register(focusable: FocusDirective, handleOutsideClick: boolean) {
     this.focusables.push(focusable);
     if(handleOutsideClick) {
       this.outsideClickFocusables.push(focusable);
-      this.clickOutsideService.register(this);
+    }
+
+    for(let d = this.maxDepth; d >= 0; d--) {
+      if(!this.focusablesByDepth[d]) {
+        continue;
+      }
+
+      let foundParent = false;
+      for(let f of <FocusDirective[]>this.focusablesByDepth[d]) {
+        let depth = f.getAncestorDepth(focusable);
+        if(depth > 0) {
+          f.addChild(focusable);
+          let newDepth = d + depth;
+          if(newDepth > this.maxDepth) {
+            this.maxDepth = newDepth;
+          }
+          if(!this.focusablesByDepth[newDepth]) {
+            this.focusablesByDepth[newDepth] = [focusable];
+          } else {
+            this.focusablesByDepth[newDepth].push(focusable);
+          }
+          foundParent = true;
+          break;
+        }
+      }
+
+      if(foundParent) {
+        break;
+      }
+      
+      if(d == 0) {
+        this.focusablesByDepth[0].push(focusable);
+      }
     }
   }
 
   deregister(focusable: FocusDirective) {
     Arrays.remove(this.focusables, focusable);
     Arrays.remove(this.outsideClickFocusables, focusable);
-  }
-
-  onFocus(focusable: FocusDirective) {
-    var ancestors = this.focusables
-      .map(f => { return { f: f, depth: f.getAncestorDepth(focusable) }; })
-      .filter(f => f.depth > 0)
-      .sort((a, b) => a.depth < b.depth ? -1 : 1)
-      .map(f => f.f);
-
-    let nearestAncestor = ancestors.length? ancestors[0] : null;
-    if(nearestAncestor) {
-      nearestAncestor.descendentFocus(focusable);
+    
+    for(let d = this.maxDepth; d >= 0; d--) {
+      if(!this.focusablesByDepth[d]) {
+        continue;
+      }
+      let focusables = <FocusDirective[]>this.focusablesByDepth[d]; 
+      if(focusables.find(f => f == focusable)) {
+        Arrays.remove(focusables, focusable);
+      }
     }
-  }
 
-  onBlur(focusable: FocusDirective) {
-    var ancestors = this.focusables
-      .map(f => { return { f: f, depth: f.getAncestorDepth(focusable) }; })
-      .filter(f => f.depth > 0)
-      .sort((a, b) => a.depth < b.depth ? -1 : 1)
-      .map(f => f.f);
-
-    let nearestAncestor = ancestors.length? ancestors[0] : null;
-    if(nearestAncestor) {
-      let bubble = nearestAncestor.descendentBlur(focusable);
-    }
-  }
-
-  blurDescendents(focusable: FocusDirective) {
-    var descendents = this.focusables
-      .map(f => { return { f: f, depth: focusable.getAncestorDepth(f) }; })
-      .filter(f => f.depth > 0)
-      .sort((a, b) => a.depth > b.depth ? -1 : 1)
-      .map(f => f.f);
-
-    for(let d of descendents) {
-      d.beBlurred();
+    if(focusable.parent) {
+      focusable.parent.removeChild(focusable);
     }
   }
 
   outsideClick(x: number, y: number) {
     for(let f of this.outsideClickFocusables) {
-      if(f.focused && f.isOutside(x, y)) {
-        f.beBlurred();
-      }
+      f.outsideClick(x, y);
     }
   }
 }

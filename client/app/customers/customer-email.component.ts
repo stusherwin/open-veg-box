@@ -6,7 +6,7 @@ import { EditableComponent } from '../shared/editable.component'
   selector: 'cc-customer-email',
   directives: [FocusDirective, EditableComponent],
   template: `
-    <cc-editable [tabindex]="editTabindex" (startEdit)="startEdit()" (endEdit)="endEdit()">
+    <cc-editable [tabindex]="editTabindex" (editStart)="onEditStart()" (editEnd)="onEditEnd()">
       <div display>
         {{ value }}
       </div>
@@ -35,11 +35,11 @@ export class CustomerEmailComponent {
   @ViewChild('focusable')
   focusable: FocusDirective;
   
-  startEdit() {
+  onEditStart() {
     this.focusable.beFocused();
   }
 
-  endEdit() {
+  onEditEnd() {
     this.update.emit(null);
   }
 

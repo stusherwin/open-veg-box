@@ -8,7 +8,7 @@ import { EditableComponent } from '../shared/editable.component'
   directives: [FocusDirective, EditableComponent],
   pipes: [SingleLinePipe],
   template: `
-    <cc-editable [tabindex]="editTabindex" (startEdit)="startEdit()" (endEdit)="endEdit()">
+    <cc-editable [tabindex]="editTabindex" (editStart)="onEditStart()" (editEnd)="onEditEnd()">
       <div display [innerHTML]="value | singleline:', '">
       </div>
       <div edit>
@@ -36,11 +36,11 @@ export class CustomerAddressComponent {
   @ViewChild('focusable')
   focusable: FocusDirective;
 
-  startEdit() {
+  onEditStart() {
     this.focusable.beFocused();
   }
 
-  endEdit() {
+  onEditEnd() {
     this.update.emit(null);
   }
 

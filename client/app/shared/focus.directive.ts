@@ -1,5 +1,6 @@
 import {Component, Input, Directive, ElementRef, OnInit, Renderer, Host, Inject, forwardRef, Output, EventEmitter, OnDestroy} from '@angular/core';
 import {FocusService} from './focus.service';
+import {Arrays} from './arrays';
 
 const BLUR_GRACE_PERIOD_MS: number = 100;
 
@@ -9,9 +10,8 @@ const BLUR_GRACE_PERIOD_MS: number = 100;
 })
 export class FocusDirective implements OnInit, OnDestroy {
   focused: boolean;
-  shouldBlur: boolean;
-  directlyFocused: boolean;
-  closestFocusedDescendent: FocusDirective;
+  parent: FocusDirective;
+  children: FocusDirective[] = [];
 
   constructor(
     private el: ElementRef, 
@@ -27,6 +27,9 @@ export class FocusDirective implements OnInit, OnDestroy {
   selectAll: boolean;
 
   @Input()
+  handleClickOutside: boolean;
+
+  @Input()
   noBlur: boolean;
 
   @Output()
@@ -36,17 +39,12 @@ export class FocusDirective implements OnInit, OnDestroy {
   blur: EventEmitter<any> = new EventEmitter<any>();
 
   ngOnInit() {
-    this.service.register(this, !this.isFocusable(elem));
+    this.service.register(this, this.handleClickOutside);
 
     var elem = this.el.nativeElement;
-
-    if(this.isFocusable(elem)) {
+    if(this.isFocusable()) {
       elem.onfocus = () => {
         this.setFocused(true);
-      };
-        
-      elem.onblur = () => {
-        this.setFocused(false);
       };
     }
   }
@@ -55,104 +53,32 @@ export class FocusDirective implements OnInit, OnDestroy {
     this.service.deregister(this);
   }
 
+  addChild(child: FocusDirective) {
+    this.children.push(child);
+    child.parent = this;
+  }
+
+  removeChild(child: FocusDirective) {
+    child.parent = null;
+    Arrays.remove(this.children, child);
+  }
+
   beFocused() {
-    this.directlyFocused = true;
+    this.setFocused(true);
+
     let elem = this.el.nativeElement;
-    if(this.isFocusable(elem)) {
+    if(this.isFocusable()) {
       setTimeout(() => this.renderer.invokeElementMethod(this.el.nativeElement, 'focus', []));
-    } else {
-      this.setFocused(true);
     }
   }
 
   beBlurred() {
+    this.setFocused(false);
+
     let elem = this.el.nativeElement;
-    if(this.isFocusable(elem)) {
+    if(this.isFocusable()) {
       setTimeout(() => this.renderer.invokeElementMethod(this.el.nativeElement, 'blur', []));
-    } else {
-      this.setFocused(false);
     }
-    this.service.blurDescendents(this);
-  }
-
-  isFocusable(element: any) {
-    return element instanceof HTMLInputElement
-        || element instanceof HTMLButtonElement
-        || element instanceof HTMLAnchorElement
-        || element instanceof HTMLSelectElement
-        || element instanceof HTMLTextAreaElement;
-  }
-
-  setFocused(focused: boolean) {
-    let focusChanged = this.focused != focused;
-    if(focusChanged) {
-      let elem = this.el.nativeElement;
-      this.focused = focused;
-      if(this.focused) {
-        this.focus.emit(null);
-        this.shouldBlur = false;
-        if(this.focusedClass) {
-          this.renderer.setElementClass(elem, this.focusedClass, true);
-        }
-        if(this.selectAll) {
-          this.renderer.invokeElementMethod(elem, 'setSelectionRange', [0, elem.value.length]);
-        }
-        this.service.onFocus(this);
-      } else {
-        this.blur.emit(null);
-        this.directlyFocused = false;
-        if(this.focusedClass) {
-          this.renderer.setElementClass(elem, this.focusedClass, false);
-        }
-        
-        if(!this.noBlur) {
-          this.service.onBlur(this);
-        }
-      }
-    }
-  }
-
-  descendentFocus(descendent: FocusDirective): boolean {
-    if(!this.closestFocusedDescendent) {
-      this.closestFocusedDescendent = descendent;
-    } else {
-      if(descendent.getAncestorDepth(this.closestFocusedDescendent) >= 0) {
-        // descendent is ancestor of closestFocusedDescendent
-        this.closestFocusedDescendent = descendent
-      } else if(this.closestFocusedDescendent.getAncestorDepth(descendent) >= 0) {
-        // closestFocusedDescendent is ancestor of descendent (ignore)
-      } else {
-        // descendent is not an ancestor of closestFocusedDescendent and is being focused
-        // so closestFocusedDescendent needs to be blurred.
-        // (we need this for directives that don't automatically blur themselves)
-        this.closestFocusedDescendent.beBlurred();
-        this.closestFocusedDescendent = descendent
-      }
-    }
-
-    this.shouldBlur = false;
-    this.setFocused(true);
-
-    return true;  
-  }
-
-  descendentBlur(descendent: FocusDirective): boolean {
-    if(this.closestFocusedDescendent == descendent) {
-      this.closestFocusedDescendent = null;
-    }
-    
-    if(!this.shouldBlur && !this.directlyFocused) {
-      this.shouldBlur = true;
-    }
-
-    setTimeout(() => {
-      if(this.shouldBlur) {
-        this.setFocused(false);
-        this.shouldBlur = false;
-      }
-    }, BLUR_GRACE_PERIOD_MS);
-
-    return true;
   }
 
   getAncestorDepth(element: FocusDirective): number {
@@ -168,6 +94,94 @@ export class FocusDirective implements OnInit, OnDestroy {
     return -1;
   }
 
+  outsideClick(x: number, y: number) {
+    if(this.focused && this.isOutside(x, y)) {
+      this.beBlurred();
+    }
+  }
+
+  private blurIfAllChildrenBlurred() {
+    if(this.children.every(c => !c.focused)) {
+      this.beBlurred();
+      if(this.parent) {
+        this.parent.blurIfAllChildrenBlurred();
+      }
+    }
+  }
+
+  private isOutside(x: number, y: number) {
+    let clientRect = this.el.nativeElement.getBoundingClientRect();
+    return x < clientRect.left || x > clientRect.right
+        || y < clientRect.top || y > clientRect.bottom;
+  }
+
+  private setFocused(focused: boolean) {
+    if(this.focused == focused) {
+      return;
+    }
+
+    this.focused = focused;
+    let elem = this.el.nativeElement;
+
+    if(this.focused) {
+      this.focus.emit(null);
+
+      if(this.focusedClass) {
+        setTimeout(() => this.renderer.setElementClass(elem, this.focusedClass, true));
+      }
+      
+      if(this.isText()) {
+        if(this.selectAll) {
+          setTimeout(() => this.renderer.invokeElementMethod(elem, 'setSelectionRange', [0, elem.value.length]));
+        } else {
+          setTimeout(() => this.renderer.invokeElementMethod(elem, 'setSelectionRange', [elem.value.length, elem.value.length]));
+        }
+      }
+
+      let parent = this.parent;
+      if(parent) {
+        parent.beFocused();
+
+        let siblings = parent.children.filter(c => c != this);
+
+        for(let s of siblings) {
+          s.beBlurred();
+        }
+      }
+    } else {
+      this.blur.emit(null);
+
+      if(this.focusedClass) {
+        this.renderer.setElementClass(elem, this.focusedClass, false);
+      }
+
+      for(let child of this.children) {
+        child.beBlurred();
+      }
+
+      if(this.parent) {
+        this.parent.blurIfAllChildrenBlurred();
+      }
+    }
+  }
+
+  private isFocusable() {
+    let elem = this.el.nativeElement;
+    
+    return elem instanceof HTMLInputElement
+        || elem instanceof HTMLButtonElement
+        || elem instanceof HTMLAnchorElement
+        || elem instanceof HTMLSelectElement
+        || elem instanceof HTMLTextAreaElement;
+  }
+
+  private isText() {
+    let elem = this.el.nativeElement;
+    
+    return (elem instanceof HTMLInputElement && ((<HTMLInputElement>elem).type == "text" || (<HTMLInputElement>elem).type == "password"))
+        || elem instanceof HTMLTextAreaElement;
+  }
+
   stringify() {
     let elem = this.el.nativeElement;
     let result = '<' + elem.tagName.toLowerCase();
@@ -180,11 +194,5 @@ export class FocusDirective implements OnInit, OnDestroy {
       result += elem.innerHTML.replace(/\s+/g, ' ') + '</a>';
     }
     return result;
-  }
-
-  isOutside(x: number, y: number) {
-    let clientRect = this.el.nativeElement.getBoundingClientRect();
-    return x < clientRect.left || x > clientRect.right
-        || y < clientRect.top || y > clientRect.bottom;
   }
 }

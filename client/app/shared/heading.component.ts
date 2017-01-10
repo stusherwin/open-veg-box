@@ -6,7 +6,7 @@ import { EditableComponent } from '../shared/editable.component'
   selector: 'cc-heading',
   directives: [FocusDirective, EditableComponent],
   template: `
-    <cc-editable className="heading" [tabindex]="editTabindex" (startEdit)="startEdit()" (endEdit)="endEdit()">
+    <cc-editable #editable className="heading" [tabindex]="editTabindex" (editStart)="onEditStart()" (editEnd)="onEditEnd()">
       <div display>
         <h3>{{value}}</h3>
       </div>
@@ -29,6 +29,9 @@ export class HeadingComponent {
   @ViewChild('focusable')
   focusable: FocusDirective;
 
+  @ViewChild('editable')
+  editable: EditableComponent;
+
   @Output()
   valueChange = new EventEmitter<string>();
 
@@ -40,10 +43,14 @@ export class HeadingComponent {
   }
 
   startEdit() {
+    this.editable.startEdit();
+  }
+
+  onEditStart() {
     this.focusable.beFocused();
   }
 
-  endEdit() {
+  onEditEnd() {
     this.update.emit(null);
   }
 }

@@ -5,9 +5,9 @@ import { FocusDirective } from './focus.directive'
   selector: 'cc-editable',
   directives: [FocusDirective],
   template: `
-    <div class="{{className}} editable" #parent=cc-focus cc-focus (focus)="startEditing()" (blur)="endEditing()">
+    <div class="{{className}} editable" #parent=cc-focus cc-focus (focus)="onParentFocus()" (blur)="onParentBlur()">
       <input type="checkbox" *ngIf="!editing" style="position: absolute;left:-1000px" cc-focus [tabindex]="tabindex" />
-      <div class="editable-display" *ngIf="!editing" (click)="click()">
+      <div class="editable-display" *ngIf="!editing" (click)="startEdit()">
         <ng-content select="[display]"></ng-content>
       </div>
       <div class="editable-edit" *ngIf="editing">
@@ -30,24 +30,24 @@ export class EditableComponent {
   parent: FocusDirective;
 
   @Output()
-  startEdit = new EventEmitter<boolean>()
+  editStart = new EventEmitter<boolean>()
 
   @Output()
-  endEdit = new EventEmitter<any>()
+  editEnd = new EventEmitter<any>()
 
-  click() {
+  startEdit() {
     this.tabbedInto = false;
     this.parent.beFocused();
   }
 
-  startEditing() {
+  onParentFocus() {
     this.editing = true;
-    this.startEdit.emit(this.tabbedInto);
+    this.editStart.emit(this.tabbedInto);
   }
 
-  endEditing() {
+  onParentBlur() {
     this.editing = false;
-    this.endEdit.emit(null);
+    this.editEnd.emit(null);
     this.tabbedInto = true;
   }
 }

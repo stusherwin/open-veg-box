@@ -9,7 +9,7 @@ import { EditableComponent } from '../shared/editable.component'
   directives: [FocusDirective, EditableComponent],
   pipes: [WeightPipe],
   template: `
-    <cc-editable className="product-unit-quantity" [tabindex]="editTabindex" (startEdit)="startEdit()" (endEdit)="endEdit()">
+    <cc-editable className="product-unit-quantity" [tabindex]="editTabindex" (editStart)="onEditStart()" (editEnd)="onEditEnd()">
       <div display>
         <span class="muted">sold in units of</span> {{ unitQuantity | weight }}
       </div>
@@ -44,12 +44,12 @@ export class ProductUnitQuantityComponent {
   @Output()
   update = new EventEmitter<any>();
 
-  startEdit() {
+  onEditStart() {
     this.unitQuantityString = this.toStringValue(this.unitQuantity);
     this.unitQuantityElem.beFocused();
   }
 
-  endEdit() {
+  onEditEnd() {
     this.update.emit(null);
   }
 

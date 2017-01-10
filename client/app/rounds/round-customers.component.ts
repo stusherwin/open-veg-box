@@ -41,7 +41,7 @@ export class RoundCustomersComponent {
   @ViewChildren('button')
   buttons: QueryList<FocusDirective>
 
-  startEdit(tabbedInto: boolean) {
+  onEditStart(tabbedInto: boolean) {
     this.tabbedInto = tabbedInto;
     if(tabbedInto) {
       if(this.buttons.length) {
@@ -55,7 +55,7 @@ export class RoundCustomersComponent {
     }
   }
 
-  endEdit() {
+  onEditEnd() {
     if(this.buttonsSubscription) {
       this.buttonsSubscription.unsubscribe();
     }
