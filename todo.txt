@@ -83,6 +83,8 @@ BUGS!!!!
 * Add button should be on top of page too (auto scroll down to bottom)
 * Doing nothing to round customers throws sql error (edit/cancel)
 * Sometimes click away from field doesn't work first time
+* Click inside round customers closes control if size changed by the time click is processed
+  (click ends up being outside)
 
 Ideas
 =====

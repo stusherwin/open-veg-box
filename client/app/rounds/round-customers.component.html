@@ -34,10 +34,10 @@
         </div>
       </div>
     </div>
-    <div class="round-customers-display" *ngIf="!value.length && !customers.length">
+    <div class="round-customers-display" *ngIf="!value.length && !customers.length || !value.length">
       <div class="round-customer">
-        <div class="round-customer-detail round-customer-name">No customers assigned</div>
-        <div class="round-customer-detail round-customer-address"><span class="muted">no more customers to add</span>&nbsp;</div>
+        <div class="round-customer-detail round-customer-name"><span *ngIf="!value.length">No customers assigned</span></div>
+        <div class="round-customer-detail round-customer-address"><span *ngIf="!value.length && !customers.length" class="muted">no more customers to add</span>&nbsp;</div>
         <div class="round-customer-detail round-customer-action">
           <div class="spacer"></div>
         </div>
