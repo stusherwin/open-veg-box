@@ -8,15 +8,11 @@ import 'rxjs/add/operator/mergeMap';
 
 var sqlite = require('sqlite3').verbose();
 
-export interface SqliteConfig {
-  dbName: string;
-}
-
 export class SqliteDb implements Db {
   db: any;
 
-  constructor(config: SqliteConfig) {
-    let db = new sqlite.Database(path.resolve(__dirname, '../' + config.dbName + '.sqlite'));
+  constructor(dbName: string) {
+    let db = new sqlite.Database(path.resolve(__dirname, '../' + dbName + '.sqlite'));
     
     db.run('PRAGMA foreign_keys=on');
     //this.db = new DbWrapper(db);

@@ -39,8 +39,8 @@ BEGIN
     PRIMARY KEY(boxId, productId)
   );
 
-  GRANT ALL ON ALL TABLES IN SCHEMA public TO openvegbox;
-  GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO openvegbox;
+  --GRANT ALL ON ALL TABLES IN SCHEMA public TO openvegbox;
+  --GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO openvegbox;
 
   ------
   ------

@@ -1,49 +1,49 @@
 import {Box, BoxProduct} from './box'
 import {BoxesService} from './boxes.service'
 import {Objects} from '../shared/objects'
-import {authorize} from '../auth/auth.middleware'
 
 var express = require('express');
 
-var app = express();
+export let getBoxes = function(authorize: (req: any, res: any, next:() => void) => void): any {
+  var boxesService = new BoxesService();
 
-var boxesService = new BoxesService();
+  let boxes = express.Router();
+  boxes.use(authorize);
 
-export let boxes = express.Router();
+  boxes.get('/', function(req: any, res: any, next: any) {
+    boxesService.getAll(req.query, req.db)
+                .subscribe(boxes => res.json(boxes), next);
+  });
 
-boxes.use(authorize);
+  boxes.post('/:id', function(req: any, res: any, next: any) {
+    boxesService.update(req.params.id, req.body, req.query, req.db)
+                .subscribe(boxes => res.json(boxes), next);
+  });
 
-boxes.get('/', function(req: any, res: any, next: any) {
-  boxesService.getAll(req.query, req.db)
-              .subscribe(boxes => res.json(boxes), next);
-});
+  boxes.put('/', function(req: any, res: any, next: any) {
+    boxesService.add(req.body, req.query, req.db)
+                .subscribe(boxes => res.json(boxes), next);
+    });
 
-boxes.post('/:id', function(req: any, res: any, next: any) {
-  boxesService.update(req.params.id, req.body, req.query, req.db)
-              .subscribe(boxes => res.json(boxes), next);
-});
+  boxes.delete('/:id', function(req: any, res: any, next: any) {
+    boxesService.delete(req.params.id, req.query, req.db)
+                .subscribe(boxes => res.json(boxes), next);
+  });
 
-boxes.put('/', function(req: any, res: any, next: any) {
-  boxesService.add(req.body, req.query, req.db)
-              .subscribe(boxes => res.json(boxes), next);
-});
+  boxes.put('/:id/products/:productId', function(req: any, res: any, next: any) {
+    boxesService.addProduct(req.params.id, req.params.productId, req.body, req.query, req.db)
+                .subscribe(boxes => res.json(boxes), next);
+  });
 
-boxes.delete('/:id', function(req: any, res: any, next: any) {
-  boxesService.delete(req.params.id, req.query, req.db)
-              .subscribe(boxes => res.json(boxes), next);
-});
+  boxes.post('/:id/products/:productId', function(req: any, res: any, next: any) {
+    boxesService.updateProduct(req.params.id, req.params.productId, req.body, req.query, req.db)
+                .subscribe(boxes => res.json(boxes), next);
+  });
 
-boxes.put('/:id/products/:productId', function(req: any, res: any, next: any) {
-  boxesService.addProduct(req.params.id, req.params.productId, req.body, req.query, req.db)
-              .subscribe(boxes => res.json(boxes), next);
-});
+  boxes.delete('/:id/products/:productId', function(req: any, res: any, next: any) {
+    boxesService.removeProduct(req.params.id, req.params.productId, req.query, req.db)
+                .subscribe(boxes => res.json(boxes), next);
+  });
 
-boxes.post('/:id/products/:productId', function(req: any, res: any, next: any) {
-  boxesService.updateProduct(req.params.id, req.params.productId, req.body, req.query, req.db)
-              .subscribe(boxes => res.json(boxes), next);
-});
-
-boxes.delete('/:id/products/:productId', function(req: any, res: any, next: any) {
-  boxesService.removeProduct(req.params.id, req.params.productId, req.query, req.db)
-              .subscribe(boxes => res.json(boxes), next);
-});
+  return boxes; 
+} 

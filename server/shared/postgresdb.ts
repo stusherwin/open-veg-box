@@ -7,19 +7,11 @@ import 'rxjs/add/observable/empty';
 
 var pgp = require('pg-promise')({});
 
-export interface PostgresDbConfig {
-  host: string;
-  port: number;
-  database: string;
-  user: string;
-  password: string;
-}
-
 export class PostgresDb implements Db {
   db: any;
 
-  constructor(config: PostgresDbConfig) {
-    this.db = pgp(config);
+  constructor(connectionString: string) {
+    this.db = pgp(connectionString);
   }
 
   all<T>(sql: string, params: any, queryParams: any, create: (row: any) => T): Observable<T[]> {
@@ -87,7 +79,7 @@ export class PostgresDb implements Db {
   }
 
   private oneObs(sql: string, params: {}) {
-    return Observable.fromPromise<any>(this.db.one(PostgresDb.convertParams(sql), params)); 
+    return Observable.fromPromise<any>(this.db.oneOrNone(PostgresDb.convertParams(sql), params)); 
   }
 
   private noneObs(sql: string, params: {}) {

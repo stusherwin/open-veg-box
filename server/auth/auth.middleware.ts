@@ -1,26 +1,34 @@
 import {AuthenticationService} from './authentication.service'
-import {SqliteDb} from '../shared/sqlitedb';
+import {Db} from '../shared/db'
 
-export let authorize = function (req: any, res: any, next:() => void) {
-  var authService = new AuthenticationService();
-  var credentials = getCredentials(req);
+export let getAuthorize = function(mainDb: Db, dbs: {[organisationId: number]: Db}): (req: any, res: any, next:() => void) => void {
+  let authorize = function (req: any, res: any, next:() => void) {
+    var authService = new AuthenticationService(mainDb, dbs);
+    var credentials = getCredentials(req);
 
-  if (credentials == null) {
-    res.set('WWW-Authenticate', 'X-Basic realm="Restricted Area"');
-    res.sendStatus(401);
-    return;
-  }
-
-  authService.authenticate(credentials.username, credentials.password)
-    .subscribe(org => {
-      req.db = authService.getDb(org.id);
-      req.organisation = org;
-      next();
-    }, e => {
+    if (credentials == null) {
       res.set('WWW-Authenticate', 'X-Basic realm="Restricted Area"');
       res.sendStatus(401);
-    });
-};
+      return;
+    }
+
+    authService.authenticate(credentials.username, credentials.password)
+      .subscribe(org => {
+        if(org) {
+          req.db = org.db;
+          req.organisation = org;
+          next();    
+        } else {
+          res.set('WWW-Authenticate', 'X-Basic realm="Restricted Area"');
+          res.sendStatus(401);
+        }
+      }, e => {
+        res.set('WWW-Authenticate', 'X-Basic realm="Restricted Area"');
+        res.sendStatus(401);
+      });
+  }; 
+  return authorize;
+} 
 
 let getCredentials = function(req: any): Credentials {
   var authorization = req.get('Authorization');
