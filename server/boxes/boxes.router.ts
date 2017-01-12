@@ -14,31 +14,36 @@ export let boxes = express.Router();
 boxes.use(authorize);
 
 boxes.get('/', function(req: any, res: any, next: any) {
-  boxesService.getAll(Objects.whiteList(req.query, ['page', 'pageSize']), req.db)
+  boxesService.getAll(req.query, req.db)
               .subscribe(boxes => res.json(boxes), next);
 });
 
 boxes.post('/:id', function(req: any, res: any, next: any) {
-  boxesService.update(req.params.id, req.body, Objects.whiteList(req.query, ['page', 'pageSize']), req.db)
+  boxesService.update(req.params.id, req.body, req.query, req.db)
               .subscribe(boxes => res.json(boxes), next);
 });
 
 boxes.put('/', function(req: any, res: any, next: any) {
-  boxesService.add(req.body, Objects.whiteList(req.query, ['page', 'pageSize']), req.db)
+  boxesService.add(req.body, req.query, req.db)
               .subscribe(boxes => res.json(boxes), next);
 });
 
 boxes.delete('/:id', function(req: any, res: any, next: any) {
-  boxesService.delete(req.params.id, Objects.whiteList(req.query, ['page', 'pageSize']), req.db)
+  boxesService.delete(req.params.id, req.query, req.db)
               .subscribe(boxes => res.json(boxes), next);
 });
 
 boxes.put('/:id/products/:productId', function(req: any, res: any, next: any) {
-  boxesService.addProduct(req.params.id, req.params.productId, Objects.whiteList(req.query, ['page', 'pageSize']), req.db)
+  boxesService.addProduct(req.params.id, req.params.productId, req.body, req.query, req.db)
+              .subscribe(boxes => res.json(boxes), next);
+});
+
+boxes.post('/:id/products/:productId', function(req: any, res: any, next: any) {
+  boxesService.updateProduct(req.params.id, req.params.productId, req.body, req.query, req.db)
               .subscribe(boxes => res.json(boxes), next);
 });
 
 boxes.delete('/:id/products/:productId', function(req: any, res: any, next: any) {
-  boxesService.removeProduct(req.params.id, req.params.productId, Objects.whiteList(req.query, ['page', 'pageSize']), req.db)
+  boxesService.removeProduct(req.params.id, req.params.productId, req.query, req.db)
               .subscribe(boxes => res.json(boxes), next);
 });

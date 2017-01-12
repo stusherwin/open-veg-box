@@ -2,7 +2,8 @@ import {Observable} from 'rxjs/Observable';
 import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
-const ERROR_DISPLAY_TIME: number = 10000;
+const AUTO_HIDE: boolean = false;
+const AUTO_HIDE_TIME: number = 10000;
 
 export class ErrorService {
   private _error: BehaviorSubject<any> = new BehaviorSubject(null);
@@ -20,9 +21,11 @@ export class ErrorService {
       clearTimeout(this._timeout);
     }
 
-    this._timeout = setTimeout(() => {
-      this._error.next(null)
-    }, ERROR_DISPLAY_TIME);
+    if(AUTO_HIDE) {
+      this._timeout = setTimeout(() => {
+        this._error.next(null)
+      }, AUTO_HIDE_TIME);
+    }
   }
 
   dismissError() {

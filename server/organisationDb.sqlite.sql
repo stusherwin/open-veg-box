@@ -19,6 +19,7 @@ DROP TABLE IF EXISTS box_product;
 CREATE TABLE box_product(
   boxId integer NOT NULL,
   productId integer NOT NULL,
+  quantity real NOT NULL,
   PRIMARY KEY(boxId, productId),
   FOREIGN KEY(boxId) REFERENCES box(id),
   FOREIGN KEY(productId) REFERENCES product(id)
@@ -66,18 +67,18 @@ INSERT INTO box VALUES(1,'Big Box', 20.0);
 INSERT INTO box VALUES(2,'Medium Box', 15.0);
 INSERT INTO box VALUES(3,'Little Box', 10.0);
 
-INSERT INTO box_product VALUES(1, 1);
-INSERT INTO box_product VALUES(1, 2);
-INSERT INTO box_product VALUES(1, 3);
-INSERT INTO box_product VALUES(1, 4);
-INSERT INTO box_product VALUES(1, 5);
-INSERT INTO box_product VALUES(1, 6);
-INSERT INTO box_product VALUES(1, 7);
+INSERT INTO box_product VALUES(1, 1, 2.5);
+INSERT INTO box_product VALUES(1, 2, 1.0);
+INSERT INTO box_product VALUES(1, 3, 2.0);
+INSERT INTO box_product VALUES(1, 4, 3.0);
+INSERT INTO box_product VALUES(1, 5, 0.6);
+INSERT INTO box_product VALUES(1, 6, 3.5);
+INSERT INTO box_product VALUES(1, 7, 2.0);
 
-INSERT INTO box_product VALUES(2, 1);
-INSERT INTO box_product VALUES(2, 2);
-INSERT INTO box_product VALUES(2, 3);
-INSERT INTO box_product VALUES(2, 4);
+INSERT INTO box_product VALUES(2, 1, 2.0);
+INSERT INTO box_product VALUES(2, 2, 0.75);
+INSERT INTO box_product VALUES(2, 3, 1.5);
+INSERT INTO box_product VALUES(2, 4, 2.0);
 
-INSERT INTO box_product VALUES(3, 1);
-INSERT INTO box_product VALUES(3, 2);
+INSERT INTO box_product VALUES(3, 1, 1.0);
+INSERT INTO box_product VALUES(3, 2, 0.5);

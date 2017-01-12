@@ -85,8 +85,8 @@ export class BoxComponent {
     }
   }
 
-  onProductAdd(productId: number) {
-    this.productAdd.emit({boxId: this.box.id, productId: productId});
+  onProductAdd(event: any) {
+    this.productAdd.emit({boxId: this.box.id, productId: event.productId, quantity: event.quantity});
   }
 
   onProductRemove(productId: number) {

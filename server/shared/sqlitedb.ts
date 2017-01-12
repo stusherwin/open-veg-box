@@ -1,13 +1,12 @@
 import {Observable} from 'rxjs/Observable';
 import {Objects} from './objects';
+import {Query} from './query';
 import {Db} from './db';
 import * as path from 'path';
 import 'rxjs/add/observable/bindNodeCallback';
 import 'rxjs/add/operator/mergeMap';
 
 var sqlite = require('sqlite3').verbose();
-
-const DEFAULT_PAGE_SIZE = 1000;
 
 export interface SqliteConfig {
   dbName: string;
@@ -25,12 +24,12 @@ export class SqliteDb implements Db {
   }
   
   all<T>(sql: string, params: {}, queryParams: {}, create: (row: any) => T): Observable<T[]> {
-    return this.allObs(sql + ' limit @count offset @skip', Objects.extend(params, SqliteDb.buildPagingParams(queryParams)))
+    return this.allObs(sql + ' limit @count offset @skip', Objects.extend(params, Query.convertPagingParams(queryParams)))
       .map(r => r.map(create));
   }
 
   allWithReduce<T>(sql: string, params: {}, queryParams: {}, create: (rows: any[]) => T[]): Observable<T[]> {
-    return this.allObs(sql + ' limit @count offset @skip', Objects.extend(params, SqliteDb.buildPagingParams(queryParams)))
+    return this.allObs(sql + ' limit @count offset @skip', Objects.extend(params, Query.convertPagingParams(queryParams)))
       .map(create);
   }
 
@@ -45,25 +44,31 @@ export class SqliteDb implements Db {
   }
 
   update(table: string, fields: string[], id: number, params: {}) {
+    let whiteListed = Objects.whiteList(params, fields);
+    let columns = Object.getOwnPropertyNames(whiteListed);
+
     return this.runObs(
       'update '
       + table 
       + ' set '
-      + SqliteDb.getFields(fields, params).map((f:string) => f + ' = @' + f).join(', ')
+      + columns.map((f:string) => f + ' = @' + f).join(', ')
       + ' where id = @id',
-      SqliteDb.buildSqlParams(fields, params, {id: id}));
+      Objects.extend(whiteListed, {id}));
   }
 
   insert(table: string, fields: string[], params: {}) {
+    let whiteListed = Objects.whiteList(params, fields);
+    let columns = Object.getOwnPropertyNames(whiteListed);
+
     return this.runObs(
       'insert into '
       + table 
       + ' ('
-      + SqliteDb.getFields(fields, params).join(', ')
+      + columns.join(', ')
       + ') values ('
-      + SqliteDb.getFields(fields, params).map((f:string) => '@' + f).join(', ')
+      + columns.map((f:string) => '@' + f).join(', ')
       + ')',
-      SqliteDb.buildSqlParams(fields, params));
+      whiteListed);
   }
 
   delete(table: string, id: number) {
@@ -105,29 +110,9 @@ export class SqliteDb implements Db {
       (SqliteDb.convertParams(sql), SqliteDb.escapeParams(params))
         .map(_ => null);
   }
-  
-  private static getFields(fields: string[], obj: {}): string[] {
-    var whiteListed = Objects.whiteList(obj, fields);
-    return Object.getOwnPropertyNames(whiteListed);
-  }
-
-  private static buildSqlParams(fields: string[], params: {}, extra?: {}): {} {
-    var whiteListed = Objects.whiteList(params, fields); 
-    return Objects.extend(whiteListed, extra);  
-  }
-
-  private static buildPagingParams(queryParams: any): any {
-    var pageSize = +(queryParams.pageSize || DEFAULT_PAGE_SIZE);
-    var startIndex = (+(queryParams.page || 1) - 1) * pageSize;
-    return {
-      count: pageSize,
-      skip: startIndex
-    };
-  }
 
   private static convertParams(sql: string) {
-    let result = sql.replace(/@(\w+)/g, '$$$1');
-    return result;
+    return sql.replace(/@(\w+)/g, '$$$1');
   }
 
   private static escapeParams(params: {}) {

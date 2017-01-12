@@ -1,30 +1,35 @@
 export class Objects {
-  static extend(obj: any, extra: any) {
+  static extend(obj: {}, extra: {}): any {
     let result = {};
+
     if(obj) {
       for(let prop in obj) {
         result[prop] = obj[prop];
       }
     }
+
     if(extra) {
       for(let prop in extra) {
         result[prop] = extra[prop];
       }
     }
+
     return result;
   }
 
-  static convertPropertyNames(obj: any, convertFn: (property: string) => string) {
+  static convertPropertyNames(obj: {}, convertFn: (property: string) => string): any {
     let result = {};
+
     if(obj) {
       for(let prop in obj) {
         result[convertFn(prop)] = obj[prop];
       }
     }
+
     return result;
   }
 
-  static whiteList(obj: any, whiteList: any) {
+  static whiteList(obj: {}, whiteList: any): any {
     if(!obj) {
       return obj;
     }
@@ -37,6 +42,7 @@ export class Objects {
         result[destProp] = obj[srcProp];
       }
     }
+
     return result;
   }
 }

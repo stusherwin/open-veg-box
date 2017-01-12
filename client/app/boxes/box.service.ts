@@ -59,11 +59,11 @@ export class BoxService {
                     .map(ps => ps.map(this.hydrate));
   }
 
-  addProduct(id: number, productId: number, queryParams: {[key: string]: string}): Observable<Box[]> {
+  addProduct(id: number, productId: number, params: any, queryParams: {[key: string]: string}): Observable<Box[]> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.put('api/boxes/' + id + '/products/' + productId + '?' + this.toQueryString(queryParams), '', options)
+    return this.http.put('api/boxes/' + id + '/products/' + productId + '?' + this.toQueryString(queryParams), JSON.stringify(params), options)
                     .map(res => res.json())
                     .map(rs => rs.map(this.hydrate));
   }
@@ -78,6 +78,6 @@ export class BoxService {
   }
 
   private hydrate(b: any) {
-    return new Box(b.id, b.name, b.price, b.products.map((p:any) => new BoxProduct(p.id, p.name)));
+    return new Box(b.id, b.name, b.price, b.products.map((p:any) => new BoxProduct(p.id, p.name, p.quantity, p.unitType)));
  }
 }

@@ -14,21 +14,21 @@ export let products = express.Router();
 products.use(authorize);
 
 products.get('/', function(req: any, res: any, next: any) {
-  productsService.getAll(Objects.whiteList(req.query, ['page', 'pageSize']), req.db)
+  productsService.getAll(req.query, req.db)
                  .subscribe(products => res.json(products), next);
 });
 
 products.post('/:id', function(req: any, res: any, next: any) {
-  productsService.update(req.params.id, req.body, Objects.whiteList(req.query, ['page', 'pageSize']), req.db)
+  productsService.update(req.params.id, req.body, req.query, req.db)
                  .subscribe(products => res.json(products), next);
 });
 
 products.put('/', function(req: any, res: any, next: any) {
-  productsService.add(req.body, Objects.whiteList(req.query, ['page', 'pageSize']), req.db)
+  productsService.add(req.body, req.query, req.db)
                  .subscribe(products => res.json(products), next);
 });
 
 products.delete('/:id', function(req: any, res: any, next: any) {
-  productsService.delete(req.params.id, Objects.whiteList(req.query, ['page', 'pageSize']), req.db)
+  productsService.delete(req.params.id, req.query, req.db)
                  .subscribe(products => res.json(products), next);
 });

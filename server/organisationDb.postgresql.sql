@@ -35,6 +35,7 @@ BEGIN
   CREATE TABLE box_product(
     boxId integer NOT NULL REFERENCES box(id),
     productId integer NOT NULL REFERENCES product(id),
+    quantity real NOT NULL,
     PRIMARY KEY(boxId, productId)
   );
 
@@ -68,21 +69,21 @@ BEGIN
   SELECT id from product where name = 'Apples' INTO productId6;
   SELECT id from product where name = 'Lemons' INTO productId7;
 
-  INSERT INTO box_product (boxId, productId) VALUES(boxId1, productId1);
-  INSERT INTO box_product (boxId, productId) VALUES(boxId1, productId2);
-  INSERT INTO box_product (boxId, productId) VALUES(boxId1, productId3);
-  INSERT INTO box_product (boxId, productId) VALUES(boxId1, productId4);
-  INSERT INTO box_product (boxId, productId) VALUES(boxId1, productId5);
-  INSERT INTO box_product (boxId, productId) VALUES(boxId1, productId6);
-  INSERT INTO box_product (boxId, productId) VALUES(boxId1, productId7);
+  INSERT INTO box_product (boxId, productId, quantity) VALUES(boxId1, productId1, 2.5);
+  INSERT INTO box_product (boxId, productId, quantity) VALUES(boxId1, productId2, 1.0);
+  INSERT INTO box_product (boxId, productId, quantity) VALUES(boxId1, productId3, 2.0);
+  INSERT INTO box_product (boxId, productId, quantity) VALUES(boxId1, productId4, 3.0);
+  INSERT INTO box_product (boxId, productId, quantity) VALUES(boxId1, productId5, 0.6);
+  INSERT INTO box_product (boxId, productId, quantity) VALUES(boxId1, productId6, 0.5);
+  INSERT INTO box_product (boxId, productId, quantity) VALUES(boxId1, productId7, 2.0);
   
-  INSERT INTO box_product (boxId, productId) VALUES(boxId2, productId1);
-  INSERT INTO box_product (boxId, productId) VALUES(boxId2, productId2);
-  INSERT INTO box_product (boxId, productId) VALUES(boxId2, productId3);
-  INSERT INTO box_product (boxId, productId) VALUES(boxId2, productId4);
+  INSERT INTO box_product (boxId, productId, quantity) VALUES(boxId2, productId1, 2.0);
+  INSERT INTO box_product (boxId, productId, quantity) VALUES(boxId2, productId2, 0.75);
+  INSERT INTO box_product (boxId, productId, quantity) VALUES(boxId2, productId3, 1.5);
+  INSERT INTO box_product (boxId, productId, quantity) VALUES(boxId2, productId4, 2.0);
   
-  INSERT INTO box_product (boxId, productId) VALUES(boxId3, productId1);
-  INSERT INTO box_product (boxId, productId) VALUES(boxId3, productId2);
+  INSERT INTO box_product (boxId, productId, quantity) VALUES(boxId3, productId1, 1.0);
+  INSERT INTO box_product (boxId, productId, quantity) VALUES(boxId3, productId2, 0.5);
 
   INSERT INTO round (name) VALUES('Ableton & Biddleton');
   INSERT INTO round (name) VALUES('Chompton & Digby');

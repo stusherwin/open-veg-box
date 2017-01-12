@@ -31,7 +31,7 @@ export class BoxesComponent implements OnInit {
     } );
 
     this.productService.getAll(this.queryParams).subscribe(products => {
-      this.products = products.map(p => new BoxProduct(p.id, p.name));
+      this.products = products.map(p => new BoxProduct(p.id, p.name, 1, p.unitType));
     } );
   }
 
@@ -52,7 +52,7 @@ export class BoxesComponent implements OnInit {
   }
 
   onProductAdd(event: any) {
-    this.boxService.addProduct(event.boxId, event.productId, this.queryParams).subscribe(boxes => {
+    this.boxService.addProduct(event.boxId, event.productId, event, this.queryParams).subscribe(boxes => {
     });
   }
 

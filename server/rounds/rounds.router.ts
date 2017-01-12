@@ -14,7 +14,7 @@ export let rounds = express.Router();
 rounds.use(authorize);
 
 rounds.get('/', function(req: any, res: any, next: any) {
-  roundsService.getAll(Objects.whiteList(req.query, ['page', 'pageSize']), req.db)
+  roundsService.getAll(req.query, req.db)
                .subscribe(rounds => res.json(rounds), next);
 });
 
@@ -24,26 +24,26 @@ rounds.get('/:id', function(req: any, res: any, next: any) {
 });
 
 rounds.post('/:id', function(req: any, res: any, next: any) {
-  roundsService.update(req.params.id, req.body, Objects.whiteList(req.query, ['page', 'pageSize']), req.db)
+  roundsService.update(req.params.id, req.body, req.query, req.db)
                .subscribe(rounds => res.json(rounds), next);
 });
 
 rounds.put('/', function(req: any, res: any, next: any) {
-  roundsService.add(req.body, Objects.whiteList(req.query, ['page', 'pageSize']), req.db)
+  roundsService.add(req.body, req.query, req.db)
                .subscribe(rounds => res.json(rounds), next);
 });
 
 rounds.delete('/:id', function(req: any, res: any, next: any) {
-  roundsService.delete(req.params.id, Objects.whiteList(req.query, ['page', 'pageSize']), req.db)
+  roundsService.delete(req.params.id, req.query, req.db)
                .subscribe(rounds => res.json(rounds), next);
 });
 
 rounds.put('/:id/customers/:customerId', function(req: any, res: any, next: any) {
-  roundsService.addCustomer(req.params.id, req.params.customerId, Objects.whiteList(req.query, ['page', 'pageSize']), req.db)
+  roundsService.addCustomer(req.params.id, req.params.customerId, req.query, req.db)
                .subscribe(rounds => res.json(rounds), next);
 });
 
 rounds.delete('/:id/customers/:customerId', function(req: any, res: any, next: any) {
-  roundsService.removeCustomer(req.params.id, req.params.customerId, Objects.whiteList(req.query, ['page', 'pageSize']), req.db)
+  roundsService.removeCustomer(req.params.id, req.params.customerId, req.query, req.db)
                .subscribe(rounds => res.json(rounds), next);
 });

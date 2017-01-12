@@ -1,12 +1,11 @@
 import {Observable} from 'rxjs/Observable';
 import {Objects} from './objects';
+import {Query} from './query';
 import {Db} from './db';
 import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/observable/empty';
 
 var pgp = require('pg-promise')({});
-
-const DEFAULT_PAGE_SIZE = 1000;
 
 export interface PostgresDbConfig {
   host: string;
@@ -24,12 +23,12 @@ export class PostgresDb implements Db {
   }
 
   all<T>(sql: string, params: any, queryParams: any, create: (row: any) => T): Observable<T[]> {
-    return this.anyObs(sql, [])
+    return this.anyObs(sql + ' limit @count offset @skip', Objects.extend(params, Query.convertPagingParams(queryParams)))
       .map(rows => rows.map(create)); 
   }
 
   allWithReduce<T>(sql: string, params: any, queryParams: any, create: (rows: any[]) => T[]): Observable<T[]> {
-    return this.anyObs(sql, [])
+    return this.anyObs(sql + ' limit @count offset @skip', Objects.extend(params, Query.convertPagingParams(queryParams)))
       .map(create);     
   }
 
@@ -44,25 +43,31 @@ export class PostgresDb implements Db {
   }
 
   update(table: string, fields: string[], id: number, params: any) {
+    let whiteListed = Objects.whiteList(params, fields);
+    let columns = Object.getOwnPropertyNames(whiteListed);
+
     return this.noneObs(
       'update '
       + table 
       + ' set '
-      + PostgresDb.getFields(fields, params).map((f:string) => f + ' = @' + f).join(', ')
+      + columns.map((f:string) => f + ' = @' + f).join(', ')
       + ' where id = @id',
-      PostgresDb.buildSqlParams(fields, params, {id: id}));
+      Objects.extend(whiteListed, {id}));
   }
 
   insert(table: string, fields: string[], params: any) {
+    let whiteListed = Objects.whiteList(params, fields);
+    let columns = Object.getOwnPropertyNames(whiteListed);
+
     return this.noneObs(
       'insert into '
       + table 
       + ' ('
-      + PostgresDb.getFields(fields, params).join(', ')
+      + columns.join(', ')
       + ') values ('
-      + PostgresDb.getFields(fields, params).map((f:string) => '@' + f).join(', ')
+      + columns.map((f:string) => '@' + f).join(', ')
       + ')',
-      PostgresDb.buildSqlParams(fields, params));
+      whiteListed);
   }
 
   delete(table: string, id: number) {
@@ -87,16 +92,6 @@ export class PostgresDb implements Db {
 
   private noneObs(sql: string, params: {}) {
     return Observable.fromPromise<void>(this.db.none(PostgresDb.convertParams(sql), params));
-  }
-
-  private static getFields(fields: string[], obj: any): string[] {
-    var whiteListed = Objects.whiteList(obj, fields);
-    return Object.getOwnPropertyNames(whiteListed);
-  }
-
-  private static buildSqlParams(fields: string[], params: any, extra?: any): any {
-    var whiteListed = Objects.whiteList(params, fields); 
-    return Objects.extend(whiteListed, extra);  
   }
 
   private static convertParams(sql: string) {

@@ -14,6 +14,19 @@ export class WeightPipe implements PipeTransform {
   }
 }
 
+@Pipe({name: 'quantity'})
+export class QuantityPipe implements PipeTransform {
+  transform(value: any): string {
+    if(value.unitType == 'perKg') {
+      return value.quantity < 1 ? (value.quantity * 1000).toFixed(0) + 'g' : value.quantity + ' Kg';
+    } else if(value.unitType == 'each') {
+      return 'x ' + value.quantity;
+    } else {
+      return 'nope.';
+    }
+  }
+}
+
 @Pipe({name: 'singleline'})
 export class SingleLinePipe implements PipeTransform {
   transform(value: string, separator: string): string {

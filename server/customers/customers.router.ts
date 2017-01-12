@@ -14,12 +14,12 @@ export let customers = express.Router();
 customers.use(authorize);
 
 customers.get('/', function(req: any, res: any, next: any) {
-  customersService.getAll(Objects.whiteList(req.query, ['page', 'pageSize']), req.db)
+  customersService.getAll(req.query, req.db)
                   .subscribe(customers => res.json(customers), next);
 });
 
 customers.get('/no_round', function(req: any, res: any, next: any) {
-  customersService.getAllWithNoRound(Objects.whiteList(req.query, ['page', 'pageSize']), req.db)
+  customersService.getAllWithNoRound(req.query, req.db)
                   .subscribe(customers => res.json(customers), next);
 });
 
@@ -29,16 +29,16 @@ customers.get('/:id', function(req: any, res: any, next: any) {
 });
 
 customers.post('/:id', function(req: any, res: any, next: any) {
-  customersService.update(req.params.id, req.body, Objects.whiteList(req.query, ['page', 'pageSize']), req.db)
+  customersService.update(req.params.id, req.body, req.query, req.db)
                   .subscribe(customers => res.json(customers), next);
 });
 
 customers.put('/', function(req: any, res: any, next: any) {
-  customersService.add(req.body, Objects.whiteList(req.query, ['page', 'pageSize']), req.db)
+  customersService.add(req.body, req.query, req.db)
                   .subscribe(customers => res.json(customers), next);
 });
 
 customers.delete('/:id', function(req: any, res: any, next: any) {
-  customersService.delete(req.params.id, Objects.whiteList(req.query, ['page', 'pageSize']), req.db)
+  customersService.delete(req.params.id, req.query, req.db)
                   .subscribe(customers => res.json(customers), next);
 });

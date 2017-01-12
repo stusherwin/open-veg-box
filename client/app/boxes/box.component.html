@@ -34,9 +34,10 @@
     <div class="flex">
       <div class="price-detail">
         <cc-box-price [addMode]="addMode" [(price)]="box.price" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-box-price>
-      </div>  
+      </div>
       <div></div>
     </div>
+    <br />
     <cc-box-products *ngIf="!addMode" [addMode]="addMode" [(value)]="box.products" (add)="onProductAdd($event)" (remove)="onProductRemove($event)" [products]="products" [editTabindex]="(index * 2) + 1"></cc-box-products>
   </div>
 </div>

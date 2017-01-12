@@ -1,18 +1,22 @@
-import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, ViewChildren, QueryList } from '@angular/core';
+import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, ViewChildren, QueryList, AfterViewInit } from '@angular/core';
 import { FocusDirective } from '../shared/focus.directive'
 import { BoxProduct } from './box'
 import { Subscription } from 'rxjs/Subscription' 
 import { Observable } from 'rxjs/Observable';
 import { EditableComponent } from '../shared/editable.component'
+import { Arrays } from '../shared/arrays'
+import { QuantityPipe } from '../shared/pipes'
 
 @Component({
   selector: 'cc-box-products',
   directives: [FocusDirective, EditableComponent],
+  pipes: [QuantityPipe],
   templateUrl: 'app/boxes/box-products.component.html'
 })
-export class BoxProductsComponent {
+export class BoxProductsComponent implements AfterViewInit {
   tabbedInto: boolean;
   buttonsSubscription: Subscription;
+  unusedProducts: BoxProduct[] = [];
 
   @Input()
   editTabindex: number;
@@ -27,7 +31,7 @@ export class BoxProductsComponent {
   products: BoxProduct[];
 
   @Output()
-  add = new EventEmitter<number>();
+  add = new EventEmitter<any>();
 
   @Output()
   remove = new EventEmitter<number>();
@@ -35,7 +39,14 @@ export class BoxProductsComponent {
   @ViewChildren('button')
   buttons: QueryList<FocusDirective>
 
+  ngAfterViewInit() {
+    
+  }
+
   onEditStart(tabbedInto: boolean) {
+    this.unusedProducts = this.products.filter(p => !this.value.find(v => v.id == p.id));
+    this.unusedProducts.sort((a,b) => a.name < b.name? -1 : 1);
+
     this.tabbedInto = tabbedInto;
     if(tabbedInto) {
       if(this.buttons.length) {
@@ -60,8 +71,8 @@ export class BoxProductsComponent {
     if(index >= 0) {
       let product = this.value.find(p => p.id == productId);
       this.value.splice(index, 1);
-      this.products.push(product);
-      this.products.sort((a,b) => a.name < b.name? -1 : 1);
+      this.unusedProducts.push(product);
+      this.unusedProducts.sort((a,b) => a.name < b.name? -1 : 1);
       this.remove.emit(productId);
      
       if(this.tabbedInto) {
@@ -75,12 +86,12 @@ export class BoxProductsComponent {
   }
 
   addProductClick(productId: number ) {
-    let product = this.products.find(p => p.id == productId);
+    let product = this.unusedProducts.find(p => p.id == productId);
     if(product) {
-      let index = this.products.findIndex(p => p.id == productId);
+      let index = this.unusedProducts.findIndex(p => p.id == productId);
       this.value.push(product);
-      this.products.splice(index, 1);
-      this.add.emit(product.id);
+      this.unusedProducts.splice(index, 1);
+      this.add.emit({productId: product.id, quantity: product.quantity});
      
       if(this.tabbedInto) {
         setTimeout(() => {
