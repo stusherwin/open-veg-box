@@ -2,5 +2,5 @@
 
 <div class="row-view" cc-focus focusedClass="focused" [handleClickOutside]="true">
   <cc-customer *ngFor="let c of customers; let i = index" [customer]="c" [index]="i" (delete)="onDelete($event)" (update)="onUpdate($event)"></cc-customer>
-  <cc-customer addMode="true" [showAddMessage]="!customers.length" (add)="onAdd($event)" [index]="customers.length"></cc-customer>
+  <cc-customer addMode="true" [showAddMessage]="!customers.length" [loaded]="loaded" (add)="onAdd($event)" [index]="customers.length"></cc-customer>
 </div>

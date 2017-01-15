@@ -28,11 +28,13 @@ export class RoundsHomeComponent implements OnInit {
   customerService: CustomerService;
   rounds: Round[] = [];
   customers: RoundCustomer[] = [];
+  loaded: boolean;
 
   queryParams: {[key: string]: string};
 
   ngOnInit() {
     this.roundService.getAll(this.queryParams).subscribe(rounds => {
+      this.loaded = true;
       this.rounds = rounds;
     } );
 

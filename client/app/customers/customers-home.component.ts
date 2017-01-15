@@ -23,11 +23,13 @@ export class CustomersHomeComponent implements OnInit {
 
   customerService: CustomerService;
   customers: Customer[] = [];
+  loaded: boolean;
 
   queryParams: {[key: string]: string};
 
   ngOnInit() {
     this.customerService.getAll(this.queryParams).subscribe(customers => {
+      this.loaded = true;
       this.customers = customers;
     } );
   }

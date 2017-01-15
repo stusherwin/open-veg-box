@@ -38,6 +38,9 @@ export class CustomerComponent {
   @Input()
   showAddMessage: boolean;
 
+  @Input()
+  loaded: boolean;
+
   @Output()
   delete = new EventEmitter<Customer>();
 

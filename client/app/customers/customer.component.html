@@ -13,7 +13,7 @@
         <span>Delete</span>
       </button>
     </div>
-    <div class="action" [hidden]="!addMode || adding">
+    <div class="action" [hidden]="!addMode || adding || !loaded">
       <button #addButton=cc-focus cc-focus (click)="startAdd()" [tabindex]="(index * 2) + 2">
         <div class="icon"><i class="icon-add"></i></div>
         <span>Add</span>
@@ -32,7 +32,8 @@
       </button>  
     </div>
   </div>
-  <p *ngIf="addMode && showAddMessage && !adding">There are no customers yet.</p>
+  <p *ngIf="addMode && loaded && showAddMessage && !adding">There are no customers yet.</p>
+  <p *ngIf="addMode && !loaded"><i class="icon-spin3 animate-spin"></i> Loading customers...</p>
   <div class="details" [hidden]="addMode && !adding">
     <cc-heading [addMode]="addMode" #customerName [(value)]="customer.name" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-heading>
     <div class="customer-details">  

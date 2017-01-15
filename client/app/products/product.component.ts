@@ -43,6 +43,9 @@ export class ProductComponent {
   @Input()
   showAddMessage: boolean;
 
+  @Input()
+  loaded: boolean;
+
   @Output()
   delete = new EventEmitter<Product>();
 

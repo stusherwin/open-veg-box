@@ -17,14 +17,12 @@ Database
 ========
 * Split out schema sql from data
 * Implement sqlite backup strategy
-* Better sqlite error handling (handle sql errors)
 * Catch sql errors instead of crashing (uq violation)
   - handle in SqliteDb
-* Move organisation logins out of sqlite (env variables?)
+* Hash/salt passwords in main db
 
 Deployment
 ==========
-* Set up postgres db on heroku
 * tsconfig watch: true - needed for dev but not for production - need to resolve this somehow.
 * Set up mailgun to use production settings
 
@@ -33,7 +31,6 @@ General Styling
 ? Buttons: circular shadow on hover instead of rectangle?
 * Browser testing
 * Chrome rendering issue with 1px border width (fix by positioning from centre of circles not corner)
-* Need row loading state (flashes 'No products' when loading)
 * Logout button not visible on small screen
 * when no round customers should show 'no customers assigned' message
 

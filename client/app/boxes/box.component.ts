@@ -38,6 +38,9 @@ export class BoxComponent {
   showAddMessage: boolean;
 
   @Input()
+  loaded: boolean;
+
+  @Input()
   products: BoxProduct[];
 
   @Output()

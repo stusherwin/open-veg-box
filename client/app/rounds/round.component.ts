@@ -37,6 +37,9 @@ export class RoundComponent {
   showAddMessage: boolean;
 
   @Input()
+  loaded: boolean;
+
+  @Input()
   customers: RoundCustomer[];
 
   @Output()

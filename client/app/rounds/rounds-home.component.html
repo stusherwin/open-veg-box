@@ -2,5 +2,5 @@
 
 <div class="row-view" cc-focus focusedClass="focused" [handleClickOutside]="true">
   <cc-round *ngFor="let r of rounds; let i = index" [round]="r" [customers]="customers" [index]="i" (delete)="onDelete($event)" (update)="onUpdate($event)" (customerAdd)="onCustomerAdd($event)" (customerRemove)="onCustomerRemove($event)"></cc-round>
-  <cc-round addMode="true" [showAddMessage]="!rounds.length" [customers]="customers" (add)="onAdd($event)" [index]="rounds.length"></cc-round>
+  <cc-round addMode="true" [showAddMessage]="!rounds.length" [loaded]="loaded" [customers]="customers" (add)="onAdd($event)" [index]="rounds.length"></cc-round>
 </div>

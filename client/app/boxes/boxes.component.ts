@@ -22,11 +22,13 @@ export class BoxesComponent implements OnInit {
 
   boxes: Box[] = [];
   products: BoxProduct[] = [];
+  loaded: boolean;
 
   queryParams: {[key: string]: string};
 
   ngOnInit() {
     this.boxService.getAll(this.queryParams).subscribe(b => {
+      this.loaded = true;
       this.boxes = b;
     } );
 

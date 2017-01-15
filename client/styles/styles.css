@@ -966,6 +966,11 @@ h4 {
   color: black;
   font-size: 110%;
 }
+.page-inner p .icon-spin3 {
+  margin-right: 5px;
+  color: #555;
+  font-size: 80%;
+}
 input[type="text"],
 input[type="password"],
 select,

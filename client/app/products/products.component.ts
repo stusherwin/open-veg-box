@@ -22,11 +22,13 @@ export class ProductsComponent implements OnInit {
 
   productService: ProductService;
   products: Product[] = [];
+  loaded: boolean;
 
   queryParams: {[key: string]: string};
 
   ngOnInit() {
     this.productService.getAll(this.queryParams).subscribe(p => {
+      this.loaded = true;
       this.products = p;
     } );
   }

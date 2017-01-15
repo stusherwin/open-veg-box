@@ -25,4 +25,6 @@
 .icon-phone:before { content: '\e818'; } /* '' */
 .icon-mail-1:before { content: '\e819'; } /* '' */
 .icon-trash:before { content: '\e81a'; } /* '' */
+.icon-send-mail:before { content: '\e81b'; } /* '' */
+.icon-spin3:before { content: '\e832'; } /* '' */
 .icon-mail-dark:before { content: '\f0e0'; } /* '' */
