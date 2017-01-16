@@ -1,41 +1,27 @@
 .r {
   border: 1px solid red;
 }
-.page-outer {
-  min-width: 400px;
-  margin: 0;
-  border-left: none;
-  border-right: none;
-  background: #fff;
-  padding: 3px 0 3px 0;
-  box-shadow: inset rgba(0, 0, 0, 0.3) 0px 2px 2px -1px;
+html {
+  height: 100%;
 }
-.page-inner {
-  min-width: 400px;
-  border: 1px solid #579532;
-  border-left: none;
-  border-right: none;
-  border-bottom: 1px solid #89ca63;
-  box-shadow: inset rgba(0, 0, 0, 0.3) 0px 3px 10px 0px, rgba(0, 0, 0, 0.3) 0px 2px 2px -1px;
-  padding: 10px 10px 10px 10px;
-  background: #fff;
-  min-height: 70%;
+body {
+  min-height: 100%;
+  min-width: 380px;
+  box-shadow: inset rgba(0, 0, 0, 0.5) 0px 3px 10px 0px;
 }
-@media only screen and (min-width : 780px) {
-  .page-inner {
-    min-height: 81%;
-  }
+.page {
+  padding: 106px 10px 10px 10px;
 }
-.page-inner h2,
-.page-inner p {
+.page h2,
+.page p {
   margin-left: 10px;
 }
-.page-inner p {
+.page p {
   font-weight: 300;
   color: black;
   font-size: 110%;
 }
-.page-inner p .icon-spin3 {
+.page p .icon-spin3 {
   margin-right: 5px;
   color: #555;
   font-size: 80%;

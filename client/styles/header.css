@@ -2,9 +2,13 @@
   border: 1px solid red;
 }
 .header {
-  position: relative;
-  padding: 0;
+  position: absolute;
   min-width: 400px;
+  width: 100%;
+  padding: 0;
+  background: #579532;
+  border-bottom: 1px solid #579532;
+  box-shadow: 0 2px 12px 1px rgba(0, 0, 0, 0.3);
 }
 .header h1,
 .header h2,
@@ -53,6 +57,10 @@
     margin-left: 13px;
     margin-right: 13px;
   }
+}
+.header .header-border {
+  height: 3px;
+  background: #eee;
 }
 .header nav {
   margin-top: -90px;

@@ -1,14 +1,50 @@
 @import "variables";
 @import "mixins";
 
-.header {
-  &.home-header {
-    width: 570px;
+.home {
+  background: @header;
+  box-shadow: none;
+  min-width: 570px;
+  padding-top: 120px;
+   
+  .header {
+    top: 0;
+    box-shadow: none;
+    border: none;
+    min-width: 570px;
+    width: 100%;
+
+    .header-border {
+      display: none;
+    }
+    
+    .logout-button {
+      position: absolute;
+      top: 50px;
+      right: 10px;
+      display: block;
+
+      @media @header-side-by-side {
+        top: 50px;
+        right: 10px;
+        .button(solid; home; @header);
+        position: absolute;
+
+        i {
+          padding-top:7px;
+        }
+      }
+    }
+
     margin: 0 auto;
+
+    nav {
+      display: none;
+    }
     
     h1 {
       display:block;
-      margin-top:50px;
+      margin-top:30px;
       margin-bottom: 0;
       
       @media @header-side-by-side { 
@@ -17,24 +53,21 @@
       }
     }
   }
-}
 
-.home {
   p, label{
     color: lighten(desaturate(@header, 10%), 40%);
   }
 
   form {
+    margin: 0 auto;
     display:block;
     overflow: hidden;
     position:relative;
     width:438px;
-    //height:340px;
-    margin:0px auto;
 
     p {
       text-align: left;
-      margin-top:70px;
+      margin-top:40px;
       margin-left:10px;
       display: block;
       float:left;
@@ -82,11 +115,6 @@
     margin-left:10px;
 
     .button(solid; home; @header);
-
-    &.look-around {
-      margin-left:15px;
-      margin-top:48px;
-    }
   }
 
   p {
@@ -95,16 +123,30 @@
     font-size: 150%;
   }
 
+  .look-around {
+    clear: left;
+    padding-top: 30px;
+
+    button {
+      margin-left:15px;
+      margin-top:18px;
+    }
+  }
+
   .sections {
     width: 570px;
-    margin: 0px auto 0 auto;
-    overflow: hidden;
+    margin: 0 auto;
   }
 
   ul {
-    margin-top:30px;
-    margin-left:10px;
-    width: 100%;
+    margin-top: 20px;
+
+    &::after {
+      display: block;
+      clear: both;
+      content: '.';
+      height: 0px;
+    }
 
     li {
       float: left;
@@ -126,10 +168,4 @@
       }
     }
   }
-}
-
-.home .logout-button {
-   position: absolute;
-   top: 50px;
-   right: 10px;
 }

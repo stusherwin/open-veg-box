@@ -1,9 +1,9 @@
-<div class="header" [class.home-header]="isHome">
+<div class="header">
   <a [routerLink]="['Home']">
     <h1>open<span>veg</span>box</h1>
   </a>
-  <cc-nav-bar *ngIf="!isHome"></cc-nav-bar>
+  <cc-nav-bar></cc-nav-bar>
   <div style="clear:left;"></div>
-  <cc-logout *ngIf="!isHome" ></cc-logout>
-
+  <cc-logout *ngIf="showLogout"></cc-logout>
+  <div class="header-border"></div>
 </div>

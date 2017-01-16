@@ -3,13 +3,11 @@ Header
 * Header takes up too much space on small browser width
 * Center alignment off on home page header
 * Header/home/nav structure is messy
-* Fix login form resizing/header centring
 * Inline logo svg
 * Change favicon
 
 Auth
 ====
-* Log out button slightly different on home page
 * Redirect to original page on log in
 * Implement JWT
 
@@ -25,6 +23,8 @@ Deployment
 ==========
 * tsconfig watch: true - needed for dev but not for production - need to resolve this somehow.
 * Set up mailgun to use production settings
+* Set up SSL
+
 
 General Styling
 ===============
@@ -33,6 +33,7 @@ General Styling
 * Chrome rendering issue with 1px border width (fix by positioning from centre of circles not corner)
 * Logout button not visible on small screen
 * when no round customers should show 'no customers assigned' message
+* page footer
 
 Editing
 =======
@@ -86,3 +87,4 @@ BUGS!!!!
 Ideas
 =====
 * Add warning message to guest user that data will not be kept
+* Nicer error message when guest tries to send emails?

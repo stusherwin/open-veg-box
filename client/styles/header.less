@@ -2,9 +2,14 @@
 @import "mixins";
 
 .header {
-  position:relative;
+  position: absolute;
+  min-width: 400px;
+  width: 100%;
+
   padding:0;
-  min-width:400px;
+  background: @header;
+  border-bottom: 1px solid @header;
+  box-shadow: 0 2px 12px 1px rgba(0, 0, 0, 0.3);
 
   h1, h2, h3, a {
     color: white;
@@ -54,6 +59,11 @@
       margin-left:13px;
       margin-right: 13px;
     }
+  }
+
+  .header-border {
+    height: 3px;
+    background: #eee;
   }
 
   nav {
@@ -108,6 +118,7 @@
   display: none;
 
   @media @header-side-by-side {
+    display: block;
     .button(solid; small; @header);
     position: absolute;
     top: 0px;
