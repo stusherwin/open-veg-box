@@ -73,8 +73,6 @@ BUGS!!!!
 * Adding round didn't update page with new round (hitting enter on save button?)
 * Deleting a round didn't update available customers, so couldn't add customers to new round
 * (after add + cancel) Add row wasn't focused but other rows hover was as if it was focused
-* 401 (Unauthorized) exception breaking error notification - need to work out & handle all exception
-  shapes (also breaks client app with uncaught exception!)
 * Sometimes have to click login button twice.
 * Permission denied in postgres kills server
   (fixed if this was Rounds home)

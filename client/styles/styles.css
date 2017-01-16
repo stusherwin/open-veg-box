@@ -2436,6 +2436,7 @@ select:-moz-focusring {
 }
 .home .form-validation-message {
   color: #ffa850;
+  margin-top: 10px;
   margin-bottom: 10px;
 }
 .home label {

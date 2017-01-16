@@ -24,6 +24,7 @@ export class ErrorNotifyComponent implements OnInit {
        if(e == null) {
          this.hidden = true;
        } else {
+         //TODO: will this always be valid JSON?
          let error = JSON.parse(e._body);
          this.latestError = error;
          this.hidden = false;

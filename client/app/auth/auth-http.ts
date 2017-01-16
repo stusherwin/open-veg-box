@@ -76,8 +76,12 @@ export class NonAuthHttp extends Http {
   
   private _intercept(obs: Observable<Response>): Observable<Response> {
     return obs.catch((err, source) => {
-      this._errorService.raiseError(err);
-      return Observable.throw(err);
+      if (err.status == 401) {
+        return Observable.throw(err);
+      } else {
+        this._errorService.raiseError(err);
+        return Observable.throw(err);
+      }
     });
   }
 }
