@@ -10,15 +10,16 @@ export class MoneyPipe implements PipeTransform {
 @Pipe({name: 'weight'})
 export class WeightPipe implements PipeTransform {
   transform(value: number): string {
-    return value < 1 ? (value * 1000).toFixed(0) + 'g' : value + ' Kg';
+    return value < 1 ? (value * 1000).toFixed(0) + ' g' : value + ' Kg';
   }
 }
 
+//TODO: this is obsolete - delete
 @Pipe({name: 'quantity'})
 export class QuantityPipe implements PipeTransform {
   transform(value: any): string {
     if(value.unitType == 'perKg') {
-      return value.quantity < 1 ? (value.quantity * 1000).toFixed(0) + 'g' : value.quantity + ' Kg';
+      return (value.quantity < 1 ? (value.quantity * 1000).toFixed(0) + 'g' : value.quantity + ' Kg');
     } else if(value.unitType == 'each') {
       return 'x ' + value.quantity;
     } else {

@@ -647,27 +647,27 @@ select {
   width: 42px;
 }
 .round-customers .editable-display p,
-.box-products .editable-display p {
+.box-products-old .editable-display p {
   margin: 0px 0 5px 0;
 }
 .round-customers .editable-edit,
-.box-products .editable-edit {
+.box-products-old .editable-edit {
   padding-top: 4px;
 }
 .round-customers ul li,
-.box-products ul li {
+.box-products-old ul li {
   margin-bottom: 10px;
 }
 .round-customers ul li:first-child,
-.box-products ul li:first-child {
+.box-products-old ul li:first-child {
   margin-top: 5px;
 }
 .round-customers ul li:last-child,
-.box-products ul li:last-child {
+.box-products-old ul li:last-child {
   margin-bottom: 5px;
 }
 .round-customers ul li.focused,
-.box-products ul li.focused {
+.box-products-old ul li.focused {
   background: #fffaf1;
 }
 .address .editable {
@@ -794,109 +794,109 @@ select {
   }
 }
 .round-customers,
-.box-products {
+.box-products-old {
   border: 1px solid transparent;
 }
 .round-customers .round-customer,
-.box-products .round-customer,
-.round-customers .box-product,
-.box-products .box-product {
+.box-products-old .round-customer,
+.round-customers .box-product-old,
+.box-products-old .box-product-old {
   display: flex;
 }
 .round-customers .round-customer .round-customer-detail,
-.box-products .round-customer .round-customer-detail,
-.round-customers .box-product .round-customer-detail,
-.box-products .box-product .round-customer-detail,
-.round-customers .round-customer .box-product-detail,
-.box-products .round-customer .box-product-detail,
-.round-customers .box-product .box-product-detail,
-.box-products .box-product .box-product-detail {
+.box-products-old .round-customer .round-customer-detail,
+.round-customers .box-product-old .round-customer-detail,
+.box-products-old .box-product-old .round-customer-detail,
+.round-customers .round-customer .box-product-old-detail,
+.box-products-old .round-customer .box-product-old-detail,
+.round-customers .box-product-old .box-product-old-detail,
+.box-products-old .box-product-old .box-product-old-detail {
   padding: 5px;
 }
 .round-customers .round-customer .round-customer-detail.round-customer-name,
-.box-products .round-customer .round-customer-detail.round-customer-name,
-.round-customers .box-product .round-customer-detail.round-customer-name,
-.box-products .box-product .round-customer-detail.round-customer-name,
-.round-customers .round-customer .box-product-detail.round-customer-name,
-.box-products .round-customer .box-product-detail.round-customer-name,
-.round-customers .box-product .box-product-detail.round-customer-name,
-.box-products .box-product .box-product-detail.round-customer-name,
-.round-customers .round-customer .round-customer-detail.box-product-name,
-.box-products .round-customer .round-customer-detail.box-product-name,
-.round-customers .box-product .round-customer-detail.box-product-name,
-.box-products .box-product .round-customer-detail.box-product-name,
-.round-customers .round-customer .box-product-detail.box-product-name,
-.box-products .round-customer .box-product-detail.box-product-name,
-.round-customers .box-product .box-product-detail.box-product-name,
-.box-products .box-product .box-product-detail.box-product-name {
+.box-products-old .round-customer .round-customer-detail.round-customer-name,
+.round-customers .box-product-old .round-customer-detail.round-customer-name,
+.box-products-old .box-product-old .round-customer-detail.round-customer-name,
+.round-customers .round-customer .box-product-old-detail.round-customer-name,
+.box-products-old .round-customer .box-product-old-detail.round-customer-name,
+.round-customers .box-product-old .box-product-old-detail.round-customer-name,
+.box-products-old .box-product-old .box-product-old-detail.round-customer-name,
+.round-customers .round-customer .round-customer-detail.box-product-old-name,
+.box-products-old .round-customer .round-customer-detail.box-product-old-name,
+.round-customers .box-product-old .round-customer-detail.box-product-old-name,
+.box-products-old .box-product-old .round-customer-detail.box-product-old-name,
+.round-customers .round-customer .box-product-old-detail.box-product-old-name,
+.box-products-old .round-customer .box-product-old-detail.box-product-old-name,
+.round-customers .box-product-old .box-product-old-detail.box-product-old-name,
+.box-products-old .box-product-old .box-product-old-detail.box-product-old-name {
   padding-left: 0;
   width: 40%;
 }
 .round-customers .round-customer .round-customer-detail.round-customer-address,
-.box-products .round-customer .round-customer-detail.round-customer-address,
-.round-customers .box-product .round-customer-detail.round-customer-address,
-.box-products .box-product .round-customer-detail.round-customer-address,
-.round-customers .round-customer .box-product-detail.round-customer-address,
-.box-products .round-customer .box-product-detail.round-customer-address,
-.round-customers .box-product .box-product-detail.round-customer-address,
-.box-products .box-product .box-product-detail.round-customer-address {
+.box-products-old .round-customer .round-customer-detail.round-customer-address,
+.round-customers .box-product-old .round-customer-detail.round-customer-address,
+.box-products-old .box-product-old .round-customer-detail.round-customer-address,
+.round-customers .round-customer .box-product-old-detail.round-customer-address,
+.box-products-old .round-customer .box-product-old-detail.round-customer-address,
+.round-customers .box-product-old .box-product-old-detail.round-customer-address,
+.box-products-old .box-product-old .box-product-old-detail.round-customer-address {
   width: 60%;
 }
-.round-customers .round-customer .round-customer-detail.box-product-quantity,
-.box-products .round-customer .round-customer-detail.box-product-quantity,
-.round-customers .box-product .round-customer-detail.box-product-quantity,
-.box-products .box-product .round-customer-detail.box-product-quantity,
-.round-customers .round-customer .box-product-detail.box-product-quantity,
-.box-products .round-customer .box-product-detail.box-product-quantity,
-.round-customers .box-product .box-product-detail.box-product-quantity,
-.box-products .box-product .box-product-detail.box-product-quantity {
+.round-customers .round-customer .round-customer-detail.box-product-old-quantity,
+.box-products-old .round-customer .round-customer-detail.box-product-old-quantity,
+.round-customers .box-product-old .round-customer-detail.box-product-old-quantity,
+.box-products-old .box-product-old .round-customer-detail.box-product-old-quantity,
+.round-customers .round-customer .box-product-old-detail.box-product-old-quantity,
+.box-products-old .round-customer .box-product-old-detail.box-product-old-quantity,
+.round-customers .box-product-old .box-product-old-detail.box-product-old-quantity,
+.box-products-old .box-product-old .box-product-old-detail.box-product-old-quantity {
   width: 60%;
 }
 .round-customers .round-customer .round-customer-detail.round-customer-action,
-.box-products .round-customer .round-customer-detail.round-customer-action,
-.round-customers .box-product .round-customer-detail.round-customer-action,
-.box-products .box-product .round-customer-detail.round-customer-action,
-.round-customers .round-customer .box-product-detail.round-customer-action,
-.box-products .round-customer .box-product-detail.round-customer-action,
-.round-customers .box-product .box-product-detail.round-customer-action,
-.box-products .box-product .box-product-detail.round-customer-action,
-.round-customers .round-customer .round-customer-detail.box-product-action,
-.box-products .round-customer .round-customer-detail.box-product-action,
-.round-customers .box-product .round-customer-detail.box-product-action,
-.box-products .box-product .round-customer-detail.box-product-action,
-.round-customers .round-customer .box-product-detail.box-product-action,
-.box-products .round-customer .box-product-detail.box-product-action,
-.round-customers .box-product .box-product-detail.box-product-action,
-.box-products .box-product .box-product-detail.box-product-action {
+.box-products-old .round-customer .round-customer-detail.round-customer-action,
+.round-customers .box-product-old .round-customer-detail.round-customer-action,
+.box-products-old .box-product-old .round-customer-detail.round-customer-action,
+.round-customers .round-customer .box-product-old-detail.round-customer-action,
+.box-products-old .round-customer .box-product-old-detail.round-customer-action,
+.round-customers .box-product-old .box-product-old-detail.round-customer-action,
+.box-products-old .box-product-old .box-product-old-detail.round-customer-action,
+.round-customers .round-customer .round-customer-detail.box-product-old-action,
+.box-products-old .round-customer .round-customer-detail.box-product-old-action,
+.round-customers .box-product-old .round-customer-detail.box-product-old-action,
+.box-products-old .box-product-old .round-customer-detail.box-product-old-action,
+.round-customers .round-customer .box-product-old-detail.box-product-old-action,
+.box-products-old .round-customer .box-product-old-detail.box-product-old-action,
+.round-customers .box-product-old .box-product-old-detail.box-product-old-action,
+.box-products-old .box-product-old .box-product-old-detail.box-product-old-action {
   flex-shrink: 0;
   flex-grow: 0;
   padding: 0;
 }
 .round-customers .spacer,
-.box-products .spacer {
+.box-products-old .spacer {
   display: block;
   width: 22px;
 }
 .round-customers .editable-display,
-.box-products .editable-display {
+.box-products-old .editable-display {
   padding: 0 4px;
   margin-top: 0;
 }
 .round-customers .editable-display:hover .round-customers-display,
-.box-products .editable-display:hover .round-customers-display,
-.round-customers .editable-display:hover .box-products-display,
-.box-products .editable-display:hover .box-products-display {
+.box-products-old .editable-display:hover .round-customers-display,
+.round-customers .editable-display:hover .box-products-old-display,
+.box-products-old .editable-display:hover .box-products-old-display {
   margin-right: -16px;
 }
 .round-customers .editable-edit,
-.box-products .editable-edit {
+.box-products-old .editable-edit {
   padding: 0 4px;
   border: 1px solid #f8c77e;
   border-radius: 3px;
   background: #fff;
 }
 .round-customers .editable-edit a,
-.box-products .editable-edit a {
+.box-products-old .editable-edit a {
   display: block;
   border-radius: 22px;
   width: 22px;
@@ -905,35 +905,35 @@ select {
   top: 2px;
 }
 .round-customers .editable-edit a .icon,
-.box-products .editable-edit a .icon {
+.box-products-old .editable-edit a .icon {
   width: 22px;
   padding: 5px;
 }
 .round-customers .editable-edit a .icon i,
-.box-products .editable-edit a .icon i {
+.box-products-old .editable-edit a .icon i {
   position: relative;
   left: -6px;
   top: -2px;
   color: #999;
 }
 .round-customers .editable-edit a .icon i.icon-add,
-.box-products .editable-edit a .icon i.icon-add {
+.box-products-old .editable-edit a .icon i.icon-add {
   top: -1px;
 }
 .round-customers .editable-edit a:hover i,
-.box-products .editable-edit a:hover i,
+.box-products-old .editable-edit a:hover i,
 .round-customers .editable-edit a:focus i,
-.box-products .editable-edit a:focus i {
+.box-products-old .editable-edit a:focus i {
   color: #ddc299;
 }
 .round-customers .editable-edit a .spacer,
-.box-products .editable-edit a .spacer {
+.box-products-old .editable-edit a .spacer {
   display: none;
 }
 .round-customers .editable-edit .round-customers-add,
-.box-products .editable-edit .round-customers-add,
-.round-customers .editable-edit .box-products-add,
-.box-products .editable-edit .box-products-add {
+.box-products-old .editable-edit .round-customers-add,
+.round-customers .editable-edit .box-products-old-add,
+.box-products-old .editable-edit .box-products-old-add {
   position: relative;
   left: -4px;
   padding-left: 4px;
@@ -947,9 +947,9 @@ select {
   background: #fffaf1;
 }
 .round-customers .editable-edit .round-customers-add:first-child,
-.box-products .editable-edit .round-customers-add:first-child,
-.round-customers .editable-edit .box-products-add:first-child,
-.box-products .editable-edit .box-products-add:first-child {
+.box-products-old .editable-edit .round-customers-add:first-child,
+.round-customers .editable-edit .box-products-old-add:first-child,
+.box-products-old .editable-edit .box-products-old-add:first-child {
   border-top: none;
 }
 .group:after {
@@ -1258,4 +1258,27 @@ select:focus {
 select:-moz-focusring {
   color: transparent;
   text-shadow: 0 0 0 #aaa;
+}
+.box-products {
+  margin: 10px 0 10px 0;
+}
+.box-products::after {
+  display: block;
+  clear: left;
+  content: '.';
+  height: 0px;
+}
+.box-products table {
+  float: left;
+}
+.box-products table:first-child {
+  margin-left: 0;
+}
+.box-products table td {
+  width: 10px;
+  padding-bottom: 5px;
+}
+.widthTests {
+  position: absolute;
+  left: -1000px;
 }

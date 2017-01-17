@@ -222,7 +222,7 @@ select {
   }
 }
 
-.round-customers, .box-products {
+.round-customers, .box-products-old {
   .editable-display {
     p {
       margin:0px 0 5px 0;
@@ -395,16 +395,16 @@ select {
   }
 }
 
-.round-customers, .box-products {
+.round-customers, .box-products-old {
   border: 1px solid transparent;
   
-  .round-customer, .box-product {
+  .round-customer, .box-product-old {
     display: flex;
 
-    .round-customer-detail, .box-product-detail {
+    .round-customer-detail, .box-product-old-detail {
       padding: 5px;
 
-      &.round-customer-name, &.box-product-name {
+      &.round-customer-name, &.box-product-old-name {
         padding-left: 0;
         width: 40%;
       }
@@ -413,11 +413,11 @@ select {
         width: 60%;
       }
 
-      &.box-product-quantity {
+      &.box-product-old-quantity {
         width: 60%;
       }
   
-      &.round-customer-action, &.box-product-action {
+      &.round-customer-action, &.box-product-old-action {
         flex-shrink: 0;
         flex-grow: 0;
         padding: 0;
@@ -436,7 +436,7 @@ select {
   }
 
   .editable-display:hover {
-    .round-customers-display, .box-products-display {
+    .round-customers-display, .box-products-old-display {
       margin-right: -16px;
     }
   }
@@ -482,7 +482,7 @@ select {
       }
     }
 
-    .round-customers-add, .box-products-add {
+    .round-customers-add, .box-products-old-add {
       position: relative;
       left: -4px;
       padding-left: 4px;
@@ -580,4 +580,33 @@ input[type="text"], input[type="password"], textarea, select {
 select:-moz-focusring {
   color: transparent;
   text-shadow: 0 0 0 #aaa;
+}
+
+.box-products {
+  margin: 10px 0 10px 0;
+
+  &::after {
+    display: block;
+    clear: left;
+    content: '.';
+    height: 0px;
+  }
+
+  table {
+    float: left;
+
+    &:first-child {
+      margin-left:0;
+    }
+
+    td {
+      width: 10px;
+      padding-bottom: 5px;
+    }
+  }
+}
+
+.widthTests {
+  position: absolute;
+  left: -1000px;
 }

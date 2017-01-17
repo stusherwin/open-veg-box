@@ -1,105 +1,84 @@
-import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, ViewChildren, QueryList, AfterViewInit } from '@angular/core';
+import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, ViewChildren, QueryList, AfterViewInit, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
 import { FocusDirective } from '../shared/focus.directive'
 import { BoxProduct } from './box'
-import { Subscription } from 'rxjs/Subscription' 
+import { Subscription } from 'rxjs/Subscription'
 import { Observable } from 'rxjs/Observable';
 import { EditableComponent } from '../shared/editable.component'
 import { Arrays } from '../shared/arrays'
-import { QuantityPipe } from '../shared/pipes'
+import { WeightPipe } from '../shared/pipes'
+
+const PRODUCT_NAME_PADDING: number = 10;
+const COLUMN_WIDTH_REMAINDER: number = 15;
 
 @Component({
   selector: 'cc-box-products',
   directives: [FocusDirective, EditableComponent],
-  pipes: [QuantityPipe],
-  templateUrl: 'app/boxes/box-products.component.html'
+  pipes: [WeightPipe],
+  templateUrl: 'app/boxes/box-products.component.html',
+  host: {
+    '(window:resize)': 'windowResized($event)',
+  }
 })
-export class BoxProductsComponent implements AfterViewInit {
-  tabbedInto: boolean;
-  buttonsSubscription: Subscription;
+export class BoxProductsComponent implements AfterViewChecked {
   unusedProducts: BoxProduct[] = [];
-
-  @Input()
-  editTabindex: number;
+  productNamePadding: number = PRODUCT_NAME_PADDING;
+  columnPadding: number;
 
   @Input()
   value: BoxProduct[];
-  
-  @Output()
-  valueChange = new EventEmitter<BoxProduct[]>();
 
   @Input()
   products: BoxProduct[];
 
-  @Output()
-  add = new EventEmitter<any>();
+  @Input()
+  productNameWidth: number;
 
-  @Output()
-  remove = new EventEmitter<number>();
+  @Input()
+  productQuantityWidth: number;
 
-  @ViewChildren('button')
-  buttons: QueryList<FocusDirective>
+  @ViewChild('root')
+  root: ElementRef
 
-  ngAfterViewInit() {
-    
+  columns: BoxProduct[][] = [];
+
+  constructor(private changeDetector: ChangeDetectorRef) {
   }
 
-  onEditStart(tabbedInto: boolean) {
-    this.unusedProducts = this.products.filter(p => !this.value.find(v => v.id == p.id));
-    this.unusedProducts.sort((a,b) => a.name < b.name? -1 : 1);
+  ngAfterViewChecked() {
+    this.recalculateColumns();
+  }
 
-    this.tabbedInto = tabbedInto;
-    if(tabbedInto) {
-      if(this.buttons.length) {
-        this.buttons.first.beFocused();
+  recalculateColumns() {
+    if(!this.value || !this.value.length) {
+      return;
+    }
+
+    let columnWidth = this.productNameWidth + PRODUCT_NAME_PADDING + this.productQuantityWidth + COLUMN_WIDTH_REMAINDER;
+    this.columnPadding = columnWidth; //Math.floor(columnWidth * 1.2);
+
+    let width = this.root.nativeElement.getBoundingClientRect().width;
+    let noOfColumns = Math.floor(width / columnWidth);
+    while((columnWidth * noOfColumns) + this.columnPadding * (noOfColumns - 1) > width) {
+      noOfColumns --;
+    }
+
+    if(noOfColumns != this.columns.length) {
+      let columns: BoxProduct[][] = [];
+
+      for(let i = 0; i < noOfColumns; i++) {
+        columns[i] = [];
       }
-      this.buttonsSubscription = this.buttons.changes.subscribe((buttons: QueryList<FocusDirective>) => {
-        if(buttons.length) {
-          buttons.first.beFocused();
-        } 
-      });
-    }
-  }
 
-  onEditEnd(success: boolean) {
-    if(this.buttonsSubscription) {
-      this.buttonsSubscription.unsubscribe();
-    }
-  }
-
-  removeProductClick(productId: number) {
-    let index = this.value.findIndex(p => p.id == productId);
-    if(index >= 0) {
-      let product = this.value.find(p => p.id == productId);
-      this.value.splice(index, 1);
-      this.unusedProducts.push(product);
-      this.unusedProducts.sort((a,b) => a.name < b.name? -1 : 1);
-      this.remove.emit(productId);
-     
-      if(this.tabbedInto) {
-        setTimeout(() => {
-          if(this.buttons.length) {
-            this.buttons.first.beFocused();
-          }
-        });
+      for(let i = 0; i < this.value.length; i++) {
+        columns[i % noOfColumns].push(this.value[i]);
       }
+
+      this.columns = columns;
+      this.changeDetector.detectChanges();
     }
   }
 
-  addProductClick(productId: number ) {
-    let product = this.unusedProducts.find(p => p.id == productId);
-    if(product) {
-      let index = this.unusedProducts.findIndex(p => p.id == productId);
-      this.value.push(product);
-      this.unusedProducts.splice(index, 1);
-      this.add.emit({productId: product.id, quantity: product.quantity});
-     
-      if(this.tabbedInto) {
-        setTimeout(() => {
-          if(this.buttons.length) {
-            this.buttons.first.beFocused();
-          }
-        });
-      }
-    }
+  windowResized(event: any) {
+    this.recalculateColumns();
   }
 }
