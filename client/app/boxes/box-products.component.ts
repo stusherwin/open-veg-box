@@ -9,6 +9,7 @@ import { WeightPipe } from '../shared/pipes'
 
 const PRODUCT_NAME_PADDING: number = 10;
 const COLUMN_WIDTH_REMAINDER: number = 15;
+const MIN_ITEMS_IN_FIRST_COLUMN: number = 3;
 
 @Component({
   selector: 'cc-box-products',
@@ -69,8 +70,15 @@ export class BoxProductsComponent implements AfterViewChecked {
         columns[i] = [];
       }
 
+      // Distribute evenly across columns
+      // for(let i = 0; i < this.value.length; i++) {
+      //   columns[i % noOfColumns].push(this.value[i]);
+      // }
+
+      // Fill up first columns
+      let maxInCol = Math.max(MIN_ITEMS_IN_FIRST_COLUMN, Math.ceil(this.value.length / noOfColumns));
       for(let i = 0; i < this.value.length; i++) {
-        columns[i % noOfColumns].push(this.value[i]);
+        columns[Math.floor(i / maxInCol)].push(this.value[i]);
       }
 
       this.columns = columns;
