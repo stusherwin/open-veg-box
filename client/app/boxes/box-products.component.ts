@@ -1,4 +1,4 @@
-import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, ViewChildren, QueryList, AfterViewInit, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
+import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, ViewChildren, QueryList, AfterViewInit, ChangeDetectorRef, AfterViewChecked, OnChanges } from '@angular/core';
 import { FocusDirective } from '../shared/focus.directive'
 import { BoxProduct } from './box'
 import { Subscription } from 'rxjs/Subscription'
@@ -20,7 +20,7 @@ const MIN_ITEMS_IN_FIRST_COLUMN: number = 3;
     '(window:resize)': 'windowResized($event)',
   }
 })
-export class BoxProductsComponent implements AfterViewChecked {
+export class BoxProductsComponent implements AfterViewChecked, OnChanges {
   unusedProducts: BoxProduct[] = [];
   productNamePadding: number = PRODUCT_NAME_PADDING;
   columnPadding: number;
@@ -47,6 +47,16 @@ export class BoxProductsComponent implements AfterViewChecked {
 
   ngAfterViewChecked() {
     this.recalculateColumns();
+    this.recalculateUnusedProducts();
+  }
+
+  onChanges() {
+    this.recalculateUnusedProducts();
+  }
+
+  recalculateUnusedProducts() {
+    this.unusedProducts = this.products.filter(p => !this.value.find(v => v.id == p.id));
+    this.unusedProducts.sort((a,b) => a.name < b.name? -1 : 1);
   }
 
   recalculateColumns() {
