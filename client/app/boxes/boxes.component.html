@@ -6,15 +6,6 @@
 </div>
 
 <div class="widthTests">
-  <table>
-    <tr *ngFor="let n of productNames">
-      <td #productNameTest>{{n}}</td>
-    </tr>
-  </table>
-
-  <table>
-    <tr *ngFor="let q of productQuantities">
-      <td #productQuantityTest>{{q}}</td>
-    </tr>
-  </table>
+  <span #productNameTest *ngFor="let n of productNames">{{n}}</span>
+  <span #productQuantityTest *ngFor="let q of productQuantities">{{q}}</span>
 </div>

@@ -64,13 +64,12 @@ export class BoxesComponent implements OnInit, AfterViewChecked {
   }
 
   ngAfterViewChecked() {
-    let newNameWidth = this.productNameTests.first ? Math.floor(this.productNameTests.first.nativeElement.getBoundingClientRect().width) : 0;
-    let newQuantityWidth = this.productQuantityTests.first ? Math.floor(this.productQuantityTests.first.nativeElement.getBoundingClientRect().width) : 0;
-    
+    let newNameWidth = Math.floor(this.productNameTests.reduce((max, i) => Math.max(max, i.nativeElement.getBoundingClientRect().width), 0));
+    let newQuantityWidth = Math.floor(this.productQuantityTests.reduce((max, i) => Math.max(max, i.nativeElement.getBoundingClientRect().width), 0));
     if(this.productNameWidth != newNameWidth || newQuantityWidth != this.productQuantityWidth) {
       this.productNameWidth = newNameWidth;
       this.productQuantityWidth = newQuantityWidth;
-    
+      
       this.changeDetector.detectChanges();
     }
   }

@@ -8,7 +8,8 @@ import { Arrays } from '../shared/arrays'
 import { WeightPipe } from '../shared/pipes'
 
 const PRODUCT_NAME_PADDING: number = 10;
-const COLUMN_WIDTH_REMAINDER: number = 15;
+const PRODUCT_QUANTITY_PADDING: number = 27;
+const COLUMN_WIDTH_REMAINDER: number = 30;
 const MIN_ITEMS_IN_FIRST_COLUMN: number = 3;
 
 @Component({
@@ -20,9 +21,10 @@ const MIN_ITEMS_IN_FIRST_COLUMN: number = 3;
     '(window:resize)': 'windowResized($event)',
   }
 })
-export class BoxProductsComponent implements AfterViewChecked, OnChanges {
+export class BoxProductsComponent implements AfterViewChecked {
   unusedProducts: BoxProduct[] = [];
   productNamePadding: number = PRODUCT_NAME_PADDING;
+  productQuantityPadding: number = PRODUCT_QUANTITY_PADDING;
   columnPadding: number;
 
   @Input()
@@ -50,10 +52,6 @@ export class BoxProductsComponent implements AfterViewChecked, OnChanges {
     this.recalculateUnusedProducts();
   }
 
-  onChanges() {
-    this.recalculateUnusedProducts();
-  }
-
   recalculateUnusedProducts() {
     this.unusedProducts = this.products.filter(p => !this.value.find(v => v.id == p.id));
     this.unusedProducts.sort((a,b) => a.name < b.name? -1 : 1);
@@ -64,8 +62,16 @@ export class BoxProductsComponent implements AfterViewChecked, OnChanges {
       return;
     }
 
-    let columnWidth = this.productNameWidth + PRODUCT_NAME_PADDING + this.productQuantityWidth + COLUMN_WIDTH_REMAINDER;
-    this.columnPadding = columnWidth; //Math.floor(columnWidth * 1.2);
+    let detectChanges = false;
+
+    let columnWidth = this.productNameWidth + PRODUCT_NAME_PADDING
+                    + this.productQuantityWidth + PRODUCT_QUANTITY_PADDING
+                    + COLUMN_WIDTH_REMAINDER;
+    
+    if(this.columnPadding != columnWidth) {
+      this.columnPadding = columnWidth; //Math.floor(columnWidth * 1.2);
+      detectChanges = true;
+    }
 
     let width = this.root.nativeElement.getBoundingClientRect().width;
     let noOfColumns = Math.floor(width / columnWidth);
@@ -76,22 +82,30 @@ export class BoxProductsComponent implements AfterViewChecked, OnChanges {
     if(noOfColumns != this.columns.length) {
       let columns: BoxProduct[][] = [];
 
-      for(let i = 0; i < noOfColumns; i++) {
-        columns[i] = [];
-      }
-
       // Distribute evenly across columns
       // for(let i = 0; i < this.value.length; i++) {
       //   columns[i % noOfColumns].push(this.value[i]);
       // }
 
       // Fill up first columns
-      let maxInCol = Math.max(MIN_ITEMS_IN_FIRST_COLUMN, Math.ceil(this.value.length / noOfColumns));
-      for(let i = 0; i < this.value.length; i++) {
-        columns[Math.floor(i / maxInCol)].push(this.value[i]);
+      let totalItems = this.value.length + 1; // include 'add product' row
+      let maxInCol = Math.max(MIN_ITEMS_IN_FIRST_COLUMN, Math.ceil(totalItems / noOfColumns));
+      
+      for(let i = 0; i < totalItems; i++) {
+        let col = Math.floor(i / maxInCol);
+        if(!columns[col]) {
+          columns[col] = [];
+        }
+        if(this.value[i]) {
+          columns[col].push(this.value[i]);
+        }
       }
 
       this.columns = columns;
+      detectChanges = true;
+    }
+
+    if(detectChanges) {
       this.changeDetector.detectChanges();
     }
   }

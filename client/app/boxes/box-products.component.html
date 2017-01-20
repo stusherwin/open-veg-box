@@ -1,25 +1,31 @@
 <div #root class="box-products">
-  <table *ngFor="let c of columns; let i = index" [style.margin-left.px]="i && columnPadding">
-    <tr *ngFor="let p of c">
-      <td [style.width.px]="productNameWidth + productNamePadding">
+  <div class="box-product-column" *ngFor="let c of columns; let i = index" [style.margin-left.px]="i && columnPadding">
+    <div class="box-product" *ngFor="let p of c" [class.hover]="deletingProductId && deletingProductId == p.id">
+      <div class="box-product-detail box-product-name" [style.width.px]="productNameWidth + productNamePadding">
         {{p.name}}
-      </td>
-      <td *ngIf="p.unitType == 'each'">
-        x&nbsp;
-      </td>
-      <td *ngIf="p.unitType != 'each'">
-        &nbsp;
-      </td>
-      <td *ngIf="p.unitType == 'perKg'" [style.width.px]="productQuantityWidth">
-        {{p.quantity | weight}}
-      </td>
-      <td *ngIf="p.unitType != 'perKg'" [style.width.px]="productQuantityWidth">
-        {{p.quantity}}
-      </td>
-    </tr>
-  </table>
-  <div>&nbsp;</div>
+      </div>
+      <div class="box-product-detail box-product-times">
+        <span *ngIf="p.unitType == 'each'">x</span>
+      </div>
+      <div class="box-product-detail box-product-quantity" [style.width.px]="productQuantityWidth + productQuantityPadding">
+        <span *ngIf="p.unitType == 'perKg'">{{p.quantity | weight}}</span>
+        <span *ngIf="p.unitType != 'perKg'">{{p.quantity}}</span>
+        <i class="icon-edit"></i>
+      </div>
+      <div class="box-product-detail box-product-action">
+        <i class="icon-trash" #delete></i>
+      </div>
+    </div>
+    <div class="box-product box-product-add" *ngIf="i == columns.length - 1 && unusedProducts.length" [class.hover]="adding">
+      <div class="box-product-detail box-product-name" [style.width.px]="columnPadding - 23">
+        Add another product...
+      </div>
+      <div class="box-product-detail box-product-action">
+        <i class="icon-add" #add></i>
+      </div>        
+    </div>
+  </div>
 </div>
-<select>
+<!--<select>
   <option *ngFor="let p of unusedProducts">{{p.name}}</option>
-</select>
+</select>-->
