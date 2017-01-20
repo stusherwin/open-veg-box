@@ -639,7 +639,7 @@ select:-moz-focusring {
       }
 
       .box-product-action {
-        width: 17px;
+        width: 40px;
 
         i {
           position: relative;
@@ -670,6 +670,20 @@ select:-moz-focusring {
         display: block;
       }
     }
+  }
+
+  &.adding {
+    .box-product {
+      &.box-product-add {
+        display: block;
+
+        .box-product-action {
+          i {
+            display: inline;
+          }
+        }
+      }
+    } 
   }
 }
 

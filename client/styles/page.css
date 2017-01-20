@@ -1310,7 +1310,7 @@ select:-moz-focusring {
   display: inline;
 }
 .box-products .box-product-column .box-product .box-product-action {
-  width: 17px;
+  width: 40px;
 }
 .box-products .box-product-column .box-product .box-product-action i {
   position: relative;
@@ -1328,6 +1328,12 @@ select:-moz-focusring {
 }
 .box-products:hover .box-product.box-product-add {
   display: block;
+}
+.box-products.adding .box-product.box-product-add {
+  display: block;
+}
+.box-products.adding .box-product.box-product-add .box-product-action i {
+  display: inline;
 }
 .widthTests {
   position: absolute;

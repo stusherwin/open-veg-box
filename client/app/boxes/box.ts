@@ -28,4 +28,8 @@ export class BoxProduct {
   name: string;
   quantity: number;
   unitType: string;
+
+  clone() {
+    return new BoxProduct(this.id, this.name, this.quantity, this.unitType);
+  }
 }

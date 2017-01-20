@@ -9,7 +9,7 @@ import { WeightPipe } from '../shared/pipes'
 
 const PRODUCT_NAME_PADDING: number = 10;
 const PRODUCT_QUANTITY_PADDING: number = 27;
-const COLUMN_WIDTH_REMAINDER: number = 30;
+const COLUMN_WIDTH_REMAINDER: number = 53;
 const MIN_ITEMS_IN_FIRST_COLUMN: number = 3;
 
 @Component({
@@ -25,7 +25,9 @@ export class BoxProductsComponent implements AfterViewChecked {
   unusedProducts: BoxProduct[] = [];
   productNamePadding: number = PRODUCT_NAME_PADDING;
   productQuantityPadding: number = PRODUCT_QUANTITY_PADDING;
+  maxColumns: number = 0;
   columnPadding: number;
+  addingProduct: BoxProduct;
 
   @Input()
   value: BoxProduct[];
@@ -48,6 +50,8 @@ export class BoxProductsComponent implements AfterViewChecked {
   }
 
   ngAfterViewChecked() {
+    // TODO: move this out of AfterViewChecked?
+    // Here because AfterViewChecked is the earliest event where correct element widths are available
     this.recalculateColumns();
     this.recalculateUnusedProducts();
   }
@@ -58,7 +62,7 @@ export class BoxProductsComponent implements AfterViewChecked {
   }
 
   recalculateColumns() {
-    if(!this.value || !this.value.length) {
+    if(!this.value || !this.value.length || !this.root) {
       return;
     }
 
@@ -69,6 +73,7 @@ export class BoxProductsComponent implements AfterViewChecked {
                     + COLUMN_WIDTH_REMAINDER;
     
     if(this.columnPadding != columnWidth) {
+      console.log('columnWidth: ' + columnWidth);
       this.columnPadding = columnWidth; //Math.floor(columnWidth * 1.2);
       detectChanges = true;
     }
@@ -79,7 +84,10 @@ export class BoxProductsComponent implements AfterViewChecked {
       noOfColumns --;
     }
 
-    if(noOfColumns != this.columns.length) {
+    if(noOfColumns != this.maxColumns) {
+      console.log('noOfColumns: ' + noOfColumns);
+      this.maxColumns = noOfColumns;
+      
       let columns: BoxProduct[][] = [];
 
       // Distribute evenly across columns
@@ -112,5 +120,17 @@ export class BoxProductsComponent implements AfterViewChecked {
 
   windowResized(event: any) {
     this.recalculateColumns();
+  }
+
+  startAdd() {
+    this.addingProduct = this.unusedProducts[0].clone();
+  }
+
+  endAdd() {
+    this.addingProduct = null;
+  }
+
+  addProduct(event: any) {
+    this.addingProduct = this.unusedProducts[+event.srcElement.value].clone();
   }
 }

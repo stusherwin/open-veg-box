@@ -86,3 +86,19 @@ Ideas
 =====
 * Add warning message to guest user that data will not be kept
 * Nicer error message when guest tries to send emails?
+
+Box Products
+============
+* Width should be calculated as max of (data, input/select field)
+* Hover/click on name/add text should click delete/add button?
+* Hover over delete/add button should highlight name/add text?
+* Edit quantity
+* Add product
+* Remove product
+* Tab control
+* Delete box (FK violation)
+* Make rest of app consistent with edit highlight
+* Delete buttons should be constantly shown when adding (when box-products focused)
+* Focus row when adding/Editing
+* Row unfocus should cancel add/edit
+* Better width solution than hardcoding pixel widths in code (padding/remainders)?

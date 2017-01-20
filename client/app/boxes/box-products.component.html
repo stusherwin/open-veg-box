@@ -1,6 +1,6 @@
-<div #root class="box-products">
+<div #root class="box-products" [class.adding]="addingProduct">
   <div class="box-product-column" *ngFor="let c of columns; let i = index" [style.margin-left.px]="i && columnPadding">
-    <div class="box-product" *ngFor="let p of c" [class.hover]="deletingProductId && deletingProductId == p.id">
+    <div class="box-product" *ngFor="let p of c">
       <div class="box-product-detail box-product-name" [style.width.px]="productNameWidth + productNamePadding">
         {{p.name}}
       </div>
@@ -13,19 +13,39 @@
         <i class="icon-edit"></i>
       </div>
       <div class="box-product-detail box-product-action">
-        <i class="icon-trash" #delete></i>
+        <i class="icon-trash"></i>
       </div>
     </div>
-    <div class="box-product box-product-add" *ngIf="i == columns.length - 1 && unusedProducts.length" [class.hover]="adding">
-      <div class="box-product-detail box-product-name" [style.width.px]="columnPadding - 23">
-        Add another product...
+    <div class="box-product box-product-add" *ngIf="i == columns.length - 1 && unusedProducts.length">
+      <div *ngIf="!addingProduct">
+        <div class="box-product-detail box-product-name" [style.width.px]="columnPadding - 45">
+          Add another product...
+        </div>
+        <div class="box-product-detail box-product-action">
+          <i class="icon-add" (click)="startAdd()"></i>
+        </div>
       </div>
-      <div class="box-product-detail box-product-action">
-        <i class="icon-add" #add></i>
-      </div>        
+      <div *ngIf="addingProduct">
+        <div class="box-product-detail box-product-name" [style.width.px]="productNameWidth + productNamePadding">
+          <select (change)="addProduct($event)">
+            <option *ngFor="let p of unusedProducts; let i = index" [value]="i">{{p.name}}</option>
+          </select>
+        </div>
+        <div class="box-product-detail box-product-times">
+          <span *ngIf="addingProduct.unitType == 'each'">x</span>
+        </div>
+        <div class="box-product-detail box-product-quantity" [style.width.px]="productQuantityWidth + productQuantityPadding">
+          <input type="text" style="width: 60px" />
+        </div>
+        <!--div class="box-product-detail box-product-times">
+        </div>
+        <div class="box-product-detail box-product-quantity" [style.width.px]="productQuantityWidth + productQuantityPadding">
+        </div-->
+        <div class="box-product-detail box-product-action">
+          <i class="icon-ok" (click)="endAdd()"></i>
+          <i class="icon-cancel" (click)="endAdd()"></i>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-<!--<select>
-  <option *ngFor="let p of unusedProducts">{{p.name}}</option>
-</select>-->
