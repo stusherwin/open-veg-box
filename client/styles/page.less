@@ -657,6 +657,18 @@ select:-moz-focusring {
           width: 42px;
           height: 22px;
           padding: 0 4px;
+          position: relative;
+          left:-5px;
+        }
+        
+        .box-product-quantity-each {
+          display: inline-block;
+          width: 11px;
+        }
+
+        .box-product-quantity-perkg {
+          position: relative;
+          left: -5px;
         }
 
         &.box-product-display:hover {
@@ -699,16 +711,16 @@ select:-moz-focusring {
     }
   }
 
-  &.adding {
+  &.adding, &.editing {
     .box-product {
+      .box-product-action {
+        i {
+          display: inline;
+        }
+      }
+
       &.box-product-add {
         display: block;
-
-        .box-product-action {
-          i {
-            display: inline;
-          }
-        }
       }
     } 
   }

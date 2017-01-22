@@ -12,14 +12,12 @@
       <div #productNameTest class="box-product-detail box-product-name box-product-edit">
         <select>
           <option *ngFor="let n of availableProductNames">{{n}}</option>
-        </select><span style="width:1px;background: blue;">.</span>
+        </select><span style="width:1px;">.</span>
       </div>
       <div #productQuantityTest class="box-product-detail box-product-quantity box-product-display" *ngFor="let q of productQuantities">{{q}}</div>
       <div #productQuantityTest class="box-product-detail box-product-quantity box-product-edit">
-        <input type="text" class="input tiny" />
-        <span> Kg</span>
-        <i class="icon-ok"></i>
-        <i class="icon-cancel"></i>
+        <input type="text" class="input" />
+        <span class="box-product-quantity-perkg">Kg</span><span style="width:1px;">.</span>
       </div>
     </div>
 </div>
