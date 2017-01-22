@@ -1,49 +1,47 @@
 <div #root class="box-products" [class.adding]="addingProduct">
-  <div class="box-product-column" *ngFor="let c of columns; let i = index" [style.margin-left.px]="i && columnPadding">
+  <div class="box-product-column" *ngFor="let c of columns; let i = index" [style.margin-left.px]="i && columnWidth">
     <div class="box-product" *ngFor="let p of c">
-      <div class="box-product-detail box-product-name" [style.width.px]="productNameWidth + productNamePadding">
+      <div class="box-product-detail box-product-name" [style.width.px]="productNameWidth"><!--" + productNamePadding">-->
         {{p.name}}
       </div>
-      <div class="box-product-detail box-product-times">
+      <div *ngIf="!editingProduct || editingProduct.id != p.id" class="box-product-detail box-product-quantity box-product-display" (click)="editProduct(p)" [style.width.px]="productQuantityWidth"><!--" + productQuantityPadding">-->
         <span *ngIf="p.unitType == 'each'">x</span>
-      </div>
-      <div class="box-product-detail box-product-quantity" [style.width.px]="productQuantityWidth + productQuantityPadding">
         <span *ngIf="p.unitType == 'perKg'">{{p.quantity | weight}}</span>
         <span *ngIf="p.unitType != 'perKg'">{{p.quantity}}</span>
         <i class="icon-edit"></i>
       </div>
-      <div class="box-product-detail box-product-action">
+      <div *ngIf="editingProduct && editingProduct.id == p.id" class="box-product-detail box-product-quantity box-product-edit" [style.width.px]="productQuantityWidth"><!--" + productQuantityPadding">-->
+        <span *ngIf="editingProduct.unitType == 'each'">x</span>
+        <input type="text" class="input tiny" [value]="editingProduct.quantity" />
+        <span *ngIf="editingProduct.unitType == 'perKg'"> Kg</span>
+        <i class="icon-ok" (click)="completeEdit()"></i><i class="icon-cancel" (click)="cancelEdit()"></i>
+      </div>
+      <div class="box-product-detail box-product-action box-product-display">
         <i class="icon-trash"></i>
       </div>
     </div>
     <div class="box-product box-product-add" *ngIf="i == columns.length - 1 && unusedProducts.length">
       <div *ngIf="!addingProduct">
-        <div class="box-product-detail box-product-name" [style.width.px]="columnPadding - 45">
+        <div class="box-product-detail box-product-name box-product-display" [style.width.px]="productNameWidth + productQuantityWidth">
           Add another product...
         </div>
-        <div class="box-product-detail box-product-action">
+        <div class="box-product-detail box-product-action box-product-display">
           <i class="icon-add" (click)="startAdd()"></i>
-        </div>
+        </div>       
       </div>
       <div *ngIf="addingProduct">
-        <div class="box-product-detail box-product-name" [style.width.px]="productNameWidth + productNamePadding">
+        <div class="box-product-detail box-product-name box-product-edit" [style.width.px]="productNameWidth"><!--" + productNamePadding">-->
           <select (change)="addProduct($event)">
             <option *ngFor="let p of unusedProducts; let i = index" [value]="i">{{p.name}}</option>
           </select>
         </div>
-        <div class="box-product-detail box-product-times">
+        <div class="box-product-detail box-product-quantity box-product-edit" [style.width.px]="productQuantityWidth"><!--" + productQuantityPadding">-->
           <span *ngIf="addingProduct.unitType == 'each'">x</span>
+          <input type="text" class="input tiny" [value]="addingProduct.quantity" />
+          <span *ngIf="addingProduct.unitType == 'perKg'"> Kg</span>
         </div>
-        <div class="box-product-detail box-product-quantity" [style.width.px]="productQuantityWidth + productQuantityPadding">
-          <input type="text" style="width: 60px" />
-        </div>
-        <!--div class="box-product-detail box-product-times">
-        </div>
-        <div class="box-product-detail box-product-quantity" [style.width.px]="productQuantityWidth + productQuantityPadding">
-        </div-->
-        <div class="box-product-detail box-product-action">
-          <i class="icon-ok" (click)="endAdd()"></i>
-          <i class="icon-cancel" (click)="endAdd()"></i>
+        <div class="box-product-detail box-product-action box-product-edit">
+          <i class="icon-ok" (click)="completeAdd()"></i><i class="icon-cancel" (click)="cancelAdd()"></i>
         </div>
       </div>
     </div>

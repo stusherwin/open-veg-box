@@ -102,3 +102,4 @@ Box Products
 * Focus row when adding/Editing
 * Row unfocus should cancel add/edit
 * Better width solution than hardcoding pixel widths in code (padding/remainders)?
+* Left margin inset by a few pixels

@@ -953,7 +953,7 @@ select {
   border-top: none;
 }
 .group:after {
-  content: "";
+  content: ' ';
   display: table;
   clear: both;
 }
@@ -979,7 +979,7 @@ select {
   margin-bottom: 10px;
 }
 .email-edit .form-row:after {
-  content: "";
+  content: ' ';
   display: table;
   clear: both;
 }
@@ -1265,9 +1265,8 @@ select:-moz-focusring {
 .box-products::after {
   display: block;
   clear: left;
-  content: '.';
+  content: ' ';
   height: 0px;
-  color: transparent;
 }
 .box-products .box-product-column {
   float: left;
@@ -1275,50 +1274,71 @@ select:-moz-focusring {
 .box-products .box-product-column::after {
   display: block;
   clear: left;
-  content: '.';
+  content: ' ';
   height: 0px;
-  color: transparent;
 }
 .box-products .box-product-column .box-product::after {
   display: block;
   clear: left;
-  content: '.';
+  content: ' ';
   height: 0px;
-  color: transparent;
 }
 .box-products .box-product-column .box-product i {
   font-size: 80%;
   display: none;
 }
+.box-products .box-product-column .box-product i::before {
+  margin: 0;
+}
+.box-products .box-product-column .box-product i:hover {
+  color: #ffa011;
+  cursor: pointer;
+}
+.box-products .box-product-column .box-product i + i {
+  margin-left: 2px;
+}
 .box-products .box-product-column .box-product .box-product-detail {
   float: left;
-  padding: 2px 0;
+  padding: 0;
+  height: 24px;
 }
-.box-products .box-product-column .box-product .box-product-times {
-  width: 8px;
+.box-products .box-product-column .box-product .box-product-detail::before {
+  display: inline-block;
+  height: 100%;
+  width: 0px;
+  vertical-align: text-bottom;
+  content: ' ';
+}
+.box-products .box-product-column .box-product .box-product-name select {
+  display: inline-block;
+  height: 22px;
+  padding: 0;
+  position: relative;
+  top: -1px;
 }
 .box-products .box-product-column .box-product .box-product-quantity {
   border-radius: 2px;
   border: 1px solid transparent;
   padding-left: 2px;
 }
-.box-products .box-product-column .box-product .box-product-quantity:hover {
+.box-products .box-product-column .box-product .box-product-quantity input {
+  display: inline-block;
+  width: 42px;
+  height: 22px;
+  padding: 0 4px;
+}
+.box-products .box-product-column .box-product .box-product-quantity.box-product-display:hover {
   color: #ffa011;
   cursor: pointer;
 }
-.box-products .box-product-column .box-product .box-product-quantity:hover i {
+.box-products .box-product-column .box-product .box-product-quantity.box-product-display:hover i {
+  display: inline;
+}
+.box-products .box-product-column .box-product .box-product-quantity.box-product-edit i {
   display: inline;
 }
 .box-products .box-product-column .box-product .box-product-action {
-  width: 40px;
-}
-.box-products .box-product-column .box-product .box-product-action i {
-  position: relative;
-  top: 3px;
-}
-.box-products .box-product-column .box-product .box-product-action i:hover {
-  color: #ffa011;
-  cursor: pointer;
+  width: 32px;
 }
 .box-products .box-product-column .box-product.box-product-add {
   display: none;

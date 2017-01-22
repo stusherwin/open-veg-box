@@ -5,7 +5,21 @@
   <cc-box addMode="true" [showAddMessage]="!boxes.length" [loaded]="loaded" [productNameWidth]="productNameWidth" [productQuantityWidth]="productQuantityWidth" (add)="onAdd($event)" [products]="products" [index]="boxes.length"></cc-box>
 </div>
 
-<div class="widthTests">
-  <span #productNameTest *ngFor="let n of productNames">{{n}}</span>
-  <span #productQuantityTest *ngFor="let q of productQuantities">{{q}}</span>
+<div class="widthTests box-products">
+  <div class="box-product-column">
+    <div class="box-product">
+      <div #productNameTest class="box-product-detail box-product-name box-product-display" *ngFor="let n of productNames">{{n}}</div>
+      <div #productNameTest class="box-product-detail box-product-name box-product-edit">
+        <select>
+          <option *ngFor="let n of availableProductNames">{{n}}</option>
+        </select><span style="width:1px;background: blue;">.</span>
+      </div>
+      <div #productQuantityTest class="box-product-detail box-product-quantity box-product-display" *ngFor="let q of productQuantities">{{q}}</div>
+      <div #productQuantityTest class="box-product-detail box-product-quantity box-product-edit">
+        <input type="text" class="input tiny" />
+        <span> Kg</span>
+        <i class="icon-ok"></i>
+        <i class="icon-cancel"></i>
+      </div>
+    </div>
 </div>

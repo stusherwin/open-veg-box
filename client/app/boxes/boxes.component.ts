@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit, Input, ViewChild, ElementRef, ChangeDetectorRef, AfterViewChecked, ViewChildren, QueryList } from '@angular/core';
 import { Box, BoxProduct } from './box'
+import { Product } from '../products/product';
 import { BoxService } from './box.service'
 import { ProductService } from '../products/product.service'
 import { UsersService } from '../users/users.service'
@@ -9,6 +10,7 @@ import { RouteParams } from '@angular/router-deprecated';
 import { FocusService } from '../shared/focus.service';
 import { FocusDirective } from '../shared/focus.directive';
 import { WeightPipe } from '../shared/pipes';
+import 'rxjs/add/operator/combineLatest';
 
 @Component({
   selector: 'cc-boxes',
@@ -26,6 +28,7 @@ export class BoxesComponent implements OnInit, AfterViewChecked {
   loaded: boolean;
   productNames: string[] = [];
   productQuantities: string[] = [];
+  availableProductNames: string[] = [];
   productNameWidth: number = 0;
   productQuantityWidth: number = 0;
 
@@ -40,27 +43,32 @@ export class BoxesComponent implements OnInit, AfterViewChecked {
   ngOnInit() {
     let weight = new WeightPipe();
 
-    this.boxService.getAll(this.queryParams).subscribe(b => {
-      this.loaded = true;
-      this.boxes = b;
-      this.boxes.forEach(b => b.products.forEach(p => {
-        let q = p.unitType == 'perKg' ? weight.transform(p.quantity) : '' + p.quantity;
-      
-        if(!this.productQuantities.find(pq => pq == q)) {
-          this.productQuantities.push(q);
-        }
-      }));
-    } );
+    this.boxService.getAll(this.queryParams)
+      .combineLatest(this.productService.getAll(this.queryParams), (boxes, products) => ({ boxes, products }))
+      .subscribe(({boxes, products}) => {
+        this.loaded = true;
+        this.boxes = boxes;
 
-    this.productService.getAll(this.queryParams).subscribe(products => {
-      this.products = products.map(p => new BoxProduct(p.id, p.name, 1, p.unitType));
-      
-      this.products.forEach(p => {
-        if(!this.productNames.find(pn => pn == p.name)) {
-          this.productNames.push(p.name);
-        }
-      });
-    });
+        this.boxes.forEach(b => b.products.forEach(p => {
+          let q = p.unitType == 'perKg' ? weight.transform(p.quantity) : '' + p.quantity;
+        
+          if(!this.productQuantities.find(pq => pq == q)) {
+            this.productQuantities.push(q);
+          }
+        }));
+        
+        this.products = products.map(p => new BoxProduct(p.id, p.name, 1, p.unitType));
+        
+        this.products.forEach(p => {
+          if(!this.productNames.find(pn => pn == p.name)) {
+            this.productNames.push(p.name);
+          }
+        });
+
+        this.availableProductNames = this.products
+          .filter(p => !this.boxes.every(b => !!b.products.find(bp => bp.id == p.id)))
+          .map(p => p.name);
+      } );
   }
 
   ngAfterViewChecked() {

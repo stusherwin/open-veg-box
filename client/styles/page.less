@@ -503,7 +503,7 @@ select {
 
 .group {
   &:after {
-    content: "";
+    content: ' ';
     display: table;
     clear: both;
   }
@@ -589,9 +589,8 @@ select:-moz-focusring {
   &::after {
     display: block;
     clear: left;
-    content: '.';
+    content: ' ';
     height: 0px;
-    color: transparent;
   }
 } 
 
@@ -609,18 +608,43 @@ select:-moz-focusring {
       i {
         font-size: 80%;
         display: none;
+
+        &::before {
+          margin: 0;
+        }
+
+        &:hover {
+          color: @boxProductHover;
+          cursor: pointer;
+        }
+      }
+
+      i + i {
+        margin-left: 2px;
       }
 
       .box-product-detail {
         float: left;
-        padding: 2px 0;
+        padding:0;
+        height: 24px;
+
+        &::before {
+          display: inline-block;
+          height: 100%;
+          width: 0px;
+          vertical-align: text-bottom;
+          content: ' '
+        }
       }
 
       .box-product-name {
-      }
-
-      .box-product-times {
-        width: 8px;
+        select {
+          display: inline-block;
+          height: 22px;
+          padding: 0;
+          position: relative;
+          top: -1px;
+        }
       }
 
       .box-product-quantity {
@@ -628,7 +652,14 @@ select:-moz-focusring {
         border: 1px solid transparent;
         padding-left: 2px;
 
-        &:hover {
+        input {
+          display: inline-block;
+          width: 42px;
+          height: 22px;
+          padding: 0 4px;
+        }
+
+        &.box-product-display:hover {
           color: @boxProductHover;
           cursor: pointer;
           
@@ -636,20 +667,16 @@ select:-moz-focusring {
             display: inline;
           }
         }
+
+        &.box-product-edit {
+          i {
+            display: inline;
+          }
+        }
       }
 
       .box-product-action {
-        width: 40px;
-
-        i {
-          position: relative;
-          top: 3px;
-
-          &:hover {
-            color: @boxProductHover;
-            cursor: pointer;
-          }
-        }
+        width: 32px;
       }
 
       &.box-product-add {

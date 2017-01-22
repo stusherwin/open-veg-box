@@ -7,9 +7,10 @@ import { EditableComponent } from '../shared/editable.component'
 import { Arrays } from '../shared/arrays'
 import { WeightPipe } from '../shared/pipes'
 
-const PRODUCT_NAME_PADDING: number = 10;
-const PRODUCT_QUANTITY_PADDING: number = 27;
-const COLUMN_WIDTH_REMAINDER: number = 53;
+//const PRODUCT_NAME_PADDING: number = 10;
+//const PRODUCT_QUANTITY_PADDING: number = 27;
+//const COLUMN_WIDTH_REMAINDER: number = 53;
+const ACTIONS_WIDTH: number = 32;
 const MIN_ITEMS_IN_FIRST_COLUMN: number = 3;
 
 @Component({
@@ -23,11 +24,12 @@ const MIN_ITEMS_IN_FIRST_COLUMN: number = 3;
 })
 export class BoxProductsComponent implements AfterViewChecked {
   unusedProducts: BoxProduct[] = [];
-  productNamePadding: number = PRODUCT_NAME_PADDING;
-  productQuantityPadding: number = PRODUCT_QUANTITY_PADDING;
+  //productNamePadding: number = PRODUCT_NAME_PADDING;
+  //productQuantityPadding: number = PRODUCT_QUANTITY_PADDING;
   maxColumns: number = 0;
-  columnPadding: number;
+  columnWidth: number;
   addingProduct: BoxProduct;
+  editingProduct: BoxProduct;
 
   @Input()
   value: BoxProduct[];
@@ -68,19 +70,19 @@ export class BoxProductsComponent implements AfterViewChecked {
 
     let detectChanges = false;
 
-    let columnWidth = this.productNameWidth + PRODUCT_NAME_PADDING
-                    + this.productQuantityWidth + PRODUCT_QUANTITY_PADDING
-                    + COLUMN_WIDTH_REMAINDER;
+    let columnWidth = this.productNameWidth //+ PRODUCT_NAME_PADDING
+                    + this.productQuantityWidth //+ PRODUCT_QUANTITY_PADDING
+                    + ACTIONS_WIDTH;// COLUMN_WIDTH_REMAINDER;
     
-    if(this.columnPadding != columnWidth) {
-      console.log('columnWidth: ' + columnWidth);
-      this.columnPadding = columnWidth; //Math.floor(columnWidth * 1.2);
+    if(this.columnWidth != columnWidth) {
+      //console.log('columnWidth: ' + columnWidth);
+      this.columnWidth = columnWidth; //Math.floor(columnWidth * 1.2);
       detectChanges = true;
     }
 
     let width = this.root.nativeElement.getBoundingClientRect().width;
     let noOfColumns = Math.floor(width / columnWidth);
-    while((columnWidth * noOfColumns) + this.columnPadding * (noOfColumns - 1) > width) {
+    while((columnWidth * noOfColumns) + this.columnWidth * (noOfColumns - 1) > width) {
       noOfColumns --;
     }
 
@@ -126,11 +128,27 @@ export class BoxProductsComponent implements AfterViewChecked {
     this.addingProduct = this.unusedProducts[0].clone();
   }
 
-  endAdd() {
+  addProduct(event: any) {
+    this.addingProduct = this.unusedProducts[+event.target.value].clone();
+  }
+
+  completeAdd() {
     this.addingProduct = null;
   }
 
-  addProduct(event: any) {
-    this.addingProduct = this.unusedProducts[+event.srcElement.value].clone();
+  cancelAdd() {
+    this.addingProduct = null;
+  }
+
+  editProduct(product: BoxProduct) {
+    this.editingProduct = product.clone();
+  }
+
+  completeEdit() {
+    this.editingProduct = null;
+  }
+
+  cancelEdit() {
+    this.editingProduct = null;
   }
 }
