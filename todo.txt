@@ -89,12 +89,8 @@ Ideas
 
 Box Products
 ============
-* Width should be calculated as max of (data, input/select field)
 * Hover/click on name/add text should click delete/add button?
 * Hover over delete/add button should highlight name/add text?
-* Edit quantity
-* Add product
-* Remove product
 * Tab control
 * Delete box (FK violation)
 * Make rest of app consistent with edit highlight
@@ -102,4 +98,5 @@ Box Products
 * Focus row when adding/Editing
 * Row unfocus should cancel add/edit
 * Better width solution than hardcoding pixel widths in code (padding/remainders)?
-* Left margin inset by a few pixels
+* Delegate width calculation to box-products component (or service?)
+* Update box-products collection in-place rather than refresh from server

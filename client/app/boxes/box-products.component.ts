@@ -7,11 +7,10 @@ import { EditableComponent } from '../shared/editable.component'
 import { Arrays } from '../shared/arrays'
 import { WeightPipe } from '../shared/pipes'
 
-//const PRODUCT_NAME_PADDING: number = 10;
-//const PRODUCT_QUANTITY_PADDING: number = 27;
-//const COLUMN_WIDTH_REMAINDER: number = 53;
-const ACTIONS_WIDTH: number = 32;
-const MIN_ITEMS_IN_FIRST_COLUMN: number = 3;
+const PRODUCT_NAME_PADDING = 1;
+const PRODUCT_QUANTITY_PADDING = 5;
+const ACTIONS_WIDTH = 32;
+const MIN_ITEMS_IN_FIRST_COLUMN = 3;
 
 @Component({
   selector: 'cc-box-products',
@@ -23,14 +22,16 @@ const MIN_ITEMS_IN_FIRST_COLUMN: number = 3;
   }
 })
 export class BoxProductsComponent implements AfterViewChecked {
-  unusedProducts: BoxProduct[] = [];
-  //productNamePadding: number = PRODUCT_NAME_PADDING;
-  //productQuantityPadding: number = PRODUCT_QUANTITY_PADDING;
-  maxColumns: number = 0;
+  productNamePadding = PRODUCT_NAME_PADDING;
+  productQuantityPadding = PRODUCT_QUANTITY_PADDING;
   columnWidth: number;
+  columnPadding: number;
+  columns: BoxProduct[][] = [];
+  maxColumns: number = 0;
+  unusedProducts: BoxProduct[] = [];
   addingProduct: BoxProduct;
   editingProduct: BoxProduct;
-
+  
   @Input()
   value: BoxProduct[];
 
@@ -46,7 +47,14 @@ export class BoxProductsComponent implements AfterViewChecked {
   @ViewChild('root')
   root: ElementRef
 
-  columns: BoxProduct[][] = [];
+  @Output()
+  add = new EventEmitter<BoxProduct>();
+
+  @Output()
+  remove = new EventEmitter<BoxProduct>();
+
+  @Output()
+  update = new EventEmitter<BoxProduct>(); 
 
   constructor(private changeDetector: ChangeDetectorRef) {
   }
@@ -70,13 +78,13 @@ export class BoxProductsComponent implements AfterViewChecked {
 
     let detectChanges = false;
 
-    let columnWidth = this.productNameWidth //+ PRODUCT_NAME_PADDING
-                    + this.productQuantityWidth //+ PRODUCT_QUANTITY_PADDING
-                    + ACTIONS_WIDTH;// COLUMN_WIDTH_REMAINDER;
+    let columnWidth = this.productNameWidth + this.productNamePadding
+                    + this.productQuantityWidth + this.productQuantityPadding
+                    + ACTIONS_WIDTH;
     
     if(this.columnWidth != columnWidth) {
-      //console.log('columnWidth: ' + columnWidth);
-      this.columnWidth = columnWidth; //Math.floor(columnWidth * 1.2);
+      this.columnWidth = columnWidth;
+      this.columnPadding = Math.floor(this.columnWidth * 0.8);
       detectChanges = true;
     }
 
@@ -87,7 +95,6 @@ export class BoxProductsComponent implements AfterViewChecked {
     }
 
     if(noOfColumns != this.maxColumns) {
-      console.log('noOfColumns: ' + noOfColumns);
       this.maxColumns = noOfColumns;
       
       let columns: BoxProduct[][] = [];
@@ -124,31 +131,64 @@ export class BoxProductsComponent implements AfterViewChecked {
     this.recalculateColumns();
   }
 
-  startAdd() {
+  onAddClick() {
     this.addingProduct = this.unusedProducts[0].clone();
   }
 
-  addProduct(event: any) {
+  onAddProductChange(event: any) {
     this.addingProduct = this.unusedProducts[+event.target.value].clone();
   }
 
-  completeAdd() {
+  onAddOkClick() {
+    this.add.emit(this.addingProduct);
     this.addingProduct = null;
   }
 
-  cancelAdd() {
+  onAddCancelClick() {
     this.addingProduct = null;
   }
 
-  editProduct(product: BoxProduct) {
+  onEditClick(product: BoxProduct) {
     this.editingProduct = product.clone();
   }
 
-  completeEdit() {
+  onEditOkClick() {
+    this.update.emit(this.editingProduct);
     this.editingProduct = null;
   }
 
-  cancelEdit() {
+  onEditCancelClick() {
     this.editingProduct = null;
+  }
+
+  onRemoveClick(product: BoxProduct) {
+    this.remove.emit(product);
+  }
+
+  onEditQuantityChange(value: any) {
+    this.editingProduct.quantity = this.toDecimalValue(value);
+  }
+
+  onAddQuantityChange(value: any) {
+    this.addingProduct.quantity = this.toDecimalValue(value);
+  }
+
+  fixedDecimals: number = null;
+  maxDecimals: number = 3;
+  private toDecimalValue(value: string): number {
+    var parsed = parseFloat(value);
+    if( isNaN(parsed) ) {
+      return 0;
+    }
+
+    if(this.fixedDecimals) {
+      return parseFloat(parsed.toFixed(this.fixedDecimals));
+    }
+
+    if (this.maxDecimals) {
+      return parseFloat(parsed.toFixed(this.maxDecimals));
+    }
+
+    return parsed;
   }
 }

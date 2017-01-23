@@ -6,6 +6,11 @@ import { FocusDirective } from '../shared/focus.directive'
 import { BoxPriceComponent } from './box-price.component';
 import { BoxProductsComponent } from './box-products.component';
 
+export interface BoxProductEvent {
+  boxId: number;
+  product: BoxProduct;
+}
+
 @Component({
   selector: 'cc-box',
   templateUrl: 'app/boxes/box.component.html',
@@ -59,10 +64,13 @@ export class BoxComponent {
   update = new EventEmitter<Box>();
 
   @Output()
-  productAdd = new EventEmitter<any>();
+  productAdd = new EventEmitter<BoxProductEvent>();
 
   @Output()
-  productRemove = new EventEmitter<any>();
+  productUpdate = new EventEmitter<BoxProductEvent>();
+
+  @Output()
+  productRemove = new EventEmitter<BoxProductEvent>();
 
   startAdd() {
     this.adding = true;
@@ -94,12 +102,16 @@ export class BoxComponent {
     }
   }
 
-  onProductAdd(event: any) {
-    this.productAdd.emit({boxId: this.box.id, productId: event.productId, quantity: event.quantity});
+  onProductAdd(product: BoxProduct) {
+    this.productAdd.emit({boxId: this.box.id, product});
   }
 
-  onProductRemove(productId: number) {
-    this.productRemove.emit({boxId: this.box.id, productId: productId});
+  onProductUpdate(product: BoxProduct) {
+    this.productUpdate.emit({boxId: this.box.id, product});
+  }
+
+  onProductRemove(product: BoxProduct) {
+    this.productRemove.emit({boxId: this.box.id, product});
   }
 
   onRowFocus() {

@@ -1,49 +1,44 @@
 <div #root class="box-products" [class.adding]="addingProduct" [class.editing]="editingProduct">
-  <div class="box-product-column" *ngFor="let c of columns; let i = index" [style.margin-left.px]="i && columnWidth">
+  <div class="box-product-column" *ngFor="let c of columns; let i = index" [style.margin-left.px]="i && columnPadding">
     <div class="box-product" *ngFor="let p of c">
-      <div class="box-product-detail box-product-name" [style.width.px]="productNameWidth"><!--" + productNamePadding">-->
-        {{p.name}}
-      </div>
-      <div *ngIf="!editingProduct || editingProduct.id != p.id" class="box-product-detail box-product-quantity box-product-display" (click)="editProduct(p)" [style.width.px]="productQuantityWidth"><!--" + productQuantityPadding">-->
-        <span *ngIf="p.unitType == 'each'">x&nbsp;</span>
+      <div class="box-product-detail box-product-name" [style.width.px]="productNameWidth + productNamePadding">{{p.name}}</div>
+      <div *ngIf="!editingProduct || editingProduct.id != p.id" class="box-product-detail box-product-quantity box-product-display" (click)="onEditClick(p)" [style.width.px]="productQuantityWidth + productQuantityPadding">
+        <span class="box-product-quantity-each" *ngIf="p.unitType == 'each'">x</span>
         <span *ngIf="p.unitType == 'perKg'">{{p.quantity | weight}}</span>
         <span *ngIf="p.unitType != 'perKg'">{{p.quantity}}</span>
         <i class="icon-edit"></i>
       </div>
-      <div *ngIf="editingProduct && editingProduct.id == p.id" class="box-product-detail box-product-quantity box-product-edit" [style.width.px]="productQuantityWidth"><!--" + productQuantityPadding">-->
+      <div *ngIf="editingProduct && editingProduct.id == p.id" class="box-product-detail box-product-quantity box-product-edit" [style.width.px]="productQuantityWidth + productQuantityPadding">
         <span class="box-product-quantity-each" *ngIf="editingProduct.unitType == 'each'">x</span>
-        <input type="text" class="input" [value]="editingProduct.quantity" />
+        <input type="text" class="input" [ngModel]="editingProduct.quantity" (ngModelChange)="onEditQuantityChange($event)" />
         <span class="box-product-quantity-perkg" *ngIf="editingProduct.unitType == 'perKg'">Kg</span>
       </div>
       <div *ngIf="!editingProduct || editingProduct.id != p.id" class="box-product-detail box-product-action box-product-display">
-        <i class="icon-trash"></i>
+        <i class="icon-trash" (click)="onRemoveClick(p)"></i>
       </div>
       <div *ngIf="editingProduct && editingProduct.id == p.id" class="box-product-detail box-product-action box-product-edit">
-        <i class="icon-ok" (click)="completeEdit()"></i><i class="icon-cancel" (click)="cancelEdit()"></i>
+        <i class="icon-ok" (click)="onEditOkClick()"></i><i class="icon-cancel" (click)="onEditCancelClick()"></i>
       </div> 
     </div>
     <div class="box-product box-product-add" *ngIf="i == columns.length - 1 && unusedProducts.length">
       <div *ngIf="!addingProduct">
-        <div class="box-product-detail box-product-name box-product-display" [style.width.px]="productNameWidth + productQuantityWidth">
-          Add another product...
-        </div>
+        <div class="box-product-detail box-product-name box-product-display" [style.width.px]="productNameWidth + productNamePadding + productQuantityWidth + productQuantityPadding">Add another product...</div>
         <div class="box-product-detail box-product-action box-product-display">
-          <i class="icon-add" (click)="startAdd()"></i>
+          <i class="icon-add" (click)="onAddClick()"></i>
         </div>       
       </div>
       <div *ngIf="addingProduct">
-        <div class="box-product-detail box-product-name box-product-edit" [style.width.px]="productNameWidth"><!--" + productNamePadding">-->
-          <select (change)="addProduct($event)">
+        <div class="box-product-detail box-product-name box-product-edit" [style.width.px]="productNameWidth + productNamePadding"><select (change)="onAddProductChange($event)">
             <option *ngFor="let p of unusedProducts; let i = index" [value]="i">{{p.name}}</option>
           </select>
         </div>
-        <div class="box-product-detail box-product-quantity box-product-edit" [style.width.px]="productQuantityWidth"><!--" + productQuantityPadding">-->
+        <div class="box-product-detail box-product-quantity box-product-edit" [style.width.px]="productQuantityWidth + productQuantityPadding">
           <span class="box-product-quantity-each" *ngIf="addingProduct.unitType == 'each'">x</span>
-          <input type="text" class="input" [value]="addingProduct.quantity" />
+          <input type="text" class="input" [ngModel]="addingProduct.quantity" (ngModelChange)="onAddQuantityChange($event)" />
           <span class="box-product-quantity-perkg" *ngIf="addingProduct.unitType == 'perKg'">Kg</span>
         </div>
         <div class="box-product-detail box-product-action box-product-edit">
-          <i class="icon-ok" (click)="completeAdd()"></i><i class="icon-cancel" (click)="cancelAdd()"></i>
+          <i class="icon-ok" (click)="onAddOkClick()"></i><i class="icon-cancel" (click)="onAddCancelClick()"></i>
         </div>
       </div>
     </div>

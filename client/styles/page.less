@@ -644,6 +644,7 @@ select:-moz-focusring {
           padding: 0;
           position: relative;
           top: -1px;
+          left: -5px;
         }
       }
 
@@ -663,7 +664,7 @@ select:-moz-focusring {
         
         .box-product-quantity-each {
           display: inline-block;
-          width: 11px;
+          width: 10px;
         }
 
         .box-product-quantity-perkg {
@@ -671,7 +672,7 @@ select:-moz-focusring {
           left: -5px;
         }
 
-        &.box-product-display:hover {
+        &.box-product-display:hover, &.box-product-display.hover {
           color: @boxProductHover;
           cursor: pointer;
           
@@ -728,5 +729,5 @@ select:-moz-focusring {
 
 .widthTests {
   position: absolute;
-  left: -1000px;
+  left: -10000px;
 }

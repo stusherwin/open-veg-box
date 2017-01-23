@@ -38,6 +38,6 @@
       </div>
       <div></div>
     </div>
-    <cc-box-products *ngIf="!addMode" [productNameWidth]="productNameWidth" [productQuantityWidth]="productQuantityWidth" [value]="box.products" [products]="products"></cc-box-products>
+    <cc-box-products *ngIf="!addMode" [productNameWidth]="productNameWidth" [productQuantityWidth]="productQuantityWidth" [value]="box.products" [products]="products" (add)="onProductAdd($event)" (update)="onProductUpdate($event)" (remove)="onProductRemove($event)"></cc-box-products>
   </div>
 </div>

@@ -68,6 +68,15 @@ export class BoxService {
                     .map(rs => rs.map(this.hydrate));
   }
 
+  updateProduct(id: number, productId: number, params: any, queryParams: {[key: string]: string}): Observable<Box[]> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post('api/boxes/' + id + '/products/' + productId + '?' + this.toQueryString(queryParams), JSON.stringify(params), options)
+                    .map(res => res.json())
+                    .map(rs => rs.map(this.hydrate));
+  }
+
   removeProduct(id: number, productId: number, queryParams: {[key: string]: string}): Observable<Box[]> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });

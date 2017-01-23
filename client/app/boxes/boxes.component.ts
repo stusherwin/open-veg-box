@@ -4,7 +4,7 @@ import { Product } from '../products/product';
 import { BoxService } from './box.service'
 import { ProductService } from '../products/product.service'
 import { UsersService } from '../users/users.service'
-import { BoxComponent } from './box.component'
+import { BoxComponent, BoxProductEvent } from './box.component'
 import { Observable } from 'rxjs/Observable';
 import { RouteParams } from '@angular/router-deprecated';
 import { FocusService } from '../shared/focus.service';
@@ -16,6 +16,7 @@ import 'rxjs/add/operator/combineLatest';
   selector: 'cc-boxes',
   templateUrl: 'app/boxes/boxes.component.html',
   directives: [BoxComponent, FocusDirective],
+  pipes: [WeightPipe],
   providers: [BoxService, ProductService, UsersService, FocusService]
 })
 export class BoxesComponent implements OnInit, AfterViewChecked {
@@ -27,7 +28,7 @@ export class BoxesComponent implements OnInit, AfterViewChecked {
   products: BoxProduct[] = [];
   loaded: boolean;
   productNames: string[] = [];
-  productQuantities: string[] = [];
+  productQuantities: BoxProduct[] = [];
   availableProductNames: string[] = [];
   productNameWidth: number = 0;
   productQuantityWidth: number = 0;
@@ -40,9 +41,9 @@ export class BoxesComponent implements OnInit, AfterViewChecked {
   @ViewChildren('productQuantityTest')
   productQuantityTests: QueryList<ElementRef>
 
+  weight = new WeightPipe();
+  
   ngOnInit() {
-    let weight = new WeightPipe();
-
     this.boxService.getAll(this.queryParams)
       .combineLatest(this.productService.getAll(this.queryParams), (boxes, products) => ({ boxes, products }))
       .subscribe(({boxes, products}) => {
@@ -50,11 +51,7 @@ export class BoxesComponent implements OnInit, AfterViewChecked {
         this.boxes = boxes;
 
         this.boxes.forEach(b => b.products.forEach(p => {
-          let q = p.unitType == 'perKg' ? weight.transform(p.quantity) : '' + p.quantity;
-        
-          if(!this.productQuantities.find(pq => pq == q)) {
-            this.productQuantities.push(q);
-          }
+          this.productQuantities.push(p);
         }));
         
         this.products = products.map(p => new BoxProduct(p.id, p.name, 1, p.unitType));
@@ -98,13 +95,80 @@ export class BoxesComponent implements OnInit, AfterViewChecked {
     this.boxService.update(box.id, box, this.queryParams).subscribe(boxes => {});
   }
 
-  onProductAdd(event: any) {
-    this.boxService.addProduct(event.boxId, event.productId, event, this.queryParams).subscribe(boxes => {
+  onProductAdd(event: BoxProductEvent) {
+    this.boxService.addProduct(event.boxId, event.product.id, event.product, this.queryParams).subscribe(boxes => {
+      this.boxes = boxes;
+
+      this.productQuantities = [];
+      this.productNames = [];
+
+      this.boxes.forEach(b => b.products.forEach(p => {
+        this.productQuantities.push(p);
+      }));
+      
+      this.products.forEach(p => {
+        if(!this.productNames.find(pn => pn == p.name)) {
+          this.productNames.push(p.name);
+        }
+      });
+
+      this.availableProductNames = this.products
+        .filter(p => !this.boxes.every(b => !!b.products.find(bp => bp.id == p.id)))
+        .map(p => p.name);
+        
+      this.changeDetector.detectChanges();
     });
   }
 
-  onProductRemove(event: any) {
-    this.boxService.removeProduct(event.boxId, event.productId, this.queryParams).subscribe(boxes => {
+  onProductUpdate(event: BoxProductEvent) {
+    console.log('update');
+    console.log(event);
+    this.boxService.updateProduct(event.boxId, event.product.id, event.product, this.queryParams).subscribe(boxes => {
+      this.boxes = boxes;
+
+      this.productQuantities = [];
+      this.productNames = [];
+
+      this.boxes.forEach(b => b.products.forEach(p => {
+        this.productQuantities.push(p);
+      }));
+      
+      this.products.forEach(p => {
+        if(!this.productNames.find(pn => pn == p.name)) {
+          this.productNames.push(p.name);
+        }
+      });
+
+      this.availableProductNames = this.products
+        .filter(p => !this.boxes.every(b => !!b.products.find(bp => bp.id == p.id)))
+        .map(p => p.name);
+        
+      this.changeDetector.detectChanges();
+    });
+  }
+
+  onProductRemove(event: BoxProductEvent) {
+    this.boxService.removeProduct(event.boxId, event.product.id, this.queryParams).subscribe(boxes => {
+      this.boxes = boxes;
+
+      this.productQuantities = [];
+      this.productNames = [];
+
+      this.boxes.forEach(b => b.products.forEach(p => {
+        this.productQuantities.push(p);
+      }));
+      
+      this.products.forEach(p => {
+        if(!this.productNames.find(pn => pn == p.name)) {
+          this.productNames.push(p.name);
+        }
+      });
+
+      this.availableProductNames = this.products
+        .filter(p => !this.boxes.every(b => !!b.products.find(bp => bp.id == p.id)))
+        .map(p => p.name);
+
+      this.changeDetector.detectChanges();
     });
   }
 }
