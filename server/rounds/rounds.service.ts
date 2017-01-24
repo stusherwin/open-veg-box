@@ -63,24 +63,20 @@ export class RoundsService {
   }
 
   delete(id: number, queryParams: any, db: Db): Observable<Round[]> {
-    return db.execute('delete from round_customer where roundId = @id', {
-        id: id 
-      })
+    return db.execute('delete from round_customer where roundId = @id', {id})
       .mergeMap(() => db.delete('round', id))
       .mergeMap(() => this.getAll(queryParams, db));
   }
 
   addCustomer(id: number, customerId: number, queryParams: any, db: Db): Observable<Round[]> {
-    return db.execute('insert into round_customer (roundId, customerId) values (@id, @customerId)', {
-      id: id, 
-      customerId: customerId
-    }).mergeMap(() => this.getAll(queryParams, db));
+    return db.execute('insert into round_customer (roundId, customerId) values (@id, @customerId)',
+        {id, customerId})
+      .mergeMap(() => this.getAll(queryParams, db));
   }
   
   removeCustomer(id: number, customerId: number, queryParams: any, db: Db): Observable<Round[]> {
-    return db.execute('delete from round_customer where roundId = @id and customerId = @customerId', {
-      id: id, 
-      customerId: customerId
-    }).mergeMap(() => this.getAll(queryParams, db));
+    return db.execute('delete from round_customer where roundId = @id and customerId = @customerId',
+        {id, customerId})
+      .mergeMap(() => this.getAll(queryParams, db));
   }
 }

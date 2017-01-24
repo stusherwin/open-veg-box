@@ -20,9 +20,13 @@
         <i class="icon-ok" (click)="onEditOkClick()"></i><i class="icon-cancel" (click)="onEditCancelClick()"></i>
       </div> 
     </div>
-    <div class="box-product box-product-add" *ngIf="i == columns.length - 1 && unusedProducts.length">
-      <div *ngIf="!addingProduct" (click)="onAddClick()">
-        <div class="box-product-detail box-product-name box-product-display" [style.width.px]="productNameWidth + productNamePadding + productQuantityWidth + productQuantityPadding">Add another product...</div>
+    <div class="box-product box-product-add" *ngIf="i == columns.length - 1" [class.no-products]="!value.length">
+      <div *ngIf="!value.length && !addingProduct" class="box-product-detail no-products-text">No products added yet.</div> 
+      <div *ngIf="unusedProducts.length && !addingProduct" (click)="onAddClick()">
+        <div class="box-product-detail box-product-name box-product-display" [style.width.px]="productNameWidth + productNamePadding + productQuantityWidth + productQuantityPadding">Add
+          <span *ngIf="!value.length">a</span>
+          <span *ngIf="value.length">another</span>
+          product...</div>
         <div class="box-product-detail box-product-action box-product-display">
           <i class="icon-add"></i>
         </div>       

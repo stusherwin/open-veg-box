@@ -45,7 +45,8 @@ export class BoxesService {
   }
 
   delete(id: number, queryParams: any, db: Db): Observable<Box[]> {
-    return db.delete('box', id)
+    return db.execute('delete from box_product where boxId = @id', {id})
+      .mergeMap(() => db.delete('box', id))
       .mergeMap(() => this.getAll(queryParams, db));
   }
 

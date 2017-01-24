@@ -697,7 +697,9 @@ select:-moz-focusring {
       }
 
       &.box-product-add {
-        display: none;
+        .box-product-display {
+          display: none;
+        }
       }
     }
   }
@@ -711,7 +713,14 @@ select:-moz-focusring {
       }
 
       &.box-product-add {
-        display: block;
+        .no-products-text {
+          display: none;
+        }
+
+        .box-product-display {
+          display: block;
+        }
+
         &:hover {
           .box-product-display {
             color: @boxProductHover;

@@ -1356,13 +1356,16 @@ select:-moz-focusring {
 .box-products .box-product-column .box-product .box-product-action {
   width: 32px;
 }
-.box-products .box-product-column .box-product.box-product-add {
+.box-products .box-product-column .box-product.box-product-add .box-product-display {
   display: none;
 }
 .box-products:hover .box-product .box-product-action i {
   display: inline;
 }
-.box-products:hover .box-product.box-product-add {
+.box-products:hover .box-product.box-product-add .no-products-text {
+  display: none;
+}
+.box-products:hover .box-product.box-product-add .box-product-display {
   display: block;
 }
 .box-products:hover .box-product.box-product-add:hover .box-product-display {

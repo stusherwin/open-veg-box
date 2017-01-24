@@ -101,7 +101,7 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
   }
 
   recalculateColumnWidths(productNameWidth: number, productQuantityWidth: number) {
-    if(!this.value || !this.value.length || !this.root) {
+    if(!this.value || !this.root) {
       return;
     }
 
