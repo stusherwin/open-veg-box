@@ -1283,6 +1283,9 @@ select:-moz-focusring {
   content: ' ';
   height: 0px;
 }
+.box-products .box-product-column .box-product.remove-hover {
+  color: #ffa011;
+}
 .box-products .box-product-column .box-product i {
   font-size: 80%;
   display: none;
@@ -1361,6 +1364,10 @@ select:-moz-focusring {
 }
 .box-products:hover .box-product.box-product-add {
   display: block;
+}
+.box-products:hover .box-product.box-product-add:hover .box-product-display {
+  color: #ffa011;
+  cursor: pointer;
 }
 .box-products.adding .box-product .box-product-action i,
 .box-products.editing .box-product .box-product-action i {

@@ -89,8 +89,6 @@ Ideas
 
 Box Products
 ============
-* Hover/click on name/add text should click delete/add button?
-* Hover over delete/add button should highlight name/add text?
 * Tab control
 * Delete box (FK violation)
 * Make rest of app consistent with edit highlight

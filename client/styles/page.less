@@ -605,6 +605,10 @@ select:-moz-focusring {
     .box-product {
       .boxProductClearFix;
 
+      &.remove-hover {
+        color: @boxProductHover; 
+      }
+
       i {
         font-size: 80%;
         display: none;
@@ -708,6 +712,12 @@ select:-moz-focusring {
 
       &.box-product-add {
         display: block;
+        &:hover {
+          .box-product-display {
+            color: @boxProductHover;
+            cursor: pointer;
+          }
+        }
       }
     }
   }

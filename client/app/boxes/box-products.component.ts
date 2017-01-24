@@ -37,6 +37,7 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
   unusedProducts: BoxProduct[] = [];
   addingProduct: BoxProduct;
   editingProduct: BoxProduct;
+  removeHoverProductId: number;
   
   @Input()
   value: BoxProduct[];
@@ -210,6 +211,17 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
 
   onAddQuantityChange(value: any) {
     this.addingProduct.quantity = this.toDecimalValue(value);
+  }
+
+  onRemoveEnter(product: BoxProduct) {
+    if(this.removeHoverProductId) {
+      throw 'REMOVE MOUSELEAVE DIDN\'T FIRE!'; // sometimes mouseleave not firing, want to make it obvious when this happens
+    }
+    this.removeHoverProductId = product.id;
+  }
+
+  onRemoveLeave() {
+    this.removeHoverProductId = 0;
   }
 
   fixedDecimals: number = null;

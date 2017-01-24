@@ -1,6 +1,6 @@
 <div #root class="box-products" [class.adding]="addingProduct" [class.editing]="editingProduct">
   <div class="box-product-column" *ngFor="let c of columns; let i = index" [style.margin-left.px]="i && columnPadding">
-    <div class="box-product" *ngFor="let p of c">
+    <div class="box-product" *ngFor="let p of c" [class.remove-hover]="removeHoverProductId == p.id">
       <div class="box-product-detail box-product-name" [style.width.px]="productNameWidth + productNamePadding">{{p.name}}</div>
       <div *ngIf="!editingProduct || editingProduct.id != p.id" class="box-product-detail box-product-quantity box-product-display" (click)="onEditClick(p)" [style.width.px]="productQuantityWidth + productQuantityPadding">
         <span class="box-product-quantity-each" *ngIf="p.unitType == 'each'">x</span>
@@ -14,17 +14,17 @@
         <span class="box-product-quantity-perkg" *ngIf="editingProduct.unitType == 'perKg'">Kg</span>
       </div>
       <div *ngIf="!editingProduct || editingProduct.id != p.id" class="box-product-detail box-product-action box-product-display">
-        <i class="icon-trash" (click)="onRemoveClick(p)"></i>
+        <i class="icon-trash" (click)="onRemoveClick(p)" (mouseenter)="onRemoveEnter(p)" (mouseleave)="onRemoveLeave()"></i>
       </div>
       <div *ngIf="editingProduct && editingProduct.id == p.id" class="box-product-detail box-product-action box-product-edit">
         <i class="icon-ok" (click)="onEditOkClick()"></i><i class="icon-cancel" (click)="onEditCancelClick()"></i>
       </div> 
     </div>
     <div class="box-product box-product-add" *ngIf="i == columns.length - 1 && unusedProducts.length">
-      <div *ngIf="!addingProduct">
+      <div *ngIf="!addingProduct" (click)="onAddClick()">
         <div class="box-product-detail box-product-name box-product-display" [style.width.px]="productNameWidth + productNamePadding + productQuantityWidth + productQuantityPadding">Add another product...</div>
         <div class="box-product-detail box-product-action box-product-display">
-          <i class="icon-add" (click)="onAddClick()"></i>
+          <i class="icon-add"></i>
         </div>       
       </div>
       <div *ngIf="addingProduct">
