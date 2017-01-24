@@ -2292,26 +2292,26 @@ select:-moz-focusring {
 .box-products .box-product-column .box-product.box-product-add .box-product-display {
   display: none;
 }
-.box-products:hover .box-product .box-product-action i {
-  display: inline;
-}
-.box-products:hover .box-product.box-product-add .no-products-text {
-  display: none;
-}
-.box-products:hover .box-product.box-product-add .box-product-display {
-  display: block;
-}
-.box-products:hover .box-product.box-product-add:hover .box-product-display {
-  color: #ffa011;
-  cursor: pointer;
-}
+.box-products:hover .box-product .box-product-action i,
 .box-products.adding .box-product .box-product-action i,
 .box-products.editing .box-product .box-product-action i {
   display: inline;
 }
-.box-products.adding .box-product.box-product-add,
-.box-products.editing .box-product.box-product-add {
+.box-products:hover .box-product.box-product-add .no-products-text,
+.box-products.adding .box-product.box-product-add .no-products-text,
+.box-products.editing .box-product.box-product-add .no-products-text {
+  display: none;
+}
+.box-products:hover .box-product.box-product-add .box-product-display,
+.box-products.adding .box-product.box-product-add .box-product-display,
+.box-products.editing .box-product.box-product-add .box-product-display {
   display: block;
+}
+.box-products:hover .box-product.box-product-add:hover .box-product-display,
+.box-products.adding .box-product.box-product-add:hover .box-product-display,
+.box-products.editing .box-product.box-product-add:hover .box-product-display {
+  color: #ffa011;
+  cursor: pointer;
 }
 .width-test {
   position: absolute;

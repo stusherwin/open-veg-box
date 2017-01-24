@@ -704,7 +704,7 @@ select:-moz-focusring {
     }
   }
 
-  &:hover {
+  &:hover, &.adding, &.editing {
     .box-product {
       .box-product-action {
         i {
@@ -729,20 +729,6 @@ select:-moz-focusring {
         }
       }
     }
-  }
-
-  &.adding, &.editing {
-    .box-product {
-      .box-product-action {
-        i {
-          display: inline;
-        }
-      }
-
-      &.box-product-add {
-        display: block;
-      }
-    } 
   }
 }
 

@@ -158,6 +158,7 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
   }
 
   onAddClick() {
+    this.editingProduct = null;
     this.addingProduct = this.unusedProducts[0].clone();
   }
 
@@ -180,6 +181,7 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
   }
 
   onEditClick(product: BoxProduct) {
+    this.addingProduct = null;
     this.editingProduct = product.clone();
   }
 

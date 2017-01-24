@@ -90,9 +90,8 @@ Ideas
 Box Products
 ============
 * Tab control
-* Delete box (FK violation)
 * Make rest of app consistent with edit highlight
-* Delete buttons should be constantly shown when adding (when box-products focused)
 * Focus row when adding/Editing
 * Row unfocus should cancel add/edit
 * Better width solution than hardcoding pixel widths in code (padding/remainders)?
+* Prevent simultaneous edits across box-products (focus implementation should fix this)
