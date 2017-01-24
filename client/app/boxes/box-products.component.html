@@ -1,4 +1,4 @@
-<div #root class="box-products" [class.adding]="addingProduct" [class.editing]="editingProduct">
+<div #root cc-focus #focusable=cc-focus (focus)="onRootFocus()" (blur)="onRootBlur()" class="box-products" [class.adding]="addingProduct" [class.editing]="editingProduct">
   <div class="box-product-column" *ngFor="let c of columns; let i = index" [style.margin-left.px]="i && columnPadding">
     <div class="box-product" *ngFor="let p of c" [class.remove-hover]="removeHoverProductId == p.id">
       <div class="box-product-detail box-product-name" [style.width.px]="productNameWidth + productNamePadding">{{p.name}}</div>

@@ -54,6 +54,9 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
   @ViewChildren('productQuantityTest')
   productQuantityTests: QueryList<ElementRef>
 
+  @ViewChild('focusable')
+  focusable: FocusDirective
+
   @Output()
   add = new EventEmitter<BoxProduct>();
 
@@ -158,6 +161,7 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
   }
 
   onAddClick() {
+    this.focusable.beFocused();
     this.editingProduct = null;
     this.addingProduct = this.unusedProducts[0].clone();
   }
@@ -174,13 +178,16 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
     this.repopulateColumns();
 
     this.addingProduct = null;
+    this.focusable.beBlurred();    
   }
 
   onAddCancelClick() {
     this.addingProduct = null;
+    this.focusable.beBlurred();    
   }
 
   onEditClick(product: BoxProduct) {
+    this.focusable.beFocused();    
     this.addingProduct = null;
     this.editingProduct = product.clone();
   }
@@ -193,10 +200,12 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
     this.repopulateColumns();
 
     this.editingProduct = null;
+    this.focusable.beBlurred();    
   }
 
   onEditCancelClick() {
     this.editingProduct = null;
+    this.focusable.beBlurred();    
   }
 
   onRemoveClick(product: BoxProduct) {
@@ -224,6 +233,14 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
 
   onRemoveLeave() {
     this.removeHoverProductId = 0;
+  }
+
+  onRootFocus() {
+  }
+
+  onRootBlur() {
+    this.addingProduct = null;
+    this.editingProduct = null;
   }
 
   fixedDecimals: number = null;
