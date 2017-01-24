@@ -44,3 +44,24 @@
     </div>
   </div>
 </div>
+
+<div class="box-products width-test">
+  <div class="box-product-column">
+    <div class="box-product">
+      <div #productNameTest class="box-product-detail box-product-name box-product-display" *ngFor="let p of value">{{p.name}}</div>
+      <div #productNameTest class="box-product-detail box-product-name box-product-edit"><select>
+          <option *ngFor="let p of unusedProducts">{{p.name}}</option>
+        </select>
+      </div>
+      <div #productQuantityTest class="box-product-detail box-product-quantity box-product-display hover" *ngFor="let p of value">
+        <span class="box-product-quantity-each" *ngIf="p.unitType == 'each'">x</span>
+        <span *ngIf="p.unitType == 'perKg'">{{p.quantity | weight}}</span>
+        <span *ngIf="p.unitType != 'perKg'">{{p.quantity}}</span>
+        <i class="icon-edit"></i>
+      </div>
+      <div #productQuantityTest class="box-product-detail box-product-quantity box-product-edit"><input type="text" class="input" />
+        <span class="box-product-quantity-perkg">Kg</span>
+      </div>
+    </div>
+  </div>
+</div>

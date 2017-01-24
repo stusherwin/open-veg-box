@@ -48,12 +48,6 @@ export class BoxComponent {
   @Input()
   products: BoxProduct[];
 
-  @Input()
-  productNameWidth: number;
-
-  @Input()
-  productQuantityWidth: number;
-
   @Output()
   delete = new EventEmitter<Box>();
 

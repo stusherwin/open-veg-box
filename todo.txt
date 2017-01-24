@@ -98,5 +98,3 @@ Box Products
 * Focus row when adding/Editing
 * Row unfocus should cancel add/edit
 * Better width solution than hardcoding pixel widths in code (padding/remainders)?
-* Delegate width calculation to box-products component (or service?)
-* Update box-products collection in-place rather than refresh from server

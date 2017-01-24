@@ -2,25 +2,5 @@
 
 <div class="row-view" cc-focus id="row-view" focusedClass="focused" [handleClickOutside]="true">
   <cc-box *ngFor="let b of boxes" [box]="b" [products]="products" [productNameWidth]="productNameWidth" [productQuantityWidth]="productQuantityWidth" [index]="i" (delete)="onDelete($event)" (update)="onUpdate($event)" (productAdd)="onProductAdd($event)" (productUpdate)="onProductUpdate($event)" (productRemove)="onProductRemove($event)"></cc-box>
-  <cc-box addMode="true" [showAddMessage]="!boxes.length" [loaded]="loaded" [productNameWidth]="productNameWidth" [productQuantityWidth]="productQuantityWidth" (add)="onAdd($event)" [products]="products" [index]="boxes.length"></cc-box>
-</div>
-
-<div class="widthTests box-products">
-  <div class="box-product-column">
-    <div class="box-product">
-      <div #productNameTest class="box-product-detail box-product-name box-product-display" *ngFor="let n of productNames">{{n}}</div>
-      <div #productNameTest class="box-product-detail box-product-name box-product-edit"><select>
-          <option *ngFor="let n of availableProductNames">{{n}}</option>
-        </select>
-      </div>
-      <div #productQuantityTest class="box-product-detail box-product-quantity box-product-display hover" *ngFor="let q of productQuantities">
-        <span class="box-product-quantity-each" *ngIf="q.unitType == 'each'">x</span>
-        <span *ngIf="q.unitType == 'perKg'">{{q.quantity | weight}}</span>
-        <span *ngIf="q.unitType != 'perKg'">{{q.quantity}}</span>
-        <i class="icon-edit"></i>
-      </div>
-      <div #productQuantityTest class="box-product-detail box-product-quantity box-product-edit"><input type="text" class="input" />
-        <span class="box-product-quantity-perkg">Kg</span>
-      </div>
-    </div>
+  <cc-box addMode="true" [showAddMessage]="!boxes.length" [loaded]="loaded" (add)="onAdd($event)" [products]="products" [index]="boxes.length"></cc-box>
 </div>

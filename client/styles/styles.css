@@ -2303,7 +2303,7 @@ select:-moz-focusring {
 .box-products.editing .box-product.box-product-add {
   display: block;
 }
-.widthTests {
+.width-test {
   position: absolute;
   left: -10000px;
 }

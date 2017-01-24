@@ -1,4 +1,4 @@
-import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, ViewChildren, QueryList, AfterViewInit, ChangeDetectorRef, AfterViewChecked, OnChanges } from '@angular/core';
+import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, ViewChildren, QueryList, AfterViewInit, ChangeDetectorRef, AfterViewChecked, OnChanges, Inject, forwardRef, OnInit, OnDestroy } from '@angular/core';
 import { FocusDirective } from '../shared/focus.directive'
 import { BoxProduct } from './box'
 import { Subscription } from 'rxjs/Subscription'
@@ -6,11 +6,13 @@ import { Observable } from 'rxjs/Observable';
 import { EditableComponent } from '../shared/editable.component'
 import { Arrays } from '../shared/arrays'
 import { WeightPipe } from '../shared/pipes'
+import { BoxProductsService } from './box-products.service'
 
 const PRODUCT_NAME_PADDING = 1;
 const PRODUCT_QUANTITY_PADDING = 5;
 const ACTIONS_WIDTH = 32;
 const MIN_ITEMS_IN_FIRST_COLUMN = 3;
+const COLUMN_PADDING_RATIO = 0.8;
 
 @Component({
   selector: 'cc-box-products',
@@ -21,9 +23,13 @@ const MIN_ITEMS_IN_FIRST_COLUMN = 3;
     '(window:resize)': 'windowResized($event)',
   }
 })
-export class BoxProductsComponent implements AfterViewChecked {
+export class BoxProductsComponent implements OnInit, AfterViewChecked {
   productNamePadding = PRODUCT_NAME_PADDING;
   productQuantityPadding = PRODUCT_QUANTITY_PADDING;
+  productNameWidth: number;
+  productQuantityWidth: number;
+  productNameMaxWidth: number;
+  productQuantityMaxWidth: number;
   columnWidth: number;
   columnPadding: number;
   columns: BoxProduct[][] = [];
@@ -38,14 +44,14 @@ export class BoxProductsComponent implements AfterViewChecked {
   @Input()
   products: BoxProduct[];
 
-  @Input()
-  productNameWidth: number;
-
-  @Input()
-  productQuantityWidth: number;
-
   @ViewChild('root')
   root: ElementRef
+
+  @ViewChildren('productNameTest')
+  productNameTests: QueryList<ElementRef>
+
+  @ViewChildren('productQuantityTest')
+  productQuantityTests: QueryList<ElementRef>
 
   @Output()
   add = new EventEmitter<BoxProduct>();
@@ -56,14 +62,36 @@ export class BoxProductsComponent implements AfterViewChecked {
   @Output()
   update = new EventEmitter<BoxProduct>(); 
 
-  constructor(private changeDetector: ChangeDetectorRef) {
+  constructor(
+    @Inject(forwardRef(() => BoxProductsService))
+    private service: BoxProductsService,
+    private changeDetector: ChangeDetectorRef) {
+  }
+
+  ngOnInit() {
+    this.recalculateUnusedProducts();
+  }
+
+  ngOnDestroy() {
+    this.service.deregister(this);
   }
 
   ngAfterViewChecked() {
     // TODO: move this out of AfterViewChecked?
     // Here because AfterViewChecked is the earliest event where correct element widths are available
-    this.recalculateColumns();
-    this.recalculateUnusedProducts();
+    this.recalculateWidths();
+  }
+
+  recalculateWidths() {
+    let newNameMaxWidth = Math.floor(Math.max(...this.productNameTests.map(e => e.nativeElement.getBoundingClientRect().width)));
+    let newQuantityMaxWidth = Math.floor(Math.max(...this.productQuantityTests.map(e => e.nativeElement.getBoundingClientRect().width)));
+
+    if(newNameMaxWidth != this.productNameMaxWidth || newQuantityMaxWidth != this.productQuantityMaxWidth) {
+      this.productNameMaxWidth = newNameMaxWidth;
+      this.productQuantityMaxWidth = newQuantityMaxWidth;
+
+      this.service.newMaxWidths(this, newNameMaxWidth, newQuantityMaxWidth);
+    }
   }
 
   recalculateUnusedProducts() {
@@ -71,64 +99,61 @@ export class BoxProductsComponent implements AfterViewChecked {
     this.unusedProducts.sort((a,b) => a.name < b.name? -1 : 1);
   }
 
-  recalculateColumns() {
+  recalculateColumnWidths(productNameWidth: number, productQuantityWidth: number) {
     if(!this.value || !this.value.length || !this.root) {
       return;
     }
 
-    let detectChanges = false;
+    this.productNameWidth = productNameWidth;
+    this.productQuantityWidth = productQuantityWidth;
 
-    let columnWidth = this.productNameWidth + this.productNamePadding
-                    + this.productQuantityWidth + this.productQuantityPadding
-                    + ACTIONS_WIDTH;
+    this.columnWidth = this.productNameWidth + this.productNamePadding
+                     + this.productQuantityWidth + this.productQuantityPadding
+                     + ACTIONS_WIDTH;
     
-    if(this.columnWidth != columnWidth) {
-      this.columnWidth = columnWidth;
-      this.columnPadding = Math.floor(this.columnWidth * 0.8);
-      detectChanges = true;
-    }
+    this.columnPadding = Math.floor(this.columnWidth * COLUMN_PADDING_RATIO);
 
     let width = this.root.nativeElement.getBoundingClientRect().width;
-    let noOfColumns = Math.floor(width / columnWidth);
-    while((columnWidth * noOfColumns) + this.columnWidth * (noOfColumns - 1) > width) {
+    let noOfColumns = Math.floor(width / this.columnWidth);
+    while((this.columnWidth * noOfColumns) + this.columnWidth * (noOfColumns - 1) > width) {
       noOfColumns --;
     }
 
     if(noOfColumns != this.maxColumns) {
       this.maxColumns = noOfColumns;
-      
-      let columns: BoxProduct[][] = [];
+      this.repopulateColumns();
+    }
 
-      // Distribute evenly across columns
-      // for(let i = 0; i < this.value.length; i++) {
-      //   columns[i % noOfColumns].push(this.value[i]);
-      // }
+    this.changeDetector.detectChanges();
+  }
 
-      // Fill up first columns
-      let totalItems = this.value.length + 1; // include 'add product' row
-      let maxInCol = Math.max(MIN_ITEMS_IN_FIRST_COLUMN, Math.ceil(totalItems / noOfColumns));
-      
-      for(let i = 0; i < totalItems; i++) {
-        let col = Math.floor(i / maxInCol);
-        if(!columns[col]) {
-          columns[col] = [];
-        }
-        if(this.value[i]) {
-          columns[col].push(this.value[i]);
-        }
+  repopulateColumns() {
+    let columns: BoxProduct[][] = [];
+
+    // Distribute evenly across columns
+    // for(let i = 0; i < this.value.length; i++) {
+    //   columns[i % noOfColumns].push(this.value[i]);
+    // }
+
+    // Fill up first columns
+    let totalItems = this.value.length + 1; // include 'add product' row
+    let maxInCol = Math.max(MIN_ITEMS_IN_FIRST_COLUMN, Math.ceil(totalItems / this.maxColumns));
+    
+    for(let i = 0; i < totalItems; i++) {
+      let col = Math.floor(i / maxInCol);
+      if(!columns[col]) {
+        columns[col] = [];
       }
-
-      this.columns = columns;
-      detectChanges = true;
+      if(this.value[i]) {
+        columns[col].push(this.value[i]);
+      }
     }
 
-    if(detectChanges) {
-      this.changeDetector.detectChanges();
-    }
+    this.columns = columns;
   }
 
   windowResized(event: any) {
-    this.recalculateColumns();
+    this.recalculateColumnWidths(this.productNameWidth, this.productQuantityWidth);
   }
 
   onAddClick() {
@@ -141,6 +166,11 @@ export class BoxProductsComponent implements AfterViewChecked {
 
   onAddOkClick() {
     this.add.emit(this.addingProduct);
+    this.value.push(this.addingProduct);
+    
+    this.recalculateUnusedProducts();
+    this.repopulateColumns();
+
     this.addingProduct = null;
   }
 
@@ -154,6 +184,11 @@ export class BoxProductsComponent implements AfterViewChecked {
 
   onEditOkClick() {
     this.update.emit(this.editingProduct);
+    let i = this.value.findIndex(p => p.id == this.editingProduct.id);
+    this.value[i] = this.editingProduct;
+
+    this.repopulateColumns();
+
     this.editingProduct = null;
   }
 
@@ -163,6 +198,10 @@ export class BoxProductsComponent implements AfterViewChecked {
 
   onRemoveClick(product: BoxProduct) {
     this.remove.emit(product);
+    Arrays.remove(this.value, product);
+    
+    this.recalculateUnusedProducts();
+    this.repopulateColumns();
   }
 
   onEditQuantityChange(value: any) {
