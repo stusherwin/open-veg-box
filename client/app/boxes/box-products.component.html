@@ -8,6 +8,8 @@
         <span *ngIf="p.unitType != 'perKg'">{{p.quantity}}</span>
         <i class="icon-edit"></i>
       </div>
+      <div *ngIf="editingProduct && editingProduct.id == p.id" class="edit-background" [style.left.px]="productNameWidth + productNamePadding - 1" [style.width.px]="productQuantityWidth + productQuantityPadding + actionsWidth + 4">
+      </div>
       <div *ngIf="editingProduct && editingProduct.id == p.id" class="box-product-detail box-product-quantity box-product-edit" [style.width.px]="productQuantityWidth + productQuantityPadding">
         <span class="box-product-quantity-each" *ngIf="editingProduct.unitType == 'each'">x</span>
         <input type="text" class="input" [ngModel]="editingProduct.quantity" (ngModelChange)="onEditQuantityChange($event)" />
@@ -30,6 +32,8 @@
         <div class="box-product-detail box-product-action box-product-display">
           <i class="icon-add"></i>
         </div>       
+      </div>
+      <div *ngIf="addingProduct" class="edit-background" [style.left.px]="-7" [style.width.px]="columnWidth + 10">
       </div>
       <div *ngIf="addingProduct">
         <div class="box-product-detail box-product-name box-product-edit" [style.width.px]="productNameWidth + productNamePadding"><select (change)="onAddProductChange($event)">

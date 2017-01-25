@@ -603,6 +603,8 @@ select:-moz-focusring {
     float: left;
 
     .box-product {
+      position: relative;
+
       .boxProductClearFix;
 
       &.remove-hover {
@@ -612,6 +614,8 @@ select:-moz-focusring {
       i {
         font-size: 80%;
         display: none;
+        position: relative;
+        z-index: 1;
 
         &::before {
           margin: 0;
@@ -668,6 +672,7 @@ select:-moz-focusring {
         
         .box-product-quantity-each {
           display: inline-block;
+          position: relative;
           width: 10px;
         }
 
@@ -730,6 +735,15 @@ select:-moz-focusring {
       }
     }
   }
+}
+
+.edit-background {
+  position: absolute;
+  top: 0px;
+  background: #ddd;
+  height: 27px;
+  z-index: 0;
+  border-radius: 2px;
 }
 
 .width-test {

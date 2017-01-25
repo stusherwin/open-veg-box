@@ -26,6 +26,7 @@ const COLUMN_PADDING_RATIO = 0.8;
 export class BoxProductsComponent implements OnInit, AfterViewChecked {
   productNamePadding = PRODUCT_NAME_PADDING;
   productQuantityPadding = PRODUCT_QUANTITY_PADDING;
+  actionsWidth = ACTIONS_WIDTH;
   productNameWidth: number;
   productQuantityWidth: number;
   productNameMaxWidth: number;
