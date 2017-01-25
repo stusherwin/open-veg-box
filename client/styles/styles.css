@@ -2322,7 +2322,7 @@ select:-moz-focusring {
 .edit-background {
   position: absolute;
   top: 0px;
-  background: #ddd;
+  background: #ffd9a0;
   height: 27px;
   z-index: 0;
   border-radius: 2px;

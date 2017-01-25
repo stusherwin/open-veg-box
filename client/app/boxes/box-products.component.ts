@@ -244,6 +244,26 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
     this.editingProduct = null;
   }
 
+  keydown(event: KeyboardEvent) {
+    if(!this.editingProduct && !this.addingProduct) {
+      return;
+    }
+
+    if(event.key == 'Enter' || event.key == 'Tab') {
+      if(this.editingProduct) {
+        this.onEditOkClick();
+      } else {
+        this.onAddOkClick();
+      }
+    } else if(event.key == 'Escape') {
+      if(this.editingProduct) {
+        this.onEditCancelClick();
+      } else {
+        this.onAddCancelClick();
+      }
+    }
+  }
+
   fixedDecimals: number = null;
   maxDecimals: number = 3;
   private toDecimalValue(value: string): number {

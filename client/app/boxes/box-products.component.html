@@ -1,6 +1,6 @@
 <div #root cc-focus #focusable=cc-focus (focus)="onRootFocus()" (blur)="onRootBlur()" class="box-products" [class.adding]="addingProduct" [class.editing]="editingProduct">
   <div class="box-product-column" *ngFor="let c of columns; let i = index" [style.margin-left.px]="i && columnPadding">
-    <div class="box-product" *ngFor="let p of c" [class.remove-hover]="removeHoverProductId == p.id">
+    <div class="box-product" *ngFor="let p of c" [class.remove-hover]="removeHoverProductId == p.id" (keydown)="keydown($event)">
       <div class="box-product-detail box-product-name" [style.width.px]="productNameWidth + productNamePadding">{{p.name}}</div>
       <div *ngIf="!editingProduct || editingProduct.id != p.id" class="box-product-detail box-product-quantity box-product-display" (click)="onEditClick(p)" [style.width.px]="productQuantityWidth + productQuantityPadding">
         <span class="box-product-quantity-each" *ngIf="p.unitType == 'each'">x</span>
@@ -22,7 +22,7 @@
         <i class="icon-ok" (click)="onEditOkClick()"></i><i class="icon-cancel" (click)="onEditCancelClick()"></i>
       </div> 
     </div>
-    <div class="box-product box-product-add" *ngIf="i == columns.length - 1" [class.no-products]="!value.length">
+    <div class="box-product box-product-add" *ngIf="i == columns.length - 1" [class.no-products]="!value.length" (keydown)="keydown($event)">
       <div *ngIf="!value.length && !addingProduct" class="box-product-detail no-products-text">No products added yet.</div> 
       <div *ngIf="unusedProducts.length && !addingProduct" (click)="onAddClick()">
         <div class="box-product-detail box-product-name box-product-display" [style.width.px]="productNameWidth + productNamePadding + productQuantityWidth + productQuantityPadding">Add
