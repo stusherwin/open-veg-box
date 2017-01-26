@@ -7,6 +7,8 @@ import { EditableComponent } from '../shared/editable.component'
 import { Arrays } from '../shared/arrays'
 import { WeightPipe } from '../shared/pipes'
 import { BoxProductsService } from './box-products.service'
+import { BoxProductQuantityComponent } from './box-product-quantity.component' 
+import { MutuallyExclusiveEditService, MutuallyExclusiveEditComponent } from './mutually-exclusive-edit.service'
 
 const PRODUCT_NAME_PADDING = 1;
 const PRODUCT_QUANTITY_PADDING = 5;
@@ -16,14 +18,14 @@ const COLUMN_PADDING_RATIO = 0.8;
 
 @Component({
   selector: 'cc-box-products',
-  directives: [FocusDirective, EditableComponent],
+  directives: [FocusDirective, EditableComponent, BoxProductQuantityComponent],
   pipes: [WeightPipe],
   templateUrl: 'app/boxes/box-products.component.html',
   host: {
     '(window:resize)': 'windowResized($event)',
   }
 })
-export class BoxProductsComponent implements OnInit, AfterViewChecked {
+export class BoxProductsComponent implements OnInit, AfterViewChecked, MutuallyExclusiveEditComponent {
   productNamePadding = PRODUCT_NAME_PADDING;
   productQuantityPadding = PRODUCT_QUANTITY_PADDING;
   actionsWidth = ACTIONS_WIDTH;
@@ -37,7 +39,7 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
   maxColumns: number = 0;
   unusedProducts: BoxProduct[] = [];
   addingProduct: BoxProduct;
-  editingProduct: BoxProduct;
+  editingProductId: number;
   removeHoverProductId: number;
   
   @Input()
@@ -70,6 +72,10 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
   constructor(
     @Inject(forwardRef(() => BoxProductsService))
     private service: BoxProductsService,
+    
+    @Inject(forwardRef(() => MutuallyExclusiveEditService))
+    private mutexService: MutuallyExclusiveEditService,
+
     private changeDetector: ChangeDetectorRef) {
   }
 
@@ -162,8 +168,10 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
   }
 
   onAddClick() {
+    this.mutexService.startEdit(this);
+    
     this.focusable.beFocused();
-    this.editingProduct = null;
+    this.editingProductId = 0;
     this.addingProduct = this.unusedProducts[0].clone();
   }
 
@@ -187,25 +195,27 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
     this.focusable.beBlurred();    
   }
 
-  onEditClick(product: BoxProduct) {
-    this.focusable.beFocused();    
+  cancelEdit() {
     this.addingProduct = null;
-    this.editingProduct = product.clone();
-  }
-
-  onEditOkClick() {
-    this.update.emit(this.editingProduct);
-    let i = this.value.findIndex(p => p.id == this.editingProduct.id);
-    this.value[i] = this.editingProduct;
-
-    this.repopulateColumns();
-
-    this.editingProduct = null;
     this.focusable.beBlurred();    
   }
 
-  onEditCancelClick() {
-    this.editingProduct = null;
+  onProductQuantityEditStart(productId: number) {
+    this.focusable.beFocused();    
+    this.addingProduct = null;
+    this.editingProductId = productId;
+  }
+
+  onProductQuantityUpdate(productId: number, quantity: number) {
+    let i = this.value.findIndex(p => p.id == productId);
+    this.value[i].quantity = quantity;
+    this.update.emit(this.value[i]);
+
+    this.repopulateColumns();
+  }
+
+  onProductQuantityEditEnd() {
+    this.editingProductId = 0;
     this.focusable.beBlurred();    
   }
 
@@ -217,23 +227,8 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
     this.repopulateColumns();
   }
 
-  onEditQuantityChange(value: any) {
-    this.editingProduct.quantity = this.toDecimalValue(value);
-  }
-
   onAddQuantityChange(value: any) {
     this.addingProduct.quantity = this.toDecimalValue(value);
-  }
-
-  onRemoveEnter(product: BoxProduct) {
-    if(this.removeHoverProductId) {
-      throw 'REMOVE MOUSELEAVE DIDN\'T FIRE!'; // sometimes mouseleave not firing, want to make it obvious when this happens
-    }
-    this.removeHoverProductId = product.id;
-  }
-
-  onRemoveLeave() {
-    this.removeHoverProductId = 0;
   }
 
   onRootFocus() {
@@ -241,35 +236,18 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
 
   onRootBlur() {
     this.addingProduct = null;
-    this.editingProduct = null;
-  }
-
-  onEditFocus(product: BoxProduct) {
-    console.log('editFocus');
-    if(this.editingProduct && this.editingProduct.id == product.id) {
-      return;
-    }
-
-    this.onEditClick(product);
+    this.editingProductId = 0;
   }
 
   keydown(event: KeyboardEvent) {
-    if(!this.editingProduct && !this.addingProduct) {
+    if(!this.addingProduct) {
       return;
     }
 
     if(event.key == 'Enter') {
-      if(this.editingProduct) {
-        this.onEditOkClick();
-      } else {
-        this.onAddOkClick();
-      }
+      this.onAddOkClick();
     } else if(event.key == 'Escape') {
-      if(this.editingProduct) {
-        this.onEditCancelClick();
-      } else {
-        this.onAddCancelClick();
-      }
+      this.onAddCancelClick();
     }
   }
 

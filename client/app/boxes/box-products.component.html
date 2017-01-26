@@ -1,26 +1,10 @@
-<div #root cc-focus #focusable=cc-focus (focus)="onRootFocus()" (blur)="onRootBlur()" class="box-products" [class.adding]="addingProduct" [class.editing]="editingProduct">
-  <div class="box-product-column" *ngFor="let c of columns; let i = index" [style.margin-left.px]="i && columnPadding">
-    <div class="box-product" *ngFor="let p of c" [class.remove-hover]="removeHoverProductId == p.id" (keydown)="keydown($event)">
+<div #root cc-focus #focusable=cc-focus (focus)="onRootFocus()" (blur)="onRootBlur()" class="box-products" [class.adding]="addingProduct" [class.editing]="editingProductId">
+  <div class="box-product-column" *ngFor="let c of columns; let i = index" [style.margin-left.px]="i && columnPadding" (mouseout)="removeHoverProductId = 0">
+    <div class="box-product" *ngFor="let p of c" [class.remove-hover]="removeHoverProductId == p.id">
       <div class="box-product-detail box-product-name" [style.width.px]="productNameWidth + productNamePadding">{{p.name}}</div>
-      <div class="box-product-detail box-product-quantity" [class.box-product-display]="!editingProduct || editingProduct.id != p.id" [class.box-product-edit]="editingProduct && editingProduct.id == p.id" style="position: relative" [style.width.px]="productQuantityWidth + productQuantityPadding">
-        <div style="display: inline-block" *ngIf="!editingProduct || editingProduct.id != p.id" (click)="onEditClick(p)">
-          <span class="box-product-quantity-each" *ngIf="p.unitType == 'each'">x</span>
-          <span *ngIf="p.unitType == 'perKg'">{{p.quantity | weight}}</span>
-          <span *ngIf="p.unitType != 'perKg'">{{p.quantity}}</span>
-          <i class="icon-edit"></i>
-        </div>
-        <div *ngIf="editingProduct && editingProduct.id == p.id" class="edit-background">
-          <i class="icon-ok" (click)="onEditOkClick()"></i><i class="icon-cancel" (click)="onEditCancelClick()"></i>
-        </div>
-        <input type="text" style="position: absolute;left:-10000px" *ngIf="!editingProduct || editingProduct.id != p.id" (focus)="onEditFocus(p)" tabindex="1" />
-        <div style="display: inline-block" *ngIf="editingProduct && editingProduct.id == p.id">
-          <span class="box-product-quantity-each" *ngIf="editingProduct.unitType == 'each'">x</span>
-          <input type="text" class="input" [ngModel]="editingProduct.quantity" (ngModelChange)="onEditQuantityChange($event)" tabindex="1" />
-          <span class="box-product-quantity-perkg" *ngIf="editingProduct.unitType == 'perKg'">Kg</span>
-        </div>
-      </div>
-      <div *ngIf="!editingProduct || editingProduct.id != p.id" class="box-product-detail box-product-action box-product-display">
-        <i class="icon-trash" (click)="onRemoveClick(p)" (mouseenter)="onRemoveEnter(p)" (mouseleave)="onRemoveLeave()"></i>
+      <cc-box-product-quantity [value]="p.quantity" [unitType]="p.unitType" [width]="productQuantityWidth + productQuantityPadding" (editStart)="onProductQuantityEditStart(p.id)" (editEnd)="onProductQuantityEditEnd()" (update)="onProductQuantityUpdate(p.id, $event)"></cc-box-product-quantity>
+      <div *ngIf="editingProductId != p.id" class="box-product-detail box-product-action box-product-display">
+        <i class="icon-trash" (click)="onRemoveClick(p)" (mouseenter)="removeHoverProductId = p.id"></i>
       </div>
     </div>
     <div class="box-product box-product-add" *ngIf="i == columns.length - 1" [class.no-products]="!value.length" (keydown)="keydown($event)">
