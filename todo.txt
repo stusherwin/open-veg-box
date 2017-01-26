@@ -93,6 +93,8 @@ Box Products
 * Tab control
 * Make rest of app consistent with edit highlight
 * Better width solution than hardcoding pixel widths in code (padding/remainders)?
-* Bug: editing < 1 values (format)
-* Bug: remove highlight (when editing, clicking ok so over remove button, then move away quickly)
-* Mutually exclusive edit service
+* Make add-product implement cc-focus
+* Get rid of addingProduct flag, use mutexService to manage state.
+* Combine .adding & .editing css classes
+* Make other controls use mutexService.
+* Make <i> buttons <a> so can tab to them

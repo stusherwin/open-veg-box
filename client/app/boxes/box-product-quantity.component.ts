@@ -4,6 +4,7 @@ import { BoxProduct } from './box'
 import { WeightPipe } from '../shared/pipes'
 import { Arrays } from '../shared/arrays'
 import { MutuallyExclusiveEditService, MutuallyExclusiveEditComponent } from './mutually-exclusive-edit.service'
+import { Subscription } from 'rxjs/Subscription'
 
 @Component({
   selector: 'cc-box-product-quantity',
@@ -11,9 +12,8 @@ import { MutuallyExclusiveEditService, MutuallyExclusiveEditComponent } from './
   pipes: [WeightPipe],
   templateUrl: 'app/boxes/box-product-quantity.component.html'
 })
-export class BoxProductQuantityComponent implements MutuallyExclusiveEditComponent {
-  editingValue: number;
-  editing: boolean;
+export class BoxProductQuantityComponent implements MutuallyExclusiveEditComponent, OnInit, AfterViewInit {
+  stringValue: string;
   
   @Input()
   value: number;
@@ -23,6 +23,12 @@ export class BoxProductQuantityComponent implements MutuallyExclusiveEditCompone
 
   @Input()
   width: number;
+
+  @Input()
+  editId: string;
+
+  @ViewChildren('focusable')
+  focusables: QueryList<FocusDirective>;
 
   @Output()
   editStart = new EventEmitter<any>();
@@ -38,39 +44,61 @@ export class BoxProductQuantityComponent implements MutuallyExclusiveEditCompone
     private mutexService: MutuallyExclusiveEditService) {
   } 
 
+  ngOnInit() {
+    if(this.mutexService.isAnyEditingWithPrefix(this.editId)) {
+      this.mutexService.startEdit(this);
+    }
+
+    this.stringValue = this.toStringValue(this.value);
+  }
+
+  ngAfterViewInit() {
+    if(this.focusables.length && this.editing()) {
+      this.focusables.first.beFocused();
+    }
+  }
+
+  editing() {
+    return this.mutexService.isEditing(this);
+  }
+
   onEditClick() {
-    this.mutexService.startEdit(this);
-    this.editing = true;
-    this.editingValue = this.value;
-    
     this.editStart.emit(null);
+    this.mutexService.startEdit(this);
+    let subscription = this.focusables.changes.subscribe((f: QueryList<FocusDirective>) => {
+      if(f.length && this.editing()) {
+        f.first.beFocused();
+        subscription.unsubscribe();
+      }
+    })
   }
 
   onEditOkClick() {
-    this.value = this.editingValue;
-    this.cancelEdit();
+    let newValue = this.toDecimalValue(this.stringValue);
 
-    this.update.emit(this.value);
-    this.editEnd.emit(null);
+    if(newValue != this.value) {
+      this.value = newValue;
+      this.stringValue = this.toStringValue(this.value);
+  
+      this.update.emit(this.value);
+      this.editEnd.emit(null);
+      this.mutexService.endEdit(this);
+    }
   }
 
   onEditCancelClick() {
-    this.cancelEdit();
+    this.stringValue = this.toStringValue(this.value);
+    
     this.editEnd.emit(null);
+    this.mutexService.endEdit(this);
   }
 
-  onEditQuantityChange(value: any) {
-    this.editingValue = this.toDecimalValue(value);
-  }
-
-  cancelEdit() {
-    this.editingValue = null;
-    this.editing = false;
+  endEdit() {
+    this.onEditOkClick();
   }
 
   onEditFocus() {
-    console.log('editFocus');
-    if(this.editing) {
+    if(this.editing()) {
       return;
     }
 
@@ -78,7 +106,7 @@ export class BoxProductQuantityComponent implements MutuallyExclusiveEditCompone
   }
 
   keydown(event: KeyboardEvent) {
-    if(!this.editing) {
+    if(!this.editing()) {
       return;
     }
 
@@ -106,5 +134,20 @@ export class BoxProductQuantityComponent implements MutuallyExclusiveEditCompone
     }
 
     return parsed;
+  }
+  
+  private toStringValue(value: number): string {
+    if(this.fixedDecimals) {
+      return value.toFixed(this.fixedDecimals);
+    } else if(this.maxDecimals) {
+      
+      var result = value.toFixed(this.maxDecimals);
+      while (result !== '0' && (result.endsWith('.') || result.endsWith('0'))) {
+        result = result.substring(0, result.length - 1);
+      }
+      return result;
+    } else {
+      return '' + value;
+    }
   }
 }

@@ -1,9 +1,17 @@
-<div #root cc-focus #focusable=cc-focus (focus)="onRootFocus()" (blur)="onRootBlur()" class="box-products" [class.adding]="addingProduct" [class.editing]="editingProductId">
+<div #root cc-focus #focusable=cc-focus (focus)="onRootFocus()" (blur)="onRootBlur()" class="box-products" [class.adding]="addingProduct" [class.editing]="anyEditing()">
   <div class="box-product-column" *ngFor="let c of columns; let i = index" [style.margin-left.px]="i && columnPadding" (mouseout)="removeHoverProductId = 0">
     <div class="box-product" *ngFor="let p of c" [class.remove-hover]="removeHoverProductId == p.id">
       <div class="box-product-detail box-product-name" [style.width.px]="productNameWidth + productNamePadding">{{p.name}}</div>
-      <cc-box-product-quantity [value]="p.quantity" [unitType]="p.unitType" [width]="productQuantityWidth + productQuantityPadding" (editStart)="onProductQuantityEditStart(p.id)" (editEnd)="onProductQuantityEditEnd()" (update)="onProductQuantityUpdate(p.id, $event)"></cc-box-product-quantity>
-      <div *ngIf="editingProductId != p.id" class="box-product-detail box-product-action box-product-display">
+      <cc-box-product-quantity
+        [value]="p.quantity"
+        [unitType]="p.unitType"
+        [width]="productQuantityWidth + productQuantityPadding"
+        editId="{{editId}}:q:{{p.id}}"
+        (editStart)="onProductQuantityEditStart(p.id)"
+        (editEnd)="onProductQuantityEditEnd(p.id)"
+        (update)="onProductQuantityUpdate(p.id, $event)">
+      </cc-box-product-quantity>
+      <div *ngIf="!editing(editId + ':q:' + p.id)" class="box-product-detail box-product-action box-product-display">
         <i class="icon-trash" (click)="onRemoveClick(p)" (mouseenter)="removeHoverProductId = p.id"></i>
       </div>
     </div>

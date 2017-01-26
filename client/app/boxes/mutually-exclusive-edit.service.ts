@@ -1,19 +1,31 @@
 export interface MutuallyExclusiveEditComponent {
-  cancelEdit(): void;
+  editId: string;
+  endEdit(): void;
 }
 
 export class MutuallyExclusiveEditService {
   currentlyEditing: MutuallyExclusiveEditComponent = null;
 
-  endEdit() {
-    this.currentlyEditing = null;
+  startEdit(component: MutuallyExclusiveEditComponent) {
+    let previouslyEditing = this.currentlyEditing;
+    this.currentlyEditing = component;
+
+    if(previouslyEditing && previouslyEditing != component) {
+      previouslyEditing.endEdit();
+    }
   }
 
-  startEdit(component: MutuallyExclusiveEditComponent) {
-    if(this.currentlyEditing) {
-      this.currentlyEditing.cancelEdit();
+  endEdit(component: MutuallyExclusiveEditComponent) {
+    if(this.currentlyEditing == component) {
+      this.currentlyEditing = null;
     }
+  }
 
-    this.currentlyEditing = component;
+  isEditing(component: MutuallyExclusiveEditComponent) {
+    return this.currentlyEditing && this.currentlyEditing == component;
+  }
+
+  isAnyEditingWithPrefix(editIdPrefix: string) {
+    return this.currentlyEditing && this.currentlyEditing.editId.startsWith(editIdPrefix);
   }
 }

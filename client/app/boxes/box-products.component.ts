@@ -48,6 +48,9 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked, MutuallyE
   @Input()
   products: BoxProduct[];
 
+  @Input()
+  editId: string;
+
   @ViewChild('root')
   root: ElementRef
 
@@ -91,6 +94,14 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked, MutuallyE
     // TODO: move this out of AfterViewChecked?
     // Here because AfterViewChecked is the earliest event where correct element widths are available
     this.recalculateWidths();
+  }
+
+  editing(editId: string) {
+    return this.mutexService.isAnyEditingWithPrefix(editId);
+  }
+
+  anyEditing() {
+    return this.mutexService.isAnyEditingWithPrefix(this.editId);
   }
 
   recalculateWidths() {
@@ -169,9 +180,6 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked, MutuallyE
 
   onAddClick() {
     this.mutexService.startEdit(this);
-    
-    this.focusable.beFocused();
-    this.editingProductId = 0;
     this.addingProduct = this.unusedProducts[0].clone();
   }
 
@@ -187,23 +195,18 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked, MutuallyE
     this.repopulateColumns();
 
     this.addingProduct = null;
-    this.focusable.beBlurred();    
   }
 
   onAddCancelClick() {
     this.addingProduct = null;
-    this.focusable.beBlurred();    
   }
 
-  cancelEdit() {
+  endEdit() {
     this.addingProduct = null;
-    this.focusable.beBlurred();    
   }
 
   onProductQuantityEditStart(productId: number) {
-    this.focusable.beFocused();    
     this.addingProduct = null;
-    this.editingProductId = productId;
   }
 
   onProductQuantityUpdate(productId: number, quantity: number) {
@@ -214,9 +217,7 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked, MutuallyE
     this.repopulateColumns();
   }
 
-  onProductQuantityEditEnd() {
-    this.editingProductId = 0;
-    this.focusable.beBlurred();    
+  onProductQuantityEditEnd(productId: number) {
   }
 
   onRemoveClick(product: BoxProduct) {
@@ -236,7 +237,6 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked, MutuallyE
 
   onRootBlur() {
     this.addingProduct = null;
-    this.editingProductId = 0;
   }
 
   keydown(event: KeyboardEvent) {
