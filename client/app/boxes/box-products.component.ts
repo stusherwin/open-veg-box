@@ -10,7 +10,7 @@ import { BoxProductsService } from './box-products.service'
 
 const PRODUCT_NAME_PADDING = 1;
 const PRODUCT_QUANTITY_PADDING = 5;
-const ACTIONS_WIDTH = 32;
+const ACTIONS_WIDTH = 17;
 const MIN_ITEMS_IN_FIRST_COLUMN = 3;
 const COLUMN_PADDING_RATIO = 0.8;
 
@@ -244,12 +244,21 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
     this.editingProduct = null;
   }
 
+  onEditFocus(product: BoxProduct) {
+    console.log('editFocus');
+    if(this.editingProduct && this.editingProduct.id == product.id) {
+      return;
+    }
+
+    this.onEditClick(product);
+  }
+
   keydown(event: KeyboardEvent) {
     if(!this.editingProduct && !this.addingProduct) {
       return;
     }
 
-    if(event.key == 'Enter' || event.key == 'Tab') {
+    if(event.key == 'Enter') {
       if(this.editingProduct) {
         this.onEditOkClick();
       } else {

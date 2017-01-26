@@ -2224,9 +2224,6 @@ select:-moz-focusring {
 }
 .box-products .box-product-column .box-product i {
   font-size: 80%;
-  display: none;
-  position: relative;
-  z-index: 1;
 }
 .box-products .box-product-column .box-product i::before {
   margin: 0;
@@ -2234,9 +2231,6 @@ select:-moz-focusring {
 .box-products .box-product-column .box-product i:hover {
   color: #ffa011;
   cursor: pointer;
-}
-.box-products .box-product-column .box-product i + i {
-  margin-left: 2px;
 }
 .box-products .box-product-column .box-product .box-product-detail {
   float: left;
@@ -2293,9 +2287,13 @@ select:-moz-focusring {
   display: inline;
 }
 .box-products .box-product-column .box-product .box-product-action {
-  width: 32px;
+  width: 17px;
 }
 .box-products .box-product-column .box-product.box-product-add .box-product-display {
+  display: none;
+}
+.box-products .box-product .box-product-action i,
+.box-products .box-product .box-product-display i {
   display: none;
 }
 .box-products:hover .box-product .box-product-action i,
@@ -2323,9 +2321,24 @@ select:-moz-focusring {
   position: absolute;
   top: 0px;
   background: #ffd9a0;
-  height: 27px;
-  z-index: 0;
+  bottom: -3px;
+  left: -1px;
+  right: -29px;
   border-radius: 2px;
+}
+.edit-background i {
+  display: inline-block;
+  position: absolute;
+  top: 8px;
+}
+.edit-background i.icon-ok {
+  right: 15px;
+}
+.edit-background i.icon-cancel {
+  right: 2px;
+}
+.box-product-add .edit-background {
+  left: -7px;
 }
 .width-test {
   position: absolute;

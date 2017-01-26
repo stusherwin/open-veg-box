@@ -93,3 +93,4 @@ Box Products
 * Tab control
 * Make rest of app consistent with edit highlight
 * Better width solution than hardcoding pixel widths in code (padding/remainders)?
+* Bug: editing < 1 values (format)
