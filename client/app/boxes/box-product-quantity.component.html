@@ -3,10 +3,10 @@
     <span class="box-product-quantity-each" *ngIf="unitType == 'each'">x</span>
     <span *ngIf="unitType == 'perKg'">{{value | weight}}</span>
     <span *ngIf="unitType != 'perKg'">{{value}}</span>
-    <i class="icon-edit"></i>
+    <a><i class="icon-edit"></i></a>
   </div>
   <div *ngIf="editing" class="edit-background">
-    <i class="icon-ok" (click)="onEditOkClick()"></i><i class="icon-cancel" (click)="onEditCancelClick()"></i>
+    <a><i class="icon-ok" (click)="onEditOkClick()"></i></a><a><i class="icon-cancel" (click)="onEditCancelClick()"></i></a>
   </div>
   <input type="text" style="position: absolute;left:-10000px" *ngIf="!editing" (focus)="onEditFocus(p)" tabindex="1" />
   <div style="display: inline-block" *ngIf="editing">

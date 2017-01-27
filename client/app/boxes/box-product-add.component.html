@@ -7,12 +7,12 @@
       <span *ngIf="!noProducts">another</span>
       product...</div>
     <div class="box-product-detail box-product-action box-product-display">
-      <i class="icon-add"></i>
+      <a><i class="icon-add"></i></a>
     </div>       
   </div>
   <div *ngIf="adding" style="position: relative" class="box-product-detail" [style.width.px]="productNameWidth + productQuantityWidth">
     <div class="edit-background">
-      <i class="icon-ok" (click)="onAddOkClick()"></i><i class="icon-cancel" (click)="onAddCancelClick()"></i>
+      <a><i class="icon-ok" (click)="onAddOkClick()"></i></a><a><i class="icon-cancel" (click)="onAddCancelClick()"></i></a>
     </div>
     <div class="box-product-detail box-product-name box-product-edit" [style.width.px]="productNameWidth"><select cc-focus #focusable=cc-focus (change)="onAddProductChange($event)" tabindex="1">
         <option *ngFor="let p of products; let i = index" [value]="i">{{p.name}}</option>

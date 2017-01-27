@@ -2222,15 +2222,17 @@ select:-moz-focusring {
 .box-products .box-product-column .box-product.remove-hover {
   color: #ffa011;
 }
-.box-products .box-product-column .box-product i {
+.box-products .box-product-column .box-product a {
+  color: #999;
+}
+.box-products .box-product-column .box-product a:hover {
+  color: #ffa011;
+}
+.box-products .box-product-column .box-product a i {
   font-size: 80%;
 }
-.box-products .box-product-column .box-product i::before {
+.box-products .box-product-column .box-product a i::before {
   margin: 0;
-}
-.box-products .box-product-column .box-product i:hover {
-  color: #ffa011;
-  cursor: pointer;
 }
 .box-products .box-product-column .box-product .box-product-detail {
   float: left;
@@ -2279,11 +2281,12 @@ select:-moz-focusring {
   color: #ffa011;
   cursor: pointer;
 }
-.box-products .box-product-column .box-product .box-product-quantity.box-product-display:hover i,
-.box-products .box-product-column .box-product .box-product-quantity.box-product-display.hover i {
+.box-products .box-product-column .box-product .box-product-quantity.box-product-display:hover a,
+.box-products .box-product-column .box-product .box-product-quantity.box-product-display.hover a {
   display: inline;
+  color: #ffa011;
 }
-.box-products .box-product-column .box-product .box-product-quantity.box-product-edit i {
+.box-products .box-product-column .box-product .box-product-quantity.box-product-edit a {
   display: inline;
 }
 .box-products .box-product-column .box-product .box-product-action {
@@ -2292,12 +2295,12 @@ select:-moz-focusring {
 .box-products .box-product-column .box-product.box-product-add .box-product-display {
   display: none;
 }
-.box-products .box-product .box-product-action i,
-.box-products .box-product .box-product-display i {
+.box-products .box-product .box-product-action a,
+.box-products .box-product .box-product-display a {
   display: none;
 }
-.box-products:hover .box-product .box-product-action i,
-.box-products.editing .box-product .box-product-action i {
+.box-products:hover .box-product .box-product-action a,
+.box-products.editing .box-product .box-product-action a {
   display: inline;
 }
 .box-products:hover .box-product.box-product-add .no-products-text,
@@ -2313,6 +2316,10 @@ select:-moz-focusring {
   color: #ffa011;
   cursor: pointer;
 }
+.box-products:hover .box-product.box-product-add:hover .box-product-display a,
+.box-products.editing .box-product.box-product-add:hover .box-product-display a {
+  color: #ffa011;
+}
 .edit-background {
   position: absolute;
   top: 0px;
@@ -2322,15 +2329,15 @@ select:-moz-focusring {
   right: -29px;
   border-radius: 2px;
 }
-.edit-background i {
-  display: inline-block;
+.edit-background a {
   position: absolute;
   top: 8px;
+  right: 2px;
 }
-.edit-background i.icon-ok {
+.edit-background a:first-of-type {
   right: 16px;
 }
-.edit-background i.icon-cancel {
+.edit-background a:last-of-type {
   right: 2px;
 }
 .box-product-add .edit-background {

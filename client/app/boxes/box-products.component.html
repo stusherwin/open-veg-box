@@ -1,5 +1,5 @@
 <div #root cc-focus class="box-products" [class.editing]="anyEditing()">
-  <div class="box-product-column" *ngFor="let c of columns; let i = index" [style.margin-left.px]="i && columnPadding" (mouseout)="removeHoverProductId = 0">
+  <div class="box-product-column" *ngFor="let c of columns; let i = index" [style.margin-left.px]="i && columnPadding">
     <div class="box-product" *ngFor="let p of c" [class.remove-hover]="removeHoverProductId == p.id">
       <div class="box-product-detail box-product-name" [style.width.px]="productNameWidth + productNamePadding">{{p.name}}</div>
       <cc-box-product-quantity
@@ -9,8 +9,8 @@
         [width]="productQuantityWidth + productQuantityPadding"
         (update)="onProductQuantityUpdate(p.id, $event)">
       </cc-box-product-quantity>
-      <div *ngIf="!editing(editId + ':q:' + p.id)" class="box-product-detail box-product-action box-product-display">
-        <i class="icon-trash" (click)="onRemoveClick(p)" (mouseenter)="removeHoverProductId = p.id"></i>
+      <div class="box-product-detail box-product-action box-product-display">
+        <a (click)="onRemoveClick(p)" (mouseenter)="removeHoverProductId = p.id" (mouseout)="removeHoverProductId = 0"><i class="icon-trash"></i></a>
       </div>
     </div>
     <cc-box-product-add *ngIf="i == columns.length - 1"
