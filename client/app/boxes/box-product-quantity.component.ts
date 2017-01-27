@@ -31,12 +31,6 @@ export class BoxProductQuantityComponent implements MutuallyExclusiveEditCompone
   focusables: QueryList<FocusDirective>;
 
   @Output()
-  editStart = new EventEmitter<any>();
-
-  @Output()
-  editEnd = new EventEmitter<any>();
-
-  @Output()
   update = new EventEmitter<number>();
 
   constructor(
@@ -63,7 +57,6 @@ export class BoxProductQuantityComponent implements MutuallyExclusiveEditCompone
   }
 
   onEditClick() {
-    this.editStart.emit(null);
     this.mutexService.startEdit(this);
     let subscription = this.focusables.changes.subscribe((f: QueryList<FocusDirective>) => {
       if(f.length && this.editing()) {
@@ -81,7 +74,6 @@ export class BoxProductQuantityComponent implements MutuallyExclusiveEditCompone
       this.stringValue = this.toStringValue(this.value);
   
       this.update.emit(this.value);
-      this.editEnd.emit(null);
       this.mutexService.endEdit(this);
     }
   }
@@ -89,7 +81,6 @@ export class BoxProductQuantityComponent implements MutuallyExclusiveEditCompone
   onEditCancelClick() {
     this.stringValue = this.toStringValue(this.value);
     
-    this.editEnd.emit(null);
     this.mutexService.endEdit(this);
   }
 

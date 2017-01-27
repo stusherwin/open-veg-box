@@ -94,7 +94,9 @@ Box Products
 * Make rest of app consistent with edit highlight
 * Better width solution than hardcoding pixel widths in code (padding/remainders)?
 * Make add-product implement cc-focus
-* Get rid of addingProduct flag, use mutexService to manage state.
-* Combine .adding & .editing css classes
+* Tab into add-product
 * Make other controls use mutexService.
 * Make <i> buttons <a> so can tab to them
+* Bug: add - changing product resets quantity
+           - quantity update Bug
+           - quantity format should reflect unittype

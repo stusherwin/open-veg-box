@@ -8,7 +8,8 @@ import { Arrays } from '../shared/arrays'
 import { WeightPipe } from '../shared/pipes'
 import { BoxProductsService } from './box-products.service'
 import { BoxProductQuantityComponent } from './box-product-quantity.component' 
-import { MutuallyExclusiveEditService, MutuallyExclusiveEditComponent } from './mutually-exclusive-edit.service'
+import { BoxProductAddComponent } from './box-product-add.component' 
+import { MutuallyExclusiveEditService } from './mutually-exclusive-edit.service'
 
 const PRODUCT_NAME_PADDING = 1;
 const PRODUCT_QUANTITY_PADDING = 5;
@@ -18,14 +19,14 @@ const COLUMN_PADDING_RATIO = 0.8;
 
 @Component({
   selector: 'cc-box-products',
-  directives: [FocusDirective, EditableComponent, BoxProductQuantityComponent],
+  directives: [FocusDirective, EditableComponent, BoxProductQuantityComponent, BoxProductAddComponent],
   pipes: [WeightPipe],
   templateUrl: 'app/boxes/box-products.component.html',
   host: {
     '(window:resize)': 'windowResized($event)',
   }
 })
-export class BoxProductsComponent implements OnInit, AfterViewChecked, MutuallyExclusiveEditComponent {
+export class BoxProductsComponent implements OnInit, AfterViewChecked {
   productNamePadding = PRODUCT_NAME_PADDING;
   productQuantityPadding = PRODUCT_QUANTITY_PADDING;
   actionsWidth = ACTIONS_WIDTH;
@@ -38,9 +39,6 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked, MutuallyE
   columns: BoxProduct[][] = [];
   maxColumns: number = 0;
   unusedProducts: BoxProduct[] = [];
-  addingProduct: BoxProduct;
-  editingProductId: number;
-  removeHoverProductId: number;
   
   @Input()
   value: BoxProduct[];
@@ -59,9 +57,6 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked, MutuallyE
 
   @ViewChildren('productQuantityTest')
   productQuantityTests: QueryList<ElementRef>
-
-  @ViewChild('focusable')
-  focusable: FocusDirective
 
   @Output()
   add = new EventEmitter<BoxProduct>();
@@ -178,37 +173,6 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked, MutuallyE
     this.recalculateColumnWidths(this.productNameWidth, this.productQuantityWidth);
   }
 
-  onAddClick() {
-    this.mutexService.startEdit(this);
-    this.addingProduct = this.unusedProducts[0].clone();
-  }
-
-  onAddProductChange(event: any) {
-    this.addingProduct = this.unusedProducts[+event.target.value].clone();
-  }
-
-  onAddOkClick() {
-    this.add.emit(this.addingProduct);
-    this.value.push(this.addingProduct);
-    
-    this.recalculateUnusedProducts();
-    this.repopulateColumns();
-
-    this.addingProduct = null;
-  }
-
-  onAddCancelClick() {
-    this.addingProduct = null;
-  }
-
-  endEdit() {
-    this.addingProduct = null;
-  }
-
-  onProductQuantityEditStart(productId: number) {
-    this.addingProduct = null;
-  }
-
   onProductQuantityUpdate(productId: number, quantity: number) {
     let i = this.value.findIndex(p => p.id == productId);
     this.value[i].quantity = quantity;
@@ -217,7 +181,12 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked, MutuallyE
     this.repopulateColumns();
   }
 
-  onProductQuantityEditEnd(productId: number) {
+  onProductAdd(product: BoxProduct) {
+    this.value.push(product);
+    this.add.emit(product);
+    
+    this.recalculateUnusedProducts();
+    this.repopulateColumns();
   }
 
   onRemoveClick(product: BoxProduct) {
@@ -226,47 +195,5 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked, MutuallyE
     
     this.recalculateUnusedProducts();
     this.repopulateColumns();
-  }
-
-  onAddQuantityChange(value: any) {
-    this.addingProduct.quantity = this.toDecimalValue(value);
-  }
-
-  onRootFocus() {
-  }
-
-  onRootBlur() {
-    this.addingProduct = null;
-  }
-
-  keydown(event: KeyboardEvent) {
-    if(!this.addingProduct) {
-      return;
-    }
-
-    if(event.key == 'Enter') {
-      this.onAddOkClick();
-    } else if(event.key == 'Escape') {
-      this.onAddCancelClick();
-    }
-  }
-
-  fixedDecimals: number = null;
-  maxDecimals: number = 3;
-  private toDecimalValue(value: string): number {
-    var parsed = parseFloat(value);
-    if( isNaN(parsed) ) {
-      return 0;
-    }
-
-    if(this.fixedDecimals) {
-      return parseFloat(parsed.toFixed(this.fixedDecimals));
-    }
-
-    if (this.maxDecimals) {
-      return parseFloat(parsed.toFixed(this.maxDecimals));
-    }
-
-    return parsed;
   }
 }
