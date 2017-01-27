@@ -1,6 +1,7 @@
 import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, ViewChildren, QueryList, AfterViewInit, ChangeDetectorRef, AfterViewChecked, OnChanges, Inject, forwardRef, OnInit, OnDestroy } from '@angular/core';
 import { FocusDirective } from '../shared/focus.directive'
 import { BoxProduct } from './box'
+import { Product } from '../products/product'
 import { Subscription } from 'rxjs/Subscription'
 import { Observable } from 'rxjs/Observable';
 import { EditableComponent } from '../shared/editable.component'
@@ -16,11 +17,13 @@ import { MutuallyExclusiveEditService, MutuallyExclusiveEditComponent } from './
   pipes: [WeightPipe],
   templateUrl: 'app/boxes/box-product-add.component.html'
 })
-export class BoxProductAddComponent implements MutuallyExclusiveEditComponent {
-  addingProduct: BoxProduct;
+export class BoxProductAddComponent implements OnInit, AfterViewInit, MutuallyExclusiveEditComponent {
+  adding: boolean;
+  product: Product;
+  quantityStringValue: string;
   
   @Input()
-  products: BoxProduct[];
+  products: Product[];
 
   @Input()
   editId: string;
@@ -34,6 +37,9 @@ export class BoxProductAddComponent implements MutuallyExclusiveEditComponent {
   @Input()
   productQuantityWidth: number;
 
+  @ViewChildren('focusable')
+  focusables: QueryList<FocusDirective>
+
   @Output()
   add = new EventEmitter<BoxProduct>();
 
@@ -42,37 +48,68 @@ export class BoxProductAddComponent implements MutuallyExclusiveEditComponent {
     private mutexService: MutuallyExclusiveEditService) {
   }
 
+  ngOnInit() {
+    if(this.mutexService.isAnyEditingWithPrefix(this.editId)) {
+      this.mutexService.startEdit(this);
+      this.product = this.products[0];
+      this.quantityStringValue = '';
+      this.adding = true;
+    }
+  }
+
+  ngAfterViewInit() {
+    if(this.focusables.length && this.adding) {
+      this.focusables.first.beFocused();
+    }
+  }
+
   onAddClick() {
     this.mutexService.startEdit(this);
-    this.addingProduct = this.products[0].clone();
+    this.product = this.products[0];
+    this.quantityStringValue = '';
+    this.adding = true;
+
+    let subscription = this.focusables.changes.subscribe((f: QueryList<FocusDirective>) => {
+      if(f.length && this.adding) {
+        f.first.beFocused();
+        subscription.unsubscribe();
+      }
+    })
   }
 
   onAddProductChange(event: any) {
-    this.addingProduct = this.products[+event.target.value].clone();
+    this.product = this.products[+event.target.value];
   }
 
   onAddOkClick() {
-    this.add.emit(this.addingProduct);
+    let quantity = this.toDecimalValue(this.quantityStringValue);
+    if(quantity > 0) {
+      this.add.emit(new BoxProduct(this.product.id, this.product.name, quantity, this.product.unitType));
+    }
 
-    this.addingProduct = null;
+    this.adding = false;
     this.mutexService.endEdit(this);
   }
 
   onAddCancelClick() {
-    this.addingProduct = null;
+    this.adding = false;
     this.mutexService.endEdit(this);
   }
 
   endEdit() {
-    this.addingProduct = null;
+    this.onAddOkClick();
   }
 
-  onAddQuantityChange(value: any) {
-    this.addingProduct.quantity = this.toDecimalValue(value);
+  onAddFocus() {
+    if(this.adding) {
+      return;
+    }
+
+    this.onAddClick();
   }
 
   keydown(event: KeyboardEvent) {
-    if(!this.addingProduct) {
+    if(!this.adding) {
       return;
     }
 

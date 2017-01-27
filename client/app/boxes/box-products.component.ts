@@ -1,6 +1,7 @@
 import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, ViewChildren, QueryList, AfterViewInit, ChangeDetectorRef, AfterViewChecked, OnChanges, Inject, forwardRef, OnInit, OnDestroy } from '@angular/core';
 import { FocusDirective } from '../shared/focus.directive'
 import { BoxProduct } from './box'
+import { Product } from '../products/product'
 import { Subscription } from 'rxjs/Subscription'
 import { Observable } from 'rxjs/Observable';
 import { EditableComponent } from '../shared/editable.component'
@@ -38,13 +39,13 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
   columnPadding: number;
   columns: BoxProduct[][] = [];
   maxColumns: number = 0;
-  unusedProducts: BoxProduct[] = [];
+  unusedProducts: Product[] = [];
   
   @Input()
   value: BoxProduct[];
 
   @Input()
-  products: BoxProduct[];
+  products: Product[];
 
   @Input()
   editId: string;

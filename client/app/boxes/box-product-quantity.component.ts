@@ -14,6 +14,7 @@ import { Subscription } from 'rxjs/Subscription'
 })
 export class BoxProductQuantityComponent implements MutuallyExclusiveEditComponent, OnInit, AfterViewInit {
   stringValue: string;
+  editing: boolean;
   
   @Input()
   value: number;
@@ -36,30 +37,29 @@ export class BoxProductQuantityComponent implements MutuallyExclusiveEditCompone
   constructor(
     @Inject(forwardRef(() => MutuallyExclusiveEditService))
     private mutexService: MutuallyExclusiveEditService) {
-  } 
+  }
 
   ngOnInit() {
     if(this.mutexService.isAnyEditingWithPrefix(this.editId)) {
       this.mutexService.startEdit(this);
+      this.editing = true;
     }
 
     this.stringValue = this.toStringValue(this.value);
   }
 
   ngAfterViewInit() {
-    if(this.focusables.length && this.editing()) {
+    if(this.focusables.length && this.editing) {
       this.focusables.first.beFocused();
     }
   }
 
-  editing() {
-    return this.mutexService.isEditing(this);
-  }
-
   onEditClick() {
     this.mutexService.startEdit(this);
+    this.editing = true;
+
     let subscription = this.focusables.changes.subscribe((f: QueryList<FocusDirective>) => {
-      if(f.length && this.editing()) {
+      if(f.length && this.editing) {
         f.first.beFocused();
         subscription.unsubscribe();
       }
@@ -69,18 +69,19 @@ export class BoxProductQuantityComponent implements MutuallyExclusiveEditCompone
   onEditOkClick() {
     let newValue = this.toDecimalValue(this.stringValue);
 
-    if(newValue != this.value) {
+    if(newValue != this.value && newValue > 0) {
       this.value = newValue;
-      this.stringValue = this.toStringValue(this.value);
-  
       this.update.emit(this.value);
-      this.mutexService.endEdit(this);
     }
+
+    this.stringValue = this.toStringValue(this.value);
+    this.editing = false;
+    this.mutexService.endEdit(this);
   }
 
   onEditCancelClick() {
     this.stringValue = this.toStringValue(this.value);
-    
+    this.editing = false;
     this.mutexService.endEdit(this);
   }
 
@@ -89,7 +90,7 @@ export class BoxProductQuantityComponent implements MutuallyExclusiveEditCompone
   }
 
   onEditFocus() {
-    if(this.editing()) {
+    if(this.editing) {
       return;
     }
 
@@ -97,7 +98,7 @@ export class BoxProductQuantityComponent implements MutuallyExclusiveEditCompone
   }
 
   keydown(event: KeyboardEvent) {
-    if(!this.editing()) {
+    if(!this.editing) {
       return;
     }
 

@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject } from '@angular/core';
 import { Box, BoxProduct } from './box';
+import { Product } from '../products/product'
 import { WeightPipe, MoneyPipe } from '../shared/pipes';
 import { HeadingComponent } from '../shared/heading.component';
 import { FocusDirective } from '../shared/focus.directive'
@@ -46,7 +47,7 @@ export class BoxComponent {
   loaded: boolean;
 
   @Input()
-  products: BoxProduct[];
+  products: Product[];
 
   @Output()
   delete = new EventEmitter<Box>();

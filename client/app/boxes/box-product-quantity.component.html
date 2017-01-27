@@ -1,15 +1,15 @@
-<div class="box-product-detail box-product-quantity" [class.box-product-display]="!editing()" [class.box-product-edit]="editing()" style="position: relative" [style.width.px]="width" (keydown)="keydown($event)">
-  <div style="display: inline-block" *ngIf="!editing()" (click)="onEditClick(p)">
+<div class="box-product-detail box-product-quantity" [class.box-product-display]="!editing" [class.box-product-edit]="editing" style="position: relative" [style.width.px]="width" (keydown)="keydown($event)">
+  <div style="display: inline-block" *ngIf="!editing" (click)="onEditClick(p)">
     <span class="box-product-quantity-each" *ngIf="unitType == 'each'">x</span>
     <span *ngIf="unitType == 'perKg'">{{value | weight}}</span>
     <span *ngIf="unitType != 'perKg'">{{value}}</span>
     <i class="icon-edit"></i>
   </div>
-  <div *ngIf="editing()" class="edit-background">
+  <div *ngIf="editing" class="edit-background">
     <i class="icon-ok" (click)="onEditOkClick()"></i><i class="icon-cancel" (click)="onEditCancelClick()"></i>
   </div>
-  <input type="text" style="position: absolute;left:-10000px" *ngIf="!editing()" (focus)="onEditFocus(p)" tabindex="1" />
-  <div style="display: inline-block" *ngIf="editing()">
+  <input type="text" style="position: absolute;left:-10000px" *ngIf="!editing" (focus)="onEditFocus(p)" tabindex="1" />
+  <div style="display: inline-block" *ngIf="editing">
     <span class="box-product-quantity-each" *ngIf="unitType == 'each'">x</span>
     <input type="text" cc-focus #focusable=cc-focus [(ngModel)]="stringValue" tabindex="1" />
     <span class="box-product-quantity-perkg" *ngIf="unitType == 'perKg'">Kg</span>

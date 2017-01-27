@@ -25,7 +25,7 @@ export class BoxesComponent implements OnInit {
   }
 
   boxes: Box[] = [];
-  products: BoxProduct[] = [];
+  products: Product[] = [];
   loaded: boolean;
   queryParams: {[key: string]: string};
 
@@ -35,7 +35,7 @@ export class BoxesComponent implements OnInit {
       .subscribe(({boxes, products}) => {
         this.loaded = true;
         this.boxes = boxes;
-        this.products = products.map(p => new BoxProduct(p.id, p.name, 1, p.unitType));
+        this.products = products;
       });
   }
 
