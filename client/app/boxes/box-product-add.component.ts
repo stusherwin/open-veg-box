@@ -110,13 +110,15 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit, MutuallyEx
 
   keydown(event: KeyboardEvent) {
     if(!this.adding) {
-      return;
-    }
-
-    if(event.key == 'Enter') {
-      this.onAddOkClick();
-    } else if(event.key == 'Escape') {
-      this.onAddCancelClick();
+      if(event.key == 'Enter') {
+        this.onAddClick();
+      }
+    } else {
+      if(event.key == 'Enter') {
+        this.onAddOkClick();
+      } else if(event.key == 'Escape') {
+        this.onAddCancelClick();
+      }
     }
   }
 

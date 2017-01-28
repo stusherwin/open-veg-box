@@ -86,7 +86,8 @@ export class BoxProductQuantityComponent implements MutuallyExclusiveEditCompone
   }
 
   endEdit() {
-    this.onEditOkClick();
+    console.log('edit quantity ' + this.value +' endEdit');
+    //this.onEditOkClick();
   }
 
   onEditFocus() {
@@ -95,6 +96,23 @@ export class BoxProductQuantityComponent implements MutuallyExclusiveEditCompone
     }
 
     this.onEditClick();
+  }
+
+  onFocus() {
+    //console.log('edit quantity ' + this.value +' focus');
+  }
+
+  onBlur() {
+ //   console.log('edit quantity ' + this.value +' blur');
+    this.onEditOkClick();
+  }
+
+  onStringValueFocus() {
+   // console.log('stringValue focus');
+  }
+
+  onStringValueBlur() {
+    //console.log('stringValue blur');
   }
 
   keydown(event: KeyboardEvent) {

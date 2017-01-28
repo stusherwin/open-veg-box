@@ -1,18 +1,18 @@
 <div class="box-product box-product-add" [class.no-products]="noProducts" (keydown)="keydown($event)">
   <div *ngIf="noProducts && !adding" class="box-product-detail no-products-text">No products added yet.</div> 
-  <input type="text" style="position: absolute;left:-10000px" *ngIf="products.length && !adding" (focus)="onAddFocus()" tabindex="1" />
-  <div *ngIf="products.length && !adding" (click)="onAddClick()">
+  <!--input type="text" style="position: absolute;left:-10000px" *ngIf="products.length && !adding" (focus)="onAddFocus()" tabindex="1" /-->
+  <div *ngIf="products.length && !adding" (click)="onAddClick()" [class.hover]="addHover">
     <div class="box-product-detail box-product-name box-product-display" [style.width.px]="productNameWidth + productQuantityWidth">Add
       <span *ngIf="noProducts">a</span>
       <span *ngIf="!noProducts">another</span>
       product...</div>
     <div class="box-product-detail box-product-action box-product-display">
-      <a><i class="icon-add"></i></a>
+      <a tabindex="1" (focus)="addHover = true" (blur)="addHover = false"><i class="icon-add"></i></a>
     </div>       
   </div>
   <div *ngIf="adding" style="position: relative" class="box-product-detail" [style.width.px]="productNameWidth + productQuantityWidth">
     <div class="edit-background">
-      <a><i class="icon-ok" (click)="onAddOkClick()"></i></a><a><i class="icon-cancel" (click)="onAddCancelClick()"></i></a>
+      <i class="icon-ok" (click)="onAddOkClick()"></i><i class="icon-cancel" (click)="onAddCancelClick()"></i>
     </div>
     <div class="box-product-detail box-product-name box-product-edit" [style.width.px]="productNameWidth"><select cc-focus #focusable=cc-focus (change)="onAddProductChange($event)" tabindex="1">
         <option *ngFor="let p of products; let i = index" [value]="i">{{p.name}}</option>

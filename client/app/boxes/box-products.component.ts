@@ -10,6 +10,7 @@ import { WeightPipe } from '../shared/pipes'
 import { BoxProductsService } from './box-products.service'
 import { BoxProductQuantityComponent } from './box-product-quantity.component' 
 import { BoxProductAddComponent } from './box-product-add.component' 
+import { BoxProductRemoveComponent } from './box-product-remove.component' 
 import { MutuallyExclusiveEditService } from './mutually-exclusive-edit.service'
 
 const PRODUCT_NAME_PADDING = 1;
@@ -20,7 +21,7 @@ const COLUMN_PADDING_RATIO = 0.8;
 
 @Component({
   selector: 'cc-box-products',
-  directives: [FocusDirective, EditableComponent, BoxProductQuantityComponent, BoxProductAddComponent],
+  directives: [FocusDirective, EditableComponent, BoxProductQuantityComponent, BoxProductAddComponent, BoxProductRemoveComponent],
   pipes: [WeightPipe],
   templateUrl: 'app/boxes/box-products.component.html',
   host: {
@@ -196,5 +197,28 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
     
     this.recalculateUnusedProducts();
     this.repopulateColumns();
+  }
+
+  onRootFocus() {
+    console.log('root focus')
+  }
+
+  onRootBlur() {
+    console.log('root blur')
+  }
+
+  onRemoveFocus() {
+    console.log('remove focus')
+  }
+
+  onRemoveBlur() {
+    console.log('remove blur')
+  }
+
+  onKeyDown(event: KeyboardEvent, product: BoxProduct) {
+    //console.log('key down')
+    if(event.key == 'Enter') {
+      this.onRemoveClick(product);
+    }
   }
 }

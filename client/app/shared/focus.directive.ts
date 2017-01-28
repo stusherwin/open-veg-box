@@ -44,8 +44,12 @@ export class FocusDirective implements OnInit, OnDestroy {
     var elem = this.el.nativeElement;
     if(this.isFocusable()) {
       elem.onfocus = () => {
-        setTimeout(() => this.setFocused(true));
+        setTimeout(() => this.setFocused(true, "onfocus"));
       };
+
+      // elem.onblur = () => {
+      //   setTimeout(() => this.setFocused(false, "onblur"));
+      // };
     }
   }
 
@@ -63,8 +67,8 @@ export class FocusDirective implements OnInit, OnDestroy {
     Arrays.remove(this.children, child);
   }
 
-  beFocused() {
-    this.setFocused(true);
+  beFocused(debugPath: string = '') {
+    this.setFocused(true, debugPath);
 
     let elem = this.el.nativeElement;
     if(this.isFocusable()) {
@@ -72,8 +76,8 @@ export class FocusDirective implements OnInit, OnDestroy {
     }
   }
 
-  beBlurred() {
-    this.setFocused(false);
+  beBlurred(debugPath: string = '') {
+    this.setFocused(false, debugPath);
 
     let elem = this.el.nativeElement;
     if(this.isFocusable()) {
@@ -96,13 +100,13 @@ export class FocusDirective implements OnInit, OnDestroy {
 
   outsideClick(x: number, y: number) {
     if(this.focused && this.isOutside(x, y)) {
-      this.beBlurred();
+      this.beBlurred(this.stringify() + '(outsideClick)');
     }
   }
 
   private blurIfAllChildrenBlurred() {
     if(this.children.every(c => !c.focused)) {
-      this.beBlurred();
+      this.beBlurred(this.stringify() + '(blurIfAllChildrenBlurred)');
       if(this.parent) {
         this.parent.blurIfAllChildrenBlurred();
       }
@@ -115,10 +119,17 @@ export class FocusDirective implements OnInit, OnDestroy {
         || y < clientRect.top || y > clientRect.bottom;
   }
 
-  private setFocused(focused: boolean) {
+  private setFocused(focused: boolean, debugPath: string) {
+    //console.log(this.stringify() + ': setFocused(' + focused + ')')
     if(this.focused == focused) {
       return;
     }
+
+    // if(focused) {
+    //   console.log('FOCUS: ' + this.stringify() + ' <= ' + debugPath);
+    // } else {
+    //   console.log('BLUR: ' + this.stringify() + ' <= ' + debugPath);
+    // }
 
     this.focused = focused;
     let elem = this.el.nativeElement;
@@ -140,12 +151,13 @@ export class FocusDirective implements OnInit, OnDestroy {
 
       let parent = this.parent;
       if(parent) {
-        parent.beFocused();
+        parent.beFocused(this.stringify() + '(setFocused(' + focused + ')) <= ' + debugPath);
 
         let siblings = parent.children.filter(c => c != this);
+        //console.log(siblings.map(s => s.el.nativeElement));
 
         for(let s of siblings) {
-          s.beBlurred();
+          s.beBlurred(this.stringify() + '(setFocused(' + focused + ')) <= ' + debugPath);
         }
       }
     } else {
@@ -156,9 +168,10 @@ export class FocusDirective implements OnInit, OnDestroy {
       }
 
       for(let child of this.children) {
-        child.beBlurred();
+        child.beBlurred(this.stringify() + '(setFocused(' + focused + ')) <= ' + debugPath);
       }
 
+      // console.log(this.parent);
       if(this.parent) {
         this.parent.blurIfAllChildrenBlurred();
       }

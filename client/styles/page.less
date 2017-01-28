@@ -615,19 +615,24 @@ select:-moz-focusring {
         } 
       }
 
+      i {
+        font-size: 80%;
+
+        &::before {
+          margin: 0;
+        }
+        
+        &:hover {
+          color: @boxProductHover;
+          cursor: pointer;
+        }
+      }
+
       a {
         color: #999;
 
-        &:hover {
+        &:hover, &:focus {
           color: @boxProductHover;
-        }
-
-        i {
-          font-size: 80%;
-
-          &::before {
-            margin: 0;
-          }
         }
       }
 
@@ -704,7 +709,8 @@ select:-moz-focusring {
 
       &.box-product-add {
         .box-product-display {
-          display: none;
+          //display: none;
+          visibility: hidden;
         }
       }
     }
@@ -713,7 +719,8 @@ select:-moz-focusring {
   .box-product {
     .box-product-action, .box-product-display {
       a {
-        display: none;
+        //display: none;
+        visibility: hidden;
       }
     }
   }
@@ -722,7 +729,8 @@ select:-moz-focusring {
     .box-product {
       .box-product-action {
         a {
-          display: inline;
+          //display: inline;
+          visibility: visible;
         }
       }
 
@@ -732,13 +740,15 @@ select:-moz-focusring {
         }
 
         .box-product-display {
-          display: block;
+          //display: block;
+          visibility: visible;
         }
 
-        &:hover {
+        &:hover, .hover {
           .box-product-display {
             color: @boxProductHover;
             cursor: pointer;
+
             a {
               color: @boxProductHover;
             }
@@ -758,7 +768,7 @@ select:-moz-focusring {
   right: -29px;
   border-radius: 2px;
 
-  a {
+  i {
     position: absolute;
     top: 8px;
     right: 2px;

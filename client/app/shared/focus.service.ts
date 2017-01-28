@@ -17,6 +17,7 @@ export class FocusService implements IHandleOutsideClick {
   }
   
   register(focusable: FocusDirective, handleOutsideClick: boolean) {
+    // console.log(focusable.stringify() + ': register');
     this.focusables.push(focusable);
     if(handleOutsideClick) {
       this.outsideClickFocusables.push(focusable);

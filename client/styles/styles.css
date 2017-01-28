@@ -2222,17 +2222,22 @@ select:-moz-focusring {
 .box-products .box-product-column .box-product.remove-hover {
   color: #ffa011;
 }
+.box-products .box-product-column .box-product i {
+  font-size: 80%;
+}
+.box-products .box-product-column .box-product i::before {
+  margin: 0;
+}
+.box-products .box-product-column .box-product i:hover {
+  color: #ffa011;
+  cursor: pointer;
+}
 .box-products .box-product-column .box-product a {
   color: #999;
 }
-.box-products .box-product-column .box-product a:hover {
+.box-products .box-product-column .box-product a:hover,
+.box-products .box-product-column .box-product a:focus {
   color: #ffa011;
-}
-.box-products .box-product-column .box-product a i {
-  font-size: 80%;
-}
-.box-products .box-product-column .box-product a i::before {
-  margin: 0;
 }
 .box-products .box-product-column .box-product .box-product-detail {
   float: left;
@@ -2293,15 +2298,15 @@ select:-moz-focusring {
   width: 17px;
 }
 .box-products .box-product-column .box-product.box-product-add .box-product-display {
-  display: none;
+  visibility: hidden;
 }
 .box-products .box-product .box-product-action a,
 .box-products .box-product .box-product-display a {
-  display: none;
+  visibility: hidden;
 }
 .box-products:hover .box-product .box-product-action a,
 .box-products.editing .box-product .box-product-action a {
-  display: inline;
+  visibility: visible;
 }
 .box-products:hover .box-product.box-product-add .no-products-text,
 .box-products.editing .box-product.box-product-add .no-products-text {
@@ -2309,15 +2314,19 @@ select:-moz-focusring {
 }
 .box-products:hover .box-product.box-product-add .box-product-display,
 .box-products.editing .box-product.box-product-add .box-product-display {
-  display: block;
+  visibility: visible;
 }
 .box-products:hover .box-product.box-product-add:hover .box-product-display,
-.box-products.editing .box-product.box-product-add:hover .box-product-display {
+.box-products.editing .box-product.box-product-add:hover .box-product-display,
+.box-products:hover .box-product.box-product-add .hover .box-product-display,
+.box-products.editing .box-product.box-product-add .hover .box-product-display {
   color: #ffa011;
   cursor: pointer;
 }
 .box-products:hover .box-product.box-product-add:hover .box-product-display a,
-.box-products.editing .box-product.box-product-add:hover .box-product-display a {
+.box-products.editing .box-product.box-product-add:hover .box-product-display a,
+.box-products:hover .box-product.box-product-add .hover .box-product-display a,
+.box-products.editing .box-product.box-product-add .hover .box-product-display a {
   color: #ffa011;
 }
 .edit-background {
@@ -2329,15 +2338,15 @@ select:-moz-focusring {
   right: -29px;
   border-radius: 2px;
 }
-.edit-background a {
+.edit-background i {
   position: absolute;
   top: 8px;
   right: 2px;
 }
-.edit-background a:first-of-type {
+.edit-background i:first-of-type {
   right: 16px;
 }
-.edit-background a:last-of-type {
+.edit-background i:last-of-type {
   right: 2px;
 }
 .box-product-add .edit-background {
