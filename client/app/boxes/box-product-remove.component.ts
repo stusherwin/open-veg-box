@@ -1,4 +1,4 @@
-import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, ViewChildren, QueryList, AfterViewInit, ChangeDetectorRef, AfterViewChecked, OnChanges, Inject, forwardRef, OnInit, OnDestroy } from '@angular/core';
+import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, ViewChildren, QueryList, AfterViewInit, ChangeDetectorRef, AfterViewChecked, OnChanges, Inject, forwardRef, OnInit, OnDestroy, Renderer } from '@angular/core';
 import { FocusDirective } from '../shared/focus.directive'
 import { BoxProduct } from './box'
 import { WeightPipe } from '../shared/pipes'
@@ -17,19 +17,23 @@ export class BoxProductRemoveComponent implements MutuallyExclusiveEditComponent
   @Input()
   editId: string;
 
-  @ViewChild('focusable')
-  focusable: FocusDirective;
+  //@ViewChild('focusable')
+  //focusable: FocusDirective;
+  @ViewChild('remove')
+  removeBtn: ElementRef
 
   @Output()
   remove = new EventEmitter<any>();
 
   constructor(
     @Inject(forwardRef(() => MutuallyExclusiveEditService))
-    private mutexService: MutuallyExclusiveEditService) {
+    private mutexService: MutuallyExclusiveEditService,
+    private renderer: Renderer) {
   }
 
   ngOnInit() {
     if(this.mutexService.isAnyEditingWithPrefix(this.editId)) {
+      console.log('remove editing');
       this.mutexService.startEdit(this);
       this.editing = true;
     }
@@ -37,14 +41,14 @@ export class BoxProductRemoveComponent implements MutuallyExclusiveEditComponent
 
   ngAfterViewInit() {
     if(this.editing) {
-      this.focusable.beFocused();
+      this.renderer.invokeElementMethod(this.removeBtn.nativeElement, 'focus', []);
     }
   }
 
   onEditClick() {
     this.mutexService.startEdit(this);
     this.editing = true;
-    this.focusable.beFocused();
+    this.renderer.invokeElementMethod(this.removeBtn.nativeElement, 'focus', []);
   }
 
   onRemoveClick() {
@@ -71,12 +75,12 @@ export class BoxProductRemoveComponent implements MutuallyExclusiveEditComponent
 
   onRemoveBlur() {
     //console.log('remove blur')
-    // this.mutexService.endEdit(this);
+    //this.mutexService.endEdit(this);
     // this.editing = false;
   }
 
   onHiddenFocus() {
     console.log('hiddenfocus')
-    this.focusable.beFocused();
+    this.renderer.invokeElementMethod(this.removeBtn.nativeElement, 'focus', []);
   }
 }

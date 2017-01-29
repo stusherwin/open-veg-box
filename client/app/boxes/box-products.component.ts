@@ -79,8 +79,16 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
     private changeDetector: ChangeDetectorRef) {
   }
 
+  focused: boolean;
   ngOnInit() {
     this.recalculateUnusedProducts();
+    this.mutexService.editStart.add(() =>{
+      console.log('editStart'); 
+      this.focused = true });
+    this.mutexService.editEnd.add(() =>{
+      console.log('editEnd'); 
+      this.focused = false
+    } );
   }
 
   ngOnDestroy() {

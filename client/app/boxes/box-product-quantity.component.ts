@@ -1,4 +1,4 @@
-import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, ViewChildren, QueryList, AfterViewInit, ChangeDetectorRef, AfterViewChecked, OnChanges, Inject, forwardRef, OnInit, OnDestroy } from '@angular/core';
+import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, ViewChildren, QueryList, AfterViewInit, ChangeDetectorRef, AfterViewChecked, OnChanges, Inject, forwardRef, OnInit, OnDestroy, Renderer } from '@angular/core';
 import { FocusDirective } from '../shared/focus.directive'
 import { BoxProduct } from './box'
 import { WeightPipe } from '../shared/pipes'
@@ -28,18 +28,22 @@ export class BoxProductQuantityComponent implements MutuallyExclusiveEditCompone
   @Input()
   editId: string;
 
-  @ViewChild('root')
-  root: FocusDirective;
+  // @ViewChild('root')
+  // root: FocusDirective;
 
-  @ViewChildren('focusable')
-  focusables: QueryList<FocusDirective>;
+  // @ViewChildren('focusable')
+  // focusables: QueryList<FocusDirective>;
+
+  @ViewChildren('input')
+  input: QueryList<ElementRef>
 
   @Output()
   update = new EventEmitter<number>();
 
   constructor(
     @Inject(forwardRef(() => MutuallyExclusiveEditService))
-    private mutexService: MutuallyExclusiveEditService) {
+    private mutexService: MutuallyExclusiveEditService,
+    private renderer: Renderer) {
   }
 
   ngOnInit() {
@@ -52,8 +56,8 @@ export class BoxProductQuantityComponent implements MutuallyExclusiveEditCompone
   }
 
   ngAfterViewInit() {
-    if(this.focusables.length && this.editing) {
-      this.focusables.first.beFocused();
+    if(this.input.length && this.editing) {
+      this.renderer.invokeElementMethod(this.input.first.nativeElement, 'focus', []);
     }
   }
 
@@ -61,9 +65,9 @@ export class BoxProductQuantityComponent implements MutuallyExclusiveEditCompone
     this.mutexService.startEdit(this);
     this.editing = true;
 
-    let subscription = this.focusables.changes.subscribe((f: QueryList<FocusDirective>) => {
+    let subscription = this.input.changes.subscribe((f: QueryList<ElementRef>) => {
       if(f.length && this.editing) {
-        f.first.beFocused();
+        this.renderer.invokeElementMethod(this.input.first.nativeElement, 'focus', []);
         subscription.unsubscribe();
       }
     })
@@ -86,12 +90,15 @@ export class BoxProductQuantityComponent implements MutuallyExclusiveEditCompone
     this.stringValue = this.toStringValue(this.value);
     this.editing = false;
     this.mutexService.endEdit(this);
-    this.root.beBlurred();
+    //this.root.beBlurred();
   }
 
   endEdit() {
     // console.log('edit quantity ' + this.value +' endEdit');
     //this.onEditOkClick();
+    if(this.editing) {
+      this.onEditOkClick();
+    }
   }
 
   onEditFocus() {
@@ -102,24 +109,24 @@ export class BoxProductQuantityComponent implements MutuallyExclusiveEditCompone
     this.onEditClick();
   }
 
-  onFocus() {
-    //console.log('edit quantity ' + this.value +' focus');
-  }
+//   onFocus() {
+//     //console.log('edit quantity ' + this.value +' focus');
+//   }
 
-  onBlur() {
- //   console.log('edit quantity ' + this.value +' blur');
-    if(this.editing) {
-      this.onEditOkClick();
-    }
-  }
+//   onBlur() {
+//  //   console.log('edit quantity ' + this.value +' blur');
+//     if(this.editing) {
+//       this.onEditOkClick();
+//     }
+//   }
 
-  onStringValueFocus() {
-   // console.log('stringValue focus');
-  }
+  // onStringValueFocus() {
+  //  // console.log('stringValue focus');
+  // }
 
-  onStringValueBlur() {
-    //console.log('stringValue blur');
-  }
+  // onStringValueBlur() {
+  //   //console.log('stringValue blur');
+  // }
 
   keydown(event: KeyboardEvent) {
     if(!this.editing) {

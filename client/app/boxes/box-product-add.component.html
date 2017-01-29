@@ -7,20 +7,20 @@
       <span *ngIf="!noProducts">another</span>
       product...</div>
     <div class="box-product-detail box-product-action box-product-display">
-      <a cc-focus #foc=cc-focus tabindex="1" (focus)="addHover = true" (blur)="addHover = false"><i class="icon-add"></i></a>
+      <a #add tabindex="1" (focus)="onAddFocus()" (blur)="onAddBlur()"><i class="icon-add"></i></a>
     </div>       
   </div>
   <div *ngIf="adding" style="position: relative" class="box-product-detail" [style.width.px]="productNameWidth + productQuantityWidth">
     <div class="edit-background">
       <i class="icon-ok" (click)="onAddOkClick()"></i><i class="icon-cancel" (click)="onAddCancelClick()"></i>
     </div>
-    <div class="box-product-detail box-product-name box-product-edit" [style.width.px]="productNameWidth"><select cc-focus #focusable=cc-focus (change)="onAddProductChange($event)" tabindex="1">
+    <div class="box-product-detail box-product-name box-product-edit" [style.width.px]="productNameWidth"><select #select (change)="onAddProductChange($event)" tabindex="1">
         <option *ngFor="let p of products; let i = index" [value]="i">{{p.name}}</option>
       </select>
     </div>
     <div class="box-product-detail box-product-quantity box-product-edit" [style.width.px]="productQuantityWidth">
       <span class="box-product-quantity-each" *ngIf="product.unitType == 'each'">x</span>
-      <input type="text" class="input" cc-focus [(ngModel)]="quantityStringValue" tabindex="1" />
+      <input type="text" class="input" [(ngModel)]="quantityStringValue" tabindex="1" />
       <span class="box-product-quantity-perkg" *ngIf="product.unitType == 'perKg'">Kg</span>
     </div>
   </div>

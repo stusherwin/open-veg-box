@@ -1,4 +1,4 @@
-<div cc-focus #root=cc-focus (focus)="onFocus()" (blur)="onBlur()" class="box-product-detail box-product-quantity" [class.box-product-display]="!editing" [class.box-product-edit]="editing" style="position: relative" [style.width.px]="width" (keydown)="keydown($event)">
+<div class="box-product-detail box-product-quantity" [class.box-product-display]="!editing" [class.box-product-edit]="editing" style="position: relative" [style.width.px]="width" (keydown)="keydown($event)">
   <div style="display: inline-block" *ngIf="!editing" (click)="onEditClick()">
     <span class="box-product-quantity-each" *ngIf="unitType == 'each'">x</span>
     <span *ngIf="unitType == 'perKg'">{{value | weight}}</span>
@@ -11,7 +11,7 @@
   <input type="text" style="position: absolute;left:-10000px" *ngIf="!editing" tabindex="1" (focus)="onEditFocus()" />
   <div style="display: inline-block" *ngIf="editing">
     <span class="box-product-quantity-each" *ngIf="unitType == 'each'">x</span>
-    <input type="text" cc-focus #focusable=cc-focus (focus)="onStringValueFocus()" (blur)="onStringValueBlur()" [(ngModel)]="stringValue" tabindex="1" />
+    <input type="text" #input [(ngModel)]="stringValue" tabindex="1" />
     <span class="box-product-quantity-perkg" *ngIf="unitType == 'perKg'">Kg</span>
   </div>
 </div>

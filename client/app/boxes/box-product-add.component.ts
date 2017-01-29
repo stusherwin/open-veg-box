@@ -1,4 +1,4 @@
-import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, ViewChildren, QueryList, AfterViewInit, ChangeDetectorRef, AfterViewChecked, OnChanges, Inject, forwardRef, OnInit, OnDestroy } from '@angular/core';
+import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, ViewChildren, QueryList, AfterViewInit, ChangeDetectorRef, AfterViewChecked, OnChanges, Inject, forwardRef, OnInit, OnDestroy, Renderer } from '@angular/core';
 import { FocusDirective } from '../shared/focus.directive'
 import { BoxProduct } from './box'
 import { Product } from '../products/product'
@@ -19,6 +19,7 @@ import { MutuallyExclusiveEditService, MutuallyExclusiveEditComponent } from './
 })
 export class BoxProductAddComponent implements OnInit, AfterViewInit, MutuallyExclusiveEditComponent {
   adding: boolean;
+  addHover: boolean;
   product: Product;
   quantityStringValue: string;
   
@@ -37,18 +38,22 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit, MutuallyEx
   @Input()
   productQuantityWidth: number;
 
-  @ViewChildren('focusable')
-  focusables: QueryList<FocusDirective>
+  @ViewChildren('select')
+  select: QueryList<ElementRef>
 
-  @ViewChildren('foc')
-  focs: QueryList<FocusDirective>
+  // @ViewChildren('foc')
+  // focs: QueryList<FocusDirective>
+
+  @ViewChild('add')
+  addBtn: ElementRef  
 
   @Output()
   add = new EventEmitter<BoxProduct>();
 
   constructor(
     @Inject(forwardRef(() => MutuallyExclusiveEditService))
-    private mutexService: MutuallyExclusiveEditService) {
+    private mutexService: MutuallyExclusiveEditService,
+    private renderer: Renderer) {
   }
 
   ngOnInit() {
@@ -61,8 +66,8 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit, MutuallyEx
   }
 
   ngAfterViewInit() {
-    if(this.focusables.length && this.adding) {
-      this.focusables.first.beFocused();
+    if(this.select.length && this.adding) {
+      this.renderer.invokeElementMethod(this.select.first.nativeElement, 'focus', []);
     }
   }
 
@@ -72,9 +77,9 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit, MutuallyEx
     this.quantityStringValue = '';
     this.adding = true;
 
-    let subscription = this.focusables.changes.subscribe((f: QueryList<FocusDirective>) => {
+    let subscription = this.select.changes.subscribe((f: QueryList<ElementRef>) => {
       if(f.length && this.adding) {
-        f.first.beFocused();
+        this.renderer.invokeElementMethod(f.first.nativeElement, 'focus', []);
         subscription.unsubscribe();
       }
     })
@@ -100,33 +105,41 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit, MutuallyEx
   }
 
   endEdit() {
-    this.onAddOkClick();
+    if(this.adding) {
+      this.onAddOkClick();
+    }
   }
 
   onAddFocus() {
-    if(this.adding) {
-      return;
-    }
+    this.addHover = true
+    this.mutexService.startEdit(this);
+  }
 
-    this.onAddClick();
+  onAddBlur() {
+    this.addHover = false
+    if(!this.adding) {
+      this.mutexService.endEdit(this);
+    }
   }
 
   onHiddenAddFocus() {
-    console.log('hiddenAddFocus');
-    if(this.focs.length) {
-      console.log('len');
-      this.focs.first.beFocused();
-    } else {
-      let subscription = this.focs.changes.subscribe((f: QueryList<FocusDirective>) => {
-        console.log('sub');
+    // console.log('hiddenAddFocus');
+    //if(this.focs.length) {
+      // console.log('len');
+      this.renderer.invokeElementMethod(this.addBtn.nativeElement, 'focus', []);
+      
+      // this.focs.first.beFocused();
+    // } else {
+    //   let subscription = this.focs.changes.subscribe((f: QueryList<FocusDirective>) => {
+    //     console.log('sub');
         
-        if(f.length) {
-          console.log('it\'s here')
-          f.first.beFocused();
-          subscription.unsubscribe();
-        }
-      })
-    }
+    //     if(f.length) {
+    //       console.log('it\'s here')
+    //       f.first.beFocused();
+    //       subscription.unsubscribe();
+    //     }
+    //   })
+    // }
   }
 
   keydown(event: KeyboardEvent) {
