@@ -29,7 +29,6 @@ export class BoxProductRemoveComponent implements MutuallyExclusiveEditComponent
   }
 
   ngOnInit() {
-    console.log('any editing(' + this.editId + '): ' + this.mutexService.isAnyEditingWithPrefix(this.editId));
     if(this.mutexService.isAnyEditingWithPrefix(this.editId)) {
       this.mutexService.startEdit(this);
       this.editing = true;
@@ -54,12 +53,11 @@ export class BoxProductRemoveComponent implements MutuallyExclusiveEditComponent
   }
 
   endEdit() {
-    console.log('remove endEdit');
+    this.editing = false;
     //this.onEditOkClick();
   }
 
   onKeyDown(event: KeyboardEvent) {
-    //console.log('key down')
     if(event.key == 'Enter') {
       this.onRemoveClick();
     }
@@ -67,10 +65,18 @@ export class BoxProductRemoveComponent implements MutuallyExclusiveEditComponent
 
   onRemoveFocus() {
     this.mutexService.startEdit(this);
+    this.editing = true;
     //console.log('remove focus')
   }
 
   onRemoveBlur() {
     //console.log('remove blur')
+    // this.mutexService.endEdit(this);
+    // this.editing = false;
+  }
+
+  onHiddenFocus() {
+    console.log('hiddenfocus')
+    this.focusable.beFocused();
   }
 }

@@ -40,6 +40,9 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit, MutuallyEx
   @ViewChildren('focusable')
   focusables: QueryList<FocusDirective>
 
+  @ViewChildren('foc')
+  focs: QueryList<FocusDirective>
+
   @Output()
   add = new EventEmitter<BoxProduct>();
 
@@ -106,6 +109,24 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit, MutuallyEx
     }
 
     this.onAddClick();
+  }
+
+  onHiddenAddFocus() {
+    console.log('hiddenAddFocus');
+    if(this.focs.length) {
+      console.log('len');
+      this.focs.first.beFocused();
+    } else {
+      let subscription = this.focs.changes.subscribe((f: QueryList<FocusDirective>) => {
+        console.log('sub');
+        
+        if(f.length) {
+          console.log('it\'s here')
+          f.first.beFocused();
+          subscription.unsubscribe();
+        }
+      })
+    }
   }
 
   keydown(event: KeyboardEvent) {

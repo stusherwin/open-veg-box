@@ -200,25 +200,10 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
   }
 
   onRootFocus() {
-    console.log('root focus')
+    // console.log('root focus')
   }
 
   onRootBlur() {
-    console.log('root blur')
-  }
-
-  onRemoveFocus() {
-    console.log('remove focus')
-  }
-
-  onRemoveBlur() {
-    console.log('remove blur')
-  }
-
-  onKeyDown(event: KeyboardEvent, product: BoxProduct) {
-    //console.log('key down')
-    if(event.key == 'Enter') {
-      this.onRemoveClick(product);
-    }
+    // console.log('root blur')
   }
 }

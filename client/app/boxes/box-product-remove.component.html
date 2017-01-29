@@ -1,1 +1,2 @@
 <a tabindex="1" cc-focus #focusable=cc-focus (focus)="onRemoveFocus()" (blur)="onRemoveBlur()" (click)="onRemoveClick(p)" (keydown)="onKeyDown($event, p)"><i class="icon-trash"></i></a><!-- (mouseenter)="removeHoverProductId = p.id" (mouseout)="removeHoverProductId = 0"-->
+<input type="text" style="position: absolute;left:-10000px;top:-100px;" *ngIf="!editing" (focus)="onHiddenFocus()" tabindex="1" />

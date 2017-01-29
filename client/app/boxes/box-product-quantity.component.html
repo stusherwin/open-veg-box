@@ -1,4 +1,4 @@
-<div cc-focus (focus)="onFocus()" (blur)="onBlur()" class="box-product-detail box-product-quantity" [class.box-product-display]="!editing" [class.box-product-edit]="editing" style="position: relative" [style.width.px]="width" (keydown)="keydown($event)">
+<div cc-focus #root=cc-focus (focus)="onFocus()" (blur)="onBlur()" class="box-product-detail box-product-quantity" [class.box-product-display]="!editing" [class.box-product-edit]="editing" style="position: relative" [style.width.px]="width" (keydown)="keydown($event)">
   <div style="display: inline-block" *ngIf="!editing" (click)="onEditClick()">
     <span class="box-product-quantity-each" *ngIf="unitType == 'each'">x</span>
     <span *ngIf="unitType == 'perKg'">{{value | weight}}</span>

@@ -28,6 +28,9 @@ export class BoxProductQuantityComponent implements MutuallyExclusiveEditCompone
   @Input()
   editId: string;
 
+  @ViewChild('root')
+  root: FocusDirective;
+
   @ViewChildren('focusable')
   focusables: QueryList<FocusDirective>;
 
@@ -83,10 +86,11 @@ export class BoxProductQuantityComponent implements MutuallyExclusiveEditCompone
     this.stringValue = this.toStringValue(this.value);
     this.editing = false;
     this.mutexService.endEdit(this);
+    this.root.beBlurred();
   }
 
   endEdit() {
-    console.log('edit quantity ' + this.value +' endEdit');
+    // console.log('edit quantity ' + this.value +' endEdit');
     //this.onEditOkClick();
   }
 
@@ -104,7 +108,9 @@ export class BoxProductQuantityComponent implements MutuallyExclusiveEditCompone
 
   onBlur() {
  //   console.log('edit quantity ' + this.value +' blur');
-    this.onEditOkClick();
+    if(this.editing) {
+      this.onEditOkClick();
+    }
   }
 
   onStringValueFocus() {
