@@ -66,6 +66,9 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
   @ViewChild('add')
   addComponent: BoxProductAddComponent
 
+  @ViewChildren('remove')
+  removeComponents: QueryList<BoxProductRemoveComponent> 
+
   @Output()
   add = new EventEmitter<BoxProduct>();
 
@@ -213,12 +216,18 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  onRemoveClick(product: BoxProduct) {
+  onRemove(product: BoxProduct, keyboard: boolean) {
     this.remove.emit(product);
+    let index = this.value.findIndex(p => p.id == product.id);
     Arrays.remove(this.value, product);
     
     this.recalculateUnusedProducts();
     this.repopulateColumns();
+
+    if(keyboard && this.value.length) {
+      let nextRemoveFocusIndex = Math.min(index, this.value.length - 1);
+      setTimeout(() => this.removeComponents.toArray()[nextRemoveFocusIndex].focus());     
+    }
   }
 
   onRootBlur() {

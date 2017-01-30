@@ -10,7 +10,7 @@
         (update)="onProductQuantityUpdate(p.id, $event)">
       </cc-box-product-quantity>
       <div class="box-product-detail box-product-action box-product-display">
-        <cc-box-product-remove editId="{{editId}}:r:{{p.id}}" (remove)="onRemoveClick(p)"></cc-box-product-remove>
+        <cc-box-product-remove #remove editId="{{editId}}:r:{{p.id}}" (remove)="onRemove(p, $event)"></cc-box-product-remove>
       </div>
     </div>
     <cc-box-product-add #add *ngIf="i == columns.length - 1"

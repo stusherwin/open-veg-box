@@ -96,5 +96,5 @@ Box Products
 * Quantity format should reflect unittype?
 * Add product should only start editing when add button clicked (not auto edit)
 * When hitting enter to finish editing, have to click control twice to edit again.
-* Need to remember tab position after remove 
 * Keep tabindex order
+* When tabbing out of add, prevent next edit from highlighting before next add is focused

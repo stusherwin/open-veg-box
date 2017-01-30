@@ -13,7 +13,7 @@ export class BoxProductRemoveComponent implements MutuallyExclusiveEditComponent
   removeBtn: ElementRef
 
   @Output()
-  remove = new EventEmitter<any>();
+  remove = new EventEmitter<boolean>();
 
   constructor(
     @Inject(forwardRef(() => MutuallyExclusiveEditService))
@@ -37,8 +37,8 @@ export class BoxProductRemoveComponent implements MutuallyExclusiveEditComponent
     this.mutexService.startEdit(this);
   }
 
-  onRemoveClick() {
-    this.remove.emit(null);
+  onRemoveClick(keyboard: boolean) {
+    this.remove.emit(keyboard);
   }
 
   endEdit() {
@@ -46,7 +46,11 @@ export class BoxProductRemoveComponent implements MutuallyExclusiveEditComponent
 
   onKeyDown(event: KeyboardEvent) {
     if(event.key == 'Enter') {
-      this.onRemoveClick();
+      this.onRemoveClick(true);
     }
+  }
+
+  focus() {
+    this.renderer.invokeElementMethod(this.removeBtn.nativeElement, 'focus', []);
   }
 }
