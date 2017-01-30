@@ -2258,6 +2258,7 @@ select:-moz-focusring {
   position: relative;
   top: -1px;
   left: -5px;
+  z-index: 1;
 }
 .box-products .box-product-column .box-product .box-product-quantity {
   border-radius: 2px;
@@ -2271,15 +2272,18 @@ select:-moz-focusring {
   padding: 0 4px;
   position: relative;
   left: -5px;
+  z-index: 1;
 }
 .box-products .box-product-column .box-product .box-product-quantity .box-product-quantity-each {
   display: inline-block;
   position: relative;
   width: 10px;
+  z-index: 1;
 }
 .box-products .box-product-column .box-product .box-product-quantity .box-product-quantity-perkg {
   position: relative;
   left: -5px;
+  z-index: 1;
 }
 .box-products .box-product-column .box-product .box-product-quantity.box-product-display:hover,
 .box-products .box-product-column .box-product .box-product-quantity.box-product-display.hover {
@@ -2288,7 +2292,7 @@ select:-moz-focusring {
 }
 .box-products .box-product-column .box-product .box-product-quantity.box-product-display:hover a,
 .box-products .box-product-column .box-product .box-product-quantity.box-product-display.hover a {
-  display: inline;
+  left: 0px;
   color: #ffa011;
 }
 .box-products .box-product-column .box-product .box-product-quantity.box-product-edit a {
@@ -2298,15 +2302,17 @@ select:-moz-focusring {
   width: 17px;
 }
 .box-products .box-product-column .box-product.box-product-add .box-product-display {
-  visibility: hidden;
+  position: relative;
+  left: -10000px;
 }
 .box-products .box-product .box-product-action a,
 .box-products .box-product .box-product-display a {
-  visibility: hidden;
+  position: relative;
+  left: -10000px;
 }
 .box-products:hover .box-product .box-product-action a,
 .box-products.editing .box-product .box-product-action a {
-  visibility: visible;
+  left: 0px;
 }
 .box-products:hover .box-product.box-product-add .no-products-text,
 .box-products.editing .box-product.box-product-add .no-products-text {
@@ -2314,7 +2320,7 @@ select:-moz-focusring {
 }
 .box-products:hover .box-product.box-product-add .box-product-display,
 .box-products.editing .box-product.box-product-add .box-product-display {
-  visibility: visible;
+  left: 0px;
 }
 .box-products:hover .box-product.box-product-add:hover .box-product-display,
 .box-products.editing .box-product.box-product-add:hover .box-product-display,
@@ -2337,6 +2343,7 @@ select:-moz-focusring {
   left: -2px;
   right: -29px;
   border-radius: 2px;
+  z-index: 1;
 }
 .edit-background i {
   position: absolute;

@@ -54,6 +54,9 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
   @ViewChild('root')
   root: ElementRef
 
+  @ViewChild('focusable')
+  focusable: FocusDirective
+
   @ViewChildren('productNameTest')
   productNameTests: QueryList<ElementRef>
 
@@ -79,16 +82,20 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
     private changeDetector: ChangeDetectorRef) {
   }
 
-  focused: boolean;
   ngOnInit() {
     this.recalculateUnusedProducts();
-    this.mutexService.editStart.add(() =>{
-      console.log('editStart'); 
-      this.focused = true });
-    this.mutexService.editEnd.add(() =>{
-      console.log('editEnd'); 
-      this.focused = false
-    } );
+
+    this.mutexService.editStart.subscribe(editId => {
+      if(editId && editId.startsWith(this.editId)) {
+        this.focusable.beFocused()
+      }
+    });
+
+    this.mutexService.editEnd.subscribe(editId => {
+      if(editId && editId.startsWith(this.editId)) {
+        this.focusable.beBlurred()
+      }
+    });
   }
 
   ngOnDestroy() {
@@ -207,11 +214,7 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
     this.repopulateColumns();
   }
 
-  onRootFocus() {
-    // console.log('root focus')
-  }
-
   onRootBlur() {
-    // console.log('root blur')
+    this.mutexService.endEditByPrefix(this.editId)
   }
 }

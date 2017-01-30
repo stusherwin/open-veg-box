@@ -1,6 +1,5 @@
 <div class="box-product box-product-add" [class.no-products]="noProducts" (keydown)="keydown($event)">
   <div *ngIf="noProducts && !adding" class="box-product-detail no-products-text">No products added yet.</div> 
-  <input type="text" style="position: absolute;left:-10000px" *ngIf="products.length && !adding && !addHover" (focus)="onHiddenAddFocus()" tabindex="1" />
   <div *ngIf="products.length && !adding" (click)="onAddClick()" [class.hover]="addHover">
     <div class="box-product-detail box-product-name box-product-display" [style.width.px]="productNameWidth + productQuantityWidth">Add
       <span *ngIf="noProducts">a</span>

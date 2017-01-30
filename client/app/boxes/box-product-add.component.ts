@@ -1,20 +1,13 @@
 import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, ViewChildren, QueryList, AfterViewInit, ChangeDetectorRef, AfterViewChecked, OnChanges, Inject, forwardRef, OnInit, OnDestroy, Renderer } from '@angular/core';
-import { FocusDirective } from '../shared/focus.directive'
 import { BoxProduct } from './box'
 import { Product } from '../products/product'
 import { Subscription } from 'rxjs/Subscription'
 import { Observable } from 'rxjs/Observable';
-import { EditableComponent } from '../shared/editable.component'
-import { Arrays } from '../shared/arrays'
-import { WeightPipe } from '../shared/pipes'
 import { BoxProductsService } from './box-products.service'
-import { BoxProductQuantityComponent } from './box-product-quantity.component' 
 import { MutuallyExclusiveEditService, MutuallyExclusiveEditComponent } from './mutually-exclusive-edit.service'
 
 @Component({
   selector: 'cc-box-product-add',
-  directives: [FocusDirective, EditableComponent, BoxProductQuantityComponent],
-  pipes: [WeightPipe],
   templateUrl: 'app/boxes/box-product-add.component.html'
 })
 export class BoxProductAddComponent implements OnInit, AfterViewInit, MutuallyExclusiveEditComponent {
@@ -40,9 +33,6 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit, MutuallyEx
 
   @ViewChildren('select')
   select: QueryList<ElementRef>
-
-  // @ViewChildren('foc')
-  // focs: QueryList<FocusDirective>
 
   @ViewChild('add')
   addBtn: ElementRef  
@@ -117,29 +107,6 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit, MutuallyEx
 
   onAddBlur() {
     this.addHover = false
-    if(!this.adding) {
-      this.mutexService.endEdit(this);
-    }
-  }
-
-  onHiddenAddFocus() {
-    // console.log('hiddenAddFocus');
-    //if(this.focs.length) {
-      // console.log('len');
-      this.renderer.invokeElementMethod(this.addBtn.nativeElement, 'focus', []);
-      
-      // this.focs.first.beFocused();
-    // } else {
-    //   let subscription = this.focs.changes.subscribe((f: QueryList<FocusDirective>) => {
-    //     console.log('sub');
-        
-    //     if(f.length) {
-    //       console.log('it\'s here')
-    //       f.first.beFocused();
-    //       subscription.unsubscribe();
-    //     }
-    //   })
-    // }
   }
 
   keydown(event: KeyboardEvent) {
