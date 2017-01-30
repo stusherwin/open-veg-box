@@ -13,7 +13,7 @@
         <cc-box-product-remove editId="{{editId}}:r:{{p.id}}" (remove)="onRemoveClick(p)"></cc-box-product-remove>
       </div>
     </div>
-    <cc-box-product-add *ngIf="i == columns.length - 1"
+    <cc-box-product-add #add *ngIf="i == columns.length - 1"
       editId="{{editId}}:a"
       [products]="unusedProducts"
       [noProducts]="!value.length"

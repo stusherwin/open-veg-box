@@ -63,6 +63,9 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
   @ViewChildren('productQuantityTest')
   productQuantityTests: QueryList<ElementRef>
 
+  @ViewChild('add')
+  addComponent: BoxProductAddComponent
+
   @Output()
   add = new EventEmitter<BoxProduct>();
 
@@ -204,6 +207,10 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
     
     this.recalculateUnusedProducts();
     this.repopulateColumns();
+
+    if(this.unusedProducts.length) {
+      setTimeout(() => this.addComponent.focus());
+    }
   }
 
   onRemoveClick(product: BoxProduct) {

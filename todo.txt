@@ -93,11 +93,8 @@ Box Products
 * Make rest of app consistent with edit highlight
 * Better width solution than hardcoding pixel widths in code (padding/remainders)?
 * Make other controls use mutexService.
-* Make <i> buttons <a> so can tab to them
 * Quantity format should reflect unittype?
-* Bug: canceling out of add product/edit quantity doesn't clear focus on parent element
 * Add product should only start editing when add button clicked (not auto edit)
 * When hitting enter to finish editing, have to click control twice to edit again.
 * Need to remember tab position after remove 
-* Tabbing out of add-product should focus new add-product
 * Keep tabindex order

@@ -109,6 +109,10 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit, MutuallyEx
     this.addHover = false
   }
 
+  focus() {
+    this.renderer.invokeElementMethod(this.addBtn.nativeElement, 'focus', []);
+  }
+ 
   keydown(event: KeyboardEvent) {
     if(!this.adding) {
       if(event.key == 'Enter') {
