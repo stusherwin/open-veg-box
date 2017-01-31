@@ -24,3 +24,4 @@
     </div>
   </div>
 </div>
+<input type="text" *ngIf="adding && products.length > 1" tabindex="1" style="position: absolute; left: -10000px" (focus)="onAfterAddFocus()" />

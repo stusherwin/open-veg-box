@@ -112,6 +112,13 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit, MutuallyEx
   focus() {
     this.renderer.invokeElementMethod(this.addBtn.nativeElement, 'focus', []);
   }
+
+  onAfterAddFocus() {
+    this.onAddOkClick();
+    //console.log('afterAddFocus');
+    //this.adding = false;
+    //this.mutexService.endEdit(this);
+  }
  
   keydown(event: KeyboardEvent) {
     if(!this.adding) {

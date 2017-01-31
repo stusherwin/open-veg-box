@@ -571,7 +571,10 @@ select {
 
 input[type="text"], input[type="password"], textarea, select {
   &:focus {
+    @col: desaturate(darken(@itemHoverColor, 20%),10%);
     border: 1px solid desaturate(darken(@itemHoverColor, 20%),10%);
+    box-shadow: @col 0px 0px 1px 0px,  
+              fade(@col, 50%) 0px 0px 5px 0px inset;  
   }
 }
 
@@ -760,7 +763,9 @@ select:-moz-focusring {
 .edit-background {
   position: absolute;
   top: 0px;
-  background: desaturate(darken(@highlight, 2%), 0%);
+  //border: 1px solid desaturate(darken(@highlight, 2%), 0%); 
+  background: lighten(@itemHoverColor, 4%); //desaturate(darken(@highlight, 2%), 0%);
+  background: desaturate(darken(@itemHoverColor, 6%), 0%);
   bottom: -3px;
   left: -2px;
   right: -29px;

@@ -1247,6 +1247,7 @@ input[type="password"]:focus,
 textarea:focus,
 select:focus {
   border: 1px solid #f8c77e;
+  box-shadow: #f8c77e 0px 0px 1px 0px, rgba(248, 199, 126, 0.5) 0px 0px 5px 0px inset;
 }
 :focus,
 :active {
@@ -1405,7 +1406,8 @@ select:-moz-focusring {
 .edit-background {
   position: absolute;
   top: 0px;
-  background: #ffd9a0;
+  background: #fffaf1;
+  background: #ffe5be;
   bottom: -3px;
   left: -2px;
   right: -29px;
