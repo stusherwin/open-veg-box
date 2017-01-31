@@ -31,6 +31,9 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit, MutuallyEx
   @Input()
   productQuantityWidth: number;
 
+  @Input()
+  editTabindex: number;
+
   @ViewChildren('select')
   select: QueryList<ElementRef>
 

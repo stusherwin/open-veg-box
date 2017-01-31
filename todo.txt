@@ -94,6 +94,4 @@ Box Products
 * Better width solution than hardcoding pixel widths in code (padding/remainders)?
 * Make other controls use mutexService.
 * Quantity format should reflect unittype?
-* Add product should only start editing when add button clicked (not auto edit)
 * When hitting enter to finish editing, have to click control twice to edit again.
-* Keep tabindex order

@@ -8,10 +8,10 @@
   <div *ngIf="editing" class="edit-background">
     <i class="icon-ok" (click)="onEditOkClick()"></i><i class="icon-cancel" (click)="onEditCancelClick()"></i>
   </div>
-  <input type="text" style="position: absolute;left:-10000px" *ngIf="!editing" tabindex="1" (focus)="onEditFocus()" />
+  <input type="text" style="position: absolute;left:-10000px" *ngIf="!editing" [tabindex]="editTabindex" (focus)="onEditFocus()" />
   <div style="display: inline-block" *ngIf="editing">
     <span class="box-product-quantity-each" *ngIf="unitType == 'each'">x</span>
-    <input type="text" #input [(ngModel)]="stringValue" tabindex="1" />
+    <input type="text" #input [(ngModel)]="stringValue" [tabindex]="editTabindex" />
     <span class="box-product-quantity-perkg" *ngIf="unitType == 'perKg'">Kg</span>
   </div>
 </div>

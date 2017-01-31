@@ -9,6 +9,9 @@ export class BoxProductRemoveComponent implements MutuallyExclusiveEditComponent
   @Input()
   editId: string;
 
+  @Input()
+  editTabindex: number;
+
   @ViewChild('remove')
   removeBtn: ElementRef
 

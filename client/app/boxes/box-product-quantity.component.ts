@@ -28,11 +28,8 @@ export class BoxProductQuantityComponent implements MutuallyExclusiveEditCompone
   @Input()
   editId: string;
 
-  // @ViewChild('root')
-  // root: FocusDirective;
-
-  // @ViewChildren('focusable')
-  // focusables: QueryList<FocusDirective>;
+  @Input()
+  editTabindex: number;
 
   @ViewChildren('input')
   input: QueryList<ElementRef>
