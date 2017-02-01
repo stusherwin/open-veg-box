@@ -94,4 +94,14 @@ Box Products
 * Better width solution than hardcoding pixel widths in code (padding/remainders)?
 * Make other controls use mutexService.
 * Quantity format should reflect unittype?
-* When hitting enter to finish editing, have to click control twice to edit again.
+* When hitting enter/escape to finish editing, have to click control twice to edit again.
+* Delete last product - stays in focused mode
+* Adding a product via mouse - focuses add product (should only do this if added via keyboard)
+
+Round Customers
+===============
+* Add last customer - width reduces
+* Delete last customer - width reduces & then immediately expands
+* Clicking away from add adds the customer (should cancel)
+* Add customer address width is incorrect (Betty Barnes overflows to next line)
+* Customer address doesn't bind to correct customer when adding (is this because customers collection changes?)

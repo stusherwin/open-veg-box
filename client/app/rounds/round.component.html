@@ -36,6 +36,7 @@
   <p *ngIf="addMode && !loaded"><i class="icon-spin3 animate-spin"></i> Loading rounds...</p>
   <div class="details" [hidden]="addMode && !adding">
     <cc-heading [addMode]="addMode" #roundName [(value)]="round.name" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-heading>
-    <cc-round-customers *ngIf="!addMode" [addMode]="addMode" [(value)]="round.customers" (add)="onCustomerAdd($event)" (remove)="onCustomerRemove($event)" [customers]="customers" [editTabindex]="(index * 2) + 1"></cc-round-customers>
+    <cc-round-customers *ngIf="!addMode" [addMode]="addMode" [(value)]="round.customers" (add)="onCustomerAdd($event)" (remove)="onCustomerRemove($event)" [customers]="customers" [editTabindex]="(index * 2) + 1"
+      editId="rc{{round.id}}"></cc-round-customers>
   </div>
 </div>

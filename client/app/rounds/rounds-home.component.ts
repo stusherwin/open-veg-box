@@ -8,6 +8,8 @@ import { RouteParams } from '@angular/router-deprecated';
 import { FocusService } from '../shared/focus.service';
 import { FocusDirective } from '../shared/focus.directive';
 import { RouteConfig, Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
+import { MutuallyExclusiveEditService } from '../boxes/mutually-exclusive-edit.service'
+import { RoundCustomersService } from './round-customers.service'
 import 'rxjs/add/observable/concat';
 import 'rxjs/add/operator/last';
 
@@ -15,7 +17,7 @@ import 'rxjs/add/operator/last';
   selector: 'cc-rounds-home',
   templateUrl: 'app/rounds/rounds-home.component.html',
   directives: [RoundComponent, FocusDirective],
-  providers: [RoundService, CustomerService, FocusService]
+  providers: [RoundService, CustomerService, FocusService, MutuallyExclusiveEditService, RoundCustomersService]
 })
 export class RoundsHomeComponent implements OnInit {
   constructor(roundService: RoundService, customerService: CustomerService, routeParams: RouteParams) {

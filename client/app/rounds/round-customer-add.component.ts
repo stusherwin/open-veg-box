@@ -1,35 +1,33 @@
 import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, ViewChildren, QueryList, AfterViewInit, ChangeDetectorRef, AfterViewChecked, OnChanges, Inject, forwardRef, OnInit, OnDestroy, Renderer } from '@angular/core';
-import { BoxProduct } from './box'
-import { Product } from '../products/product'
+import { RoundCustomer } from './round'
+import { Customer } from '../customers/customer'
 import { Subscription } from 'rxjs/Subscription'
 import { Observable } from 'rxjs/Observable';
-import { BoxProductsService } from './box-products.service'
-import { MutuallyExclusiveEditService, MutuallyExclusiveEditComponent } from './mutually-exclusive-edit.service'
+import { MutuallyExclusiveEditService, MutuallyExclusiveEditComponent } from '../boxes/mutually-exclusive-edit.service'
 
 @Component({
-  selector: 'cc-box-product-add',
-  templateUrl: 'app/boxes/box-product-add.component.html'
+  selector: 'cc-round-customer-add',
+  templateUrl: 'app/rounds/round-customer-add.component.html'
 })
-export class BoxProductAddComponent implements OnInit, AfterViewInit, MutuallyExclusiveEditComponent {
+export class RoundCustomerAddComponent implements OnInit, AfterViewInit, MutuallyExclusiveEditComponent {
   adding: boolean;
   addHover: boolean;
-  product: Product;
-  quantityStringValue: string;
+  customer: Customer;
   
   @Input()
-  products: Product[];
+  customers: Customer[];
 
   @Input()
   editId: string;
 
   @Input()
-  productNameWidth: number;
-
-  @Input()
-  productQuantityWidth: number;
-
-  @Input()
   editTabindex: number;
+
+  @Input()
+  customerNameWidth: number;
+
+  @Input()
+  customerAddressWidth: number;
 
   @Input()
   text: string;
@@ -41,7 +39,7 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit, MutuallyEx
   addBtn: ElementRef  
 
   @Output()
-  add = new EventEmitter<BoxProduct>();
+  add = new EventEmitter<RoundCustomer>();
 
   constructor(
     @Inject(forwardRef(() => MutuallyExclusiveEditService))
@@ -52,8 +50,7 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit, MutuallyEx
   ngOnInit() {
     if(this.mutexService.isAnyEditingWithPrefix(this.editId)) {
       this.mutexService.startEdit(this);
-      this.product = this.products[0];
-      this.quantityStringValue = '';
+      this.customer = this.customers[0];
       this.adding = true;
     }
   }
@@ -66,8 +63,7 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit, MutuallyEx
 
   onAddClick() {
     this.mutexService.startEdit(this);
-    this.product = this.products[0];
-    this.quantityStringValue = '';
+    this.customer = this.customers[0];
     this.adding = true;
 
     let subscription = this.select.changes.subscribe((f: QueryList<ElementRef>) => {
@@ -78,15 +74,12 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit, MutuallyEx
     })
   }
 
-  onAddProductChange(event: any) {
-    this.product = this.products[+event.target.value];
+  onAddCustomerChange(event: any) {
+    this.customer = this.customers[+event.target.value];
   }
 
   onAddOkClick() {
-    let quantity = this.toDecimalValue(this.quantityStringValue);
-    if(quantity > 0) {
-      this.add.emit(new BoxProduct(this.product.id, this.product.name, quantity, this.product.unitType));
-    }
+    this.add.emit(new RoundCustomer(this.customer.id, this.customer.name, this.customer.address, this.customer.email));
 
     this.adding = false;
     this.mutexService.endEdit(this);
@@ -135,24 +128,5 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit, MutuallyEx
         this.onAddCancelClick();
       }
     }
-  }
-
-  fixedDecimals: number = null;
-  maxDecimals: number = 3;
-  private toDecimalValue(value: string): number {
-    var parsed = parseFloat(value);
-    if( isNaN(parsed) ) {
-      return 0;
-    }
-
-    if(this.fixedDecimals) {
-      return parseFloat(parsed.toFixed(this.fixedDecimals));
-    }
-
-    if (this.maxDecimals) {
-      return parseFloat(parsed.toFixed(this.maxDecimals));
-    }
-
-    return parsed;
   }
 }

@@ -1,0 +1,20 @@
+<div class="round-customer round-customer-add" (keydown)="keydown($event)">
+  <div *ngIf="customers.length && !adding" (click)="onAddClick()" [class.hover]="addHover">
+    <div class="round-customer-detail round-customer-name round-customer-display" [style.width.px]="customerNameWidth + customerAddressWidth">{{text}}</div>
+    <div class="round-customer-detail round-customer-action round-customer-display">
+      <a #add [tabindex]="editTabindex" (focus)="onAddFocus()" (blur)="onAddBlur()"><i class="icon-add"></i></a>
+    </div>       
+  </div>
+  <div *ngIf="adding" style="position: relative" class="round-customer-detail" [style.width.px]="customerNameWidth + customerAddressWidth">
+    <div class="edit-background">
+      <i class="icon-ok" (click)="onAddOkClick()"></i><i class="icon-cancel" (click)="onAddCancelClick()"></i>
+    </div>
+    <div class="round-customer-detail round-customer-name round-customer-edit" [style.width.px]="customerNameWidth"><select #select (change)="onAddCustomerChange($event)" [tabindex]="editTabindex">
+        <option *ngFor="let c of customers; let i = index" [value]="i">{{c.name}}</option>
+      </select>
+    </div>
+    <div class="round-customer-detail round-customer-address round-customer-edit" [style.width.px]="customerAddressWidth">{{customer.address}}
+    </div>
+  </div>
+</div>
+<input type="text" *ngIf="adding && customers.length > 1" [tabindex]="editTabindex" style="position: absolute; left: -10000px" (focus)="onAfterAddFocus()" />
