@@ -3,7 +3,7 @@ import { Box, BoxProduct } from './box';
 import { Product } from '../products/product'
 import { WeightPipe, MoneyPipe } from '../shared/pipes';
 import { HeadingComponent } from '../shared/heading.component';
-import { FocusDirective } from '../shared/focus.directive'
+import { FocusDirective } from '../shared/focus.directive';
 import { BoxPriceComponent } from './box-price.component';
 import { BoxProductsComponent } from './box-products.component';
 
