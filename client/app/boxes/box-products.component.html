@@ -24,7 +24,6 @@
     <cc-box-product-add #add *ngIf="i == columns.length - 1"
       editId="{{editId}}:a"
       [products]="unusedProducts"
-      [noProducts]="!value.length"
       [productNameWidth]="productNameWidth + productNamePadding"
       [productQuantityWidth]="productQuantityWidth + productQuantityPadding"
       [editTabindex]="editTabindex"

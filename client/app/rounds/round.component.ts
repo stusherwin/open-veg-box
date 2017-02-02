@@ -42,6 +42,9 @@ export class RoundComponent {
   @Input()
   customers: RoundCustomer[];
 
+  @Input()
+  unusedCustomers: RoundCustomer[];
+
   @Output()
   delete = new EventEmitter<Round>();
 

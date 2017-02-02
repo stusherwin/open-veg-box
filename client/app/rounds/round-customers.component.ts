@@ -34,6 +34,9 @@ export class RoundCustomersComponent implements OnInit, AfterViewChecked {
   customers: Customer[] = [];
 
   @Input()
+  unusedCustomers: Customer[] = [];
+
+  @Input()
   editId: string;
 
   @Input()

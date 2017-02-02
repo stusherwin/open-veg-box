@@ -12,6 +12,8 @@ import { MutuallyExclusiveEditService } from '../boxes/mutually-exclusive-edit.s
 import { RoundCustomersService } from './round-customers.service'
 import 'rxjs/add/observable/concat';
 import 'rxjs/add/operator/last';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/combineLatest';
 
 @Component({
   selector: 'cc-rounds-home',
@@ -30,19 +32,23 @@ export class RoundsHomeComponent implements OnInit {
   customerService: CustomerService;
   rounds: Round[] = [];
   customers: RoundCustomer[] = [];
+  unusedCustomers: RoundCustomer[] = [];
   loaded: boolean;
 
   queryParams: {[key: string]: string};
 
   ngOnInit() {
-    this.roundService.getAll(this.queryParams).subscribe(rounds => {
-      this.loaded = true;
-      this.rounds = rounds;
-    } );
-
-    this.customerService.getAllWithNoRound(this.queryParams).subscribe(customers => {
-      this.customers = customers.map(c => new RoundCustomer(c.id, c.name, c.address, c.email));
-    } );
+    this.roundService.getAll(this.queryParams)
+      .combineLatest(
+        this.customerService.getAll(this.queryParams),
+        this.customerService.getAllWithNoRound(this.queryParams),
+        (rounds, customers, unusedCustomers) => ({rounds, customers, unusedCustomers}))
+      .subscribe(({rounds, customers, unusedCustomers}) => {
+        this.loaded = true;
+        this.rounds = rounds;
+        this.customers = customers.map(c => new RoundCustomer(c.id, c.name, c.address, c.email));
+        this.unusedCustomers = unusedCustomers.map(c => new RoundCustomer(c.id, c.name, c.address, c.email));
+      });
   }
 
   onAdd(round: Round) {
@@ -62,18 +68,18 @@ export class RoundsHomeComponent implements OnInit {
   }
 
   onCustomerAdd(event: any) {
-    this.roundService.addCustomer(event.roundId, event.customerId, this.queryParams).subscribe(rounds => {
-      this.customerService.getAllWithNoRound(this.queryParams).subscribe(customers => {
-        this.customers = customers.map(c => new RoundCustomer(c.id, c.name, c.address, c.email));
-      } );
-    });
+    this.roundService.addCustomer(event.roundId, event.customerId, this.queryParams)
+      .mergeMap(_ => this.customerService.getAllWithNoRound(this.queryParams))
+      .subscribe(customers => {
+        this.unusedCustomers = customers.map(c => new RoundCustomer(c.id, c.name, c.address, c.email));
+      });
   }
 
   onCustomerRemove(event: any) {
-    this.roundService.removeCustomer(event.roundId, event.customerId, this.queryParams).subscribe(rounds => {
-      this.customerService.getAllWithNoRound(this.queryParams).subscribe(customers => {
-        this.customers = customers.map(c => new RoundCustomer(c.id, c.name, c.address, c.email));
-      } );
-    });
+    this.roundService.removeCustomer(event.roundId, event.customerId, this.queryParams)
+      .mergeMap(_ => this.customerService.getAllWithNoRound(this.queryParams))
+      .subscribe(customers => {
+        this.unusedCustomers = customers.map(c => new RoundCustomer(c.id, c.name, c.address, c.email));
+      });
   }
 }

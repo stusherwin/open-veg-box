@@ -98,8 +98,6 @@ Box Products
 * Delete last product - stays in focused mode
 * Adding a product via mouse - focuses add product (should only do this if added via keyboard)
 
-Round Customers
+Round customers
 ===============
-* Add last customer - width reduces
-* Delete last customer - width reduces & then immediately expands
-* Customer address doesn't bind to correct customer when adding (is this because customers collection changes?)
+* 1px spacing difference when tabbing into round-customers from outside

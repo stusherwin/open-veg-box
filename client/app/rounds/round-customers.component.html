@@ -15,8 +15,7 @@
   </div> 
   <cc-round-customer-add #add
     editId="{{editId}}:a"
-    [customers]="customers"
-    [noCustomers]="!value.length"
+    [customers]="unusedCustomers"
     [editTabindex]="editTabindex"
     [customerNameWidth]="customerNameWidth + customerNamePadding"
     [customerAddressWidth]="customerAddressWidth + customerAddressPadding"
@@ -32,7 +31,6 @@
         <option *ngFor="let c of customers">{{c.name}}</option>
       </select>
     </div>
-    <div #customerAddressTest class="round-customer-detail round-customer-address round-customer-display" *ngFor="let c of value">{{c.address}}</div>
     <div #customerAddressTest *ngFor="let c of customers" class="round-customer-detail round-customer-address round-customer-edit">{{c.address}}</div>
   </div>
 </div>
