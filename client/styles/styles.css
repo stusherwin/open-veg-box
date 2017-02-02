@@ -2409,6 +2409,10 @@ select:-moz-focusring {
   color: #999;
   cursor: auto;
 }
+.active-stu {
+  border: 1px solid red;
+  background: rgba(170, 170, 255, 0.2);
+}
 .home {
   background: #579532;
   box-shadow: none;

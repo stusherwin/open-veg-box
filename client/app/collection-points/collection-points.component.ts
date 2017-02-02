@@ -1,23 +1,49 @@
-import { Component, Input, Directive, OnInit, OnDestroy, ElementRef, Inject, forwardRef, HostListener, OnChanges, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
+import { Component, Input, Directive, OnInit, OnDestroy, ElementRef, Inject, forwardRef, HostListener, OnChanges, ChangeDetectorRef, AfterViewChecked, Renderer } from '@angular/core';
 import { FocusDirective } from '../shared/focus.directive';
 import { Arrays } from '../shared/arrays';
+
+
+export interface ActiveElement {
+  id: string;
+  element: Element;
+  active(): boolean;
+}
+
+export interface ActiveParentElement extends ActiveElement {
+  children: ActiveElement[]
+}
+
 
 @Directive({
   selector: '[cc-active-parent]'
 })
-export class ActiveParentDirective implements OnInit, OnDestroy, OnChanges {
-  el: ElementRef;
-  children: ActiveDirective[] = []
+export class ActiveParentDirective implements OnInit, OnDestroy, OnChanges, ActiveParentElement {
+  private isActive: boolean;
+  children: ActiveElement[] = []
 
-  constructor(el: ElementRef,
+  constructor(
+    private el: ElementRef,
+
     @Inject(forwardRef(() => ActiveService))
     private service: ActiveService,
-    private changeDetector: ChangeDetectorRef) {
-      this.el = el;
+
+    private changeDetector: ChangeDetectorRef,
+    private renderer: Renderer) {
   }
 
   @Input()
   id: string
+
+  @Input('active-class')
+  activeClass: string
+
+  get element(): Element {
+    return this.el.nativeElement;
+  }
+
+  active(): boolean {
+    return !!this.children.find(c => this.service.isActive(c));
+  }
 
   ngOnInit() {
     this.service.registerParent(this)
@@ -33,28 +59,42 @@ export class ActiveParentDirective implements OnInit, OnDestroy, OnChanges {
 
   ngAfterViewChecked() {
     console.log('Parent \'' + this.id + '\' AfterViewChecked')
-    if(this.service.isActive(this)) {
-      
+    let newActive = this.active();
+    if(this.isActive != newActive) {
+      this.isActive = newActive;
+      console.log('active changed:');
+      console.log(this.isActive);
+      this.renderer.setElementClass(this.el.nativeElement, this.activeClass, this.isActive);
+      //this.changeDetector.detectChanges();
     }
+    //if(this.service.isActive(this)) {
+      
+    //}
   }
 }
 
 
 @Directive({
-  selector: '[cc-active]'
+  selector: '[cc-active]:not([cc-active-parent])'
 })
-export class ActiveDirective implements OnInit, OnDestroy {
-  el: ElementRef;
-  active: boolean = false;
-
-  constructor(el: ElementRef,
+export class ActiveDirective implements OnInit, OnDestroy, ActiveElement {
+  constructor(
+    private el: ElementRef,
+    
     @Inject(forwardRef(() => ActiveService))
     private service: ActiveService) {
-      this.el = el;
   }
 
   @Input()
   id: string
+
+  get element(): Element {
+    return this.el.nativeElement;
+  }
+
+  active(): boolean {
+    return this.service.isActive(this);
+  }
 
   ngOnInit() {
     this.service.registerChild(this)    
@@ -97,43 +137,44 @@ export class ActiveOnClickDirective implements OnInit, OnDestroy {
 
 
 export class ActiveService {
-  parents: ActiveParentDirective[] = []
-  children: ActiveDirective[] = []
+  parents: ActiveParentElement[] = []
+  children: ActiveElement[] = []
+  activeElement: ActiveElement = null;
 
-  registerParent(parent: ActiveParentDirective) {
+  registerParent(parent: ActiveParentElement) {
     console.log('Register parent \'' + parent.id + '\'');
 
     this.parents.push(parent);
   }
 
-  registerChild(child: ActiveDirective) {
+  registerChild(child: ActiveElement) {
     console.log('Register child \'' + child.id + '\'');
 
     this.children.push(child);
     
     for(let p of this.parents) {
-      let children: any[] = [].slice.call(p.el.nativeElement.querySelectorAll('[cc-active]'));
-      let childrenOfOtherParents: any[] = [].slice.call(p.el.nativeElement.querySelectorAll(':scope [cc-active-parent] [cc-active]'));
+      let children: any[] = [].slice.call(p.element.querySelectorAll('[cc-active]'));
+      let childrenOfOtherParents: any[] = [].slice.call(p.element.querySelectorAll(':scope [cc-active-parent] [cc-active]'));
       let exclusiveChildren = children.filter(c => !childrenOfOtherParents.find(oc => oc == c));
 
       for(let c of exclusiveChildren) {
-        if(child.el.nativeElement == c) {
+        if(child.element == c) {
           p.children.push(child);
         }
       }
     }
 
-    for(let p of this.parents) {
-      console.log('Parent \'' + p.id + '\' children: ');
-      console.log(p.children.map(c => c.id));
-    }
+    //for(let p of this.parents) {
+      //console.log('Parent \'' + p.id + '\' children: ');
+      //console.log(p.children.map(c => c.id));
+    //}
   }
 
-  deregisterParent(parent: ActiveParentDirective) {
+  deregisterParent(parent: ActiveParentElement) {
     Arrays.remove(this.parents, parent);
   }
 
-  deregisterChild(child: ActiveDirective) {
+  deregisterChild(child: ActiveElement) {
     Arrays.remove(this.children, child);
     
     for(let p of this.parents) {
@@ -145,13 +186,17 @@ export class ActiveService {
   }
 
   activate(element: ActiveOnClickDirective) {
-    let child = this.children.find(c => c.el.nativeElement == element.el.nativeElement);
+    let child = this.children.find(c => c.element == element.el.nativeElement);
     if(child) {
-      child.activate();
+      this.activeElement = child;
     } else {
       console.log('no child found for: ');
       console.log(element.el);
     }
+  }
+
+  isActive(element: ActiveElement): boolean {
+    return this.activeElement == element;
   }
 }
 
