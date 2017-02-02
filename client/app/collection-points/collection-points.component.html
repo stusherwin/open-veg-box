@@ -2,30 +2,37 @@
 
 <p>Under construction...</p>
 <br /><br />
-<div cc-active-parent id="a">
+<div id="a" cc-active-parent [class.active-stu]="active0" (activate)="active0 = true" (deactivate)="active0 = false">
   a
-  <div cc-active id="a-1">
+  <div id="a-1">
     a-1
-    <div cc-active-parent cc-active active-class="active-stu" id="a-1-i">
+    <div id="a-1-i" cc-active-parent cc-active [class.active-stu]="active1" (activate)="active1 = true" (deactivate)="active1 = false">
       a-1-i
-      <div cc-active id="a-1-i-x" cc-active-on-click>
+      <div id="a-1-i-x">
         a-1-i-x
+        <input type="text" cc-active cc-activate-on-focus />
       </div>
       <div cc-active id="a-1-i-y">
         a-1-i-y
+        <input type="text" cc-active cc-activate-on-focus />
       </div>
       <div cc-active id="a-1-i-z">
         a-1-i-z
+        <input type="text" cc-active cc-activate-on-focus />
       </div>
     </div>
-    <div cc-active-parent id="a-1-ii">
-        a-1-ii
+    <div id="a-1-ii" cc-active-parent cc-active [class.active-stu]="active2" (activate)="active2 = true" (deactivate)="active2 = false">
+      a-1-ii
+      <div id="a-1-ii-x">
+        a-1-ii-x
+        <input type="text" cc-active cc-activate-on-focus />
+      </div>
     </div>
   </div>
   <div cc-active id="a-2">
     a-2
-    <div cc-active-parent id="a-1-i">
-      a-1-i
+    <div cc-active-parent id="a-2-i">
+      a-2-i
     </div>
   </div>
   <div cc-active id="a-3">
