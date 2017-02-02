@@ -33,5 +33,6 @@
       </select>
     </div>
     <div #customerAddressTest class="round-customer-detail round-customer-address round-customer-display" *ngFor="let c of value">{{c.address}}</div>
+    <div #customerAddressTest *ngFor="let c of customers" class="round-customer-detail round-customer-address round-customer-edit">{{c.address}}</div>
   </div>
 </div>
