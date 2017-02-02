@@ -83,16 +83,22 @@ export class RoundCustomerAddComponent implements OnInit, AfterViewInit, Mutuall
 
     this.adding = false;
     this.mutexService.endEdit(this);
+    this.tabbedAway = false;
   }
 
   onAddCancelClick() {
     this.adding = false;
     this.mutexService.endEdit(this);
+    this.tabbedAway = false;
   }
 
   endEdit() {
     if(this.adding) {
-      this.onAddOkClick();
+      if(this.tabbedAway) {
+        this.onAddOkClick();
+      } else {
+        this.onAddCancelClick();
+      }
     }
   }
 
@@ -111,11 +117,9 @@ export class RoundCustomerAddComponent implements OnInit, AfterViewInit, Mutuall
 
   onAfterAddFocus() {
     this.onAddOkClick();
-    //console.log('afterAddFocus');
-    //this.adding = false;
-    //this.mutexService.endEdit(this);
   }
  
+  tabbedAway = false;
   keydown(event: KeyboardEvent) {
     if(!this.adding) {
       if(event.key == 'Enter') {
@@ -126,6 +130,8 @@ export class RoundCustomerAddComponent implements OnInit, AfterViewInit, Mutuall
         this.onAddOkClick();
       } else if(event.key == 'Escape') {
         this.onAddCancelClick();
+      } else if(event.key == 'Tab' && !event.shiftKey) {
+        this.tabbedAway = true;
       }
     }
   }

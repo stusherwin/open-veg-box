@@ -73,7 +73,7 @@ export class BoxProductQuantityComponent implements MutuallyExclusiveEditCompone
   onEditOkClick() {
     let newValue = this.toDecimalValue(this.stringValue);
 
-    if(newValue != this.value && newValue > 0) {
+    if(newValue != this.value) {
       this.value = newValue;
       this.update.emit(this.value);
     }
@@ -81,20 +81,23 @@ export class BoxProductQuantityComponent implements MutuallyExclusiveEditCompone
     this.stringValue = this.toStringValue(this.value);
     this.editing = false;
     this.mutexService.endEdit(this);
+    this.tabbedAway = false;
   }
 
   onEditCancelClick() {
     this.stringValue = this.toStringValue(this.value);
     this.editing = false;
     this.mutexService.endEdit(this);
-    //this.root.beBlurred();
+    this.tabbedAway = false;
   }
 
   endEdit() {
-    // console.log('edit quantity ' + this.value +' endEdit');
-    //this.onEditOkClick();
     if(this.editing) {
-      this.onEditOkClick();
+      if(this.tabbedAway) {
+        this.onEditOkClick();
+      } else {
+        this.onEditCancelClick();
+      }
     }
   }
 
@@ -106,25 +109,7 @@ export class BoxProductQuantityComponent implements MutuallyExclusiveEditCompone
     this.onEditClick();
   }
 
-//   onFocus() {
-//     //console.log('edit quantity ' + this.value +' focus');
-//   }
-
-//   onBlur() {
-//  //   console.log('edit quantity ' + this.value +' blur');
-//     if(this.editing) {
-//       this.onEditOkClick();
-//     }
-//   }
-
-  // onStringValueFocus() {
-  //  // console.log('stringValue focus');
-  // }
-
-  // onStringValueBlur() {
-  //   //console.log('stringValue blur');
-  // }
-
+  tabbedAway = false;
   keydown(event: KeyboardEvent) {
     if(!this.editing) {
       return;
@@ -134,6 +119,8 @@ export class BoxProductQuantityComponent implements MutuallyExclusiveEditCompone
       this.onEditOkClick();
     } else if(event.key == 'Escape') {
       this.onEditCancelClick();
+    } else if(event.key == 'Tab' && !event.shiftKey) {
+      this.tabbedAway = true;
     }
   }
 

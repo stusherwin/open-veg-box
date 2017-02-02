@@ -53,7 +53,7 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit, MutuallyEx
     if(this.mutexService.isAnyEditingWithPrefix(this.editId)) {
       this.mutexService.startEdit(this);
       this.product = this.products[0];
-      this.quantityStringValue = '';
+      this.quantityStringValue = '1';
       this.adding = true;
     }
   }
@@ -67,7 +67,7 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit, MutuallyEx
   onAddClick() {
     this.mutexService.startEdit(this);
     this.product = this.products[0];
-    this.quantityStringValue = '';
+    this.quantityStringValue = '1';
     this.adding = true;
 
     let subscription = this.select.changes.subscribe((f: QueryList<ElementRef>) => {
@@ -84,22 +84,28 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit, MutuallyEx
 
   onAddOkClick() {
     let quantity = this.toDecimalValue(this.quantityStringValue);
-    if(quantity > 0) {
+    //if(quantity > 0) {
       this.add.emit(new BoxProduct(this.product.id, this.product.name, quantity, this.product.unitType));
-    }
+    //}
 
     this.adding = false;
     this.mutexService.endEdit(this);
+    this.tabbedAway = false;
   }
 
   onAddCancelClick() {
     this.adding = false;
     this.mutexService.endEdit(this);
+    this.tabbedAway = false;
   }
 
   endEdit() {
     if(this.adding) {
-      this.onAddOkClick();
+      if(this.tabbedAway) {
+        this.onAddOkClick();
+      } else {
+        this.onAddCancelClick();
+      }
     }
   }
 
@@ -118,11 +124,9 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit, MutuallyEx
 
   onAfterAddFocus() {
     this.onAddOkClick();
-    //console.log('afterAddFocus');
-    //this.adding = false;
-    //this.mutexService.endEdit(this);
   }
  
+  tabbedAway = false;
   keydown(event: KeyboardEvent) {
     if(!this.adding) {
       if(event.key == 'Enter') {
@@ -133,6 +137,8 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit, MutuallyEx
         this.onAddOkClick();
       } else if(event.key == 'Escape') {
         this.onAddCancelClick();
+      } else if(event.key == 'Tab' && !event.shiftKey) {
+        this.tabbedAway = true;
       }
     }
   }

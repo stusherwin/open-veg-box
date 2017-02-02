@@ -883,8 +883,6 @@ select:-moz-focusring {
 .edit-background {
   position: absolute;
   top: 0px;
-  //border: 1px solid desaturate(darken(@highlight, 2%), 0%); 
-  background: lighten(@itemHoverColor, 4%); //desaturate(darken(@highlight, 2%), 0%);
   background: desaturate(darken(@itemHoverColor, 6%), 0%);
   bottom: -3px;
   left: -2px;
@@ -907,8 +905,13 @@ select:-moz-focusring {
   }
 }
 
+.box-product-quantity .edit-background {
+  right: -33px;
+}
+
 .box-product-add .edit-background {
   left: -8px;
+  right: -33px;
 }
 
 .round-customer-add .edit-background {

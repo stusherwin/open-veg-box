@@ -102,5 +102,4 @@ Round Customers
 ===============
 * Add last customer - width reduces
 * Delete last customer - width reduces & then immediately expands
-* Clicking away from add adds the customer (should cancel)
 * Customer address doesn't bind to correct customer when adding (is this because customers collection changes?)
