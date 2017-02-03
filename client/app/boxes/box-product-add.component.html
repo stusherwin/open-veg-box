@@ -1,23 +1,37 @@
-<div class="box-product box-product-add" (keydown)="keydown($event)">
+<div class="box-product box-product-add"
+    cc-active cc-active-parent (activate)="onActivate()" (deactivate)="onDeactivate()"
+    (keydown)="keydown($event)">
   <div *ngIf="products.length && !adding" (click)="onAddClick()" [class.hover]="addHover">
     <div class="box-product-detail box-product-name box-product-display" [style.width.px]="productNameWidth + productQuantityWidth">{{text}}</div>
     <div class="box-product-detail box-product-action box-product-display">
-      <a #add [tabindex]="editTabindex" (focus)="onAddFocus()" (blur)="onAddBlur()"><i class="icon-add"></i></a>
+      <a #add
+        cc-active cc-activate-on-focus
+        [tabindex]="editTabindex"
+        (focus)="addHover = true"
+        (blur)="addHover = false"><i class="icon-add"></i>
+      </a>
     </div>       
   </div>
   <div *ngIf="adding" style="position: relative" class="box-product-detail" [style.width.px]="productNameWidth + productQuantityWidth">
     <div class="edit-background">
-      <i class="icon-ok" (click)="onAddOkClick()"></i><i class="icon-cancel" (click)="onAddCancelClick()"></i>
+      <a cc-active cc-activate-on-focus tabindex="9999" (click)="onAddOkClick()"><i class="icon-ok"></i></a>
+      <a cc-active cc-activate-on-focus tabindex="9999" (click)="onAddCancelClick()"><i class="icon-cancel"></i></a>
     </div>
-    <div class="box-product-detail box-product-name box-product-edit" [style.width.px]="productNameWidth"><select #select (change)="onAddProductChange($event)" [tabindex]="editTabindex">
+    <div class="box-product-detail box-product-name box-product-edit" [style.width.px]="productNameWidth"><select #select
+        cc-active cc-activate-on-focus
+        (change)="onAddProductChange($event)"
+        [tabindex]="editTabindex">
         <option *ngFor="let p of products; let i = index" [value]="i">{{p.name}}</option>
       </select>
     </div>
     <div class="box-product-detail box-product-quantity box-product-edit" [style.width.px]="productQuantityWidth">
       <span class="box-product-quantity-each" *ngIf="product.unitType == 'each'">x</span>
-      <input type="text" class="input" [(ngModel)]="quantityStringValue" [tabindex]="editTabindex" />
+      <input type="text" class="input"
+        cc-active cc-activate-on-focus
+        [(ngModel)]="quantityStringValue"
+        [tabindex]="editTabindex" />
       <span class="box-product-quantity-perkg" *ngIf="product.unitType == 'perKg'">Kg</span>
     </div>
   </div>
 </div>
-<input type="text" *ngIf="adding && products.length > 1" [tabindex]="editTabindex" style="position: absolute; left: -10000px" (focus)="onAfterAddFocus()" />
+<input type="text" *ngIf="adding && products.length > 1" [tabindex]="editTabindex" style="position: absolute; left: -10000px" />

@@ -11,7 +11,7 @@ import { BoxProductsService } from './box-products.service'
 import { BoxProductQuantityComponent } from './box-product-quantity.component' 
 import { BoxProductAddComponent } from './box-product-add.component' 
 import { BoxProductRemoveComponent } from './box-product-remove.component' 
-import { MutuallyExclusiveEditService } from './mutually-exclusive-edit.service'
+import { ActiveDirective, ActiveParentDirective, ActivateOnFocusDirective } from '../shared/active-elements';
 
 const PRODUCT_NAME_PADDING = 1;
 const PRODUCT_QUANTITY_PADDING = 5;
@@ -21,7 +21,7 @@ const COLUMN_PADDING_RATIO = 0.8;
 
 @Component({
   selector: 'cc-box-products',
-  directives: [FocusDirective, EditableComponent, BoxProductQuantityComponent, BoxProductAddComponent, BoxProductRemoveComponent],
+  directives: [FocusDirective, EditableComponent, BoxProductQuantityComponent, BoxProductAddComponent, BoxProductRemoveComponent, ActiveDirective, ActiveParentDirective],
   pipes: [WeightPipe],
   templateUrl: 'app/boxes/box-products.component.html',
   host: {
@@ -41,6 +41,7 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
   columns: BoxProduct[][] = [];
   maxColumns: number = 0;
   unusedProducts: Product[] = [];
+  editing: boolean;
   
   @Input()
   value: BoxProduct[];
@@ -85,26 +86,11 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
     @Inject(forwardRef(() => BoxProductsService))
     private service: BoxProductsService,
     
-    @Inject(forwardRef(() => MutuallyExclusiveEditService))
-    private mutexService: MutuallyExclusiveEditService,
-
     private changeDetector: ChangeDetectorRef) {
   }
 
   ngOnInit() {
     this.recalculateUnusedProducts();
-
-    this.mutexService.editStart.subscribe(editId => {
-      if(editId && editId.startsWith(this.editId)) {
-        this.focusable.beFocused()
-      }
-    });
-
-    this.mutexService.editEnd.subscribe(editId => {
-      if(editId && editId.startsWith(this.editId)) {
-        this.focusable.beBlurred()
-      }
-    });
   }
 
   ngOnDestroy() {
@@ -115,14 +101,6 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
     // TODO: move this out of AfterViewChecked?
     // Here because AfterViewChecked is the earliest event where correct element widths are available
     this.recalculateWidths();
-  }
-
-  editing(editId: string) {
-    return this.mutexService.isAnyEditingWithPrefix(editId);
-  }
-
-  anyEditing() {
-    return this.mutexService.isAnyEditingWithPrefix(this.editId);
   }
 
   recalculateWidths() {
@@ -213,10 +191,6 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
     
     this.recalculateUnusedProducts();
     this.repopulateColumns();
-
-    if(this.unusedProducts.length) {
-      setTimeout(() => this.addComponent.focus());
-    }
   }
 
   onRemove(product: BoxProduct, keyboard: boolean) {
@@ -234,6 +208,17 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
   }
 
   onRootBlur() {
-    this.mutexService.endEditByPrefix(this.editId)
+    this.editing = false;
+    this.service.setActive(null);
+  }
+
+  onActivate() {
+    this.editing = true
+    this.focusable.beFocused();
+  }
+
+  onDeactivate() {
+    this.editing = false
+    this.focusable.beBlurred();
   }
 }

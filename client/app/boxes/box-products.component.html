@@ -1,35 +1,37 @@
-<div #root cc-focus #focusable=cc-focus (blur)="onRootBlur()" class="box-products" focusedClass="editing">
-  <div class="box-product-column" *ngFor="let c of columns; let i = index" [style.margin-left.px]="i && columnPadding">
-    <div class="box-product" *ngFor="let p of c" [class.remove-hover]="removeHoverProductId == p.id">
-      <div class="box-product-detail box-product-name" [style.width.px]="productNameWidth + productNamePadding">{{p.name}}</div>
-      <cc-box-product-quantity
-        editId="{{editId}}:q:{{p.id}}"
-        [value]="p.quantity"
-        [unitType]="p.unitType"
-        [width]="productQuantityWidth + productQuantityPadding"
-        [editTabindex]="editTabindex"
-        (update)="onProductQuantityUpdate(p.id, $event)">
-      </cc-box-product-quantity>
-      <div class="box-product-detail box-product-action box-product-display">
-        <cc-box-product-remove #remove
-          editId="{{editId}}:r:{{p.id}}"
-          [editTabindex]="editTabindex" 
-          (remove)="onRemove(p, $event)">
-        </cc-box-product-remove>
+<div #root cc-focus #focusable=cc-focus (blur)="onRootBlur()">
+  <div class="box-products" [class.editing]="editing" cc-active-parent (activate)="onActivate()" (deactivate)="onDeactivate()">
+    <div class="box-product-column" *ngFor="let c of columns; let i = index" [style.margin-left.px]="i && columnPadding">
+      <div class="box-product" *ngFor="let p of c" [class.remove-hover]="removeHoverProductId == p.id">
+        <div class="box-product-detail box-product-name" [style.width.px]="productNameWidth + productNamePadding">{{p.name}}</div>
+        <cc-box-product-quantity
+          editId="{{editId}}:q:{{p.id}}"
+          [value]="p.quantity"
+          [unitType]="p.unitType"
+          [width]="productQuantityWidth + productQuantityPadding"
+          [editTabindex]="editTabindex"
+          (update)="onProductQuantityUpdate(p.id, $event)">
+        </cc-box-product-quantity>
+        <div class="box-product-detail box-product-action box-product-display">
+          <cc-box-product-remove #remove
+            editId="{{editId}}:r:{{p.id}}"
+            [editTabindex]="editTabindex" 
+            (remove)="onRemove(p, $event)">
+          </cc-box-product-remove>
+        </div>
       </div>
+      <div *ngIf="!value.length" class="box-product"> 
+        <div class="box-product-detail">No products added yet.</div>
+      </div> 
+      <cc-box-product-add #add *ngIf="i == columns.length - 1"
+        editId="{{editId}}:a"
+        [products]="unusedProducts"
+        [productNameWidth]="productNameWidth + productNamePadding"
+        [productQuantityWidth]="productQuantityWidth + productQuantityPadding"
+        [editTabindex]="editTabindex"
+        text="Add {{!value.length? 'a' : 'another'}} product..."
+        (add)="onProductAdd($event)">
+      </cc-box-product-add>
     </div>
-    <div *ngIf="!value.length" class="box-product"> 
-      <div class="box-product-detail">No products added yet.</div>
-    </div> 
-    <cc-box-product-add #add *ngIf="i == columns.length - 1"
-      editId="{{editId}}:a"
-      [products]="unusedProducts"
-      [productNameWidth]="productNameWidth + productNamePadding"
-      [productQuantityWidth]="productQuantityWidth + productQuantityPadding"
-      [editTabindex]="editTabindex"
-      text="Add {{!value.length? 'a' : 'another'}} product..."
-      (add)="onProductAdd($event)">
-    </cc-box-product-add>
   </div>
 </div>
 

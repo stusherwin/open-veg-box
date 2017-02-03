@@ -4,15 +4,15 @@ import { Product } from '../products/product'
 import { Subscription } from 'rxjs/Subscription'
 import { Observable } from 'rxjs/Observable';
 import { BoxProductsService } from './box-products.service'
-import { MutuallyExclusiveEditService, MutuallyExclusiveEditComponent } from './mutually-exclusive-edit.service'
+import { ActiveDirective, ActiveParentDirective, ActivateOnFocusDirective } from '../shared/active-elements';
 
 @Component({
   selector: 'cc-box-product-add',
-  templateUrl: 'app/boxes/box-product-add.component.html'
+  templateUrl: 'app/boxes/box-product-add.component.html',
+  directives: [ActiveDirective, ActiveParentDirective, ActivateOnFocusDirective]
 })
-export class BoxProductAddComponent implements OnInit, AfterViewInit, MutuallyExclusiveEditComponent {
+export class BoxProductAddComponent implements AfterViewInit {
   adding: boolean;
-  addHover: boolean;
   product: Product;
   quantityStringValue: string;
   
@@ -44,28 +44,20 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit, MutuallyEx
   add = new EventEmitter<BoxProduct>();
 
   constructor(
-    @Inject(forwardRef(() => MutuallyExclusiveEditService))
-    private mutexService: MutuallyExclusiveEditService,
-    private renderer: Renderer) {
-  }
-
-  ngOnInit() {
-    if(this.mutexService.isAnyEditingWithPrefix(this.editId)) {
-      this.mutexService.startEdit(this);
-      this.product = this.products[0];
-      this.quantityStringValue = '1';
-      this.adding = true;
-    }
+    private service: BoxProductsService,
+    private renderer: Renderer,
+    private changeDetector: ChangeDetectorRef) {
   }
 
   ngAfterViewInit() {
-    if(this.select.length && this.adding) {
-      this.renderer.invokeElementMethod(this.select.first.nativeElement, 'focus', []);
+    if(this.service.isActive(this.editId) && this.products.length) {
+      this.focus();
+      // focus changes addHover state, so need to force change detection
+      this.changeDetector.detectChanges();
     }
   }
 
   onAddClick() {
-    this.mutexService.startEdit(this);
     this.product = this.products[0];
     this.quantityStringValue = '1';
     this.adding = true;
@@ -83,23 +75,27 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit, MutuallyEx
   }
 
   onAddOkClick() {
+    if(this.tabbedAway && this.products.length > 1) {
+      setTimeout(() => this.renderer.invokeElementMethod(this.addBtn.nativeElement, 'focus', []))
+    }
+
     let quantity = this.toDecimalValue(this.quantityStringValue);
-    //if(quantity > 0) {
-      this.add.emit(new BoxProduct(this.product.id, this.product.name, quantity, this.product.unitType));
-    //}
+    this.add.emit(new BoxProduct(this.product.id, this.product.name, quantity, this.product.unitType));
 
     this.adding = false;
-    this.mutexService.endEdit(this);
     this.tabbedAway = false;
   }
 
   onAddCancelClick() {
     this.adding = false;
-    this.mutexService.endEdit(this);
     this.tabbedAway = false;
   }
 
-  endEdit() {
+  onActivate() {
+    this.service.setActive(this.editId);
+  }
+
+  onDeactivate() {
     if(this.adding) {
       if(this.tabbedAway) {
         this.onAddOkClick();
@@ -109,21 +105,8 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit, MutuallyEx
     }
   }
 
-  onAddFocus() {
-    this.addHover = true
-    this.mutexService.startEdit(this);
-  }
-
-  onAddBlur() {
-    this.addHover = false
-  }
-
   focus() {
     this.renderer.invokeElementMethod(this.addBtn.nativeElement, 'focus', []);
-  }
-
-  onAfterAddFocus() {
-    this.onAddOkClick();
   }
  
   tabbedAway = false;

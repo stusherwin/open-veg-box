@@ -10,14 +10,15 @@ import { RouteParams } from '@angular/router-deprecated';
 import { FocusService } from '../shared/focus.service';
 import { FocusDirective } from '../shared/focus.directive';
 import { BoxProductsService } from './box-products.service';
-import { MutuallyExclusiveEditService } from './mutually-exclusive-edit.service'
+// import { MutuallyExclusiveEditService } from './mutually-exclusive-edit.service'
+import { ActiveService } from '../shared/active-elements';
 import 'rxjs/add/operator/combineLatest';
 
 @Component({
   selector: 'cc-boxes',
   templateUrl: 'app/boxes/boxes.component.html',
   directives: [BoxComponent, FocusDirective],
-  providers: [BoxService, ProductService, UsersService, FocusService, BoxProductsService, MutuallyExclusiveEditService]
+  providers: [BoxService, ProductService, UsersService, FocusService, BoxProductsService, ActiveService]
 })
 export class BoxesComponent implements OnInit {
   constructor(private boxService: BoxService, private productService: ProductService, private routeParams: RouteParams, private changeDetector: ChangeDetectorRef) {

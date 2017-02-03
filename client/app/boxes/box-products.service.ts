@@ -5,6 +5,7 @@ export class BoxProductsService {
   componentMaxWidths: ComponentMaxWidth[] = [];
   maxNameWidth = 0;
   maxQuantityWidth = 0;
+  private activeEditId: string
 
   deregister(component: BoxProductsComponent) {
     Arrays.removeWhere(this.componentMaxWidths, c => c.component == component);
@@ -32,6 +33,14 @@ export class BoxProductsService {
     } else if(!existing) {
       component.recalculateColumnWidths(this.maxNameWidth, this.maxQuantityWidth);
     }
+  }
+
+  setActive(editId: string) {
+    this.activeEditId = editId;
+  }
+
+  isActive(editId: string) {
+    return this.activeEditId == editId;
   }
 }
 

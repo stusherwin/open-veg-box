@@ -1,11 +1,13 @@
 import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, ViewChildren, QueryList, AfterViewInit, ChangeDetectorRef, AfterViewChecked, OnChanges, Inject, forwardRef, OnInit, OnDestroy, Renderer } from '@angular/core';
-import { MutuallyExclusiveEditService, MutuallyExclusiveEditComponent } from './mutually-exclusive-edit.service'
+import { ActiveDirective, ActivateOnFocusDirective } from '../shared/active-elements';
+import { BoxProductsService } from './box-products.service'
 
 @Component({
   selector: 'cc-box-product-remove',
-  templateUrl: 'app/boxes/box-product-remove.component.html'
+  templateUrl: 'app/boxes/box-product-remove.component.html',
+  directives: [ActiveDirective, ActivateOnFocusDirective]
 })
-export class BoxProductRemoveComponent implements MutuallyExclusiveEditComponent, OnInit, AfterViewInit {
+export class BoxProductRemoveComponent implements AfterViewInit {
   @Input()
   editId: string;
 
@@ -18,42 +20,30 @@ export class BoxProductRemoveComponent implements MutuallyExclusiveEditComponent
   @Output()
   remove = new EventEmitter<boolean>();
 
-  constructor(
-    @Inject(forwardRef(() => MutuallyExclusiveEditService))
-    private mutexService: MutuallyExclusiveEditService,
-    private renderer: Renderer) {
-  }
-
-  ngOnInit() {
-    if(this.mutexService.isAnyEditingWithPrefix(this.editId)) {
-      this.mutexService.startEdit(this);
-    }
+  constructor(private service: BoxProductsService, private renderer: Renderer) {
   }
 
   ngAfterViewInit() {
-    if(this.mutexService.isEditing(this)) {
-      this.renderer.invokeElementMethod(this.removeBtn.nativeElement, 'focus', []);
+    if(this.service.isActive(this.editId)) {
+      this.focus();
     }
   }
 
-  onRemoveFocus() {
-    this.mutexService.startEdit(this);
-  }
-
-  onRemoveClick(keyboard: boolean) {
+  onClick(keyboard: boolean) {
     this.remove.emit(keyboard);
-  }
-
-  endEdit() {
   }
 
   onKeyDown(event: KeyboardEvent) {
     if(event.key == 'Enter') {
-      this.onRemoveClick(true);
+      this.onClick(true);
     }
   }
 
   focus() {
     this.renderer.invokeElementMethod(this.removeBtn.nativeElement, 'focus', []);
+  }
+
+  onActivate() {
+    this.service.setActive(this.editId);
   }
 }

@@ -3,16 +3,16 @@ import { FocusDirective } from '../shared/focus.directive';
 import { BoxProduct } from './box'
 import { WeightPipe } from '../shared/pipes'
 import { Arrays } from '../shared/arrays'
-import { MutuallyExclusiveEditService, MutuallyExclusiveEditComponent } from './mutually-exclusive-edit.service'
+import { ActiveDirective, ActiveParentDirective, ActivateOnFocusDirective } from '../shared/active-elements';
 import { Subscription } from 'rxjs/Subscription'
 
 @Component({
   selector: 'cc-box-product-quantity',
-  directives: [FocusDirective],
+  directives: [FocusDirective, ActiveDirective, ActiveParentDirective, ActivateOnFocusDirective],
   pipes: [WeightPipe],
   templateUrl: 'app/boxes/box-product-quantity.component.html'
 })
-export class BoxProductQuantityComponent implements MutuallyExclusiveEditComponent, OnInit, AfterViewInit {
+export class BoxProductQuantityComponent implements OnInit {
   stringValue: string;
   editing: boolean;
   
@@ -37,29 +37,14 @@ export class BoxProductQuantityComponent implements MutuallyExclusiveEditCompone
   @Output()
   update = new EventEmitter<number>();
 
-  constructor(
-    @Inject(forwardRef(() => MutuallyExclusiveEditService))
-    private mutexService: MutuallyExclusiveEditService,
-    private renderer: Renderer) {
+  constructor(private renderer: Renderer) {
   }
 
   ngOnInit() {
-    if(this.mutexService.isAnyEditingWithPrefix(this.editId)) {
-      this.mutexService.startEdit(this);
-      this.editing = true;
-    }
-
     this.stringValue = this.toStringValue(this.value);
   }
 
-  ngAfterViewInit() {
-    if(this.input.length && this.editing) {
-      this.renderer.invokeElementMethod(this.input.first.nativeElement, 'focus', []);
-    }
-  }
-
-  onEditClick() {
-    this.mutexService.startEdit(this);
+  onClick() {
     this.editing = true;
 
     let subscription = this.input.changes.subscribe((f: QueryList<ElementRef>) => {
@@ -70,7 +55,7 @@ export class BoxProductQuantityComponent implements MutuallyExclusiveEditCompone
     })
   }
 
-  onEditOkClick() {
+  onOkClick() {
     let newValue = this.toDecimalValue(this.stringValue);
 
     if(newValue != this.value) {
@@ -80,45 +65,43 @@ export class BoxProductQuantityComponent implements MutuallyExclusiveEditCompone
 
     this.stringValue = this.toStringValue(this.value);
     this.editing = false;
-    this.mutexService.endEdit(this);
     this.tabbedAway = false;
   }
 
-  onEditCancelClick() {
+  onCancelClick() {
     this.stringValue = this.toStringValue(this.value);
     this.editing = false;
-    this.mutexService.endEdit(this);
     this.tabbedAway = false;
   }
 
-  endEdit() {
+  onDeactivate() {
     if(this.editing) {
       if(this.tabbedAway) {
-        this.onEditOkClick();
+        this.onOkClick();
       } else {
-        this.onEditCancelClick();
+        this.onCancelClick();
       }
     }
   }
 
-  onEditFocus() {
+  onFocus() {
     if(this.editing) {
       return;
     }
 
-    this.onEditClick();
+    this.onClick();
   }
 
   tabbedAway = false;
-  keydown(event: KeyboardEvent) {
+  onKeydown(event: KeyboardEvent) {
     if(!this.editing) {
       return;
     }
 
     if(event.key == 'Enter') {
-      this.onEditOkClick();
+      this.onOkClick();
     } else if(event.key == 'Escape') {
-      this.onEditCancelClick();
+      this.onCancelClick();
     } else if(event.key == 'Tab' && !event.shiftKey) {
       this.tabbedAway = true;
     }
