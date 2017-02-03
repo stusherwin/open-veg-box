@@ -1,27 +1,27 @@
-<div #root cc-focus #focusable=cc-focus (blur)="onRootBlur()" class="round-customers" focusedClass="editing">
-  <div class="round-customer" *ngFor="let c of value">
-    <div class="round-customer-detail round-customer-name round-customer-display" [style.width.px]="customerNameWidth + customerNamePadding">{{c.name}}</div>
-    <div class="round-customer-detail round-customer-address round-customer-display" [style.width.px]="customerAddressWidth + customerAddressPadding">{{c.address}}</div>
-    <div class="round-customer-detail round-customer-action round-customer-display">
-      <cc-round-customer-remove #remove
-        editId="{{editId}}:r:{{c.id}}"
-        [editTabindex]="editTabindex" 
-        (remove)="onRemove(c, $event)">
-      </cc-round-customer-remove>
+<div cc-focus #focusable=cc-focus (blur)="onRootBlur()">
+  <div class="round-customers" [class.editing]="editing" cc-active-parent (activate)="onActivate()" (deactivate)="onDeactivate()">
+    <div class="round-customer" *ngFor="let c of value">
+      <div class="round-customer-detail round-customer-name round-customer-display" [style.width.px]="customerNameWidth + customerNamePadding">{{c.name}}</div>
+      <div class="round-customer-detail round-customer-address round-customer-display" [style.width.px]="customerAddressWidth + customerAddressPadding">{{c.address}}</div>
+      <div class="round-customer-detail round-customer-action round-customer-display">
+        <cc-round-customer-remove #remove
+          [editTabindex]="editTabindex" 
+          (remove)="onRemove(c, $event)">
+        </cc-round-customer-remove>
+      </div>
     </div>
+    <div class="round-customer" *ngIf="!value.length">
+      <div class="round-customer-detail">No customers added yet.</div>
+    </div> 
+    <cc-round-customer-add #add
+      [customers]="unusedCustomers"
+      [editTabindex]="editTabindex"
+      [customerNameWidth]="customerNameWidth + customerNamePadding"
+      [customerAddressWidth]="customerAddressWidth + customerAddressPadding"
+      text="Add {{!value.length? 'a' : 'another'}} customer..."
+      (add)="onCustomerAdd($event)">
+    </cc-round-customer-add>
   </div>
-  <div class="round-customer" *ngIf="!value.length">
-    <div class="round-customer-detail">No customers added yet.</div>
-  </div> 
-  <cc-round-customer-add #add
-    editId="{{editId}}:a"
-    [customers]="unusedCustomers"
-    [editTabindex]="editTabindex"
-    [customerNameWidth]="customerNameWidth + customerNamePadding"
-    [customerAddressWidth]="customerAddressWidth + customerAddressPadding"
-    text="Add {{!value.length? 'a' : 'another'}} customer..."
-    (add)="onCustomerAdd($event)">
-  </cc-round-customer-add>
 </div>
 
 <div class="round-customers width-test">

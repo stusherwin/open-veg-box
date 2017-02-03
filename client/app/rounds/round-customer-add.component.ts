@@ -3,22 +3,20 @@ import { RoundCustomer } from './round'
 import { Customer } from '../customers/customer'
 import { Subscription } from 'rxjs/Subscription'
 import { Observable } from 'rxjs/Observable';
-import { MutuallyExclusiveEditService, MutuallyExclusiveEditComponent } from '../boxes/mutually-exclusive-edit.service'
+import { ActiveDirective, ActiveParentDirective, ActiveService, ActivateOnFocusDirective } from '../shared/active-elements';
 
 @Component({
   selector: 'cc-round-customer-add',
-  templateUrl: 'app/rounds/round-customer-add.component.html'
+  templateUrl: 'app/rounds/round-customer-add.component.html',
+  directives: [ActiveDirective, ActivateOnFocusDirective, ActiveParentDirective]
 })
-export class RoundCustomerAddComponent implements OnInit, AfterViewInit, MutuallyExclusiveEditComponent {
+export class RoundCustomerAddComponent {
   adding: boolean;
   addHover: boolean;
   customer: Customer;
   
   @Input()
   customers: Customer[];
-
-  @Input()
-  editId: string;
 
   @Input()
   editTabindex: number;
@@ -41,28 +39,10 @@ export class RoundCustomerAddComponent implements OnInit, AfterViewInit, Mutuall
   @Output()
   add = new EventEmitter<RoundCustomer>();
 
-  constructor(
-    @Inject(forwardRef(() => MutuallyExclusiveEditService))
-    private mutexService: MutuallyExclusiveEditService,
-    private renderer: Renderer) {
+  constructor(private renderer: Renderer) {
   }
 
-  ngOnInit() {
-    if(this.mutexService.isAnyEditingWithPrefix(this.editId)) {
-      this.mutexService.startEdit(this);
-      this.customer = this.customers[0];
-      this.adding = true;
-    }
-  }
-
-  ngAfterViewInit() {
-    if(this.select.length && this.adding) {
-      this.renderer.invokeElementMethod(this.select.first.nativeElement, 'focus', []);
-    }
-  }
-
-  onAddClick() {
-    this.mutexService.startEdit(this);
+  onClick() {
     this.customer = this.customers[0];
     this.adding = true;
 
@@ -74,62 +54,46 @@ export class RoundCustomerAddComponent implements OnInit, AfterViewInit, Mutuall
     })
   }
 
-  onAddCustomerChange(event: any) {
+  onCustomerChange(event: any) {
     this.customer = this.customers[+event.target.value];
   }
 
-  onAddOkClick() {
+  onOkClick() {
+    if(this.tabbedAway && this.customers.length > 1) {
+      setTimeout(() => this.renderer.invokeElementMethod(this.addBtn.nativeElement, 'focus', []))
+    }
     this.add.emit(new RoundCustomer(this.customer.id, this.customer.name, this.customer.address, this.customer.email));
-
+    
     this.adding = false;
-    this.mutexService.endEdit(this);
     this.tabbedAway = false;
   }
 
-  onAddCancelClick() {
+  onCancelClick() {
     this.adding = false;
-    this.mutexService.endEdit(this);
     this.tabbedAway = false;
   }
 
-  endEdit() {
+  onDeactivate() {
     if(this.adding) {
       if(this.tabbedAway) {
-        this.onAddOkClick();
+        this.onOkClick();
       } else {
-        this.onAddCancelClick();
+        this.onCancelClick();
       }
     }
   }
 
-  onAddFocus() {
-    this.addHover = true
-    this.mutexService.startEdit(this);
-  }
-
-  onAddBlur() {
-    this.addHover = false
-  }
-
-  focus() {
-    this.renderer.invokeElementMethod(this.addBtn.nativeElement, 'focus', []);
-  }
-
-  onAfterAddFocus() {
-    this.onAddOkClick();
-  }
- 
   tabbedAway = false;
   keydown(event: KeyboardEvent) {
     if(!this.adding) {
       if(event.key == 'Enter') {
-        this.onAddClick();
+        this.onClick();
       }
     } else {
       if(event.key == 'Enter') {
-        this.onAddOkClick();
+        this.onOkClick();
       } else if(event.key == 'Escape') {
-        this.onAddCancelClick();
+        this.onCancelClick();
       } else if(event.key == 'Tab' && !event.shiftKey) {
         this.tabbedAway = true;
       }

@@ -8,7 +8,7 @@ import { EditableComponent } from '../shared/editable.component'
 import { Arrays } from '../shared/arrays'
 import { RoundCustomerAddComponent } from './round-customer-add.component' 
 import { RoundCustomerRemoveComponent } from './round-customer-remove.component' 
-import { MutuallyExclusiveEditService } from '../boxes/mutually-exclusive-edit.service'
+import { ActiveDirective, ActiveParentDirective, ActiveService } from '../shared/active-elements';
 import { RoundCustomersService } from './round-customers.service'
 
 const CUSTOMER_NAME_PADDING = 20;
@@ -16,16 +16,17 @@ const CUSTOMER_ADDRESS_PADDING = 20;
 
 @Component({
   selector: 'cc-round-customers',
-  directives: [FocusDirective, EditableComponent, RoundCustomerAddComponent, RoundCustomerRemoveComponent],
+  directives: [FocusDirective, EditableComponent, RoundCustomerAddComponent, RoundCustomerRemoveComponent, ActiveParentDirective],
   templateUrl: 'app/rounds/round-customers.component.html'
 })
-export class RoundCustomersComponent implements OnInit, AfterViewChecked {
+export class RoundCustomersComponent implements AfterViewChecked {
   customerNamePadding = CUSTOMER_NAME_PADDING;
   customerAddressPadding = CUSTOMER_ADDRESS_PADDING;
   customerNameWidth: number;
   customerAddressWidth: number;
   customerNameMaxWidth: number;
   customerAddressMaxWidth: number;
+  editing = false;
 
   @Input()
   value: RoundCustomer[];
@@ -37,13 +38,7 @@ export class RoundCustomersComponent implements OnInit, AfterViewChecked {
   unusedCustomers: Customer[] = [];
 
   @Input()
-  editId: string;
-
-  @Input()
   editTabindex: number;
-
-  @ViewChild('root')
-  root: ElementRef
 
   @ViewChild('focusable')
   focusable: FocusDirective
@@ -70,24 +65,7 @@ export class RoundCustomersComponent implements OnInit, AfterViewChecked {
     @Inject(forwardRef(() => RoundCustomersService))
     private service: RoundCustomersService,
 
-    @Inject(forwardRef(() => MutuallyExclusiveEditService))
-    private mutexService: MutuallyExclusiveEditService,
-
     private changeDetector: ChangeDetectorRef) {
-  }
-
-  ngOnInit() {
-    this.mutexService.editStart.subscribe(editId => {
-      if(editId && editId.startsWith(this.editId)) {
-        this.focusable.beFocused()
-      }
-    });
-
-    this.mutexService.editEnd.subscribe(editId => {
-      if(editId && editId.startsWith(this.editId)) {
-        this.focusable.beBlurred()
-      }
-    });
   }
 
   ngAfterViewChecked() {
@@ -96,21 +74,9 @@ export class RoundCustomersComponent implements OnInit, AfterViewChecked {
     this.recalculateWidths();
   }
 
-  editing(editId: string) {
-    return this.mutexService.isAnyEditingWithPrefix(editId);
-  }
-
-  anyEditing() {
-    return this.mutexService.isAnyEditingWithPrefix(this.editId);
-  }
-
   onCustomerAdd(customer: RoundCustomer) {
     this.value.push(customer);
     this.add.emit(customer.id);
-    
-    //if(this.customers.length) {
-    //  setTimeout(() => this.addComponent.focus());
-    //}
   }
 
   onRemove(customer: RoundCustomer, keyboard: boolean) {
@@ -118,14 +84,24 @@ export class RoundCustomersComponent implements OnInit, AfterViewChecked {
     let index = this.value.findIndex(c => c.id == customer.id);
     Arrays.remove(this.value, customer);
     
-    // if(keyboard && this.value.length) {
-    //   let nextRemoveFocusIndex = Math.min(index, this.value.length - 1);
-    //   setTimeout(() => this.removeComponents.toArray()[nextRemoveFocusIndex].focus());     
-    // }
+    if(keyboard && this.value.length) {
+      let nextRemoveFocusIndex = Math.min(index, this.value.length - 1);
+      setTimeout(() => this.removeComponents.toArray()[nextRemoveFocusIndex].focus());     
+    }
   }
 
   onRootBlur() {
-    this.mutexService.endEditByPrefix(this.editId)
+    this.editing = false;
+  }
+
+  onActivate() {
+    this.editing = true
+    this.focusable.beFocused();
+  }
+
+  onDeactivate() {
+    this.editing = false
+    this.focusable.beBlurred();
   }
 
   recalculateWidths() {

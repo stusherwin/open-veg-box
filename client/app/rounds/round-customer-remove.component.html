@@ -1,1 +1,6 @@
-<a [tabindex]="editTabindex" #remove (focus)="onRemoveFocus()" (click)="onRemoveClick(false)" (keydown)="onKeyDown($event)"><i class="icon-trash"></i></a>
+<a #remove
+  cc-active cc-activate-on-focus
+  [tabindex]="editTabindex"
+  (click)="onClick(false)"
+  (keydown)="onKeyDown($event)"><i class="icon-trash"></i>
+</a>
