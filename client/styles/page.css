@@ -1353,3 +1353,51 @@ select:-moz-focusring {
   position: absolute;
   left: -10000px;
 }
+.heading-new {
+  width: 300px;
+  position: relative;
+  margin-bottom: 5px;
+}
+.heading-new i {
+  font-size: 80%;
+}
+.heading-new h3 {
+  border: 1px solid transparent;
+  margin: 0;
+  margin-bottom: 14px;
+}
+.heading-new h3 a {
+  position: relative;
+  left: -10000px;
+}
+.heading-new h3 a i {
+  font-size: 50%;
+}
+.heading-new h3:hover {
+  cursor: pointer;
+  color: #ffa011;
+}
+.heading-new h3:hover a {
+  left: 0;
+  display: inline;
+}
+.heading-new input[type="text"] {
+  position: relative;
+  left: -4px;
+  top: -4px;
+  width: 100%;
+  display: block;
+  font-size: 150%;
+  font-weight: 300;
+  margin-bottom: 6px;
+  z-index: 1;
+}
+.heading-new .edit-background {
+  left: -7px;
+  top: -7px;
+  bottom: 1px;
+  right: -35px;
+}
+.heading-new .edit-background i {
+  top: 13px;
+}

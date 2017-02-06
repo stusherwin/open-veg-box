@@ -923,3 +923,58 @@ select:-moz-focusring {
   position: absolute;
   left: -10000px;
 }
+
+.heading-new {
+  width: 300px;
+  i {
+    font-size: 80%;
+  }
+  position: relative;
+  margin-bottom: 5px;
+
+  h3 {
+    border: 1px solid transparent;
+    margin: 0;
+    margin-bottom: 14px;
+
+    a {
+      position: relative;
+      left: -10000px;
+      i {
+        font-size: 50%;
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+      color: @boxProductHover;
+      a {
+        left: 0;
+        display: inline;
+      }
+    }
+  }
+
+  input[type="text"] {
+    position: relative;
+    left: -4px;
+    top: -4px;
+    width: 100%;
+    display: block;
+    font-size: 150%;
+    font-weight: 300;
+    margin-bottom: 6px;
+    z-index: 1;
+  }
+
+  .edit-background {
+    left: -7px;
+    top: -7px;
+    bottom: 1px;
+    right: -35px;
+
+    i {
+      top: 13px;
+    }
+  }
+}
