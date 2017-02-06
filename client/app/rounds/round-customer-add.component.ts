@@ -60,7 +60,7 @@ export class RoundCustomerAddComponent {
 
   onOkClick() {
     if(this.tabbedAway && this.customers.length > 1) {
-      setTimeout(() => this.renderer.invokeElementMethod(this.addBtn.nativeElement, 'focus', []))
+      this.focus();
     }
     this.add.emit(new RoundCustomer(this.customer.id, this.customer.name, this.customer.address, this.customer.email));
     
@@ -72,8 +72,9 @@ export class RoundCustomerAddComponent {
     this.adding = false;
     this.tabbedAway = false;
   }
-
+  
   onDeactivate() {
+    this.addHover = false;
     if(this.adding) {
       if(this.tabbedAway) {
         this.onOkClick();
@@ -81,6 +82,10 @@ export class RoundCustomerAddComponent {
         this.onCancelClick();
       }
     }
+  }
+
+  focus() {
+    setTimeout(() => this.renderer.invokeElementMethod(this.addBtn.nativeElement, 'focus', []))
   }
 
   tabbedAway = false;

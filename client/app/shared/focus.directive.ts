@@ -163,7 +163,6 @@ export class FocusDirective implements OnInit, OnDestroy {
         child.beBlurred();
       }
 
-      // console.log(this.parent);
       if(this.parent) {
         this.parent.blurIfAllChildrenBlurred();
       }

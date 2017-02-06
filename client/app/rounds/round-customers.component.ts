@@ -84,9 +84,13 @@ export class RoundCustomersComponent implements AfterViewChecked {
     let index = this.value.findIndex(c => c.id == customer.id);
     Arrays.remove(this.value, customer);
     
-    if(keyboard && this.value.length) {
-      let nextRemoveFocusIndex = Math.min(index, this.value.length - 1);
-      setTimeout(() => this.removeComponents.toArray()[nextRemoveFocusIndex].focus());     
+    if(keyboard) {
+      if(this.value.length) {
+        let nextRemoveFocusIndex = Math.min(index, this.value.length - 1);
+        setTimeout(() => this.removeComponents.toArray()[nextRemoveFocusIndex].focus());     
+      } else {
+        setTimeout(() => this.addComponent.focus());
+      }
     }
   }
 

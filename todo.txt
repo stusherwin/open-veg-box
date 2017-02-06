@@ -94,7 +94,6 @@ Box Products
 * Better width solution than hardcoding pixel widths in code (padding/remainders)?
 * Make other controls use mutexService.
 * Quantity format should reflect unittype?
-* When hitting enter/escape to finish editing, have to click control twice to edit again.
 * Delete last product - stays in focused mode
 * Adding a product via mouse - focuses add product (should only do this if added via keyboard)
 
@@ -103,3 +102,4 @@ Round customers
 * 1px spacing difference when tabbing into round-customers from outside
   - also within round-customers (add?)
 * Adding last customer - add control is displayed then immediately hidden
+* Removing last customer - add control hidden then displayed
