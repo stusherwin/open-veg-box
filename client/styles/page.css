@@ -1361,12 +1361,20 @@ select:-moz-focusring {
 .heading-new i {
   font-size: 80%;
 }
+.heading-new i::before {
+  margin: 0;
+}
+.heading-new i:hover {
+  color: #ffa011;
+  cursor: pointer;
+}
 .heading-new h3 {
   border: 1px solid transparent;
   margin: 0;
   margin-bottom: 14px;
 }
 .heading-new h3 a {
+  margin-left: 3px;
   position: relative;
   left: -10000px;
 }
@@ -1396,7 +1404,7 @@ select:-moz-focusring {
   left: -7px;
   top: -7px;
   bottom: 1px;
-  right: -35px;
+  right: -29px;
 }
 .heading-new .edit-background i {
   top: 13px;

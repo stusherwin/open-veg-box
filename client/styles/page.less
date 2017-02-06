@@ -926,20 +926,32 @@ select:-moz-focusring {
 
 .heading-new {
   width: 300px;
-  i {
-    font-size: 80%;
-  }
   position: relative;
   margin-bottom: 5px;
 
+  i {
+    font-size: 80%;
+
+    &::before {
+      margin: 0;
+    }
+    
+    &:hover {
+      color: @boxProductHover;
+      cursor: pointer;
+    }
+  }
+  
   h3 {
     border: 1px solid transparent;
     margin: 0;
     margin-bottom: 14px;
 
     a {
+      margin-left: 3px;
       position: relative;
       left: -10000px;
+
       i {
         font-size: 50%;
       }
@@ -971,7 +983,7 @@ select:-moz-focusring {
     left: -7px;
     top: -7px;
     bottom: 1px;
-    right: -35px;
+    right: -29px;
 
     i {
       top: 13px;
