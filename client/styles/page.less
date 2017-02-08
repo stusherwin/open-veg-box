@@ -905,6 +905,32 @@ select:-moz-focusring {
   }
 }
 
+.invalid {
+  .edit-background {
+    //background: #E56B6B;
+    // border: 1px solid #E80000;
+    // i {
+    //   color: 
+    // }
+    .icon-warning {
+      color: #E80000;
+      cursor: auto;
+    }
+
+    .icon-ok {
+      display: none;
+    }
+  }
+
+  // input[type="text"], input[type="password"], textarea, select {
+  //   &:focus {
+  //     border: 1px solid #E80000;
+  //     box-shadow: fade(#E80000, 50%) 0px 0px 3px 0px,  
+  //                 #E80000 0px 0px 2px 0px inset;  
+  //   }
+  // }
+}
+
 .box-product-quantity .edit-background {
   right: -33px;
 }
@@ -960,9 +986,9 @@ select:-moz-focusring {
     &:hover {
       cursor: pointer;
       color: @boxProductHover;
+
       a {
         left: 0;
-        display: inline;
       }
     }
   }
@@ -987,6 +1013,86 @@ select:-moz-focusring {
 
     i {
       top: 13px;
+    }
+  }
+}
+
+.product-price-new {
+  height: 22px;
+
+  i {
+    font-size: 80%;
+    &:before {
+      margin: 0;
+    }
+  }
+
+  .product-price-display {
+    a {
+      position: relative;
+      left: -10000px;
+      margin-left: 3px;
+    }
+
+    &:hover {
+      cursor: pointer;
+      color: @boxProductHover;
+      
+      a {
+        left: 0;
+      }
+    }
+  }
+
+  .product-price-edit {
+    position: relative;
+
+    .edit-wrapper {
+      position: relative;
+
+      left: -4px;
+      padding-left: 4px;
+      top: -7px;
+      padding-top: 2px;
+      padding-bottom: 2px;
+      padding-right: 4px;
+      background: desaturate(darken(@itemHoverColor, 6%), 0%);
+      display: inline-block;
+
+      a {
+        &:hover {
+          color: @boxProductHover;
+        }
+      }
+
+      .input-wrapper {
+        position: relative;
+      }
+
+      &.invalid {
+        input[type="text"], input[type="password"], textarea, select {
+          &.invalid {
+            border: 1px solid #E80000;
+            box-shadow: fade(#E80000, 50%) 0px 0px 3px 0px,  
+                        #E80000 0px 0px 2px 0px inset;
+          }
+        }
+
+        .icon-warning {
+          background: #fff;
+          padding: 4px;
+          color: #E80000;
+          position: absolute;
+          right: 6px;
+          top: -1px;
+          cursor: help;
+        }
+
+        a:first-of-type:hover {
+          color: #999;
+          cursor: auto;
+        }
+      }
     }
   }
 }

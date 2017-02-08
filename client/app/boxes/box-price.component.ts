@@ -1,65 +1,140 @@
-import { Component, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
-import { MoneyPipe } from '../shared/pipes';
+import { Component, Input, ViewChild, ElementRef, Output, EventEmitter, OnInit, AfterViewInit, Renderer } from '@angular/core';
 import { FocusDirective } from '../shared/focus.directive'
-import { EditableComponent } from '../shared/editable.component'
+import { MoneyPipe } from '../shared/pipes';
 
 @Component({
   selector: 'cc-box-price',
-  directives: [FocusDirective, EditableComponent],
+  directives: [FocusDirective],
   pipes: [MoneyPipe],
   template: `
-    <cc-editable className="product-price" [tabindex]="editTabindex" (editStart)="onEditStart($event)" (editEnd)="onEditEnd($event)">
-      <div display>
-        <span [innerHTML]="price | money"></span>
+    <div class="product-price-new" (keydown)="onKeyDown($event)" #container=cc-focus cc-focus (blur)="onContainerBlur()">
+      <div class="product-price-display" *ngIf="!editing" (click)="onClick()"><span class [innerHTML]="value | money"></span><a><i class="icon-edit"></i></a></div>
+      <input type="text" style="position: absolute;left:-10000px" *ngIf="!editing" [tabindex]="editTabindex" (focus)="onFocus()" />
+      <div class="product-price-edit" *ngIf="editing">
+        <span class="edit-wrapper" [class.invalid]="!valid">
+          &pound; <span class="input-wrapper"><input type="text" #input class="input price" [class.invalid]="!valid" data-validation-message="Price should be a number greater than 0" [(ngModel)]="editingValue" (ngModelChange)="validate()" [tabindex]="editTabindex" />
+          <i *ngIf="!valid" class="icon-warning" title="Price should be a number greater than 0"></i></span><a (click)="onOkClick()"><i class="icon-ok"></i></a><a (click)="onCancelClick()"><i class="icon-cancel"></i></a>
+        </span>
       </div>
-      <div edit>
-        &pound;<input type="text" class="input price" #priceElem=cc-focus cc-focus [selectAll]="addMode" [(ngModel)]="priceString" [tabindex]="editTabindex" required (ngModelChange)="priceChanged($event)" />
-      </div>
-    </cc-editable>
+    </div>
   `
-})
-export class BoxPriceComponent {
-  fixedDecimals: number = 2;
-  maxDecimals: number = null;
-  priceString: string;
-  
-  constructor() {
-  }
-
-  @ViewChild('priceElem')
-  priceElem: FocusDirective;
+}) 
+// TODO: active based on focus/blur of child components
+export class BoxPriceComponent implements OnInit, AfterViewInit {
+  originalValue: number;
+  editingValue: string;
+  editing = false;
+  valid = true;
 
   @Input()
-  price: number;
-
-  @Input()
-  addMode: boolean;
+  value: number;
 
   @Input()
   editTabindex: number;
 
+  @Input()
+  addMode: boolean;
+
+  @ViewChild('container')
+  container: FocusDirective;
+
+  @ViewChild('input')
+  input: ElementRef;
+
   @Output()
-  priceChange = new EventEmitter<number>();
+  valueChange = new EventEmitter<number>();
 
   @Output()
   update = new EventEmitter<any>();
 
-  onEditStart(tabbedInto: boolean) {
-    this.priceString = this.toStringValue(this.price);
-    this.priceElem.beFocused();
+  constructor(private renderer: Renderer) {
   }
 
-  onEditEnd(success: boolean) {
-    if(success) {
-      this.update.emit(null);
+  ngOnInit() {
+    this.originalValue = this.value;
+  }
+
+  ngAfterViewInit() {
+  }
+
+  startEdit() {
+    this.onClick();
+  }
+
+  onFocus() {
+    if(this.editing) {
+      return;
+    }
+
+    this.onClick();
+  }
+
+  onClick() {
+    this.editingValue = this.toStringValue(this.value);
+    this.editing = true;
+    this.valid = true;
+    let selectAll = this.addMode && this.toDecimalValue(this.editingValue) == this.originalValue; 
+    
+    setTimeout(() => {
+      let elem = this.input.nativeElement;
+      this.renderer.invokeElementMethod(elem, 'focus', []);
+
+      let selectionStart = selectAll? 0 : elem.value.length;
+      this.renderer.invokeElementMethod(elem, 'setSelectionRange', [selectionStart, elem.value.length]);
+    })
+
+    this.container.beFocused();
+  }
+
+  onOkClick() {
+    if(!this.valid) {
+      return;
+    }
+
+    this.value = this.toDecimalValue(this.editingValue);
+    
+    //TODO: just one event!
+    this.valueChange.emit(this.value);
+    this.update.emit(null);
+    
+    this.editing = false;
+    this.tabbedAway = false;
+  }
+
+  onCancelClick() {
+    this.editing = false;
+    this.tabbedAway = false;
+  }
+
+  tabbedAway = false;
+  onKeyDown(event: KeyboardEvent) {
+    if(!this.editing) {
+      return;
+    }
+
+    if(event.key == 'Enter' && this.valid) {
+      this.onOkClick();
+    } else if(event.key == 'Escape') {
+      this.onCancelClick();
+    } else if(event.key == 'Tab' && !event.shiftKey) {
+      this.tabbedAway = true;
     }
   }
 
-  priceChanged(value: string) {
-    this.price = this.toDecimalValue(value);
-    this.priceChange.emit(this.price);
+  onContainerBlur() {
+    if(this.tabbedAway && this.valid) {
+      this.onOkClick();
+    } else {
+      this.onCancelClick();
+    }
   }
 
+  validate() {
+    this.valid = this.toDecimalValue(this.editingValue) > 0;
+  }
+
+  fixedDecimals: number = 2;
+  maxDecimals: number = null;
   private toStringValue(value: number): string {
     if(this.fixedDecimals) {
       return value.toFixed(this.fixedDecimals);

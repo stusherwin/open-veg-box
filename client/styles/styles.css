@@ -2271,6 +2271,13 @@ select:-moz-focusring {
 .edit-background i:last-of-type {
   right: 2px;
 }
+.invalid .edit-background .icon-warning {
+  color: #E80000;
+  cursor: auto;
+}
+.invalid .edit-background .icon-ok {
+  display: none;
+}
 .box-product-quantity .edit-background {
   right: -33px;
 }
@@ -2320,7 +2327,6 @@ select:-moz-focusring {
 }
 .heading-new h3:hover a {
   left: 0;
-  display: inline;
 }
 .heading-new input[type="text"] {
   position: relative;
@@ -2341,6 +2347,67 @@ select:-moz-focusring {
 }
 .heading-new .edit-background i {
   top: 13px;
+}
+.product-price-new {
+  height: 22px;
+}
+.product-price-new i {
+  font-size: 80%;
+}
+.product-price-new i:before {
+  margin: 0;
+}
+.product-price-new .product-price-display a {
+  position: relative;
+  left: -10000px;
+  margin-left: 3px;
+}
+.product-price-new .product-price-display:hover {
+  cursor: pointer;
+  color: #ffa011;
+}
+.product-price-new .product-price-display:hover a {
+  left: 0;
+}
+.product-price-new .product-price-edit {
+  position: relative;
+}
+.product-price-new .product-price-edit .edit-wrapper {
+  position: relative;
+  left: -4px;
+  padding-left: 4px;
+  top: -7px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-right: 4px;
+  background: #ffe5be;
+  display: inline-block;
+}
+.product-price-new .product-price-edit .edit-wrapper a:hover {
+  color: #ffa011;
+}
+.product-price-new .product-price-edit .edit-wrapper .input-wrapper {
+  position: relative;
+}
+.product-price-new .product-price-edit .edit-wrapper.invalid input[type="text"].invalid,
+.product-price-new .product-price-edit .edit-wrapper.invalid input[type="password"].invalid,
+.product-price-new .product-price-edit .edit-wrapper.invalid textarea.invalid,
+.product-price-new .product-price-edit .edit-wrapper.invalid select.invalid {
+  border: 1px solid #E80000;
+  box-shadow: rgba(232, 0, 0, 0.5) 0px 0px 3px 0px, #E80000 0px 0px 2px 0px inset;
+}
+.product-price-new .product-price-edit .edit-wrapper.invalid .icon-warning {
+  background: #fff;
+  padding: 4px;
+  color: #E80000;
+  position: absolute;
+  right: 6px;
+  top: -1px;
+  cursor: help;
+}
+.product-price-new .product-price-edit .edit-wrapper.invalid a:first-of-type:hover {
+  color: #999;
+  cursor: auto;
 }
 .home {
   background: #579532;
