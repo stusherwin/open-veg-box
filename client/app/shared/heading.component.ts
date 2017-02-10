@@ -5,15 +5,14 @@ import { FocusDirective } from './focus.directive'
   selector: 'cc-heading',
   directives: [FocusDirective],
   template: `
-    <div class="heading-new" [class.invalid]="!valid" (keydown)="onKeyDown($event)" #container=cc-focus cc-focus (blur)="onContainerBlur()">
+    <div class="heading-new" (keydown)="onKeyDown($event)" #container=cc-focus cc-focus (blur)="onContainerBlur()">
       <h3 *ngIf="!editing" (click)="onClick()">{{value}}<a><i class="icon-edit"></i></a></h3>
-      <div *ngIf="editing" class="edit-background">
-        <i *ngIf="!valid" class="icon-warning"></i>
-        <i class="icon-ok" (click)="onOkClick()"></i><i class="icon-cancel" (click)="onCancelClick()"></i>
-      </div>
       <input type="text" style="position: absolute;left:-10000px" *ngIf="!editing" [tabindex]="editTabindex" (focus)="onFocus()" />
-      <div *ngIf="editing">
-        <input type="text" #input [(ngModel)]="editingValue" (ngModelChange)="validate()" [tabindex]="editTabindex" />
+      <div class="heading-edit" *ngIf="editing">
+        <span class="edit-wrapper" [class.invalid]="!valid">
+          <span class="input-wrapper"><input type="text" #input [class.invalid]="!valid" [(ngModel)]="editingValue" (ngModelChange)="validate()" [tabindex]="editTabindex" />
+          <i *ngIf="!valid" class="icon-warning" title="Heading should not be empty"></i></span><a (click)="onOkClick()"><i class="icon-ok"></i></a><a (click)="onCancelClick()"><i class="icon-cancel"></i></a>
+        </span>
       </div>
     </div>
   `
@@ -85,6 +84,10 @@ export class HeadingComponent implements OnInit, AfterViewInit {
   }
 
   onOkClick() {
+    if(!this.valid) {
+      return;
+    }
+
     this.value = this.editingValue;
     
     //TODO: just one event!

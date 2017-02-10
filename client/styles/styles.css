@@ -2260,15 +2260,15 @@ select:-moz-focusring {
   border-radius: 2px;
   z-index: 1;
 }
-.edit-background i {
+.edit-background a {
   position: absolute;
   top: 8px;
   right: 2px;
 }
-.edit-background i:first-of-type {
+.edit-background a:first-of-type {
   right: 16px;
 }
-.edit-background i:last-of-type {
+.edit-background a:last-of-type {
   right: 2px;
 }
 .invalid .edit-background .icon-warning {
@@ -2295,7 +2295,6 @@ select:-moz-focusring {
 }
 .heading-new {
   width: 300px;
-  position: relative;
   margin-bottom: 5px;
 }
 .heading-new i {
@@ -2304,14 +2303,14 @@ select:-moz-focusring {
 .heading-new i::before {
   margin: 0;
 }
-.heading-new i:hover {
+.heading-new a:hover {
   color: #ffa011;
   cursor: pointer;
 }
 .heading-new h3 {
   border: 1px solid transparent;
   margin: 0;
-  margin-bottom: 14px;
+  margin-bottom: 17px;
 }
 .heading-new h3 a {
   margin-left: 3px;
@@ -2328,25 +2327,55 @@ select:-moz-focusring {
 .heading-new h3:hover a {
   left: 0;
 }
-.heading-new input[type="text"] {
+.heading-new .heading-edit {
   position: relative;
-  left: -4px;
-  top: -4px;
-  width: 100%;
-  display: block;
+}
+.heading-new .heading-edit .edit-wrapper {
+  position: relative;
+  left: -6px;
+  padding-left: 2px;
+  top: -6px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-right: 4px;
+  background: #ffe5be;
+  display: inline-block;
+}
+.heading-new .heading-edit .edit-wrapper input[type="text"] {
+  position: relative;
+  width: 200px;
   font-size: 150%;
   font-weight: 300;
-  margin-bottom: 6px;
-  z-index: 1;
 }
-.heading-new .edit-background {
-  left: -7px;
-  top: -7px;
-  bottom: 1px;
-  right: -29px;
+.heading-new .heading-edit .edit-wrapper a {
+  position: relative;
+  top: -4px;
 }
-.heading-new .edit-background i {
-  top: 13px;
+.heading-new .heading-edit .edit-wrapper a:hover {
+  color: #ffa011;
+}
+.heading-new .heading-edit .edit-wrapper .input-wrapper {
+  position: relative;
+}
+.heading-new .heading-edit .edit-wrapper.invalid input[type="text"].invalid,
+.heading-new .heading-edit .edit-wrapper.invalid input[type="password"].invalid,
+.heading-new .heading-edit .edit-wrapper.invalid textarea.invalid,
+.heading-new .heading-edit .edit-wrapper.invalid select.invalid {
+  border: 1px solid #E80000;
+  box-shadow: rgba(232, 0, 0, 0.5) 0px 0px 3px 0px, #E80000 0px 0px 2px 0px inset;
+}
+.heading-new .heading-edit .edit-wrapper.invalid .icon-warning {
+  background: #fff;
+  padding: 4px;
+  color: #E80000;
+  position: absolute;
+  right: 6px;
+  top: -4px;
+  cursor: help;
+}
+.heading-new .heading-edit .edit-wrapper.invalid a:first-of-type:hover {
+  color: #999;
+  cursor: auto;
 }
 .product-price-new {
   height: 22px;
@@ -2408,10 +2437,6 @@ select:-moz-focusring {
 .product-price-new .product-price-edit .edit-wrapper.invalid a:first-of-type:hover {
   color: #999;
   cursor: auto;
-}
-.active-stu {
-  border: 1px solid red;
-  background: rgba(170, 170, 255, 0.2);
 }
 .home {
   background: #579532;

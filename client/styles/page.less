@@ -951,8 +951,10 @@ select:-moz-focusring {
 }
 
 .heading-new {
+  //border: 1px solid purple;
+  
   width: 300px;
-  position: relative;
+  //position: relative;
   margin-bottom: 5px;
 
   i {
@@ -961,7 +963,9 @@ select:-moz-focusring {
     &::before {
       margin: 0;
     }
-    
+  }
+
+  a {
     &:hover {
       color: @boxProductHover;
       cursor: pointer;
@@ -971,7 +975,7 @@ select:-moz-focusring {
   h3 {
     border: 1px solid transparent;
     margin: 0;
-    margin-bottom: 14px;
+    margin-bottom: 17px;
 
     a {
       margin-left: 3px;
@@ -993,26 +997,64 @@ select:-moz-focusring {
     }
   }
 
-  input[type="text"] {
-    position: relative;
-    left: -4px;
-    top: -4px;
-    width: 100%;
-    display: block;
-    font-size: 150%;
-    font-weight: 300;
-    margin-bottom: 6px;
-    z-index: 1;
-  }
+  .heading-edit {
+    position: relative; 
 
-  .edit-background {
-    left: -7px;
-    top: -7px;
-    bottom: 1px;
-    right: -29px;
+    .edit-wrapper {
+      position: relative;
 
-    i {
-      top: 13px;
+      left: -6px;
+      padding-left: 2px;
+      top: -6px;
+      padding-top:  2px;
+      padding-bottom: 2px;
+      padding-right: 4px;
+      background: desaturate(darken(@itemHoverColor, 6%), 0%);
+      display: inline-block;
+
+      input[type="text"] {
+        position: relative;
+        width: 200px;
+        font-size: 150%;
+        font-weight: 300;
+      }
+
+      a {
+        position: relative;
+        top:-4px;
+        &:hover {
+          color: @boxProductHover;
+        }
+      }
+
+      .input-wrapper {
+        position: relative;
+      }
+
+      &.invalid {
+        input[type="text"], input[type="password"], textarea, select {
+          &.invalid {
+            border: 1px solid #E80000;
+            box-shadow: fade(#E80000, 50%) 0px 0px 3px 0px,  
+                        #E80000 0px 0px 2px 0px inset;
+          }
+        }
+
+        .icon-warning {
+          background: #fff;
+          padding: 4px;
+          color: #E80000;
+          position: absolute;
+          right: 6px;
+          top: -4px;
+          cursor: help;
+        }
+
+        a:first-of-type:hover {
+          color: #999;
+          cursor: auto;
+        }
+      }
     }
   }
 }
@@ -1096,16 +1138,3 @@ select:-moz-focusring {
     }
   }
 }
-
-// [cc-active-parent],[cc-active] {
-//   border: 1px solid black;
-//   background: fade(#aaf, 20%);
-//   color: black;
-//   margin: 15px 0 5px;
-//   padding: 5px;
-// }
-
-// .active-stu {
-//   border: 1px solid red;
-//   background: fade(#aaf, 20%);
-// }
