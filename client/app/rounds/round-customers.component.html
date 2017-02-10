@@ -1,4 +1,4 @@
-<div cc-focus #focusable=cc-focus (blur)="onRootBlur()">
+<div cc-focus #focusable=cc-focus>
   <div class="round-customers" [class.editing]="editing" cc-active-parent (activate)="onActivate()" (deactivate)="onDeactivate()">
     <div class="round-customer" *ngFor="let c of value">
       <div class="round-customer-detail round-customer-name round-customer-display" [style.width.px]="customerNameWidth + customerNamePadding">{{c.name}}</div>

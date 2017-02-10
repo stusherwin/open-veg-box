@@ -1,4 +1,4 @@
-<div #root cc-focus #focusable=cc-focus (blur)="onRootBlur()">
+<div #root cc-focus #focusable=cc-focus>
   <div class="box-products" [class.editing]="editing" cc-active-parent (activate)="onActivate()" (deactivate)="onDeactivate()">
     <div class="box-product-column" *ngFor="let c of columns; let i = index" [style.margin-left.px]="i && columnPadding">
       <div class="box-product" *ngFor="let p of c" [class.remove-hover]="removeHoverProductId == p.id">

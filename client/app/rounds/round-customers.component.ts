@@ -94,10 +94,6 @@ export class RoundCustomersComponent implements AfterViewChecked {
     }
   }
 
-  onRootBlur() {
-    this.editing = false;
-  }
-
   onActivate() {
     this.editing = true
     this.focusable.beFocused();

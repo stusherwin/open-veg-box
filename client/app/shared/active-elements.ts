@@ -70,9 +70,12 @@ export class ActiveParentDirective implements OnInit, OnDestroy, ActiveParentEle
     this.service.deregisterParent(this)
   }
 
+  deactivating = false;
   handleChildStateChange() {
-    if(!this.active) {
-      if(this.children.find(c => c.active)) {
+    if(this.children.find(c => c.active)) {
+      this.deactivating = false;
+
+      if(!this.active) {
         this.active = true;
         this.activate.emit(null);
 
@@ -81,17 +84,45 @@ export class ActiveParentDirective implements OnInit, OnDestroy, ActiveParentEle
         }
       }
     } else {
-      // Defer deactivating because if another child is going to be activated immediately
-      // we don't want to deactivate then immediately reactivate the parent.
-      setTimeout(() => {
-        if(this.active) {
-          if(this.children.every(c => !c.active)) {
+      if(this.active) {
+        this.deactivating = true;
+
+        // Defer deactivating because if another child is going to be activated immediately
+        // we don't want to deactivate then immediately reactivate the parent.
+        setTimeout(() => {
+          if(this.deactivating) {
+            this.deactivating = false;
             this.active = false;
             this.deactivate.emit(null);
             
             if(this.activeElement) {
               this.activeElement.makeInactive()
             }
+          }
+        }, INACTIVE_GRACE_PERIOD_MS)  
+      }
+    }
+
+    if(!this.active && this.children.find(c => c.active)) {
+      this.deactivating = false;
+      this.active = true;
+      this.activate.emit(null);
+
+      if(this.activeElement) {
+        this.activeElement.makeActive()
+      }
+    } else if(this.active && this.children.every(c => !c.active)) {
+      this.deactivating = true;
+      // Defer deactivating because if another child is going to be activated immediately
+      // we don't want to deactivate then immediately reactivate the parent.
+      setTimeout(() => {
+        if(this.deactivating) {
+          this.deactivating = false;
+          this.active = false;
+          this.deactivate.emit(null);
+          
+          if(this.activeElement) {
+            this.activeElement.makeInactive()
           }
         }
       }, INACTIVE_GRACE_PERIOD_MS)
@@ -132,11 +163,14 @@ export class ActiveDirective implements OnInit, OnDestroy, ActiveElement {
   }
 
   ngOnDestroy() {
+    this.active = false;
+    if(this.parent){
+     this.parent.handleChildStateChange();
+    }
     this.service.deregisterChild(this)
   }
 
   makeActive() {
-    
     if(!this.active) {
       this.active = true;
       if(this.parent) {
@@ -147,7 +181,6 @@ export class ActiveDirective implements OnInit, OnDestroy, ActiveElement {
   }
 
   makeInactive() {
-    
     if(this.active) {
       this.active = false;
       if(this.parent) {

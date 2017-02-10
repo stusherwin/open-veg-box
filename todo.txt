@@ -96,6 +96,8 @@ Box Products
 * Quantity format should reflect unittype?
 * Delete last product - stays in focused mode
 * Adding a product via mouse - focuses add product (should only do this if added via keyboard)
+  - same when adding via Enter key (as opposed to tabbing away)
+
 
 Round customers
 ===============
@@ -104,9 +106,5 @@ Round customers
 * Adding last customer - add control is displayed then immediately hidden
 * Removing last customer - add control hidden then displayed
 
-Bug: active-elements doesn't handle active-parent being destroyed after child element deactivating
-     (parent of parent stays activated) - need to keep children/parent links directly reflecting
-     existing DOM elements, but also keep hold of activate/deactivate events to propogate to whatever
-     elements exist to handle those events. Problem: either need to tag each directive with a unique
-     id, or else come up with a way to identify DOM elements that correspond to each directive (because
-     elements get destroyed/new elements get created underneath the directives)
+* Catch tabbing away in active-elements then handle it specifically as a tabbed-away event 
+  in container components?
