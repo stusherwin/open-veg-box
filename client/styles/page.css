@@ -1360,139 +1360,56 @@ select:-moz-focusring {
   position: absolute;
   left: -10000px;
 }
-.heading-new {
-  width: 300px;
-  margin-bottom: 5px;
-}
-.heading-new i {
-  font-size: 80%;
-}
-.heading-new i::before {
-  margin: 0;
-}
-.heading-new a:hover {
-  color: #ffa011;
-  cursor: pointer;
-}
-.heading-new h3 {
-  border: 1px solid transparent;
-  margin: 0;
-  margin-bottom: 17px;
-}
-.heading-new h3 a {
-  margin-left: 3px;
-  position: relative;
-  left: -10000px;
-}
-.heading-new h3 a i {
-  font-size: 50%;
-}
-.heading-new h3:hover {
-  cursor: pointer;
-  color: #ffa011;
-}
-.heading-new h3:hover a {
-  left: 0;
-}
-.heading-new .heading-edit {
+.editable-value {
   position: relative;
 }
-.heading-new .heading-edit .edit-wrapper {
-  position: relative;
-  left: -6px;
-  padding-left: 2px;
-  top: -6px;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  padding-right: 4px;
-  background: #ffe5be;
-  display: inline-block;
-}
-.heading-new .heading-edit .edit-wrapper input[type="text"] {
-  position: relative;
-  width: 200px;
-  font-size: 150%;
-  font-weight: 300;
-}
-.heading-new .heading-edit .edit-wrapper a {
-  position: relative;
-  top: -4px;
-}
-.heading-new .heading-edit .edit-wrapper a:hover {
-  color: #ffa011;
-}
-.heading-new .heading-edit .edit-wrapper .input-wrapper {
-  position: relative;
-}
-.heading-new .heading-edit .edit-wrapper.invalid input[type="text"].invalid,
-.heading-new .heading-edit .edit-wrapper.invalid input[type="password"].invalid,
-.heading-new .heading-edit .edit-wrapper.invalid textarea.invalid,
-.heading-new .heading-edit .edit-wrapper.invalid select.invalid {
-  border: 1px solid #E80000;
-  box-shadow: rgba(232, 0, 0, 0.5) 0px 0px 3px 0px, #E80000 0px 0px 2px 0px inset;
-}
-.heading-new .heading-edit .edit-wrapper.invalid .icon-warning {
-  background: #fff;
-  padding: 4px;
-  color: #E80000;
-  position: absolute;
-  right: 6px;
-  top: -4px;
-  cursor: help;
-}
-.heading-new .heading-edit .edit-wrapper.invalid a:first-of-type:hover {
+.editable-value i {
   color: #999;
-  cursor: auto;
-}
-.product-price-new {
-  height: 22px;
-}
-.product-price-new i {
   font-size: 80%;
 }
-.product-price-new i:before {
+.editable-value i:before {
   margin: 0;
 }
-.product-price-new .product-price-display a {
+.editable-value .editable-value-display {
+  padding-bottom: 2px;
+}
+.editable-value .editable-value-display a {
   position: relative;
   left: -10000px;
   margin-left: 3px;
 }
-.product-price-new .product-price-display:hover {
+.editable-value .editable-value-display a i {
+  color: #ffa011;
+}
+.editable-value .editable-value-display:hover {
   cursor: pointer;
   color: #ffa011;
 }
-.product-price-new .product-price-display:hover a {
+.editable-value .editable-value-display:hover a {
   left: 0;
 }
-.product-price-new .product-price-edit {
-  position: relative;
-}
-.product-price-new .product-price-edit .edit-wrapper {
-  position: relative;
-  left: -4px;
-  padding-left: 4px;
-  top: -7px;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  padding-right: 4px;
+.editable-value .editable-value-edit {
+  position: absolute;
+  left: -3px;
+  top: -6px;
+  padding: 2px 4px;
   background: #ffe5be;
   display: inline-block;
 }
-.product-price-new .product-price-edit .edit-wrapper a:hover {
+.editable-value .editable-value-edit a:hover i {
   color: #ffa011;
 }
-.product-price-new .product-price-edit .edit-wrapper .input-wrapper {
+.editable-value .editable-value-edit .input-wrapper {
   position: relative;
 }
-.product-price-new .product-price-edit .edit-wrapper.invalid input[type="text"].invalid,
-.product-price-new .product-price-edit .edit-wrapper.invalid input[type="password"].invalid,
-.product-price-new .product-price-edit .edit-wrapper.invalid textarea.invalid,
-.product-price-new .product-price-edit .edit-wrapper.invalid select.invalid {
+.editable-value .editable-value-edit .input-wrapper.invalid input[type="text"],
+.editable-value .editable-value-edit .input-wrapper.invalid input[type="password"],
+.editable-value .editable-value-edit .input-wrapper.invalid textarea,
+.editable-value .editable-value-edit .input-wrapper.invalid select {
   border: 1px solid #E80000;
   box-shadow: rgba(232, 0, 0, 0.5) 0px 0px 3px 0px, #E80000 0px 0px 2px 0px inset;
 }
-.product-price-new .product-price-edit .edit-wrapper.invalid .icon-warning {
+.editable-value .editable-value-edit .input-wrapper.invalid .icon-warning {
   background: #fff;
   padding: 4px;
   color: #E80000;
@@ -1501,7 +1418,35 @@ select:-moz-focusring {
   top: -1px;
   cursor: help;
 }
-.product-price-new .product-price-edit .edit-wrapper.invalid a:first-of-type:hover {
-  color: #999;
+.editable-value .editable-value-edit.invalid a:first-of-type:hover {
   cursor: auto;
+}
+.editable-value .editable-value-edit.invalid a:first-of-type:hover i {
+  color: #999;
+}
+.x-product-price .editable-value-display {
+  border: 1px solid transparent;
+}
+.x-heading .editable-value-display {
+  border: 1px solid transparent;
+}
+.x-heading .editable-value-display a i {
+  font-size: 50%;
+}
+.x-heading .editable-value-edit {
+  left: -6px;
+  top: -6px;
+  padding-left: 2px;
+}
+.x-heading .editable-value-edit input[type="text"] {
+  width: 200px;
+  font-size: 150%;
+  font-weight: 300;
+}
+.x-heading .editable-value-edit a {
+  position: relative;
+  top: -4px;
+}
+.x-heading .editable-value-edit .input-wrapper.invalid .icon-warning {
+  top: -4px;
 }

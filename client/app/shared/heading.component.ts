@@ -5,14 +5,12 @@ import { FocusDirective } from './focus.directive'
   selector: 'cc-heading',
   directives: [FocusDirective],
   template: `
-    <div class="heading-new" (keydown)="onKeyDown($event)" #container=cc-focus cc-focus (blur)="onContainerBlur()">
-      <h3 *ngIf="!editing" (click)="onClick()">{{value}}<a><i class="icon-edit"></i></a></h3>
+    <div class="x-heading editable-value" (keydown)="onKeyDown($event)" #container=cc-focus cc-focus (blur)="onContainerBlur()">
+      <h3 class="editable-value-display" (click)="onClick()">{{value}}<a *ngIf="!editing"s><i class="icon-edit"></i></a></h3>
       <input type="text" style="position: absolute;left:-10000px" *ngIf="!editing" [tabindex]="editTabindex" (focus)="onFocus()" />
-      <div class="heading-edit" *ngIf="editing">
-        <span class="edit-wrapper" [class.invalid]="!valid">
-          <span class="input-wrapper"><input type="text" #input [class.invalid]="!valid" [(ngModel)]="editingValue" (ngModelChange)="validate()" [tabindex]="editTabindex" />
-          <i *ngIf="!valid" class="icon-warning" title="Heading should not be empty"></i></span><a (click)="onOkClick()"><i class="icon-ok"></i></a><a (click)="onCancelClick()"><i class="icon-cancel"></i></a>
-        </span>
+      <div class="editable-value-edit" [class.invalid]="!valid" *ngIf="editing">
+        <span class="input-wrapper" [class.invalid]="!valid"><input type="text" #input [(ngModel)]="editingValue" (ngModelChange)="validate()" [tabindex]="editTabindex" />
+        <i *ngIf="!valid" class="icon-warning" title="Heading should not be empty"></i></span><a (click)="onOkClick()"><i class="icon-ok"></i></a><a (click)="onCancelClick()"><i class="icon-cancel"></i></a>
       </div>
     </div>
   `

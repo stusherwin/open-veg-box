@@ -7,14 +7,12 @@ import { MoneyPipe } from '../shared/pipes';
   directives: [FocusDirective],
   pipes: [MoneyPipe],
   template: `
-    <div class="product-price-new" (keydown)="onKeyDown($event)" #container=cc-focus cc-focus (blur)="onContainerBlur()">
-      <div class="product-price-display" *ngIf="!editing" (click)="onClick()"><span class [innerHTML]="value | money"></span><a><i class="icon-edit"></i></a></div>
+    <div class="x-product-price editable-value" (keydown)="onKeyDown($event)" #container=cc-focus cc-focus (blur)="onContainerBlur()">
+      <div class="editable-value-display" (click)="onClick()"><span class [innerHTML]="value | money"></span><a *ngIf="editing"><i class="icon-edit"></i></a></div>
       <input type="text" style="position: absolute;left:-10000px" *ngIf="!editing" [tabindex]="editTabindex" (focus)="onFocus()" />
-      <div class="product-price-edit" *ngIf="editing">
-        <span class="edit-wrapper" [class.invalid]="!valid">
-          &pound; <span class="input-wrapper"><input type="text" #input class="input price" [class.invalid]="!valid" data-validation-message="Price should be a number greater than 0" [(ngModel)]="editingValue" (ngModelChange)="validate()" [tabindex]="editTabindex" />
-          <i *ngIf="!valid" class="icon-warning" title="Price should be a number greater than 0"></i></span><a (click)="onOkClick()"><i class="icon-ok"></i></a><a (click)="onCancelClick()"><i class="icon-cancel"></i></a>
-        </span>
+      <div class="editable-value-edit" [class.invalid]="!valid" *ngIf="editing">
+        &pound; <span class="input-wrapper" [class.invalid]="!valid"><input type="text" #input class="input price" data-validation-message="Price should be a number greater than 0" [(ngModel)]="editingValue" (ngModelChange)="validate()" [tabindex]="editTabindex" />
+        <i *ngIf="!valid" class="icon-warning" title="Price should be a number greater than 0"></i></span><a (click)="onOkClick()"><i class="icon-ok"></i></a><a (click)="onCancelClick()"><i class="icon-cancel"></i></a>
       </div>
     </div>
   `

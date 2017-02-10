@@ -950,130 +950,29 @@ select:-moz-focusring {
   left: -10000px;
 }
 
-.heading-new {
-  //border: 1px solid purple;
-  
-  width: 300px;
-  //position: relative;
-  margin-bottom: 5px;
+.editable-value {
+  position: relative;
 
   i {
+    color: #999;
     font-size: 80%;
 
-    &::before {
-      margin: 0;
-    }
-  }
-
-  a {
-    &:hover {
-      color: @boxProductHover;
-      cursor: pointer;
-    }
-  }
-  
-  h3 {
-    border: 1px solid transparent;
-    margin: 0;
-    margin-bottom: 17px;
-
-    a {
-      margin-left: 3px;
-      position: relative;
-      left: -10000px;
-
-      i {
-        font-size: 50%;
-      }
-    }
-
-    &:hover {
-      cursor: pointer;
-      color: @boxProductHover;
-
-      a {
-        left: 0;
-      }
-    }
-  }
-
-  .heading-edit {
-    position: relative; 
-
-    .edit-wrapper {
-      position: relative;
-
-      left: -6px;
-      padding-left: 2px;
-      top: -6px;
-      padding-top:  2px;
-      padding-bottom: 2px;
-      padding-right: 4px;
-      background: desaturate(darken(@itemHoverColor, 6%), 0%);
-      display: inline-block;
-
-      input[type="text"] {
-        position: relative;
-        width: 200px;
-        font-size: 150%;
-        font-weight: 300;
-      }
-
-      a {
-        position: relative;
-        top:-4px;
-        &:hover {
-          color: @boxProductHover;
-        }
-      }
-
-      .input-wrapper {
-        position: relative;
-      }
-
-      &.invalid {
-        input[type="text"], input[type="password"], textarea, select {
-          &.invalid {
-            border: 1px solid #E80000;
-            box-shadow: fade(#E80000, 50%) 0px 0px 3px 0px,  
-                        #E80000 0px 0px 2px 0px inset;
-          }
-        }
-
-        .icon-warning {
-          background: #fff;
-          padding: 4px;
-          color: #E80000;
-          position: absolute;
-          right: 6px;
-          top: -4px;
-          cursor: help;
-        }
-
-        a:first-of-type:hover {
-          color: #999;
-          cursor: auto;
-        }
-      }
-    }
-  }
-}
-
-.product-price-new {
-  height: 22px;
-
-  i {
-    font-size: 80%;
     &:before {
       margin: 0;
     }
   }
-
-  .product-price-display {
+  
+  .editable-value-display {
+    padding-bottom: 2px;
+    
     a {
       position: relative;
       left: -10000px;
       margin-left: 3px;
+
+      i {
+        color: @boxProductHover;
+      }
     }
 
     &:hover {
@@ -1086,38 +985,31 @@ select:-moz-focusring {
     }
   }
 
-  .product-price-edit {
-    position: relative;
+  .editable-value-edit {
+    position: absolute;
 
-    .edit-wrapper {
-      position: relative;
+    left: -3px;
+    top: -6px;
+    padding: 2px 4px;
+    background: desaturate(darken(@itemHoverColor, 6%), 0%);
+    display: inline-block;
 
-      left: -4px;
-      padding-left: 4px;
-      top: -7px;
-      padding-top: 2px;
-      padding-bottom: 2px;
-      padding-right: 4px;
-      background: desaturate(darken(@itemHoverColor, 6%), 0%);
-      display: inline-block;
-
-      a {
-        &:hover {
+    a {
+      &:hover {
+        i {
           color: @boxProductHover;
         }
       }
+    }
 
-      .input-wrapper {
-        position: relative;
-      }
+    .input-wrapper {
+      position: relative;
 
       &.invalid {
         input[type="text"], input[type="password"], textarea, select {
-          &.invalid {
-            border: 1px solid #E80000;
-            box-shadow: fade(#E80000, 50%) 0px 0px 3px 0px,  
-                        #E80000 0px 0px 2px 0px inset;
-          }
+          border: 1px solid #E80000;
+          box-shadow: fade(#E80000, 50%) 0px 0px 3px 0px,  
+                      #E80000 0px 0px 2px 0px inset;
         }
 
         .icon-warning {
@@ -1129,10 +1021,61 @@ select:-moz-focusring {
           top: -1px;
           cursor: help;
         }
+      }
+    }
 
-        a:first-of-type:hover {
+    &.invalid {
+      a:first-of-type:hover {
+        cursor: auto;
+
+        i {
           color: #999;
-          cursor: auto;
+        }
+      }
+    }
+  }
+}
+
+.x-product-price {
+  .editable-value-display {
+    border: 1px solid transparent;
+  }
+
+  .editable-value-edit {
+  }
+}
+
+.x-heading {
+  .editable-value-display {
+    border: 1px solid transparent;
+    
+    a {
+      i {
+        font-size: 50%;
+      }
+    }
+  }
+
+  .editable-value-edit {
+    left: -6px;
+    top: -6px;
+    padding-left: 2px;
+    
+    input[type="text"] {
+      width: 200px;
+      font-size: 150%;
+      font-weight: 300;
+    }
+
+    a {   
+      position: relative;
+      top:-4px;
+    }
+
+    .input-wrapper {
+      &.invalid {
+        .icon-warning {
+          top: -4px;
         }
       }
     }
