@@ -7,12 +7,13 @@ import { Observable } from 'rxjs/Observable';
 import { RouteParams } from '@angular/router-deprecated';
 import { FocusService } from '../shared/focus.service';
 import { FocusDirective } from '../shared/focus.directive';
+import { ActiveService, ActiveDirective, ActiveParentDirective, ActivateOnFocusDirective } from '../shared/active-elements'
 
 @Component({
   selector: 'cc-products',
   templateUrl: 'app/products/products.component.html',
   directives: [ProductComponent, FocusDirective],
-  providers: [ProductService, UsersService, FocusService]
+  providers: [ProductService, UsersService, FocusService, ActiveService]
 })
 export class ProductsComponent implements OnInit {
   constructor(productService: ProductService, routeParams: RouteParams) {

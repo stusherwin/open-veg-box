@@ -1,15 +1,14 @@
 <div class="box-product-detail box-product-quantity editable-value" style="position: relative"
-  [class.box-product-display]="!editing"
-  [class.box-product-edit]="editing"
-  [class.editing]="editing"
-  [style.width.px]="width"
-  (keydown)="onKeydown($event)"
-  cc-active cc-active-parent (deactivate)="onDeactivate()">
+    [class.box-product-display]="!editing"
+    [class.box-product-edit]="editing"
+    [class.editing]="editing"
+    [style.width.px]="width"
+    (keydown)="onKeydown($event)"
+    cc-active cc-active-parent
+      (deactivate)="onDeactivate()">
   <div class="editable-value-display" style="display: inline-block" (click)="onClick()">
     <span class="box-product-quantity-each" *ngIf="unitType == 'each'">x</span>
-    <span *ngIf="unitType == 'perKg'">{{value | weight}}</span>
-    <span *ngIf="unitType != 'perKg'">{{value}}</span>
-    <a><i class="icon-edit"></i></a>
+    <span *ngIf="unitType == 'perKg'">{{value | weight}}</span><span *ngIf="unitType != 'perKg'">{{value}}</span><a><i class="icon-edit"></i></a>
   </div>
   <div class="editable-value-outer">
     <div class="editable-value-edit" style="display: inline-block" [class.invalid]="!valid">

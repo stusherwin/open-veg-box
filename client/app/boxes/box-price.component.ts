@@ -8,7 +8,7 @@ import { ActiveDirective, ActiveParentDirective, ActivateOnFocusDirective } from
   pipes: [MoneyPipe],
   template: `
     <div class="x-product-price editable-value" [class.editing]="editing" (keydown)="onKeyDown($event)" cc-active cc-active-parent (deactivate)="onDeactivate()">
-      <div class="editable-value-display" (click)="onClick()"><span class [innerHTML]="value | money"></span><a *ngIf="editing"><i class="icon-edit"></i></a></div>
+      <div class="editable-value-display" (click)="onClick()"><span class [innerHTML]="value | money"></span><a><i class="icon-edit"></i></a></div>
       <div class="editable-value-outer">
         <div class="editable-value-edit" [class.invalid]="!valid">
           &pound; <span class="input-wrapper" [class.invalid]="!valid"><input type="text" #input class="input price" data-validation-message="Price should be a number greater than 0" [(ngModel)]="editingValue" (ngModelChange)="validate()" [tabindex]="editTabindex" (focus)="onFocus()" cc-active cc-activate-on-focus />
@@ -101,16 +101,18 @@ export class BoxPriceComponent implements OnInit, AfterViewInit {
       this.onOkClick();
     } else if(event.key == 'Escape') {
       this.onCancelClick();
-    } else if(event.key == 'Tab' && !event.shiftKey) {
-      this.tabbedAway = true;
+    } else if(event.key == 'Tab') {
+      this.tabbedAway = !event.shiftKey;
     }
   }
 
   onDeactivate() {
-    if(this.tabbedAway && this.valid) {
-      this.onOkClick();
-    } else {
-      this.onCancelClick();
+    if(this.editing) {
+      if(this.tabbedAway && this.valid) {
+        this.onOkClick();
+      } else {
+        this.onCancelClick();
+      }
     }
   }
 

@@ -11,10 +11,11 @@ import { ActiveDirective, ActiveParentDirective, ActivateOnFocusDirective } from
   templateUrl: 'app/boxes/box-product-add.component.html',
   directives: [ActiveDirective, ActiveParentDirective, ActivateOnFocusDirective]
 })
-export class BoxProductAddComponent implements AfterViewInit {
+export class BoxProductAddComponent implements OnInit, AfterViewInit {
   adding: boolean;
   product: Product;
   quantityStringValue: string;
+  valid = true;
   
   @Input()
   products: Product[];
@@ -49,6 +50,9 @@ export class BoxProductAddComponent implements AfterViewInit {
     private changeDetector: ChangeDetectorRef) {
   }
 
+  ngOnInit() {
+  }
+
   ngAfterViewInit() {
     if(this.service.isActive(this.editId) && this.products.length) {
       this.focus();
@@ -57,7 +61,7 @@ export class BoxProductAddComponent implements AfterViewInit {
     }
   }
 
-  onAddClick() {
+  onClick() {
     this.product = this.products[0];
     this.quantityStringValue = '1';
     this.adding = true;
@@ -70,11 +74,15 @@ export class BoxProductAddComponent implements AfterViewInit {
     })
   }
 
-  onAddProductChange(event: any) {
+  onProductChange(event: any) {
     this.product = this.products[+event.target.value];
   }
 
-  onAddOkClick() {
+  onOkClick() {
+    if(!this.valid) {
+      return;
+    }
+
     if(this.tabbedAway && this.products.length > 1) {
       setTimeout(() => this.renderer.invokeElementMethod(this.addBtn.nativeElement, 'focus', []))
     }
@@ -84,11 +92,13 @@ export class BoxProductAddComponent implements AfterViewInit {
 
     this.adding = false;
     this.tabbedAway = false;
+    this.valid = true;
   }
 
-  onAddCancelClick() {
+  onCancelClick() {
     this.adding = false;
     this.tabbedAway = false;
+    this.valid = true;
   }
 
   onActivate() {
@@ -97,10 +107,10 @@ export class BoxProductAddComponent implements AfterViewInit {
 
   onDeactivate() {
     if(this.adding) {
-      if(this.tabbedAway) {
-        this.onAddOkClick();
+      if(this.tabbedAway && this.valid) {
+        this.onOkClick();
       } else {
-        this.onAddCancelClick();
+        this.onCancelClick();
       }
     }
   }
@@ -108,20 +118,24 @@ export class BoxProductAddComponent implements AfterViewInit {
   focus() {
     this.renderer.invokeElementMethod(this.addBtn.nativeElement, 'focus', []);
   }
+
+  validate() {
+    this.valid = this.toDecimalValue(this.quantityStringValue) > 0;
+  }
  
   tabbedAway = false;
-  keydown(event: KeyboardEvent) {
+  onKeydown(event: KeyboardEvent) {
     if(!this.adding) {
       if(event.key == 'Enter') {
-        this.onAddClick();
+        this.onClick();
       }
     } else {
-      if(event.key == 'Enter') {
-        this.onAddOkClick();
+      if(event.key == 'Enter' && this.valid) {
+        this.onOkClick();
       } else if(event.key == 'Escape') {
-        this.onAddCancelClick();
-      } else if(event.key == 'Tab' && !event.shiftKey) {
-        this.tabbedAway = true;
+        this.onCancelClick();
+      } else if(event.key == 'Tab') {
+        this.tabbedAway = !event.shiftKey;
       }
     }
   }

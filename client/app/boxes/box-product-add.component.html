@@ -1,10 +1,15 @@
-<div class="box-product box-product-add"
-    cc-active cc-active-parent (activate)="onActivate()" (deactivate)="onDeactivate()"
-    (keydown)="keydown($event)">
-  <div *ngIf="products.length && !adding" (click)="onAddClick()" [class.hover]="addHover">
+<div *ngIf="products.length"
+    class="box-product box-product-add editable-value"
+    [class.editing]="adding"
+    (keydown)="onKeydown($event)"
+    cc-active cc-active-parent
+      (activate)="onActivate()"
+      (deactivate)="onDeactivate()">
+  <div class="editable-value-display"
+      [class.hover]="addHover"
+      (click)="onClick()">
     <div class="box-product-detail box-product-name box-product-display" [style.width.px]="productNameWidth + productQuantityWidth">{{text}}</div>
-    <div class="box-product-detail box-product-action box-product-display">
-      <a #add
+    <div class="box-product-detail box-product-action box-product-display"><a #add *ngIf="!adding"
         cc-active cc-activate-on-focus
         [tabindex]="editTabindex"
         (focus)="addHover = true"
@@ -12,25 +17,26 @@
       </a>
     </div>       
   </div>
-  <div *ngIf="adding" style="position: relative" class="box-product-detail" [style.width.px]="productNameWidth + productQuantityWidth">
-    <div class="edit-background">
-      <a cc-active cc-activate-on-focus tabindex="9999" (click)="onAddOkClick()"><i class="icon-ok"></i></a>
-      <a cc-active cc-activate-on-focus tabindex="9999" (click)="onAddCancelClick()"><i class="icon-cancel"></i></a>
-    </div>
-    <div class="box-product-detail box-product-name box-product-edit" [style.width.px]="productNameWidth"><select #select
-        cc-active cc-activate-on-focus
-        (change)="onAddProductChange($event)"
-        [tabindex]="editTabindex">
-        <option *ngFor="let p of products; let i = index" [value]="i">{{p.name}}</option>
-      </select>
-    </div>
-    <div class="box-product-detail box-product-quantity box-product-edit" [style.width.px]="productQuantityWidth">
-      <span class="box-product-quantity-each" *ngIf="product.unitType == 'each'">x</span>
-      <input type="text" class="input"
-        cc-active cc-activate-on-focus
-        [(ngModel)]="quantityStringValue"
-        [tabindex]="editTabindex" />
-      <span class="box-product-quantity-perkg" *ngIf="product.unitType == 'perKg'">Kg</span>
+  <div class="editable-value-outer" style="display: inline-block" *ngIf="adding">
+    <div class="box-product-detail editable-value-edit">
+      <div class="box-product-detail box-product-name box-product-edit" [style.width.px]="productNameWidth"><select #select
+          cc-active cc-activate-on-focus
+          (change)="onProductChange($event)"
+          [tabindex]="editTabindex">
+          <option *ngFor="let p of products; let i = index" [value]="i">{{p.name}}</option>
+        </select>
+      </div>
+      <div *ngIf="adding" class="box-product-detail box-product-quantity box-product-edit" [style.width.px]="productQuantityWidth" [class.invalid]="!valid">
+        <span class="box-product-quantity-each" *ngIf="product.unitType == 'each'">x</span>
+        <span class="input-wrapper" [class.invalid]="!valid"><input type="text" class="input"
+          cc-active cc-activate-on-focus
+          [(ngModel)]="quantityStringValue"
+          (ngModelChange)="validate()"
+          [tabindex]="editTabindex" />
+        <i *ngIf="!valid" class="icon-warning" title="Quantity should be a number greater than 0"></i></span>
+        <span class="box-product-quantity-perkg" *ngIf="product.unitType == 'perKg'">Kg</span>
+      </div>
+      <a (click)="onOkClick()" tabindex="9999"><i class="icon-ok"></i></a><a (click)="onCancelClick()" tabindex="9999"><i class="icon-cancel"></i></a>
     </div>
   </div>
 </div>

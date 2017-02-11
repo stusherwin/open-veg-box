@@ -914,11 +914,6 @@ select:-moz-focusring {
 
 .invalid {
   .edit-background {
-    //background: #E56B6B;
-    // border: 1px solid #E80000;
-    // i {
-    //   color: 
-    // }
     .icon-warning {
       color: #E80000;
       cursor: auto;
@@ -928,14 +923,6 @@ select:-moz-focusring {
       display: none;
     }
   }
-
-  // input[type="text"], input[type="password"], textarea, select {
-  //   &:focus {
-  //     border: 1px solid #E80000;
-  //     box-shadow: fade(#E80000, 50%) 0px 0px 3px 0px,  
-  //                 #E80000 0px 0px 2px 0px inset;  
-  //   }
-  // }
 }
 
 .box-product-quantity .edit-background {
@@ -977,8 +964,10 @@ select:-moz-focusring {
       left: -10000px;
       margin-left: 3px;
 
-      i {
-        color: @boxProductHover;
+      &:hover {
+        i {
+          color: @boxProductHover;
+        }
       }
     }
 
@@ -988,6 +977,9 @@ select:-moz-focusring {
       
       a {
         left: 0;
+        i {
+          color: @boxProductHover;
+        }
       }
     }
   }
@@ -1005,13 +997,26 @@ select:-moz-focusring {
     left: -3px;
     top: -6px;
     padding: 2px 4px;
+    padding-right: 36px;
     background: desaturate(darken(@itemHoverColor, 6%), 0%);
+    border-radius: 2px;
 
     a {
+      position: absolute;
+      top: 8px;
+
       &:hover {
         i {
           color: @boxProductHover;
         }
+      }
+
+      &:first-of-type {
+        right: 17px;
+      }
+
+      &:last-of-type {
+        right: 4px;
       }
     }
 
@@ -1092,8 +1097,7 @@ select:-moz-focusring {
     }
 
     a {   
-      position: relative;
-      top:-4px;
+      top: 12px;
     }
 
     .input-wrapper {
@@ -1113,8 +1117,60 @@ select:-moz-focusring {
   .editable-value-edit {
     top:0px;
     left: -1px;
-    right: -30px;
+    right: -35px;
     padding-left: 7px;
+    padding-right: 35px;
+
+    a {
+      top: 7px;
+    }
+
+    .input-wrapper {
+      &.invalid {
+        .icon-warning {
+          right: 10px;
+          top: 1px;
+          padding: 2px;
+          padding-top:3px;
+        }
+      }
+    }
+
+    &.invalid {
+      a:first-of-type:hover {
+        cursor: auto;
+
+        i {
+          color: #999;
+        }
+      }
+    }
+  }
+}
+
+.box-products:hover, .box-products.editing {
+  .box-product.box-product-add {
+    .editable-value-display {
+      .box-product-action {
+        a {
+          left: 1px;
+        }
+      }
+    }
+  }
+}
+
+.box-product.box-product-add {
+  .editable-value-display {
+  }  
+
+  .box-product-detail.editable-value-edit {
+    top:2px;
+    left: -7px;
+    right: -17px;
+    height: 27px;
+    padding-left: 7px;
+    padding-top: 0px;
 
     .input-wrapper {
       &.invalid {

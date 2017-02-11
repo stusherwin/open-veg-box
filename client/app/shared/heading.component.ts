@@ -101,8 +101,8 @@ export class HeadingComponent implements OnInit, AfterViewInit {
       this.onOkClick();
     } else if(event.key == 'Escape') {
       this.onCancelClick();
-    } else if(event.key == 'Tab' && !event.shiftKey) {
-      this.tabbedAway = true;
+    } else if(event.key == 'Tab') {
+      this.tabbedAway = !event.shiftKey;
     }
   }
 

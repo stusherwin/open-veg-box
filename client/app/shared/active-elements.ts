@@ -304,7 +304,9 @@ export class ActiveService {
 
   deregisterChild(child: ActiveElement) {
     Arrays.remove(this.children, child);
-    Arrays.remove(child.parent.children, child);
+    if(child.parent) {
+      Arrays.remove(child.parent.children, child);
+    }
     child.parent = null;
     let linkedParent = this.parents.find(p => p.activeElement == child);
     if(linkedParent) {

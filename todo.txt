@@ -97,6 +97,8 @@ Box Products
 * Delete last product - stays in focused mode
 * Adding a product via mouse - focuses add product (should only do this if added via keyboard)
   - same when adding via Enter key (as opposed to tabbing away)
+* Column spacing - not enough between product name & quantity,
+  too much between q & remove btn
 
 
 Round customers

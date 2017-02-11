@@ -11,12 +11,11 @@ import { RouteConfig, Router, ROUTER_DIRECTIVES, Instruction } from '@angular/ro
 import { LoggedInRouterOutlet } from './auth/logged-in-router-outlet';
 import { PageComponent } from './page.component';
 import { NotFoundComponent } from './not-found.component';
-import { ClickOutsideDirective } from './shared/click-outside.directive';
 
 @Component({
   selector: 'body',
   templateUrl: 'app/app.component.html',
-  directives: [LoggedInRouterOutlet, HeaderComponent, ClickOutsideDirective]
+  directives: [LoggedInRouterOutlet, HeaderComponent]
 })
 
 @RouteConfig([
