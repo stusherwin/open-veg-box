@@ -985,6 +985,13 @@ select:-moz-focusring {
     }
   }
 
+  .editable-value-outer {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: -10000px;
+  }
+
   .editable-value-edit {
     position: absolute;
 
@@ -992,7 +999,6 @@ select:-moz-focusring {
     top: -6px;
     padding: 2px 4px;
     background: desaturate(darken(@itemHoverColor, 6%), 0%);
-    display: inline-block;
 
     a {
       &:hover {
@@ -1032,6 +1038,16 @@ select:-moz-focusring {
           color: #999;
         }
       }
+    }
+  }
+
+  &.editing {
+    .editable-value-display {
+      visibility: hidden;
+    }    
+
+    .editable-value-outer {
+      left: 0px;
     }
   }
 }

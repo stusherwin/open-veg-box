@@ -7,12 +7,13 @@ import { MoneyPipe } from '../shared/pipes';
   directives: [FocusDirective],
   pipes: [MoneyPipe],
   template: `
-    <div class="x-product-price editable-value" (keydown)="onKeyDown($event)" #container=cc-focus cc-focus (blur)="onContainerBlur()">
+    <div class="x-product-price editable-value" [class.editing]="editing" (keydown)="onKeyDown($event)" #container=cc-focus cc-focus (blur)="onContainerBlur()">
       <div class="editable-value-display" (click)="onClick()"><span class [innerHTML]="value | money"></span><a *ngIf="editing"><i class="icon-edit"></i></a></div>
-      <input type="text" style="position: absolute;left:-10000px" *ngIf="!editing" [tabindex]="editTabindex" (focus)="onFocus()" />
-      <div class="editable-value-edit" [class.invalid]="!valid" *ngIf="editing">
-        &pound; <span class="input-wrapper" [class.invalid]="!valid"><input type="text" #input class="input price" data-validation-message="Price should be a number greater than 0" [(ngModel)]="editingValue" (ngModelChange)="validate()" [tabindex]="editTabindex" />
-        <i *ngIf="!valid" class="icon-warning" title="Price should be a number greater than 0"></i></span><a (click)="onOkClick()"><i class="icon-ok"></i></a><a (click)="onCancelClick()"><i class="icon-cancel"></i></a>
+      <div class="editable-value-outer">
+        <div class="editable-value-edit" [class.invalid]="!valid">
+          &pound; <span class="input-wrapper" [class.invalid]="!valid"><input type="text" #input class="input price" data-validation-message="Price should be a number greater than 0" [(ngModel)]="editingValue" (ngModelChange)="validate()" [tabindex]="editTabindex" (focus)="onFocus()" />
+          <i *ngIf="!valid" class="icon-warning" title="Price should be a number greater than 0"></i></span><a (click)="onOkClick()"><i class="icon-ok"></i></a><a (click)="onCancelClick()"><i class="icon-cancel"></i></a>
+        </div>
       </div>
     </div>
   `
@@ -71,15 +72,8 @@ export class BoxPriceComponent implements OnInit, AfterViewInit {
     this.editingValue = this.toStringValue(this.value);
     this.editing = true;
     this.valid = true;
-    let selectAll = this.addMode && this.toDecimalValue(this.editingValue) == this.originalValue; 
     
-    setTimeout(() => {
-      let elem = this.input.nativeElement;
-      this.renderer.invokeElementMethod(elem, 'focus', []);
-
-      let selectionStart = selectAll? 0 : elem.value.length;
-      this.renderer.invokeElementMethod(elem, 'setSelectionRange', [selectionStart, elem.value.length]);
-    })
+    setTimeout(() => this.renderer.invokeElementMethod(this.input.nativeElement, 'focus', []))
 
     this.container.beFocused();
   }

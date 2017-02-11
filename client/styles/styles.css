@@ -2321,13 +2321,18 @@ select:-moz-focusring {
 .editable-value .editable-value-display:hover a {
   left: 0;
 }
+.editable-value .editable-value-outer {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: -10000px;
+}
 .editable-value .editable-value-edit {
   position: absolute;
   left: -3px;
   top: -6px;
   padding: 2px 4px;
   background: #ffe5be;
-  display: inline-block;
 }
 .editable-value .editable-value-edit a:hover i {
   color: #ffa011;
@@ -2356,6 +2361,12 @@ select:-moz-focusring {
 }
 .editable-value .editable-value-edit.invalid a:first-of-type:hover i {
   color: #999;
+}
+.editable-value.editing .editable-value-display {
+  visibility: hidden;
+}
+.editable-value.editing .editable-value-outer {
+  left: 0px;
 }
 .x-product-price .editable-value-display {
   border: 1px solid transparent;

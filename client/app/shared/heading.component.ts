@@ -5,12 +5,13 @@ import { FocusDirective } from './focus.directive'
   selector: 'cc-heading',
   directives: [FocusDirective],
   template: `
-    <div class="x-heading editable-value" (keydown)="onKeyDown($event)" #container=cc-focus cc-focus (blur)="onContainerBlur()">
-      <h3 class="editable-value-display" (click)="onClick()">{{value}}<a *ngIf="!editing"s><i class="icon-edit"></i></a></h3>
-      <input type="text" style="position: absolute;left:-10000px" *ngIf="!editing" [tabindex]="editTabindex" (focus)="onFocus()" />
-      <div class="editable-value-edit" [class.invalid]="!valid" *ngIf="editing">
-        <span class="input-wrapper" [class.invalid]="!valid"><input type="text" #input [(ngModel)]="editingValue" (ngModelChange)="validate()" [tabindex]="editTabindex" />
-        <i *ngIf="!valid" class="icon-warning" title="Heading should not be empty"></i></span><a (click)="onOkClick()"><i class="icon-ok"></i></a><a (click)="onCancelClick()"><i class="icon-cancel"></i></a>
+    <div class="x-heading editable-value" [class.editing]="editing" (keydown)="onKeyDown($event)" #container=cc-focus cc-focus (blur)="onContainerBlur()">
+      <h3 class="editable-value-display" (click)="onClick()">{{value}}<a><i class="icon-edit"></i></a></h3>
+      <div class="editable-value-outer">
+        <div class="editable-value-edit" [class.invalid]="!valid">
+          <span class="input-wrapper" [class.invalid]="!valid"><input type="text" #input [(ngModel)]="editingValue" (ngModelChange)="validate()" [tabindex]="editTabindex" (focus)="onFocus()" />
+          <i *ngIf="!valid" class="icon-warning" title="Heading should not be empty"></i></span><a (click)="onOkClick()"><i class="icon-ok"></i></a><a (click)="onCancelClick()"><i class="icon-cancel"></i></a>
+        </div>
       </div>
     </div>
   `
@@ -70,13 +71,7 @@ export class HeadingComponent implements OnInit, AfterViewInit {
     this.valid = true;
     let selectAll = this.addMode && this.editingValue == this.originalValue; 
     
-    setTimeout(() => {
-      let elem = this.input.nativeElement;
-      this.renderer.invokeElementMethod(elem, 'focus', []);
-
-      let selectionStart = selectAll? 0 : elem.value.length;
-      this.renderer.invokeElementMethod(elem, 'setSelectionRange', [selectionStart, elem.value.length]);
-    })
+    setTimeout(() => this.renderer.invokeElementMethod(this.input.nativeElement, 'focus', []))
 
     this.container.beFocused();
   }
