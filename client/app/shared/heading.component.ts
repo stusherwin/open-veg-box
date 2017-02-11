@@ -1,15 +1,15 @@
 import { Component, Input, ViewChild, ElementRef, Output, EventEmitter, OnInit, AfterViewInit, Renderer } from '@angular/core';
-import { FocusDirective } from './focus.directive'
+import { ActiveDirective, ActiveParentDirective, ActivateOnFocusDirective } from './active-elements'
 
 @Component({
   selector: 'cc-heading',
-  directives: [FocusDirective],
+  directives: [ActiveDirective, ActiveParentDirective, ActivateOnFocusDirective],
   template: `
-    <div class="x-heading editable-value" [class.editing]="editing" (keydown)="onKeyDown($event)" #container=cc-focus cc-focus (blur)="onContainerBlur()">
+    <div class="x-heading editable-value" [class.editing]="editing" (keydown)="onKeyDown($event)" cc-active cc-active-parent (deactivate)="onDeactivate()">
       <h3 class="editable-value-display" (click)="onClick()">{{value}}<a><i class="icon-edit"></i></a></h3>
       <div class="editable-value-outer">
         <div class="editable-value-edit" [class.invalid]="!valid">
-          <span class="input-wrapper" [class.invalid]="!valid"><input type="text" #input [(ngModel)]="editingValue" (ngModelChange)="validate()" [tabindex]="editTabindex" (focus)="onFocus()" />
+          <span class="input-wrapper" [class.invalid]="!valid"><input type="text" #input [(ngModel)]="editingValue" (ngModelChange)="validate()" [tabindex]="editTabindex" (focus)="onFocus()" cc-active cc-activate-on-focus />
           <i *ngIf="!valid" class="icon-warning" title="Heading should not be empty"></i></span><a (click)="onOkClick()"><i class="icon-ok"></i></a><a (click)="onCancelClick()"><i class="icon-cancel"></i></a>
         </div>
       </div>
@@ -30,9 +30,6 @@ export class HeadingComponent implements OnInit, AfterViewInit {
 
   @Input()
   addMode: boolean;
-
-  @ViewChild('container')
-  container: FocusDirective;
 
   @ViewChild('input')
   input: ElementRef;
@@ -72,8 +69,6 @@ export class HeadingComponent implements OnInit, AfterViewInit {
     let selectAll = this.addMode && this.editingValue == this.originalValue; 
     
     setTimeout(() => this.renderer.invokeElementMethod(this.input.nativeElement, 'focus', []))
-
-    this.container.beFocused();
   }
 
   onOkClick() {
@@ -111,7 +106,7 @@ export class HeadingComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onContainerBlur() {
+  onDeactivate() {
     if(this.tabbedAway && this.valid) {
       this.onOkClick();
     } else {

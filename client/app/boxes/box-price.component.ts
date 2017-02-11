@@ -1,17 +1,17 @@
 import { Component, Input, ViewChild, ElementRef, Output, EventEmitter, OnInit, AfterViewInit, Renderer } from '@angular/core';
-import { FocusDirective } from '../shared/focus.directive'
 import { MoneyPipe } from '../shared/pipes';
+import { ActiveDirective, ActiveParentDirective, ActivateOnFocusDirective } from '../shared/active-elements'
 
 @Component({
   selector: 'cc-box-price',
-  directives: [FocusDirective],
+  directives: [ActiveDirective, ActiveParentDirective, ActivateOnFocusDirective],
   pipes: [MoneyPipe],
   template: `
-    <div class="x-product-price editable-value" [class.editing]="editing" (keydown)="onKeyDown($event)" #container=cc-focus cc-focus (blur)="onContainerBlur()">
+    <div class="x-product-price editable-value" [class.editing]="editing" (keydown)="onKeyDown($event)" cc-active cc-active-parent (deactivate)="onDeactivate()">
       <div class="editable-value-display" (click)="onClick()"><span class [innerHTML]="value | money"></span><a *ngIf="editing"><i class="icon-edit"></i></a></div>
       <div class="editable-value-outer">
         <div class="editable-value-edit" [class.invalid]="!valid">
-          &pound; <span class="input-wrapper" [class.invalid]="!valid"><input type="text" #input class="input price" data-validation-message="Price should be a number greater than 0" [(ngModel)]="editingValue" (ngModelChange)="validate()" [tabindex]="editTabindex" (focus)="onFocus()" />
+          &pound; <span class="input-wrapper" [class.invalid]="!valid"><input type="text" #input class="input price" data-validation-message="Price should be a number greater than 0" [(ngModel)]="editingValue" (ngModelChange)="validate()" [tabindex]="editTabindex" (focus)="onFocus()" cc-active cc-activate-on-focus />
           <i *ngIf="!valid" class="icon-warning" title="Price should be a number greater than 0"></i></span><a (click)="onOkClick()"><i class="icon-ok"></i></a><a (click)="onCancelClick()"><i class="icon-cancel"></i></a>
         </div>
       </div>
@@ -33,9 +33,6 @@ export class BoxPriceComponent implements OnInit, AfterViewInit {
 
   @Input()
   addMode: boolean;
-
-  @ViewChild('container')
-  container: FocusDirective;
 
   @ViewChild('input')
   input: ElementRef;
@@ -74,8 +71,6 @@ export class BoxPriceComponent implements OnInit, AfterViewInit {
     this.valid = true;
     
     setTimeout(() => this.renderer.invokeElementMethod(this.input.nativeElement, 'focus', []))
-
-    this.container.beFocused();
   }
 
   onOkClick() {
@@ -113,7 +108,7 @@ export class BoxPriceComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onContainerBlur() {
+  onDeactivate() {
     if(this.tabbedAway && this.valid) {
       this.onOkClick();
     } else {

@@ -1,11 +1,11 @@
-import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, ElementRef, Renderer } from '@angular/core';
 import { Box, BoxProduct } from './box';
 import { Product } from '../products/product'
 import { WeightPipe, MoneyPipe } from '../shared/pipes';
 import { HeadingComponent } from '../shared/heading.component';
-import { FocusDirective } from '../shared/focus.directive';
 import { BoxPriceComponent } from './box-price.component';
 import { BoxProductsComponent } from './box-products.component';
+import { ActiveDirective, ActiveParentDirective, ActivateOnFocusDirective } from '../shared/active-elements'
 
 export interface BoxProductEvent {
   boxId: number;
@@ -15,13 +15,13 @@ export interface BoxProductEvent {
 @Component({
   selector: 'cc-box',
   templateUrl: 'app/boxes/box.component.html',
-  directives: [HeadingComponent, FocusDirective, BoxPriceComponent, BoxProductsComponent]
+  directives: [HeadingComponent, BoxPriceComponent, BoxProductsComponent, ActiveDirective, ActiveParentDirective, ActivateOnFocusDirective]
 })
 export class BoxComponent {
   adding: boolean;
   rowFocused: boolean;
 
-  constructor() {
+  constructor(private renderer: Renderer) {
     this.box = new Box(0, 'New box', 10.0, []);
   }
 
@@ -29,7 +29,7 @@ export class BoxComponent {
   boxName: HeadingComponent;
 
   @ViewChild('addButton')
-  addButton: FocusDirective;
+  addButton: ElementRef;
 
   @Input()
   addMode: boolean;
@@ -88,7 +88,7 @@ export class BoxComponent {
     this.adding = false;
     this.box = new Box(0, 'New box', 10.0, []);
 
-    this.addButton.beFocused();
+    this.renderer.invokeElementMethod(this.addButton.nativeElement, 'focus', []);
   }
 
   onUpdate() {
@@ -109,7 +109,7 @@ export class BoxComponent {
     this.productRemove.emit({boxId: this.box.id, product});
   }
 
-  onRowFocus() {
+  onActivate() {
     var focusedChanged = !this.rowFocused;
     this.rowFocused = true;
     if(this.addMode && focusedChanged) {
@@ -117,7 +117,7 @@ export class BoxComponent {
     }
   }
 
-  onRowBlur() {
+  onDeactivate() {
     if(this.adding) {
       this.adding = false;
       this.box = new Box(0, 'New box', 10.0, []);

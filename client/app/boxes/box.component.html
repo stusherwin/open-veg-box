@@ -1,28 +1,28 @@
-<div class="row" [class.addMode]="addMode" cc-focus focusedClass="focused" [handleClickOutside]="true" (focus)="onRowFocus()" (blur)="onRowBlur()">
-  <input type="checkbox" cc-focus *ngIf="addMode && !rowFocused" style="position: absolute;left:-1000px" [tabindex]="index * 2" />
+<div class="row" [class.addMode]="addMode" [class.focused]="rowFocused" cc-active cc-active-parent (activate)="onActivate()" (deactivate)="onDeactivate()">
+  <input type="checkbox" cc-active cc-activate-on-focus *ngIf="addMode && !rowFocused" style="position: absolute;left:-1000px" [tabindex]="index * 2" />
   <div class="actions">
     <div class="action" *ngIf="!addMode || !adding">
     </div>
     <div class="action" *ngIf="!addMode">
-      <button cc-focus (click)="onDelete()" [tabindex]="(index * 2) + 2">
+      <button cc-active cc-activate-on-focus (click)="onDelete()" [tabindex]="(index * 2) + 2">
         <div class="icon"><i class="icon-trash"></i></div>
         <span>Delete</span>
       </button>
     </div>
     <div class="action" [hidden]="!addMode || adding || !loaded">
-      <button #addButton=cc-focus cc-focus (click)="startAdd()" [tabindex]="(index * 2) + 2">
+      <button #addButton cc-active cc-activate-on-focus (click)="startAdd()" [tabindex]="(index * 2) + 2">
         <div class="icon"><i class="icon-add"></i></div>
         <span>Add</span>
       </button>  
     </div>
     <div class="action" *ngIf="addMode && adding">
-      <button cc-focus (click)="completeAdd()" [tabindex]="(index * 2) + 2">
+      <button cc-active cc-activate-on-focus (click)="completeAdd()" [tabindex]="(index * 2) + 2">
         <div class="icon"><i class="icon-ok"></i></div>
         <span>Save</span>
       </button>  
     </div>
     <div class="action" *ngIf="addMode && adding">
-      <button cc-focus (click)="cancelAdd()" [tabindex]="(index * 2) + 2">
+      <button cc-active cc-activate-on-focus (click)="cancelAdd()" [tabindex]="(index * 2) + 2">
         <div class="icon"><i class="icon-cancel"></i></div>
         <span>Cancel</span>
       </button>  

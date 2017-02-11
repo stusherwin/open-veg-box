@@ -1,6 +1,6 @@
 <h2>Boxes</h2>
 
-<div class="row-view" cc-focus id="row-view" focusedClass="focused" [handleClickOutside]="true">
+<div id="row-view" class="row-view" cc-active-parent [class.focused]="focused" (activate)="focused = true" (deactivate)="focused = false">
   <cc-box *ngFor="let b of boxes; let i = index"
     [box]="b"
     [products]="products"

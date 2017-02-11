@@ -1,10 +1,8 @@
 import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, ViewChildren, QueryList, AfterViewInit, ChangeDetectorRef, AfterViewChecked, OnChanges, Inject, forwardRef, OnInit, OnDestroy } from '@angular/core';
-import { FocusDirective } from '../shared/focus.directive'
 import { BoxProduct } from './box'
 import { Product } from '../products/product'
 import { Subscription } from 'rxjs/Subscription'
 import { Observable } from 'rxjs/Observable';
-import { EditableComponent } from '../shared/editable.component'
 import { Arrays } from '../shared/arrays'
 import { WeightPipe } from '../shared/pipes'
 import { BoxProductsService } from './box-products.service'
@@ -21,7 +19,7 @@ const COLUMN_PADDING_RATIO = 0.8;
 
 @Component({
   selector: 'cc-box-products',
-  directives: [FocusDirective, EditableComponent, BoxProductQuantityComponent, BoxProductAddComponent, BoxProductRemoveComponent, ActiveDirective, ActiveParentDirective],
+  directives: [BoxProductQuantityComponent, BoxProductAddComponent, BoxProductRemoveComponent, ActiveDirective, ActiveParentDirective],
   pipes: [WeightPipe],
   templateUrl: 'app/boxes/box-products.component.html',
   host: {
@@ -57,9 +55,6 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
 
   @ViewChild('root')
   root: ElementRef
-
-  @ViewChild('focusable')
-  focusable: FocusDirective
 
   @ViewChildren('productNameTest')
   productNameTests: QueryList<ElementRef>
@@ -209,15 +204,5 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
         setTimeout(() => this.addComponent.focus());
       }
     }
-  }
-
-  onActivate() {
-    this.editing = true
-    this.focusable.beFocused();
-  }
-
-  onDeactivate() {
-    this.editing = false
-    this.focusable.beBlurred();
   }
 }
