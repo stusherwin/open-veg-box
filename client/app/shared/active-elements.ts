@@ -1,4 +1,4 @@
-import { Input, Directive, OnInit, OnDestroy, ElementRef, Inject, forwardRef, HostListener, OnChanges, ChangeDetectorRef, AfterViewChecked, Renderer, EventEmitter, Output } from '@angular/core';
+import { Input, Directive, OnInit, OnDestroy, ElementRef, Inject, forwardRef, HostListener, OnChanges, ChangeDetectorRef, AfterViewChecked, AfterViewInit, Renderer, EventEmitter, Output } from '@angular/core';
 import { Arrays } from './arrays';
 
 const ACTIVE_ELEMENT_SELECTOR = '[cc-active]'
@@ -248,6 +248,7 @@ export class ActivateOnFocusDirective {
 }
 
 
+
 export class ActiveService {
   parents: ActiveParentElement[] = []
   children: ActiveElement[] = []
@@ -321,7 +322,6 @@ export class ActiveService {
   makeInactive(element: Element) {
     let child = this.children.find(c => c.element == element);
     if(child) {
-      //setTimeout(() => child.makeInactive(), INACTIVE_GRACE_PERIOD_MS);
       child.makeInactive();
     }
   }

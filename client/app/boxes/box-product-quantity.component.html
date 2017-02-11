@@ -1,23 +1,22 @@
-<div class="box-product-detail box-product-quantity" style="position: relative"
+<div class="box-product-detail box-product-quantity editable-value" style="position: relative"
   [class.box-product-display]="!editing"
   [class.box-product-edit]="editing"
+  [class.editing]="editing"
   [style.width.px]="width"
   (keydown)="onKeydown($event)"
   cc-active cc-active-parent (deactivate)="onDeactivate()">
-  <div style="display: inline-block" *ngIf="!editing" (click)="onClick()">
+  <div class="editable-value-display" style="display: inline-block" (click)="onClick()">
     <span class="box-product-quantity-each" *ngIf="unitType == 'each'">x</span>
     <span *ngIf="unitType == 'perKg'">{{value | weight}}</span>
     <span *ngIf="unitType != 'perKg'">{{value}}</span>
     <a><i class="icon-edit"></i></a>
   </div>
-  <div *ngIf="editing" class="edit-background">
-    <a cc-active cc-activate-on-focus tabindex="9999" (click)="onOkClick()"><i class="icon-ok"></i></a>
-    <a cc-active cc-activate-on-focus tabindex="9999" (click)="onCancelClick()"><i class="icon-cancel"></i></a>
-  </div>
-  <input type="text" style="position: absolute;left:-10000px" *ngIf="!editing" [tabindex]="editTabindex" (focus)="onFocus()" />
-  <div style="display: inline-block" *ngIf="editing">
-    <span class="box-product-quantity-each" *ngIf="unitType == 'each'">x</span>
-    <input cc-active cc-activate-on-focus type="text" #input [(ngModel)]="stringValue" [tabindex]="editTabindex" />
-    <span class="box-product-quantity-perkg" *ngIf="unitType == 'perKg'">Kg</span>
+  <div class="editable-value-outer">
+    <div class="editable-value-edit" style="display: inline-block" [class.invalid]="!valid">
+      <span class="box-product-quantity-each" *ngIf="unitType == 'each'">x</span>
+      <span class="input-wrapper" [class.invalid]="!valid"><input cc-active cc-activate-on-focus type="text" #input [(ngModel)]="editingValue" (ngModelChange)="validate()" [tabindex]="editTabindex" (focus)="onFocus()" />
+      <i *ngIf="!valid" class="icon-warning" title="Quantity should be a number greater than 0"></i></span>
+      <span class="box-product-quantity-perkg" *ngIf="unitType == 'perKg'">Kg</span><a (click)="onOkClick()" tabindex="9999"><i class="icon-ok"></i></a><a (click)="onCancelClick()" tabindex="9999"><i class="icon-cancel"></i></a>
+    </div>
   </div>
 </div>

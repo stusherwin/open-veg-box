@@ -20,7 +20,6 @@ import { ActiveDirective, ActiveParentDirective, ActivateOnFocusDirective } from
 }) 
 // TODO: active based on focus/blur of child components
 export class BoxPriceComponent implements OnInit, AfterViewInit {
-  originalValue: number;
   editingValue: string;
   editing = false;
   valid = true;
@@ -47,7 +46,6 @@ export class BoxPriceComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.originalValue = this.value;
   }
 
   ngAfterViewInit() {

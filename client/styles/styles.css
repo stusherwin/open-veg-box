@@ -2046,15 +2046,11 @@ select:-moz-focusring {
 .box-products .box-product-column .box-product i::before {
   margin: 0;
 }
-.box-products .box-product-column .box-product i:hover {
-  color: #ffa011;
-  cursor: pointer;
-}
 .box-products .box-product-column .box-product a {
   color: #999;
 }
-.box-products .box-product-column .box-product a:hover,
-.box-products .box-product-column .box-product a:focus {
+.box-products .box-product-column .box-product a:hover i,
+.box-products .box-product-column .box-product a:focus i {
   color: #ffa011;
 }
 .box-products .box-product-column .box-product .box-product-detail {
@@ -2111,6 +2107,9 @@ select:-moz-focusring {
 .box-products .box-product-column .box-product .box-product-quantity.box-product-display:hover a,
 .box-products .box-product-column .box-product .box-product-quantity.box-product-display.hover a {
   left: 0px;
+}
+.box-products .box-product-column .box-product .box-product-quantity.box-product-display:hover a i,
+.box-products .box-product-column .box-product .box-product-quantity.box-product-display.hover a i {
   color: #ffa011;
 }
 .box-products .box-product-column .box-product .box-product-quantity.box-product-edit a {
@@ -2147,10 +2146,10 @@ select:-moz-focusring {
   color: #ffa011;
   cursor: pointer;
 }
-.box-products:hover .box-product.box-product-add:hover .box-product-display a,
-.box-products.editing .box-product.box-product-add:hover .box-product-display a,
-.box-products:hover .box-product.box-product-add .hover .box-product-display a,
-.box-products.editing .box-product.box-product-add .hover .box-product-display a {
+.box-products:hover .box-product.box-product-add:hover .box-product-display a i,
+.box-products.editing .box-product.box-product-add:hover .box-product-display a i,
+.box-products:hover .box-product.box-product-add .hover .box-product-display a i,
+.box-products.editing .box-product.box-product-add .hover .box-product-display a i {
   color: #ffa011;
 }
 .round-customers {
@@ -2329,6 +2328,7 @@ select:-moz-focusring {
 }
 .editable-value .editable-value-edit {
   position: absolute;
+  z-index: 2;
   left: -3px;
   top: -6px;
   padding: 2px 4px;
@@ -2355,6 +2355,7 @@ select:-moz-focusring {
   right: 6px;
   top: -1px;
   cursor: help;
+  z-index: 2;
 }
 .editable-value .editable-value-edit.invalid a:first-of-type:hover {
   cursor: auto;
@@ -2393,6 +2394,24 @@ select:-moz-focusring {
 }
 .x-heading .editable-value-edit .input-wrapper.invalid .icon-warning {
   top: -4px;
+}
+.box-product-detail.box-product-quantity .editable-value-edit {
+  top: 0px;
+  left: -1px;
+  right: -30px;
+  padding-left: 7px;
+}
+.box-product-detail.box-product-quantity .editable-value-edit .input-wrapper.invalid .icon-warning {
+  right: 10px;
+  top: 1px;
+  padding: 2px;
+  padding-top: 3px;
+}
+.box-product-detail.box-product-quantity .editable-value-edit.invalid a:first-of-type:hover {
+  cursor: auto;
+}
+.box-product-detail.box-product-quantity .editable-value-edit.invalid a:first-of-type:hover i {
+  color: #999;
 }
 .home {
   background: #579532;

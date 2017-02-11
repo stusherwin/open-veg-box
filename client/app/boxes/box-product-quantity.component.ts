@@ -1,5 +1,4 @@
 import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, ViewChildren, QueryList, AfterViewInit, ChangeDetectorRef, AfterViewChecked, OnChanges, Inject, forwardRef, OnInit, OnDestroy, Renderer } from '@angular/core';
-import { FocusDirective } from '../shared/focus.directive';
 import { BoxProduct } from './box'
 import { WeightPipe } from '../shared/pipes'
 import { Arrays } from '../shared/arrays'
@@ -8,13 +7,14 @@ import { Subscription } from 'rxjs/Subscription'
 
 @Component({
   selector: 'cc-box-product-quantity',
-  directives: [FocusDirective, ActiveDirective, ActiveParentDirective, ActivateOnFocusDirective],
+  directives: [ActiveDirective, ActiveParentDirective, ActivateOnFocusDirective],
   pipes: [WeightPipe],
   templateUrl: 'app/boxes/box-product-quantity.component.html'
 })
 export class BoxProductQuantityComponent implements OnInit {
-  stringValue: string;
-  editing: boolean;
+  editingValue: string;
+  editing = false;
+  valid = true;
   
   @Input()
   value: number;
@@ -31,8 +31,8 @@ export class BoxProductQuantityComponent implements OnInit {
   @Input()
   editTabindex: number;
 
-  @ViewChildren('input')
-  input: QueryList<ElementRef>
+  @ViewChild('input')
+  input: ElementRef
 
   @Output()
   update = new EventEmitter<number>();
@@ -41,42 +41,43 @@ export class BoxProductQuantityComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.stringValue = this.toStringValue(this.value);
+    this.editingValue = this.toStringValue(this.value);
   }
 
   onClick() {
+    this.editingValue = this.toStringValue(this.value);
     this.editing = true;
+    this.valid = true;
 
-    let subscription = this.input.changes.subscribe((f: QueryList<ElementRef>) => {
-      if(f.length && this.editing) {
-        this.renderer.invokeElementMethod(this.input.first.nativeElement, 'focus', []);
-        subscription.unsubscribe();
-      }
-    })
+    this.renderer.invokeElementMethod(this.input.nativeElement, 'focus', []);
   }
 
   onOkClick() {
-    let newValue = this.toDecimalValue(this.stringValue);
+    if(!this.valid) {
+      return;
+    }
+
+    let newValue = this.toDecimalValue(this.editingValue);
 
     if(newValue != this.value) {
       this.value = newValue;
       this.update.emit(this.value);
     }
 
-    this.stringValue = this.toStringValue(this.value);
+    this.editingValue = this.toStringValue(this.value);
     this.editing = false;
     this.tabbedAway = false;
   }
 
   onCancelClick() {
-    this.stringValue = this.toStringValue(this.value);
+    this.editingValue = this.toStringValue(this.value);
     this.editing = false;
     this.tabbedAway = false;
   }
 
   onDeactivate() {
     if(this.editing) {
-      if(this.tabbedAway) {
+      if(this.tabbedAway && this.valid) {
         this.onOkClick();
       } else {
         this.onCancelClick();
@@ -98,13 +99,17 @@ export class BoxProductQuantityComponent implements OnInit {
       return;
     }
 
-    if(event.key == 'Enter') {
+    if(event.key == 'Enter' && this.valid) {
       this.onOkClick();
     } else if(event.key == 'Escape') {
       this.onCancelClick();
     } else if(event.key == 'Tab' && !event.shiftKey) {
       this.tabbedAway = true;
     }
+  }
+
+  validate() {
+    this.valid = this.toDecimalValue(this.editingValue) > 0;
   }
 
   fixedDecimals: number = null;
