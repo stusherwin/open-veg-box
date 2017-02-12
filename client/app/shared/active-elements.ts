@@ -38,9 +38,6 @@ export class ActiveElementDirective implements OnInit, OnDestroy, AfterViewInit 
   }
 
   ngOnInit() {
-    this.bubble = (this.noBubbleAttr === undefined);
-    this.service.registerChild(this, this.bubble);
-    this.service.registerParent(this);
   }
 
   ngOnDestroy() {
@@ -50,11 +47,13 @@ export class ActiveElementDirective implements OnInit, OnDestroy, AfterViewInit 
   }
 
   ngAfterViewInit() {
+    this.bubble = (this.noBubbleAttr === undefined);
+    this.service.registerChild(this, this.bubble);
+    this.service.registerParent(this);
   }
 
   handleChildActive(child: ActiveElementDirective) {
     this.makeActive()
-
     for(let c of this.children) {
       if(c != child) {
         c.makeInactive();
@@ -165,6 +164,18 @@ export class ActiveService {
 
   registerParent(parent: ActiveElementDirective) {
     this.parents.push(parent);
+
+    let children: any[] = [].slice.call(parent.element.querySelectorAll(ACTIVE_ELEMENT_SELECTOR));
+    let childrenOfOtherParents: any[] = [].slice.call(parent.element.querySelectorAll(':scope ' + ACTIVE_ELEMENT_SELECTOR + ' ' + ACTIVE_ELEMENT_SELECTOR));
+    let exclusiveChildren = children.filter(c => !childrenOfOtherParents.find(oc => oc == c));
+
+    for(let c of exclusiveChildren) {
+      let child = this.children.find(ch => ch.element == c);
+      if(child) {
+        parent.children.push(child);
+        child.parent = parent;
+      }
+    }
   }
 
   registerChild(child: ActiveElementDirective, bubble: boolean) {
