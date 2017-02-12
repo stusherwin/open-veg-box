@@ -1,13 +1,13 @@
 import { Component, Input, ViewChild, ElementRef, Output, EventEmitter, OnInit, AfterViewInit, Renderer } from '@angular/core';
 import { MoneyPipe } from '../shared/pipes';
-import { ActiveDirective, ActiveParentDirective, ActivateOnFocusDirective } from '../shared/active-elements'
+import { ActiveElementDirective, ActivateOnFocusDirective } from '../shared/active-elements'
 
 @Component({
   selector: 'cc-box-price',
-  directives: [ActiveDirective, ActiveParentDirective, ActivateOnFocusDirective],
+  directives: [ActiveElementDirective, ActivateOnFocusDirective],
   pipes: [MoneyPipe],
   template: `
-    <div class="x-product-price editable-value" [class.editing]="editing" (keydown)="onKeyDown($event)" cc-active cc-active-parent (deactivate)="onDeactivate()">
+    <div class="x-product-price editable-value" [class.editing]="editing" (keydown)="onKeyDown($event)" #active=cc-active cc-active (deactivate)="onDeactivate()">
       <div class="editable-value-display" (click)="onClick()">
         <span class [innerHTML]="value | money"></span>
         <a><i class="icon-edit"></i></a>
@@ -40,6 +40,9 @@ export class BoxPriceComponent implements OnInit, AfterViewInit {
 
   @ViewChild('input')
   input: ElementRef;
+
+  @ViewChild('active')
+  active: ActiveElementDirective;
 
   @Output()
   valueChange = new EventEmitter<number>();
@@ -89,11 +92,13 @@ export class BoxPriceComponent implements OnInit, AfterViewInit {
     
     this.editing = false;
     this.tabbedAway = false;
+    this.active.makeInactive()
   }
 
   onCancelClick() {
     this.editing = false;
     this.tabbedAway = false;
+    this.active.makeInactive()
   }
 
   tabbedAway = false;

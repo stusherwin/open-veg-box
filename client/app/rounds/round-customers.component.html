@@ -1,5 +1,5 @@
 <div cc-focus #focusable=cc-focus>
-  <div class="round-customers" [class.editing]="editing" cc-active-parent (activate)="onActivate()" (deactivate)="onDeactivate()">
+  <div class="round-customers" [class.editing]="editing" (activate)="onActivate()" (deactivate)="onDeactivate()">
     <div class="round-customer" *ngFor="let c of value">
       <div class="round-customer-detail round-customer-name round-customer-display" [style.width.px]="customerNameWidth + customerNamePadding">{{c.name}}</div>
       <div class="round-customer-detail round-customer-address round-customer-display" [style.width.px]="customerAddressWidth + customerAddressPadding">{{c.address}}</div>

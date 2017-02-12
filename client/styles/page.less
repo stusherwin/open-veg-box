@@ -1035,8 +1035,8 @@ select:-moz-focusring {
           padding: 4px;
           color: #E80000;
           position: absolute;
-          right: 6px;
-          top: -1px;
+          right: 2px;//6px;
+          top: 0px;//-1px;
           cursor: help;
           z-index: 2;
         }
@@ -1044,11 +1044,13 @@ select:-moz-focusring {
     }
 
     &.invalid {
-      a:first-of-type:hover {
-        cursor: auto;
+      a:first-of-type {
+        &:hover, &:focus {
+          cursor: auto;
 
-        i {
-          color: #999;
+          i {
+            color: #999;
+          }
         }
       }
     }
@@ -1071,6 +1073,9 @@ select:-moz-focusring {
   }
 
   .editable-value-edit {
+    input[type="text"] {
+      width: 66px;
+    }
   }
 }
 
@@ -1116,11 +1121,11 @@ select:-moz-focusring {
 
 .box-product-detail.box-product-quantity {
   .editable-value-display {
-    display: inline-block
+    display: inline-block;
   }
 
   .editable-value-edit {
-    display: inline-block
+    display: inline-block;
     top: 0px;
     left: -1px;
     right: -35px;
@@ -1134,7 +1139,7 @@ select:-moz-focusring {
     .input-wrapper {
       &.invalid {
         .icon-warning {
-          right: 10px;
+          right: 11px;
           top: 1px;
           padding: 2px;
           padding-top:3px;
@@ -1201,7 +1206,7 @@ select:-moz-focusring {
     .input-wrapper {
       &.invalid {
         .icon-warning {
-          right: 10px;
+          right: 11px;
           top: 1px;
           padding: 2px;
           padding-top:3px;
@@ -1210,7 +1215,7 @@ select:-moz-focusring {
     }
 
     &.invalid {
-      a:first-of-type:hover {
+      a:first-of-type:hover, a:first-of-type:focus {
         cursor: auto;
 
         i {
@@ -1219,4 +1224,8 @@ select:-moz-focusring {
       }
     }
   }
+}
+
+.box-products .box-product-column .box-product .invalid a:focus i {
+  color: #999;
 }

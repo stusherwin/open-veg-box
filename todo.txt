@@ -99,7 +99,7 @@ Box Products
   - same when adding via Enter key (as opposed to tabbing away)
 * Column spacing - not enough between product name & quantity,
   too much between q & remove btn
-
+* Warning icon alignment out in Firefox
 
 Round customers
 ===============

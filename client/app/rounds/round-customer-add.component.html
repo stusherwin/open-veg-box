@@ -1,6 +1,6 @@
 <div class="round-customer round-customer-add"
     (keydown)="keydown($event)"
-    cc-active cc-active-parent 
+    cc-active 
     (deactivate)="onDeactivate()">
   <div *ngIf="customers.length && !adding" (click)="onClick()" [class.hover]="addHover">
     <div class="round-customer-detail round-customer-name round-customer-display" [style.width.px]="customerNameWidth + customerAddressWidth">{{text}}</div>

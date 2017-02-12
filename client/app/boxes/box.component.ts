@@ -5,7 +5,7 @@ import { WeightPipe, MoneyPipe } from '../shared/pipes';
 import { HeadingComponent } from '../shared/heading.component';
 import { BoxPriceComponent } from './box-price.component';
 import { BoxProductsComponent } from './box-products.component';
-import { ActiveDirective, ActiveParentDirective, ActivateOnFocusDirective } from '../shared/active-elements'
+import { ActiveElementDirective, ActivateOnFocusDirective } from '../shared/active-elements'
 
 export interface BoxProductEvent {
   boxId: number;
@@ -15,7 +15,7 @@ export interface BoxProductEvent {
 @Component({
   selector: 'cc-box',
   templateUrl: 'app/boxes/box.component.html',
-  directives: [HeadingComponent, BoxPriceComponent, BoxProductsComponent, ActiveDirective, ActiveParentDirective, ActivateOnFocusDirective]
+  directives: [HeadingComponent, BoxPriceComponent, BoxProductsComponent, ActiveElementDirective, ActivateOnFocusDirective]
 })
 export class BoxComponent {
   adding: boolean;

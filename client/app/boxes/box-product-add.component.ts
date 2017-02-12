@@ -4,18 +4,18 @@ import { Product } from '../products/product'
 import { Subscription } from 'rxjs/Subscription'
 import { Observable } from 'rxjs/Observable';
 import { BoxProductsService } from './box-products.service'
-import { ActiveDirective, ActiveParentDirective, ActivateOnFocusDirective } from '../shared/active-elements';
+import { ActiveElementDirective, ActivateOnFocusDirective } from '../shared/active-elements';
+import { ValidatableComponent } from '../shared/validatable.component';
 
 @Component({
   selector: 'cc-box-product-add',
   templateUrl: 'app/boxes/box-product-add.component.html',
-  directives: [ActiveDirective, ActiveParentDirective, ActivateOnFocusDirective]
+  directives: [ActiveElementDirective, ActivateOnFocusDirective, ValidatableComponent]
 })
 export class BoxProductAddComponent implements OnInit, AfterViewInit {
   adding: boolean;
   product: Product;
   quantityStringValue: string;
-  valid = true;
   
   @Input()
   products: Product[];
@@ -39,10 +39,17 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit {
   select: QueryList<ElementRef>
 
   @ViewChild('add')
-  addBtn: ElementRef  
+  addBtn: ElementRef
+
+  @ViewChild('active')
+  active: ActiveElementDirective  
 
   @Output()
   add = new EventEmitter<BoxProduct>();
+
+  get valid() {
+    return this.toDecimalValue(this.quantityStringValue) > 0;
+  }
 
   constructor(
     private service: BoxProductsService,
@@ -67,10 +74,7 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit {
     this.adding = true;
 
     let subscription = this.select.changes.subscribe((f: QueryList<ElementRef>) => {
-      console.log('changes');
       if(f.length && this.adding) {
-        console.log('we have one');
-        
         this.renderer.invokeElementMethod(f.first.nativeElement, 'focus', []);
         subscription.unsubscribe();
       }
@@ -95,13 +99,13 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit {
 
     this.adding = false;
     this.tabbedAway = false;
-    this.valid = true;
+    this.active.makeInactive();
   }
 
   onCancelClick() {
     this.adding = false;
     this.tabbedAway = false;
-    this.valid = true;
+    this.active.makeInactive();    
   }
 
   onActivate() {
@@ -109,7 +113,6 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit {
   }
 
   onDeactivate() {
-    console.log('deactivate');
     if(this.adding) {
       if(this.tabbedAway && this.valid) {
         this.onOkClick();
@@ -121,10 +124,6 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit {
 
   focus() {
     this.renderer.invokeElementMethod(this.addBtn.nativeElement, 'focus', []);
-  }
-
-  validate() {
-    this.valid = this.toDecimalValue(this.quantityStringValue) > 0;
   }
  
   tabbedAway = false;

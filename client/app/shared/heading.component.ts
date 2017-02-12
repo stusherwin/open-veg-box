@@ -1,19 +1,21 @@
 import { Component, Input, ViewChild, ElementRef, Output, EventEmitter, OnInit, AfterViewInit, Renderer } from '@angular/core';
-import { ActiveDirective, ActiveParentDirective, ActivateOnFocusDirective } from './active-elements'
+import { ActiveElementDirective, ActivateOnFocusDirective } from './active-elements'
+import { ValidatableComponent } from '../shared/validatable.component';
 
 @Component({
   selector: 'cc-heading',
-  directives: [ActiveDirective, ActiveParentDirective, ActivateOnFocusDirective],
+  directives: [ActiveElementDirective, ActivateOnFocusDirective, ValidatableComponent],
   template: `
-    <div class="x-heading editable-value" [class.editing]="editing" (keydown)="onKeyDown($event)" cc-active cc-active-parent (deactivate)="onDeactivate()">
+    <div class="x-heading editable-value" [class.editing]="editing" (keydown)="onKeyDown($event)" #active=cc-active cc-active (deactivate)="onDeactivate()">
       <div class="editable-value-display" (click)="onClick()">
         <h3>{{value}}</h3>
         <a><i class="icon-edit"></i></a>
       </div>
       <div class="editable-value-outer">
         <div class="editable-value-edit" [class.invalid]="!valid">
-          <span class="input-wrapper" [class.invalid]="!valid"><input type="text" #input [(ngModel)]="editingValue" (ngModelChange)="validate()" [tabindex]="editTabindex" (focus)="onFocus()" cc-active cc-activate-on-focus />
-          <i *ngIf="!valid" class="icon-warning" title="Heading should not be empty"></i></span>
+          <cc-validatable [valid]="valid" message="Heading should not be empty">
+            <input type="text" #input [(ngModel)]="editingValue" [tabindex]="editTabindex" (focus)="onFocus()" cc-active cc-activate-on-focus />
+          </cc-validatable>
           <a (click)="onOkClick()"><i class="icon-ok"></i></a>
           <a (click)="onCancelClick()"><i class="icon-cancel"></i></a>
         </div>
@@ -24,7 +26,6 @@ import { ActiveDirective, ActiveParentDirective, ActivateOnFocusDirective } from
 export class HeadingComponent implements OnInit, AfterViewInit {
   editingValue: string;
   editing = false;
-  valid = true;
 
   @Input()
   value: string;
@@ -38,11 +39,18 @@ export class HeadingComponent implements OnInit, AfterViewInit {
   @ViewChild('input')
   input: ElementRef;
 
+  @ViewChild('active')
+  active: ActiveElementDirective
+
   @Output()
   valueChange = new EventEmitter<string>();
 
   @Output()
   update = new EventEmitter<any>();
+
+  get valid() {
+    return this.editingValue && !!this.editingValue.length;
+  }
 
   constructor(private renderer: Renderer) {
   }
@@ -68,7 +76,6 @@ export class HeadingComponent implements OnInit, AfterViewInit {
   onClick() {
     this.editingValue = this.value;
     this.editing = true;
-    this.valid = true;
     
     setTimeout(() => this.renderer.invokeElementMethod(this.input.nativeElement, 'focus', []))
   }
@@ -86,11 +93,13 @@ export class HeadingComponent implements OnInit, AfterViewInit {
     
     this.editing = false;
     this.tabbedAway = false;
+    this.active.makeInactive()
   }
 
   onCancelClick() {
     this.editing = false;
     this.tabbedAway = false;
+    this.active.makeInactive()
   }
 
   tabbedAway = false;
@@ -114,9 +123,5 @@ export class HeadingComponent implements OnInit, AfterViewInit {
     } else {
       this.onCancelClick();
     }
-  }
-
-  validate() {
-    this.valid = !!this.editingValue.length;
   }
 }

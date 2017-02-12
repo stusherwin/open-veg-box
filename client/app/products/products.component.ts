@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import { RouteParams } from '@angular/router-deprecated';
 import { FocusService } from '../shared/focus.service';
 import { FocusDirective } from '../shared/focus.directive';
-import { ActiveService, ActiveDirective, ActiveParentDirective, ActivateOnFocusDirective } from '../shared/active-elements'
+import { ActiveService, ActiveElementDirective, ActivateOnFocusDirective } from '../shared/active-elements'
 
 @Component({
   selector: 'cc-products',

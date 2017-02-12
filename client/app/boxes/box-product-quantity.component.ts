@@ -2,19 +2,19 @@ import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitte
 import { BoxProduct } from './box'
 import { WeightPipe } from '../shared/pipes'
 import { Arrays } from '../shared/arrays'
-import { ActiveDirective, ActiveParentDirective, ActivateOnFocusDirective } from '../shared/active-elements';
+import { ActiveElementDirective, ActivateOnFocusDirective } from '../shared/active-elements';
+import { ValidatableComponent } from '../shared/validatable.component';
 import { Subscription } from 'rxjs/Subscription'
 
 @Component({
   selector: 'cc-box-product-quantity',
-  directives: [ActiveDirective, ActiveParentDirective, ActivateOnFocusDirective],
+  directives: [ActiveElementDirective, ActivateOnFocusDirective, ValidatableComponent],
   pipes: [WeightPipe],
   templateUrl: 'app/boxes/box-product-quantity.component.html'
 })
 export class BoxProductQuantityComponent implements OnInit {
   editingValue: string;
   editing = false;
-  valid = true;
   
   @Input()
   value: number;
@@ -34,8 +34,15 @@ export class BoxProductQuantityComponent implements OnInit {
   @ViewChild('input')
   input: ElementRef
 
+  @ViewChild('active')
+  active: ActiveElementDirective
+
   @Output()
   update = new EventEmitter<number>();
+  
+  get valid() {
+    return this.toDecimalValue(this.editingValue) > 0
+  }
 
   constructor(private renderer: Renderer) {
   }
@@ -47,7 +54,6 @@ export class BoxProductQuantityComponent implements OnInit {
   onClick() {
     this.editingValue = this.toStringValue(this.value);
     this.editing = true;
-    this.valid = true;
 
     this.renderer.invokeElementMethod(this.input.nativeElement, 'focus', []);
   }
@@ -67,12 +73,14 @@ export class BoxProductQuantityComponent implements OnInit {
     this.editingValue = this.toStringValue(this.value);
     this.editing = false;
     this.tabbedAway = false;
+    this.active.makeInactive();
   }
 
   onCancelClick() {
     this.editingValue = this.toStringValue(this.value);
     this.editing = false;
     this.tabbedAway = false;
+    this.active.makeInactive();
   }
 
   onDeactivate() {
@@ -106,10 +114,6 @@ export class BoxProductQuantityComponent implements OnInit {
     } else if(event.key == 'Tab') {
       this.tabbedAway = !event.shiftKey;
     }
-  }
-
-  validate() {
-    this.valid = this.toDecimalValue(this.editingValue) > 0;
   }
 
   fixedDecimals: number = null;

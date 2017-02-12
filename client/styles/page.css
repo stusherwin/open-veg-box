@@ -1434,15 +1434,17 @@ select:-moz-focusring {
   padding: 4px;
   color: #E80000;
   position: absolute;
-  right: 6px;
-  top: -1px;
+  right: 2px;
+  top: 0px;
   cursor: help;
   z-index: 2;
 }
-.editable-value .editable-value-edit.invalid a:first-of-type:hover {
+.editable-value .editable-value-edit.invalid a:first-of-type:hover,
+.editable-value .editable-value-edit.invalid a:first-of-type:focus {
   cursor: auto;
 }
-.editable-value .editable-value-edit.invalid a:first-of-type:hover i {
+.editable-value .editable-value-edit.invalid a:first-of-type:hover i,
+.editable-value .editable-value-edit.invalid a:first-of-type:focus i {
   color: #999;
 }
 .editable-value.editing .editable-value-display {
@@ -1453,6 +1455,9 @@ select:-moz-focusring {
 }
 .x-product-price .editable-value-display {
   border: 1px solid transparent;
+}
+.x-product-price .editable-value-edit input[type="text"] {
+  width: 66px;
 }
 .x-heading .editable-value-display {
   border: 1px solid transparent;
@@ -1483,6 +1488,7 @@ select:-moz-focusring {
   display: inline-block;
 }
 .box-product-detail.box-product-quantity .editable-value-edit {
+  display: inline-block;
   top: 0px;
   left: -1px;
   right: -35px;
@@ -1493,7 +1499,7 @@ select:-moz-focusring {
   top: 7px;
 }
 .box-product-detail.box-product-quantity .editable-value-edit .input-wrapper.invalid .icon-warning {
-  right: 10px;
+  right: 11px;
   top: 1px;
   padding: 2px;
   padding-top: 3px;
@@ -1533,14 +1539,19 @@ select:-moz-focusring {
   top: 7px;
 }
 .box-product.box-product-add .editable-value-edit .input-wrapper.invalid .icon-warning {
-  right: 10px;
+  right: 11px;
   top: 1px;
   padding: 2px;
   padding-top: 3px;
 }
-.box-product.box-product-add .editable-value-edit.invalid a:first-of-type:hover {
+.box-product.box-product-add .editable-value-edit.invalid a:first-of-type:hover,
+.box-product.box-product-add .editable-value-edit.invalid a:first-of-type:focus {
   cursor: auto;
 }
-.box-product.box-product-add .editable-value-edit.invalid a:first-of-type:hover i {
+.box-product.box-product-add .editable-value-edit.invalid a:first-of-type:hover i,
+.box-product.box-product-add .editable-value-edit.invalid a:first-of-type:focus i {
+  color: #999;
+}
+.box-products .box-product-column .box-product .invalid a:focus i {
   color: #999;
 }

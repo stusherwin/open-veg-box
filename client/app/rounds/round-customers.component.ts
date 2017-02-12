@@ -8,7 +8,7 @@ import { EditableComponent } from '../shared/editable.component'
 import { Arrays } from '../shared/arrays'
 import { RoundCustomerAddComponent } from './round-customer-add.component' 
 import { RoundCustomerRemoveComponent } from './round-customer-remove.component' 
-import { ActiveDirective, ActiveParentDirective, ActiveService } from '../shared/active-elements';
+import { ActiveElementDirective, ActiveService } from '../shared/active-elements';
 import { RoundCustomersService } from './round-customers.service'
 
 const CUSTOMER_NAME_PADDING = 20;
@@ -16,7 +16,7 @@ const CUSTOMER_ADDRESS_PADDING = 20;
 
 @Component({
   selector: 'cc-round-customers',
-  directives: [FocusDirective, EditableComponent, RoundCustomerAddComponent, RoundCustomerRemoveComponent, ActiveParentDirective],
+  directives: [FocusDirective, EditableComponent, RoundCustomerAddComponent, RoundCustomerRemoveComponent, ActiveElementDirective],
   templateUrl: 'app/rounds/round-customers.component.html'
 })
 export class RoundCustomersComponent implements AfterViewChecked {

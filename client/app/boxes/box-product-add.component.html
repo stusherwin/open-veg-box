@@ -2,7 +2,7 @@
     class="box-product box-product-add editable-value"
     [class.editing]="adding"
     (keydown)="onKeydown($event)"
-    cc-active cc-active-parent
+    #active=cc-active cc-active
       (activate)="onActivate()"
       (deactivate)="onDeactivate()">
   <div class="editable-value-display"
@@ -18,7 +18,7 @@
     </div>       
   </div>
   <div class="editable-value-outer" *ngIf="adding">
-    <div class="editable-value-edit">
+    <div class="editable-value-edit" [class.invalid]="!valid">
       <div class="box-product-detail box-product-name box-product-edit" [style.width.px]="productNameWidth"><select #select
           cc-active cc-activate-on-focus
           (change)="onProductChange($event)"
@@ -28,16 +28,16 @@
       </div>
       <div class="box-product-detail box-product-quantity box-product-edit" [style.width.px]="productQuantityWidth" [class.invalid]="!valid">
         <span class="box-product-quantity-each" *ngIf="product.unitType == 'each'">x</span>
-        <span class="input-wrapper" [class.invalid]="!valid"><input type="text" class="input"
-          cc-active cc-activate-on-focus
-          [(ngModel)]="quantityStringValue"
-          (ngModelChange)="validate()"
-          [tabindex]="editTabindex" />
-        <i *ngIf="!valid" class="icon-warning" title="Quantity should be a number greater than 0"></i></span>
+        <cc-validatable [valid]="valid" message="Quantity should be a number greater than 0">
+          <input type="text" class="input"
+            cc-active cc-activate-on-focus
+            [(ngModel)]="quantityStringValue"
+            [tabindex]="editTabindex" />
+        </cc-validatable>
         <span class="box-product-quantity-perkg" *ngIf="product.unitType == 'perKg'">Kg</span>
       </div>
       <a (click)="onOkClick()" tabindex="9999"><i class="icon-ok"></i></a><a (click)="onCancelClick()" tabindex="9999"><i class="icon-cancel"></i></a>
     </div>
   </div>
 </div>
-<input type="text" *ngIf="adding && products.length > 1" [tabindex]="editTabindex" style="position: absolute; left: -10000px" />
+<input type="text" *ngIf="adding && products.length > 1" [tabindex]="editTabindex" style="position: absolute; left: -10000px" (focus)="onDeactivate()" />

@@ -1,4 +1,4 @@
-<div class="row" [class.addMode]="addMode" [class.focused]="rowFocused" cc-active cc-active-parent (activate)="onActivate()" (deactivate)="onDeactivate()">
+<div class="row" [class.addMode]="addMode" [class.focused]="rowFocused" cc-active (activate)="onActivate()" (deactivate)="onDeactivate()">
   <input type="checkbox" cc-active cc-activate-on-focus *ngIf="addMode && !rowFocused" style="position: absolute;left:-1000px" [tabindex]="index * 2" />
   <div class="actions">
     <div class="action" *ngIf="!addMode || !adding">

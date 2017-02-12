@@ -9,7 +9,7 @@ import { BoxProductsService } from './box-products.service'
 import { BoxProductQuantityComponent } from './box-product-quantity.component' 
 import { BoxProductAddComponent } from './box-product-add.component' 
 import { BoxProductRemoveComponent } from './box-product-remove.component' 
-import { ActiveDirective, ActiveParentDirective, ActivateOnFocusDirective } from '../shared/active-elements';
+import { ActiveElementDirective, ActivateOnFocusDirective } from '../shared/active-elements';
 
 const PRODUCT_NAME_PADDING = 1;
 const PRODUCT_QUANTITY_PADDING = 5;
@@ -19,7 +19,7 @@ const COLUMN_PADDING_RATIO = 0.8;
 
 @Component({
   selector: 'cc-box-products',
-  directives: [BoxProductQuantityComponent, BoxProductAddComponent, BoxProductRemoveComponent, ActiveDirective, ActiveParentDirective],
+  directives: [BoxProductQuantityComponent, BoxProductAddComponent, BoxProductRemoveComponent, ActiveElementDirective],
   pipes: [WeightPipe],
   templateUrl: 'app/boxes/box-products.component.html',
   host: {

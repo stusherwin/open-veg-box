@@ -1,4 +1,4 @@
-<div #root class="box-products" [class.editing]="editing" cc-active cc-active-parent (activate)="editing = true" (deactivate)="editing = false">
+<div #root class="box-products" [class.editing]="editing" cc-active (activate)="editing = true" (deactivate)="editing = false">
   <div class="box-product-column" *ngFor="let c of columns; let i = index" [style.margin-left.px]="i && columnPadding">
     <div class="box-product" *ngFor="let p of c" [class.remove-hover]="removeHoverProductId == p.id">
       <div class="box-product-detail box-product-name" [style.width.px]="productNameWidth + productNamePadding">{{p.name}}</div>

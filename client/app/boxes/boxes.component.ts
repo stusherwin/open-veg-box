@@ -8,13 +8,13 @@ import { BoxComponent, BoxProductEvent } from './box.component'
 import { Observable } from 'rxjs/Observable';
 import { RouteParams } from '@angular/router-deprecated';
 import { BoxProductsService } from './box-products.service';
-import { ActiveService, ActiveDirective, ActiveParentDirective, ActivateOnFocusDirective } from '../shared/active-elements'
+import { ActiveService, ActiveElementDirective, ActivateOnFocusDirective } from '../shared/active-elements'
 import 'rxjs/add/operator/combineLatest';
 
 @Component({
   selector: 'cc-boxes',
   templateUrl: 'app/boxes/boxes.component.html',
-  directives: [BoxComponent, ActiveParentDirective],
+  directives: [BoxComponent, ActiveElementDirective],
   providers: [BoxService, ProductService, UsersService, BoxProductsService, ActiveService]
 })
 export class BoxesComponent implements OnInit {

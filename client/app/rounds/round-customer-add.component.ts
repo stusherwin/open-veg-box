@@ -3,12 +3,12 @@ import { RoundCustomer } from './round'
 import { Customer } from '../customers/customer'
 import { Subscription } from 'rxjs/Subscription'
 import { Observable } from 'rxjs/Observable';
-import { ActiveDirective, ActiveParentDirective, ActiveService, ActivateOnFocusDirective } from '../shared/active-elements';
+import { ActiveElementDirective, ActiveService, ActivateOnFocusDirective } from '../shared/active-elements';
 
 @Component({
   selector: 'cc-round-customer-add',
   templateUrl: 'app/rounds/round-customer-add.component.html',
-  directives: [ActiveDirective, ActivateOnFocusDirective, ActiveParentDirective]
+  directives: [ActiveElementDirective, ActivateOnFocusDirective]
 })
 export class RoundCustomerAddComponent {
   adding: boolean;
