@@ -17,16 +17,24 @@ import { ActiveElementDirective, ActivateOnFocusDirective } from './active-eleme
         </div>
       </div>
     </div>
+    <input type="text" *ngIf="editing && catchTabAway" [tabindex]="tabindex" style="position: absolute; left: -10000px" (focus)="onDeactivate()" />
   `
 })
 export class EditableValueComponent {
   editing = false;
+  keyDownEnabled = false;
   
   @Input()
   className: string
 
   @Input()
   valid: boolean
+
+  @Input()
+  catchTabAway: boolean
+
+  @Input()
+  tabindex: number
 
   @ViewChild('active')
   active: ActiveElementDirective
@@ -35,12 +43,16 @@ export class EditableValueComponent {
   start = new EventEmitter<void>()
 
   @Output()
-  ok = new EventEmitter<void>()
+  ok = new EventEmitter<boolean>()
 
   @Output()
   cancel = new EventEmitter<void>()
 
   startEdit() {
+    // If Enter key is used to trigger startEdit, then keydown handler will automatically
+    // fire. Need a timeout window to prevent this.
+    this.keyDownEnabled = false;
+    setTimeout(() => this.keyDownEnabled = true, 100);
     this.onClick();
   }
 
@@ -56,7 +68,7 @@ export class EditableValueComponent {
       return;
     }
 
-    this.ok.emit(null);
+    this.ok.emit(this.tabbedAway);
   }
 
   onCancelClick() {
@@ -71,7 +83,7 @@ export class EditableValueComponent {
 
   tabbedAway = false;
   onKeyDown(event: KeyboardEvent) {
-    if(!this.editing) {
+    if(!this.editing || !this.keyDownEnabled) {
       return;
     }
 

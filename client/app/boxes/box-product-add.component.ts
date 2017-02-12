@@ -4,13 +4,14 @@ import { Product } from '../products/product'
 import { Subscription } from 'rxjs/Subscription'
 import { Observable } from 'rxjs/Observable';
 import { BoxProductsService } from './box-products.service'
-import { ActiveElementDirective, ActivateOnFocusDirective } from '../shared/active-elements';
+import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements';
 import { ValidatableComponent } from '../shared/validatable.component';
+import { EditableValueComponent } from '../shared/editable-value.component'
 
 @Component({
   selector: 'cc-box-product-add',
   templateUrl: 'app/boxes/box-product-add.component.html',
-  directives: [ActiveElementDirective, ActivateOnFocusDirective, ValidatableComponent]
+  directives: [ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, ValidatableComponent, EditableValueComponent]
 })
 export class BoxProductAddComponent implements OnInit, AfterViewInit {
   adding: boolean;
@@ -42,7 +43,10 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit {
   addBtn: ElementRef
 
   @ViewChild('active')
-  active: ActiveElementDirective  
+  active: ActiveElementDirective
+
+  @ViewChild('editable')
+  editable: EditableValueComponent  
 
   @Output()
   add = new EventEmitter<BoxProduct>();
@@ -58,6 +62,8 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.product = this.products[0];
+    this.quantityStringValue = '1';
   }
 
   ngAfterViewInit() {
@@ -68,13 +74,11 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onClick() {
-    this.product = this.products[0];
-    this.quantityStringValue = '1';
+  onStart() {
     this.adding = true;
-
+    this.service.setActive(this.editId);
     let subscription = this.select.changes.subscribe((f: QueryList<ElementRef>) => {
-      if(f.length && this.adding) {
+      if(f.length) {
         this.renderer.invokeElementMethod(f.first.nativeElement, 'focus', []);
         subscription.unsubscribe();
       }
@@ -85,64 +89,35 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit {
     this.product = this.products[+event.target.value];
   }
 
-  onOkClick() {
-    if(!this.valid) {
-      return;
-    }
+  onAdd() {
+    this.editable.startEdit();
+  }
 
-    if(this.tabbedAway && this.products.length > 1) {
+  onOk(tabbedAway: boolean) {
+    if(tabbedAway && this.products.length > 1) {
       setTimeout(() => this.renderer.invokeElementMethod(this.addBtn.nativeElement, 'focus', []))
     }
 
     let quantity = this.toDecimalValue(this.quantityStringValue);
     this.add.emit(new BoxProduct(this.product.id, this.product.name, quantity, this.product.unitType));
 
+    this.product = this.products[0];
+    this.quantityStringValue = '1';
+    this.editable.endEdit();
     this.adding = false;
-    this.tabbedAway = false;
-    this.active.makeInactive();
   }
 
-  onCancelClick() {
+  onCancel() {
+    this.product = this.products[0];
+    this.quantityStringValue = '1';
+    this.editable.endEdit();
     this.adding = false;
-    this.tabbedAway = false;
-    this.active.makeInactive();    
-  }
-
-  onActivate() {
-    this.service.setActive(this.editId);
-  }
-
-  onDeactivate() {
-    if(this.adding) {
-      if(this.tabbedAway && this.valid) {
-        this.onOkClick();
-      } else {
-        this.onCancelClick();
-      }
-    }
   }
 
   focus() {
     this.renderer.invokeElementMethod(this.addBtn.nativeElement, 'focus', []);
   }
  
-  tabbedAway = false;
-  onKeydown(event: KeyboardEvent) {
-    if(!this.adding) {
-      if(event.key == 'Enter') {
-        this.onClick();
-      }
-    } else {
-      if(event.key == 'Enter' && this.valid) {
-        this.onOkClick();
-      } else if(event.key == 'Escape') {
-        this.onCancelClick();
-      } else if(event.key == 'Tab') {
-        this.tabbedAway = !event.shiftKey;
-      }
-    }
-  }
-
   fixedDecimals: number = null;
   maxDecimals: number = 3;
   private toDecimalValue(value: string): number {
