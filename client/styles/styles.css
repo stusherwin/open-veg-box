@@ -2390,8 +2390,11 @@ select:-moz-focusring {
 .x-heading .editable-value-display {
   border: 1px solid transparent;
 }
-.x-heading .editable-value-display a i {
-  font-size: 50%;
+.x-heading .editable-value-display h3 {
+  display: inline-block;
+}
+.x-heading .editable-value-display:hover h3 {
+  color: #ffa011;
 }
 .x-heading .editable-value-edit {
   left: -6px;
@@ -2408,6 +2411,9 @@ select:-moz-focusring {
 }
 .x-heading .editable-value-edit .input-wrapper.invalid .icon-warning {
   top: -4px;
+}
+.box-product-detail.box-product-quantity .editable-value-display {
+  display: inline-block;
 }
 .box-product-detail.box-product-quantity .editable-value-edit {
   top: 0px;
@@ -2435,24 +2441,40 @@ select:-moz-focusring {
 .box-products.editing .box-product.box-product-add .editable-value-display .box-product-action a {
   left: 1px;
 }
-.box-product.box-product-add .box-product-detail.editable-value-edit {
+.box-product.box-product-add .editable-value-edit {
+  float: left;
+  padding: 0;
   top: 2px;
   left: -7px;
   right: -17px;
-  height: 27px;
+  height: 26px;
   padding-left: 7px;
   padding-top: 0px;
 }
-.box-product.box-product-add .box-product-detail.editable-value-edit .input-wrapper.invalid .icon-warning {
+.box-product.box-product-add .editable-value-edit::before {
+  display: inline-block;
+  height: 100%;
+  width: 0px;
+  vertical-align: text-bottom;
+  content: ' ';
+}
+.box-product.box-product-add .editable-value-edit input[type="text"] {
+  position: relative;
+  top: -0.5px;
+}
+.box-product.box-product-add .editable-value-edit a {
+  top: 7px;
+}
+.box-product.box-product-add .editable-value-edit .input-wrapper.invalid .icon-warning {
   right: 10px;
   top: 1px;
   padding: 2px;
   padding-top: 3px;
 }
-.box-product.box-product-add .box-product-detail.editable-value-edit.invalid a:first-of-type:hover {
+.box-product.box-product-add .editable-value-edit.invalid a:first-of-type:hover {
   cursor: auto;
 }
-.box-product.box-product-add .box-product-detail.editable-value-edit.invalid a:first-of-type:hover i {
+.box-product.box-product-add .editable-value-edit.invalid a:first-of-type:hover i {
   color: #999;
 }
 .home {

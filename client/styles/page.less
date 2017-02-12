@@ -1077,10 +1077,14 @@ select:-moz-focusring {
 .x-heading {
   .editable-value-display {
     border: 1px solid transparent;
-    
-    a {
-      i {
-        font-size: 50%;
+
+    h3 {
+      display: inline-block;
+    }
+
+    &:hover {
+      h3 {
+        color: @boxProductHover;
       }
     }
   }
@@ -1112,10 +1116,12 @@ select:-moz-focusring {
 
 .box-product-detail.box-product-quantity {
   .editable-value-display {
+    display: inline-block
   }
 
   .editable-value-edit {
-    top:0px;
+    display: inline-block
+    top: 0px;
     left: -1px;
     right: -35px;
     padding-left: 7px;
@@ -1164,14 +1170,34 @@ select:-moz-focusring {
   .editable-value-display {
   }  
 
-  .box-product-detail.editable-value-edit {
+  .editable-value-edit {
+    float: left;
+    padding:0;
+    //height: 24px;
     top:2px;
     left: -7px;
     right: -17px;
-    height: 27px;
+    height: 26px;
     padding-left: 7px;
     padding-top: 0px;
 
+    &::before {
+      display: inline-block;
+      height: 100%;
+      width: 0px;
+      vertical-align: text-bottom;
+      content: ' '
+    }
+
+    input[type="text"] {
+      position: relative;
+      top: -0.5px;
+    }
+
+    a {
+      top: 7px;
+    }
+    
     .input-wrapper {
       &.invalid {
         .icon-warning {

@@ -17,8 +17,8 @@
       </a>
     </div>       
   </div>
-  <div class="editable-value-outer" style="display: inline-block" *ngIf="adding">
-    <div class="box-product-detail editable-value-edit">
+  <div class="editable-value-outer" *ngIf="adding">
+    <div class="editable-value-edit">
       <div class="box-product-detail box-product-name box-product-edit" [style.width.px]="productNameWidth"><select #select
           cc-active cc-activate-on-focus
           (change)="onProductChange($event)"
@@ -26,7 +26,7 @@
           <option *ngFor="let p of products; let i = index" [value]="i">{{p.name}}</option>
         </select>
       </div>
-      <div *ngIf="adding" class="box-product-detail box-product-quantity box-product-edit" [style.width.px]="productQuantityWidth" [class.invalid]="!valid">
+      <div class="box-product-detail box-product-quantity box-product-edit" [style.width.px]="productQuantityWidth" [class.invalid]="!valid">
         <span class="box-product-quantity-each" *ngIf="product.unitType == 'each'">x</span>
         <span class="input-wrapper" [class.invalid]="!valid"><input type="text" class="input"
           cc-active cc-activate-on-focus

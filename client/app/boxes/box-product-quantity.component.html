@@ -6,12 +6,12 @@
     (keydown)="onKeydown($event)"
     cc-active cc-active-parent
       (deactivate)="onDeactivate()">
-  <div class="editable-value-display" style="display: inline-block" (click)="onClick()">
+  <div class="editable-value-display" (click)="onClick()">
     <span class="box-product-quantity-each" *ngIf="unitType == 'each'">x</span>
     <span *ngIf="unitType == 'perKg'">{{value | weight}}</span><span *ngIf="unitType != 'perKg'">{{value}}</span><a><i class="icon-edit"></i></a>
   </div>
   <div class="editable-value-outer">
-    <div class="editable-value-edit" style="display: inline-block" [class.invalid]="!valid">
+    <div class="editable-value-edit" [class.invalid]="!valid">
       <span class="box-product-quantity-each" *ngIf="unitType == 'each'">x</span>
       <span class="input-wrapper" [class.invalid]="!valid"><input cc-active cc-activate-on-focus type="text" #input [(ngModel)]="editingValue" (ngModelChange)="validate()" [tabindex]="editTabindex" (focus)="onFocus()" />
       <i *ngIf="!valid" class="icon-warning" title="Quantity should be a number greater than 0"></i></span>

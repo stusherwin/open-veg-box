@@ -8,11 +8,16 @@ import { ActiveDirective, ActiveParentDirective, ActivateOnFocusDirective } from
   pipes: [MoneyPipe],
   template: `
     <div class="x-product-price editable-value" [class.editing]="editing" (keydown)="onKeyDown($event)" cc-active cc-active-parent (deactivate)="onDeactivate()">
-      <div class="editable-value-display" (click)="onClick()"><span class [innerHTML]="value | money"></span><a><i class="icon-edit"></i></a></div>
+      <div class="editable-value-display" (click)="onClick()">
+        <span class [innerHTML]="value | money"></span>
+        <a><i class="icon-edit"></i></a>
+      </div>
       <div class="editable-value-outer">
         <div class="editable-value-edit" [class.invalid]="!valid">
           &pound; <span class="input-wrapper" [class.invalid]="!valid"><input type="text" #input class="input price" data-validation-message="Price should be a number greater than 0" [(ngModel)]="editingValue" (ngModelChange)="validate()" [tabindex]="editTabindex" (focus)="onFocus()" cc-active cc-activate-on-focus />
-          <i *ngIf="!valid" class="icon-warning" title="Price should be a number greater than 0"></i></span><a (click)="onOkClick()"><i class="icon-ok"></i></a><a (click)="onCancelClick()"><i class="icon-cancel"></i></a>
+          <i *ngIf="!valid" class="icon-warning" title="Price should be a number greater than 0"></i></span>
+          <a (click)="onOkClick()"><i class="icon-ok"></i></a>
+          <a (click)="onCancelClick()"><i class="icon-cancel"></i></a>
         </div>
       </div>
     </div>

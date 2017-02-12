@@ -6,18 +6,22 @@ import { ActiveDirective, ActiveParentDirective, ActivateOnFocusDirective } from
   directives: [ActiveDirective, ActiveParentDirective, ActivateOnFocusDirective],
   template: `
     <div class="x-heading editable-value" [class.editing]="editing" (keydown)="onKeyDown($event)" cc-active cc-active-parent (deactivate)="onDeactivate()">
-      <h3 class="editable-value-display" (click)="onClick()">{{value}}<a><i class="icon-edit"></i></a></h3>
+      <div class="editable-value-display" (click)="onClick()">
+        <h3>{{value}}</h3>
+        <a><i class="icon-edit"></i></a>
+      </div>
       <div class="editable-value-outer">
         <div class="editable-value-edit" [class.invalid]="!valid">
           <span class="input-wrapper" [class.invalid]="!valid"><input type="text" #input [(ngModel)]="editingValue" (ngModelChange)="validate()" [tabindex]="editTabindex" (focus)="onFocus()" cc-active cc-activate-on-focus />
-          <i *ngIf="!valid" class="icon-warning" title="Heading should not be empty"></i></span><a (click)="onOkClick()"><i class="icon-ok"></i></a><a (click)="onCancelClick()"><i class="icon-cancel"></i></a>
+          <i *ngIf="!valid" class="icon-warning" title="Heading should not be empty"></i></span>
+          <a (click)="onOkClick()"><i class="icon-ok"></i></a>
+          <a (click)="onCancelClick()"><i class="icon-cancel"></i></a>
         </div>
       </div>
     </div>
   `
 }) 
 export class HeadingComponent implements OnInit, AfterViewInit {
-  originalValue: string;
   editingValue: string;
   editing = false;
   valid = true;
@@ -44,7 +48,6 @@ export class HeadingComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.originalValue = this.value;
   }
 
   ngAfterViewInit() {
@@ -66,7 +69,6 @@ export class HeadingComponent implements OnInit, AfterViewInit {
     this.editingValue = this.value;
     this.editing = true;
     this.valid = true;
-    let selectAll = this.addMode && this.editingValue == this.originalValue; 
     
     setTimeout(() => this.renderer.invokeElementMethod(this.input.nativeElement, 'focus', []))
   }

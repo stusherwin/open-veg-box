@@ -67,7 +67,10 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit {
     this.adding = true;
 
     let subscription = this.select.changes.subscribe((f: QueryList<ElementRef>) => {
+      console.log('changes');
       if(f.length && this.adding) {
+        console.log('we have one');
+        
         this.renderer.invokeElementMethod(f.first.nativeElement, 'focus', []);
         subscription.unsubscribe();
       }
@@ -106,6 +109,7 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit {
   }
 
   onDeactivate() {
+    console.log('deactivate');
     if(this.adding) {
       if(this.tabbedAway && this.valid) {
         this.onOkClick();
