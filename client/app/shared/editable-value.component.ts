@@ -24,7 +24,7 @@ import { ActiveElementDirective, ActivateOnFocusDirective } from './active-eleme
 })
 export class EditableValueComponent {
   editing = false;
-  keyDownEnabled = false;
+  okKeyDownEnabled = false;
   
   @Input()
   className: string
@@ -51,15 +51,15 @@ export class EditableValueComponent {
   cancel = new EventEmitter<void>()
 
   startEdit() {
-    // If Enter key is used to trigger startEdit, then keydown handler will automatically
-    // fire. Need a timeout window to prevent this.
-    this.keyDownEnabled = false;
-    setTimeout(() => this.keyDownEnabled = true, 100);
     this.onClick();
   }
 
   onClick() {
     if(!this.editing) {
+      // If Enter key is used to trigger startEdit, then keydown handler will automatically
+      // fire. Need a timeout window to prevent this.
+      this.okKeyDownEnabled = false;
+      setTimeout(() => this.okKeyDownEnabled = true, 100);
       this.editing = true;
       this.start.emit(null);
     }
@@ -85,11 +85,11 @@ export class EditableValueComponent {
 
   tabbedAway = false;
   onKeyDown(event: KeyboardEvent) {
-    if(!this.editing || !this.keyDownEnabled) {
+    if(!this.editing) {
       return;
     }
 
-    if(event.key == 'Enter' && this.valid) {
+    if(event.key == 'Enter' && this.valid && this.okKeyDownEnabled) {
       this.onOkClick();
     } else if(event.key == 'Escape') {
       this.onCancelClick();
