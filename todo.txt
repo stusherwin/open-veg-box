@@ -115,4 +115,7 @@ Bugs
 * Row highlight flashes when editable-value canceled
 * box-product-quantity edit out by 1px in Firefox
 
+Tidy up
+=======
 * Number parsing should be extracted as a component/directive
+* page.less is a mess

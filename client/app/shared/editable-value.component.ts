@@ -5,7 +5,7 @@ import { ActiveElementDirective, ActivateOnFocusDirective } from './active-eleme
   selector: 'cc-editable-value',
   directives: [ActiveElementDirective],
   template: `
-    <div class="{{className}} editable-value {{displayClass && !editing ? displayClass : ''}} {{editClass && editing ? editClass : ''}}"
+    <div class="{{className}} editable-value"
       [class.editing]="editing"
       (keydown)="onKeyDown($event)" #active=cc-active cc-active (activate)="onActivate()" (deactivate)="onDeactivate()">
       <div class="editable-value-display" (click)="onClick()">
@@ -28,15 +28,6 @@ export class EditableValueComponent {
   
   @Input()
   className: string
-
-  @Input()
-  displayClass: string
-
-  @Input()
-  editClass: string
-
-  @Input()
-  width: number
 
   @Input()
   valid: boolean

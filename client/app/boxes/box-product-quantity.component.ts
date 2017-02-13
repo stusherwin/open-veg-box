@@ -23,9 +23,6 @@ export class BoxProductQuantityComponent implements OnInit {
   unitType: string;
 
   @Input()
-  width: number;
-
-  @Input()
   editId: string;
 
   @Input()
