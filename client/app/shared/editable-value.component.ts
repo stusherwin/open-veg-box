@@ -6,8 +6,6 @@ import { ActiveElementDirective, ActivateOnFocusDirective } from './active-eleme
   directives: [ActiveElementDirective],
   template: `
     <div class="{{className}} editable-value {{displayClass && !editing ? displayClass : ''}} {{editClass && editing ? editClass : ''}}"
-      [ngStyle]="{'width': (width ? width + 'px' : '100%')}"
-      style="border: 1px solid red;"
       [class.editing]="editing"
       (keydown)="onKeyDown($event)" #active=cc-active cc-active (activate)="onActivate()" (deactivate)="onDeactivate()">
       <div class="editable-value-display" (click)="onClick()">

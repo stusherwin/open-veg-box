@@ -1372,22 +1372,21 @@ select:-moz-focusring {
 .editable-value .editable-value-display {
   padding-bottom: 2px;
 }
-.editable-value .editable-value-display a {
+.editable-value .editable-value-display a.edit {
   position: relative;
   left: -10000px;
-  margin-left: 3px;
 }
-.editable-value .editable-value-display a:hover i {
+.editable-value .editable-value-display a.edit:hover i {
   color: #ffa011;
 }
 .editable-value .editable-value-display:hover {
   cursor: pointer;
   color: #ffa011;
 }
-.editable-value .editable-value-display:hover a {
+.editable-value .editable-value-display:hover a.edit {
   left: 0;
 }
-.editable-value .editable-value-display:hover a i {
+.editable-value .editable-value-display:hover a.edit i {
   color: #ffa011;
 }
 .editable-value .editable-value-outer {
@@ -1397,6 +1396,7 @@ select:-moz-focusring {
   left: -10000px;
 }
 .editable-value .editable-value-edit {
+  display: inline-block;
   position: absolute;
   z-index: 2;
   left: -3px;
@@ -1554,4 +1554,85 @@ select:-moz-focusring {
 }
 .box-products .box-product-column .box-product .invalid a:focus i {
   color: #999;
+}
+.x-box-products::after {
+  display: block;
+  clear: left;
+  content: ' ';
+  height: 0px;
+}
+.x-box-products table {
+  float: left;
+}
+.x-box-products table td {
+  padding: 0 0 5px 0;
+}
+.x-box-products .x-box-product-name {
+  padding-right: 10px;
+}
+.x-box-products .x-box-product-quantity {
+  padding-right: 10px;
+}
+.x-box-products .x-box-product-quantity input[type="text"] {
+  width: 66px;
+}
+.x-box-products i {
+  font-size: 80%;
+  color: #999;
+}
+.x-box-products i::before {
+  margin: 0;
+}
+.x-box-products a:hover i,
+.x-box-products a:focus i {
+  color: #ffa011;
+}
+.x-box-products .show-on-edit {
+  position: relative;
+  left: -10000px;
+}
+.x-box-products:hover .show-on-edit,
+.x-box-products.editing .show-on-edit {
+  left: 0px;
+}
+.x-box-products .x-box-product-quantity.editable-value .editable-value-display {
+  border: 1px solid transparent;
+}
+.x-box-products .x-box-product-quantity.editable-value .editable-value-edit {
+  left: -8px;
+  top: -6px;
+  right: -30px;
+  padding-right: 0;
+}
+.x-box-products .x-box-product-add .x-box-product-add-display a {
+  position: relative;
+  left: -4px;
+}
+.x-box-products .x-box-product-add .x-box-product-add-display:hover,
+.x-box-products .x-box-product-add .x-box-product-add-display.hover {
+  color: #ffa011;
+  cursor: pointer;
+}
+.x-box-products .x-box-product-add .x-box-product-add-display:hover a i,
+.x-box-products .x-box-product-add .x-box-product-add-display.hover a i {
+  color: #ffa011;
+}
+.x-box-products .x-box-product-add div,
+.x-box-products .x-box-product-add input[type="text"],
+.x-box-products .x-box-product-add select,
+.x-box-products .x-box-product-add span {
+  display: inline-block;
+}
+.x-box-products .x-box-product-add.editable-value .editable-value-edit {
+  right: -13px;
+  left: -9px;
+  padding-right: 0;
+}
+.x-box-products .x-box-product-add.editable-value .editable-value-edit input[type="text"] {
+  position: relative;
+  left: -3px;
+}
+.x-box-products .x-box-product-add.editable-value .editable-value-edit .box-product-quantity-each {
+  position: relative;
+  left: -3px;
 }

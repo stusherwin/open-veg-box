@@ -114,5 +114,5 @@ Bugs
 ====
 * Warning icon alignment out in Firefox
 * Number format strips zeros off ends of numbers!
-* box product quantity display value offset by ~10px after editing (remains even when value reverted)
-  - html is identical to non-offset values. What is going on? (only on Chrome)
+* Row highlight flashes when editable-value canceled
+* box-product-quantity edit out by 1px in Firefox

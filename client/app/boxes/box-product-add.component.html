@@ -1,8 +1,8 @@
-<cc-editable-value *ngIf="products.length" #editable className="box-product box-product-add" [valid]="valid" (start)="onStart()" (ok)="onOk()" (cancel)="onCancel()" [catchTabAway]="products.length > 1" [tabindex]="editTabindex">
+<cc-editable-value className="x-box-product-add" *ngIf="products.length" #editable [valid]="valid" (start)="onStart()" (ok)="onOk()" (cancel)="onCancel()" [catchTabAway]="products.length > 1" [tabindex]="editTabindex">
   <display>
-    <div [class.hover]="addHover">
-      <div class="box-product-detail box-product-name box-product-display" [style.width.px]="productNameWidth + productQuantityWidth">{{text}}</div>
-      <div class="box-product-detail box-product-action box-product-display"><a #add *ngIf="!adding"
+    <div class="x-box-product-add-display show-on-edit" [class.hover]="addHover">
+      <div style="display: inline-block" [style.width.px]="productNameWidth + productQuantityWidth">{{text}}</div>
+      <div style="display: inline-block"><a #add *ngIf="!adding"
           cc-active cc-activate-on-focus cc-deactivate-on-blur
           [tabindex]="editTabindex"
           (keydown.Enter)="onAdd()"
@@ -13,22 +13,25 @@
     </div>
   </display>
   <edit>
-    <div *ngIf="adding" class="box-product-detail box-product-name box-product-edit" [style.width.px]="productNameWidth"><select #select
-        cc-active cc-activate-on-focus
-        (change)="onProductChange($event)"
-        [tabindex]="editTabindex">
-        <option *ngFor="let p of products; let i = index" [value]="i">{{p.name}}</option>
-      </select>
-    </div>
-    <div *ngIf="adding" class="box-product-detail box-product-quantity box-product-edit" [style.width.px]="productQuantityWidth" [class.invalid]="!valid">
-      <span class="box-product-quantity-each" *ngIf="product.unitType == 'each'">x</span>
-      <cc-validatable [valid]="valid" message="Quantity should be a number greater than 0">
-        <input type="text" class="input"
+    <div>
+      <div class="x-box-product-name" style="display: inline-block" [style.width.px]="productNameWidth">
+        <select *ngIf="adding" #select
           cc-active cc-activate-on-focus
-          [(ngModel)]="quantityStringValue"
-          [tabindex]="editTabindex" />
-      </cc-validatable>
-      <span class="box-product-quantity-perkg" *ngIf="product.unitType == 'perKg'">Kg</span>
+          (change)="onProductChange($event)"
+          [tabindex]="editTabindex">
+          <option *ngFor="let p of products; let i = index" [value]="i">{{p.name}}</option>
+        </select>
+      </div>
+      <div class="x-box-product-quantity" style="display: inline-block" [class.invalid]="!valid" [style.width.px]="productQuantityWidth">
+        <span class="box-product-quantity-each" *ngIf="product.unitType == 'each'">x</span>
+        <cc-validatable [valid]="valid" message="Quantity should be a number greater than 0">
+          <input *ngIf="adding" type="text" class="input"
+            cc-active cc-activate-on-focus
+            [(ngModel)]="quantityStringValue"
+            [tabindex]="editTabindex" />
+        </cc-validatable>
+        <span class="box-product-quantity-perkg" *ngIf="product.unitType == 'perKg'">Kg</span>
+      </div>
     </div>
   </edit>
 </cc-editable-value>

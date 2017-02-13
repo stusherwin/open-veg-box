@@ -10,7 +10,7 @@ import { EditableValueComponent } from '../shared/editable-value.component'
     <cc-editable-value #editable className="x-heading" [valid]="valid" (start)="onStart()" (ok)="onOk()" (cancel)="onCancel()">
       <display>
         <h3>{{value}}</h3>
-        <a><i class="icon-edit"></i></a>
+        <a class="edit"><i class="icon-edit"></i></a>
       </display>
       <edit>
         <cc-validatable [valid]="valid" message="Heading should not be empty">

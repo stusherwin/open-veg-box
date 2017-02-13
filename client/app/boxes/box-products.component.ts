@@ -11,8 +11,8 @@ import { BoxProductAddComponent } from './box-product-add.component'
 import { BoxProductRemoveComponent } from './box-product-remove.component' 
 import { ActiveElementDirective, ActivateOnFocusDirective } from '../shared/active-elements';
 
-const PRODUCT_NAME_PADDING = 1;
-const PRODUCT_QUANTITY_PADDING = 5;
+const PRODUCT_NAME_PADDING = 10;
+const PRODUCT_QUANTITY_PADDING = 10;
 const ACTIONS_WIDTH = 17;
 const MIN_ITEMS_IN_FIRST_COLUMN = 3;
 const COLUMN_PADDING_RATIO = 0.8;

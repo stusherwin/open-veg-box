@@ -959,10 +959,10 @@ select:-moz-focusring {
   .editable-value-display {
     padding-bottom: 2px;
     
-    a {
+    a.edit {
       position: relative;
       left: -10000px;
-      margin-left: 3px;
+      //margin-left: 3px;
 
       &:hover {
         i {
@@ -975,7 +975,7 @@ select:-moz-focusring {
       cursor: pointer;
       color: @boxProductHover;
       
-      a {
+      a.edit {
         left: 0;
         i {
           color: @boxProductHover;
@@ -992,6 +992,7 @@ select:-moz-focusring {
   }
 
   .editable-value-edit {
+    display: inline-block;
     position: absolute;
     z-index: 2;
     left: -3px;
@@ -1066,6 +1067,7 @@ select:-moz-focusring {
     }
   }
 }
+
 
 .x-product-price {
   .editable-value-display {
@@ -1228,4 +1230,111 @@ select:-moz-focusring {
 
 .box-products .box-product-column .box-product .invalid a:focus i {
   color: #999;
+}
+
+.x-box-products {
+  .boxProductClearFix;
+
+  table {
+    float: left;
+
+    td {
+      padding: 0 0 5px 0;
+    }
+  }
+
+  .x-box-product-name {
+    padding-right: 10px;
+  }
+
+  .x-box-product-quantity {
+    padding-right: 10px;
+
+    input[type="text"] {
+      width: 66px;
+    }
+  }
+
+  i {
+    font-size: 80%;
+    color: #999;
+
+    &::before {
+      margin: 0;
+    }
+  }
+
+  a {
+    &:hover, &:focus {
+      i {
+        color: @boxProductHover;
+      }
+    }
+  }
+
+  .show-on-edit {
+    position: relative;
+    left: -10000px;
+  }
+
+  &:hover, &.editing {
+    .show-on-edit {
+      left: 0px;     
+    }
+  }
+
+  .x-box-product-quantity.editable-value {
+    .editable-value-display {
+      border: 1px solid transparent;
+    }
+
+    .editable-value-edit {
+      left: -8px;
+      top: -6px;
+      right: -30px;
+      padding-right: 0;
+    }
+  }
+
+  .x-box-product-add {
+    .x-box-product-add-display {
+      a {
+        position: relative;
+        left: -4px;
+      }
+
+      &:hover, &.hover {
+        color: @boxProductHover;
+        cursor: pointer;
+
+        a {
+          i {
+            color: @boxProductHover;
+          }
+        }
+      }
+    }
+
+    div, input[type="text"], select, span {
+      display: inline-block;
+    }
+
+    &.editable-value {
+      .editable-value-edit {
+        right: -13px;
+        left: -9px;
+        padding-right: 0;
+
+        input[type="text"] {
+          position: relative;
+          left: -3px;
+        }
+
+        .box-product-quantity-each {
+          position: relative;
+          left: -3px;
+        }
+      }
+    }
+  }
 }

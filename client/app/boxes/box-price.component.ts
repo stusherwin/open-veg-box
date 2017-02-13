@@ -12,7 +12,7 @@ import { ValidatableComponent } from '../shared/validatable.component';
     <cc-editable-value #editable className="x-product-price" [valid]="valid" (start)="onStart()" (ok)="onOk()" (cancel)="onCancel()">
       <display>
         <span class [innerHTML]="value | money"></span>
-        <a><i class="icon-edit"></i></a>
+        <a class="edit"><i class="icon-edit"></i></a>
       </display>
       <edit>
         &pound;
