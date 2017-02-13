@@ -61,13 +61,20 @@ export class ActiveElementDirective implements OnInit, OnDestroy, AfterViewInit 
     }
   }
 
+  deactivating = false;
   handleChildInactive(child: ActiveElementDirective) {
-    if(this.children.every(c => !c.active)) {
-      this.makeInactive();
-    }
+    this.deactivating = true;
+
+    setTimeout(() => {
+      if(this.deactivating && this.children.every(c => !c.active)) {
+        this.makeInactive();
+      }
+    }, 100);
   }
 
   makeActive() {
+    this.deactivating = false;
+    
     if(!this.active) {
       this.active = true;
       this.activate.emit(null);

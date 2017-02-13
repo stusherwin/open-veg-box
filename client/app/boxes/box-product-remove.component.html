@@ -1,5 +1,5 @@
 <a #remove
-  cc-active cc-activate-on-focus cc-deactivate-on-blur (activate)="onActivate()"
+  cc-active cc-activate-on-focus cc-deactivate-on-blur (activate)="onActivate()" (deactivate)="onDeactivate()"
   [tabindex]="editTabindex"
   (click)="onClick(false)"
   (keydown)="onKeyDown($event)"><i class="icon-trash"></i>

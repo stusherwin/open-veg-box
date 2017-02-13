@@ -1,22 +1,17 @@
-<div class="box-product-detail box-product-quantity editable-value" style="position: relative"
-    [class.box-product-display]="!editing"
-    [class.box-product-edit]="editing"
-    [class.editing]="editing"
-    [style.width.px]="width"
-    (keydown)="onKeydown($event)"
-    #active=cc-active cc-active
-      (deactivate)="onDeactivate()">
-  <div class="editable-value-display" (click)="onClick()">
+<cc-editable-value #editable
+    className="box-product-detail box-product-quantity"
+    displayClass="box-product-display"
+    editClass="box-product-edit"
+    [width]="width" [valid]="valid" (start)="onStart()" (ok)="onOk()" (cancel)="onCancel()">
+  <display>
     <span class="box-product-quantity-each" *ngIf="unitType == 'each'">x</span>
     <span *ngIf="unitType == 'perKg'">{{value | weight}}</span><span *ngIf="unitType != 'perKg'">{{value}}</span><a><i class="icon-edit"></i></a>
-  </div>
-  <div class="editable-value-outer">
-    <div class="editable-value-edit" [class.invalid]="!valid">
-      <span class="box-product-quantity-each" *ngIf="unitType == 'each'">x</span>
-      <cc-validatable [valid]="valid" message="Quantity should be a number greater than 0">
-        <input cc-active cc-activate-on-focus type="text" #input [(ngModel)]="editingValue" [tabindex]="editTabindex" (focus)="onFocus()" />
-      </cc-validatable>
-      <span class="box-product-quantity-perkg" *ngIf="unitType == 'perKg'">Kg</span><a (click)="onOkClick()" tabindex="9999"><i class="icon-ok"></i></a><a (click)="onCancelClick()" tabindex="9999"><i class="icon-cancel"></i></a>
-    </div>
-  </div>
-</div>
+  </display>
+  <edit>
+    <span class="box-product-quantity-each" *ngIf="unitType == 'each'">x</span>
+    <cc-validatable [valid]="valid" message="Quantity should be a number greater than 0">
+      <input cc-active cc-activate-on-focus type="text" #input [(ngModel)]="editingValue" [tabindex]="editTabindex" (focus)="onFocus()" />
+    </cc-validatable>
+    <span class="box-product-quantity-perkg" *ngIf="unitType == 'perKg'">Kg</span>
+  </edit>
+</cc-editable-value>

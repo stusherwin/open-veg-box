@@ -99,7 +99,6 @@ Box Products
   - same when adding via Enter key (as opposed to tabbing away)
 * Column spacing - not enough between product name & quantity,
   too much between q & remove btn
-* Warning icon alignment out in Firefox
 
 Round customers
 ===============
@@ -110,3 +109,10 @@ Round customers
 
 * Catch tabbing away in active-elements then handle it specifically as a tabbed-away event 
   in container components?
+
+Bugs
+====
+* Warning icon alignment out in Firefox
+* Number format strips zeros off ends of numbers!
+* box product quantity display value offset by ~10px after editing (remains even when value reverted)
+  - html is identical to non-offset values. What is going on? (only on Chrome)

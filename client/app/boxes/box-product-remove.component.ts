@@ -46,4 +46,8 @@ export class BoxProductRemoveComponent implements AfterViewInit {
   onActivate() {
     this.service.setActive(this.editId);
   }
+
+  onDeactivate() {
+    this.service.setInactive(this.editId);
+  }
 }

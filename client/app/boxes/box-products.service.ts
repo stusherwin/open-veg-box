@@ -39,6 +39,12 @@ export class BoxProductsService {
     this.activeEditId = editId;
   }
 
+  setInactive(editId: string) {
+    if(this.activeEditId == editId) {
+      this.activeEditId = null;
+    }
+  }
+
   isActive(editId: string) {
     return this.activeEditId == editId;
   }

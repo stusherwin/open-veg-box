@@ -5,16 +5,16 @@ import { Arrays } from '../shared/arrays'
 import { ActiveElementDirective, ActivateOnFocusDirective } from '../shared/active-elements';
 import { ValidatableComponent } from '../shared/validatable.component';
 import { Subscription } from 'rxjs/Subscription'
+import { EditableValueComponent } from '../shared/editable-value.component'
 
 @Component({
   selector: 'cc-box-product-quantity',
-  directives: [ActiveElementDirective, ActivateOnFocusDirective, ValidatableComponent],
+  directives: [ActiveElementDirective, ActivateOnFocusDirective, ValidatableComponent, EditableValueComponent],
   pipes: [WeightPipe],
   templateUrl: 'app/boxes/box-product-quantity.component.html'
 })
 export class BoxProductQuantityComponent implements OnInit {
   editingValue: string;
-  editing = false;
   
   @Input()
   value: number;
@@ -37,6 +37,9 @@ export class BoxProductQuantityComponent implements OnInit {
   @ViewChild('active')
   active: ActiveElementDirective
 
+  @ViewChild('editable')
+  editable: EditableValueComponent
+
   @Output()
   update = new EventEmitter<number>();
   
@@ -51,18 +54,11 @@ export class BoxProductQuantityComponent implements OnInit {
     this.editingValue = this.toStringValue(this.value);
   }
 
-  onClick() {
-    this.editingValue = this.toStringValue(this.value);
-    this.editing = true;
-
+  onStart() {
     this.renderer.invokeElementMethod(this.input.nativeElement, 'focus', []);
   }
 
-  onOkClick() {
-    if(!this.valid) {
-      return;
-    }
-
+  onOk() {
     let newValue = this.toDecimalValue(this.editingValue);
 
     if(newValue != this.value) {
@@ -71,49 +67,16 @@ export class BoxProductQuantityComponent implements OnInit {
     }
 
     this.editingValue = this.toStringValue(this.value);
-    this.editing = false;
-    this.tabbedAway = false;
-    this.active.makeInactive();
+    this.editable.endEdit();
   }
 
-  onCancelClick() {
+  onCancel() {
     this.editingValue = this.toStringValue(this.value);
-    this.editing = false;
-    this.tabbedAway = false;
-    this.active.makeInactive();
-  }
-
-  onDeactivate() {
-    if(this.editing) {
-      if(this.tabbedAway && this.valid) {
-        this.onOkClick();
-      } else {
-        this.onCancelClick();
-      }
-    }
+    this.editable.endEdit();
   }
 
   onFocus() {
-    if(this.editing) {
-      return;
-    }
-
-    this.onClick();
-  }
-
-  tabbedAway = false;
-  onKeydown(event: KeyboardEvent) {
-    if(!this.editing) {
-      return;
-    }
-
-    if(event.key == 'Enter' && this.valid) {
-      this.onOkClick();
-    } else if(event.key == 'Escape') {
-      this.onCancelClick();
-    } else if(event.key == 'Tab') {
-      this.tabbedAway = !event.shiftKey;
-    }
+    this.editable.startEdit();
   }
 
   fixedDecimals: number = null;
