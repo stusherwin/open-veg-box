@@ -66,7 +66,7 @@ export class ProductUnitQuantityComponent {
     } else if(this.maxDecimals) {
       
       var result = value.toFixed(this.maxDecimals);
-      while (result !== '0' && (result.endsWith('.') || result.endsWith('0'))) {
+      while (result !== '0' && (result.endsWith('.') || (result.indexOf('.') != -1 && result.endsWith('0')))) {
         result = result.substring(0, result.length - 1);
       }
       return result;
