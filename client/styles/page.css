@@ -1571,7 +1571,7 @@ select:-moz-focusring {
   padding-right: 5px;
 }
 .x-box-products .x-box-product-quantity input[type="text"] {
-  width: 66px;
+  width: 62px;
 }
 .x-box-products i {
   font-size: 80%;
@@ -1601,9 +1601,13 @@ select:-moz-focusring {
   right: -30px;
   padding-right: 0;
 }
+.x-box-products .no-products {
+  border: 1px solid transparent;
+  padding-bottom: 2px;
+}
 .x-box-products .x-box-product-add .x-box-product-add-display a {
   position: relative;
-  left: -3px;
+  left: -2px;
 }
 .x-box-products .x-box-product-add .x-box-product-add-display:hover,
 .x-box-products .x-box-product-add .x-box-product-add-display.hover {

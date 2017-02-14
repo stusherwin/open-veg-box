@@ -1,6 +1,6 @@
 <h2>Rounds</h2>
 
-<div class="row-view" cc-focus focusedClass="focused" [handleClickOutside]="true">
+<div class="row-view" cc-active [class.focused]="focused" (activate)="focused = true" (deactivate)="focused = false">
   <cc-round *ngFor="let r of rounds; let i = index"
     [round]="r"
     [customers]="customers"

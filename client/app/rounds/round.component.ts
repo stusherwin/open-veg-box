@@ -1,28 +1,28 @@
-import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, ElementRef, Renderer } from '@angular/core';
 import { Round, RoundCustomer } from './round';
 import { HeadingComponent } from '../shared/heading.component';
-import { FocusDirective } from '../shared/focus.directive'
 import { RoundCustomersComponent } from './round-customers.component';
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
+import { ActiveElementDirective, ActivateOnFocusDirective } from '../shared/active-elements'
 
 @Component({
   selector: 'cc-round',
   templateUrl: 'app/rounds/round.component.html',
-  directives: [HeadingComponent, FocusDirective, RoundCustomersComponent, ROUTER_DIRECTIVES]
+  directives: [HeadingComponent, ActiveElementDirective, ActivateOnFocusDirective, RoundCustomersComponent, ROUTER_DIRECTIVES]
 })
 export class RoundComponent {
   adding: boolean;
   rowFocused: boolean;
 
-  constructor() {
+  constructor(private renderer: Renderer) {
     this.round = new Round(0, 'New round', []);
   }
 
   @ViewChild('roundName')
   roundName: HeadingComponent;
 
-  @ViewChild('addButton')
-  addButton: FocusDirective;
+  @ViewChild('add')
+  addButton: ElementRef;
 
   @Input()
   addMode: boolean;
@@ -81,7 +81,7 @@ export class RoundComponent {
     this.adding = false;
     this.round = new Round(0, 'New round', []);
 
-    this.addButton.beFocused();
+    this.renderer.invokeElementMethod(this.addButton.nativeElement, 'focus', []);
   } 
 
   clickEmail(event:any) {
@@ -102,7 +102,7 @@ export class RoundComponent {
     this.customerRemove.emit({roundId: this.round.id, customerId: customerId});
   }
 
-  onRowFocus() {
+  onActivate() {
     var focusedChanged = !this.rowFocused;
     this.rowFocused = true;
     if(this.addMode && focusedChanged) {
@@ -110,7 +110,7 @@ export class RoundComponent {
     }
   }
 
-  onRowBlur() {
+  onDeactivate() {
     if(this.adding) {
       this.adding = false;
       this.round = new Round(0, 'New round', []);

@@ -31,11 +31,10 @@
   <p *ngIf="addMode && loaded && showAddMessage && !adding">There are no boxes yet.</p>
   <p *ngIf="addMode && !loaded"><i class="icon-spin3 animate-spin"></i> Loading boxes...</p>
   <div class="details" [hidden]="addMode && !adding">
-    <cc-heading [addMode]="addMode" #boxName [(value)]="box.name" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-heading>
+    <cc-heading #boxName [(value)]="box.name" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-heading>
     <div class="flex">
       <div class="price-detail">
         <cc-box-price
-          [addMode]="addMode"
           [(value)]="box.price"
           (update)="onUpdate()"
           [editTabindex]="(index * 2) + 1">

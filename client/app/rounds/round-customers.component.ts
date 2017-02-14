@@ -1,5 +1,4 @@
 import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, ViewChildren, QueryList, AfterViewInit, ChangeDetectorRef, AfterViewChecked, OnChanges, Inject, forwardRef, OnInit, OnDestroy } from '@angular/core';
-import { FocusDirective } from '../shared/focus.directive'
 import { RoundCustomer } from './round'
 import { Customer } from '../customers/customer'
 import { Subscription } from 'rxjs/Subscription'
@@ -8,7 +7,7 @@ import { EditableComponent } from '../shared/editable.component'
 import { Arrays } from '../shared/arrays'
 import { RoundCustomerAddComponent } from './round-customer-add.component' 
 import { RoundCustomerRemoveComponent } from './round-customer-remove.component' 
-import { ActiveElementDirective, ActiveService } from '../shared/active-elements';
+import { ActiveElementDirective } from '../shared/active-elements';
 import { RoundCustomersService } from './round-customers.service'
 
 const CUSTOMER_NAME_PADDING = 20;
@@ -16,7 +15,7 @@ const CUSTOMER_ADDRESS_PADDING = 20;
 
 @Component({
   selector: 'cc-round-customers',
-  directives: [FocusDirective, EditableComponent, RoundCustomerAddComponent, RoundCustomerRemoveComponent, ActiveElementDirective],
+  directives: [EditableComponent, RoundCustomerAddComponent, RoundCustomerRemoveComponent, ActiveElementDirective],
   templateUrl: 'app/rounds/round-customers.component.html'
 })
 export class RoundCustomersComponent implements AfterViewChecked {
@@ -26,7 +25,6 @@ export class RoundCustomersComponent implements AfterViewChecked {
   customerAddressWidth: number;
   customerNameMaxWidth: number;
   customerAddressMaxWidth: number;
-  editing = false;
 
   @Input()
   value: RoundCustomer[];
@@ -39,9 +37,6 @@ export class RoundCustomersComponent implements AfterViewChecked {
 
   @Input()
   editTabindex: number;
-
-  @ViewChild('focusable')
-  focusable: FocusDirective
 
   @ViewChild('add')
   addComponent: RoundCustomerAddComponent
@@ -92,16 +87,6 @@ export class RoundCustomersComponent implements AfterViewChecked {
         setTimeout(() => this.addComponent.focus());
       }
     }
-  }
-
-  onActivate() {
-    this.editing = true
-    this.focusable.beFocused();
-  }
-
-  onDeactivate() {
-    this.editing = false
-    this.focusable.beBlurred();
   }
 
   recalculateWidths() {

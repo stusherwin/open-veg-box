@@ -8,7 +8,7 @@ import { BoxComponent, BoxProductEvent } from './box.component'
 import { Observable } from 'rxjs/Observable';
 import { RouteParams } from '@angular/router-deprecated';
 import { BoxProductsService } from './box-products.service';
-import { ActiveService, ActiveElementDirective, ActivateOnFocusDirective } from '../shared/active-elements'
+import { ActiveService, ActiveElementDirective } from '../shared/active-elements'
 import 'rxjs/add/operator/combineLatest';
 
 @Component({
