@@ -1,28 +1,27 @@
-<div class="row" [class.addMode]="addMode" [class.focused]="rowFocused" cc-active (activate)="onActivate()" (deactivate)="onDeactivate()">
-  <input type="checkbox" cc-active cc-activate-on-focus *ngIf="addMode && !rowFocused" style="position: absolute;left:-1000px" [tabindex]="index * 2" />
+<div class="row" [class.addMode]="addMode" [class.focused]="rowFocused" #active=cc-active cc-active (activate)="onActivate()" (deactivate)="onDeactivate()">
   <div class="actions">
     <div class="action" *ngIf="!addMode || !adding">
     </div>
     <div class="action" *ngIf="!addMode">
-      <button cc-active cc-activate-on-focus (click)="onDelete()" [tabindex]="(index * 2) + 2">
+      <button cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="onDelete()" [tabindex]="(index * 2) + 2">
         <div class="icon"><i class="icon-trash"></i></div>
         <span>Delete</span>
       </button>
     </div>
-    <div class="action" [hidden]="!addMode || adding || !loaded">
-      <button #addButton cc-active cc-activate-on-focus (click)="startAdd()" [tabindex]="(index * 2) + 2">
+    <div class="action" *ngIf="addMode && !adding && loaded">
+      <button #addButton cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="startAdd()" [tabindex]="(index * 2) + 2">
         <div class="icon"><i class="icon-add"></i></div>
         <span>Add</span>
       </button>  
     </div>
     <div class="action" *ngIf="addMode && adding">
-      <button cc-active cc-activate-on-focus (click)="completeAdd()" [tabindex]="(index * 2) + 2">
+      <button cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="completeAdd()" [tabindex]="(index * 2) + 2">
         <div class="icon"><i class="icon-ok"></i></div>
         <span>Save</span>
       </button>  
     </div>
     <div class="action" *ngIf="addMode && adding">
-      <button cc-active cc-activate-on-focus (click)="cancelAdd()" [tabindex]="(index * 2) + 2">
+      <button cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="cancelAdd()" [tabindex]="(index * 2) + 2">
         <div class="icon"><i class="icon-cancel"></i></div>
         <span>Cancel</span>
       </button>  

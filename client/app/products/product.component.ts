@@ -1,35 +1,27 @@
-import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, ElementRef, Renderer } from '@angular/core';
 import { Product, UnitType, unitTypes } from './product';
 import { WeightPipe, MoneyPipe } from '../shared/pipes';
 import { HeadingComponent } from '../shared/heading.component';
 import { ProductPriceComponent } from './product-price.component';
 import { ProductUnitQuantityComponent } from './product-unit-quantity.component';
-import { FocusDirective } from '../shared/focus.directive'
+import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
 
 @Component({
   selector: 'cc-product',
   templateUrl: 'app/products/product.component.html',
   pipes: [WeightPipe, MoneyPipe],
-  directives: [HeadingComponent, ProductPriceComponent, ProductUnitQuantityComponent, FocusDirective]
+  directives: [HeadingComponent, ProductPriceComponent, ProductUnitQuantityComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective]
 })
 export class ProductComponent {
   unitTypes: {[key: string]: string } = {};
   adding: boolean;
   rowFocused: boolean;
 
-  constructor() {
-    for( var ut of unitTypes) {
-      this.unitTypes[ut.value] = ut.name;
-    }
-
-    this.product = new Product(0, 'New product', 1.0, "each", 1);
-  }
-
   @ViewChild('productName')
   productName: HeadingComponent;
 
-  @ViewChild('addButton')
-  addButton: FocusDirective;
+  @ViewChild('add')
+  addButton: ElementRef;
 
   @Input()
   addMode: boolean;
@@ -46,6 +38,9 @@ export class ProductComponent {
   @Input()
   loaded: boolean;
 
+  @ViewChild('active')
+  active: ActiveElementDirective;
+
   @Output()
   delete = new EventEmitter<Product>();
 
@@ -54,6 +49,14 @@ export class ProductComponent {
 
   @Output()
   update = new EventEmitter<Product>();
+
+  constructor(private renderer: Renderer) {
+    for( var ut of unitTypes) {
+      this.unitTypes[ut.value] = ut.name;
+    }
+
+    this.product = new Product(0, 'New product', 1.0, "each", 1);
+  }
 
   startAdd() {
     this.adding = true;
@@ -64,19 +67,18 @@ export class ProductComponent {
     this.add.emit(this.product);
     this.adding = false;
     this.product = new Product(0, 'New product', 1.0, "each", 1);
-
-    this.startAdd();
+    this.active.makeInactive();
   }
 
   onDelete() {
     this.delete.emit(this.product);
+    this.active.makeInactive();
   }
 
   cancelAdd() {
     this.adding = false;
     this.product = new Product(0, 'New product', 1.0, "each", 1);
-
-    this.addButton.beFocused();
+    this.active.makeInactive();
   }
 
   onUpdate() {
@@ -85,15 +87,11 @@ export class ProductComponent {
     }
   }
 
-  onRowFocus() {
-    var focusedChanged = !this.rowFocused;
+  onActivate() {
     this.rowFocused = true;
-    if(this.addMode && focusedChanged) {
-      this.startAdd();
-    }
   }
 
-  onRowBlur() {
+  onDeactivate() {
     if(this.adding) {
       this.adding = false;
       this.product = new Product(0, 'New product', 1.0, "each", 1);

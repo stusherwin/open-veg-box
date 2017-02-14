@@ -49,6 +49,9 @@ export class BoxComponent {
   @Input()
   products: Product[];
 
+  @ViewChild('active')
+  active: ActiveElementDirective;
+
   @Output()
   delete = new EventEmitter<Box>();
 
@@ -76,19 +79,18 @@ export class BoxComponent {
     this.add.emit(this.box);
     this.adding = false;
     this.box = new Box(0, 'New box', 10.0, []);
-
-    this.startAdd();
+    this.active.makeInactive();
   }
 
   onDelete() {
     this.delete.emit(this.box);
+    this.active.makeInactive();
   }
 
   cancelAdd() {
     this.adding = false;
     this.box = new Box(0, 'New box', 10.0, []);
-
-    this.renderer.invokeElementMethod(this.addButton.nativeElement, 'focus', []);
+    this.active.makeInactive();
   }
 
   onUpdate() {
@@ -110,11 +112,7 @@ export class BoxComponent {
   }
 
   onActivate() {
-    var focusedChanged = !this.rowFocused;
     this.rowFocused = true;
-    if(this.addMode && focusedChanged) {
-      this.startAdd();
-    }
   }
 
   onDeactivate() {

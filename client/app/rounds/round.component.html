@@ -1,5 +1,4 @@
-<div class="row" [class.addMode]="addMode" cc-active [class.focused]="rowFocused" (activate)="onActivate()" (deactivate)="onDeactivate()">
-  <input type="checkbox" *ngIf="addMode && !focused" style="position: absolute;left:-1000px" cc-active cc-activate-on-focus [tabindex]="index * 2" />
+<div class="row" [class.addMode]="addMode" #active=cc-active cc-active [class.focused]="rowFocused" (activate)="onActivate()" (deactivate)="onDeactivate()">
   <div class="actions">
     <div class="action" *ngIf="!addMode">
       <a class="button" [routerLink]="['../Email', {roundId: round.id}]" cc-active cc-activate-on-focus [tabindex]="(index * 2) + 2">

@@ -1,40 +1,37 @@
-import { Component, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, Output, EventEmitter, OnInit, Renderer } from '@angular/core';
 import { UnitType, unitTypes } from './product';
 import { MoneyPipe } from '../shared/pipes';
-import { FocusDirective } from '../shared/focus.directive'
-import { EditableComponent } from '../shared/editable.component'
+import { ActiveElementDirective, ActivateOnFocusDirective } from '../shared/active-elements'
+import { EditableValueComponent } from '../shared/editable-value.component'
 
 @Component({
   selector: 'cc-product-price',
-  directives: [FocusDirective, EditableComponent],
+  directives: [EditableValueComponent, ActiveElementDirective, ActivateOnFocusDirective],
   pipes: [MoneyPipe],
   template: `
-    <cc-editable className="product-price" [tabindex]="editTabindex" (editStart)="onEditStart($event)" (editEnd)="onEditEnd($event)">
-      <div display>
+    <cc-editable-value #editable className="x-product-price" [valid]="valid" (start)="onStart()" (ok)="onOk()" (cancel)="onCancel()">
+      <display>
         <span [innerHTML]="price | money"></span> <span class="muted">{{ unitTypeName(unitType) }}</span>
-      </div>
-      <div edit>
-        &pound;<input type="text" class="input price" #priceElem=cc-focus cc-focus [selectAll]="addMode" [(ngModel)]="priceString" [tabindex]="editTabindex" required (ngModelChange)="priceChanged($event)" />
-        <select class="input" cc-focus [(ngModel)]="unitType" [tabindex]="editTabindex" (ngModelChange)="unitTypeChanged($event)">
+        <a class="edit" tabindex="9999"><i class="icon-edit"></i></a>
+      </display>
+      <edit>
+        &pound;
+        <cc-validatable [valid]="valid" message="Price should be a number greater than 0">
+          <input type="text" #input [(ngModel)]="editingPrice" [tabindex]="editTabindex" (focus)="startEdit()" cc-active cc-activate-on-focus />
+        </cc-validatable>
+        <select class="input" cc-active cc-activate-on-focus (focus)="startEdit()" [(ngModel)]="unitType" [tabindex]="editTabindex" (ngModelChange)="unitTypeChanged($event)">
           <option *ngFor="let ut of unitTypes" [ngValue]="ut.value">{{ ut.name }}</option>
         </select>
-      </div>
-    </cc-editable>
+      </edit>
+    </cc-editable-value>
   `
 })
-export class ProductPriceComponent {
+export class ProductPriceComponent implements OnInit {
+  editingPrice: string;
   unitTypes: UnitType[];
   fixedDecimals: number = 2;
   maxDecimals: number = null;
-  priceString: string;
   
-  constructor() {
-    this.unitTypes = unitTypes;
-  }
-
-  @ViewChild('priceElem')
-  priceElem: FocusDirective;
-
   @Input()
   price: number;
 
@@ -42,10 +39,13 @@ export class ProductPriceComponent {
   unitType: string;
 
   @Input()
-  addMode: boolean;
-
-  @Input()
   editTabindex: number;
+
+  @ViewChild('input')
+  input: ElementRef;
+
+  @ViewChild('editable')
+  editable: EditableValueComponent
 
   @Output()
   priceChange = new EventEmitter<number>();
@@ -56,24 +56,44 @@ export class ProductPriceComponent {
   @Output()
   update = new EventEmitter<any>();
 
-  onEditStart(tabbedInto: boolean) {
-    this.priceString = this.toStringValue(this.price);
-    this.priceElem.beFocused();
+  get valid() {
+    return this.editingPrice && !!this.editingPrice.length;
   }
 
-  onEditEnd(success: boolean) {
-    if(success) {
-      this.update.emit(null);
-    }
+  constructor(private renderer: Renderer) {
+    this.unitTypes = unitTypes;
+  }
+
+  ngOnInit() {
+    this.editingPrice = this.toStringValue(this.price);
+  }
+
+  startEdit() {
+    this.editable.startEdit();
+  }
+
+  onStart() {
+    setTimeout(() => this.renderer.invokeElementMethod(this.input.nativeElement, 'focus', []))
+  }
+
+  onOk() {
+    this.price = this.toDecimalValue(this.editingPrice);
+    
+    //TODO: just one event!
+    this.priceChange.emit(this.price);
+    this.update.emit(null);
+    
+    this.editingPrice = this.toStringValue(this.price);
+    this.editable.endEdit();
+  }
+
+  onCancel() {
+    this.editingPrice = this.toStringValue(this.price);
+    this.editable.endEdit();
   }
 
   unitTypeName(value: string) {
     return this.unitTypes.find(ut => ut.value == value).name;
-  }
-
-  priceChanged(value: string) {
-    this.price = this.toDecimalValue(value);
-    this.priceChange.emit(this.price);
   }
 
   unitTypeChanged(value: string) {

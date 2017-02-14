@@ -102,6 +102,10 @@ export class EditableValueComponent {
   }
 
   onDeactivate() {
+    if(!this.editing) {
+      return;
+    }
+
     if(this.tabbedAway && this.valid) {
       this.onOkClick();
     } else {

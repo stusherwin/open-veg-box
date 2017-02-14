@@ -24,6 +24,9 @@ export class RoundComponent {
   @ViewChild('add')
   addButton: ElementRef;
 
+  @ViewChild('active')
+  active: ActiveElementDirective;
+
   @Input()
   addMode: boolean;
 
@@ -69,19 +72,18 @@ export class RoundComponent {
     this.add.emit(this.round);
     this.adding = false;
     this.round = new Round(0, 'New round', []);
-
-    this.startAdd();
+    this.active.makeInactive();
   }
 
   onDelete() {
     this.delete.emit(this.round);
+    this.active.makeInactive();
   }
 
   cancelAdd() {
     this.adding = false;
     this.round = new Round(0, 'New round', []);
-
-    this.renderer.invokeElementMethod(this.addButton.nativeElement, 'focus', []);
+    this.active.makeInactive();
   } 
 
   clickEmail(event:any) {
@@ -103,11 +105,7 @@ export class RoundComponent {
   }
 
   onActivate() {
-    var focusedChanged = !this.rowFocused;
     this.rowFocused = true;
-    if(this.addMode && focusedChanged) {
-      this.startAdd();
-    }
   }
 
   onDeactivate() {

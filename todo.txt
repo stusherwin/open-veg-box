@@ -56,7 +56,6 @@ Row save/add/delete
 * Animation (close row on delete, fade add preview in/out)
 * On add, should scroll page to bring row being added into view
 ? Maybe add should show all fields in edit mode?
-* Fix add focus - when should it stay in add mode?
 
 Round customers
 ===============
@@ -72,15 +71,8 @@ BUGS!!!!
 ========
 * Adding round didn't update page with new round (hitting enter on save button?)
 * Deleting a round didn't update available customers, so couldn't add customers to new round
-* (after add + cancel) Add row wasn't focused but other rows hover was as if it was focused
 * Sometimes have to click login button twice.
-* Permission denied in postgres kills server
-  (fixed if this was Rounds home)
 * Add button should be on top of page too (auto scroll down to bottom)
-* Doing nothing to round customers throws sql error (edit/cancel)
-* Sometimes click away from field doesn't work first time
-* Click inside round customers closes control if size changed by the time click is processed
-  (click ends up being outside)
 
 Ideas
 =====
@@ -112,6 +104,7 @@ Bugs
 * Warning icon alignment out in Firefox
 * Row highlight flashes when editable-value canceled
 * box-product-quantity edit out by 1px in Firefox
+* Product price fields out of alignment
 
 Tidy up
 =======
