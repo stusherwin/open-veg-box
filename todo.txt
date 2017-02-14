@@ -110,3 +110,27 @@ Tidy up
 =======
 * Number parsing should be extracted as a component/directive
 * page.less is a mess
+
+
+
+
+Next steps
+==========
+* Get remaning customer controls into editable-value
+* Fix alignment on product-price
+* Make email subject/body mandatory
+* Turn on mailgun production mode on heroku
+* Remove experimental stuff on collection-points
+* Delete -old components
+* More padding between box-product-quantity and remove button
+* Extract out number component? 
+* Add add-mode to editable-value
+
+
+* set overflow on address to have new block context
+  - can overflow: auto work on row item?
+* add-mode hide buttons, transparent background
+  - add-mode class so can tweak positioning in add mode
+* Validate only on blur and ok click
+  - have validation function on validation control then call that programmatically for each in ContentChildren?
+* editable-value manage the value updating too?
