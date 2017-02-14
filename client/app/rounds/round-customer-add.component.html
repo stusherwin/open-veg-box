@@ -1,12 +1,12 @@
-<div class="round-customer round-customer-add"
+<div *ngIf="customers.length" class="round-customer round-customer-add"
     (keydown)="keydown($event)"
-    cc-active 
+    #active=cc-active cc-active 
     (deactivate)="onDeactivate()">
-  <div *ngIf="customers.length && !adding" (click)="onClick()" [class.hover]="addHover">
+  <div *ngIf="!adding" (click)="onClick()" [class.hover]="addHover">
     <div class="round-customer-detail round-customer-name round-customer-display" [style.width.px]="customerNameWidth + customerAddressWidth">{{text}}</div>
     <div class="round-customer-detail round-customer-action round-customer-display">
       <a #add
-        cc-active cc-activate-on-focus
+        cc-active cc-activate-on-focus cc-deactivate-on-blur
         [tabindex]="editTabindex"
         (focus)="addHover = true"
         (blur)="addHover = false"><i class="icon-add"></i></a>
@@ -29,4 +29,4 @@
   </div>
 </div>
 <input type="text" *ngIf="adding && customers.length > 1" style="position: absolute; left: -10000px"
-  [tabindex]="editTabindex" />
+  [tabindex]="editTabindex" (focus)="onDeactivate()" />

@@ -161,7 +161,7 @@ export class DeactivateOnBlurDirective {
 
   @HostListener('blur')
   onBlur() {
-    setTimeout(() => this.service.makeInactive(this.el.nativeElement), 100);
+    this.service.makeInactive(this.el.nativeElement);
   }
 }
 

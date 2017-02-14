@@ -3,12 +3,12 @@ import { RoundCustomer } from './round'
 import { Customer } from '../customers/customer'
 import { Subscription } from 'rxjs/Subscription'
 import { Observable } from 'rxjs/Observable';
-import { ActiveElementDirective, ActiveService, ActivateOnFocusDirective } from '../shared/active-elements';
+import { ActiveElementDirective, ActiveService, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements';
 
 @Component({
   selector: 'cc-round-customer-add',
   templateUrl: 'app/rounds/round-customer-add.component.html',
-  directives: [ActiveElementDirective, ActivateOnFocusDirective]
+  directives: [ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective]
 })
 export class RoundCustomerAddComponent {
   adding: boolean;
@@ -34,7 +34,10 @@ export class RoundCustomerAddComponent {
   select: QueryList<ElementRef>
 
   @ViewChild('add')
-  addBtn: ElementRef  
+  addBtn: ElementRef
+
+  @ViewChild('active')
+  active: ActiveElementDirective  
 
   @Output()
   add = new EventEmitter<RoundCustomer>();
@@ -59,18 +62,23 @@ export class RoundCustomerAddComponent {
   }
 
   onOkClick() {
-    if(this.tabbedAway && this.customers.length > 1) {
-      this.focus();
-    }
+    let stayFocused = this.tabbedAway && this.customers.length > 1; 
+    
     this.add.emit(new RoundCustomer(this.customer.id, this.customer.name, this.customer.address, this.customer.email));
     
     this.adding = false;
     this.tabbedAway = false;
+    if(stayFocused) {
+      this.focus();
+    } else {
+      this.active.makeInactive();
+    }
   }
 
   onCancelClick() {
     this.adding = false;
     this.tabbedAway = false;
+    this.active.makeInactive();
   }
   
   onDeactivate() {

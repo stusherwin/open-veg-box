@@ -1,4 +1,4 @@
-<cc-editable-value className="x-box-product-add" *ngIf="products.length" #editable [valid]="valid" (start)="onStart()" (ok)="onOk()" (cancel)="onCancel()" [catchTabAway]="products.length > 1" [tabindex]="editTabindex">
+<cc-editable-value className="x-box-product-add" *ngIf="products.length" #editable [valid]="valid" (start)="onStart()" (ok)="onOk($event)" (cancel)="onCancel()" [catchTabAway]="products.length > 1" [tabindex]="editTabindex">
   <display>
     <div class="x-box-product-add-display show-on-edit" [class.hover]="addHover">
       <div style="display: inline-block" [style.width.px]="productNameWidth + productQuantityWidth">{{text}}</div>
