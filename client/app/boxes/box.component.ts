@@ -28,7 +28,7 @@ export class BoxComponent {
   @ViewChild('boxName')
   boxName: HeadingComponent;
 
-  @ViewChild('addButton')
+  @ViewChild('add')
   addButton: ElementRef;
 
   @Input()

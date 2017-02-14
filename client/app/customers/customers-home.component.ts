@@ -5,15 +5,15 @@ import { CustomerComponent } from './customer.component'
 import { Observable } from 'rxjs/Observable';
 import { RouteParams } from '@angular/router-deprecated';
 import { FocusService } from '../shared/focus.service';
-import { FocusDirective } from '../shared/focus.directive';
+import { ActiveService, ActiveElementDirective } from '../shared/active-elements'
 import 'rxjs/add/observable/concat';
 import 'rxjs/add/operator/last';
 
 @Component({
   selector: 'cc-customers-home',
   templateUrl: 'app/customers/customers-home.component.html',
-  directives: [CustomerComponent, FocusDirective],
-  providers: [CustomerService, FocusService]
+  directives: [CustomerComponent, ActiveElementDirective],
+  providers: [CustomerService, FocusService, ActiveService]
 })
 export class CustomersHomeComponent implements OnInit {
   constructor(customerService: CustomerService, routeParams: RouteParams) {

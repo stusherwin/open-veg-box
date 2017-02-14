@@ -1,16 +1,16 @@
-import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, ElementRef } from '@angular/core';
 import { Customer } from './customer'
 import { HeadingComponent } from '../shared/heading.component'
-import { FocusDirective } from '../shared/focus.directive'
 import { CustomerAddressComponent } from './customer-address.component'
 import { CustomerEmailComponent } from './customer-email.component'
 import { CustomerTelComponent } from './customer-tel.component'
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
+import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
 
 @Component({
   selector: 'cc-customer',
   templateUrl: 'app/customers/customer.component.html',
-  directives: [HeadingComponent, FocusDirective, CustomerAddressComponent, CustomerEmailComponent, CustomerTelComponent, ROUTER_DIRECTIVES],
+  directives: [HeadingComponent, CustomerAddressComponent, CustomerEmailComponent, CustomerTelComponent, ROUTER_DIRECTIVES, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective],
 })
 export class CustomerComponent {
   adding: boolean;
@@ -23,8 +23,8 @@ export class CustomerComponent {
   @ViewChild('customerName')
   customerName: HeadingComponent;
 
-  @ViewChild('addButton')
-  addButton: FocusDirective;
+  @ViewChild('add')
+  addButton: ElementRef;
 
   @Input()
   addMode: boolean;
@@ -40,6 +40,9 @@ export class CustomerComponent {
 
   @Input()
   loaded: boolean;
+
+  @ViewChild('active')
+  active: ActiveElementDirective;
 
   @Output()
   delete = new EventEmitter<Customer>();
@@ -59,19 +62,18 @@ export class CustomerComponent {
     this.add.emit(this.customer);
     this.adding = false;
     this.resetCustomer();
-
-    this.startAdd();
+    this.active.makeInactive();
   }
 
   onDelete() {
     this.delete.emit(this.customer);
+    this.active.makeInactive();
   }
 
   cancelAdd() {
     this.adding = false;
     this.resetCustomer();
-
-    this.addButton.beFocused();
+    this.active.makeInactive();
   } 
 
   clickEmail(event:any) {
@@ -84,15 +86,11 @@ export class CustomerComponent {
     }
   }
 
-  onRowFocus() {
-    var focusedChanged = !this.rowFocused;
+  onActivate() {
     this.rowFocused = true;
-    if(this.addMode && focusedChanged) {
-      this.startAdd();
-    }
   }
 
-  onRowBlur() {
+  onDeactivate() {
     if(this.adding) {
       this.adding = false;
       this.resetCustomer();
