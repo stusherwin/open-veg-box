@@ -134,3 +134,4 @@ Next steps
 * Validate only on blur and ok click
   - have validation function on validation control then call that programmatically for each in ContentChildren?
 * editable-value manage the value updating too?
+* position: absolute on editable-value not working with overflow-hidden on row item.

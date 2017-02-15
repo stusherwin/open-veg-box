@@ -13,14 +13,15 @@ import { SingleLinePipe, PreserveLinesPipe } from '../shared/pipes'
       <display>
         <div class="detail-marker"><i class="icon-home"></i></div>
         <div class="detail-display">
-          <span [innerHTML]="value | preservelines">
-          </span>
+          <span style="white-space: pre">{{value}}</span>
           <a class="edit"><i class="icon-edit"></i></a>
         </div>
       </display>
       <edit>
-        <i class="detail-marker icon-home"></i>
-        <textarea #textarea [(ngModel)]="value" cc-active cc-activate-on-focus [tabindex]="editTabindex" (focus)="startEdit()"></textarea>
+        <div class="detail-marker"><i class="icon-home"></i></div>
+        <div class="detail-edit">
+          <textarea #textarea [(ngModel)]="editingValue" cc-active cc-activate-on-focus [tabindex]="editTabindex" (focus)="startEdit()"></textarea>
+        </div>
       </edit>
     </cc-editable-value>
   `
@@ -67,6 +68,7 @@ export class CustomerAddressComponent implements OnInit {
 
   onOk() {
     this.value = this.editingValue;
+    console.log(this.value)
     
     //TODO: just one event!
     this.valueChange.emit(this.value);

@@ -1439,14 +1439,14 @@ select:-moz-focusring {
     display: table;
     .detail-marker {
       display: table-cell;
-      vertical-align: top;
+      //vertical-align: top;
       // display: inline-block;
-      width: 18px;
+      width: 20px;
     }
 
     .detail-display {
       display: table-cell;
-      vertical-align: top;
+      //vertical-align: top;
       // display: inline-block;
       // overflow: hidden;
     }
@@ -1457,26 +1457,52 @@ select:-moz-focusring {
       }
     }
   }
+
+  .editable-value-edit {
+    display: table;
+    .detail-marker {
+      display: table-cell;
+      //vertical-align: top;
+      width: 18px;
+    }
+
+    .detail-edit {
+      display: table-cell;
+      //vertical-align: top;
+    }
+  }
 }
 
 .x-address {
   width: 30%;
-  // flex-shrink: 0;
-  //width: 100%;
-  // .editable {
-  //   padding-left:1px;     
-  //   margin-bottom: 3px;
-    
-  //   .editable-display {
-  //     min-height: 25px;
-  //     padding-bottom: 4px;
-  //     overflow: hidden;
-  //     white-space: nowrap;
-  //     text-overflow: ellipsis;
-  //   }
 
-  //   .editable-edit {
-  //     margin-bottom: 1px;
-  //   }
-  // }
+  .editable-value-display {
+    border: 1px solid transparent;
+    .detail-display {
+      //line-height: 1.3em;
+    }
+  }
+
+  .editable-value-edit {
+    .detail-marker {
+      vertical-align: top;
+      position: relative;
+      left: 0px;
+      top: 6px;
+    }
+
+    .detail-edit {
+      textarea {
+        line-height: 1em;
+        height: 56px;
+      }
+    }
+  }
+}
+
+.x-email {
+  
+}
+
+.x-tel {
 }

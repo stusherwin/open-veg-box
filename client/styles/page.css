@@ -1694,16 +1694,37 @@ select:-moz-focusring {
 }
 .x-customer-detail .editable-value-display .detail-marker {
   display: table-cell;
-  vertical-align: top;
-  width: 18px;
+  width: 20px;
 }
 .x-customer-detail .editable-value-display .detail-display {
   display: table-cell;
-  vertical-align: top;
 }
 .x-customer-detail .editable-value-display:hover i {
   color: #ffa011;
 }
+.x-customer-detail .editable-value-edit {
+  display: table;
+}
+.x-customer-detail .editable-value-edit .detail-marker {
+  display: table-cell;
+  width: 18px;
+}
+.x-customer-detail .editable-value-edit .detail-edit {
+  display: table-cell;
+}
 .x-address {
   width: 30%;
+}
+.x-address .editable-value-display {
+  border: 1px solid transparent;
+}
+.x-address .editable-value-edit .detail-marker {
+  vertical-align: top;
+  position: relative;
+  left: 0px;
+  top: 6px;
+}
+.x-address .editable-value-edit .detail-edit textarea {
+  line-height: 1em;
+  height: 56px;
 }

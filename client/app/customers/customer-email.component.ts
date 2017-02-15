@@ -17,7 +17,9 @@ import { EditableValueComponent } from '../shared/editable-value.component'
       </display>
       <edit>
         <div class="detail-marker"><i class="icon-mail"></i></div>
-        <input type="text" #input [(ngModel)]="editingValue" cc-active cc-activate-on-focus [tabindex]="editTabindex" (focus)="startEdit()" />
+        <div class="detail-edit">
+          <input type="text" #input [(ngModel)]="editingValue" cc-active cc-activate-on-focus [tabindex]="editTabindex" (focus)="startEdit()" />
+        </div>
       </edit>
     </cc-editable-value>
   `
