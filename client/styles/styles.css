@@ -1638,65 +1638,65 @@ select {
 .flex > div:first-child {
   margin-left: 0;
 }
-.customer-details > div {
+.customer-details-old > div {
   margin-top: 10px;
   padding-left: 22px;
   position: relative;
 }
-.customer-details > div i {
+.customer-details-old > div i {
   color: #bbb;
   position: absolute;
   left: 0;
 }
-.customer-details > div i::before {
+.customer-details-old > div i::before {
   margin: 0;
   padding: 0;
 }
-.customer-details > div:first-child {
+.customer-details-old > div:first-child {
   margin-top: 0;
 }
-.customer-details > div textarea,
-.customer-details > div input[type="text"],
-.customer-details > div input[type="password"] {
+.customer-details-old > div textarea,
+.customer-details-old > div input[type="text"],
+.customer-details-old > div input[type="password"] {
   width: 378px;
 }
-.customer-details > div textarea {
+.customer-details-old > div textarea {
   height: 80px;
 }
 @media only screen and (min-width : 669px) {
-  .customer-details {
+  .customer-details-old {
     display: flex;
     flex-direction: row;
     flex-grow: 0;
     justify-content: space-between;
   }
-  .customer-details > div {
+  .customer-details-old > div {
     margin: 0 20px;
   }
-  .customer-details > div:first-child {
+  .customer-details-old > div:first-child {
     margin-left: 0;
   }
-  .customer-details > div textarea,
-  .customer-details > div input[type="text"],
-  .customer-details > div input[type="password"] {
+  .customer-details-old > div textarea,
+  .customer-details-old > div input[type="text"],
+  .customer-details-old > div input[type="password"] {
     width: 100%;
   }
-  .customer-details > div:last-of-type {
+  .customer-details-old > div:last-of-type {
     width: 1px;
     flex-grow: 0;
     flex-shrink: 0;
   }
-  .customer-details .address {
+  .customer-details-old .address {
     width: 50%;
     flex-shrink: 2;
     min-width: 120px;
   }
-  .customer-details .email {
+  .customer-details-old .email {
     width: 40%;
     min-width: 150px;
     flex-shrink: 1;
   }
-  .customer-details .tel {
+  .customer-details-old .tel {
     width: 10%;
     min-width: 145px;
     flex-shrink: 0;
@@ -2587,6 +2587,58 @@ select:-moz-focusring {
 .x-box-products .x-box-product-add.editable-value .editable-value-edit .box-product-quantity-each {
   position: relative;
   left: -3px;
+}
+@media only screen and (min-width : 669px) {
+  .x-customer-details {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 0;
+    justify-content: space-between;
+  }
+  .x-customer-details > div {
+    margin: 0 20px;
+  }
+  .x-customer-details > div:first-child {
+    margin-left: 0;
+  }
+  .x-customer-details .x-customer-detail {
+    padding-right: 10px;
+  }
+  .x-customer-details .x-address {
+    width: 40%;
+  }
+  .x-customer-details .x-email {
+    width: 40%;
+  }
+  .x-customer-details .x-tel {
+    width: 20%;
+  }
+  .x-customer-details .x-customer-detail-end {
+    width: 1px;
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
+}
+.x-customer-detail .detail-marker {
+  font-size: 110%;
+}
+.x-customer-detail .editable-value-display {
+  display: table;
+}
+.x-customer-detail .editable-value-display .detail-marker {
+  display: table-cell;
+  vertical-align: top;
+  width: 18px;
+}
+.x-customer-detail .editable-value-display .detail-display {
+  display: table-cell;
+  vertical-align: top;
+}
+.x-customer-detail .editable-value-display:hover i {
+  color: #ffa011;
+}
+.x-address {
+  width: 30%;
 }
 .home {
   background: #579532;

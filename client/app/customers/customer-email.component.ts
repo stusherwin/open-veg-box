@@ -1,22 +1,36 @@
-import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
-import { FocusDirective } from '../shared/focus.directive'
-import { EditableComponent } from '../shared/editable.component'
+import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, Renderer, OnInit } from '@angular/core';
+import { ActiveElementDirective, ActivateOnFocusDirective } from '../shared/active-elements'
+import { EditableValueComponent } from '../shared/editable-value.component'
 
 @Component({
   selector: 'cc-customer-email',
-  directives: [FocusDirective, EditableComponent],
+  directives: [EditableValueComponent, ActiveElementDirective, ActivateOnFocusDirective],
+  host: {'class': 'x-customer-detail x-email'},
   template: `
-    <cc-editable [tabindex]="editTabindex" (editStart)="onEditStart($event)" (editEnd)="onEditEnd($event)">
-      <div display>
-        {{ value }}
-      </div>
-      <div edit>
-        <input type="text" [(ngModel)]="value" (ngModelChange)="valueChanged($event)" #focusable=cc-focus cc-focus [selectAll]="addMode" [tabindex]="editTabindex" />
-      </div>
-    </cc-editable>
+    <cc-editable-value #editable (start)="onStart()" (ok)="onOk()" (cancel)="onCancel()">
+      <display>
+        <div class="detail-marker"><i class="icon-mail"></i></div>
+        <div class="detail-display">
+          {{ value }}
+          <a class="edit"><i class="icon-edit"></i></a>
+        </div>
+      </display>
+      <edit>
+        <div class="detail-marker"><i class="icon-mail"></i></div>
+        <input type="text" #input [(ngModel)]="editingValue" cc-active cc-activate-on-focus [tabindex]="editTabindex" (focus)="startEdit()" />
+      </edit>
+    </cc-editable-value>
   `
 })
 export class CustomerEmailComponent {
+  editingValue: string;
+
+  @ViewChild('input')
+  input: ElementRef;
+
+  @ViewChild('editable')
+  editable: EditableValueComponent;
+
   @Input()
   addMode: boolean;
 
@@ -32,20 +46,37 @@ export class CustomerEmailComponent {
   @Output()
   update = new EventEmitter<any>();
 
-  @ViewChild('focusable')
-  focusable: FocusDirective;
+  get valid() {
+    return this.editingValue && !!this.editingValue.length;
+  }
+
+  constructor(private renderer: Renderer) {
+  }
+
+  ngOnInit() {
+    this.editingValue = this.value;
+  }
+
+  startEdit() {
+    this.editable.startEdit();
+  }
   
-  onEditStart(tabbedInto: boolean) {
-    this.focusable.beFocused();
+  onStart() {
+    setTimeout(() => this.renderer.invokeElementMethod(this.input.nativeElement, 'focus', []))
   }
 
-  onEditEnd(success: boolean) {
-    if(success) {
-      this.update.emit(null);
-    }
+  onOk() {
+    this.value = this.editingValue;
+    
+    //TODO: just one event!
+    this.valueChange.emit(this.value);
+    this.update.emit(null);
+
+    this.editable.endEdit();
   }
 
-  valueChanged(value: string) {
-    this.valueChange.emit(value);
+  onCancel() {
+    this.editingValue = this.value;
+    this.editable.endEdit();
   }
 }

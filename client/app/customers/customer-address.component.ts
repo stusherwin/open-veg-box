@@ -1,31 +1,44 @@
-import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
-import { FocusDirective } from '../shared/focus.directive'
-import { SingleLinePipe } from '../shared/pipes';
-import { EditableComponent } from '../shared/editable.component'
+import { Component, Input, ViewChild, ElementRef, Output, EventEmitter, OnInit, AfterViewInit, Renderer } from '@angular/core';
+import { ActiveElementDirective, ActivateOnFocusDirective } from '../shared/active-elements'
+import { EditableValueComponent } from '../shared/editable-value.component'
+import { SingleLinePipe, PreserveLinesPipe } from '../shared/pipes'
 
 @Component({
   selector: 'cc-customer-address',
-  directives: [FocusDirective, EditableComponent],
-  pipes: [SingleLinePipe],
+  directives: [ActiveElementDirective, ActivateOnFocusDirective, EditableValueComponent],
+  pipes: [SingleLinePipe, PreserveLinesPipe],
+  host: {'class': 'x-customer-detail x-address'},
   template: `
-    <cc-editable [tabindex]="editTabindex" (editStart)="onEditStart($event)" (editEnd)="onEditEnd($event)">
-      <div display [innerHTML]="value | singleline:', '">
-      </div>
-      <div edit>
-        <textarea [(ngModel)]="value" (ngModelChange)="valueChanged($event)" #focusable=cc-focus cc-focus [selectAll]="addMode" [tabindex]="editTabindex"></textarea>
-      </div>
-    </cc-editable>
+    <cc-editable-value #editable [valid]="valid" (start)="onStart()" (ok)="onOk()" (cancel)="onCancel()">
+      <display>
+        <div class="detail-marker"><i class="icon-home"></i></div>
+        <div class="detail-display">
+          <span [innerHTML]="value | preservelines">
+          </span>
+          <a class="edit"><i class="icon-edit"></i></a>
+        </div>
+      </display>
+      <edit>
+        <i class="detail-marker icon-home"></i>
+        <textarea #textarea [(ngModel)]="value" cc-active cc-activate-on-focus [tabindex]="editTabindex" (focus)="startEdit()"></textarea>
+      </edit>
+    </cc-editable-value>
   `
-})
-export class CustomerAddressComponent {
+}) 
+export class CustomerAddressComponent implements OnInit {
+  editingValue: string;
+
   @Input()
-  addMode: boolean;
+  value: string;
 
   @Input()
   editTabindex: number;
 
-  @Input()
-  value: string;
+  @ViewChild('textarea')
+  textarea: ElementRef;
+
+  @ViewChild('editable')
+  editable: EditableValueComponent
 
   @Output()
   valueChange = new EventEmitter<string>();
@@ -33,20 +46,37 @@ export class CustomerAddressComponent {
   @Output()
   update = new EventEmitter<any>();
 
-  @ViewChild('focusable')
-  focusable: FocusDirective;
-
-  onEditStart(tabbedInto: boolean) {
-    this.focusable.beFocused();
+  get valid() {
+    return this.editingValue && !!this.editingValue.length;
   }
 
-  onEditEnd(success: boolean) {
-    if(success) {
-      this.update.emit(null);
-    }
+  constructor(private renderer: Renderer) {
   }
 
-  valueChanged(value: string) {
-    this.valueChange.emit(value);
+  ngOnInit() {
+    this.editingValue = this.value;
+  }
+
+  startEdit() {
+    this.editable.startEdit();
+  }
+
+  onStart() {
+    setTimeout(() => this.renderer.invokeElementMethod(this.textarea.nativeElement, 'focus', []))
+  }
+
+  onOk() {
+    this.value = this.editingValue;
+    
+    //TODO: just one event!
+    this.valueChange.emit(this.value);
+    this.update.emit(null);
+
+    this.editable.endEdit();
+  }
+
+  onCancel() {
+    this.editingValue = this.value;
+    this.editable.endEdit();
   }
 }

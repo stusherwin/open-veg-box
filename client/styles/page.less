@@ -329,7 +329,7 @@ select {
   }
 }
 
-.customer-details {
+.customer-details-old {
   & > div {
     margin-top:10px;
     padding-left:22px;
@@ -360,7 +360,7 @@ select {
 
 @customers-same-line: ~"only screen and (min-width : 669px)";
 @media @customers-same-line {
-  .customer-details {
+  .customer-details-old {
     .flex;
 
     & > div {
@@ -1366,4 +1366,117 @@ select:-moz-focusring {
       }
     }
   }
+}
+
+.x-customer-details {
+
+}
+
+@customers-same-line: ~"only screen and (min-width : 669px)";
+@media @customers-same-line {
+  .x-customer-details {
+    .flex;
+    //display: table;
+    //width: 100%;
+
+    .x-customer-detail {
+      //display: table-cell;
+      //vertical-align: top;
+      padding-right: 10px;
+      // textarea, input[type="text"], input[type="password"] {
+      //   width: 100%;
+      // }
+
+      
+    }
+
+    .x-address {
+      width: 40%;
+    }
+
+    .x-email {
+      width: 40%;
+    }
+
+    .x-tel {
+      width: 20%;
+    }
+
+    .x-customer-detail-end {
+      width: 1px;
+      flex-grow:0;
+      flex-shrink:0;
+    }
+
+    // .x-address {
+    //   border: 1px solid red;
+    //   //width: 50%;
+    //   //flex-shrink:2;
+    //   //min-width:120px;
+    //   .boxProductClearFix()
+    // }
+
+    // .email {
+    //   width: 40%;
+    //   min-width:150px;
+    //   flex-shrink:1;
+    // }
+
+    // .tel {
+    //   width: 10%;
+    //   min-width: 145px;
+    //   flex-shrink:0;
+    // }
+  }
+}
+
+.x-customer-detail {
+  .detail-marker {
+    font-size: 110%;
+  }
+
+  .editable-value-display {
+    display: table;
+    .detail-marker {
+      display: table-cell;
+      vertical-align: top;
+      // display: inline-block;
+      width: 18px;
+    }
+
+    .detail-display {
+      display: table-cell;
+      vertical-align: top;
+      // display: inline-block;
+      // overflow: hidden;
+    }
+
+    &:hover {
+      i {
+        color: @boxProductHover;
+      }
+    }
+  }
+}
+
+.x-address {
+  width: 30%;
+  // flex-shrink: 0;
+  //width: 100%;
+  // .editable {
+  //   padding-left:1px;     
+  //   margin-bottom: 3px;
+    
+  //   .editable-display {
+  //     min-height: 25px;
+  //     padding-bottom: 4px;
+  //     overflow: hidden;
+  //     white-space: nowrap;
+  //     text-overflow: ellipsis;
+  //   }
+
+  //   .editable-edit {
+  //     margin-bottom: 1px;
+  //   }
+  // }
 }
