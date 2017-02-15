@@ -1476,25 +1476,34 @@ select:-moz-focusring {
 .x-address {
   width: 30%;
 
-  .editable-value-display {
-    border: 1px solid transparent;
-    .detail-display {
-      //line-height: 1.3em;
-    }
-  }
+  .editable-value {
 
-  .editable-value-edit {
-    .detail-marker {
-      vertical-align: top;
-      position: relative;
-      left: 0px;
-      top: 6px;
+    .editable-value-display {
+      border: 1px solid transparent;
+      .detail-display {
+        //line-height: 1.3em;
+      }
     }
 
-    .detail-edit {
-      textarea {
-        line-height: 1em;
-        height: 56px;
+    .editable-value-edit {
+      .detail-marker {
+        vertical-align: top;
+        position: relative;
+        left: 0px;
+        top: 6px;
+      }
+
+      .detail-edit {
+        textarea {
+          line-height: 1em;
+          height: 56px;
+        }
+      }
+
+      .input-wrapper.invalid {
+        .icon-warning {
+          top: -39px;
+        }
       }
     }
   }

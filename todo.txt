@@ -135,3 +135,5 @@ Next steps
   - have validation function on validation control then call that programmatically for each in ContentChildren?
 * editable-value manage the value updating too?
 * position: absolute on editable-value not working with overflow-hidden on row item.
+* Customers: need to fix alignment
+* Customer address: enter and tab behaviour on textarea

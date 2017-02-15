@@ -1715,16 +1715,19 @@ select:-moz-focusring {
 .x-address {
   width: 30%;
 }
-.x-address .editable-value-display {
+.x-address .editable-value .editable-value-display {
   border: 1px solid transparent;
 }
-.x-address .editable-value-edit .detail-marker {
+.x-address .editable-value .editable-value-edit .detail-marker {
   vertical-align: top;
   position: relative;
   left: 0px;
   top: 6px;
 }
-.x-address .editable-value-edit .detail-edit textarea {
+.x-address .editable-value .editable-value-edit .detail-edit textarea {
   line-height: 1em;
   height: 56px;
+}
+.x-address .editable-value .editable-value-edit .input-wrapper.invalid .icon-warning {
+  top: -39px;
 }

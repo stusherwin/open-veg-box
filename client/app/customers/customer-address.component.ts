@@ -1,11 +1,12 @@
 import { Component, Input, ViewChild, ElementRef, Output, EventEmitter, OnInit, AfterViewInit, Renderer } from '@angular/core';
 import { ActiveElementDirective, ActivateOnFocusDirective } from '../shared/active-elements'
 import { EditableValueComponent } from '../shared/editable-value.component'
+import { ValidatableComponent } from '../shared/validatable.component';
 import { SingleLinePipe, PreserveLinesPipe } from '../shared/pipes'
 
 @Component({
   selector: 'cc-customer-address',
-  directives: [ActiveElementDirective, ActivateOnFocusDirective, EditableValueComponent],
+  directives: [ActiveElementDirective, ActivateOnFocusDirective, EditableValueComponent, ValidatableComponent],
   pipes: [SingleLinePipe, PreserveLinesPipe],
   host: {'class': 'x-customer-detail x-address'},
   template: `
@@ -20,7 +21,9 @@ import { SingleLinePipe, PreserveLinesPipe } from '../shared/pipes'
       <edit>
         <div class="detail-marker"><i class="icon-home"></i></div>
         <div class="detail-edit">
-          <textarea #textarea [(ngModel)]="editingValue" cc-active cc-activate-on-focus [tabindex]="editTabindex" (focus)="startEdit()"></textarea>
+          <cc-validatable [valid]="valid" message="Address should not be empty">
+            <textarea #textarea [(ngModel)]="editingValue" cc-active cc-activate-on-focus [tabindex]="editTabindex" (focus)="startEdit()"></textarea>
+          </cc-validatable>
         </div>
       </edit>
     </cc-editable-value>

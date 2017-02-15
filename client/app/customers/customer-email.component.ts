@@ -1,10 +1,11 @@
 import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, Renderer, OnInit } from '@angular/core';
 import { ActiveElementDirective, ActivateOnFocusDirective } from '../shared/active-elements'
 import { EditableValueComponent } from '../shared/editable-value.component'
+import { ValidatableComponent } from '../shared/validatable.component';
 
 @Component({
   selector: 'cc-customer-email',
-  directives: [EditableValueComponent, ActiveElementDirective, ActivateOnFocusDirective],
+  directives: [EditableValueComponent, ActiveElementDirective, ActivateOnFocusDirective, ValidatableComponent],
   host: {'class': 'x-customer-detail x-email'},
   template: `
     <cc-editable-value #editable (start)="onStart()" (ok)="onOk()" (cancel)="onCancel()">
@@ -18,7 +19,9 @@ import { EditableValueComponent } from '../shared/editable-value.component'
       <edit>
         <div class="detail-marker"><i class="icon-mail"></i></div>
         <div class="detail-edit">
-          <input type="text" #input [(ngModel)]="editingValue" cc-active cc-activate-on-focus [tabindex]="editTabindex" (focus)="startEdit()" />
+          <cc-validatable [valid]="valid" message="Email should not be empty">
+            <input type="text" #input [(ngModel)]="editingValue" cc-active cc-activate-on-focus [tabindex]="editTabindex" (focus)="startEdit()" />
+          </cc-validatable>
         </div>
       </edit>
     </cc-editable-value>

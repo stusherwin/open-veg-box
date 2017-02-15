@@ -52,7 +52,6 @@ export class CustomerService {
   }
 
   update(id: number, params: any, queryParams: {[key: string]: string}): Observable<Customer[]> {
-    console.log('update customer')
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
