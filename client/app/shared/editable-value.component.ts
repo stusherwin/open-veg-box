@@ -121,7 +121,6 @@ export class EditableValueComponent implements AfterViewInit {
   }
 
   onDeactivate() {
-    console.log('deactivate');
     if(!this.editing) {
       return;
     }

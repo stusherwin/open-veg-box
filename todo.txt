@@ -123,11 +123,6 @@ Next steps
 * Delete -old components
 * More padding between box-product-quantity and remove button
 * Extract out number component? 
-* Add add-mode to editable-value
-
-
-* add-mode hide buttons, transparent background
-  - add-mode class so can tweak positioning in add mode
 * Bring value updating behaviour into editable-value component
 
 * Product price validation

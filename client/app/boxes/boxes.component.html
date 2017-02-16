@@ -13,11 +13,10 @@
     (productUpdate)="onProductUpdate($event)"
     (productRemove)="onProductRemove($event)">
   </cc-box>
-  <cc-box addMode="true"
+  <cc-box-add
     [showAddMessage]="!boxes.length"
     [loaded]="loaded"
     (add)="onAdd($event)"
-    [products]="products"
     [index]="boxes.length">
-  </cc-box>
+  </cc-box-add>
 </div>

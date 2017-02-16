@@ -1,0 +1,29 @@
+<div class="row" [class.focused]="rowFocused" #active=cc-active cc-active (activate)="onActivate()" (deactivate)="onDeactivate()">
+  <div class="actions">
+    <div class="action" *ngIf="!adding && loaded">
+      <button #add cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="startAdd()" [tabindex]="(index * 2) + 2">
+        <div class="icon"><i class="icon-add"></i></div>
+        <span>Add</span>
+      </button>  
+    </div>
+    <div class="action" *ngIf="adding">
+      <button cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="completeAdd()" [tabindex]="(index * 2) + 2">
+        <div class="icon"><i class="icon-ok"></i></div>
+        <span>Save</span>
+      </button>  
+    </div>
+    <div class="action" *ngIf="adding">
+      <button cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="cancelAdd()" [tabindex]="(index * 2) + 2">
+        <div class="icon"><i class="icon-cancel"></i></div>
+        <span>Cancel</span>
+      </button>  
+    </div>
+  </div>
+  <p *ngIf="loaded && showAddMessage && !adding">There are no boxes yet.</p>
+  <p *ngIf="!loaded"><i class="icon-spin3 animate-spin"></i> Loading boxes...</p>
+  <div class="details x-x-box-add" [hidden]="!adding" [class.invalid]="!valid">
+    <cc-validatable [valid]="!!box.name.length" message="Name should not be empty">
+      <input #boxName placeholder="New Box" type="text" class="x-x-box-name" [(ngModel)]="box.name" [tabindex]="(index * 2) + 1" cc-active cc-activate-on-focus />
+    </cc-validatable>
+  </div>
+</div>

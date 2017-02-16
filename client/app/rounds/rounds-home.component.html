@@ -11,12 +11,12 @@
     (customerAdd)="onCustomerAdd($event)"
     (customerRemove)="onCustomerRemove($event)">
   </cc-round>
-  <cc-round addMode="true"
+  <cc-round-add
     [showAddMessage]="!rounds.length"
     [loaded]="loaded"
     [customers]="customers"
     [unusedCustomers]="unusedCustomers"
     (add)="onAdd($event)"
     [index]="rounds.length">
-  </cc-round>
+  </cc-round-add>
 </div>

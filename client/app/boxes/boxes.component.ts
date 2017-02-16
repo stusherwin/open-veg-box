@@ -5,6 +5,7 @@ import { BoxService } from './box.service'
 import { ProductService } from '../products/product.service'
 import { UsersService } from '../users/users.service'
 import { BoxComponent, BoxProductEvent } from './box.component'
+import { BoxAddComponent } from './box-add.component'
 import { Observable } from 'rxjs/Observable';
 import { RouteParams } from '@angular/router-deprecated';
 import { BoxProductsService } from './box-products.service';
@@ -14,7 +15,7 @@ import 'rxjs/add/operator/combineLatest';
 @Component({
   selector: 'cc-boxes',
   templateUrl: 'app/boxes/boxes.component.html',
-  directives: [BoxComponent, ActiveElementDirective],
+  directives: [BoxComponent, ActiveElementDirective, BoxAddComponent],
   providers: [BoxService, ProductService, UsersService, BoxProductsService, ActiveService]
 })
 export class BoxesComponent implements OnInit {

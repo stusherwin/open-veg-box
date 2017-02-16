@@ -74,7 +74,6 @@ export class CustomerAddressComponent implements OnInit {
 
   onOk() {
     this.value = this.editingValue;
-    console.log(this.value)
 
     //TODO: just one event!
     this.valueChange.emit(this.value);

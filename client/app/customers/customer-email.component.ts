@@ -71,9 +71,7 @@ export class CustomerEmailComponent {
   }
 
   onOk() {
-    console.log('ok')
     this.value = this.editingValue;
-    console.log(this.value)
     
     //TODO: just one event!
     this.valueChange.emit(this.value);
@@ -83,8 +81,6 @@ export class CustomerEmailComponent {
   }
 
   onCancel() {
-    console.log('cancel')
-    
     this.editingValue = this.value;
     this.editable.endEdit();
   }

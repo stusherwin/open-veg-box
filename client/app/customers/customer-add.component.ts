@@ -64,7 +64,6 @@ export class CustomerAddComponent implements OnInit {
 
   completeAdd() {
     this.validated = true;
-    console.log('valid: ' + this.valid);
 
     if(this.valid) {
       this.add.emit(this.customer);
@@ -81,9 +80,6 @@ export class CustomerAddComponent implements OnInit {
     this.active.makeInactive();
     this.validated = false;
   } 
-
-  onUpdate() {
-  }
 
   onActivate() {
     this.rowFocused = true;

@@ -15,11 +15,12 @@
   </div>
   <div class="details">
     <cc-heading #customerName [(value)]="customer.name" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-heading>
-    
+
     <div class="x-customer-details">  
       <cc-customer-address [(value)]="customer.address" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-customer-address>
       <cc-customer-email [(value)]="customer.email" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-customer-email>
       <cc-customer-tel [(value)]="customer.tel1" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-customer-tel>
       <div class="x-customer-detail-end"></div>
     </div>
+  </div>
 </div>

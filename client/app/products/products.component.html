@@ -2,5 +2,5 @@
 
 <div id="row-view" class="row-view" cc-active (activate)="focused = true" (deactivate)="focused = false" [class.focused]="focused">
   <cc-product *ngFor="let p of products; let i = index" [product]="p" [index]="i" (delete)="onDelete($event)" (update)="onUpdate($event)"></cc-product>
-  <cc-product addMode="true" [showAddMessage]="!products.length" [loaded]="loaded" (add)="onAdd($event)" [index]="products.length"></cc-product>
+  <cc-product-add [showAddMessage]="!products.length" [loaded]="loaded" (add)="onAdd($event)" [index]="products.length"></cc-product-add>
 </div>
