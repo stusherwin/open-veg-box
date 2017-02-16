@@ -38,6 +38,9 @@ export class EditableValueComponent {
   @Input()
   tabindex: number
 
+  @Input()
+  okOnEnter: boolean = true
+
   @ViewChild('active')
   active: ActiveElementDirective
 
@@ -89,7 +92,7 @@ export class EditableValueComponent {
       return;
     }
 
-    if(event.key == 'Enter' && this.valid && this.okKeyDownEnabled) {
+    if(event.key == 'Enter' && this.valid && this.okKeyDownEnabled && this.okOnEnter) {
       this.onOkClick();
     } else if(event.key == 'Escape') {
       this.onCancelClick();

@@ -13,8 +13,4 @@ export class ValidatableComponent {
 
   @Input()
   message: string
-
-  onChange(event: any) {
-    console.log(event);
-  }
 }

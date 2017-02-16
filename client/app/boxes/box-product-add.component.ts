@@ -94,15 +94,9 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit {
   }
 
   onOk(tabbedAway: boolean) {
-    console.log('onOk')
-    console.log(tabbedAway);
-    console.log(this.products.length);
     if(tabbedAway && this.products.length > 1) {
-      console.log('tabbedAway')
       setTimeout(() => this.renderer.invokeElementMethod(this.addBtn.nativeElement, 'focus', []))
     } else {
-      console.log('setInactive')
-      
       this.service.setInactive(this.editId);
     }
 

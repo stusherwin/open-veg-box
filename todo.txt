@@ -116,7 +116,6 @@ Tidy up
 
 Next steps
 ==========
-* Get remaning customer controls into editable-value
 * Fix alignment on product-price
 * Make email subject/body mandatory
 * Turn on mailgun production mode on heroku
@@ -132,4 +131,3 @@ Next steps
 * Validate only on blur and ok click
   - have validation function on validation control then call that programmatically for each in ContentChildren?
 * Bring value updating behaviour into editable-value component
-* Customer address: enter and tab behaviour on textarea

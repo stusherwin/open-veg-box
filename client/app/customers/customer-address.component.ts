@@ -10,7 +10,7 @@ import { SingleLinePipe, PreserveLinesPipe } from '../shared/pipes'
   pipes: [SingleLinePipe, PreserveLinesPipe],
   host: {'class': 'x-customer-detail x-address'},
   template: `
-    <cc-editable-value #editable [valid]="valid" (start)="onStart()" (ok)="onOk()" (cancel)="onCancel()">
+    <cc-editable-value #editable [valid]="valid" (start)="onStart()" (ok)="onOk()" (cancel)="onCancel()" [okOnEnter]="false">
       <display>
         <div class="detail-marker"><i class="icon-home"></i></div>
         <div class="detail-display">
@@ -71,7 +71,6 @@ export class CustomerAddressComponent implements OnInit {
 
   onOk() {
     this.value = this.editingValue;
-    console.log(this.value)
     
     //TODO: just one event!
     this.valueChange.emit(this.value);
