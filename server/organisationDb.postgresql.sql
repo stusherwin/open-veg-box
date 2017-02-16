@@ -92,17 +92,17 @@ BEGIN
   SELECT id from round where name = 'Chompton & Digby' INTO roundId2;
 
   INSERT INTO customer (name, address, tel1, email) VALUES('Andrew Atkinson','10 Acacia Avenue
-  Ableton
-  A11 1AA','07324 358774','andrew@atkinson.com');
+Ableton
+A11 1AA','07324 358774','andrew@atkinson.com');
   INSERT INTO customer (name, address, tel1, email) VALUES('Betty Barnes','23 Beech Boulevard
-  Biddleton
-  B22 2BB','07324 358774','betty@barnes.com');
+Biddleton
+B22 2BB','07324 358774','betty@barnes.com');
   INSERT INTO customer (name, address, tel1, email) VALUES('Christine Cook','3a Cedar Close
-  Chompton
-  C33 3CC','07324 358774','christine@cook.com');
+Chompton
+C33 3CC','07324 358774','christine@cook.com');
   INSERT INTO customer (name, address, tel1, email) VALUES('Derek Draper','4 Durian Drive
-  Digby
-  D44 4DD','07324 358774','derek@draper.com');
+Digby
+D44 4DD','07324 358774','derek@draper.com');
 
   SELECT id from customer where name = 'Andrew Atkinson' INTO customerId1;
   SELECT id from customer where name = 'Betty Barnes' INTO customerId2;

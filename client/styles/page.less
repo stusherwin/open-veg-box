@@ -1368,38 +1368,28 @@ select:-moz-focusring {
   }
 }
 
-.x-customer-details {
-
-}
-
-@customers-same-line: ~"only screen and (min-width : 669px)";
+@customers-same-line: ~"only screen and (min-width : 749px)";
 @media @customers-same-line {
   .x-customer-details {
     .flex;
-    //display: table;
-    //width: 100%;
 
     .x-customer-detail {
-      //display: table-cell;
-      //vertical-align: top;
       padding-right: 10px;
-      // textarea, input[type="text"], input[type="password"] {
-      //   width: 100%;
-      // }
-
-      
     }
 
     .x-address {
       width: 40%;
+      min-width: 208px;
     }
 
     .x-email {
       width: 40%;
+      min-width: 205px;       
     }
 
     .x-tel {
       width: 20%;
+      min-width: 158px; 
     }
 
     .x-customer-detail-end {
@@ -1407,96 +1397,85 @@ select:-moz-focusring {
       flex-grow:0;
       flex-shrink:0;
     }
-
-    // .x-address {
-    //   border: 1px solid red;
-    //   //width: 50%;
-    //   //flex-shrink:2;
-    //   //min-width:120px;
-    //   .boxProductClearFix()
-    // }
-
-    // .email {
-    //   width: 40%;
-    //   min-width:150px;
-    //   flex-shrink:1;
-    // }
-
-    // .tel {
-    //   width: 10%;
-    //   min-width: 145px;
-    //   flex-shrink:0;
-    // }
   }
 }
 
 .x-customer-detail {
+  .boxProductClearFix;
+
+  display: block;
+  margin-bottom: 5px;
+
   .detail-marker {
     font-size: 110%;
   }
 
-  .editable-value-display {
-    display: table;
-    .detail-marker {
-      display: table-cell;
-      //vertical-align: top;
-      // display: inline-block;
-      width: 20px;
-    }
+  .editable-value {
+    .editable-value-display {
+      display: table;
+      
+      .detail-marker {
+        display: table-cell;
+        width: 20px;
+      }
 
-    .detail-display {
-      display: table-cell;
-      //vertical-align: top;
-      // display: inline-block;
-      // overflow: hidden;
-    }
+      .detail-display {
+        display: table-cell;
+        border: 1px solid transparent;
+      }
 
-    &:hover {
-      i {
-        color: @boxProductHover;
+      &:hover {
+        i {
+          color: @boxProductHover;
+        }
       }
     }
-  }
 
-  .editable-value-edit {
-    display: table;
-    .detail-marker {
-      display: table-cell;
-      //vertical-align: top;
-      width: 18px;
-    }
+    .editable-value-edit {
+      display: table;
+      top: -5px;
 
-    .detail-edit {
-      display: table-cell;
-      //vertical-align: top;
+      .detail-marker {
+        display: table-cell;
+      }
+
+      .detail-edit {
+        display: table-cell;
+      }
     }
   }
 }
 
 .x-address {
-  width: 30%;
-
   .editable-value {
 
     .editable-value-display {
-      border: 1px solid transparent;
       .detail-display {
-        //line-height: 1.3em;
+        border: 1px solid transparent;
       }
     }
 
+    &.editing {
+      height: 70px;
+    }
+
     .editable-value-edit {
+      top: -5px;
+
       .detail-marker {
         vertical-align: top;
         position: relative;
-        left: 0px;
-        top: 6px;
+        left: -1px;
+        top: 5px;
       }
 
       .detail-edit {
         textarea {
+          position: relative;
+          left: 1px;
+          top: 1px;
           line-height: 1em;
-          height: 56px;
+          height: 76px;
         }
       }
 
@@ -1510,8 +1489,52 @@ select:-moz-focusring {
 }
 
 .x-email {
-  
+  .detail-marker {
+    font-size: 100%;
+  }
+
+  .editable-value {
+    .editable-value-edit {
+      top: -7px;
+      padding-top: 4px;
+      
+      .detail-marker {
+        position: relative;
+        left: -1px;
+        top: -1px;
+      }
+
+      .detail-edit {
+        input[type="text"] {
+          position: relative;
+          left: 2px;
+          top: -1px;
+        }
+      }
+    }
+  }
 }
 
 .x-tel {
+  .editable-value {
+    .editable-value-edit {
+      top: -6px;
+      padding-top: 3px;
+
+      .detail-marker {
+        position: relative;
+        left: -1px;
+        top: -1px;
+      }
+
+      .detail-edit {
+        input[type="text"] {
+          width: 105px;
+          position: relative;
+          left: 0px;
+          top: -1px;
+        }
+      }
+    }
+  }
 }

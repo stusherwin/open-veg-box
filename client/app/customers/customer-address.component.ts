@@ -14,7 +14,7 @@ import { SingleLinePipe, PreserveLinesPipe } from '../shared/pipes'
       <display>
         <div class="detail-marker"><i class="icon-home"></i></div>
         <div class="detail-display">
-          <span style="white-space: pre">{{value}}</span>
+          <span [innerHTML]="value | singleline:' '"></span>
           <a class="edit"><i class="icon-edit"></i></a>
         </div>
       </display>

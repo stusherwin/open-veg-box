@@ -730,7 +730,7 @@ select {
 .customer-details-old > div textarea {
   height: 80px;
 }
-@media only screen and (min-width : 669px) {
+@media only screen and (min-width : 749px) {
   .customer-details-old {
     display: flex;
     flex-direction: row;
@@ -1655,7 +1655,7 @@ select:-moz-focusring {
   position: relative;
   left: -3px;
 }
-@media only screen and (min-width : 669px) {
+@media only screen and (min-width : 749px) {
   .x-customer-details {
     display: flex;
     flex-direction: row;
@@ -1673,12 +1673,15 @@ select:-moz-focusring {
   }
   .x-customer-details .x-address {
     width: 40%;
+    min-width: 208px;
   }
   .x-customer-details .x-email {
     width: 40%;
+    min-width: 205px;
   }
   .x-customer-details .x-tel {
     width: 20%;
+    min-width: 158px;
   }
   .x-customer-details .x-customer-detail-end {
     width: 1px;
@@ -1686,48 +1689,97 @@ select:-moz-focusring {
     flex-shrink: 0;
   }
 }
+.x-customer-detail {
+  display: block;
+  margin-bottom: 5px;
+}
+.x-customer-detail::after {
+  display: block;
+  clear: left;
+  content: ' ';
+  height: 0px;
+}
 .x-customer-detail .detail-marker {
   font-size: 110%;
 }
-.x-customer-detail .editable-value-display {
+.x-customer-detail .editable-value .editable-value-display {
   display: table;
 }
-.x-customer-detail .editable-value-display .detail-marker {
+.x-customer-detail .editable-value .editable-value-display .detail-marker {
   display: table-cell;
   width: 20px;
 }
-.x-customer-detail .editable-value-display .detail-display {
+.x-customer-detail .editable-value .editable-value-display .detail-display {
   display: table-cell;
+  border: 1px solid transparent;
 }
-.x-customer-detail .editable-value-display:hover i {
+.x-customer-detail .editable-value .editable-value-display:hover i {
   color: #ffa011;
 }
-.x-customer-detail .editable-value-edit {
+.x-customer-detail .editable-value .editable-value-edit {
   display: table;
+  top: -5px;
 }
-.x-customer-detail .editable-value-edit .detail-marker {
-  display: table-cell;
-  width: 18px;
-}
-.x-customer-detail .editable-value-edit .detail-edit {
+.x-customer-detail .editable-value .editable-value-edit .detail-marker {
   display: table-cell;
 }
-.x-address {
-  width: 30%;
+.x-customer-detail .editable-value .editable-value-edit .detail-edit {
+  display: table-cell;
 }
-.x-address .editable-value .editable-value-display {
+.x-address .editable-value .editable-value-display .detail-display {
   border: 1px solid transparent;
+}
+.x-address .editable-value.editing {
+  height: 70px;
+}
+.x-address .editable-value .editable-value-edit {
+  top: -5px;
 }
 .x-address .editable-value .editable-value-edit .detail-marker {
   vertical-align: top;
   position: relative;
-  left: 0px;
-  top: 6px;
+  left: -1px;
+  top: 5px;
 }
 .x-address .editable-value .editable-value-edit .detail-edit textarea {
+  position: relative;
+  left: 1px;
+  top: 1px;
   line-height: 1em;
-  height: 56px;
+  height: 76px;
 }
 .x-address .editable-value .editable-value-edit .input-wrapper.invalid .icon-warning {
   top: -39px;
+}
+.x-email .detail-marker {
+  font-size: 100%;
+}
+.x-email .editable-value .editable-value-edit {
+  top: -7px;
+  padding-top: 4px;
+}
+.x-email .editable-value .editable-value-edit .detail-marker {
+  position: relative;
+  left: -1px;
+  top: -1px;
+}
+.x-email .editable-value .editable-value-edit .detail-edit input[type="text"] {
+  position: relative;
+  left: 2px;
+  top: -1px;
+}
+.x-tel .editable-value .editable-value-edit {
+  top: -6px;
+  padding-top: 3px;
+}
+.x-tel .editable-value .editable-value-edit .detail-marker {
+  position: relative;
+  left: -1px;
+  top: -1px;
+}
+.x-tel .editable-value .editable-value-edit .detail-edit input[type="text"] {
+  width: 105px;
+  position: relative;
+  left: 0px;
+  top: -1px;
 }
