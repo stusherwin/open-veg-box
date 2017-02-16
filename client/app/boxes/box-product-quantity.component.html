@@ -1,5 +1,4 @@
-<cc-editable-value className="x-box-product-quantity" #editable
-    [valid]="valid" (start)="onStart()" (ok)="onOk()" (cancel)="onCancel()">
+<cc-editable-value className="x-box-product-quantity" #editable (start)="onStart()" (ok)="onOk()" (cancel)="onCancel()">
   <display>
     <span class="box-product-quantity-each" *ngIf="unitType == 'each'">x</span>
     <span *ngIf="unitType == 'perKg'">{{value | weight}}</span><span *ngIf="unitType != 'perKg'">{{value}}</span>
@@ -7,7 +6,7 @@
   </display>
   <edit>
     <span class="box-product-quantity-each" *ngIf="unitType == 'each'">x</span>
-    <cc-validatable [valid]="valid" message="Quantity should be a number greater than 0">
+    <cc-validatable [valid]="toDecimalValue(editingValue) > 0" message="Quantity should be a number greater than 0">
       <input type="text" #input cc-active cc-activate-on-focus [(ngModel)]="editingValue" [tabindex]="editTabindex" (focus)="onFocus()" />
     </cc-validatable>
     <span class="box-product-quantity-perkg" *ngIf="unitType == 'perKg'">Kg</span>

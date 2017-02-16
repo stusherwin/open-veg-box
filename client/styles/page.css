@@ -1419,26 +1419,6 @@ select:-moz-focusring {
 .editable-value .editable-value-edit a:last-of-type {
   right: 4px;
 }
-.editable-value .editable-value-edit .input-wrapper {
-  position: relative;
-}
-.editable-value .editable-value-edit .input-wrapper.invalid input[type="text"],
-.editable-value .editable-value-edit .input-wrapper.invalid input[type="password"],
-.editable-value .editable-value-edit .input-wrapper.invalid textarea,
-.editable-value .editable-value-edit .input-wrapper.invalid select {
-  border: 1px solid #E80000;
-  box-shadow: rgba(232, 0, 0, 0.5) 0px 0px 3px 0px, #E80000 0px 0px 2px 0px inset;
-}
-.editable-value .editable-value-edit .input-wrapper.invalid .icon-warning {
-  background: #fff;
-  padding: 4px;
-  color: #E80000;
-  position: absolute;
-  right: 2px;
-  top: 0px;
-  cursor: help;
-  z-index: 2;
-}
 .editable-value .editable-value-edit.invalid a:first-of-type:hover,
 .editable-value .editable-value-edit.invalid a:first-of-type:focus {
   cursor: auto;
@@ -1452,6 +1432,38 @@ select:-moz-focusring {
 }
 .editable-value.editing .editable-value-outer {
   left: 0px;
+}
+.editable-value.add-mode .editable-value-edit {
+  background: inherit;
+}
+.editable-value.add-mode .editable-value-edit a {
+  display: none;
+}
+.input-wrapper {
+  position: relative;
+  vertical-align: top;
+}
+.input-wrapper .icon-warning {
+  font-size: 80%;
+  background: #fff;
+  padding: 4px;
+  color: #E80000;
+  position: absolute;
+  top: 4px;
+  cursor: help;
+  z-index: 2;
+  left: -10000px;
+}
+.invalid .input-wrapper.invalid input[type="text"],
+.invalid .input-wrapper.invalid input[type="password"],
+.invalid .input-wrapper.invalid textarea,
+.invalid .input-wrapper.invalid select {
+  border: 1px solid #E80000;
+  box-shadow: rgba(232, 0, 0, 0.5) 0px 0px 3px 0px, #E80000 0px 0px 2px 0px inset;
+}
+.invalid .input-wrapper.invalid .icon-warning {
+  left: inherit;
+  right: 2px;
 }
 .x-box-price .editable-value-display {
   border: 1px solid transparent;
@@ -1499,9 +1511,6 @@ select:-moz-focusring {
 .x-heading .editable-value-edit a {
   top: 12px;
 }
-.x-heading .editable-value-edit .input-wrapper.invalid .icon-warning {
-  top: -4px;
-}
 .box-product-detail.box-product-quantity .editable-value-display {
   display: inline-block;
 }
@@ -1516,17 +1525,17 @@ select:-moz-focusring {
 .box-product-detail.box-product-quantity .editable-value-edit a {
   top: 7px;
 }
-.box-product-detail.box-product-quantity .editable-value-edit .input-wrapper.invalid .icon-warning {
-  right: 11px;
-  top: 1px;
-  padding: 2px;
-  padding-top: 3px;
-}
 .box-product-detail.box-product-quantity .editable-value-edit.invalid a:first-of-type:hover {
   cursor: auto;
 }
 .box-product-detail.box-product-quantity .editable-value-edit.invalid a:first-of-type:hover i {
   color: #999;
+}
+.box-product-detail.box-product-quantity .editable-value-edit.invalid .input-wrapper.invalid .icon-warning {
+  right: 13px;
+  top: 1px;
+  padding: 2px;
+  padding-top: 3px;
 }
 .box-products:hover .box-product.box-product-add .editable-value-display .box-product-action a,
 .box-products.editing .box-product.box-product-add .editable-value-display .box-product-action a {
@@ -1591,6 +1600,10 @@ select:-moz-focusring {
 .x-box-products .x-box-product-quantity input[type="text"] {
   width: 62px;
 }
+.x-box-products .x-box-product-quantity .invalid .input-wrapper.invalid .icon-warning {
+  right: 6px;
+  top: 4px;
+}
 .x-box-products i {
   font-size: 80%;
   color: #999;
@@ -1649,7 +1662,12 @@ select:-moz-focusring {
 }
 .x-box-products .x-box-product-add.editable-value .editable-value-edit input[type="text"] {
   position: relative;
+  top: -4px;
   left: -3px;
+}
+.x-box-products .x-box-product-add.editable-value .editable-value-edit.invalid .input-wrapper.invalid .icon-warning {
+  top: -2px;
+  right: 4px;
 }
 .x-box-products .x-box-product-add.editable-value .editable-value-edit .box-product-quantity-each {
   position: relative;
@@ -1749,7 +1767,7 @@ select:-moz-focusring {
   height: 76px;
 }
 .x-address .editable-value .editable-value-edit .input-wrapper.invalid .icon-warning {
-  top: -57px;
+  top: 5px;
 }
 .x-email .detail-marker {
   font-size: 100%;
@@ -1768,6 +1786,9 @@ select:-moz-focusring {
   left: 2px;
   top: -1px;
 }
+.x-email .editable-value .editable-value-edit .detail-edit .input-wrapper.invalid .icon-warning {
+  top: 3px;
+}
 .x-tel .editable-value .editable-value-edit {
   top: -6px;
   padding-top: 3px;
@@ -1782,4 +1803,50 @@ select:-moz-focusring {
   position: relative;
   left: 0px;
   top: -1px;
+}
+.x-tel .editable-value .editable-value-edit .detail-edit .input-wrapper.invalid .icon-warning {
+  top: 3px;
+}
+.x-x-customer-add .x-x-customer-name {
+  width: 100%;
+  font-size: 150%;
+  font-weight: 300;
+}
+.x-x-customer-add .x-x-customer-details {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.x-x-customer-add .x-x-customer-details .x-x-customer-detail {
+  margin-top: 10px;
+  width: 100%;
+  display: table;
+}
+.x-x-customer-add .x-x-customer-details .x-x-customer-detail .x-x-detail-marker {
+  display: table-cell;
+  vertical-align: top;
+  width: 20px;
+}
+.x-x-customer-add .x-x-customer-details .x-x-customer-detail .x-x-detail-marker i {
+  font-size: 88%;
+  color: #999;
+  position: relative;
+  top: 6px;
+}
+.x-x-customer-add .x-x-customer-details .x-x-customer-detail .x-x-detail-marker i.icon-mail {
+  font-size: 76%;
+}
+.x-x-customer-add .x-x-customer-details .x-x-customer-detail .x-x-detail-edit {
+  display: table-cell;
+}
+.x-x-customer-add .x-x-customer-details .x-x-customer-detail.x-x-address textarea {
+  width: 100%;
+  max-width: 300px;
+}
+.x-x-customer-add .x-x-customer-details .x-x-customer-detail.x-x-email input {
+  width: 100%;
+  max-width: 300px;
+}
+.x-x-customer-add .x-x-customer-details .x-x-customer-detail.x-x-tel input {
+  width: 100%;
+  max-width: 120px;
 }

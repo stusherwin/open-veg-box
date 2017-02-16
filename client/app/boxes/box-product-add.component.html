@@ -1,4 +1,4 @@
-<cc-editable-value className="x-box-product-add" *ngIf="products.length" #editable [valid]="valid" (start)="onStart()" (ok)="onOk($event)" (cancel)="onCancel()" [catchTabAway]="products.length > 1" [tabindex]="editTabindex">
+<cc-editable-value className="x-box-product-add" *ngIf="products.length" #editable (start)="onStart()" (ok)="onOk($event)" (cancel)="onCancel()" [catchTabAway]="products.length > 1" [tabindex]="editTabindex">
   <display>
     <div class="x-box-product-add-display show-on-edit" [class.hover]="addHover">
       <div style="display: inline-block" [style.width.px]="productNameWidth + productQuantityWidth">{{text}}</div>
@@ -22,9 +22,9 @@
           <option *ngFor="let p of products; let i = index" [value]="i">{{p.name}}</option>
         </select>
       </div>
-      <div class="x-box-product-quantity" style="display: inline-block" [class.invalid]="!valid" [style.width.px]="productQuantityWidth">
+      <div class="x-box-product-quantity" style="display: inline-block" [style.width.px]="productQuantityWidth">
         <span class="box-product-quantity-each" *ngIf="product.unitType == 'each'">x</span>
-        <cc-validatable [valid]="valid" message="Quantity should be a number greater than 0">
+        <cc-validatable [valid]="toDecimalValue(quantityStringValue) > 0" message="Quantity should be a number greater than 0">
           <input *ngIf="adding" type="text" class="input"
             cc-active cc-activate-on-focus
             [(ngModel)]="quantityStringValue"

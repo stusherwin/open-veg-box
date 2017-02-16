@@ -1,0 +1,106 @@
+import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, ElementRef, Renderer, OnInit, ViewChildren, QueryList } from '@angular/core';
+import { Customer } from './customer'
+import { HeadingComponent } from '../shared/heading.component'
+import { CustomerAddressComponent } from './customer-address.component'
+import { CustomerEmailComponent } from './customer-email.component'
+import { CustomerTelComponent } from './customer-tel.component'
+import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
+import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
+import { ValidatableComponent } from '../shared/validatable.component';
+
+@Component({
+  selector: 'cc-customer-add',
+  templateUrl: 'app/customers/customer-add.component.html',
+  directives: [HeadingComponent, CustomerAddressComponent, CustomerEmailComponent, CustomerTelComponent, ROUTER_DIRECTIVES, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, ValidatableComponent],
+})
+export class CustomerAddComponent implements OnInit {
+  customer = new Customer(0, '', '', '', '', '');
+  adding: boolean;
+  rowFocused: boolean;
+
+  @ViewChild('customerName')
+  customerName: ElementRef;
+
+  @ViewChild('add')
+  addButton: ElementRef;
+
+  @Input()
+  index: number;
+
+  @Input()
+  showAddMessage: boolean;
+
+  @Input()
+  loaded: boolean;
+
+  @ViewChild('active')
+  active: ActiveElementDirective;
+
+  @Output()
+  add = new EventEmitter<Customer>();
+
+  @ViewChildren(ValidatableComponent)
+  validatables: QueryList<ValidatableComponent>
+
+  constructor(private renderer: Renderer) {
+  }
+   
+  ngOnInit() {
+  }
+
+  validated = false;
+  get valid() {
+    return !this.validated
+      || !this.validatables
+      || !this.validatables.length
+      || this.validatables.toArray().every(v => v.valid);
+  }
+
+  startAdd() {
+    this.adding = true;
+    this.resetCustomer();
+    setTimeout(() => this.renderer.invokeElementMethod(this.customerName.nativeElement, 'focus', []));
+  }
+
+  completeAdd() {
+    this.validated = true;
+    console.log('valid: ' + this.valid);
+
+    if(this.valid) {
+      this.add.emit(this.customer);
+      this.adding = false;
+      this.active.makeInactive();
+      this.validated = false;
+    } else {
+      setTimeout(() => this.renderer.invokeElementMethod(this.customerName.nativeElement, 'focus', []));
+    }
+  }
+
+  cancelAdd() {
+    this.adding = false;
+    this.active.makeInactive();
+    this.validated = false;
+  } 
+
+  onUpdate() {
+  }
+
+  onActivate() {
+    this.rowFocused = true;
+  }
+
+  onDeactivate() {
+    if(this.adding) {
+      this.adding = false;
+    }
+    this.rowFocused = false;
+  }
+
+  resetCustomer() {
+    this.customer.name = '';
+    this.customer.address = '';
+    this.customer.email = '';
+    this.customer.tel1 = '';
+    this.customer.tel2 = '';
+  }
+}

@@ -8,7 +8,7 @@ import { ValidatableComponent } from '../shared/validatable.component';
   directives: [EditableValueComponent, ActiveElementDirective, ActivateOnFocusDirective, ValidatableComponent],
   host: {'class': 'x-customer-detail x-email'},
   template: `
-    <cc-editable-value #editable (start)="onStart()" (ok)="onOk()" (cancel)="onCancel()">
+    <cc-editable-value #editable [addMode]="addMode" (start)="onStart()" (ok)="onOk()" (cancel)="onCancel()">
       <display>
         <div class="detail-marker"><i class="icon-mail"></i></div>
         <div class="detail-display">
@@ -71,7 +71,9 @@ export class CustomerEmailComponent {
   }
 
   onOk() {
+    console.log('ok')
     this.value = this.editingValue;
+    console.log(this.value)
     
     //TODO: just one event!
     this.valueChange.emit(this.value);
@@ -81,6 +83,8 @@ export class CustomerEmailComponent {
   }
 
   onCancel() {
+    console.log('cancel')
+    
     this.editingValue = this.value;
     this.editable.endEdit();
   }

@@ -51,10 +51,6 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit {
   @Output()
   add = new EventEmitter<BoxProduct>();
 
-  get valid() {
-    return this.toDecimalValue(this.quantityStringValue) > 0;
-  }
-
   constructor(
     private service: BoxProductsService,
     private renderer: Renderer,

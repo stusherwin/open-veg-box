@@ -1,0 +1,56 @@
+<div class="row" #active=cc-active cc-active [class.focused]="rowFocused" (activate)="onActivate()" (deactivate)="onDeactivate()">
+  <div class="actions">
+    <div class="action" [hidden]="adding || !loaded">
+      <button #add cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="startAdd()" [tabindex]="(index * 2) + 2">
+        <div class="icon"><i class="icon-add"></i></div>
+        <span>Add</span>
+      </button>  
+    </div>
+    <div class="action" *ngIf="adding">
+      <button cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="completeAdd()" [tabindex]="(index * 2) + 2">
+        <div class="icon"><i class="icon-ok"></i></div>
+        <span>Save</span>
+      </button>  
+    </div>
+    <div class="action" *ngIf="adding">
+      <button cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="cancelAdd()" [tabindex]="(index * 2) + 2">
+        <div class="icon"><i class="icon-cancel"></i></div>
+        <span>Cancel</span>
+      </button>  
+    </div>
+  </div>
+  <p *ngIf="loaded && showAddMessage && !adding">There are no customers yet.</p>
+  <p *ngIf="!loaded"><i class="icon-spin3 animate-spin"></i> Loading customers...</p>
+  <div class="details x-x-customer-add" [hidden]="!adding" [class.invalid]="!valid">
+    <cc-validatable [valid]="!!customer.name.length" message="Name should not be empty">
+      <input #customerName placeholder="Joe Bloggs" type="text" class="x-x-customer-name" [(ngModel)]="customer.name" [tabindex]="(index * 2) + 1" cc-active cc-activate-on-focus />
+    </cc-validatable>
+      
+    <div class="x-x-customer-details">
+      <div class="x-x-customer-detail x-x-address">
+        <div class="x-x-detail-marker"><i class="icon-home"></i></div>
+        <div class="x-x-detail-edit">
+          <cc-validatable [valid]="!!customer.address.length" message="Address should not be empty">
+            <textarea placeholder="1 Bloggs Street" [(ngModel)]="customer.address" cc-active cc-activate-on-focus [tabindex]="(index * 2) + 1"></textarea>
+          </cc-validatable>
+        </div>
+      </div>
+      <div class="x-x-customer-detail x-x-email">
+        <div class="x-x-detail-marker"><i class="icon-mail"></i></div>
+        <div class="x-x-detail-edit">
+          <cc-validatable [valid]="!!customer.email.length" message="Email should not be empty">
+            <input type="text" placeholder="joe@bloggs.com" [(ngModel)]="customer.email" cc-active cc-activate-on-focus [tabindex]="(index * 2) + 1" />
+          </cc-validatable>
+        </div>
+      </div>
+      <div class="x-x-customer-detail x-x-tel">
+        <div class="x-x-detail-marker"><i class="icon-phone"></i></div>
+        <div class="x-x-detail-edit">
+          <cc-validatable [valid]="!!customer.tel1.length" message="Phone number should not be empty">
+            <input type="text" placeholder="(01234) 567890" [(ngModel)]="customer.tel1" cc-active cc-activate-on-focus [tabindex]="(index * 2) + 1" />
+          </cc-validatable>
+        </div>
+      </div>
+      <div class="x-x-customer-detail-end"></div>
+    </div>
+</div>

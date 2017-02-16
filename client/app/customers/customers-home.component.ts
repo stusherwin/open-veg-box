@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Customer } from './customer'
 import { CustomerService } from './customer.service'
 import { CustomerComponent } from './customer.component'
+import { CustomerAddComponent } from './customer-add.component'
 import { Observable } from 'rxjs/Observable';
 import { RouteParams } from '@angular/router-deprecated';
 import { FocusService } from '../shared/focus.service';
@@ -12,7 +13,7 @@ import 'rxjs/add/operator/last';
 @Component({
   selector: 'cc-customers-home',
   templateUrl: 'app/customers/customers-home.component.html',
-  directives: [CustomerComponent, ActiveElementDirective],
+  directives: [CustomerComponent, CustomerAddComponent, ActiveElementDirective],
   providers: [CustomerService, FocusService, ActiveService]
 })
 export class CustomersHomeComponent implements OnInit {

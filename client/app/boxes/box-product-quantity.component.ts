@@ -40,10 +40,6 @@ export class BoxProductQuantityComponent implements OnInit {
   @Output()
   update = new EventEmitter<number>();
   
-  get valid() {
-    return this.toDecimalValue(this.editingValue) > 0
-  }
-
   constructor(private renderer: Renderer) {
   }
 

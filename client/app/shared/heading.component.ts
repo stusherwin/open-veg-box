@@ -7,7 +7,7 @@ import { EditableValueComponent } from '../shared/editable-value.component'
   selector: 'cc-heading',
   directives: [ActiveElementDirective, ActivateOnFocusDirective, ValidatableComponent, EditableValueComponent],
   template: `
-    <cc-editable-value #editable className="x-heading" [valid]="valid" (start)="onStart()" (ok)="onOk()" (cancel)="onCancel()">
+    <cc-editable-value #editable [addMode]="addMode" className="x-heading" (start)="onStart()" (ok)="onOk()" (cancel)="onCancel()">
       <display>
         <h3>{{value}}</h3>
         <a class="edit"><i class="icon-edit"></i></a>
@@ -28,6 +28,9 @@ export class HeadingComponent implements OnInit {
 
   @Input()
   editTabindex: number;
+
+  @Input()
+  addMode: boolean;
 
   @ViewChild('input')
   input: ElementRef;

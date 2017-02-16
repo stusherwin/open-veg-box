@@ -1,44 +1,25 @@
-<div class="row" [class.addMode]="addMode" #active=cc-active cc-active [class.focused]="rowFocused" (activate)="onActivate()" (deactivate)="onDeactivate()">
+<div class="row" #active=cc-active cc-active [class.focused]="rowFocused" (activate)="onActivate()" (deactivate)="onDeactivate()">
   <div class="actions">
-    <div class="action" *ngIf="!addMode">
+    <div class="action">
       <a class="button" [routerLink]="['../Email', {customerId: customer.id}]" cc-active cc-activate-on-focus cc-deactivate-on-blur [tabindex]="(index * 2) + 2">
         <div class="icon"><i class="icon-mail-dark"></i></div>
         <span>Email</span>
       </a>
     </div>
-    <div class="action" *ngIf="!addMode">
+    <div class="action">
       <button cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="onDelete()" [tabindex]="(index * 2) + 2">
         <div class="icon"><i class="icon-trash"></i></div>
         <span>Delete</span>
       </button>
     </div>
-    <div class="action" *ngIf="addMode && !adding && loaded">
-      <button #add cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="startAdd()" [tabindex]="(index * 2) + 2">
-        <div class="icon"><i class="icon-add"></i></div>
-        <span>Add</span>
-      </button>  
-    </div>
-    <div class="action" *ngIf="addMode && adding">
-      <button cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="completeAdd()" [tabindex]="(index * 2) + 2">
-        <div class="icon"><i class="icon-ok"></i></div>
-        <span>Save</span>
-      </button>  
-    </div>
-    <div class="action" *ngIf="addMode && adding">
-      <button cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="cancelAdd()" [tabindex]="(index * 2) + 2">
-        <div class="icon"><i class="icon-cancel"></i></div>
-        <span>Cancel</span>
-      </button>  
-    </div>
   </div>
-  <p *ngIf="addMode && loaded && showAddMessage && !adding">There are no customers yet.</p>
-  <p *ngIf="addMode && !loaded"><i class="icon-spin3 animate-spin"></i> Loading customers...</p>
-  <div class="details" [hidden]="addMode && !adding">
-    <cc-heading [addMode]="addMode" #customerName [(value)]="customer.name" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-heading>
+  <div class="details">
+    <cc-heading #customerName [(value)]="customer.name" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-heading>
+    
     <div class="x-customer-details">  
-      <cc-customer-address [addMode]="addMode" [(value)]="customer.address" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-customer-address>
-      <cc-customer-email [addMode]="addMode" [(value)]="customer.email" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-customer-email>
-      <cc-customer-tel [addMode]="addMode" [(value)]="customer.tel1" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-customer-tel>
+      <cc-customer-address [(value)]="customer.address" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-customer-address>
+      <cc-customer-email [(value)]="customer.email" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-customer-email>
+      <cc-customer-tel [(value)]="customer.tel1" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-customer-tel>
       <div class="x-customer-detail-end"></div>
     </div>
 </div>
