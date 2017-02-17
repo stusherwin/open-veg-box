@@ -15,14 +15,11 @@ Database
 ========
 * Split out schema sql from data
 * Implement sqlite backup strategy
-* Catch sql errors instead of crashing (uq violation)
-  - handle in SqliteDb
 * Hash/salt passwords in main db
 
 Deployment
 ==========
 * tsconfig watch: true - needed for dev but not for production - need to resolve this somehow.
-* Set up mailgun to use production settings
 * Set up SSL
 
 
@@ -32,22 +29,15 @@ General Styling
 * Browser testing
 * Chrome rendering issue with 1px border width (fix by positioning from centre of circles not corner)
 * Logout button not visible on small screen
-* when no round customers should show 'no customers assigned' message
 * page footer
 
 Editing
 =======
 * Fix numeric rounding issues: http://stackoverflow.com/questions/10015027/javascript-tofixed-not-rounding
-* Just show edit icon without dotted border
-  - Vertically centre 'edit' button
-  - 1px wobble in product unit quantity
-* Highlight/textbox border should be outside (encompass) icons on fields (address, email, tel)
 * Field save success indicator
-* Field validation (multiple field coordination?)
 * Figure out why clicking on page doesn't reset current tab index
   (sets it to delete button, tabindex=2, which is first element on page with tabindex, but subsequent elements
   have tabindex=1)
-* keydown: Enter to save, Esc to cancel
 
 Row save/add/delete
 ======================
@@ -59,7 +49,6 @@ Row save/add/delete
 
 Round customers
 ===============
-* Subject & body should be mandatory email fields
 * Should BCC recipients, not TO
 * Still some issues with tabbing into
   - sometimes flickers when tabbing into for first time
@@ -105,6 +94,7 @@ Bugs
 * Row highlight flashes when editable-value canceled
 * box-product-quantity edit out by 1px in Firefox
 * Product price fields out of alignment
+* Email overlaps phone no. if too long (truncate)
 
 Tidy up
 =======
@@ -117,8 +107,6 @@ Tidy up
 Next steps
 ==========
 * Fix alignment on product-price
-* Make email subject/body mandatory
-* Turn on mailgun production mode on heroku
 * Remove experimental stuff on collection-points
 * Delete -old components
 * More padding between box-product-quantity and remove button

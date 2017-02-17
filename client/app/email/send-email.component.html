@@ -1,17 +1,21 @@
-<div class="email-edit" cc-focus focusedClass="focused">
+<div class="email-edit" cc-focus focusedClass="focused" [class.invalid]="!valid">
   <div class="form-row">
     <label>To:</label>
     <ul class="field recipients">
       <li *ngFor="let r of recipients">{{r.name}} <span class="muted">({{r.address}})</span></li>
     </ul>
   </div>
-  <div class="form-row">
+  <div class="form-row subject">
     <label>Subject:</label>
-    <input type="text" class="field" #focusable=cc-focus cc-focus tabindex="1" [(ngModel)]="subject" />
+    <cc-validatable [valid]="!!subject.length" message="Subject should not be empty">
+      <input type="text" class="field" #focusable=cc-focus cc-focus tabindex="1" [(ngModel)]="subject" />
+    </cc-validatable>
   </div>
-  <div class="form-row">
+  <div class="form-row message">
     <label>Message:</label>
-    <textarea class="field" cc-focus tabindex="1" [(ngModel)]="body"></textarea>
+    <cc-validatable [valid]="!!body.length" message="Message should not be empty">
+      <textarea class="field" cc-focus tabindex="1" [(ngModel)]="body"></textarea>
+    </cc-validatable>
   </div>
   <div class="row-view">
     <div class="row no-hover no-border">

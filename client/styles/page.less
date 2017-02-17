@@ -567,6 +567,22 @@ select {
       }
     }
   }
+
+  &.invalid {
+    .input-wrapper.invalid {
+      .icon-warning {
+        top: -3px;
+      }
+    }
+
+    .message {
+      .input-wrapper.invalid {
+        .icon-warning {
+          top: -2px;
+        }
+      } 
+    }
+  }
 }
 
 input[type="text"], input[type="password"], textarea, select {

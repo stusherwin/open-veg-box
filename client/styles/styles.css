@@ -1992,6 +1992,12 @@ select {
 .email-edit.focused .row a.button.disabled:hover span {
   color: #ccc;
 }
+.email-edit.invalid .input-wrapper.invalid .icon-warning {
+  top: -3px;
+}
+.email-edit.invalid .message .input-wrapper.invalid .icon-warning {
+  top: -2px;
+}
 input[type="text"]:focus,
 input[type="password"]:focus,
 textarea:focus,
