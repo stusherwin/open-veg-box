@@ -14,7 +14,7 @@ export let getEmail = function(config: EmailConfig, authorize: (req: any, res: a
   email.post('/send', function(req: any, res: any, next: any) {
     let message = new EmailMessage(req.body.recipients.map((r: any) => new EmailRecipient(r.name, r.address)), req.body.subject, req.body.body);
     emailService.send(message, req.organisation)
-                .subscribe(r => res.status(200), next);
+                .subscribe(r => res.json({}), next);
   });
 
   return email;
