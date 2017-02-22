@@ -73,12 +73,14 @@ export class EditableValueComponent implements AfterViewInit {
   }
 
   startEdit() {
-    // If Enter key is used to trigger startEdit, then keydown handler will automatically
-    // fire. Need a timeout window to prevent this.
-    this.okKeyDownEnabled = false;
-    setTimeout(() => this.okKeyDownEnabled = true, 100);
-    this.editing = true;
-    this.start.emit(null);
+    if(!this.editing) {
+      // If Enter key is used to trigger startEdit, then keydown handler will automatically
+      // fire. Need a timeout window to prevent this.
+      this.okKeyDownEnabled = false;
+      setTimeout(() => this.okKeyDownEnabled = true, 100);
+      this.editing = true;
+      this.start.emit(null);
+    }
   }
 
   onOk() {
@@ -127,12 +129,12 @@ export class EditableValueComponent implements AfterViewInit {
 
     if(this.tabbedAway) {
       this.validate();
+
       if(this.valid) {
         this.onOk();
       } else {
         setTimeout(() => {
-          this.active.makeActive();
-          this.startEdit();
+          this.start.emit(null);
         });
       }
     } else {

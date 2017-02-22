@@ -1133,6 +1133,16 @@ select:-moz-focusring {
     input[type="text"] {
       width: 66px;
     }
+
+    &.invalid {
+      .input-wrapper {
+        &.invalid {
+          .icon-warning {
+            right: 5px;
+          }
+        }
+      }
+    }
   }
 }
 
@@ -1165,14 +1175,6 @@ select:-moz-focusring {
     a {   
       top: 12px;
     }
-
-    // .input-wrapper {
-    //   &.invalid {
-    //     .icon-warning {
-    //       top: -4px;
-    //     }
-    //   }
-    // }
   }
 }
 

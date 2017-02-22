@@ -3,10 +3,11 @@ import { UnitType, unitTypes } from './product';
 import { MoneyPipe } from '../shared/pipes';
 import { ActiveElementDirective, ActivateOnFocusDirective } from '../shared/active-elements'
 import { EditableValueComponent } from '../shared/editable-value.component'
+import { ValidatableComponent } from '../shared/validatable.component'
 
 @Component({
   selector: 'cc-product-price',
-  directives: [EditableValueComponent, ActiveElementDirective, ActivateOnFocusDirective],
+  directives: [EditableValueComponent, ActiveElementDirective, ActivateOnFocusDirective, ValidatableComponent],
   pipes: [MoneyPipe],
   template: `
     <cc-editable-value #editable className="x-product-price" [valid]="valid" (start)="onStart()" (ok)="onOk()" (cancel)="onCancel()">
@@ -57,7 +58,7 @@ export class ProductPriceComponent implements OnInit {
   update = new EventEmitter<any>();
 
   get valid() {
-    return this.editingPrice && !!this.editingPrice.length;
+    return this.toDecimalValue(this.editingPrice) > 0;
   }
 
   constructor(private renderer: Renderer) {

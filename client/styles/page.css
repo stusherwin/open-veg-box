@@ -1489,6 +1489,9 @@ select:-moz-focusring {
 .x-product-price .editable-value-edit input[type="text"] {
   width: 66px;
 }
+.x-product-price .editable-value-edit.invalid .input-wrapper.invalid .icon-warning {
+  right: 5px;
+}
 .x-heading .editable-value-display {
   border: 1px solid transparent;
 }
