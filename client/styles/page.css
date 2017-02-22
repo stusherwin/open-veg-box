@@ -1641,7 +1641,7 @@ select:-moz-focusring {
 }
 .x-box-products .x-box-product-add .x-box-product-add-display a {
   position: relative;
-  left: -2px;
+  left: -4px;
 }
 .x-box-products .x-box-product-add .x-box-product-add-display:hover,
 .x-box-products .x-box-product-add .x-box-product-add-display.hover {
@@ -1662,11 +1662,13 @@ select:-moz-focusring {
   right: -13px;
   left: -9px;
   padding-right: 0;
+  height: 28px;
 }
 .x-box-products .x-box-product-add.editable-value .editable-value-edit input[type="text"] {
   position: relative;
   top: -4px;
   left: -3px;
+  height: 24px;
 }
 .x-box-products .x-box-product-add.editable-value .editable-value-edit.invalid .input-wrapper.invalid .icon-warning {
   top: -2px;

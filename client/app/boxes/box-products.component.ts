@@ -12,10 +12,10 @@ import { BoxProductRemoveComponent } from './box-product-remove.component'
 import { ActiveElementDirective, ActivateOnFocusDirective } from '../shared/active-elements';
 
 const PRODUCT_NAME_PADDING = 5;
-const PRODUCT_QUANTITY_PADDING = 0;
+const PRODUCT_QUANTITY_PADDING = 5;
 const ACTIONS_WIDTH = 17;
 const MIN_ITEMS_IN_FIRST_COLUMN = 3;
-const COLUMN_PADDING_RATIO = 0.8;
+const COLUMN_PADDING_RATIO = 0.5;
 
 @Component({
   selector: 'cc-box-products',
@@ -148,7 +148,13 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
 
     // Distribute evenly across columns
     // for(let i = 0; i < this.value.length; i++) {
-    //   columns[i % noOfColumns].push(this.value[i]);
+    //   let col = i % this.maxColumns;
+
+    //   if(!columns[col]) {
+    //     columns[col] = [];
+    //   }
+
+    //   columns[col].push(this.value[i]);
     // }
 
     // Fill up first columns
