@@ -1477,23 +1477,17 @@ select:-moz-focusring {
 .x-box-price .editable-value-edit input[type="text"] {
   width: 66px;
 }
+.x-product-price {
+  height: 30px;
+}
 .x-product-price .editable-value-display {
   border: 1px solid transparent;
 }
 .x-product-price .editable-value-display:hover .muted {
   color: #f8c77e !important;
 }
-.x-product-price .editable-value-edit {
-  padding-top: 3px;
-}
 .x-product-price .editable-value-edit input[type="text"] {
   width: 66px;
-  position: relative;
-  top: -1px;
-}
-.x-product-price .editable-value-edit select {
-  position: relative;
-  top: -1px;
 }
 .x-heading .editable-value-display {
   border: 1px solid transparent;
