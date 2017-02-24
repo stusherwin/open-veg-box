@@ -54,7 +54,11 @@ export class RoundAddComponent {
   startAdd() {
     this.adding = true;
     this.round.name = '';
-    setTimeout(() => this.renderer.invokeElementMethod(this.roundName.nativeElement, 'focus', []));
+
+    setTimeout(() => {
+      this.renderer.invokeElementMethod(window, 'scrollTo', [0, document.body.scrollHeight])
+      this.renderer.invokeElementMethod(this.roundName.nativeElement, 'focus', [])
+    });
   }
 
   completeAdd() {

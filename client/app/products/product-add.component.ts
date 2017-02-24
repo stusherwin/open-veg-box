@@ -53,7 +53,10 @@ export class ProductAddComponent {
   startAdd() {
     this.adding = true;
     this.product.name = '';
-    setTimeout(() => this.renderer.invokeElementMethod(this.productName.nativeElement, 'focus', []));
+    setTimeout(() => {
+      this.renderer.invokeElementMethod(window, 'scrollTo', [0, document.body.scrollHeight])
+      this.renderer.invokeElementMethod(this.productName.nativeElement, 'focus', [])
+    })
   }
 
   completeAdd() {

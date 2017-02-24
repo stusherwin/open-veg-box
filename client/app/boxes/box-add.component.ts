@@ -57,7 +57,11 @@ export class BoxAddComponent {
     this.adding = true;
     this.box.name = '';
     this.box.price = 10.0;
-    setTimeout(() => this.renderer.invokeElementMethod(this.boxName.nativeElement, 'focus', []));
+    
+    setTimeout(() => {
+      this.renderer.invokeElementMethod(window, 'scrollTo', [0, document.body.scrollHeight])
+      this.renderer.invokeElementMethod(this.boxName.nativeElement, 'focus', [])
+    });
   }
 
   completeAdd() {

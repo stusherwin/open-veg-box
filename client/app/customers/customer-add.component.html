@@ -21,37 +21,43 @@
   </div>
   <p *ngIf="loaded && showAddMessage && !adding">There are no customers yet.</p>
   <p *ngIf="!loaded"><i class="icon-spin3 animate-spin"></i> Loading customers...</p>
-  <div class="details x-x-customer-add" [hidden]="!adding" [class.invalid]="!valid">
+  <div class="details x-customer-add" [hidden]="!adding" [class.invalid]="!valid">
     <cc-validatable [valid]="!!customer.name.length" message="Name should not be empty">
-      <input #customerName placeholder="Joe Bloggs" type="text" class="x-x-customer-name" [(ngModel)]="customer.name" [tabindex]="(index * 2) + 1" cc-active cc-activate-on-focus />
+      <input #customerName placeholder="Joe Bloggs" type="text" class="x-customer-name" [(ngModel)]="customer.name" [tabindex]="(index * 2) + 1" cc-active cc-activate-on-focus />
     </cc-validatable>
       
-    <div class="x-x-customer-details">
-      <div class="x-x-customer-detail x-x-address">
-        <div class="x-x-detail-marker"><i class="icon-home"></i></div>
-        <div class="x-x-detail-edit">
-          <cc-validatable [valid]="!!customer.address.length" message="Address should not be empty">
-            <textarea placeholder="1 Bloggs Street" [(ngModel)]="customer.address" cc-active cc-activate-on-focus [tabindex]="(index * 2) + 1"></textarea>
-          </cc-validatable>
+    <div class="x-customer-details">
+      <div class="x-customer-detail x-address">
+        <div class="meh">
+          <div class="detail-marker"><i class="icon-home"></i></div>
+          <div class="detail-edit">
+            <cc-validatable [valid]="!!customer.address.length" message="Address should not be empty">
+              <textarea placeholder="1 Bloggs Street" [(ngModel)]="customer.address" cc-active cc-activate-on-focus [tabindex]="(index * 2) + 1"></textarea>
+            </cc-validatable>
+          </div>
         </div>
       </div>
-      <div class="x-x-customer-detail x-x-email">
-        <div class="x-x-detail-marker"><i class="icon-mail"></i></div>
-        <div class="x-x-detail-edit">
-          <cc-validatable [valid]="!!customer.email.length" message="Email should not be empty">
-            <input type="text" placeholder="joe@bloggs.com" [(ngModel)]="customer.email" cc-active cc-activate-on-focus [tabindex]="(index * 2) + 1" />
-          </cc-validatable>
+      <div class="x-customer-detail x-email">
+        <div class="meh">
+          <div class="detail-marker"><i class="icon-mail"></i></div>
+          <div class="detail-edit">
+            <cc-validatable [valid]="!!customer.email.length" message="Email should not be empty">
+              <input type="text" placeholder="joe@bloggs.com" [(ngModel)]="customer.email" cc-active cc-activate-on-focus [tabindex]="(index * 2) + 1" />
+            </cc-validatable>
+          </div>
         </div>
       </div>
-      <div class="x-x-customer-detail x-x-tel">
-        <div class="x-x-detail-marker"><i class="icon-phone"></i></div>
-        <div class="x-x-detail-edit">
-          <cc-validatable [valid]="!!customer.tel1.length" message="Phone number should not be empty">
-            <input type="text" placeholder="(01234) 567890" [(ngModel)]="customer.tel1" cc-active cc-activate-on-focus [tabindex]="(index * 2) + 1" />
-          </cc-validatable>
+      <div class="x-customer-detail x-tel">
+        <div class="meh">
+          <div class="detail-marker"><i class="icon-phone"></i></div>
+          <div class="detail-edit">
+            <cc-validatable [valid]="!!customer.tel1.length" message="Phone number should not be empty">
+              <input type="text" placeholder="(01234) 567890" [(ngModel)]="customer.tel1" cc-active cc-activate-on-focus [tabindex]="(index * 2) + 1" />
+            </cc-validatable>
+          </div>
         </div>
       </div>
-      <div class="x-x-customer-detail-end"></div>
+      <div class="x-customer-detail-end"></div>
     </div>
   </div>
 </div>

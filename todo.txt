@@ -42,36 +42,25 @@ Editing
 Row save/add/delete
 ======================
 * On delete, focus previous item delete button
-? Select all in add mode, only on first focus within add action
 * Animation (close row on delete, fade add preview in/out)
-* On add, should scroll page to bring row being added into view
-? Maybe add should show all fields in edit mode?
 
 Round customers
 ===============
-* Should BCC recipients, not TO
-* Still some issues with tabbing into
-  - sometimes flickers when tabbing into for first time
-  - hitting enter when button focused sometimes closes entire control
-  - sometimes misses entire row when tabbing away (tabs to following control on next row!)
-    (seems to be after opening control with click, then tabbing around + finally clicking on a button)
+? Should BCC recipients, not TO?
 
 BUGS!!!!
 ========
-* Adding round didn't update page with new round (hitting enter on save button?)
-* Deleting a round didn't update available customers, so couldn't add customers to new round
 * Sometimes have to click login button twice.
-* Add button should be on top of page too (auto scroll down to bottom)
 
 Ideas
 =====
 * Add warning message to guest user that data will not be kept
 * Nicer error message when guest tries to send emails?
 * Undo/redo
+* Add button should be on top of page too (auto scroll down to bottom)
 
 Box Products
 ============
-* Make rest of app consistent with edit highlight
 * Better width solution than hardcoding pixel widths in code (padding/remainders)?
 * Quantity format should reflect unittype?
 * Column spacing - not enough between product name & quantity,
@@ -102,15 +91,8 @@ Tidy up
 * page.less is a mess
 
 
-
-
 Next steps
 ==========
-* Fix alignment on product-price
-* Remove experimental stuff on collection-points
 * Delete -old components
-* More padding between box-product-quantity and remove button
 * Extract out number component? 
 * Bring value updating behaviour into editable-value component
-
-* Product price validation

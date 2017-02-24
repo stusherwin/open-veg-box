@@ -1546,80 +1546,6 @@ select {
   font-size: 16px;
   color: #ddc299;
 }
-.heading {
-  margin-bottom: 5px;
-}
-.heading .editable-display h3 {
-  margin: 0;
-  margin-bottom: 5px;
-}
-.heading .editable-edit input[type="text"] {
-  display: block;
-  font-size: 150%;
-  font-weight: 300;
-  margin-bottom: 6px;
-  width: 100%;
-}
-.product-price .editable-display {
-  min-height: 25px;
-}
-.product-price .editable-edit {
-  padding-left: 5px;
-}
-.product-price .editable-edit .price {
-  width: 86px;
-  margin-left: 3px;
-}
-.product-unit-quantity .editable-display {
-  min-height: 25px;
-}
-.product-unit-quantity .editable-edit {
-  padding-left: 5px;
-}
-.product-unit-quantity .editable-edit input {
-  width: 42px;
-}
-.address .editable {
-  padding-left: 1px;
-  margin-bottom: 3px;
-}
-.address .editable .editable-display {
-  min-height: 25px;
-  padding-bottom: 4px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-.address .editable .editable-edit {
-  margin-bottom: 1px;
-}
-.email .editable {
-  padding-left: 2px;
-  margin-bottom: 3px;
-}
-.email .editable .editable-display {
-  min-height: 25px;
-  padding-bottom: 4px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-.email .editable .editable-edit {
-  margin-bottom: 1px;
-}
-.tel .editable {
-  margin-bottom: 3px;
-}
-.tel .editable .editable-display {
-  min-height: 25px;
-  padding-bottom: 4px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-.tel .editable .editable-edit {
-  margin-bottom: 1px;
-}
 .price-detail {
   width: 300px;
 }
@@ -1631,76 +1557,6 @@ select {
   flex-direction: row;
   flex-grow: 0;
   justify-content: space-between;
-}
-.flex > div {
-  margin: 0 20px;
-}
-.flex > div:first-child {
-  margin-left: 0;
-}
-.customer-details-old > div {
-  margin-top: 10px;
-  padding-left: 22px;
-  position: relative;
-}
-.customer-details-old > div i {
-  color: #bbb;
-  position: absolute;
-  left: 0;
-}
-.customer-details-old > div i::before {
-  margin: 0;
-  padding: 0;
-}
-.customer-details-old > div:first-child {
-  margin-top: 0;
-}
-.customer-details-old > div textarea,
-.customer-details-old > div input[type="text"],
-.customer-details-old > div input[type="password"] {
-  width: 378px;
-}
-.customer-details-old > div textarea {
-  height: 80px;
-}
-@media only screen and (min-width : 749px) {
-  .customer-details-old {
-    display: flex;
-    flex-direction: row;
-    flex-grow: 0;
-    justify-content: space-between;
-  }
-  .customer-details-old > div {
-    margin: 0 20px;
-  }
-  .customer-details-old > div:first-child {
-    margin-left: 0;
-  }
-  .customer-details-old > div textarea,
-  .customer-details-old > div input[type="text"],
-  .customer-details-old > div input[type="password"] {
-    width: 100%;
-  }
-  .customer-details-old > div:last-of-type {
-    width: 1px;
-    flex-grow: 0;
-    flex-shrink: 0;
-  }
-  .customer-details-old .address {
-    width: 50%;
-    flex-shrink: 2;
-    min-width: 120px;
-  }
-  .customer-details-old .email {
-    width: 40%;
-    min-width: 150px;
-    flex-shrink: 1;
-  }
-  .customer-details-old .tel {
-    width: 10%;
-    min-width: 145px;
-    flex-shrink: 0;
-  }
 }
 .group:after {
   content: ' ';
@@ -2611,76 +2467,78 @@ select:-moz-focusring {
   position: relative;
   left: -3px;
 }
-@media only screen and (min-width : 749px) {
-  .x-customer-details {
-    display: flex;
-    flex-direction: row;
-    flex-grow: 0;
-    justify-content: space-between;
-  }
-  .x-customer-details > div {
-    margin: 0 20px;
-  }
-  .x-customer-details > div:first-child {
-    margin-left: 0;
-  }
-  .x-customer-details .x-customer-detail {
-    padding-right: 10px;
-  }
-  .x-customer-details .x-address {
-    width: 40%;
-    min-width: 208px;
-  }
-  .x-customer-details .x-email {
-    width: 40%;
-    min-width: 205px;
-  }
-  .x-customer-details .x-tel {
-    width: 20%;
-    min-width: 158px;
-  }
-  .x-customer-details .x-customer-detail-end {
-    width: 1px;
-    flex-grow: 0;
-    flex-shrink: 0;
-  }
-}
-.x-customer-detail {
+.x-customer-details .x-customer-detail {
   display: block;
   margin-bottom: 5px;
 }
-.x-customer-detail::after {
+.x-customer-details .x-customer-detail::after {
   display: block;
   clear: left;
   content: ' ';
   height: 0px;
 }
-.x-customer-detail .detail-marker {
-  font-size: 110%;
-}
-.x-customer-detail .editable-value .editable-value-display {
+.x-customer-details .x-customer-detail .editable-value .editable-value-display {
   display: table;
 }
-.x-customer-detail .editable-value .editable-value-display .detail-marker {
+.x-customer-details .x-customer-detail .editable-value .editable-value-display .detail-marker {
   display: table-cell;
   width: 20px;
+  font-size: 110%;
 }
-.x-customer-detail .editable-value .editable-value-display .detail-display {
+.x-customer-details .x-customer-detail .editable-value .editable-value-display .detail-display {
   display: table-cell;
   border: 1px solid transparent;
 }
-.x-customer-detail .editable-value .editable-value-display:hover i {
+.x-customer-details .x-customer-detail .editable-value .editable-value-display:hover i {
   color: #ffa011;
 }
-.x-customer-detail .editable-value .editable-value-edit {
+.x-customer-details .x-customer-detail .editable-value .editable-value-edit {
   display: table;
   top: -5px;
 }
-.x-customer-detail .editable-value .editable-value-edit .detail-marker {
+.x-customer-details .x-customer-detail .editable-value .editable-value-edit .detail-marker {
   display: table-cell;
 }
-.x-customer-detail .editable-value .editable-value-edit .detail-edit {
+.x-customer-details .x-customer-detail .editable-value .editable-value-edit .detail-edit {
   display: table-cell;
+}
+.x-customer-add .x-customer-name {
+  width: 100%;
+  font-size: 150%;
+  font-weight: 300;
+  margin-bottom: 5px;
+}
+.x-customer-add .x-customer-details .x-customer-detail .meh {
+  width: 100%;
+  display: table;
+}
+.x-customer-add .x-customer-details .x-customer-detail .meh .detail-marker {
+  display: table-cell;
+  vertical-align: top;
+  width: 20px;
+}
+.x-customer-add .x-customer-details .x-customer-detail .meh .detail-marker i {
+  font-size: 90%;
+  color: #999;
+  position: relative;
+  left: -3px;
+  top: 6px;
+}
+.x-customer-add .x-customer-details .x-customer-detail .meh .detail-marker i.icon-mail {
+  font-size: 78%;
+}
+.x-customer-add .x-customer-details .x-customer-detail .meh .detail-edit {
+  display: table-cell;
+}
+.x-customer-add .x-customer-details .x-customer-detail input[type="text"],
+.x-customer-add .x-customer-details .x-customer-detail textarea {
+  width: 100%;
+}
+.x-customer-add .x-customer-details .x-customer-detail textarea {
+  height: 80px;
+}
+.x-customer-add .x-customer-details .x-customer-detail.x-tel input[type="text"] {
+  max-width: 170px;
 }
 .x-address .editable-value .editable-value-display .detail-display {
   border: 1px solid transparent;
@@ -2745,102 +2603,34 @@ select:-moz-focusring {
 .x-tel .editable-value .editable-value-edit .detail-edit .input-wrapper.invalid .icon-warning {
   top: 3px;
 }
-.x-x-customer-add .x-x-customer-name {
-  width: 100%;
-  font-size: 150%;
-  font-weight: 300;
-}
-.x-x-customer-add .x-x-customer-details {
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
-.x-x-customer-add .x-x-customer-details .x-x-customer-detail {
-  margin-top: 5px;
-  width: 100%;
-  display: table;
-}
-.x-x-customer-add .x-x-customer-details .x-x-customer-detail .x-x-detail-marker {
-  display: table-cell;
-  vertical-align: top;
-  width: 20px;
-}
-.x-x-customer-add .x-x-customer-details .x-x-customer-detail .x-x-detail-marker i {
-  font-size: 88%;
-  color: #999;
-  position: relative;
-  top: 6px;
-}
-.x-x-customer-add .x-x-customer-details .x-x-customer-detail .x-x-detail-marker i.icon-mail {
-  font-size: 76%;
-}
-.x-x-customer-add .x-x-customer-details .x-x-customer-detail .x-x-detail-edit {
-  display: table-cell;
-}
-.x-x-customer-add .x-x-customer-details .x-x-customer-detail.x-x-address textarea {
-  width: 100%;
-  max-width: 300px;
-}
-.x-x-customer-add .x-x-customer-details .x-x-customer-detail.x-x-email input {
-  width: 100%;
-  max-width: 300px;
-}
-.x-x-customer-add .x-x-customer-details .x-x-customer-detail.x-x-tel input {
-  width: 100%;
-  max-width: 120px;
-}
-/*
-@customers-same-line: ~"only screen and (min-width : 749px)";
-@media @customers-same-line {
-  .x-x-customer-add {
-    .x-x-customer-details {
-      .flex;
-
-      .x-x-customer-detail {
-        padding-right: 10px;
-        width: inherit;
-
-        &.x-x-address {
-          width: 40%;
-          min-width: 208px;
-
-          textarea {
-            width: inherit;
-            max-width: inherit;
-          }
-        }
-
-        &.x-x-email {
-          width: 40%;
-          max-width: 40%;
-          min-width: 205px;
-
-          input {
-            width: inherit;
-            max-width: inherit;
-          }       
-        }
-
-        &.x-x-tel {
-          width: 20%;
-          max-width: 20%;
-          min-width: 158px;
-
-          input {
-            width: inherit;
-            max-width: inherit;
-          }        
-        }
-      }
-
-      .x-x-customer-detail-end {
-        width: 1px;
-        flex-grow:0;
-        flex-shrink:0;
-      }
-    }
+@media only screen and (min-width : 749px) {
+  .x-customer-details {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 0;
+    justify-content: space-between;
+  }
+  .x-customer-details .x-customer-detail {
+    padding-right: 10px;
+  }
+  .x-customer-details .x-address {
+    width: 40%;
+    min-width: 208px;
+  }
+  .x-customer-details .x-email {
+    width: 40%;
+    min-width: 205px;
+  }
+  .x-customer-details .x-tel {
+    width: 20%;
+    min-width: 158px;
+  }
+  .x-customer-details .x-customer-detail-end {
+    width: 1px;
+    flex-grow: 0;
+    flex-shrink: 0;
   }
 }
-*/
 .x-x-box-add .x-x-box-name {
   width: 100%;
   font-size: 150%;

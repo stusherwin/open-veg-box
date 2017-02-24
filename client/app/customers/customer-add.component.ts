@@ -59,7 +59,10 @@ export class CustomerAddComponent implements OnInit {
   startAdd() {
     this.adding = true;
     this.resetCustomer();
-    setTimeout(() => this.renderer.invokeElementMethod(this.customerName.nativeElement, 'focus', []));
+    setTimeout(() => {
+      this.renderer.invokeElementMethod(window, 'scrollTo', [0, document.body.scrollHeight])
+      this.renderer.invokeElementMethod(this.customerName.nativeElement, 'focus', [])
+    });
   }
 
   completeAdd() {
