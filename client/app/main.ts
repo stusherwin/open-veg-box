@@ -6,14 +6,12 @@ import {provide} from '@angular/core';
 import {AuthHttp, NonAuthHttp} from './auth/auth-http';
 import {UsersService} from './users/users.service';
 import {ErrorService} from './shared/error.service'
-import { ClickOutsideService } from './shared/click-outside.service';
 
 bootstrap(AppComponent, [
   ROUTER_PROVIDERS,
   HTTP_PROVIDERS,
   UsersService,
   ErrorService,
-  ClickOutsideService,  
   provide(Http, {
     useFactory: (xhrBackend: XHRBackend, requestOptions: RequestOptions, router: Router, usersService: UsersService, errorService: ErrorService) => new AuthHttp(xhrBackend, requestOptions, router, usersService, errorService),
     deps: [XHRBackend, RequestOptions, Router, UsersService, ErrorService]

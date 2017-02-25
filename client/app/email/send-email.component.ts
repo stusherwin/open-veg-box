@@ -1,18 +1,17 @@
-import { Component, Input, AfterViewInit, ViewChild, ViewChildren, QueryList } from '@angular/core';
+import { Component, Input, AfterViewInit, ViewChild, ViewChildren, QueryList, ElementRef, Renderer } from '@angular/core';
 import { ROUTER_DIRECTIVES, Router } from '@angular/router-deprecated';
-import { FocusDirective } from '../shared/focus.directive';
-import { FocusService } from '../shared/focus.service';
 import { EmailService, EmailMessage, EmailRecipient } from '../email/email.service';
 import { ValidatableComponent } from '../shared/validatable.component';
+import { ActiveService, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
 
 @Component({
   selector: 'cc-send-email',
   templateUrl: 'app/email/send-email.component.html',
-  providers: [FocusService, EmailService],
-directives: [FocusDirective, ROUTER_DIRECTIVES, ValidatableComponent]
+  providers: [EmailService, ActiveService],
+directives: [ROUTER_DIRECTIVES, ValidatableComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective]
 })
 export class SendEmailComponent implements AfterViewInit {
-  constructor(private emailService: EmailService, private router: Router) {
+  constructor(private emailService: EmailService, private router: Router, private renderer: Renderer) {
   }
 
   @Input()
@@ -27,14 +26,14 @@ export class SendEmailComponent implements AfterViewInit {
   @Input()
   successLinkParams: any[]
 
-  @ViewChild('focusable')
-  focusable: FocusDirective
+  @ViewChild('input')
+  input: ElementRef
 
   @ViewChildren(ValidatableComponent)
   validatables: QueryList<ValidatableComponent>
 
   ngAfterViewInit() {
-    this.focusable.beFocused();
+    this.renderer.invokeElementMethod(this.input.nativeElement, 'focus', [])
   }
 
   validated = false;

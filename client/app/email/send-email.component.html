@@ -1,4 +1,4 @@
-<div class="email-edit" cc-focus focusedClass="focused" [class.invalid]="!valid">
+<div class="email-edit" cc-active (activate)="focused = true" (deactivate)="focused = false" [class.focused]="focused" [class.invalid]="!valid">
   <div class="form-row">
     <label>To:</label>
     <ul class="field recipients">
@@ -8,26 +8,26 @@
   <div class="form-row subject">
     <label>Subject:</label>
     <cc-validatable [valid]="!!subject.length" message="Subject should not be empty">
-      <input type="text" class="field" #focusable=cc-focus cc-focus tabindex="1" [(ngModel)]="subject" />
+      <input type="text" class="field" #input cc-active cc-activate-on-focus cc-deactivate-on-blur tabindex="1" [(ngModel)]="subject" />
     </cc-validatable>
   </div>
   <div class="form-row message">
     <label>Message:</label>
     <cc-validatable [valid]="!!body.length" message="Message should not be empty">
-      <textarea class="field" cc-focus tabindex="1" [(ngModel)]="body"></textarea>
+      <textarea class="field" cc-active cc-activate-on-focus cc-deactivate-on-blur tabindex="1" [(ngModel)]="body"></textarea>
     </cc-validatable>
   </div>
   <div class="row-view">
     <div class="row no-hover no-border">
       <div class="actions">
         <div class="action">
-          <a class="button" cc-focus tabindex="1" (click)="send()">
+          <a class="button" cc-active cc-activate-on-focus cc-deactivate-on-blur tabindex="1" (click)="send()">
             <div class="icon"><i class="icon-mail-dark"></i></div>
             <span>Send Email</span>
           </a>
         </div>
         <div class="action">
-          <a class="button" [routerLink]="cancelLinkParams" cc-focus tabindex="1">
+          <a class="button" [routerLink]="cancelLinkParams"  cc-active cc-activate-on-focus cc-deactivate-on-blur tabindex="1">
             <div class="icon"><i class="icon-cancel"></i></div>
             <span>Cancel</span>
           </a>

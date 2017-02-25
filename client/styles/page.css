@@ -586,33 +586,6 @@ select {
 .focused .row.focused .editable-display:hover {
   background: #fffaf1;
 }
-.editable {
-  bottom: 4px;
-  right: 4px;
-  position: relative;
-  width: 100%;
-}
-.editable .editable-display {
-  border: 1px solid transparent;
-  padding-top: 4px;
-  padding-left: 4px;
-  cursor: pointer;
-}
-.editable .editable-display:hover {
-  border: 1px dashed #f8c77e;
-  border-radius: 3px;
-  background: #fffaf1;
-  padding-right: 20px;
-}
-.editable .editable-display:hover:after {
-  position: absolute;
-  content: '\e807';
-  right: 5px;
-  top: 5px;
-  font-family: "fontello";
-  font-size: 16px;
-  color: #ddc299;
-}
 .price-detail {
   width: 300px;
 }
