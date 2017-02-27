@@ -272,166 +272,8 @@ select:-moz-focusring {
     content: ' ';
     height: 0px;
   }
-} 
-
-
-.round-customers {
-  .boxProductClearFix;
-  margin: 10px 0 10px 0;
-
-  .round-customer {
-    position: relative;
-
-    .boxProductClearFix;
-
-    &.remove-hover {
-      color: @boxProductHover;
-    }
-
-    i {
-      font-size: 80%;
-
-      &::before {
-        margin: 0;
-      }
-      
-      &:hover {
-        color: @boxProductHover;
-        cursor: pointer;
-      }
-    }
-
-    a {
-      color: #999;
-
-      &:hover, &:focus {
-        color: @boxProductHover;
-      }
-    }
-
-    .round-customer-detail {
-      float: left;
-      padding:0;
-      height: 24px;
-
-      &::before {
-        display: inline-block;
-        height: 100%;
-        width: 0px;
-        vertical-align: text-bottom;
-        content: ' '
-      }
-    }
-
-    .round-customer-name {
-      select {
-        display: inline-block;
-        height: 22px;
-        padding: 0;
-        position: relative;
-        top: -1px;
-        left: -5px;
-        z-index: 1;
-      }
-    }
-
-    .round-customer-address {
-      display: inline-block;
-      position: relative;
-      z-index: 1;
-    }
-
-    .round-customer-action {
-      width: 17px;
-    }
-
-    &.round-customer-add {
-      .round-customer-display {
-        position: relative;
-        left: -10000px;
-      }
-    }
-  }
-
-  .round-customer {
-    .round-customer-action, .round-customer-display {
-      a {
-        position: relative;
-        left: -10000px;
-      }
-    }
-  }
-
-  &:hover, &.editing {
-    .round-customer {
-      .round-customer-action {
-        a {
-          left: 0px;
-        }
-      }
-
-      &.round-customer-add {
-        .round-customer-display {
-          left: 0px;
-        }
-
-        &:hover, .hover {
-          .round-customer-display {
-            color: @boxProductHover;
-            cursor: pointer;
-
-            a {
-              color: @boxProductHover;
-            }
-          }
-        }
-      }
-    }
-  }
 }
 
-.edit-background {
-  position: absolute;
-  top: 0px;
-  background: desaturate(darken(@itemHoverColor, 6%), 0%);
-  bottom: -3px;
-  left: -2px;
-  right: -29px;
-  border-radius: 2px;
-  z-index: 1;
-
-  a {
-    position: absolute;
-    top: 8px;
-    right: 2px;
-
-    &:first-of-type {
-      right: 16px;
-    }
-
-    &:last-of-type {
-      right: 2px;
-    }
-  }
-}
-
-.invalid {
-  .edit-background {
-    .icon-warning {
-      color: #E80000;
-      cursor: auto;
-    }
-
-    .icon-ok {
-      display: none;
-    }
-  }
-}
-
-.round-customer-add .edit-background {
-  left: -8px;
-  right: -33px;
-}
 
 .width-test {
   position: absolute;
@@ -581,7 +423,7 @@ select:-moz-focusring {
 }
 
 
-.x-box-price {
+.box-price {
   .editable-value-display {
     border: 1px solid transparent;
   }
@@ -593,7 +435,7 @@ select:-moz-focusring {
   }
 }
 
-.x-product-price {
+.product-price {
   height: 30px;
 
   .editable-value-display {
@@ -623,7 +465,7 @@ select:-moz-focusring {
   }
 }
 
-.x-heading {
+.heading {
   .editable-value-display {
     border: 1px solid transparent;
 
@@ -655,7 +497,7 @@ select:-moz-focusring {
   }
 }
 
-.x-box-products {
+.box-products {
   .boxProductClearFix;
 
   table {
@@ -666,11 +508,11 @@ select:-moz-focusring {
     }
   }
 
-  .x-box-product-name {
+  .box-product-name {
     padding-right: 5px;
   }
 
-  .x-box-product-quantity {
+  .box-product-quantity {
     input[type="text"] {
       width: 62px;
     }
@@ -713,7 +555,7 @@ select:-moz-focusring {
     }
   }
 
-  .x-box-product-quantity.editable-value {
+  .box-product-quantity.editable-value {
     .editable-value-display {
       border: 1px solid transparent;
     }
@@ -731,8 +573,8 @@ select:-moz-focusring {
     padding-bottom: 2px;
   }
 
-  .x-box-product-add {
-    .x-box-product-add-display {
+  .box-product-add {
+    .box-product-add-display {
       a {
         position: relative;
         left: -4px;
@@ -786,7 +628,7 @@ select:-moz-focusring {
   }
 }
 
-.x-round-customers {
+.round-customers {
   .boxProductClearFix;
 
   margin-bottom: 3px;
@@ -797,7 +639,7 @@ select:-moz-focusring {
     }
   }
 
-  .x-round-customer-name {
+  .round-customer-name {
     padding-right: 5px;
   }
 
@@ -829,8 +671,8 @@ select:-moz-focusring {
     }
   }
 
-  .x-round-customer-add {
-    .x-round-customer-add-display {
+  .round-customer-add {
+    .round-customer-add-display {
       a {
         position: relative;
         left: -4px;
@@ -879,10 +721,10 @@ select:-moz-focusring {
   }
 }
 
-.x-customer-details {
+.customer-details {
   margin-bottom: 5px;
 
-  .x-customer-detail {
+  .customer-detail {
     .boxProductClearFix;
     display: block;
     margin-bottom: 5px;
@@ -944,7 +786,7 @@ select:-moz-focusring {
   }
 }
 
-.x-customer-details .x-customer-detail.x-address {
+.customer-details .customer-detail.address {
   .editable-value {
     &.editing {
       height: 70px;
@@ -978,16 +820,16 @@ select:-moz-focusring {
   }
 }
 
-.x-customer-add {
-  .x-customer-name {
+.customer-add {
+  .customer-name {
     width: 100%;
     font-size: 150%;
     font-weight: 300;
     margin-bottom: 5px;
   }
 
-  .x-customer-details {
-    .x-customer-detail {
+  .customer-details {
+    .customer-detail {
       .meh {
         width: 100%;
         display: table;
@@ -1023,7 +865,7 @@ select:-moz-focusring {
         height: 76px;
       }
       
-      &.x-tel {
+      &.tel {
         input[type="text"] {
           max-width: 170px;
         }
@@ -1034,29 +876,29 @@ select:-moz-focusring {
 
 @customers-same-line: ~"only screen and (min-width : 749px)";
 @media @customers-same-line {
-  .x-customer-details {
+  .customer-details {
      .flex;
 
-    .x-customer-detail {
+    .customer-detail {
       padding-right: 10px;
     }
 
-    .x-address {
+    .address {
       width: 40%;
       min-width: 208px;
     }
 
-    .x-email {
+    .email {
       width: 40%;
       min-width: 205px;       
     }
 
-    .x-tel {
+    .tel {
       width: 20%;
       min-width: 158px; 
     }
 
-    .x-customer-detail-end {
+    .customer-detail-end {
       width: 1px;
       flex-grow:0;
       flex-shrink:0;
@@ -1064,24 +906,24 @@ select:-moz-focusring {
   }
 }
 
-.x-x-box-add {
-  .x-x-box-name {
+.box-add {
+  .box-name {
     width: 100%;
     font-size: 150%;
     font-weight: 300;
   }
 }
 
-.x-x-round-add {
-  .x-x-round-name {
+.round-add {
+  .round-name {
     width: 100%;
     font-size: 150%;
     font-weight: 300;
   }
 }
 
-.x-x-product-add {
-  .x-x-product-name {
+.product-add {
+  .product-name {
     width: 100%;
     font-size: 150%;
     font-weight: 300;

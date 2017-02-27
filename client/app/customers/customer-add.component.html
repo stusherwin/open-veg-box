@@ -21,13 +21,13 @@
   </div>
   <p *ngIf="loaded && showAddMessage && !adding">There are no customers yet.</p>
   <p *ngIf="!loaded"><i class="icon-spin3 animate-spin"></i> Loading customers...</p>
-  <div class="details x-customer-add" [hidden]="!adding" [class.invalid]="!valid">
+  <div class="details customer-add" [hidden]="!adding" [class.invalid]="!valid">
     <cc-validatable [valid]="!!customer.name.length" message="Name should not be empty">
-      <input #customerName placeholder="Joe Bloggs" type="text" class="x-customer-name" [(ngModel)]="customer.name" [tabindex]="(index * 2) + 1" cc-active cc-activate-on-focus />
+      <input #customerName placeholder="Joe Bloggs" type="text" class="customer-name" [(ngModel)]="customer.name" [tabindex]="(index * 2) + 1" cc-active cc-activate-on-focus />
     </cc-validatable>
       
-    <div class="x-customer-details">
-      <div class="x-customer-detail x-address">
+    <div class="customer-details">
+      <div class="customer-detail address">
         <div class="meh">
           <div class="detail-marker"><i class="icon-home"></i></div>
           <div class="detail-edit">
@@ -37,7 +37,7 @@
           </div>
         </div>
       </div>
-      <div class="x-customer-detail x-email">
+      <div class="customer-detail email">
         <div class="meh">
           <div class="detail-marker"><i class="icon-mail"></i></div>
           <div class="detail-edit">
@@ -47,7 +47,7 @@
           </div>
         </div>
       </div>
-      <div class="x-customer-detail x-tel">
+      <div class="customer-detail tel">
         <div class="meh">
           <div class="detail-marker"><i class="icon-phone"></i></div>
           <div class="detail-edit">
@@ -57,7 +57,7 @@
           </div>
         </div>
       </div>
-      <div class="x-customer-detail-end"></div>
+      <div class="customer-detail-end"></div>
     </div>
   </div>
 </div>

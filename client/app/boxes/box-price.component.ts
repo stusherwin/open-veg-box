@@ -9,7 +9,7 @@ import { ValidatableComponent } from '../shared/validatable.component';
   directives: [ActiveElementDirective, ActivateOnFocusDirective, EditableValueComponent, ValidatableComponent],
   pipes: [MoneyPipe],
   template: `
-    <cc-editable-value #editable className="x-box-price" [valid]="valid" (start)="onStart()" (ok)="onOk()" (cancel)="onCancel()">
+    <cc-editable-value #editable className="box-price" [valid]="valid" (start)="onStart()" (ok)="onOk()" (cancel)="onCancel()">
       <display>
         <span class [innerHTML]="value | money"></span>
         <a class="edit"><i class="icon-edit"></i></a>

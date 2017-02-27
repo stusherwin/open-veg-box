@@ -21,9 +21,9 @@
   </div>
   <p *ngIf="loaded && showAddMessage && !adding">There are no rounds yet.</p>
   <p *ngIf="!loaded"><i class="icon-spin3 animate-spin"></i> Loading rounds...</p>
-  <div class="details x-x-round-add" [hidden]="!adding" [class.invalid]="!valid">
+  <div class="details round-add" [hidden]="!adding" [class.invalid]="!valid">
     <cc-validatable [valid]="!!round.name.length" message="Name should not be empty">
-      <input #roundName placeholder="New Round" type="text" class="x-x-round-name" [(ngModel)]="round.name" [tabindex]="(index * 2) + 1" cc-active cc-activate-on-focus />
+      <input #roundName placeholder="New Round" type="text" class="round-name" [(ngModel)]="round.name" [tabindex]="(index * 2) + 1" cc-active cc-activate-on-focus />
     </cc-validatable>
   </div>
 </div>

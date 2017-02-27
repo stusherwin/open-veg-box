@@ -909,135 +909,6 @@ select:-moz-focusring {
   color: transparent;
   text-shadow: 0 0 0 #aaa;
 }
-.round-customers {
-  margin: 10px 0 10px 0;
-}
-.round-customers::after {
-  display: block;
-  clear: left;
-  content: ' ';
-  height: 0px;
-}
-.round-customers .round-customer {
-  position: relative;
-}
-.round-customers .round-customer::after {
-  display: block;
-  clear: left;
-  content: ' ';
-  height: 0px;
-}
-.round-customers .round-customer.remove-hover {
-  color: #ffa011;
-}
-.round-customers .round-customer i {
-  font-size: 80%;
-}
-.round-customers .round-customer i::before {
-  margin: 0;
-}
-.round-customers .round-customer i:hover {
-  color: #ffa011;
-  cursor: pointer;
-}
-.round-customers .round-customer a {
-  color: #999;
-}
-.round-customers .round-customer a:hover,
-.round-customers .round-customer a:focus {
-  color: #ffa011;
-}
-.round-customers .round-customer .round-customer-detail {
-  float: left;
-  padding: 0;
-  height: 24px;
-}
-.round-customers .round-customer .round-customer-detail::before {
-  display: inline-block;
-  height: 100%;
-  width: 0px;
-  vertical-align: text-bottom;
-  content: ' ';
-}
-.round-customers .round-customer .round-customer-name select {
-  display: inline-block;
-  height: 22px;
-  padding: 0;
-  position: relative;
-  top: -1px;
-  left: -5px;
-  z-index: 1;
-}
-.round-customers .round-customer .round-customer-address {
-  display: inline-block;
-  position: relative;
-  z-index: 1;
-}
-.round-customers .round-customer .round-customer-action {
-  width: 17px;
-}
-.round-customers .round-customer.round-customer-add .round-customer-display {
-  position: relative;
-  left: -10000px;
-}
-.round-customers .round-customer .round-customer-action a,
-.round-customers .round-customer .round-customer-display a {
-  position: relative;
-  left: -10000px;
-}
-.round-customers:hover .round-customer .round-customer-action a,
-.round-customers.editing .round-customer .round-customer-action a {
-  left: 0px;
-}
-.round-customers:hover .round-customer.round-customer-add .round-customer-display,
-.round-customers.editing .round-customer.round-customer-add .round-customer-display {
-  left: 0px;
-}
-.round-customers:hover .round-customer.round-customer-add:hover .round-customer-display,
-.round-customers.editing .round-customer.round-customer-add:hover .round-customer-display,
-.round-customers:hover .round-customer.round-customer-add .hover .round-customer-display,
-.round-customers.editing .round-customer.round-customer-add .hover .round-customer-display {
-  color: #ffa011;
-  cursor: pointer;
-}
-.round-customers:hover .round-customer.round-customer-add:hover .round-customer-display a,
-.round-customers.editing .round-customer.round-customer-add:hover .round-customer-display a,
-.round-customers:hover .round-customer.round-customer-add .hover .round-customer-display a,
-.round-customers.editing .round-customer.round-customer-add .hover .round-customer-display a {
-  color: #ffa011;
-}
-.edit-background {
-  position: absolute;
-  top: 0px;
-  background: #ffe5be;
-  bottom: -3px;
-  left: -2px;
-  right: -29px;
-  border-radius: 2px;
-  z-index: 1;
-}
-.edit-background a {
-  position: absolute;
-  top: 8px;
-  right: 2px;
-}
-.edit-background a:first-of-type {
-  right: 16px;
-}
-.edit-background a:last-of-type {
-  right: 2px;
-}
-.invalid .edit-background .icon-warning {
-  color: #E80000;
-  cursor: auto;
-}
-.invalid .edit-background .icon-ok {
-  display: none;
-}
-.round-customer-add .edit-background {
-  left: -8px;
-  right: -33px;
-}
 .width-test {
   position: absolute;
   left: -10000px;
@@ -1148,362 +1019,362 @@ select:-moz-focusring {
   left: inherit;
   right: 2px;
 }
-.x-box-price .editable-value-display {
+.box-price .editable-value-display {
   border: 1px solid transparent;
 }
-.x-box-price .editable-value-edit input[type="text"] {
+.box-price .editable-value-edit input[type="text"] {
   width: 66px;
 }
-.x-product-price {
+.product-price {
   height: 30px;
 }
-.x-product-price .editable-value-display {
+.product-price .editable-value-display {
   border: 1px solid transparent;
 }
-.x-product-price .editable-value-display:hover .muted {
+.product-price .editable-value-display:hover .muted {
   color: #f8c77e !important;
 }
-.x-product-price .editable-value-edit input[type="text"] {
+.product-price .editable-value-edit input[type="text"] {
   width: 66px;
 }
-.x-product-price .editable-value-edit.invalid .input-wrapper.invalid .icon-warning {
+.product-price .editable-value-edit.invalid .input-wrapper.invalid .icon-warning {
   right: 5px;
 }
-.x-heading .editable-value-display {
+.heading .editable-value-display {
   border: 1px solid transparent;
 }
-.x-heading .editable-value-display h3 {
+.heading .editable-value-display h3 {
   display: inline-block;
 }
-.x-heading .editable-value-display:hover h3 {
+.heading .editable-value-display:hover h3 {
   color: #ffa011;
 }
-.x-heading .editable-value-edit {
+.heading .editable-value-edit {
   left: -6px;
   top: -6px;
   padding-left: 2px;
 }
-.x-heading .editable-value-edit input[type="text"] {
+.heading .editable-value-edit input[type="text"] {
   width: 200px;
   font-size: 150%;
   font-weight: 300;
 }
-.x-heading .editable-value-edit a {
+.heading .editable-value-edit a {
   top: 12px;
 }
-.x-box-products::after {
+.box-products::after {
   display: block;
   clear: left;
   content: ' ';
   height: 0px;
 }
-.x-box-products table {
+.box-products table {
   float: left;
 }
-.x-box-products table td {
+.box-products table td {
   padding: 0 0 5px 0;
 }
-.x-box-products .x-box-product-name {
+.box-products .box-product-name {
   padding-right: 5px;
 }
-.x-box-products .x-box-product-quantity input[type="text"] {
+.box-products .box-product-quantity input[type="text"] {
   width: 62px;
 }
-.x-box-products .x-box-product-quantity .invalid .input-wrapper.invalid .icon-warning {
+.box-products .box-product-quantity .invalid .input-wrapper.invalid .icon-warning {
   right: 6px;
   top: 4px;
 }
-.x-box-products i {
+.box-products i {
   font-size: 80%;
   color: #999;
 }
-.x-box-products i::before {
+.box-products i::before {
   margin: 0;
 }
-.x-box-products a:hover i,
-.x-box-products a:focus i {
+.box-products a:hover i,
+.box-products a:focus i {
   color: #ffa011;
 }
-.x-box-products .show-on-edit {
+.box-products .show-on-edit {
   position: relative;
   left: -10000px;
 }
-.x-box-products:hover .show-on-edit,
-.x-box-products.editing .show-on-edit {
+.box-products:hover .show-on-edit,
+.box-products.editing .show-on-edit {
   left: 0px;
 }
-.x-box-products .x-box-product-quantity.editable-value .editable-value-display {
+.box-products .box-product-quantity.editable-value .editable-value-display {
   border: 1px solid transparent;
 }
-.x-box-products .x-box-product-quantity.editable-value .editable-value-edit {
+.box-products .box-product-quantity.editable-value .editable-value-edit {
   left: -8px;
   top: -6px;
   right: -30px;
   padding-right: 0;
 }
-.x-box-products .no-products {
+.box-products .no-products {
   border: 1px solid transparent;
   padding-bottom: 2px;
 }
-.x-box-products .x-box-product-add .x-box-product-add-display a {
+.box-products .box-product-add .box-product-add-display a {
   position: relative;
   left: -4px;
 }
-.x-box-products .x-box-product-add .x-box-product-add-display:hover,
-.x-box-products .x-box-product-add .x-box-product-add-display.hover {
+.box-products .box-product-add .box-product-add-display:hover,
+.box-products .box-product-add .box-product-add-display.hover {
   color: #ffa011;
   cursor: pointer;
 }
-.x-box-products .x-box-product-add .x-box-product-add-display:hover a i,
-.x-box-products .x-box-product-add .x-box-product-add-display.hover a i {
+.box-products .box-product-add .box-product-add-display:hover a i,
+.box-products .box-product-add .box-product-add-display.hover a i {
   color: #ffa011;
 }
-.x-box-products .x-box-product-add div,
-.x-box-products .x-box-product-add input[type="text"],
-.x-box-products .x-box-product-add select,
-.x-box-products .x-box-product-add span {
+.box-products .box-product-add div,
+.box-products .box-product-add input[type="text"],
+.box-products .box-product-add select,
+.box-products .box-product-add span {
   display: inline-block;
 }
-.x-box-products .x-box-product-add.editable-value .editable-value-edit {
+.box-products .box-product-add.editable-value .editable-value-edit {
   right: -13px;
   left: -9px;
   padding-right: 0;
   height: 28px;
 }
-.x-box-products .x-box-product-add.editable-value .editable-value-edit input[type="text"] {
+.box-products .box-product-add.editable-value .editable-value-edit input[type="text"] {
   position: relative;
   top: -4px;
   left: -3px;
   height: 24px;
 }
-.x-box-products .x-box-product-add.editable-value .editable-value-edit.invalid .input-wrapper.invalid .icon-warning {
+.box-products .box-product-add.editable-value .editable-value-edit.invalid .input-wrapper.invalid .icon-warning {
   top: -2px;
   right: 4px;
 }
-.x-box-products .x-box-product-add.editable-value .editable-value-edit .box-product-quantity-each {
+.box-products .box-product-add.editable-value .editable-value-edit .box-product-quantity-each {
   position: relative;
   left: -3px;
 }
-.x-round-customers {
+.round-customers {
   margin-bottom: 3px;
 }
-.x-round-customers::after {
+.round-customers::after {
   display: block;
   clear: left;
   content: ' ';
   height: 0px;
 }
-.x-round-customers table td {
+.round-customers table td {
   padding: 0 0 7px 0;
 }
-.x-round-customers .x-round-customer-name {
+.round-customers .round-customer-name {
   padding-right: 5px;
 }
-.x-round-customers i {
+.round-customers i {
   font-size: 80%;
   color: #999;
 }
-.x-round-customers i::before {
+.round-customers i::before {
   margin: 0;
 }
-.x-round-customers a:hover i,
-.x-round-customers a:focus i {
+.round-customers a:hover i,
+.round-customers a:focus i {
   color: #ffa011;
 }
-.x-round-customers .show-on-edit {
+.round-customers .show-on-edit {
   position: relative;
   left: -10000px;
 }
-.x-round-customers:hover .show-on-edit,
-.x-round-customers.editing .show-on-edit {
+.round-customers:hover .show-on-edit,
+.round-customers.editing .show-on-edit {
   left: 0px;
 }
-.x-round-customers .x-round-customer-add .x-round-customer-add-display a {
+.round-customers .round-customer-add .round-customer-add-display a {
   position: relative;
   left: -4px;
 }
-.x-round-customers .x-round-customer-add .x-round-customer-add-display:hover,
-.x-round-customers .x-round-customer-add .x-round-customer-add-display.hover {
+.round-customers .round-customer-add .round-customer-add-display:hover,
+.round-customers .round-customer-add .round-customer-add-display.hover {
   color: #ffa011;
   cursor: pointer;
 }
-.x-round-customers .x-round-customer-add .x-round-customer-add-display:hover a i,
-.x-round-customers .x-round-customer-add .x-round-customer-add-display.hover a i {
+.round-customers .round-customer-add .round-customer-add-display:hover a i,
+.round-customers .round-customer-add .round-customer-add-display.hover a i {
   color: #ffa011;
 }
-.x-round-customers .x-round-customer-add div,
-.x-round-customers .x-round-customer-add input[type="text"],
-.x-round-customers .x-round-customer-add select,
-.x-round-customers .x-round-customer-add span {
+.round-customers .round-customer-add div,
+.round-customers .round-customer-add input[type="text"],
+.round-customers .round-customer-add select,
+.round-customers .round-customer-add span {
   display: inline-block;
 }
-.x-round-customers .x-round-customer-add.editable-value .editable-value-edit {
+.round-customers .round-customer-add.editable-value .editable-value-edit {
   right: -17px;
   left: -9px;
   padding-right: 0;
   height: 28px;
 }
-.x-round-customers .x-round-customer-add.editable-value .editable-value-edit input[type="text"] {
+.round-customers .round-customer-add.editable-value .editable-value-edit input[type="text"] {
   position: relative;
   top: -4px;
   left: -3px;
   height: 24px;
 }
-.x-round-customers .x-round-customer-add.editable-value .editable-value-edit.invalid .input-wrapper.invalid .icon-warning {
+.round-customers .round-customer-add.editable-value .editable-value-edit.invalid .input-wrapper.invalid .icon-warning {
   top: -2px;
   right: 4px;
 }
-.x-customer-details {
+.customer-details {
   margin-bottom: 5px;
 }
-.x-customer-details .x-customer-detail {
+.customer-details .customer-detail {
   display: block;
   margin-bottom: 5px;
 }
-.x-customer-details .x-customer-detail::after {
+.customer-details .customer-detail::after {
   display: block;
   clear: left;
   content: ' ';
   height: 0px;
 }
-.x-customer-details .x-customer-detail .editable-value .editable-value-display {
+.customer-details .customer-detail .editable-value .editable-value-display {
   width: 100%;
   display: table;
 }
-.x-customer-details .x-customer-detail .editable-value .editable-value-display .detail-marker {
+.customer-details .customer-detail .editable-value .editable-value-display .detail-marker {
   display: table-cell;
   width: 20px;
   font-size: 110%;
 }
-.x-customer-details .x-customer-detail .editable-value .editable-value-display .detail-display {
+.customer-details .customer-detail .editable-value .editable-value-display .detail-display {
   display: table-cell;
   border: 1px solid transparent;
 }
-.x-customer-details .x-customer-detail .editable-value .editable-value-display:hover i {
+.customer-details .customer-detail .editable-value .editable-value-display:hover i {
   color: #ffa011;
 }
-.x-customer-details .x-customer-detail .editable-value .editable-value-edit {
+.customer-details .customer-detail .editable-value .editable-value-edit {
   display: table;
   top: -6px;
   padding-top: 3px;
   padding-bottom: 1px;
 }
-.x-customer-details .x-customer-detail .editable-value .editable-value-edit .detail-marker {
+.customer-details .customer-detail .editable-value .editable-value-edit .detail-marker {
   display: table-cell;
   font-size: 110%;
   position: relative;
   left: -1px;
   top: -1px;
 }
-.x-customer-details .x-customer-detail .editable-value .editable-value-edit .detail-edit {
+.customer-details .customer-detail .editable-value .editable-value-edit .detail-edit {
   display: table-cell;
 }
-.x-customer-details .x-customer-detail .editable-value .editable-value-edit .detail-edit .input-wrapper.invalid .icon-warning {
+.customer-details .customer-detail .editable-value .editable-value-edit .detail-edit .input-wrapper.invalid .icon-warning {
   top: 3px;
 }
-.x-customer-details .x-customer-detail .editable-value .editable-value-edit .detail-edit input[type="text"] {
+.customer-details .customer-detail .editable-value .editable-value-edit .detail-edit input[type="text"] {
   position: relative;
   left: 0px;
   top: -1px;
 }
-.x-customer-details .x-customer-detail.x-address .editable-value.editing {
+.customer-details .customer-detail.address .editable-value.editing {
   height: 70px;
 }
-.x-customer-details .x-customer-detail.x-address .editable-value .editable-value-edit {
+.customer-details .customer-detail.address .editable-value .editable-value-edit {
   top: -4px;
   padding-top: 2px;
   padding-bottom: 2px;
 }
-.x-customer-details .x-customer-detail.x-address .editable-value .editable-value-edit .detail-marker {
+.customer-details .customer-detail.address .editable-value .editable-value-edit .detail-marker {
   vertical-align: top;
   position: relative;
   left: -1px;
   top: 4px;
 }
-.x-customer-details .x-customer-detail.x-address .editable-value .editable-value-edit .detail-edit textarea {
+.customer-details .customer-detail.address .editable-value .editable-value-edit .detail-edit textarea {
   line-height: 1em;
   height: 76px;
 }
-.x-customer-details .x-customer-detail.x-address .editable-value .editable-value-edit .detail-edit .input-wrapper.invalid .icon-warning {
+.customer-details .customer-detail.address .editable-value .editable-value-edit .detail-edit .input-wrapper.invalid .icon-warning {
   top: 5px;
 }
-.x-customer-add .x-customer-name {
+.customer-add .customer-name {
   width: 100%;
   font-size: 150%;
   font-weight: 300;
   margin-bottom: 5px;
 }
-.x-customer-add .x-customer-details .x-customer-detail .meh {
+.customer-add .customer-details .customer-detail .meh {
   width: 100%;
   display: table;
 }
-.x-customer-add .x-customer-details .x-customer-detail .meh .detail-marker {
+.customer-add .customer-details .customer-detail .meh .detail-marker {
   display: table-cell;
   vertical-align: top;
   width: 20px;
 }
-.x-customer-add .x-customer-details .x-customer-detail .meh .detail-marker i {
+.customer-add .customer-details .customer-detail .meh .detail-marker i {
   font-size: 90%;
   color: #999;
   position: relative;
   left: -3px;
   top: 6px;
 }
-.x-customer-add .x-customer-details .x-customer-detail .meh .detail-marker i.icon-mail {
+.customer-add .customer-details .customer-detail .meh .detail-marker i.icon-mail {
   font-size: 78%;
 }
-.x-customer-add .x-customer-details .x-customer-detail .meh .detail-edit {
+.customer-add .customer-details .customer-detail .meh .detail-edit {
   display: table-cell;
 }
-.x-customer-add .x-customer-details .x-customer-detail input[type="text"],
-.x-customer-add .x-customer-details .x-customer-detail textarea {
+.customer-add .customer-details .customer-detail input[type="text"],
+.customer-add .customer-details .customer-detail textarea {
   width: 100%;
 }
-.x-customer-add .x-customer-details .x-customer-detail textarea {
+.customer-add .customer-details .customer-detail textarea {
   height: 76px;
 }
-.x-customer-add .x-customer-details .x-customer-detail.x-tel input[type="text"] {
+.customer-add .customer-details .customer-detail.tel input[type="text"] {
   max-width: 170px;
 }
 @media only screen and (min-width : 749px) {
-  .x-customer-details {
+  .customer-details {
     display: flex;
     flex-direction: row;
     flex-grow: 0;
     justify-content: space-between;
   }
-  .x-customer-details .x-customer-detail {
+  .customer-details .customer-detail {
     padding-right: 10px;
   }
-  .x-customer-details .x-address {
+  .customer-details .address {
     width: 40%;
     min-width: 208px;
   }
-  .x-customer-details .x-email {
+  .customer-details .email {
     width: 40%;
     min-width: 205px;
   }
-  .x-customer-details .x-tel {
+  .customer-details .tel {
     width: 20%;
     min-width: 158px;
   }
-  .x-customer-details .x-customer-detail-end {
+  .customer-details .customer-detail-end {
     width: 1px;
     flex-grow: 0;
     flex-shrink: 0;
   }
 }
-.x-x-box-add .x-x-box-name {
+.box-add .box-name {
   width: 100%;
   font-size: 150%;
   font-weight: 300;
 }
-.x-x-round-add .x-x-round-name {
+.round-add .round-name {
   width: 100%;
   font-size: 150%;
   font-weight: 300;
 }
-.x-x-product-add .x-x-product-name {
+.product-add .product-name {
   width: 100%;
   font-size: 150%;
   font-weight: 300;

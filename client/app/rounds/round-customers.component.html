@@ -1,4 +1,4 @@
-<div class="x-round-customers" [class.editing]="editing" cc-active (activate)="editing = true" (deactivate)="editing = false">
+<div class="round-customers" [class.editing]="editing" cc-active (activate)="editing = true" (deactivate)="editing = false">
   <table>
     <tr>
       <th [style.width.px]="customerNameWidth + customerNamePadding">&nbsp;</th>
@@ -33,7 +33,7 @@
   </table>
 </div>
 
-<table class="x-round-customers width-test">
+<table class="round-customers width-test">
   <tr *ngFor="let c of value">
     <td #customerNameTest>{{c.name}}</td>
     <td #customerAddressTest>{{c.address}}</td>

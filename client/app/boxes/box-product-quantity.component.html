@@ -1,4 +1,4 @@
-<cc-editable-value className="x-box-product-quantity" #editable (start)="onStart()" (ok)="onOk()" (cancel)="onCancel()">
+<cc-editable-value className="box-product-quantity" #editable (start)="onStart()" (ok)="onOk()" (cancel)="onCancel()">
   <display>
     <span class="box-product-quantity-each" *ngIf="unitType == 'each'">x</span>
     <span *ngIf="unitType == 'perKg'">{{value | weight}}</span><span *ngIf="unitType != 'perKg'">{{value}}</span>

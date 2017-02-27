@@ -6,7 +6,7 @@ import { ValidatableComponent } from '../shared/validatable.component';
 @Component({
   selector: 'cc-customer-email',
   directives: [EditableValueComponent, ActiveElementDirective, ActivateOnFocusDirective, ValidatableComponent],
-  host: {'class': 'x-customer-detail x-email'},
+  host: {'class': 'customer-detail email'},
   template: `
     <cc-editable-value #editable [addMode]="addMode" (start)="onStart()" (ok)="onOk()" (cancel)="onCancel()">
       <display>

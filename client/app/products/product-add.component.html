@@ -21,9 +21,9 @@
   </div>
   <p *ngIf="loaded && showAddMessage && !adding">There are no products yet.</p>
   <p *ngIf="!loaded"><i class="icon-spin3 animate-spin"></i> Loading products...</p>
-  <div class="details x-x-product-add" [hidden]="!adding" [class.invalid]="!valid">
+  <div class="details product-add" [hidden]="!adding" [class.invalid]="!valid">
     <cc-validatable [valid]="!!product.name.length" message="Name should not be empty">
-      <input #productName placeholder="New Product" type="text" class="x-x-product-name" [(ngModel)]="product.name" [tabindex]="(index * 2) + 1" cc-active cc-activate-on-focus />
+      <input #productName placeholder="New Product" type="text" class="product-name" [(ngModel)]="product.name" [tabindex]="(index * 2) + 1" cc-active cc-activate-on-focus />
     </cc-validatable>
   </div>
 </div>

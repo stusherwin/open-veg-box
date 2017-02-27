@@ -1,4 +1,4 @@
-<div #root class="x-box-products" [class.editing]="editing" cc-active (activate)="editing = true" (deactivate)="editing = false">
+<div #root class="box-products" [class.editing]="editing" cc-active (activate)="editing = true" (deactivate)="editing = false">
   <table *ngFor="let c of columns; let i = index" [style.margin-left.px]="i && columnPadding">
     <tr>
       <th [style.width.px]="productNameWidth + productNamePadding">&nbsp;</th>
@@ -43,11 +43,11 @@
   </table>
 </div>
 
-<div class="x-box-products width-test">
+<div class="box-products width-test">
   <table>
     <tr *ngFor="let p of value">
-      <td class="x-box-product-name" #productNameTest>{{p.name}}</td>
-      <td class="x-box-product-quantity" #productQuantityTest class="hover">
+      <td class="box-product-name" #productNameTest>{{p.name}}</td>
+      <td class="box-product-quantity" #productQuantityTest class="hover">
         <span class="box-product-quantity-each" *ngIf="p.unitType == 'each'">x</span>
         <span *ngIf="p.unitType == 'perKg'">{{p.quantity | weight}}</span>
         <span *ngIf="p.unitType != 'perKg'">{{p.quantity}}</span>
@@ -55,12 +55,12 @@
       </td>
     </tr>
     <tr>
-      <td class="x-box-product-name" #productNameTest>
+      <td class="box-product-name" #productNameTest>
         <select>
           <option *ngFor="let p of unusedProducts">{{p.name}}</option>
         </select>
       </td>
-      <td class="x-box-product-quantity" #productQuantityTest>
+      <td class="box-product-quantity" #productQuantityTest>
         <input type="text" class="input" />
         <span class="box-product-quantity-perkg">Kg</span>
       </td>

@@ -8,7 +8,7 @@ import { SingleLinePipe, PreserveLinesPipe } from '../shared/pipes'
   selector: 'cc-customer-address',
   directives: [ActiveElementDirective, ActivateOnFocusDirective, EditableValueComponent, ValidatableComponent],
   pipes: [SingleLinePipe, PreserveLinesPipe],
-  host: {'class': 'x-customer-detail x-address'},
+  host: {'class': 'customer-detail address'},
   template: `
     <cc-editable-value #editable [addMode]="addMode" (start)="onStart()" (ok)="onOk()" (cancel)="onCancel()" [okOnEnter]="false">
       <display>

@@ -21,9 +21,9 @@
   </div>
   <p *ngIf="loaded && showAddMessage && !adding">There are no boxes yet.</p>
   <p *ngIf="!loaded"><i class="icon-spin3 animate-spin"></i> Loading boxes...</p>
-  <div class="details x-x-box-add" [hidden]="!adding" [class.invalid]="!valid">
+  <div class="details box-add" [hidden]="!adding" [class.invalid]="!valid">
     <cc-validatable [valid]="!!box.name.length" message="Name should not be empty">
-      <input #boxName placeholder="New Box" type="text" class="x-x-box-name" [(ngModel)]="box.name" [tabindex]="(index * 2) + 1" cc-active cc-activate-on-focus />
+      <input #boxName placeholder="New Box" type="text" class="box-name" [(ngModel)]="box.name" [tabindex]="(index * 2) + 1" cc-active cc-activate-on-focus />
     </cc-validatable>
   </div>
 </div>

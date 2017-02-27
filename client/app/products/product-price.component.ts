@@ -10,7 +10,7 @@ import { ValidatableComponent } from '../shared/validatable.component'
   directives: [EditableValueComponent, ActiveElementDirective, ActivateOnFocusDirective, ValidatableComponent],
   pipes: [MoneyPipe],
   template: `
-    <cc-editable-value #editable className="x-product-price" [valid]="valid" (start)="onStart()" (ok)="onOk()" (cancel)="onCancel()">
+    <cc-editable-value #editable className="product-price" [valid]="valid" (start)="onStart()" (ok)="onOk()" (cancel)="onCancel()">
       <display>
         <span [innerHTML]="price | money"></span> <span class="muted">{{ unitTypeName(unitType) }}</span>
         <a class="edit" tabindex="9999"><i class="icon-edit"></i></a>
