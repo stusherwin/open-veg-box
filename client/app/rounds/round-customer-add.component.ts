@@ -54,6 +54,8 @@ export class RoundCustomerAddComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
+    // urgh. how to respond to changes in input properties?
+    // Wish I had written this in React.
     this.customer = this.customers[0];
   }
 
