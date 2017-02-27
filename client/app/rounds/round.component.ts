@@ -43,9 +43,6 @@ export class RoundComponent {
   loaded: boolean;
 
   @Input()
-  customers: RoundCustomer[];
-
-  @Input()
   unusedCustomers: RoundCustomer[];
 
   @Output()

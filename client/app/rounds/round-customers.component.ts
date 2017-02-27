@@ -29,9 +29,6 @@ export class RoundCustomersComponent implements AfterViewChecked {
   value: RoundCustomer[];
 
   @Input()
-  customers: Customer[] = [];
-
-  @Input()
   unusedCustomers: Customer[] = [];
 
   @Input()
@@ -68,8 +65,9 @@ export class RoundCustomersComponent implements AfterViewChecked {
     this.recalculateWidths();
   }
 
-  onCustomerAdd(customer: RoundCustomer) {
-    this.value.push(customer);
+  onCustomerAdd(customer: Customer) {
+    this.value.push(new RoundCustomer(customer.id, customer.name, customer.address, customer.email));
+    Arrays.remove(this.unusedCustomers, customer);
     this.add.emit(customer.id);
   }
 

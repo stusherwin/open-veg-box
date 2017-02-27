@@ -2217,6 +2217,75 @@ select:-moz-focusring {
   position: relative;
   left: -3px;
 }
+.x-round-customers {
+  margin-bottom: 3px;
+}
+.x-round-customers::after {
+  display: block;
+  clear: left;
+  content: ' ';
+  height: 0px;
+}
+.x-round-customers table td {
+  padding: 0 0 7px 0;
+}
+.x-round-customers .x-round-customer-name {
+  padding-right: 5px;
+}
+.x-round-customers i {
+  font-size: 80%;
+  color: #999;
+}
+.x-round-customers i::before {
+  margin: 0;
+}
+.x-round-customers a:hover i,
+.x-round-customers a:focus i {
+  color: #ffa011;
+}
+.x-round-customers .show-on-edit {
+  position: relative;
+  left: -10000px;
+}
+.x-round-customers:hover .show-on-edit,
+.x-round-customers.editing .show-on-edit {
+  left: 0px;
+}
+.x-round-customers .x-round-customer-add .x-round-customer-add-display a {
+  position: relative;
+  left: -4px;
+}
+.x-round-customers .x-round-customer-add .x-round-customer-add-display:hover,
+.x-round-customers .x-round-customer-add .x-round-customer-add-display.hover {
+  color: #ffa011;
+  cursor: pointer;
+}
+.x-round-customers .x-round-customer-add .x-round-customer-add-display:hover a i,
+.x-round-customers .x-round-customer-add .x-round-customer-add-display.hover a i {
+  color: #ffa011;
+}
+.x-round-customers .x-round-customer-add div,
+.x-round-customers .x-round-customer-add input[type="text"],
+.x-round-customers .x-round-customer-add select,
+.x-round-customers .x-round-customer-add span {
+  display: inline-block;
+}
+.x-round-customers .x-round-customer-add.editable-value .editable-value-edit {
+  right: -17px;
+  left: -9px;
+  padding-right: 0;
+  height: 28px;
+}
+.x-round-customers .x-round-customer-add.editable-value .editable-value-edit input[type="text"] {
+  position: relative;
+  top: -4px;
+  left: -3px;
+  height: 24px;
+}
+.x-round-customers .x-round-customer-add.editable-value .editable-value-edit.invalid .input-wrapper.invalid .icon-warning {
+  top: -2px;
+  right: 4px;
+}
 .x-customer-details {
   margin-bottom: 5px;
 }

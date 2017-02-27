@@ -786,6 +786,99 @@ select:-moz-focusring {
   }
 }
 
+.x-round-customers {
+  .boxProductClearFix;
+
+  margin-bottom: 3px;
+
+  table {
+    td {
+      padding: 0 0 7px 0;
+    }
+  }
+
+  .x-round-customer-name {
+    padding-right: 5px;
+  }
+
+  i {
+    font-size: 80%;
+    color: #999;
+
+    &::before {
+      margin: 0;
+    }
+  }
+
+  a {
+    &:hover, &:focus {
+      i {
+        color: @boxProductHover;
+      }
+    }
+  }
+
+  .show-on-edit {
+    position: relative;
+    left: -10000px;
+  }
+
+  &:hover, &.editing {
+    .show-on-edit {
+      left: 0px;     
+    }
+  }
+
+  .x-round-customer-add {
+    .x-round-customer-add-display {
+      a {
+        position: relative;
+        left: -4px;
+      }
+
+      &:hover, &.hover {
+        color: @boxProductHover;
+        cursor: pointer;
+
+        a {
+          i {
+            color: @boxProductHover;
+          }
+        }
+      }
+    }
+
+    div, input[type="text"], select, span {
+      display: inline-block;
+    }
+
+    &.editable-value {
+      .editable-value-edit {
+        right: -17px;
+        left: -9px;
+        padding-right: 0;
+        height: 28px;
+
+        input[type="text"] {
+          position: relative;
+          top: -4px;
+          left: -3px;
+          height: 24px;
+        }
+
+        &.invalid {
+          .input-wrapper.invalid {
+            .icon-warning {
+              top: -2px;
+              right: 4px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 .x-customer-details {
   margin-bottom: 5px;
 

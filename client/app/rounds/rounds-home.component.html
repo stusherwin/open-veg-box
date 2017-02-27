@@ -3,7 +3,6 @@
 <div class="row-view" cc-active [class.focused]="focused" (activate)="focused = true" (deactivate)="focused = false">
   <cc-round *ngFor="let r of rounds; let i = index"
     [round]="r"
-    [customers]="customers"
     [unusedCustomers]="unusedCustomers"
     [index]="i"
     (delete)="onDelete($event)"
@@ -14,8 +13,6 @@
   <cc-round-add
     [showAddMessage]="!rounds.length"
     [loaded]="loaded"
-    [customers]="customers"
-    [unusedCustomers]="unusedCustomers"
     (add)="onAdd($event)"
     [index]="rounds.length">
   </cc-round-add>

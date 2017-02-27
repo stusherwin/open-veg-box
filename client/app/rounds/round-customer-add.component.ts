@@ -1,16 +1,18 @@
-import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, ViewChildren, QueryList, AfterViewInit, ChangeDetectorRef, AfterViewChecked, OnChanges, Inject, forwardRef, OnInit, OnDestroy, Renderer } from '@angular/core';
+import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, ViewChildren, QueryList, AfterViewInit, ChangeDetectorRef, AfterViewChecked, Inject, forwardRef, OnInit, OnDestroy, Renderer, OnChanges } from '@angular/core';
 import { RoundCustomer } from './round'
 import { Customer } from '../customers/customer'
 import { Subscription } from 'rxjs/Subscription'
 import { Observable } from 'rxjs/Observable';
 import { ActiveElementDirective, ActiveService, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements';
+import { EditableValueComponent } from '../shared/editable-value.component'
+import { Arrays } from '../shared/arrays'
 
 @Component({
   selector: 'cc-round-customer-add',
   templateUrl: 'app/rounds/round-customer-add.component.html',
-  directives: [ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective]
+  directives: [ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, EditableValueComponent]
 })
-export class RoundCustomerAddComponent {
+export class RoundCustomerAddComponent implements OnInit, OnChanges {
   adding: boolean;
   addHover: boolean;
   customer: Customer;
@@ -36,16 +38,26 @@ export class RoundCustomerAddComponent {
   @ViewChild('add')
   addBtn: ElementRef
 
-  @ViewChild('active')
-  active: ActiveElementDirective  
+  @ViewChild('editable')
+  editable: EditableValueComponent  
 
   @Output()
-  add = new EventEmitter<RoundCustomer>();
+  add = new EventEmitter<Customer>();
 
-  constructor(private renderer: Renderer) {
+  constructor(
+    private renderer: Renderer,
+    private changeDetector: ChangeDetectorRef) {
   }
 
-  onClick() {
+  ngOnInit() {
+    this.customer = this.customers[0];
+  }
+
+  ngOnChanges() {
+    this.customer = this.customers[0];
+  }
+
+  onStart() {
     this.customer = this.customers[0];
     this.adding = true;
 
@@ -61,55 +73,29 @@ export class RoundCustomerAddComponent {
     this.customer = this.customers[+event.target.value];
   }
 
-  onOkClick() {
-    let stayFocused = this.tabbedAway && this.customers.length > 1; 
-    
-    this.add.emit(new RoundCustomer(this.customer.id, this.customer.name, this.customer.address, this.customer.email));
-    
-    this.adding = false;
-    this.tabbedAway = false;
-    if(stayFocused) {
-      this.focus();
-    } else {
-      this.active.makeInactive();
-    }
+  onAdd() {
+    this.editable.startEdit();
   }
 
-  onCancelClick() {
+  onOk(tabbedAway: boolean) {
+    if(tabbedAway && this.customers.length > 1) {
+      setTimeout(() => this.renderer.invokeElementMethod(this.addBtn.nativeElement, 'focus', []))
+    } 
+    
+    this.add.emit(this.customer);
+    
+    Arrays.remove(this.customers, this.customer);
+    this.editable.endEdit();
     this.adding = false;
-    this.tabbedAway = false;
-    this.active.makeInactive();
   }
+
+  onCancel() {
+    this.customer = this.customers[0];
+    this.editable.endEdit();
+    this.adding = false;
+ }
   
-  onDeactivate() {
-    this.addHover = false;
-    if(this.adding) {
-      if(this.tabbedAway) {
-        this.onOkClick();
-      } else {
-        this.onCancelClick();
-      }
-    }
-  }
-
   focus() {
-    setTimeout(() => this.renderer.invokeElementMethod(this.addBtn.nativeElement, 'focus', []))
-  }
-
-  tabbedAway = false;
-  keydown(event: KeyboardEvent) {
-    if(!this.adding) {
-      if(event.key == 'Enter') {
-        this.onClick();
-      }
-    } else {
-      if(event.key == 'Enter') {
-        this.onOkClick();
-      } else if(event.key == 'Escape') {
-        this.onCancelClick();
-      } else if(event.key == 'Tab' && !event.shiftKey) {
-        this.tabbedAway = true;
-      }
-    }
+    this.renderer.invokeElementMethod(this.addBtn.nativeElement, 'focus', [])
   }
 }

@@ -1,32 +1,28 @@
-<div *ngIf="customers.length" class="round-customer round-customer-add"
-    (keydown)="keydown($event)"
-    #active=cc-active cc-active 
-    (deactivate)="onDeactivate()">
-  <div *ngIf="!adding" (click)="onClick()" [class.hover]="addHover">
-    <div class="round-customer-detail round-customer-name round-customer-display" [style.width.px]="customerNameWidth + customerAddressWidth">{{text}}</div>
-    <div class="round-customer-detail round-customer-action round-customer-display">
-      <a #add
-        cc-active cc-activate-on-focus cc-deactivate-on-blur
-        [tabindex]="editTabindex"
-        (focus)="addHover = true"
-        (blur)="addHover = false"><i class="icon-add"></i></a>
-    </div>       
-  </div>
-  <div *ngIf="adding" style="position: relative" class="round-customer-detail" [style.width.px]="customerNameWidth + customerAddressWidth">
-    <div class="edit-background">
-      <a cc-active cc-activate-on-focus tabindex="99999" (click)="onOkClick()"><i class="icon-ok"></i></a>
-      <a cc-active cc-activate-on-focus tabindex="99999" (click)="onCancelClick()"><i class="icon-cancel"></i></a>
+<cc-editable-value className="x-round-customer-add" *ngIf="customers.length" #editable (start)="onStart()" (ok)="onOk($event)" (cancel)="onCancel()" [catchTabAway]="customers.length > 1" [tabindex]="editTabindex">
+  <display>
+    <div class="x-round-customer-add-display show-on-edit" [class.hover]="addHover">
+      <div style="display: inline-block" [style.width.px]="customerNameWidth + customerAddressWidth">{{text}}</div>
+      <div style="display: inline-block"><a #add *ngIf="!adding"
+          cc-active cc-activate-on-focus cc-deactivate-on-blur
+          [tabindex]="editTabindex"
+          (keydown.Enter)="onAdd()"
+          (focus)="addHover = true"
+          (blur)="addHover = false"><i class="icon-add"></i></a>
+      </div>       
     </div>
-    <div class="round-customer-detail round-customer-name round-customer-edit" [style.width.px]="customerNameWidth"><select #select
-        cc-active cc-activate-on-focus
-        [tabindex]="editTabindex"
-        (change)="onCustomerChange($event)">
-        <option *ngFor="let c of customers; let i = index" [value]="i">{{c.name}}</option>
-      </select>
+  </display>
+  <edit>
+    <div>
+      <div class="x-round-customer-name" style="display: inline-block" [style.width.px]="customerNameWidth">
+        <select *ngIf="adding" #select
+          cc-active cc-activate-on-focus
+          [tabindex]="editTabindex"
+          (change)="onCustomerChange($event)">
+          <option *ngFor="let c of customers; let i = index" [value]="i">{{c.name}}</option>
+        </select>
+      </div>
+      <div class="x-round-customer-address" style="display: inline-block" [style.width.px]="customerAddressWidth">{{customer.address}}
+      </div>
     </div>
-    <div class="round-customer-detail round-customer-address round-customer-edit" [style.width.px]="customerAddressWidth">{{customer.address}}
-    </div>
-  </div>
-</div>
-<input type="text" *ngIf="adding && customers.length > 1" style="position: absolute; left: -10000px"
-  [tabindex]="editTabindex" (focus)="onDeactivate()" />
+  </edit>
+</cc-editable-value>

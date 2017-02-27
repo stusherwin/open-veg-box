@@ -1,34 +1,49 @@
-<div class="round-customers" [class.editing]="editing" cc-active (activate)="editing = true" (deactivate)="editing = false">
-  <div class="round-customer" *ngFor="let c of value">
-    <div class="round-customer-detail round-customer-name round-customer-display" [style.width.px]="customerNameWidth + customerNamePadding">{{c.name}}</div>
-    <div class="round-customer-detail round-customer-address round-customer-display" [style.width.px]="customerAddressWidth + customerAddressPadding">{{c.address}}</div>
-    <div class="round-customer-detail round-customer-action round-customer-display">
-      <cc-round-customer-remove #remove
-        [editTabindex]="editTabindex" 
-        (remove)="onRemove(c, $event)">
-      </cc-round-customer-remove>
-    </div>
-  </div>
-  <div class="round-customer" *ngIf="!value.length">
-    <div class="round-customer-detail">No customers added yet.</div>
-  </div> 
-  <cc-round-customer-add #add
-    [customers]="unusedCustomers"
-    [editTabindex]="editTabindex"
-    [customerNameWidth]="customerNameWidth + customerNamePadding"
-    [customerAddressWidth]="customerAddressWidth + customerAddressPadding"
-    text="Add {{!value.length? 'a' : 'another'}} customer..."
-    (add)="onCustomerAdd($event)">
-  </cc-round-customer-add>
+<div class="x-round-customers" [class.editing]="editing" cc-active (activate)="editing = true" (deactivate)="editing = false">
+  <table>
+    <tr>
+      <th [style.width.px]="customerNameWidth + customerNamePadding">&nbsp;</th>
+      <th [style.width.px]="customerAddressWidth + customerAddressPadding">&nbsp;</th>
+      <th [style.width.px]="actionsWidth">&nbsp;</th>
+    </tr>
+    <tr *ngFor="let c of value">
+      <td>{{c.name}}</td>
+      <td>{{c.address}}</td>
+      <td>
+        <cc-round-customer-remove #remove
+          [editTabindex]="editTabindex" 
+          (remove)="onRemove(c, $event)">
+        </cc-round-customer-remove>
+      </td>
+    </tr>
+    <tr *ngIf="!value.length">
+      <td colspan="3"><div class="no-customers">No customers added yet.</div></td>
+    </tr>
+    <tr>
+      <td colspan="3">
+        <cc-round-customer-add #add
+          [customers]="unusedCustomers"
+          [editTabindex]="editTabindex"
+          [customerNameWidth]="customerNameWidth + customerNamePadding"
+          [customerAddressWidth]="customerAddressWidth + customerAddressPadding"
+          text="Add {{!value.length? 'a' : 'another'}} customer..."
+          (add)="onCustomerAdd($event)">
+        </cc-round-customer-add>
+      </td>
+    </tr>
+  </table>
 </div>
 
-<div class="round-customers width-test">
-  <div class="round-customer">
-    <div #customerNameTest class="round-customer-detail round-customer-name round-customer-display" *ngFor="let c of value">{{c.name}}</div>
-    <div #customerNameTest class="round-customer-detail round-customer-name round-customer-edit"><select>
-        <option *ngFor="let c of customers">{{c.name}}</option>
+<table class="x-round-customers width-test">
+  <tr *ngFor="let c of value">
+    <td #customerNameTest>{{c.name}}</td>
+    <td #customerAddressTest>{{c.address}}</td>
+  </tr>
+  <tr *ngFor="let c of unusedCustomers">
+    <td #customerNameTest>
+      <select>
+        <option>{{c.name}}</option>
       </select>
-    </div>
-    <div #customerAddressTest *ngFor="let c of customers" class="round-customer-detail round-customer-address round-customer-edit">{{c.address}}</div>
-  </div>
-</div>
+    </td>
+    <td #customerAddressTest>{{c.address}}</td>
+  </tr>
+</table>

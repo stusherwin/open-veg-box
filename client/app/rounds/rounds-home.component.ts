@@ -30,7 +30,6 @@ export class RoundsHomeComponent implements OnInit {
   roundService: RoundService;
   customerService: CustomerService;
   rounds: Round[] = [];
-  customers: RoundCustomer[] = [];
   unusedCustomers: RoundCustomer[] = [];
   loaded: boolean;
 
@@ -39,13 +38,11 @@ export class RoundsHomeComponent implements OnInit {
   ngOnInit() {
     this.roundService.getAll(this.queryParams)
       .combineLatest(
-        this.customerService.getAll(this.queryParams),
         this.customerService.getAllWithNoRound(this.queryParams),
-        (rounds, customers, unusedCustomers) => ({rounds, customers, unusedCustomers}))
-      .subscribe(({rounds, customers, unusedCustomers}) => {
+        (rounds, unusedCustomers) => ({rounds, unusedCustomers}))
+      .subscribe(({rounds, unusedCustomers}) => {
         this.loaded = true;
         this.rounds = rounds;
-        this.customers = customers.map(c => new RoundCustomer(c.id, c.name, c.address, c.email));
         this.unusedCustomers = unusedCustomers.map(c => new RoundCustomer(c.id, c.name, c.address, c.email));
       });
   }
@@ -69,16 +66,16 @@ export class RoundsHomeComponent implements OnInit {
   onCustomerAdd(event: any) {
     this.roundService.addCustomer(event.roundId, event.customerId, this.queryParams)
       .mergeMap(_ => this.customerService.getAllWithNoRound(this.queryParams))
-      .subscribe(customers => {
-        this.unusedCustomers = customers.map(c => new RoundCustomer(c.id, c.name, c.address, c.email));
+      .subscribe(unusedCustomers => {
+        this.unusedCustomers = unusedCustomers.map(c => new RoundCustomer(c.id, c.name, c.address, c.email));
       });
   }
 
   onCustomerRemove(event: any) {
     this.roundService.removeCustomer(event.roundId, event.customerId, this.queryParams)
       .mergeMap(_ => this.customerService.getAllWithNoRound(this.queryParams))
-      .subscribe(customers => {
-        this.unusedCustomers = customers.map(c => new RoundCustomer(c.id, c.name, c.address, c.email));
+      .subscribe(unusedCustomers => {
+        this.unusedCustomers = unusedCustomers.map(c => new RoundCustomer(c.id, c.name, c.address, c.email));
       });
   }
 }
