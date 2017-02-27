@@ -4,10 +4,11 @@ import { MoneyPipe } from '../shared/pipes';
 import { ActiveElementDirective, ActivateOnFocusDirective } from '../shared/active-elements'
 import { EditableValueComponent } from '../shared/editable-value.component'
 import { ValidatableComponent } from '../shared/validatable.component'
+import { NumericDirective } from '../shared/numeric.directive'
 
 @Component({
   selector: 'cc-product-price',
-  directives: [EditableValueComponent, ActiveElementDirective, ActivateOnFocusDirective, ValidatableComponent],
+  directives: [EditableValueComponent, ActiveElementDirective, ActivateOnFocusDirective, ValidatableComponent, NumericDirective],
   pipes: [MoneyPipe],
   template: `
     <cc-editable-value #editable className="product-price" [valid]="valid" (start)="onStart()" (ok)="onOk()" (cancel)="onCancel()">
@@ -18,7 +19,7 @@ import { ValidatableComponent } from '../shared/validatable.component'
       <edit>
         &pound;
         <cc-validatable [valid]="valid" message="Price should be a number greater than 0">
-          <input type="text" #input [(ngModel)]="editingPrice" [tabindex]="editTabindex" (focus)="startEdit()" cc-active cc-activate-on-focus />
+          <input type="text" #input cc-numeric fixedDecimals="2" [(value)]="editingPrice" [tabindex]="editTabindex" (focus)="startEdit()" cc-active cc-activate-on-focus />
         </cc-validatable>
         <select class="input" cc-active cc-activate-on-focus (focus)="startEdit()" [(ngModel)]="unitType" [tabindex]="editTabindex" (ngModelChange)="unitTypeChanged($event)">
           <option *ngFor="let ut of unitTypes" [ngValue]="ut.value">{{ ut.name }}</option>
@@ -28,7 +29,7 @@ import { ValidatableComponent } from '../shared/validatable.component'
   `
 })
 export class ProductPriceComponent implements OnInit {
-  editingPrice: string;
+  editingPrice: number;
   unitTypes: UnitType[];
   fixedDecimals: number = 2;
   maxDecimals: number = null;
@@ -58,7 +59,7 @@ export class ProductPriceComponent implements OnInit {
   update = new EventEmitter<any>();
 
   get valid() {
-    return this.toDecimalValue(this.editingPrice) > 0;
+    return this.editingPrice > 0;
   }
 
   constructor(private renderer: Renderer) {
@@ -66,7 +67,7 @@ export class ProductPriceComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.editingPrice = this.toStringValue(this.price);
+    this.editingPrice = this.price;
   }
 
   startEdit() {
@@ -78,18 +79,16 @@ export class ProductPriceComponent implements OnInit {
   }
 
   onOk() {
-    this.price = this.toDecimalValue(this.editingPrice);
+    this.price = this.editingPrice;
     
     //TODO: just one event!
     this.priceChange.emit(this.price);
     this.update.emit(null);
-    
-    this.editingPrice = this.toStringValue(this.price);
     this.editable.endEdit();
   }
 
   onCancel() {
-    this.editingPrice = this.toStringValue(this.price);
+    this.editingPrice = this.price;
     this.editable.endEdit();
   }
 
@@ -99,36 +98,5 @@ export class ProductPriceComponent implements OnInit {
 
   unitTypeChanged(value: string) {
     this.unitTypeChange.emit(value);
-  }
-
-  private toStringValue(value: number): string {
-    if(this.fixedDecimals) {
-      return value.toFixed(this.fixedDecimals);
-    } else if(this.maxDecimals) {
-      var result = value.toFixed(this.maxDecimals);
-      while (result !== '0' && (result.endsWith('.') || (result.indexOf('.') != -1 && result.endsWith('0')))) {
-        result = result.substring(0, result.length - 1);
-      }
-      return result;
-    } else {
-      return '' + value;
-    }
-  }
-
-  private toDecimalValue(value: string): number {
-    var parsed = parseFloat(value);
-    if( isNaN(parsed) ) {
-      return 0;
-    }
-
-    if(this.fixedDecimals) {
-      return parseFloat(parsed.toFixed(this.fixedDecimals));
-    }
-    
-    if (this.maxDecimals) {
-      return parseFloat(parsed.toFixed(this.maxDecimals));
-    }
-
-    return parsed;
   }
 }

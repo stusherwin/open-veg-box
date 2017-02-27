@@ -6,15 +6,16 @@ import { ActiveElementDirective, ActivateOnFocusDirective } from '../shared/acti
 import { ValidatableComponent } from '../shared/validatable.component';
 import { Subscription } from 'rxjs/Subscription'
 import { EditableValueComponent } from '../shared/editable-value.component'
+import { NumericDirective } from '../shared/numeric.directive'
 
 @Component({
   selector: 'cc-box-product-quantity',
-  directives: [ActiveElementDirective, ActivateOnFocusDirective, ValidatableComponent, EditableValueComponent],
+  directives: [ActiveElementDirective, ActivateOnFocusDirective, ValidatableComponent, EditableValueComponent, NumericDirective],
   pipes: [WeightPipe],
   templateUrl: 'app/boxes/box-product-quantity.component.html'
 })
 export class BoxProductQuantityComponent implements OnInit {
-  editingValue: string;
+  editingValue: number;
   
   @Input()
   value: number;
@@ -44,7 +45,7 @@ export class BoxProductQuantityComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.editingValue = this.toStringValue(this.value);
+    this.editingValue = this.value;
   }
 
   onStart() {
@@ -52,56 +53,23 @@ export class BoxProductQuantityComponent implements OnInit {
   }
 
   onOk() {
-    let newValue = this.toDecimalValue(this.editingValue);
+    let newValue = this.editingValue;
 
     if(newValue != this.value) {
       this.value = newValue;
       this.update.emit(this.value);
     }
 
-    this.editingValue = this.toStringValue(this.value);
+    this.editingValue = this.value;
     this.editable.endEdit();
   }
 
   onCancel() {
-    this.editingValue = this.toStringValue(this.value);
+    this.editingValue = this.value;
     this.editable.endEdit();
   }
 
   onFocus() {
     this.editable.startEdit();
-  }
-
-  fixedDecimals: number = null;
-  maxDecimals: number = 3;
-  private toDecimalValue(value: string): number {
-    var parsed = parseFloat(value);
-    if( isNaN(parsed) ) {
-      return 0;
-    }
-
-    if(this.fixedDecimals) {
-      return parseFloat(parsed.toFixed(this.fixedDecimals));
-    }
-
-    if (this.maxDecimals) {
-      return parseFloat(parsed.toFixed(this.maxDecimals));
-    }
-
-    return parsed;
-  }
-  
-  private toStringValue(value: number): string {
-    if(this.fixedDecimals) {
-      return value.toFixed(this.fixedDecimals);
-    } else if(this.maxDecimals) {
-      var result = value.toFixed(this.maxDecimals);
-      while (result !== '0' && (result.endsWith('.') || (result.indexOf('.') != -1 && result.endsWith('0')))) {
-        result = result.substring(0, result.length - 1);
-      }
-      return result;
-    } else {
-      return '' + value;
-    }
   }
 }

@@ -74,6 +74,4 @@ Ideas
 
 Tidy up
 =======
-* Number parsing should be extracted as a component/directive
-* Extract out number component? 
 * Bring value updating behaviour into editable-value component
