@@ -39,18 +39,27 @@ Editing
   (sets it to delete button, tabindex=2, which is first element on page with tabindex, but subsequent elements
   have tabindex=1)
 
-Row save/add/delete
-======================
-* On delete, focus previous item delete button
-* Animation (close row on delete, fade add preview in/out)
+Box Products
+============
+* Better width solution than hardcoding pixel widths in code (padding/remainders)?
+* Quantity format should reflect unittype?
 
 Round customers
 ===============
 ? Should BCC recipients, not TO?
+* 1px spacing difference when tabbing into round-customers from outside
+  - also within round-customers (add?)
+* Adding last customer - add control is displayed then immediately hidden
+* Removing last customer - add control hidden then displayed
+* Clicking add - ok/cancel buttons jump right to left
 
-BUGS!!!!
-========
+Bugs
+====
 * Sometimes have to click login button twice.
+* Warning icon alignment out in Firefox
+* Row highlight flashes when editable-value canceled
+* box-product-quantity edit out by 1px in Firefox
+* Email overlaps phone no. if too long (truncate)
 
 Ideas
 =====
@@ -58,41 +67,13 @@ Ideas
 * Nicer error message when guest tries to send emails?
 * Undo/redo
 * Add button should be on top of page too (auto scroll down to bottom)
-
-Box Products
-============
-* Better width solution than hardcoding pixel widths in code (padding/remainders)?
-* Quantity format should reflect unittype?
-* Column spacing - not enough between product name & quantity,
-  too much between q & remove btn
-
-Round customers
-===============
-* 1px spacing difference when tabbing into round-customers from outside
-  - also within round-customers (add?)
-* Adding last customer - add control is displayed then immediately hidden
-* Removing last customer - add control hidden then displayed
-
+* On delete, focus previous item delete button
+* Animation (close row on delete, fade add preview in/out)
 * Catch tabbing away in active-elements then handle it specifically as a tabbed-away event 
   in container components?
-* Add mode should not show ok/cancel buttons on each value control
-
-Bugs
-====
-* Warning icon alignment out in Firefox
-* Row highlight flashes when editable-value canceled
-* box-product-quantity edit out by 1px in Firefox
-* Product price fields out of alignment
-* Email overlaps phone no. if too long (truncate)
 
 Tidy up
 =======
 * Number parsing should be extracted as a component/directive
-* page.less is a mess
-
-
-Next steps
-==========
-* Delete -old components
 * Extract out number component? 
 * Bring value updating behaviour into editable-value component
