@@ -56,10 +56,12 @@ Round customers
 Bugs
 ====
 * Sometimes have to click login button twice.
-* Warning icon alignment out in Firefox
+* Warning icon alignment out in Firefox/Chrome
 * Row highlight flashes when editable-value canceled
 * box-product-quantity edit out by 1px in Firefox
 * Email overlaps phone no. if too long (truncate)
+* Chrome bug: boxes page doesn't span 100% height
+* If tab away when invalid, can't subsequently click onto another control as still thinks you're tabbing away
 
 Ideas
 =====
@@ -71,6 +73,7 @@ Ideas
 * Animation (close row on delete, fade add preview in/out)
 * Catch tabbing away in active-elements then handle it specifically as a tabbed-away event 
   in container components?
+* After adding new item, should scroll to bottom
 
 Tidy up
 =======

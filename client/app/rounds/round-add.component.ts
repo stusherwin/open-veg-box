@@ -53,6 +53,7 @@ export class RoundAddComponent {
 
   startAdd() {
     this.adding = true;
+    this.validated = false;
     this.round.name = '';
 
     setTimeout(() => {

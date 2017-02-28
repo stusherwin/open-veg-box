@@ -19,7 +19,7 @@ import { NumericDirective } from '../shared/numeric.directive'
       <edit>
         &pound;
         <cc-validatable [valid]="valid" message="Price should be a number greater than 0">
-          <input type="text" #input cc-numeric fixedDecimals="2" [(value)]="editingPrice" [tabindex]="editTabindex" (focus)="startEdit()" cc-active cc-activate-on-focus />
+          <input type="text" #input class="input price" cc-numeric fixedDecimals="2" [(value)]="editingPrice" [tabindex]="editTabindex" (focus)="startEdit()" cc-active cc-activate-on-focus />
         </cc-validatable>
         <select class="input" cc-active cc-activate-on-focus (focus)="startEdit()" [(ngModel)]="unitType" [tabindex]="editTabindex" (ngModelChange)="unitTypeChanged($event)">
           <option *ngFor="let ut of unitTypes" [ngValue]="ut.value">{{ ut.name }}</option>

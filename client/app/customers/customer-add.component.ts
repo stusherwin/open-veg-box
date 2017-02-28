@@ -58,6 +58,7 @@ export class CustomerAddComponent implements OnInit {
 
   startAdd() {
     this.adding = true;
+    this.validated = false;
     this.resetCustomer();
     setTimeout(() => {
       this.renderer.invokeElementMethod(window, 'scrollTo', [0, document.body.scrollHeight])

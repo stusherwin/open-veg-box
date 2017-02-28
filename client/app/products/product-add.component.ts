@@ -1,16 +1,18 @@
 import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, ElementRef, Renderer, ViewChildren, QueryList } from '@angular/core';
-import { Product } from './product';
+import { Product, UnitType, unitTypes } from './product';
 import { HeadingComponent } from '../shared/heading.component';
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { ActiveElementDirective, ActivateOnFocusDirective } from '../shared/active-elements'
 import { ValidatableComponent } from '../shared/validatable.component';
+import { NumericDirective } from '../shared/numeric.directive'
 
 @Component({
   selector: 'cc-product-add',
   templateUrl: 'app/products/product-add.component.html',
-  directives: [HeadingComponent, ActiveElementDirective, ActivateOnFocusDirective, ROUTER_DIRECTIVES, ValidatableComponent]
+  directives: [HeadingComponent, ActiveElementDirective, ActivateOnFocusDirective, ROUTER_DIRECTIVES, ValidatableComponent, NumericDirective]
 })
 export class ProductAddComponent {
+  unitTypes: UnitType[] = unitTypes;
   product = new Product(0, '', 1.0, 'perKg', 1.0);
   adding: boolean;
   rowFocused: boolean;
@@ -52,7 +54,10 @@ export class ProductAddComponent {
 
   startAdd() {
     this.adding = true;
+    this.validated = false;
     this.product.name = '';
+    this.product.price = 1.0;
+    this.product.unitType = 'perKg';
     setTimeout(() => {
       this.renderer.invokeElementMethod(window, 'scrollTo', [0, document.body.scrollHeight])
       this.renderer.invokeElementMethod(this.productName.nativeElement, 'focus', [])

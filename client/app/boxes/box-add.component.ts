@@ -7,11 +7,12 @@ import { BoxPriceComponent } from './box-price.component';
 import { BoxProductsComponent } from './box-products.component';
 import { ActiveElementDirective, ActivateOnFocusDirective } from '../shared/active-elements'
 import { ValidatableComponent } from '../shared/validatable.component';
+import { NumericDirective } from '../shared/numeric.directive'
 
 @Component({
   selector: 'cc-box-add',
   templateUrl: 'app/boxes/box-add.component.html',
-  directives: [HeadingComponent, BoxPriceComponent, BoxProductsComponent, ActiveElementDirective, ActivateOnFocusDirective, ValidatableComponent]
+  directives: [HeadingComponent, BoxPriceComponent, BoxProductsComponent, ActiveElementDirective, ActivateOnFocusDirective, ValidatableComponent, NumericDirective]
 })
 export class BoxAddComponent {
   box = new Box(0, '', 10.0, []);
@@ -55,6 +56,7 @@ export class BoxAddComponent {
 
   startAdd() {
     this.adding = true;
+    this.validated = false;
     this.box.name = '';
     this.box.price = 10.0;
     

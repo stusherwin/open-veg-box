@@ -1,11 +1,12 @@
-import { Component, Input, Provider, forwardRef, OnInit, Output, EventEmitter, HostListener, HostBinding, Renderer, Directive, ElementRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, CORE_DIRECTIVES } from "@angular/common"
-import { NgModel } from '@angular/common';
+import { Input, OnInit, Output, EventEmitter, HostListener, HostBinding, Renderer, Directive, ElementRef, OnChanges } from '@angular/core';
 
 @Directive({
   selector: '[cc-numeric]'
 })
-export class NumericDirective implements OnInit {
+export class NumericDirective implements OnInit, OnChanges {
+  respondingToUserInput = false;
+  respondingToUserInputTimer: any;
+
   constructor(private el: ElementRef, private renderer: Renderer) {
   }
 
@@ -25,15 +26,39 @@ export class NumericDirective implements OnInit {
     this.renderer.setElementProperty(this.el.nativeElement, 'value', this.toStringValue(this.value));
   }
 
-  @HostListener('focus')
-  onFocus() {
-    this.renderer.setElementProperty(this.el.nativeElement, 'value', this.toStringValue(this.value));
+  ngOnChanges() {
+    //TODO: This is horrible but there's no way to distingush OnChanges event fired by setting value programmatically
+    //vs. from valueChanged being fired as a result of user input.
+    if(!this.respondingToUserInput) {
+      this.renderer.setElementProperty(this.el.nativeElement, 'value', this.toStringValue(this.value));
+    }
+  }
+
+  @HostListener('blur', ['$event.target.value'])
+  onBlur(value: any) {
+    this.renderer.setElementProperty(this.el.nativeElement, 'value', this.toStringValue(this.toDecimalValue(value)));
   }
 
   @HostListener('change', ['$event.target.value'])
   onChange(value: any) {
-    this.value = this.toDecimalValue(value);
-    this.valueChange.emit(this.value);
+    if(this.respondingToUserInput && this.respondingToUserInputTimer) {
+      clearTimeout(this.respondingToUserInputTimer);
+    }
+    this.respondingToUserInput = true;
+    this.respondingToUserInputTimer = setTimeout(() => this.respondingToUserInput = false, 100);
+
+    this.valueChange.emit(this.toDecimalValue(value));
+  }
+
+  @HostListener('keyup', ['$event.target.value'])
+  onKeyUp(value: any) {
+    if(this.respondingToUserInput && this.respondingToUserInputTimer) {
+      clearTimeout(this.respondingToUserInputTimer);
+    }
+    this.respondingToUserInput = true;
+    this.respondingToUserInputTimer = setTimeout(() => this.respondingToUserInput = false, 100);
+
+    this.valueChange.emit(this.toDecimalValue(value));
   }
 
   private toStringValue(value: number): string {
