@@ -105,6 +105,7 @@ export class EditableValueComponent implements AfterViewInit {
   }
 
   tabbedAway = false;
+  tabbingAway = false;
   onKeyDown(event: KeyboardEvent) {
     if(!this.editing) {
       return;
@@ -115,7 +116,14 @@ export class EditableValueComponent implements AfterViewInit {
     } else if(event.key == 'Escape') {
       this.onCancel();
     } else if(event.key == 'Tab') {
-      this.tabbedAway = !event.shiftKey;
+      this.tabbedAway = false;
+      if(!event.shiftKey) {
+        this.tabbingAway = true;
+        // If user tabs away from this component and is blocked due to validation,
+        // we don't want to block them clicking away just because they tabbed away originally
+        setTimeout(() => this.tabbingAway = false, 100);
+      }
+      // this.tabbedAway = !event.shiftKey;
     }
   }
 
@@ -123,6 +131,13 @@ export class EditableValueComponent implements AfterViewInit {
   }
 
   onDeactivate() {
+    if(this.tabbingAway) {
+      this.tabbedAway = true;
+      this.tabbingAway = false;
+    } else {
+      this.tabbedAway = false;
+    }
+
     if(!this.editing) {
       return;
     }

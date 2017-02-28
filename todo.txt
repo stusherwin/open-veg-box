@@ -60,8 +60,7 @@ Bugs
 * Row highlight flashes when editable-value canceled
 * box-product-quantity edit out by 1px in Firefox
 * Email overlaps phone no. if too long (truncate)
-* Chrome bug: boxes page doesn't span 100% height
-* If tab away when invalid, can't subsequently click onto another control as still thinks you're tabbing away
+* Chrome bug: boxes page doesn't span 100% height (rounds page doesn't do this. Why?)
 
 Ideas
 =====
