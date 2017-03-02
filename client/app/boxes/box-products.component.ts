@@ -147,30 +147,30 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
     let columns: BoxProduct[][] = [];
 
     // Distribute evenly across columns
-    // for(let i = 0; i < this.value.length; i++) {
-    //   let col = i % this.maxColumns;
+    for(let i = 0; i < this.value.length; i++) {
+      let col = i % this.maxColumns;
 
-    //   if(!columns[col]) {
-    //     columns[col] = [];
-    //   }
-
-    //   columns[col].push(this.value[i]);
-    // }
-
-    // Fill up first columns
-    // let totalItems = this.value.length + 1; // include 'add product' row
-    let totalItems = this.value.length;
-    let maxInCol = Math.max(MIN_ITEMS_IN_FIRST_COLUMN, Math.ceil(totalItems / this.maxColumns));
-    
-    for(let i = 0; i < totalItems; i++) {
-      let col = Math.floor(i / maxInCol);
       if(!columns[col]) {
         columns[col] = [];
       }
-      if(this.value[i]) {
-        columns[col].push(this.value[i]);
-      }
+
+      columns[col].push(this.value[i]);
     }
+
+    // Fill up first columns
+    // // let totalItems = this.value.length + 1; // include 'add product' row
+    // let totalItems = this.value.length;
+    // let maxInCol = Math.max(MIN_ITEMS_IN_FIRST_COLUMN, Math.ceil(totalItems / this.maxColumns));
+    
+    // for(let i = 0; i < totalItems; i++) {
+    //   let col = Math.floor(i / maxInCol);
+    //   if(!columns[col]) {
+    //     columns[col] = [];
+    //   }
+    //   if(this.value[i]) {
+    //     columns[col].push(this.value[i]);
+    //   }
+    // }
 
     this.columns = columns;
   }
