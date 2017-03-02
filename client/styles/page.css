@@ -43,6 +43,12 @@ select {
 .row-view {
   position: relative;
 }
+.row-view .add-button {
+  position: absolute;
+  right: 0;
+  top: -80px;
+  height: 80px;
+}
 .row-view button.top-level {
   position: absolute;
   top: -83px;
@@ -52,7 +58,7 @@ select {
 .row-view p {
   margin-top: 20px;
 }
-.row-view *:nth-child(2n - 1) > .row {
+.row-view *:nth-child(2n) > .row {
   background: #fafafa;
 }
 .row-view .row {

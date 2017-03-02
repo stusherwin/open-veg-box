@@ -1,6 +1,10 @@
 <h2>Rounds</h2>
 
 <div class="row-view" cc-active [class.focused]="focused" (activate)="focused = true" (deactivate)="focused = false">
+  <button class="add-button" (click)="add.startAdd()" tabindex="0">
+    <div class="icon"><i class="icon-add"></i></div>
+    <span>Add</span>
+  </button>
   <cc-round *ngFor="let r of rounds; let i = index"
     [round]="r"
     [unusedCustomers]="unusedCustomers"
@@ -10,7 +14,7 @@
     (customerAdd)="onCustomerAdd($event)"
     (customerRemove)="onCustomerRemove($event)">
   </cc-round>
-  <cc-round-add
+  <cc-round-add #add
     [showAddMessage]="!rounds.length"
     [loaded]="loaded"
     (add)="onAdd($event)"

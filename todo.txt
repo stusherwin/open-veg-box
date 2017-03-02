@@ -64,7 +64,6 @@ Ideas
 * Add warning message to guest user that data will not be kept
 * Nicer error message when guest tries to send emails?
 * Undo/redo
-* Add button should be on top of page too (auto scroll down to bottom)
 * On delete, focus previous item delete button
 * Animation (close row on delete, fade add preview in/out)
 * Catch tabbing away in active-elements then handle it specifically as a tabbed-away event 
