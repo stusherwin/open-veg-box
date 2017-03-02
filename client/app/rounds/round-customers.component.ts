@@ -8,6 +8,7 @@ import { RoundCustomerAddComponent } from './round-customer-add.component'
 import { RoundCustomerRemoveComponent } from './round-customer-remove.component' 
 import { ActiveElementDirective } from '../shared/active-elements';
 import { RoundCustomersService } from './round-customers.service'
+import { DefaultToPipe } from '../shared/pipes'
 
 const CUSTOMER_NAME_PADDING = 20;
 const CUSTOMER_ADDRESS_PADDING = 20;
@@ -15,6 +16,7 @@ const CUSTOMER_ADDRESS_PADDING = 20;
 @Component({
   selector: 'cc-round-customers',
   directives: [RoundCustomerAddComponent, RoundCustomerRemoveComponent, ActiveElementDirective],
+  pipes: [DefaultToPipe],
   templateUrl: 'app/rounds/round-customers.component.html'
 })
 export class RoundCustomersComponent implements AfterViewChecked {

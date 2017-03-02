@@ -50,7 +50,6 @@ Round customers
   - also within round-customers (add?)
 * Adding last customer - add control is displayed then immediately hidden
 * Removing last customer - add control hidden then displayed
-* Clicking add - ok/cancel buttons jump right to left
 
 Bugs
 ====
@@ -58,6 +57,7 @@ Bugs
 * Warning icon alignment out in Firefox/Chrome
 * Row highlight flashes when editable-value canceled
 * box-product-quantity edit out by 1px in Firefox
+* box-products, round-customers - clicking add - ok/cancel buttons jump right to left
 
 Ideas
 =====

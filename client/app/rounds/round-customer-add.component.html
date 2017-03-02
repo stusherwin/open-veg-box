@@ -21,7 +21,7 @@
           <option *ngFor="let c of customers; let i = index" [value]="i">{{c.name}}</option>
         </select>
       </div>
-      <div class="round-customer-address" [style.width.px]="customerAddressWidth">{{customer.address}}
+      <div class="round-customer-address" [style.width.px]="customerAddressWidth">{{customer.address | defaultTo: 'no address'}}
       </div>
     </div>
   </edit>

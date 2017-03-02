@@ -6,11 +6,13 @@ import { Observable } from 'rxjs/Observable';
 import { ActiveElementDirective, ActiveService, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements';
 import { EditableValueComponent } from '../shared/editable-value.component'
 import { Arrays } from '../shared/arrays'
+import { DefaultToPipe } from '../shared/pipes'
 
 @Component({
   selector: 'cc-round-customer-add',
   templateUrl: 'app/rounds/round-customer-add.component.html',
-  directives: [ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, EditableValueComponent]
+  directives: [ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, EditableValueComponent],
+  pipes: [DefaultToPipe]
 })
 export class RoundCustomerAddComponent implements OnInit, OnChanges {
   adding: boolean;

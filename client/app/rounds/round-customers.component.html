@@ -7,7 +7,7 @@
     </tr>
     <tr *ngFor="let c of value">
       <td>{{c.name}}</td>
-      <td>{{c.address}}</td>
+      <td>{{c.address | defaultTo: 'no address'}}</td>
       <td>
         <cc-round-customer-remove #remove
           [editTabindex]="editTabindex" 
