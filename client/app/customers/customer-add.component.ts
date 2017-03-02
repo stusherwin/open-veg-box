@@ -56,6 +56,10 @@ export class CustomerAddComponent implements OnInit {
       || this.validatables.toArray().every(v => v.valid);
   }
 
+  get emailValid() {
+    return !this.customer.email || /^.+\@.+\..+$/.test(this.customer.email);
+  }
+
   startAdd() {
     this.adding = true;
     this.validated = false;

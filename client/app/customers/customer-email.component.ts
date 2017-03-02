@@ -2,24 +2,26 @@ import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitte
 import { ActiveElementDirective, ActivateOnFocusDirective } from '../shared/active-elements'
 import { EditableValueComponent } from '../shared/editable-value.component'
 import { ValidatableComponent } from '../shared/validatable.component';
+import { DefaultToPipe } from '../shared/pipes'
 
 @Component({
   selector: 'cc-customer-email',
   directives: [EditableValueComponent, ActiveElementDirective, ActivateOnFocusDirective, ValidatableComponent],
+  pipes: [DefaultToPipe],
   host: {'class': 'customer-detail email'},
   template: `
     <cc-editable-value #editable (start)="onStart()" (ok)="onOk()" (cancel)="onCancel()">
       <display>
         <div class="detail-marker"><i class="icon-mail"></i></div>
         <div class="detail-display">
-          {{ value }}
+          {{ value | defaultTo: 'no email' }}
           <a class="edit"><i class="icon-edit"></i></a>
         </div>
       </display>
       <edit>
         <div class="detail-marker"><i class="icon-mail"></i></div>
         <div class="detail-edit">
-          <cc-validatable [valid]="valid" message="Email should not be empty">
+          <cc-validatable [valid]="valid" message="Email should be a valid email address">
             <input type="text" #input [(ngModel)]="editingValue" cc-active cc-activate-on-focus [tabindex]="editTabindex" (focus)="startEdit()" />
           </cc-validatable>
         </div>
@@ -49,7 +51,7 @@ export class CustomerEmailComponent {
   update = new EventEmitter<any>();
 
   get valid() {
-    return this.editingValue && !!this.editingValue.length;
+    return !this.editingValue || /^.+\@.+\..+$/.test(this.editingValue);
   }
 
   constructor(private renderer: Renderer) {

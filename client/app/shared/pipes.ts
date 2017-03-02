@@ -28,16 +28,23 @@ export class QuantityPipe implements PipeTransform {
   }
 }
 
-@Pipe({name: 'singleline'})
+@Pipe({name: 'singleLine'})
 export class SingleLinePipe implements PipeTransform {
   transform(value: string, separator: string): string {
     return value.split(/[\r\n]+/g).map(l => '<span style="white-space: nowrap">' + l + '</span>').join( separator );
   }
 }
 
-@Pipe({name: 'preservelines'})
+@Pipe({name: 'preserveLines'})
 export class PreserveLinesPipe implements PipeTransform {
   transform(value: string): string {
     return value.replace(/\n/g, '<br />');
+  }
+}
+
+@Pipe({name: 'defaultTo'})
+export class DefaultToPipe implements PipeTransform {
+  transform(value: string, defaultValue: string): string {
+    return value.replace(/\s/g, '').length ? value : defaultValue;
   }
 }

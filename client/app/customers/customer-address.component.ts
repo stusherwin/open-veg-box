@@ -2,28 +2,26 @@ import { Component, Input, ViewChild, ElementRef, Output, EventEmitter, OnInit, 
 import { ActiveElementDirective, ActivateOnFocusDirective } from '../shared/active-elements'
 import { EditableValueComponent } from '../shared/editable-value.component'
 import { ValidatableComponent } from '../shared/validatable.component';
-import { SingleLinePipe, PreserveLinesPipe } from '../shared/pipes'
+import { SingleLinePipe, PreserveLinesPipe, DefaultToPipe } from '../shared/pipes'
 
 @Component({
   selector: 'cc-customer-address',
   directives: [ActiveElementDirective, ActivateOnFocusDirective, EditableValueComponent, ValidatableComponent],
-  pipes: [SingleLinePipe, PreserveLinesPipe],
+  pipes: [SingleLinePipe, PreserveLinesPipe, DefaultToPipe],
   host: {'class': 'customer-detail address'},
   template: `
     <cc-editable-value #editable (start)="onStart()" (ok)="onOk()" (cancel)="onCancel()" [okOnEnter]="false">
       <display>
         <div class="detail-marker"><i class="icon-home"></i></div>
         <div class="detail-display">
-          <span [innerHTML]="value | singleline:' '"></span>
+          <span [innerHTML]="value | defaultTo:'no address' | singleLine:' '"></span>
           <a class="edit"><i class="icon-edit"></i></a>
         </div>
       </display>
       <edit>
         <div class="detail-marker"><i class="icon-home"></i></div>
         <div class="detail-edit">
-          <cc-validatable [valid]="valid" message="Address should not be empty">
-            <textarea #textarea [(ngModel)]="editingValue" cc-active cc-activate-on-focus [tabindex]="editTabindex" (focus)="startEdit()"></textarea>
-          </cc-validatable>
+          <textarea #textarea [(ngModel)]="editingValue" cc-active cc-activate-on-focus [tabindex]="editTabindex" (focus)="startEdit()"></textarea>
         </div>
       </edit>
     </cc-editable-value>
@@ -49,10 +47,6 @@ export class CustomerAddressComponent implements OnInit {
 
   @Output()
   update = new EventEmitter<any>();
-
-  get valid() {
-    return this.editingValue && !!this.editingValue.length;
-  }
 
   constructor(private renderer: Renderer) {
   }

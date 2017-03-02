@@ -2,26 +2,26 @@ import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitte
 import { ActiveElementDirective, ActivateOnFocusDirective } from '../shared/active-elements'
 import { EditableValueComponent } from '../shared/editable-value.component'
 import { ValidatableComponent } from '../shared/validatable.component';
+import { DefaultToPipe } from '../shared/pipes'
 
 @Component({
   selector: 'cc-customer-tel',
   directives: [EditableValueComponent, ActiveElementDirective, ActivateOnFocusDirective, ValidatableComponent],
+  pipes: [DefaultToPipe],
   host: {'class': 'customer-detail tel'},
   template: `
     <cc-editable-value #editable (start)="onStart()" (ok)="onOk()" (cancel)="onCancel()">
       <display>
         <div class="detail-marker"><i class="icon-phone"></i></div>
         <div class="detail-display">
-          {{ value }}
+          {{ value | defaultTo:'no phone' }}
           <a class="edit"><i class="icon-edit"></i></a>
         </div>
       </display>
       <edit>
         <div class="detail-marker"><i class="icon-phone"></i></div>
         <div class="detail-edit">
-          <cc-validatable [valid]="valid" message="Phone should not be empty">
-            <input type="text" #input [(ngModel)]="editingValue" cc-active cc-activate-on-focus [tabindex]="editTabindex" (focus)="startEdit()" />
-          </cc-validatable>
+          <input type="text" #input [(ngModel)]="editingValue" cc-active cc-activate-on-focus [tabindex]="editTabindex" (focus)="startEdit()" />
         </div>
       </edit>
     </cc-editable-value>
@@ -47,10 +47,6 @@ export class CustomerTelComponent implements OnInit {
 
   @Output()
   update = new EventEmitter<any>();
-
-  get valid() {
-    return this.editingValue && !!this.editingValue.length;
-  }
 
   constructor(private renderer: Renderer) {
   }

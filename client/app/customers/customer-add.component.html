@@ -33,9 +33,7 @@
         <div class="meh">
           <div class="detail-marker"><i class="icon-home"></i></div>
           <div class="detail-edit">
-            <cc-validatable [valid]="!!customer.address.length" message="Address should not be empty">
-              <textarea placeholder="1 Bloggs Street" [(ngModel)]="customer.address" cc-active cc-activate-on-focus [tabindex]="(index * 2) + 1"></textarea>
-            </cc-validatable>
+            <textarea placeholder="1 Bloggs Street" [(ngModel)]="customer.address" cc-active cc-activate-on-focus [tabindex]="(index * 2) + 1"></textarea>
           </div>
         </div>
       </div>
@@ -43,7 +41,7 @@
         <div class="meh">
           <div class="detail-marker"><i class="icon-mail"></i></div>
           <div class="detail-edit">
-            <cc-validatable [valid]="!!customer.email.length" message="Email should not be empty">
+            <cc-validatable [valid]="emailValid" message="Email should be a valid email address">
               <input type="text" placeholder="joe@bloggs.com" [(ngModel)]="customer.email" cc-active cc-activate-on-focus [tabindex]="(index * 2) + 1" />
             </cc-validatable>
           </div>
@@ -53,9 +51,7 @@
         <div class="meh">
           <div class="detail-marker"><i class="icon-phone"></i></div>
           <div class="detail-edit">
-            <cc-validatable [valid]="!!customer.tel1.length" message="Phone number should not be empty">
-              <input type="text" placeholder="(01234) 567890" [(ngModel)]="customer.tel1" cc-active cc-activate-on-focus [tabindex]="(index * 2) + 1" />
-            </cc-validatable>
+            <input type="text" placeholder="(01234) 567890" [(ngModel)]="customer.tel1" cc-active cc-activate-on-focus [tabindex]="(index * 2) + 1" />
           </div>
         </div>
       </div>
