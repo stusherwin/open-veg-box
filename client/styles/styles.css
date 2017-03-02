@@ -2507,9 +2507,7 @@ input[type="text"].price {
   right: 6px;
   top: 0px;
 }
-.row.focused .muted,
 .email-edit.focused .muted,
-.row:hover .muted,
 .email-edit:hover .muted {
   color: #f8c77e !important;
 }
