@@ -61,6 +61,7 @@ Bugs
 * box-product-quantity edit out by 1px in Firefox
 * Email overlaps phone no. if too long (truncate)
 * Chrome bug: boxes page doesn't span 100% height (rounds page doesn't do this. Why?)
+* Customer contact details should be optional?
 
 Ideas
 =====

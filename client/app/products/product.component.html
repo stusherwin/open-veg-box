@@ -1,35 +1,15 @@
-<div class="row" [class.addMode]="addMode" #active=cc-active cc-active [class.focused]="rowFocused" (activate)="onActivate()" (deactivate)="onDeactivate()">
+<div class="row" #active=cc-active cc-active [class.focused]="rowFocused" (activate)="rowFocused = true" (deactivate)="rowFocused = false">
   <div class="actions">
-    <div class="action" *ngIf="!addMode || !adding">
+    <div class="action">
     </div>
-    <div class="action" *ngIf="!addMode">
+    <div class="action">
       <button cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="onDelete()" [tabindex]="(index * 2) + 2">
         <div class="icon"><i class="icon-trash"></i></div>
         <span>Delete</span>
       </button>
     </div>
-    <div class="action" *ngIf="addMode && !adding && loaded">
-      <button #add cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="startAdd()" [tabindex]="(index * 2) + 2">
-        <div class="icon"><i class="icon-add"></i></div>
-        <span>Add</span>
-      </button>  
-    </div>
-    <div class="action" *ngIf="addMode && adding">
-      <button cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="completeAdd()" [tabindex]="(index * 2) + 2">
-        <div class="icon"><i class="icon-ok"></i></div>
-        <span>Save</span>
-      </button>  
-    </div>
-    <div class="action" *ngIf="addMode && adding">
-      <button cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="cancelAdd()" [tabindex]="(index * 2) + 2">
-        <div class="icon"><i class="icon-cancel"></i></div>
-        <span>Cancel</span>
-      </button>  
-    </div>
   </div>
-  <p *ngIf="addMode && loaded && showAddMessage && !adding">There are no products yet.</p>
-  <p *ngIf="addMode && !loaded"><i class="icon-spin3 animate-spin"></i> Loading products...</p>
-  <div class="details" [hidden]="addMode && !adding">
+  <div class="details">
     <cc-heading #productName [(value)]="product.name" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-heading>
     <div class="flex">
       <div class="price-detail">

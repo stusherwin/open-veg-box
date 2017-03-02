@@ -40,9 +40,6 @@ export class EditableValueComponent implements AfterViewInit {
   @Input()
   okOnEnter: boolean = true
 
-  @Input()
-  addMode: boolean;
-
   @ViewChild('active')
   active: ActiveElementDirective
 

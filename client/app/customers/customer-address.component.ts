@@ -10,7 +10,7 @@ import { SingleLinePipe, PreserveLinesPipe } from '../shared/pipes'
   pipes: [SingleLinePipe, PreserveLinesPipe],
   host: {'class': 'customer-detail address'},
   template: `
-    <cc-editable-value #editable [addMode]="addMode" (start)="onStart()" (ok)="onOk()" (cancel)="onCancel()" [okOnEnter]="false">
+    <cc-editable-value #editable (start)="onStart()" (ok)="onOk()" (cancel)="onCancel()" [okOnEnter]="false">
       <display>
         <div class="detail-marker"><i class="icon-home"></i></div>
         <div class="detail-display">
@@ -37,9 +37,6 @@ export class CustomerAddressComponent implements OnInit {
 
   @Input()
   editTabindex: number;
-
-  @Input()
-  addMode: boolean;
 
   @ViewChild('textarea')
   textarea: ElementRef;

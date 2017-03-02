@@ -1,4 +1,4 @@
-<div class="row" #active=cc-active cc-active [class.focused]="rowFocused" (activate)="onActivate()" (deactivate)="onDeactivate()">
+<div class="row add-mode" #active=cc-active cc-active [class.focused]="rowFocused" (activate)="onActivate()" (deactivate)="onDeactivate()">
   <div class="actions">
     <div class="action" [hidden]="adding || !loaded">
       <button #add cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="startAdd()" [tabindex]="(index * 2) + 2">
@@ -7,13 +7,13 @@
       </button>  
     </div>
     <div class="action" *ngIf="adding">
-      <button cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="completeAdd()" [tabindex]="(index * 2) + 2">
+      <button cc-active cc-activate-on-focus (click)="completeAdd()" [tabindex]="(index * 2) + 2">
         <div class="icon"><i class="icon-ok"></i></div>
         <span>Save</span>
       </button>  
     </div>
     <div class="action" *ngIf="adding">
-      <button cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="cancelAdd()" [tabindex]="(index * 2) + 2">
+      <button cc-active cc-activate-on-focus (click)="cancelAdd()" [tabindex]="(index * 2) + 2">
         <div class="icon"><i class="icon-cancel"></i></div>
         <span>Cancel</span>
       </button>  

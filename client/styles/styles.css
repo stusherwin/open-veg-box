@@ -994,11 +994,11 @@ select {
   padding: 0;
   position: relative;
 }
-.row-view .row.addMode {
+.row-view .row.add-mode {
   border-bottom: 1px solid #e6e6e6;
 }
 .row-view .row.no-border,
-.row-view .row.no-border.addMode {
+.row-view .row.no-border.add-mode {
   border: none;
 }
 .row-view .row:hover {

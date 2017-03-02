@@ -3,13 +3,13 @@ import { Round, RoundCustomer } from './round';
 import { HeadingComponent } from '../shared/heading.component';
 import { RoundCustomersComponent } from './round-customers.component';
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
-import { ActiveElementDirective, ActivateOnFocusDirective } from '../shared/active-elements'
+import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
 import { ValidatableComponent } from '../shared/validatable.component';
 
 @Component({
   selector: 'cc-round-add',
   templateUrl: 'app/rounds/round-add.component.html',
-  directives: [HeadingComponent, ActiveElementDirective, ActivateOnFocusDirective, RoundCustomersComponent, ROUTER_DIRECTIVES, ValidatableComponent]
+  directives: [HeadingComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, RoundCustomersComponent, ROUTER_DIRECTIVES, ValidatableComponent]
 })
 export class RoundAddComponent {
   round = new Round(0, '', []);

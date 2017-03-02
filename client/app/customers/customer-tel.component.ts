@@ -8,7 +8,7 @@ import { ValidatableComponent } from '../shared/validatable.component';
   directives: [EditableValueComponent, ActiveElementDirective, ActivateOnFocusDirective, ValidatableComponent],
   host: {'class': 'customer-detail tel'},
   template: `
-    <cc-editable-value #editable [addMode]="addMode" (start)="onStart()" (ok)="onOk()" (cancel)="onCancel()">
+    <cc-editable-value #editable (start)="onStart()" (ok)="onOk()" (cancel)="onCancel()">
       <display>
         <div class="detail-marker"><i class="icon-phone"></i></div>
         <div class="detail-display">
@@ -35,9 +35,6 @@ export class CustomerTelComponent implements OnInit {
 
   @ViewChild('editable')
   editable: EditableValueComponent
-
-  @Input()
-  addMode: boolean;
 
   @Input()
   editTabindex: number;

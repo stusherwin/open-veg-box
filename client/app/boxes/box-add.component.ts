@@ -5,14 +5,14 @@ import { WeightPipe, MoneyPipe } from '../shared/pipes';
 import { HeadingComponent } from '../shared/heading.component';
 import { BoxPriceComponent } from './box-price.component';
 import { BoxProductsComponent } from './box-products.component';
-import { ActiveElementDirective, ActivateOnFocusDirective } from '../shared/active-elements'
+import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
 import { ValidatableComponent } from '../shared/validatable.component';
 import { NumericDirective } from '../shared/numeric.directive'
 
 @Component({
   selector: 'cc-box-add',
   templateUrl: 'app/boxes/box-add.component.html',
-  directives: [HeadingComponent, BoxPriceComponent, BoxProductsComponent, ActiveElementDirective, ActivateOnFocusDirective, ValidatableComponent, NumericDirective]
+  directives: [HeadingComponent, BoxPriceComponent, BoxProductsComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, ValidatableComponent, NumericDirective]
 })
 export class BoxAddComponent {
   box = new Box(0, '', 10.0, []);
