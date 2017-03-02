@@ -1845,6 +1845,7 @@ select:-moz-focusring {
 .width-test {
   position: absolute;
   left: -10000px;
+  top: -10000px;
 }
 .editable-value {
   position: relative;
