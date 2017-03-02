@@ -1,10 +1,10 @@
 <div class="row" #active=cc-active cc-active [class.focused]="rowFocused" (activate)="rowFocused = true" (deactivate)="rowFocused = false">
   <div class="actions">
     <div class="action">
-      <a class="button" [routerLink]="['../Email', {roundId: round.id}]" cc-active cc-activate-on-focus cc-deactivate-on-blur [tabindex]="(index * 2) + 2">
+      <button class="button" [disabled]="!canEmail" [routerLink]="['../Email', {roundId: round.id}]" cc-active cc-activate-on-focus cc-deactivate-on-blur [tabindex]="(index * 2) + 2">
         <div class="icon"><i class="icon-mail-dark"></i></div>
         <span>Email</span>
-      </a>
+      </button>
     </div>
     <div class="action">
       <button cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="onDelete()" [tabindex]="(index * 2) + 2">

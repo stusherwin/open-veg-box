@@ -43,6 +43,10 @@ export class RoundComponent {
   @Output()
   customerRemove = new EventEmitter<any>();
 
+  get canEmail() {
+    return !this.round.customers.every(c => !c.email);
+  }
+
   onDelete() {
     this.delete.emit(this.round);
     this.active.makeInactive();

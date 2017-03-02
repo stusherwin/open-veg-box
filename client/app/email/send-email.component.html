@@ -2,7 +2,7 @@
   <div class="form-row">
     <label>To:</label>
     <ul class="field recipients">
-      <li *ngFor="let r of recipients">{{r.name}} <span class="muted">({{r.address}})</span></li>
+      <li [class.removed]="!r.address" [class.muted]="!r.address" *ngFor="let r of recipients">{{r.name}} <span class="muted">({{r.address | defaultTo:'no email'}})</span></li>
     </ul>
   </div>
   <div class="form-row subject">
@@ -21,10 +21,10 @@
     <div class="row no-hover no-border">
       <div class="actions">
         <div class="action">
-          <a class="button" cc-active cc-activate-on-focus cc-deactivate-on-blur tabindex="1" (click)="send()">
+          <button class="button" cc-active cc-activate-on-focus cc-deactivate-on-blur tabindex="1" (click)="send()" [disabled]="noRecipients">
             <div class="icon"><i class="icon-mail-dark"></i></div>
             <span>Send Email</span>
-          </a>
+          </button>
         </div>
         <div class="action">
           <a class="button" [routerLink]="cancelLinkParams"  cc-active cc-activate-on-focus cc-deactivate-on-blur tabindex="1">

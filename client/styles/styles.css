@@ -1542,6 +1542,9 @@ select {
   border-bottom: 1px solid #e6e6e6;
   padding-bottom: 0;
 }
+.email-edit .removed {
+  text-decoration: line-through;
+}
 .email-edit label {
   display: block;
   float: left;
@@ -1577,11 +1580,14 @@ select {
   margin-top: -2px;
   margin-right: -10px;
 }
-.email-edit.focused {
+.email-edit.focused,
+.email-edit:hover {
   background: #fff1dd;
 }
 .email-edit.focused .row button,
-.email-edit.focused .row a.button {
+.email-edit:hover .row button,
+.email-edit.focused .row a.button,
+.email-edit:hover .row a.button {
   border: none;
   border-radius: 2px;
   padding: 0;
@@ -1596,7 +1602,9 @@ select {
   color: #888;
 }
 .email-edit.focused .row button .icon,
-.email-edit.focused .row a.button .icon {
+.email-edit:hover .row button .icon,
+.email-edit.focused .row a.button .icon,
+.email-edit:hover .row a.button .icon {
   border-width: 1px;
   border-style: solid;
   border-radius: 46px;
@@ -1608,7 +1616,9 @@ select {
   padding: 2px 0 0 2px;
 }
 .email-edit.focused .row button .icon i,
-.email-edit.focused .row a.button .icon i {
+.email-edit:hover .row button .icon i,
+.email-edit.focused .row a.button .icon i,
+.email-edit:hover .row a.button .icon i {
   border-width: 1px;
   border-style: solid;
   border-radius: 40px;
@@ -1618,7 +1628,9 @@ select {
   display: block;
 }
 .email-edit.focused .row button span,
-.email-edit.focused .row a.button span {
+.email-edit:hover .row button span,
+.email-edit.focused .row a.button span,
+.email-edit:hover .row a.button span {
   position: absolute;
   top: 61px;
   width: 100%;
@@ -1630,192 +1642,322 @@ select {
   width: 46 px;
 }
 .email-edit.focused .row button:focus,
-.email-edit.focused .row a.button:focus {
+.email-edit:hover .row button:focus,
+.email-edit.focused .row a.button:focus,
+.email-edit:hover .row a.button:focus {
   outline: 0;
 }
 .email-edit.focused .row button,
+.email-edit:hover .row button,
 .email-edit.focused .row a.button,
+.email-edit:hover .row a.button,
 .email-edit.focused .row button:active,
-.email-edit.focused .row a.button:active {
+.email-edit:hover .row button:active,
+.email-edit.focused .row a.button:active,
+.email-edit:hover .row a.button:active {
   cursor: pointer;
 }
 .email-edit.focused .row button[disabled],
+.email-edit:hover .row button[disabled],
 .email-edit.focused .row a.button[disabled],
+.email-edit:hover .row a.button[disabled],
 .email-edit.focused .row button[disabled]:hover,
+.email-edit:hover .row button[disabled]:hover,
 .email-edit.focused .row a.button[disabled]:hover,
+.email-edit:hover .row a.button[disabled]:hover,
 .email-edit.focused .row button.disabled,
+.email-edit:hover .row button.disabled,
 .email-edit.focused .row a.button.disabled,
+.email-edit:hover .row a.button.disabled,
 .email-edit.focused .row button.disabled:hover,
-.email-edit.focused .row a.button.disabled:hover {
+.email-edit:hover .row button.disabled:hover,
+.email-edit.focused .row a.button.disabled:hover,
+.email-edit:hover .row a.button.disabled:hover {
   cursor: default;
 }
 .email-edit.focused .row button[disabled],
+.email-edit:hover .row button[disabled],
 .email-edit.focused .row a.button[disabled],
+.email-edit:hover .row a.button[disabled],
 .email-edit.focused .row button[disabled]:hover,
+.email-edit:hover .row button[disabled]:hover,
 .email-edit.focused .row a.button[disabled]:hover,
+.email-edit:hover .row a.button[disabled]:hover,
 .email-edit.focused .row button.disabled,
+.email-edit:hover .row button.disabled,
 .email-edit.focused .row a.button.disabled,
+.email-edit:hover .row a.button.disabled,
 .email-edit.focused .row button.disabled:hover,
-.email-edit.focused .row a.button.disabled:hover {
+.email-edit:hover .row button.disabled:hover,
+.email-edit.focused .row a.button.disabled:hover,
+.email-edit:hover .row a.button.disabled:hover {
   background: none;
   color: #ccc;
   cursor: default;
 }
 .email-edit.focused .row button[disabled] .icon,
+.email-edit:hover .row button[disabled] .icon,
 .email-edit.focused .row a.button[disabled] .icon,
+.email-edit:hover .row a.button[disabled] .icon,
 .email-edit.focused .row button[disabled]:hover .icon,
+.email-edit:hover .row button[disabled]:hover .icon,
 .email-edit.focused .row a.button[disabled]:hover .icon,
+.email-edit:hover .row a.button[disabled]:hover .icon,
 .email-edit.focused .row button.disabled .icon,
+.email-edit:hover .row button.disabled .icon,
 .email-edit.focused .row a.button.disabled .icon,
+.email-edit:hover .row a.button.disabled .icon,
 .email-edit.focused .row button.disabled:hover .icon,
-.email-edit.focused .row a.button.disabled:hover .icon {
+.email-edit:hover .row button.disabled:hover .icon,
+.email-edit.focused .row a.button.disabled:hover .icon,
+.email-edit:hover .row a.button.disabled:hover .icon {
   background: none;
   border-color: #ccc;
 }
 .email-edit.focused .row button[disabled] .icon i,
+.email-edit:hover .row button[disabled] .icon i,
 .email-edit.focused .row a.button[disabled] .icon i,
+.email-edit:hover .row a.button[disabled] .icon i,
 .email-edit.focused .row button[disabled]:hover .icon i,
+.email-edit:hover .row button[disabled]:hover .icon i,
 .email-edit.focused .row a.button[disabled]:hover .icon i,
+.email-edit:hover .row a.button[disabled]:hover .icon i,
 .email-edit.focused .row button.disabled .icon i,
+.email-edit:hover .row button.disabled .icon i,
 .email-edit.focused .row a.button.disabled .icon i,
+.email-edit:hover .row a.button.disabled .icon i,
 .email-edit.focused .row button.disabled:hover .icon i,
-.email-edit.focused .row a.button.disabled:hover .icon i {
+.email-edit:hover .row button.disabled:hover .icon i,
+.email-edit.focused .row a.button.disabled:hover .icon i,
+.email-edit:hover .row a.button.disabled:hover .icon i {
   background: none;
   border-color: #ccc;
   box-shadow: none;
 }
 .email-edit.focused .row button[disabled] span,
+.email-edit:hover .row button[disabled] span,
 .email-edit.focused .row a.button[disabled] span,
+.email-edit:hover .row a.button[disabled] span,
 .email-edit.focused .row button[disabled]:hover span,
+.email-edit:hover .row button[disabled]:hover span,
 .email-edit.focused .row a.button[disabled]:hover span,
+.email-edit:hover .row a.button[disabled]:hover span,
 .email-edit.focused .row button.disabled span,
+.email-edit:hover .row button.disabled span,
 .email-edit.focused .row a.button.disabled span,
+.email-edit:hover .row a.button.disabled span,
 .email-edit.focused .row button.disabled:hover span,
-.email-edit.focused .row a.button.disabled:hover span {
+.email-edit:hover .row button.disabled:hover span,
+.email-edit.focused .row a.button.disabled:hover span,
+.email-edit:hover .row a.button.disabled:hover span {
   color: #ccc;
 }
 .email-edit.focused .row button .icon,
-.email-edit.focused .row a.button .icon {
+.email-edit:hover .row button .icon,
+.email-edit.focused .row a.button .icon,
+.email-edit:hover .row a.button .icon {
   background: none;
   border-color: #888;
 }
 .email-edit.focused .row button .icon i,
-.email-edit.focused .row a.button .icon i {
+.email-edit:hover .row button .icon i,
+.email-edit.focused .row a.button .icon i,
+.email-edit:hover .row a.button .icon i {
   border-color: #ccc;
   background: none;
 }
 .email-edit.focused .row button span,
-.email-edit.focused .row a.button span {
+.email-edit:hover .row button span,
+.email-edit.focused .row a.button span,
+.email-edit:hover .row a.button span {
   color: #888;
 }
 .email-edit.focused .row button:hover,
+.email-edit:hover .row button:hover,
 .email-edit.focused .row a.button:hover,
+.email-edit:hover .row a.button:hover,
 .email-edit.focused .row button:focus,
-.email-edit.focused .row a.button:focus {
+.email-edit:hover .row button:focus,
+.email-edit.focused .row a.button:focus,
+.email-edit:hover .row a.button:focus {
   background: #fda;
   color: #777;
 }
 .email-edit.focused .row button:hover .icon,
+.email-edit:hover .row button:hover .icon,
 .email-edit.focused .row a.button:hover .icon,
+.email-edit:hover .row a.button:hover .icon,
 .email-edit.focused .row button:focus .icon,
-.email-edit.focused .row a.button:focus .icon {
+.email-edit:hover .row button:focus .icon,
+.email-edit.focused .row a.button:focus .icon,
+.email-edit:hover .row a.button:focus .icon {
   background: white;
   border-color: #777;
 }
 .email-edit.focused .row button:hover .icon i,
+.email-edit:hover .row button:hover .icon i,
 .email-edit.focused .row a.button:hover .icon i,
+.email-edit:hover .row a.button:hover .icon i,
 .email-edit.focused .row button:focus .icon i,
-.email-edit.focused .row a.button:focus .icon i {
+.email-edit:hover .row button:focus .icon i,
+.email-edit.focused .row a.button:focus .icon i,
+.email-edit:hover .row a.button:focus .icon i {
   border-color: #e4c392;
   background: #fda;
 }
 .email-edit.focused .row button:hover span,
+.email-edit:hover .row button:hover span,
 .email-edit.focused .row a.button:hover span,
+.email-edit:hover .row a.button:hover span,
 .email-edit.focused .row button:focus span,
-.email-edit.focused .row a.button:focus span {
+.email-edit:hover .row button:focus span,
+.email-edit.focused .row a.button:focus span,
+.email-edit:hover .row a.button:focus span {
   color: #777;
 }
 .email-edit.focused .row button:hover .icon i,
+.email-edit:hover .row button:hover .icon i,
 .email-edit.focused .row a.button:hover .icon i,
+.email-edit:hover .row a.button:hover .icon i,
 .email-edit.focused .row button:focus .icon i,
-.email-edit.focused .row a.button:focus .icon i {
+.email-edit:hover .row button:focus .icon i,
+.email-edit.focused .row a.button:focus .icon i,
+.email-edit:hover .row a.button:focus .icon i {
   background: #fda;
   box-shadow: inset rgba(255, 255, 255, 0.7) 0px 2px 10px, inset rgba(0, 0, 0, 0.1) 0px -2px 10px;
 }
 .email-edit.focused .row button:hover[disabled] .icon i,
+.email-edit:hover .row button:hover[disabled] .icon i,
 .email-edit.focused .row a.button:hover[disabled] .icon i,
+.email-edit:hover .row a.button:hover[disabled] .icon i,
 .email-edit.focused .row button:focus[disabled] .icon i,
+.email-edit:hover .row button:focus[disabled] .icon i,
 .email-edit.focused .row a.button:focus[disabled] .icon i,
+.email-edit:hover .row a.button:focus[disabled] .icon i,
 .email-edit.focused .row button:hover[disabled]:hover .icon i,
+.email-edit:hover .row button:hover[disabled]:hover .icon i,
 .email-edit.focused .row a.button:hover[disabled]:hover .icon i,
+.email-edit:hover .row a.button:hover[disabled]:hover .icon i,
 .email-edit.focused .row button:focus[disabled]:hover .icon i,
+.email-edit:hover .row button:focus[disabled]:hover .icon i,
 .email-edit.focused .row a.button:focus[disabled]:hover .icon i,
+.email-edit:hover .row a.button:focus[disabled]:hover .icon i,
 .email-edit.focused .row button:hover.disabled .icon i,
+.email-edit:hover .row button:hover.disabled .icon i,
 .email-edit.focused .row a.button:hover.disabled .icon i,
+.email-edit:hover .row a.button:hover.disabled .icon i,
 .email-edit.focused .row button:focus.disabled .icon i,
+.email-edit:hover .row button:focus.disabled .icon i,
 .email-edit.focused .row a.button:focus.disabled .icon i,
+.email-edit:hover .row a.button:focus.disabled .icon i,
 .email-edit.focused .row button:hover.disabled:hover .icon i,
+.email-edit:hover .row button:hover.disabled:hover .icon i,
 .email-edit.focused .row a.button:hover.disabled:hover .icon i,
+.email-edit:hover .row a.button:hover.disabled:hover .icon i,
 .email-edit.focused .row button:focus.disabled:hover .icon i,
-.email-edit.focused .row a.button:focus.disabled:hover .icon i {
+.email-edit:hover .row button:focus.disabled:hover .icon i,
+.email-edit.focused .row a.button:focus.disabled:hover .icon i,
+.email-edit:hover .row a.button:focus.disabled:hover .icon i {
   box-shadow: none;
 }
 .email-edit.focused .row button:active .icon i,
-.email-edit.focused .row a.button:active .icon i {
+.email-edit:hover .row button:active .icon i,
+.email-edit.focused .row a.button:active .icon i,
+.email-edit:hover .row a.button:active .icon i {
   background: #ffd390;
   box-shadow: inset rgba(255, 255, 255, 0.7) 0px -2px 10px, inset rgba(0, 0, 0, 0.1) 0px 2px 10px;
 }
 .email-edit.focused .row button:active[disabled] .icon i,
+.email-edit:hover .row button:active[disabled] .icon i,
 .email-edit.focused .row a.button:active[disabled] .icon i,
+.email-edit:hover .row a.button:active[disabled] .icon i,
 .email-edit.focused .row button:active[disabled]:hover .icon i,
+.email-edit:hover .row button:active[disabled]:hover .icon i,
 .email-edit.focused .row a.button:active[disabled]:hover .icon i,
+.email-edit:hover .row a.button:active[disabled]:hover .icon i,
 .email-edit.focused .row button:active.disabled .icon i,
+.email-edit:hover .row button:active.disabled .icon i,
 .email-edit.focused .row a.button:active.disabled .icon i,
+.email-edit:hover .row a.button:active.disabled .icon i,
 .email-edit.focused .row button:active.disabled:hover .icon i,
-.email-edit.focused .row a.button:active.disabled:hover .icon i {
+.email-edit:hover .row button:active.disabled:hover .icon i,
+.email-edit.focused .row a.button:active.disabled:hover .icon i,
+.email-edit:hover .row a.button:active.disabled:hover .icon i {
   box-shadow: none;
 }
 .email-edit.focused .row button[disabled],
+.email-edit:hover .row button[disabled],
 .email-edit.focused .row a.button[disabled],
+.email-edit:hover .row a.button[disabled],
 .email-edit.focused .row button[disabled]:hover,
+.email-edit:hover .row button[disabled]:hover,
 .email-edit.focused .row a.button[disabled]:hover,
+.email-edit:hover .row a.button[disabled]:hover,
 .email-edit.focused .row button.disabled,
+.email-edit:hover .row button.disabled,
 .email-edit.focused .row a.button.disabled,
+.email-edit:hover .row a.button.disabled,
 .email-edit.focused .row button.disabled:hover,
-.email-edit.focused .row a.button.disabled:hover {
+.email-edit:hover .row button.disabled:hover,
+.email-edit.focused .row a.button.disabled:hover,
+.email-edit:hover .row a.button.disabled:hover {
   background: none;
   color: #ccc;
 }
 .email-edit.focused .row button[disabled] .icon,
+.email-edit:hover .row button[disabled] .icon,
 .email-edit.focused .row a.button[disabled] .icon,
+.email-edit:hover .row a.button[disabled] .icon,
 .email-edit.focused .row button[disabled]:hover .icon,
+.email-edit:hover .row button[disabled]:hover .icon,
 .email-edit.focused .row a.button[disabled]:hover .icon,
+.email-edit:hover .row a.button[disabled]:hover .icon,
 .email-edit.focused .row button.disabled .icon,
+.email-edit:hover .row button.disabled .icon,
 .email-edit.focused .row a.button.disabled .icon,
+.email-edit:hover .row a.button.disabled .icon,
 .email-edit.focused .row button.disabled:hover .icon,
-.email-edit.focused .row a.button.disabled:hover .icon {
+.email-edit:hover .row button.disabled:hover .icon,
+.email-edit.focused .row a.button.disabled:hover .icon,
+.email-edit:hover .row a.button.disabled:hover .icon {
   background: none;
   border-color: #ccc;
 }
 .email-edit.focused .row button[disabled] .icon i,
+.email-edit:hover .row button[disabled] .icon i,
 .email-edit.focused .row a.button[disabled] .icon i,
+.email-edit:hover .row a.button[disabled] .icon i,
 .email-edit.focused .row button[disabled]:hover .icon i,
+.email-edit:hover .row button[disabled]:hover .icon i,
 .email-edit.focused .row a.button[disabled]:hover .icon i,
+.email-edit:hover .row a.button[disabled]:hover .icon i,
 .email-edit.focused .row button.disabled .icon i,
+.email-edit:hover .row button.disabled .icon i,
 .email-edit.focused .row a.button.disabled .icon i,
+.email-edit:hover .row a.button.disabled .icon i,
 .email-edit.focused .row button.disabled:hover .icon i,
-.email-edit.focused .row a.button.disabled:hover .icon i {
+.email-edit:hover .row button.disabled:hover .icon i,
+.email-edit.focused .row a.button.disabled:hover .icon i,
+.email-edit:hover .row a.button.disabled:hover .icon i {
   border-color: #ccc;
   background: none;
 }
 .email-edit.focused .row button[disabled] span,
+.email-edit:hover .row button[disabled] span,
 .email-edit.focused .row a.button[disabled] span,
+.email-edit:hover .row a.button[disabled] span,
 .email-edit.focused .row button[disabled]:hover span,
+.email-edit:hover .row button[disabled]:hover span,
 .email-edit.focused .row a.button[disabled]:hover span,
+.email-edit:hover .row a.button[disabled]:hover span,
 .email-edit.focused .row button.disabled span,
+.email-edit:hover .row button.disabled span,
 .email-edit.focused .row a.button.disabled span,
+.email-edit:hover .row a.button.disabled span,
 .email-edit.focused .row button.disabled:hover span,
-.email-edit.focused .row a.button.disabled:hover span {
+.email-edit:hover .row button.disabled:hover span,
+.email-edit.focused .row a.button.disabled:hover span,
+.email-edit:hover .row a.button.disabled:hover span {
   color: #ccc;
 }
 .email-edit.invalid .input-wrapper.invalid .icon-warning {
@@ -2350,6 +2492,12 @@ input[type="text"].price {
 .product-add.invalid .product-name .input-wrapper.invalid .icon-warning {
   right: 6px;
   top: 0px;
+}
+.row.focused .muted,
+.email-edit.focused .muted,
+.row:hover .muted,
+.email-edit:hover .muted {
+  color: #f8c77e !important;
 }
 .home {
   background: #579532;

@@ -3,12 +3,14 @@ import { ROUTER_DIRECTIVES, Router } from '@angular/router-deprecated';
 import { EmailService, EmailMessage, EmailRecipient } from '../email/email.service';
 import { ValidatableComponent } from '../shared/validatable.component';
 import { ActiveService, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
+import { DefaultToPipe } from '../shared/pipes'
 
 @Component({
   selector: 'cc-send-email',
   templateUrl: 'app/email/send-email.component.html',
   providers: [EmailService, ActiveService],
-directives: [ROUTER_DIRECTIVES, ValidatableComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective]
+  directives: [ROUTER_DIRECTIVES, ValidatableComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective],
+  pipes: [DefaultToPipe]
 })
 export class SendEmailComponent implements AfterViewInit {
   constructor(private emailService: EmailService, private router: Router, private renderer: Renderer) {
@@ -44,10 +46,14 @@ export class SendEmailComponent implements AfterViewInit {
       || this.validatables.toArray().every(v => v.valid);
   }
 
+  get noRecipients() {
+    return this.recipients.every(r => !r.address);
+  }
+
   send() {
     this.validated = true;
     if(this.valid) {
-      this.emailService.send(new EmailMessage(this.recipients, this.subject, this.body))
+      this.emailService.send(new EmailMessage(this.recipients.filter(r => !!r.address), this.subject, this.body))
                        .subscribe(() => this.router.navigate(this.successLinkParams));
     }
   }
