@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Renderer } from '@angular/core';
 import { Round, RoundCustomer } from './round'
 import { RoundService } from './round.service'
 import { CustomerService } from '../customers/customer.service'
@@ -21,19 +21,18 @@ import 'rxjs/add/operator/combineLatest';
   providers: [RoundService, CustomerService, ActiveService, RoundCustomersService]
 })
 export class RoundsHomeComponent implements OnInit {
-  constructor(roundService: RoundService, customerService: CustomerService, routeParams: RouteParams) {
-    this.roundService = roundService;
-    this.customerService = customerService;
-    this.queryParams = routeParams.params;
-  }
-
-  roundService: RoundService;
-  customerService: CustomerService;
+  queryParams: {[key: string]: string};
   rounds: Round[] = [];
   unusedCustomers: RoundCustomer[] = [];
   loaded: boolean;
 
-  queryParams: {[key: string]: string};
+  constructor(
+    private roundService: RoundService,
+    private customerService: CustomerService,
+    private renderer: Renderer,
+    routeParams: RouteParams) {
+    this.queryParams = routeParams.params;
+  }
 
   ngOnInit() {
     this.roundService.getAll(this.queryParams)
@@ -50,6 +49,7 @@ export class RoundsHomeComponent implements OnInit {
   onAdd(round: Round) {
     this.roundService.add(round, this.queryParams).subscribe(rounds => {
       this.rounds = rounds;
+      setTimeout(() => this.renderer.invokeElementMethod(window, 'scrollTo', [0, document.body.scrollHeight]));
     });
   }
 

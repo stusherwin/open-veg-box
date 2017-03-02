@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Input, ViewChild, ElementRef, ChangeDetectorRef, AfterViewChecked, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, ViewChild, ElementRef, ChangeDetectorRef, AfterViewChecked, ViewChildren, QueryList, Renderer } from '@angular/core';
 import { Box, BoxProduct } from './box'
 import { Product } from '../products/product';
 import { BoxService } from './box.service'
@@ -19,7 +19,7 @@ import 'rxjs/add/operator/combineLatest';
   providers: [BoxService, ProductService, UsersService, BoxProductsService, ActiveService]
 })
 export class BoxesComponent implements OnInit {
-  constructor(private boxService: BoxService, private productService: ProductService, private routeParams: RouteParams, private changeDetector: ChangeDetectorRef) {
+  constructor(private boxService: BoxService, private productService: ProductService, private routeParams: RouteParams, private changeDetector: ChangeDetectorRef, private renderer: Renderer) {
     this.queryParams = routeParams.params;
   }
 
@@ -41,6 +41,7 @@ export class BoxesComponent implements OnInit {
   onAdd(box: Box) {
     this.boxService.add(box, this.queryParams).subscribe(boxes => {
       this.boxes = boxes;
+      setTimeout(() => this.renderer.invokeElementMethod(window, 'scrollTo', [0, document.body.scrollHeight]));
     });
   }
 

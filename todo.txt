@@ -72,7 +72,6 @@ Ideas
 * Animation (close row on delete, fade add preview in/out)
 * Catch tabbing away in active-elements then handle it specifically as a tabbed-away event 
   in container components?
-* After adding new item, should scroll to bottom
 
 Tidy up
 =======

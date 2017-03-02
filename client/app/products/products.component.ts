@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Renderer } from '@angular/core';
 import { Product } from './product'
 import { ProductService } from './product.service'
 import { UsersService } from '../users/users.service'
@@ -15,7 +15,7 @@ import { ActiveService, ActiveElementDirective } from '../shared/active-elements
   providers: [ProductService, UsersService, ActiveService]
 })
 export class ProductsComponent implements OnInit {
-  constructor(productService: ProductService, routeParams: RouteParams) {
+  constructor(productService: ProductService, routeParams: RouteParams, private renderer: Renderer) {
     this.productService = productService;
     this.queryParams = routeParams.params;
   }
@@ -36,6 +36,7 @@ export class ProductsComponent implements OnInit {
   onAdd(product: Product) {
     this.productService.add(product, this.queryParams).subscribe(products => {
       this.products = products;
+      setTimeout(() => this.renderer.invokeElementMethod(window, 'scrollTo', [0, document.body.scrollHeight]));
     });
   }
 

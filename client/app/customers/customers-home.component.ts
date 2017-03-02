@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Renderer } from '@angular/core';
 import { Customer } from './customer'
 import { CustomerService } from './customer.service'
 import { CustomerComponent } from './customer.component'
@@ -16,7 +16,7 @@ import 'rxjs/add/operator/last';
   providers: [CustomerService, ActiveService]
 })
 export class CustomersHomeComponent implements OnInit {
-  constructor(customerService: CustomerService, routeParams: RouteParams) {
+  constructor(customerService: CustomerService, routeParams: RouteParams, private renderer: Renderer) {
     this.customerService = customerService;
     this.queryParams = routeParams.params;
   }
@@ -37,6 +37,7 @@ export class CustomersHomeComponent implements OnInit {
   onAdd(customer: Customer) {
     this.customerService.add(customer, this.queryParams).subscribe(customers => {
       this.customers = customers;
+      setTimeout(() => this.renderer.invokeElementMethod(window, 'scrollTo', [0, document.body.scrollHeight]));
     });
   }
 
