@@ -59,7 +59,6 @@ Bugs
 * Warning icon alignment out in Firefox/Chrome
 * Row highlight flashes when editable-value canceled
 * box-product-quantity edit out by 1px in Firefox
-* Email overlaps phone no. if too long (truncate)
 
 Ideas
 =====

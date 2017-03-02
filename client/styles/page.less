@@ -747,6 +747,7 @@ input[type="text"].price {
         .detail-marker {
           display: table-cell;
           width: 20px;
+          min-width: 20px;
           font-size: 110%;
         }
 
@@ -833,6 +834,20 @@ input[type="text"].price {
   }
 }
 
+.customer-details .customer-detail.email {
+  .editable-value {
+    .editable-value-display {
+      table-layout: fixed;
+      overflow: hidden;
+
+      .detail-display {
+        overflow: hidden;
+        height: 30px;
+      }
+    }
+  }
+}
+
 .customer-add {
   .customer-name {
     input {
@@ -864,6 +879,7 @@ input[type="text"].price {
           display: table-cell;
           vertical-align: top;
           width: 20px;
+          min-width: 20px;
           
           i {
             font-size: 90%;
@@ -898,10 +914,6 @@ input[type="text"].price {
             right: 6px;
           }
         }
-      }
-
-      &.email {
-
       }
       
       &.tel {

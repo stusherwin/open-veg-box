@@ -1250,6 +1250,7 @@ input[type="text"].price {
 .customer-details .customer-detail .editable-value .editable-value-display .detail-marker {
   display: table-cell;
   width: 20px;
+  min-width: 20px;
   font-size: 110%;
 }
 .customer-details .customer-detail .editable-value .editable-value-display .detail-display {
@@ -1307,6 +1308,14 @@ input[type="text"].price {
   top: -51px;
   right: 8px;
 }
+.customer-details .customer-detail.email .editable-value .editable-value-display {
+  table-layout: fixed;
+  overflow: hidden;
+}
+.customer-details .customer-detail.email .editable-value .editable-value-display .detail-display {
+  overflow: hidden;
+  height: 30px;
+}
 .customer-add .customer-name input {
   width: 100%;
   font-size: 150%;
@@ -1325,6 +1334,7 @@ input[type="text"].price {
   display: table-cell;
   vertical-align: top;
   width: 20px;
+  min-width: 20px;
 }
 .customer-add .customer-details .customer-detail .meh .detail-marker i {
   font-size: 90%;
