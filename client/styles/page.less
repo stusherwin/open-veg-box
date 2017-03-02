@@ -513,12 +513,13 @@ input[type="text"].price {
 
 .box-products {
   .boxProductClearFix;
+  margin-bottom: 10px;
 
   table {
     float: left;
 
     td {
-      padding: 0 0 5px 0;
+      padding: 5px 0 0 0;
     }
   }
 
@@ -583,11 +584,16 @@ input[type="text"].price {
   }
 
   .no-products {
-    border: 1px solid transparent;
+    //border: 1px solid transparent;
     padding-bottom: 2px;
   }
 
   .box-product-add {
+    display: inline-block;
+    clear: both;
+    margin-top: 5px;
+    margin-bottom: 0px;
+
     .box-product-add-display {
       a {
         position: relative;
@@ -612,7 +618,7 @@ input[type="text"].price {
 
     &.editable-value {
       .editable-value-edit {
-        right: -13px;
+        right: -26px;
         left: -9px;
         padding-right: 0;
         height: 28px;

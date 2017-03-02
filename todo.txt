@@ -46,7 +46,6 @@ Box Products
 
 Round customers
 ===============
-? Should BCC recipients, not TO?
 * 1px spacing difference when tabbing into round-customers from outside
   - also within round-customers (add?)
 * Adding last customer - add control is displayed then immediately hidden

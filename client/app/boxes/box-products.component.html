@@ -24,23 +24,19 @@
         </cc-box-product-remove>
       </td>
     </tr>
-    <tr *ngIf="!value.length"> 
-      <td colspan="3"><div class="no-products">No products added yet.</div></td>
-    </tr>
-    <tr>
-      <td colspan="3">
-        <cc-box-product-add #add *ngIf="i == columns.length - 1"
-          editId="{{editId}}:a"
-          [products]="unusedProducts"
-          [productNameWidth]="productNameWidth + productNamePadding"
-          [productQuantityWidth]="productQuantityWidth + productQuantityPadding"
-          [editTabindex]="editTabindex"
-          text="Add {{!value.length? 'a' : 'another'}} product..."
-          (add)="onProductAdd($event)">
-        </cc-box-product-add>
-      </td>
-    </tr>
   </table>
+  <div style="clear: both">
+    <div style="margin-top: 22px;" class="no-products" *ngIf="!value.length">No products added yet.</div>
+    <cc-box-product-add #add
+      editId="{{editId}}:a"
+      [products]="unusedProducts"
+      [productNameWidth]="productNameWidth + productNamePadding"
+      [productQuantityWidth]="productQuantityWidth + productQuantityPadding"
+      [editTabindex]="editTabindex"
+      text="Add {{!value.length? 'a' : 'another'}} product..."
+      (add)="onProductAdd($event)">
+    </cc-box-product-add>
+  </div>
 </div>
 
 <div class="box-products width-test">

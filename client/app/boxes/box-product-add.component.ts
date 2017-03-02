@@ -13,7 +13,7 @@ import { EditableValueComponent } from '../shared/editable-value.component'
   templateUrl: 'app/boxes/box-product-add.component.html',
   directives: [ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, ValidatableComponent, EditableValueComponent]
 })
-export class BoxProductAddComponent implements OnInit, AfterViewInit {
+export class BoxProductAddComponent implements OnInit, AfterViewInit, OnChanges {
   adding: boolean;
   product: Product;
   quantityStringValue: string;
@@ -68,6 +68,12 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit {
       // focus changes addHover state, so need to force change detection
       this.changeDetector.detectChanges();
     }
+  }
+
+  ngOnChanges() {
+    // urgh. how to respond to changes in input properties?
+    // Wish I had written this in React.
+    this.product = this.products[0];
   }
 
   onStart() {
