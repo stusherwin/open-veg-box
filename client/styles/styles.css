@@ -943,7 +943,12 @@ body {
   box-shadow: inset rgba(0, 0, 0, 0.5) 0px 3px 10px 0px;
 }
 .page {
-  padding: 106px 10px 10px 10px;
+  padding: 170px 10px 10px 10px;
+}
+@media only screen and (min-width : 780px) {
+  .page {
+    padding-top: 106px;
+  }
 }
 .page h2,
 .page p {
