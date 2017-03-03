@@ -1,7 +1,7 @@
 <h2>Boxes</h2>
 
 <div class="row-view" cc-active [class.focused]="focused" (activate)="focused = true" (deactivate)="focused = false">
-  <button class="add-button" (click)="add.startAdd()" tabindex="0">
+  <button class="add-button" (click)="add.startAdd()" tabindex="1" cc-active cc-activate-on-focus cc-deactivate-on-blur>
     <div class="icon"><i class="icon-add"></i></div>
     <span>Add</span>
   </button>

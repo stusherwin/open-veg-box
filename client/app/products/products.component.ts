@@ -6,12 +6,12 @@ import { ProductComponent } from './product.component'
 import { ProductAddComponent } from './product-add.component'
 import { Observable } from 'rxjs/Observable';
 import { RouteParams } from '@angular/router-deprecated';
-import { ActiveService, ActiveElementDirective } from '../shared/active-elements'
+import { ActiveService, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
 
 @Component({
   selector: 'cc-products',
   templateUrl: 'app/products/products.component.html',
-  directives: [ProductComponent, ActiveElementDirective, ProductAddComponent],
+  directives: [ProductComponent, ActiveElementDirective, ProductAddComponent, ActivateOnFocusDirective, DeactivateOnBlurDirective],
   providers: [ProductService, UsersService, ActiveService]
 })
 export class ProductsComponent implements OnInit {

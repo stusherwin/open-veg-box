@@ -1,7 +1,7 @@
 <h2>Products</h2>
 
 <div id="row-view" class="row-view" cc-active (activate)="focused = true" (deactivate)="focused = false" [class.focused]="focused">
-  <button class="add-button" (click)="add.startAdd()" tabindex="0">
+  <button class="add-button" (click)="add.startAdd()" tabindex="1" cc-active cc-activate-on-focus cc-deactivate-on-blur>
     <div class="icon"><i class="icon-add"></i></div>
     <span>Add</span>
   </button>

@@ -7,7 +7,7 @@ import { RoundAddComponent } from './round-add.component'
 import { Observable } from 'rxjs/Observable';
 import { RouteParams } from '@angular/router-deprecated';
 import { RouteConfig, Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
-import { ActiveService, ActiveElementDirective } from '../shared/active-elements'
+import { ActiveService, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
 import { RoundCustomersService } from './round-customers.service'
 import 'rxjs/add/observable/concat';
 import 'rxjs/add/operator/last';
@@ -17,7 +17,7 @@ import 'rxjs/add/operator/combineLatest';
 @Component({
   selector: 'cc-rounds-home',
   templateUrl: 'app/rounds/rounds-home.component.html',
-  directives: [RoundComponent, ActiveElementDirective, RoundAddComponent],
+  directives: [RoundComponent, ActiveElementDirective, RoundAddComponent, ActivateOnFocusDirective, DeactivateOnBlurDirective],
   providers: [RoundService, CustomerService, ActiveService, RoundCustomersService]
 })
 export class RoundsHomeComponent implements OnInit {
