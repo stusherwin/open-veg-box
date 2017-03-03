@@ -15,29 +15,56 @@ DECLARE customerId1 integer;
 DECLARE customerId2 integer;
 DECLARE customerId3 integer;
 DECLARE customerId4 integer;
+DECLARE customerOrderId1 integer;
+DECLARE customerOrderId2 integer;
+DECLARE customerOrderId3 integer;
+DECLARE customerOrderId4 integer;
 BEGIN
   DROP TABLE IF EXISTS round_customer;
   DROP TABLE IF EXISTS round;
+  DROP TABLE IF EXISTS customerOrder_box;
+  DROP TABLE IF EXISTS customerOrder_product;
+  DROP TABLE IF EXISTS customerOrder;
   DROP TABLE IF EXISTS customer;
   DROP TABLE IF EXISTS box_product;
   DROP TABLE IF EXISTS box;
   DROP TABLE IF EXISTS product;
-
-  CREATE TABLE round(id serial primary key, name text);
-  CREATE TABLE customer(id serial primary key, name text, address text, tel1 text null, tel2 text null, email text null);
+  
+  CREATE TABLE round(id serial primary key NOT NULL, name text NOT NULL);
+  CREATE TABLE customer(id serial primary key NOT NULL, name text NOT NULL, address text, tel1 text null, tel2 text null, email text null);
   CREATE TABLE round_customer(
     roundId integer NOT NULL REFERENCES round(id),
     customerId integer NOT NULL REFERENCES customer(id),
     PRIMARY KEY(roundId, customerId)
   );
-  CREATE TABLE box(id serial primary key, name text, price real);
-  CREATE TABLE product(id serial primary key, name text, price real, unitType text, unitQuantity real);
+  CREATE TABLE box(id serial primary key NOT NULL, name text NOT NULL, price real NOT NULL);
+  CREATE TABLE product(id serial primary key NOT NULL, name text NOT NULL, price real NOT NULL, unitType text NOT NULL, unitQuantity real);
   CREATE TABLE box_product(
     boxId integer NOT NULL REFERENCES box(id),
     productId integer NOT NULL REFERENCES product(id),
     quantity real NOT NULL,
     PRIMARY KEY(boxId, productId)
   );
+
+  CREATE TABLE customerOrder(
+    id serial primary key NOT NULL, 
+    customerId integer NOT NULL REFERENCES customer(id)
+  );
+
+  CREATE TABLE customerOrder_box(
+    customerOrderId integer NOT NULL REFERENCES customerOrder(id),
+    boxId integer NOT NULL REFERENCES box(id),
+    quantity integer NOT NULL,
+    PRIMARY KEY(customerOrderId, boxId)
+  );
+
+  CREATE TABLE customerOrder_product(
+    customerOrderId integer NOT NULL REFERENCES customerOrder(id),
+    productId integer NOT NULL REFERENCES product(id),
+    quantity real NOT NULL,
+    PRIMARY KEY(customerOrderId, productId)
+  );
+
 
   --GRANT ALL ON ALL TABLES IN SCHEMA public TO openvegbox;
   --GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO openvegbox;
@@ -113,5 +140,25 @@ D44 4DD','07324 358774','derek@draper.com');
   INSERT INTO round_customer (roundId, customerId) VALUES(roundId1, customerId2);
   INSERT INTO round_customer (roundId, customerId) VALUES(roundId2, customerId3);
   INSERT INTO round_customer (roundId, customerId) VALUES(roundId2, customerId4);
+
+  INSERT INTO customerOrder (customerId) VALUES(customerId1);
+  INSERT INTO customerOrder (customerId) VALUES(customerId2);
+  INSERT INTO customerOrder (customerId) VALUES(customerId3);
+  INSERT INTO customerOrder (customerId) VALUES(customerId4);
+
+  SELECT id from customerOrder where customerId = customerId1 INTO customerOrderId1;
+  SELECT id from customerOrder where customerId = customerId2 INTO customerOrderId2;
+  SELECT id from customerOrder where customerId = customerId3 INTO customerOrderId3;
+  SELECT id from customerOrder where customerId = customerId4 INTO customerOrderId4;
+
+  INSERT INTO customerOrder_box (customerOrderId, boxId, quantity) VALUES(customerOrderId1, boxId1, 1);
+  INSERT INTO customerOrder_box (customerOrderId, boxId, quantity) VALUES(customerOrderId2, boxId2, 1);
+  INSERT INTO customerOrder_box (customerOrderId, boxId, quantity) VALUES(customerOrderId2, boxId3, 1);
+  INSERT INTO customerOrder_box (customerOrderId, boxId, quantity) VALUES(customerOrderId3, boxId3, 2);
+  INSERT INTO customerOrder_box (customerOrderId, boxId, quantity) VALUES(customerOrderId4, boxId3, 1);
+
+  INSERT INTO customerOrder_product (customerOrderId, productId, quantity) VALUES(customerOrderId1, productId7, 5);
+  INSERT INTO customerOrder_product (customerOrderId, productId, quantity) VALUES(customerOrderId4, productId5, 1.0);
+  INSERT INTO customerOrder_product (customerOrderId, productId, quantity) VALUES(customerOrderId4, productId6, 1.5);
 END $$
 

@@ -16,6 +16,7 @@ Database
 * Split out schema sql from data
 * Implement sqlite backup strategy
 * Hash/salt passwords in main db
+* Database schema updates
 
 Deployment
 ==========
@@ -58,6 +59,7 @@ Bugs
 * Row highlight flashes when editable-value canceled
 * box-product-quantity edit out by 1px in Firefox
 * box-products, round-customers - clicking add - ok/cancel buttons jump right to left
+* Customer phone has extra top margin on small screen
 
 Ideas
 =====

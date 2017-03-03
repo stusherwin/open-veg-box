@@ -1,4 +1,4 @@
-import {Customer} from './customer'
+import {Customer, CustomerWithOrder, CustomerOrder, CustomerOrderItem} from './customer'
 import {Observable} from 'rxjs/Observable';
 import {Db} from '../shared/db';
 import 'rxjs/add/operator/mergeMap';
@@ -6,12 +6,50 @@ import 'rxjs/add/operator/mergeMap';
 export class CustomersService {
   fields: string[] = ['name', 'address', 'tel1', 'tel2', 'email'];
 
-  getAll(queryParams: any, db: Db): Observable<Customer[]> {
-    return db.all<Customer>(
-      ' select c.id, c.name, c.address, c.tel1, c.tel2, c.email'
+  getAll(queryParams: any, db: Db): Observable<CustomerWithOrder[]> {
+    return db.allWithReduce<CustomerWithOrder>(
+      ' select'
+    + '  c.id, c.name, c.address, c.tel1, c.tel2, c.email'
+    + ', co.id customerOrderId'
+    + ', cob.boxId customerOrderBoxId, cob.quantity customerOrderBoxQuantity'
+    + ', b.name customerOrderBoxName'
+    + ', cop.productId customerOrderProductId, cop.quantity customerOrderProductQuantity'
+    + ', p.name customerOrderProductName, p.unitType customerOrderProductUnitType'
     + ' from customer c'
-    + ' order by c.id',
-      {}, queryParams, r => new Customer(r.id, r.name, r.address, r.tel1, r.tel2, r.email));
+    + ' left join customerOrder co on co.customerId = c.id'
+    + ' left join customerOrder_box cob on cob.customerOrderId = co.id'
+    + ' left join box b on b.id = cob.boxId'
+    + ' left join customerOrder_product cop on cop.customerOrderId = co.id'
+    + ' left join product p on p.id = cop.productId'
+    + ' order by c.id, customerOrderBoxName, customerOrderProductName',
+      {},
+      queryParams,
+      rows => {
+        let customers: { [id: number]: CustomerWithOrder; } = {};
+        for(let r of rows) {
+          if(!customers[r.id]) {
+            let order = new CustomerOrder(r.customerorderid, r.id, []);
+            customers[r.id] = new CustomerWithOrder(r.id, r.name, r.address, r.tel1, r.tel2, r.email, order);
+          }
+
+          if(r.customerorderboxid) {
+            if(customers[r.id].order.items.findIndex(i => i.type == 'box' && i.id == r.customerorderboxid) == -1) {
+              customers[r.id].order.items.push(new CustomerOrderItem('box', r.customerorderboxid, r.customerorderboxname, r.customerorderboxquantity, 'each'));
+            }
+          }
+          
+          if(r.customerorderproductid) {
+            if(customers[r.id].order.items.findIndex(i => i.type == 'product' && i.id == r.customerorderproductid) == -1) {
+              customers[r.id].order.items.push(new CustomerOrderItem('product', r.customerorderproductid, r.customerorderproductname, r.customerorderproductquantity, r.customerorderproductunittype));
+            }
+          }
+        }
+        let result: CustomerWithOrder[] = [];
+        for(let id in customers) {
+          result.push(customers[id]);
+        }
+        return result;
+      });
   }
   
   getAllWithNoRound(queryParams: any, db: Db): Observable<Customer[]> {

@@ -1,6 +1,13 @@
 PRAGMA foreign_keys=on;
 
 DROP TABLE IF EXISTS round_customer;
+
+DROP TABLE IF EXISTS round;
+CREATE TABLE round(id integer primary key NOT NULL, name text NOT NULL);
+
+DROP TABLE IF EXISTS customer;
+CREATE TABLE customer(id integer primary key NOT NULL, name text NOT NULL, address text, tel1 text null, tel2 text null, email text null);
+
 CREATE TABLE round_customer(
   roundId integer NOT NULL,
   customerId integer NOT NULL,
@@ -9,13 +16,14 @@ CREATE TABLE round_customer(
   FOREIGN KEY(customerId) REFERENCES customer(id)
 );
 
-DROP TABLE IF EXISTS round;
-CREATE TABLE round(id integer primary key, name text);
-
-DROP TABLE IF EXISTS customer;
-CREATE TABLE customer(id integer primary key, name text, address text, tel1 text null, tel2 text null, email text null);
-
 DROP TABLE IF EXISTS box_product;
+
+DROP TABLE IF EXISTS box;
+CREATE TABLE box(id integer primary key NOT NULL, name text NOT NULL, price real NOT NULL);
+
+DROP TABLE IF EXISTS product;
+CREATE TABLE product(id integer primary key NOT NULL, name text NOT NULL, price real NOT NULL, unitType text NOT NULL, unitQuantity real NOT NULL);
+
 CREATE TABLE box_product(
   boxId integer NOT NULL,
   productId integer NOT NULL,
@@ -25,11 +33,33 @@ CREATE TABLE box_product(
   FOREIGN KEY(productId) REFERENCES product(id)
 );
 
-DROP TABLE IF EXISTS box;
-CREATE TABLE box(id integer primary key, name text, price real);
+DROP TABLE IF EXISTS customerOrder_box;
+DROP TABLE IF EXISTS customerOrder_product;
 
-DROP TABLE IF EXISTS product;
-CREATE TABLE product(id integer primary key, name text, price real, unitType text, unitQuantity real);
+DROP TABLE IF EXISTS customerOrder;
+CREATE TABLE customerOrder(
+  id integer primary key NOT NULL,
+  customerId integer NOT NULL,
+  FOREIGN KEY(customerId) REFERENCES customer(id)
+);
+
+CREATE TABLE customerOrder_box(
+  customerOrderId integer NOT NULL,
+  boxId integer NOT NULL,
+  quantity integer NOT NULL,
+  PRIMARY KEY(customerOrderId, boxId),
+  FOREIGN KEY(customerOrderId) REFERENCES customerOrder(id),
+  FOREIGN KEY(boxId) REFERENCES box(id)
+);
+
+CREATE TABLE customerOrder_product(
+  customerOrderId integer NOT NULL,
+  productId integer NOT NULL,
+  quantity real NOT NULL,
+  PRIMARY KEY(customerOrderId, productId),
+  FOREIGN KEY(customerOrderId) REFERENCES customerOrder(id),
+  FOREIGN KEY(productId) REFERENCES product(id)
+);
 
 ------
 ------
@@ -82,3 +112,18 @@ INSERT INTO box_product VALUES(2, 4, 2.0);
 
 INSERT INTO box_product VALUES(3, 1, 1.0);
 INSERT INTO box_product VALUES(3, 2, 0.5);
+
+INSERT INTO customerOrder VALUES(1, 1);
+INSERT INTO customerOrder VALUES(2, 2);
+INSERT INTO customerOrder VALUES(3, 3);
+INSERT INTO customerOrder VALUES(4, 4);
+
+INSERT INTO customerOrder_box VALUES(1, 1, 1);
+INSERT INTO customerOrder_box VALUES(2, 2, 1);
+INSERT INTO customerOrder_box VALUES(2, 3, 1);
+INSERT INTO customerOrder_box VALUES(3, 3, 2);
+INSERT INTO customerOrder_box VALUES(4, 3, 1);
+
+INSERT INTO customerOrder_product VALUES(1, 7, 5);
+INSERT INTO customerOrder_product VALUES(4, 5, 1.0);
+INSERT INTO customerOrder_product VALUES(4, 6, 1.5);
