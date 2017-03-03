@@ -1,4 +1,4 @@
-import { Customer } from './customer'
+import { Customer, CustomerWithOrder, CustomerOrder, CustomerOrderItem } from './customer'
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -70,6 +70,6 @@ export class CustomerService {
   }
 
   private hydrate(p: any) {
-    return new Customer(p.id, p.name, p.address, p.tel1, p.tel2, p.email);
+    return new CustomerWithOrder(p.id, p.name, p.address, p.tel1, p.tel2, p.email, p.order);
   }
 }

@@ -61,6 +61,7 @@ Bugs
 * box-products, round-customers - clicking add - ok/cancel buttons jump right to left
 * Customer phone has extra top margin on small screen
 * Box products seems to think column widths are wider than they should be
+* row details should have constant padding
 
 Ideas
 =====

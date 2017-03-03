@@ -6,6 +6,7 @@ import { CustomerAddComponent } from './customer-add.component'
 import { Observable } from 'rxjs/Observable';
 import { RouteParams } from '@angular/router-deprecated';
 import { ActiveService, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
+import { DistributeWidthService } from './distribute-width.directive'
 import 'rxjs/add/observable/concat';
 import 'rxjs/add/operator/last';
 
@@ -13,7 +14,7 @@ import 'rxjs/add/operator/last';
   selector: 'cc-customers-home',
   templateUrl: 'app/customers/customers-home.component.html',
   directives: [CustomerComponent, CustomerAddComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective],
-  providers: [CustomerService, ActiveService]
+  providers: [CustomerService, ActiveService, DistributeWidthService]
 })
 export class CustomersHomeComponent implements OnInit {
   constructor(customerService: CustomerService, routeParams: RouteParams, private renderer: Renderer) {
