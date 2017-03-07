@@ -30,7 +30,6 @@ export class DistributeWidthDirective implements OnInit, OnDestroy {
   key: string;
 
   ngOnInit() {
-    console.log('OnInit');
     this.service.register(this);
   }
 
@@ -49,7 +48,6 @@ export class DistributeWidthDirective implements OnInit, OnDestroy {
   }
 
   newMinWidth(width: number){
-    console.log('newMinWidth: ' + width);
     this.minWidth = width;
     this.changeDetector.detectChanges();
   }
@@ -69,8 +67,6 @@ export class DistributeWidthService {
     if(!this.minWidths[directive.key]) {
       this.minWidths[directive.key] = 0;
     }
-
-    console.log('registering: ' + directive.key);
   }
   
   deregister(directive: DistributeWidthDirective) {
@@ -80,7 +76,6 @@ export class DistributeWidthService {
   }
 
   widthChanged(directive: DistributeWidthDirective) {
-    console.log('widthChanged (' + directive.key + '): ' + directive.width);
     this.recalculateWidths(directive.key);
   }
 
