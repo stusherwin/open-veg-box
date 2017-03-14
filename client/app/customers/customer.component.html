@@ -23,15 +23,17 @@
       <div class="customer-detail-end"></div>
     </div>
 
-    <table style="margin-bottom: 10px;">
-      <tr *ngFor="let item of customer.order.items">
-        <td cc-distribute-width="quantity" style="padding-top: 5px; padding-right: 10px;">
-          {{item.quantity}}
-          <span *ngIf="item.unitType == 'each'">x</span>
-          <span *ngIf="item.unitType == 'perKg'">Kg</span>
-        </td>
-        <td cc-distribute-width="name" style="padding-top: 5px">{{item.name}}</td>
-      </tr>
-    </table>
+    <div style="" class="customer-order">
+      <div *ngFor="let item of customer.order.items; let i = index" class="customer-order-item" style="">
+        <div cc-distribute-width="name" class="customer-order-item-name" style="">{{item.name}}</div>
+        <div cc-distribute-width="quantity" class="customer-order-item-quantity" style="">
+          <cc-box-product-quantity
+            [value]="item.quantity"
+            [unitType]="item.unitType"
+            [editTabindex]="editTabindex">
+          </cc-box-product-quantity>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

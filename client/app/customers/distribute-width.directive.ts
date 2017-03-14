@@ -1,6 +1,8 @@
 import { Input, Directive, OnInit, OnDestroy, ElementRef, Inject, forwardRef, HostListener, OnChanges, ChangeDetectorRef, AfterViewChecked, AfterViewInit, Renderer, EventEmitter, Output, HostBinding } from '@angular/core';
 import { Arrays } from '../shared/arrays'
 
+let id = 0;
+
 @Directive({
   selector: '[cc-distribute-width]',
   // host: {
@@ -13,6 +15,8 @@ export class DistributeWidthDirective implements OnInit, OnDestroy {
   @HostBinding('style.min-width.px')
   minWidth: number = 0;
 
+  id: number;
+
   constructor(
     private el: ElementRef,
 
@@ -20,6 +24,7 @@ export class DistributeWidthDirective implements OnInit, OnDestroy {
     private service: DistributeWidthService,
     
     private changeDetector: ChangeDetectorRef) {
+      this.id = id++;
   }
 
   get element() {
@@ -30,7 +35,7 @@ export class DistributeWidthDirective implements OnInit, OnDestroy {
   key: string;
 
   ngOnInit() {
-    this.service.register(this);
+    this.minWidth = this.service.register(this);
   }
 
   ngOnDestroy() {
@@ -43,11 +48,16 @@ export class DistributeWidthDirective implements OnInit, OnDestroy {
     let newWidth = this.el.nativeElement.getBoundingClientRect().width;
     if(newWidth != this.width) {
       this.width = newWidth;
-      this.service.widthChanged(this);
+      if(this.width != this.minWidth) {
+      console.log(this.key + this.id + ' width changed: ' + newWidth );
+        this.service.widthChanged(this);
+      }
     }
   }
 
-  newMinWidth(width: number){
+  newMinWidth(width: number) {
+    console.log(this.key + this.id + ' newMinWidth: ' + width );
+    
     this.minWidth = width;
     this.changeDetector.detectChanges();
   }
@@ -57,7 +67,7 @@ export class DistributeWidthService {
   minWidths: { [key: string]: number; } = {};
   directives: { [key: string]: DistributeWidthDirective[]} = {};
 
-  register(directive: DistributeWidthDirective) {
+  register(directive: DistributeWidthDirective): number {
     if(!this.directives[directive.key]) {
       this.directives[directive.key] = [directive];
     } else {
@@ -67,6 +77,8 @@ export class DistributeWidthService {
     if(!this.minWidths[directive.key]) {
       this.minWidths[directive.key] = 0;
     }
+
+    return this.minWidths[directive.key];
   }
   
   deregister(directive: DistributeWidthDirective) {

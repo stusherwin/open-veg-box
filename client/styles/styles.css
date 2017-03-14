@@ -2406,10 +2406,6 @@ input[type="text"].price {
   table-layout: fixed;
   overflow: hidden;
 }
-.customer-details .customer-detail.email .editable-value .editable-value-display .detail-display {
-  overflow: hidden;
-  height: 30px;
-}
 .customer-add .customer-name input {
   width: 100%;
   font-size: 150%;
@@ -2515,6 +2511,38 @@ input[type="text"].price {
 .email-edit.focused .muted,
 .email-edit:hover .muted {
   color: #f8c77e !important;
+}
+.customer-order {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.customer-order input[type="text"] {
+  width: 62px;
+}
+.customer-order .customer-order-item {
+  margin-top: 5px;
+}
+.customer-order .customer-order-item::after {
+  display: block;
+  clear: left;
+  content: ' ';
+  height: 0px;
+}
+.customer-order .customer-order-item .customer-order-item-name {
+  display: inline-block;
+}
+.customer-order .customer-order-item .customer-order-item-quantity {
+  display: inline-block;
+  margin-left: 10px;
+}
+.customer-order .box-product-quantity.editable-value .editable-value-display {
+  border: 1px solid transparent;
+}
+.customer-order .box-product-quantity.editable-value .editable-value-edit {
+  left: -8px;
+  top: -6px;
+  right: -58px;
+  padding-right: 0;
 }
 .home {
   background: #579532;

@@ -862,8 +862,8 @@ input[type="text"].price {
       overflow: hidden;
 
       .detail-display {
-        overflow: hidden;
-        height: 30px;
+        //overflow: hidden;
+        //height: 30px;
       }
     }
   }
@@ -1045,6 +1045,43 @@ input[type="text"].price {
   &.focused, &:hover {
     .muted {
       color: desaturate(lighten(@boxProductHover, 20%), 10%) !important;
+    }
+  }
+}
+
+.customer-order {
+  // .boxProductClearFix;
+  input[type="text"] {
+    width: 62px;
+  }
+
+  margin-top: 20px;
+  margin-bottom: 10px;
+
+  .customer-order-item {
+    .boxProductClearFix;
+    margin-top: 5px;
+
+    .customer-order-item-name {
+      display: inline-block;
+    }
+
+    .customer-order-item-quantity {
+      display: inline-block;
+      margin-left: 10px;
+    }
+  }
+
+  .box-product-quantity.editable-value {
+    .editable-value-display {
+      border: 1px solid transparent;
+    }
+
+    .editable-value-edit {
+      left: -8px;
+      top: -6px;
+      right: -58px;
+      padding-right: 0;
     }
   }
 }
