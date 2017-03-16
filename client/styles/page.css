@@ -1602,6 +1602,25 @@ input[type="text"].price {
   display: inline-block;
   margin-left: 10px;
 }
+.customer-order i {
+  font-size: 80%;
+  color: #999;
+}
+.customer-order i::before {
+  margin: 0;
+}
+.customer-order a:hover i,
+.customer-order a:focus i {
+  color: #ffa011;
+}
+.customer-order .show-on-edit {
+  position: relative;
+  left: -10000px;
+}
+.customer-order:hover .show-on-edit,
+.customer-order.editing .show-on-edit {
+  left: 0px;
+}
 .customer-order .box-product-quantity.editable-value .editable-value-display {
   border: 1px solid transparent;
 }

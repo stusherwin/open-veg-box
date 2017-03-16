@@ -49,14 +49,14 @@ export class DistributeWidthDirective implements OnInit, OnDestroy {
     if(newWidth != this.width) {
       this.width = newWidth;
       if(this.width != this.minWidth) {
-      console.log(this.key + this.id + ' width changed: ' + newWidth );
+      // console.log(this.key + this.id + ' width changed: ' + newWidth );
         this.service.widthChanged(this);
       }
     }
   }
 
   newMinWidth(width: number) {
-    console.log(this.key + this.id + ' newMinWidth: ' + width );
+    // console.log(this.key + this.id + ' newMinWidth: ' + width );
     
     this.minWidth = width;
     this.changeDetector.detectChanges();

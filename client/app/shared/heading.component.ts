@@ -39,7 +39,7 @@ export class HeadingComponent implements OnInit {
   valueChange = new EventEmitter<string>();
 
   @Output()
-  update = new EventEmitter<any>();
+  update = new EventEmitter<string>();
 
   get valid() {
     return this.editingValue && !!this.editingValue.length;
@@ -65,7 +65,7 @@ export class HeadingComponent implements OnInit {
     
     //TODO: just one event!
     this.valueChange.emit(this.value);
-    this.update.emit(null);
+    this.update.emit(this.value);
 
     this.editable.endEdit();
   }

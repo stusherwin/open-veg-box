@@ -3,14 +3,14 @@ import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({name: 'money'})
 export class MoneyPipe implements PipeTransform {
   transform(value: number): string {
-    return value < 1 ? (value * 100).toFixed(0) + 'p' : '&pound;' + value.toFixed(2);
+    return (value || 0) < 1 ? ((value || 0) * 100).toFixed(0) + 'p' : '&pound;' + value.toFixed(2);
   }
 }
 
 @Pipe({name: 'weight'})
 export class WeightPipe implements PipeTransform {
   transform(value: number): string {
-    return value < 1 ? (value * 1000).toFixed(0) + ' g' : value + ' Kg';
+    return (value || 0) < 1 ? ((value || 0) * 1000).toFixed(0) + ' g' : value + ' Kg';
   }
 }
 
@@ -18,9 +18,9 @@ export class WeightPipe implements PipeTransform {
 @Pipe({name: 'quantity'})
 export class QuantityPipe implements PipeTransform {
   transform(value: any): string {
-    if(value.unitType == 'perKg') {
+    if(value && value.unitType == 'perKg') {
       return (value.quantity < 1 ? (value.quantity * 1000).toFixed(0) + 'g' : value.quantity + ' Kg');
-    } else if(value.unitType == 'each') {
+    } else if(value && value.unitType == 'each') {
       return 'x ' + value.quantity;
     } else {
       return 'nope.';
@@ -31,6 +31,10 @@ export class QuantityPipe implements PipeTransform {
 @Pipe({name: 'singleLine'})
 export class SingleLinePipe implements PipeTransform {
   transform(value: string, separator: string): string {
+    if(!value) {
+      return '';
+    }
+    
     return value.split(/[\r\n]+/g).map(l => '<span style="white-space: nowrap">' + l + '</span>').join( separator );
   }
 }
@@ -38,6 +42,10 @@ export class SingleLinePipe implements PipeTransform {
 @Pipe({name: 'preserveLines'})
 export class PreserveLinesPipe implements PipeTransform {
   transform(value: string): string {
+    if(!value) {
+      return '';
+    }
+    
     return value.replace(/\n/g, '<br />');
   }
 }
@@ -45,6 +53,10 @@ export class PreserveLinesPipe implements PipeTransform {
 @Pipe({name: 'defaultTo'})
 export class DefaultToPipe implements PipeTransform {
   transform(value: string, defaultValue: string): string {
+    if(!value) {
+      return defaultValue;
+    }
+
     return value.replace(/\s/g, '').length ? value : defaultValue;
   }
 }

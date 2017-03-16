@@ -41,7 +41,7 @@ export class BoxProductQuantityComponent implements OnInit {
   editable: EditableValueComponent
 
   @Output()
-  update = new EventEmitter<number>();
+  valueChange = new EventEmitter<number>();
   
   constructor(private renderer: Renderer) {
   }
@@ -59,7 +59,7 @@ export class BoxProductQuantityComponent implements OnInit {
 
     if(newValue != this.value) {
       this.value = newValue;
-      this.update.emit(this.value);
+      this.valueChange.emit(this.value);
     }
 
     this.editingValue = this.value;

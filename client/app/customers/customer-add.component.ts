@@ -7,6 +7,7 @@ import { CustomerTelComponent } from './customer-tel.component'
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
 import { ValidatableComponent } from '../shared/validatable.component';
+import { AddCustomerModel } from './customers-home.component'
 
 @Component({
   selector: 'cc-customer-add',
@@ -33,11 +34,14 @@ export class CustomerAddComponent implements OnInit {
   @Input()
   loaded: boolean;
 
+  @Input()
+  model: AddCustomerModel;
+
   @ViewChild('active')
   active: ActiveElementDirective;
 
-  @Output()
-  add = new EventEmitter<Customer>();
+  // @Output()
+  // add = new EventEmitter<Customer>();
 
   @ViewChildren(ValidatableComponent)
   validatables: QueryList<ValidatableComponent>
@@ -74,7 +78,7 @@ export class CustomerAddComponent implements OnInit {
     this.validated = true;
 
     if(this.valid) {
-      this.add.emit(this.customer);
+      this.model.add(this.customer);
       this.adding = false;
       this.active.makeInactive();
       this.validated = false;

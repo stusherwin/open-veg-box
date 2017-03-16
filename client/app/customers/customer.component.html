@@ -1,37 +1,47 @@
-<div class="row" #active=cc-active cc-active [class.focused]="rowFocused" (activate)="onActivate()" (deactivate)="onDeactivate()">
+<div class="row" #active=cc-active cc-active [class.focused]="rowFocused" (activate)="rowFocused = true" (deactivate)="rowFocused = false">
   <div class="actions">
     <div class="action">
-      <button class="button" [routerLink]="['../Email', {customerId: customer.id}]" cc-active cc-activate-on-focus cc-deactivate-on-blur [tabindex]="(index * 2) + 2" [disabled]="!customer.email">
+      <button class="button" [routerLink]="model.emailRouterLink" cc-active cc-activate-on-focus cc-deactivate-on-blur [tabindex]="(index * 2) + 2" [disabled]="!model.email">
         <div class="icon"><i class="icon-mail-dark"></i></div>
         <span>Email</span>
       </button>
     </div>
     <div class="action">
-      <button cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="onDelete()" [tabindex]="(index * 2) + 2">
+      <button cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="model.delete();active.makeInactive()" [tabindex]="(index * 2) + 2">
         <div class="icon"><i class="icon-trash"></i></div>
         <span>Delete</span>
       </button>
     </div>
   </div>
   <div class="details">
-    <cc-heading #customerName [(value)]="customer.name" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-heading>
+    <cc-heading #customerName [(value)]="model.name" (valueChange)="model.update({name: $event})" [editTabindex]="(index * 2) + 1"></cc-heading>
 
     <div class="customer-details">  
-      <cc-customer-address [(value)]="customer.address" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-customer-address>
-      <cc-customer-email [(value)]="customer.email" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-customer-email>
-      <cc-customer-tel [(value)]="customer.tel1" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-customer-tel>
+      <cc-customer-address [(value)]="model.address" (valueChange)="model.update({address: $event})" [editTabindex]="(index * 2) + 1"></cc-customer-address>
+      <cc-customer-email [(value)]="model.email" (valueChange)="model.update({email: $event})" [editTabindex]="(index * 2) + 1"></cc-customer-email>
+      <cc-customer-tel [(value)]="model.tel1" (valueChange)="model.update({tel1: $event})" [editTabindex]="(index * 2) + 1"></cc-customer-tel>
       <div class="customer-detail-end"></div>
     </div>
 
-    <div style="" class="customer-order">
-      <div *ngFor="let item of customer.order.items; let i = index" class="customer-order-item" style="">
+    <div style="" class="customer-order"cc-active [class.editing]="editingOrder" (activate)="editingOrder = true" (deactivate)="editingOrder = false">
+      <div *ngFor="let item of model.order.items; let i = index" class="customer-order-item" style="">
         <div cc-distribute-width="name" class="customer-order-item-name" style="">{{item.name}}</div>
         <div cc-distribute-width="quantity" class="customer-order-item-quantity" style="">
           <cc-box-product-quantity
-            [value]="item.quantity"
+            [(value)]="item.quantity"
+            (valueChange)="item.updateQuantity($event)"
             [unitType]="item.unitType"
-            [editTabindex]="editTabindex">
+            [editTabindex]="(index * 2) + 1">
           </cc-box-product-quantity>
+        </div>
+        <div style="display: inline-block">
+          <a #remove
+            class="show-on-edit"
+            cc-active cc-activate-on-focus cc-deactivate-on-blur
+            [tabindex]="(index * 2) + 1"
+            (click)="onOrderItemRemove(item)"
+            (keydown.Enter)="onOrderItemRemove(item, true)"><i class="icon-trash"></i>
+          </a>
         </div>
       </div>
     </div>

@@ -46,7 +46,7 @@ export class CustomerAddressComponent implements OnInit {
   valueChange = new EventEmitter<string>();
 
   @Output()
-  update = new EventEmitter<any>();
+  update = new EventEmitter<string>();
 
   constructor(private renderer: Renderer) {
   }
@@ -68,7 +68,7 @@ export class CustomerAddressComponent implements OnInit {
 
     //TODO: just one event!
     this.valueChange.emit(this.value);
-    this.update.emit(null);
+    this.update.emit(this.value);
 
     this.editable.endEdit();
   }

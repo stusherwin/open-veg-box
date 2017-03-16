@@ -48,7 +48,7 @@ export class CustomerEmailComponent {
   valueChange = new EventEmitter<string>();
 
   @Output()
-  update = new EventEmitter<any>();
+  update = new EventEmitter<string>();
 
   get valid() {
     return !this.editingValue || /^.+\@.+\..+$/.test(this.editingValue);
@@ -74,7 +74,7 @@ export class CustomerEmailComponent {
     
     //TODO: just one event!
     this.valueChange.emit(this.value);
-    this.update.emit(null);
+    this.update.emit(this.value);
 
     this.editable.endEdit();
   }

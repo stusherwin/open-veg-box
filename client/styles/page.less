@@ -1050,7 +1050,6 @@ input[type="text"].price {
 }
 
 .customer-order {
-  // .boxProductClearFix;
   input[type="text"] {
     width: 62px;
   }
@@ -1069,6 +1068,34 @@ input[type="text"].price {
     .customer-order-item-quantity {
       display: inline-block;
       margin-left: 10px;
+    }
+  }
+
+  i {
+    font-size: 80%;
+    color: #999;
+
+    &::before {
+      margin: 0;
+    }
+  }
+
+  a {
+    &:hover, &:focus {
+      i {
+        color: @boxProductHover;
+      }
+    }
+  }
+
+  .show-on-edit {
+    position: relative;
+    left: -10000px;
+  }
+
+  &:hover, &.editing {
+    .show-on-edit {
+      left: 0px;     
     }
   }
 

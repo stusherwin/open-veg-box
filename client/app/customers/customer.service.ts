@@ -24,7 +24,7 @@ export class CustomerService {
                  .join('&');
   }
 
-  getAll(queryParams: {[key: string]: string}): Observable<Customer[]> {
+  getAll(queryParams: {[key: string]: string}): Observable<CustomerWithOrder[]> {
     return this.http.get('/api/customers?' + this.toQueryString(queryParams))
                     .map(res => res.json())
                     .map(ps => ps.map(this.hydrate));
@@ -42,7 +42,7 @@ export class CustomerService {
                     .map(ps => ps.map(this.hydrate));
   }
 
-  add(params: any, queryParams: {[key: string]: string}): Observable<Customer[]> {
+  add(params: any, queryParams: {[key: string]: string}): Observable<CustomerWithOrder[]> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
@@ -51,7 +51,7 @@ export class CustomerService {
                     .map(ps => ps.map(this.hydrate));
   }
 
-  update(id: number, params: any, queryParams: {[key: string]: string}): Observable<Customer[]> {
+  update(id: number, params: any, queryParams: {[key: string]: string}): Observable<CustomerWithOrder[]> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
@@ -60,7 +60,7 @@ export class CustomerService {
                     .map(ps => ps.map(this.hydrate));
   }
 
-  delete(id: number, queryParams: {[key: string]: string}): Observable<Customer[]> {
+  delete(id: number, queryParams: {[key: string]: string}): Observable<CustomerWithOrder[]> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 

@@ -8,6 +8,8 @@ import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
 import { DistributeWidthDirective } from './distribute-width.directive'
 import { BoxProductQuantityComponent } from './box-product-quantity.component'
+import { CustomerModel, CustomerOrderItemModel } from './customers-home.component'
+import { Arrays } from '../shared/arrays'
 
 @Component({
   selector: 'cc-customer',
@@ -15,44 +17,17 @@ import { BoxProductQuantityComponent } from './box-product-quantity.component'
   directives: [HeadingComponent, CustomerAddressComponent, CustomerEmailComponent, CustomerTelComponent, ROUTER_DIRECTIVES, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, DistributeWidthDirective, BoxProductQuantityComponent],
 })
 export class CustomerComponent {
-  rowFocused: boolean;
-
   @ViewChild('customerName')
   customerName: HeadingComponent;
 
   @Input()
-  customer: Customer;
+  model: CustomerModel;
 
   @Input()
   index: number;
 
-  @ViewChild('active')
-  active: ActiveElementDirective;
-
-  @Output()
-  delete = new EventEmitter<Customer>();
-
-  @Output()
-  update = new EventEmitter<Customer>();
-
-  onDelete() {
-    this.delete.emit(this.customer);
-    this.active.makeInactive();
-  }
-
-  clickEmail(event:any) {
-    return true;
-  }
-
-  onUpdate() {
-    this.update.emit(this.customer);
-  }
-
-  onActivate() {
-    this.rowFocused = true;
-  }
-
-  onDeactivate() {
-    this.rowFocused = false;
+  onOrderItemRemove(item: CustomerOrderItemModel, keyboard: boolean) {
+    item.delete();
+    Arrays.remove(this.model.order.items, item);
   }
 }
