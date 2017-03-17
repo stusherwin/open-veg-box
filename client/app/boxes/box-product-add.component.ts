@@ -7,16 +7,17 @@ import { BoxProductsService } from './box-products.service'
 import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements';
 import { ValidatableComponent } from '../shared/validatable.component';
 import { EditableValueComponent } from '../shared/editable-value.component'
+import { NumericDirective } from '../shared/numeric.directive'
 
 @Component({
   selector: 'cc-box-product-add',
   templateUrl: 'app/boxes/box-product-add.component.html',
-  directives: [ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, ValidatableComponent, EditableValueComponent]
+  directives: [ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, ValidatableComponent, EditableValueComponent, NumericDirective]
 })
 export class BoxProductAddComponent implements OnInit, AfterViewInit, OnChanges {
   adding: boolean;
   product: Product;
-  quantityStringValue: string;
+  quantityEditingValue: number;
   
   @Input()
   products: Product[];
@@ -59,7 +60,7 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit, OnChanges 
 
   ngOnInit() {
     this.product = this.products[0];
-    this.quantityStringValue = '1';
+    this.quantityEditingValue = 1;
   }
 
   ngAfterViewInit() {
@@ -77,6 +78,8 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit, OnChanges 
   }
 
   onStart() {
+    this.quantityEditingValue = 1;
+    
     this.adding = true;
     this.service.setActive(this.editId);
     let subscription = this.select.changes.subscribe((f: QueryList<ElementRef>) => {
@@ -102,18 +105,15 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit, OnChanges 
       this.service.setInactive(this.editId);
     }
 
-    let quantity = this.toDecimalValue(this.quantityStringValue);
-    this.add.emit(new BoxProduct(this.product.id, this.product.name, quantity, this.product.unitType));
+    this.add.emit(new BoxProduct(this.product.id, this.product.name, this.quantityEditingValue, this.product.unitType));
 
     this.product = this.products[0];
-    this.quantityStringValue = '1';
     this.editable.endEdit();
     this.adding = false;
   }
 
   onCancel() {
     this.product = this.products[0];
-    this.quantityStringValue = '1';
     this.editable.endEdit();
     this.adding = false;
     this.service.setActive(this.editId);
@@ -121,24 +121,5 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit, OnChanges 
 
   focus() {
     this.renderer.invokeElementMethod(this.addBtn.nativeElement, 'focus', []);
-  }
- 
-  fixedDecimals: number = null;
-  maxDecimals: number = 3;
-  private toDecimalValue(value: string): number {
-    var parsed = parseFloat(value);
-    if( isNaN(parsed) ) {
-      return 0;
-    }
-
-    if(this.fixedDecimals) {
-      return parseFloat(parsed.toFixed(this.fixedDecimals));
-    }
-
-    if (this.maxDecimals) {
-      return parseFloat(parsed.toFixed(this.maxDecimals));
-    }
-
-    return parsed;
   }
 }

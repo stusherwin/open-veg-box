@@ -51,6 +51,7 @@ export class BoxProductQuantityComponent implements OnInit {
   }
 
   onStart() {
+    this.editingValue = this.value;
     this.renderer.invokeElementMethod(this.input.nativeElement, 'focus', []);
   }
 
@@ -62,12 +63,10 @@ export class BoxProductQuantityComponent implements OnInit {
       this.valueChange.emit(this.value);
     }
 
-    this.editingValue = this.value;
     this.editable.endEdit();
   }
 
   onCancel() {
-    this.editingValue = this.value;
     this.editable.endEdit();
   }
 

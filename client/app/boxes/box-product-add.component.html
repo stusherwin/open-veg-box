@@ -24,10 +24,10 @@
       </div>
       <div class="box-product-quantity" style="display: inline-block" [style.width.px]="productQuantityWidth">
         <span class="box-product-quantity-each" *ngIf="product.unitType == 'each'">x</span>
-        <cc-validatable [valid]="toDecimalValue(quantityStringValue) > 0" message="Quantity should be a number greater than 0">
+        <cc-validatable [valid]="quantityEditingValue > 0" message="Quantity should be a number greater than 0">
           <input *ngIf="adding" type="text" class="input"
+            cc-numeric maxDecimals="3" [(value)]="quantityEditingValue"
             cc-active cc-activate-on-focus
-            [(ngModel)]="quantityStringValue"
             [tabindex]="editTabindex" />
         </cc-validatable>
         <span class="box-product-quantity-perkg" *ngIf="product.unitType == 'perKg'">Kg</span>
