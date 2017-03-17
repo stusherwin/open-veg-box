@@ -21,5 +21,5 @@ export class CustomerComponent {
   model: CustomerModel;
 
   @Input()
-  index: number;
+  tabindex: number;
 }

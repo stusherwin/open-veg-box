@@ -1,10 +1,10 @@
-<cc-editable-value className="round-customer-add" *ngIf="customers.length" #editable (start)="onStart()" (ok)="onOk($event)" (cancel)="onCancel()" [catchTabAway]="customers.length > 1" [tabindex]="editTabindex">
+<cc-editable-value className="round-customer-add" *ngIf="customers.length" #editable (start)="onStart()" (ok)="onOk($event)" (cancel)="onCancel()" [catchTabAway]="customers.length > 1" [tabindex]="tabindex">
   <display>
     <div class="round-customer-add-display show-on-edit" [class.hover]="addHover">
       <div [style.width.px]="customerNameWidth + customerAddressWidth">{{text}}</div>
       <div><a #add *ngIf="!adding"
           cc-active cc-activate-on-focus cc-deactivate-on-blur
-          [tabindex]="editTabindex"
+          [tabindex]="tabindex"
           (keydown.Enter)="onAdd()"
           (focus)="addHover = true"
           (blur)="addHover = false"><i class="icon-add"></i></a>
@@ -16,7 +16,7 @@
       <div class="round-customer-name" [style.width.px]="customerNameWidth">
         <select *ngIf="adding" #select
           cc-active cc-activate-on-focus
-          [tabindex]="editTabindex"
+          [tabindex]="tabindex"
           (change)="onCustomerChange($event)">
           <option *ngFor="let c of customers; let i = index" [value]="i">{{c.name}}</option>
         </select>

@@ -17,7 +17,7 @@ export class CustomerOrderComponent {
   model: CustomerOrderModel;
 
   @Input()
-  index: number;
+  tabindex: number;
 
   onOrderItemRemove(item: CustomerOrderItemModel, keyboard: boolean) {
     item.delete();

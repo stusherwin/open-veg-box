@@ -29,7 +29,7 @@ export class BoxAddComponent {
   addButton: ElementRef;
 
   @Input()
-  index: number;
+  tabindex: number;
 
   @Input()
   showAddMessage: boolean;

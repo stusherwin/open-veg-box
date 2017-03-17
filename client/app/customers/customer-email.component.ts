@@ -22,7 +22,7 @@ import { DefaultToPipe } from '../shared/pipes'
         <div class="detail-marker"><i class="icon-mail"></i></div>
         <div class="detail-edit">
           <cc-validatable [valid]="valid" message="Email should be a valid email address">
-            <input type="text" #input [(ngModel)]="editingValue" cc-active cc-activate-on-focus [tabindex]="editTabindex" (focus)="startEdit()" />
+            <input type="text" #input [(ngModel)]="editingValue" cc-active cc-activate-on-focus [tabindex]="tabindex" (focus)="startEdit()" />
           </cc-validatable>
         </div>
       </edit>
@@ -39,7 +39,7 @@ export class CustomerEmailComponent {
   editable: EditableValueComponent;
 
   @Input()
-  editTabindex: number;
+  tabindex: number;
 
   @Input()
   value: string;

@@ -10,7 +10,7 @@
       <td>{{c.address | defaultTo: 'no address'}}</td>
       <td>
         <cc-round-customer-remove #remove
-          [editTabindex]="editTabindex" 
+          [tabindex]="tabindex" 
           (remove)="onRemove(c, $event)">
         </cc-round-customer-remove>
       </td>
@@ -22,7 +22,7 @@
       <td colspan="3">
         <cc-round-customer-add #add
           [customers]="unusedCustomers"
-          [editTabindex]="editTabindex"
+          [tabindex]="tabindex"
           [customerNameWidth]="customerNameWidth + customerNamePadding"
           [customerAddressWidth]="customerAddressWidth + customerAddressPadding"
           text="Add {{!value.length? 'a' : 'another'}} customer..."

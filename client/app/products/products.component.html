@@ -5,6 +5,6 @@
     <div class="icon"><i class="icon-add"></i></div>
     <span>Add</span>
   </button>
-  <cc-product *ngFor="let p of products; let i = index" [product]="p" [index]="i" (delete)="onDelete($event)" (update)="onUpdate($event)"></cc-product>
-  <cc-product-add #add [showAddMessage]="!products.length" [loaded]="loaded" (add)="onAdd($event)" [index]="products.length"></cc-product-add>
+  <cc-product *ngFor="let p of products; let i = index" [product]="p" [tabindex]="i" (delete)="onDelete($event)" (update)="onUpdate($event)"></cc-product>
+  <cc-product-add #add [showAddMessage]="!products.length" [loaded]="loaded" (add)="onAdd($event)" [tabindex]="products.length"></cc-product-add>
 </div>

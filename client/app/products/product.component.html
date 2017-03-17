@@ -3,17 +3,17 @@
     <div class="action">
     </div>
     <div class="action">
-      <button cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="onDelete()" [tabindex]="(index * 2) + 2">
+      <button cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="onDelete()" [tabindex]="(tabindex * 2) + 2">
         <div class="icon"><i class="icon-trash"></i></div>
         <span>Delete</span>
       </button>
     </div>
   </div>
   <div class="details">
-    <cc-heading #productName [(value)]="product.name" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-heading>
+    <cc-heading #productName [(value)]="product.name" (update)="onUpdate()" [tabindex]="(tabindex * 2) + 1"></cc-heading>
     <div class="flex">
       <div class="price-detail">
-        <cc-product-price [(price)]="product.price" [(unitType)]="product.unitType" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-product-price>
+        <cc-product-price [(price)]="product.price" [(unitType)]="product.unitType" (update)="onUpdate()" [tabindex]="(tabindex * 2) + 1"></cc-product-price>
       </div>  
       <div></div>
     </div>

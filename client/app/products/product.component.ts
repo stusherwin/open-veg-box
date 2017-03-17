@@ -21,7 +21,7 @@ export class ProductComponent {
   product: Product;
 
   @Input()
-  index: number;
+  tabindex: number;
 
   @ViewChild('active')
   active: ActiveElementDirective;

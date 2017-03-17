@@ -14,7 +14,7 @@ import { EditableValueComponent } from '../shared/editable-value.component'
       </display>
       <edit>
         <cc-validatable [valid]="valid" message="Heading should not be empty">
-          <input type="text" #input [(ngModel)]="editingValue" [tabindex]="editTabindex" (focus)="startEdit()" cc-active cc-activate-on-focus />
+          <input type="text" #input [(ngModel)]="editingValue" [tabindex]="tabindex" (focus)="startEdit()" cc-active cc-activate-on-focus />
         </cc-validatable>
       </edit>
     </cc-editable-value>
@@ -27,7 +27,7 @@ export class HeadingComponent implements OnInit {
   value: string;
 
   @Input()
-  editTabindex: number;
+  tabindex: number;
 
   @ViewChild('input')
   input: ElementRef;

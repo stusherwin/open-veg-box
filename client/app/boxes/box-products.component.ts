@@ -51,7 +51,7 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
   editId: string;
 
   @Input()
-  editTabindex: number;
+  tabindex: number;
 
   @ViewChild('root')
   root: ElementRef

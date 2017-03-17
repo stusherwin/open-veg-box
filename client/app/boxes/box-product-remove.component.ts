@@ -12,7 +12,7 @@ export class BoxProductRemoveComponent implements AfterViewInit {
   editId: string;
 
   @Input()
-  editTabindex: number;
+  tabindex: number;
 
   @ViewChild('remove')
   removeBtn: ElementRef

@@ -27,7 +27,7 @@ export class BoxProductQuantityComponent {
   editId: string;
 
   @Input()
-  editTabindex: number;
+  tabindex: number;
 
   @ViewChild('input')
   input: ElementRef

@@ -9,7 +9,7 @@
         [(value)]="item.quantity"
         (valueChange)="item.updateQuantity($event)"
         [unitType]="item.unitType"
-        [editTabindex]="(index * 2) + 1">
+        [tabindex]="tabindex">
       </cc-box-product-quantity>
     </div><!--
   --><div class="customer-order-item-part"
@@ -17,7 +17,7 @@
       <a #remove
         class="show-on-edit"
         cc-active cc-activate-on-focus cc-deactivate-on-blur
-        [tabindex]="(index * 2) + 1"
+        [tabindex]="tabindex"
         (click)="onOrderItemRemove(item)"
         (keydown.Enter)="onOrderItemRemove(item, true)"><i class="icon-trash"></i>
       </a>
@@ -35,7 +35,7 @@
   --><div class="customer-order-item-part show-on-edit">
       <a #add
         cc-active cc-activate-on-focus cc-deactivate-on-blur
-        [tabindex]="(index * 2) + 1"
+        [tabindex]="tabindex"
         (focus)="addFocused = true"
         (blur)="addFocused = false"><i class="icon-add"></i>
       </a>

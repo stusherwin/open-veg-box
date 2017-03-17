@@ -10,7 +10,7 @@
     [products]="products"
     [productNameWidth]="productNameWidth"
     [productQuantityWidth]="productQuantityWidth"
-    [index]="i"
+    [tabindex]="i"
     (delete)="onDelete($event)"
     (update)="onUpdate($event)"
     (productAdd)="onProductAdd($event)"
@@ -21,6 +21,6 @@
     [showAddMessage]="!boxes.length"
     [loaded]="loaded"
     (add)="onAdd($event)"
-    [index]="boxes.length">
+    [tabindex]="boxes.length">
   </cc-box-add>
 </div>

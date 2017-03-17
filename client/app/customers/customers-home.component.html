@@ -4,6 +4,6 @@
     <div class="icon"><i class="icon-add"></i></div>
     <span>Add</span>
   </button>
-  <cc-customer *ngFor="let c of customers; let i = index" [model]="c" [index]="i"></cc-customer>
-  <cc-customer-add #addComponent [showAddMessage]="!customers.length" [loaded]="loaded" [model]="addModel" [index]="customers.length"></cc-customer-add>
+  <cc-customer *ngFor="let c of customers; let i = index" [model]="c" [tabindex]="i"></cc-customer>
+  <cc-customer-add #addComponent [showAddMessage]="!customers.length" [loaded]="loaded" [model]="addModel" [tabindex]="customers.length"></cc-customer-add>
 </div>

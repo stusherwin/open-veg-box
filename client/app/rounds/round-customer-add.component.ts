@@ -23,7 +23,7 @@ export class RoundCustomerAddComponent implements OnInit, OnChanges {
   customers: Customer[];
 
   @Input()
-  editTabindex: number;
+  tabindex: number;
 
   @Input()
   customerNameWidth: number;

@@ -8,7 +8,7 @@
   <cc-round *ngFor="let r of rounds; let i = index"
     [round]="r"
     [unusedCustomers]="unusedCustomers"
-    [index]="i"
+    [tabindex]="i"
     (delete)="onDelete($event)"
     (update)="onUpdate($event)"
     (customerAdd)="onCustomerAdd($event)"
@@ -18,6 +18,6 @@
     [showAddMessage]="!rounds.length"
     [loaded]="loaded"
     (add)="onAdd($event)"
-    [index]="rounds.length">
+    [tabindex]="rounds.length">
   </cc-round-add>
 </div>

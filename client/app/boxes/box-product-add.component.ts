@@ -32,7 +32,7 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit, OnChanges 
   productQuantityWidth: number;
 
   @Input()
-  editTabindex: number;
+  tabindex: number;
 
   @Input()
   text: string;

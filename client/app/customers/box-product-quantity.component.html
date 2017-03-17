@@ -19,7 +19,7 @@
         class="inputx pricex"
         cc-numeric maxDecimals="3" [(value)]="editable.editingValue"
         cc-active cc-activate-on-focus
-        [tabindex]="editTabindex"
+        [tabindex]="tabindex"
         (focus)="editable.startEdit()" />
     </cc-validatable>
     <span class="box-product-quantity-perkg" *ngIf="unitType == 'perKg'">Kg</span>

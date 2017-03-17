@@ -1,26 +1,26 @@
 <div class="row" #active=cc-active cc-active [class.focused]="rowFocused" (activate)="rowFocused = true" (deactivate)="rowFocused = false">
   <div class="actions">
     <div class="action">
-      <button class="button" [disabled]="!canEmail" [routerLink]="['../Email', {roundId: round.id}]" cc-active cc-activate-on-focus cc-deactivate-on-blur [tabindex]="(index * 2) + 2">
+      <button class="button" [disabled]="!canEmail" [routerLink]="['../Email', {roundId: round.id}]" cc-active cc-activate-on-focus cc-deactivate-on-blur [tabindex]="(tabindex * 2) + 2">
         <div class="icon"><i class="icon-mail-dark"></i></div>
         <span>Email</span>
       </button>
     </div>
     <div class="action">
-      <button cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="onDelete()" [tabindex]="(index * 2) + 2">
+      <button cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="onDelete()" [tabindex]="(tabindex * 2) + 2">
         <div class="icon"><i class="icon-trash"></i></div>
         <span>Delete</span>
       </button>
     </div>
   </div>
   <div class="details">
-    <cc-heading #roundName [(value)]="round.name" (update)="onUpdate()" [editTabindex]="(index * 2) + 1"></cc-heading>
+    <cc-heading #roundName [(value)]="round.name" (update)="onUpdate()" [tabindex]="(tabindex * 2) + 1"></cc-heading>
     <cc-round-customers
       [(value)]="round.customers"
       (add)="onCustomerAdd($event)" 
       (remove)="onCustomerRemove($event)"
       [unusedCustomers]="unusedCustomers"
-      [editTabindex]="(index * 2) + 1">
+      [tabindex]="(tabindex * 2) + 1">
     </cc-round-customers>
   </div>
 </div>

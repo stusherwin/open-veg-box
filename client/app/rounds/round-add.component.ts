@@ -29,7 +29,7 @@ export class RoundAddComponent {
   active: ActiveElementDirective;
 
   @Input()
-  index: number;
+  tabindex: number;
 
   @Input()
   showAddMessage: boolean;

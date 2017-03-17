@@ -1,19 +1,19 @@
 <div class="row add-mode" #active=cc-active cc-active [class.focused]="rowFocused" (activate)="onActivate()" (deactivate)="onDeactivate()">
   <div class="actions">
     <div class="action" [hidden]="adding || !loaded">
-      <button #add cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="startAdd()" [tabindex]="(index * 2) + 2">
+      <button #add cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="startAdd()" [tabindex]="(tabindex * 2) + 2">
         <div class="icon"><i class="icon-add"></i></div>
         <span>Add</span>
       </button>  
     </div>
     <div class="action" *ngIf="adding">
-      <button cc-active cc-activate-on-focus (click)="completeAdd()" [tabindex]="(index * 2) + 2">
+      <button cc-active cc-activate-on-focus (click)="completeAdd()" [tabindex]="(tabindex * 2) + 2">
         <div class="icon"><i class="icon-ok"></i></div>
         <span>Save</span>
       </button>  
     </div>
     <div class="action" *ngIf="adding">
-      <button cc-active cc-activate-on-focus (click)="cancelAdd()" [tabindex]="(index * 2) + 2">
+      <button cc-active cc-activate-on-focus (click)="cancelAdd()" [tabindex]="(tabindex * 2) + 2">
         <div class="icon"><i class="icon-cancel"></i></div>
         <span>Cancel</span>
       </button>  
@@ -24,7 +24,7 @@
   <div class="details round-add" [hidden]="!adding" [class.invalid]="!valid">
     <div class="round-name">
       <cc-validatable [valid]="!!round.name.length" message="Name should not be empty">
-        <input #roundName placeholder="New Round" type="text" [(ngModel)]="round.name" [tabindex]="(index * 2) + 1" cc-active cc-activate-on-focus />
+        <input #roundName placeholder="New Round" type="text" [(ngModel)]="round.name" [tabindex]="(tabindex * 2) + 1" cc-active cc-activate-on-focus />
       </cc-validatable>
     </div>
   </div>
