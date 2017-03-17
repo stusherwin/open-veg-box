@@ -23,6 +23,7 @@ export class NumericDirective implements OnInit, OnChanges {
   valueChange = new EventEmitter<number>();
 
   ngOnInit() {
+    this.respondingToUserInput = false;
     this.renderer.setElementProperty(this.el.nativeElement, 'value', this.toStringValue(this.value));
   }
 
@@ -44,6 +45,7 @@ export class NumericDirective implements OnInit, OnChanges {
     if(this.respondingToUserInput && this.respondingToUserInputTimer) {
       clearTimeout(this.respondingToUserInputTimer);
     }
+    
     this.respondingToUserInput = true;
     this.respondingToUserInputTimer = setTimeout(() => this.respondingToUserInput = false, 100);
 
@@ -55,6 +57,7 @@ export class NumericDirective implements OnInit, OnChanges {
     if(this.respondingToUserInput && this.respondingToUserInputTimer) {
       clearTimeout(this.respondingToUserInputTimer);
     }
+    
     this.respondingToUserInput = true;
     this.respondingToUserInputTimer = setTimeout(() => this.respondingToUserInput = false, 100);
 

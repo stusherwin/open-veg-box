@@ -62,6 +62,8 @@ Bugs
 * Customer phone has extra top margin on small screen
 * Box products seems to think column widths are wider than they should be
 * row details should have constant padding
+* When cancel cc-numeric by pressing Escape and click to edit again, retains previously edited value
+  (blur event fires when clicking on control to edit again, so thinks it was user input)
 
 Ideas
 =====

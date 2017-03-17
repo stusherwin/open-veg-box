@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, Output, EventEmitter, ContentChildren, AfterViewInit, QueryList } from '@angular/core';
+import { Component, Input, ViewChild, Output, EventEmitter, ContentChildren, AfterViewInit, QueryList, OnInit } from '@angular/core';
 import { ActiveElementDirective, ActivateOnFocusDirective } from './active-elements'
 import { ValidatableComponent } from './validatable.component';
 
@@ -23,7 +23,8 @@ import { ValidatableComponent } from './validatable.component';
     <input type="text" *ngIf="editing && catchTabAway" [tabindex]="tabindex" style="position: absolute; left: -10000px" (focus)="onDeactivate()" />
   `
 })
-export class EditableValueComponent implements AfterViewInit {
+export class EditableValueComponent<T> implements OnInit {
+  editingValue: T;
   validated = false;
   okKeyDownEnabled = false;
   
@@ -41,6 +42,9 @@ export class EditableValueComponent implements AfterViewInit {
 
   @Input()
   editing = false;
+
+  @Input()
+  value: T;
   
   @ViewChild('active')
   active: ActiveElementDirective
@@ -52,12 +56,10 @@ export class EditableValueComponent implements AfterViewInit {
   start = new EventEmitter<void>()
 
   @Output()
-  ok = new EventEmitter<boolean>()
+  valueChange = new EventEmitter<T>();
 
-  @Output()
-  cancel = new EventEmitter<void>()
-
-  ngAfterViewInit() {
+  ngOnInit() {
+    this.editingValue = this.value;
   }
 
   get valid() {
@@ -77,6 +79,7 @@ export class EditableValueComponent implements AfterViewInit {
       // fire. Need a timeout window to prevent this.
       this.okKeyDownEnabled = false;
       setTimeout(() => this.okKeyDownEnabled = true, 100);
+      this.editingValue = this.value;
       this.editing = true;
       this.start.emit(null);
     }
@@ -89,11 +92,18 @@ export class EditableValueComponent implements AfterViewInit {
       return;
     }
 
-    this.ok.emit(this.tabbedAway);
+    let newValue = this.editingValue;
+
+    if(newValue != this.value) {  
+      this.value = newValue;
+      this.valueChange.emit(this.value);
+    }
+
+    this.endEdit();
   }
 
   onCancel() {
-    this.cancel.emit(null);
+    this.endEdit();
   }
 
   endEdit() {
@@ -122,7 +132,6 @@ export class EditableValueComponent implements AfterViewInit {
         // we don't want to block them clicking away just because they tabbed away originally
         setTimeout(() => this.tabbingAway = false, 100);
       }
-      // this.tabbedAway = !event.shiftKey;
     }
   }
 

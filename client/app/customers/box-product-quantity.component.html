@@ -1,4 +1,9 @@
-<cc-editable-value className="box-product-quantity" #editable [editing]="editing" (start)="onStart()" (ok)="onOk()" (cancel)="onCancel()">
+<cc-editable-value #editable 
+    className="box-product-quantity"
+    [value]="value"
+    [editing]="editing"
+    (valueChange)="valueChange.emit($event)"
+    (start)="onStart()">
   <display>
     <span class="box-product-quantity-each" *ngIf="unitType == 'each'">x</span>
     <span *ngIf="unitType == 'perKg'">{{value | weight}}</span>
@@ -7,8 +12,15 @@
   </display>
   <edit>
     <span class="box-product-quantity-each" *ngIf="unitType == 'each'">x</span>
-    <cc-validatable [valid]="editingValue > 0" message="Quantity should be a number greater than 0">
-      <input type="text" #input class="inputx pricex" cc-numeric maxDecimals="3" [(value)]="editingValue" cc-active cc-activate-on-focus [tabindex]="editTabindex" (focus)="onFocus()" />
+    <cc-validatable
+        [valid]="editable.editingValue > 0"
+        message="Quantity should be a number greater than 0">
+      <input type="text" #input
+        class="inputx pricex"
+        cc-numeric maxDecimals="3" [(value)]="editable.editingValue"
+        cc-active cc-activate-on-focus
+        [tabindex]="editTabindex"
+        (focus)="editable.startEdit()" />
     </cc-validatable>
     <span class="box-product-quantity-perkg" *ngIf="unitType == 'perKg'">Kg</span>
   </edit>
