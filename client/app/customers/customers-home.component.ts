@@ -6,14 +6,14 @@ import { CustomerAddComponent } from './customer-add.component'
 import { Observable } from 'rxjs/Observable';
 import { RouteParams } from '@angular/router-deprecated';
 import { ActiveService, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
-import { DistributeWidthService, DistributeWidthDirective } from './distribute-width.directive'
+import { DistributeWidthService } from './distribute-width.directive'
 import 'rxjs/add/observable/concat';
 import 'rxjs/add/operator/last';
 
 @Component({
   selector: 'cc-customers-home',
   templateUrl: 'app/customers/customers-home.component.html',
-  directives: [CustomerComponent, CustomerAddComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, DistributeWidthDirective],
+  directives: [CustomerComponent, CustomerAddComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective],
   providers: [CustomerService, ActiveService, DistributeWidthService]
 })
 export class CustomersHomeComponent implements OnInit {
@@ -61,7 +61,13 @@ export class CustomersHomeComponent implements OnInit {
           updateQuantity: (quantity: number) => {
             console.log('update order item ' + i.id + ' quantity to: ' + quantity);
           }
-        }))
+        })),
+        addBox: (id: number, quantity: number) => {
+          console.log('add box ' + id + '(' + quantity + ') to order ' + customer.order.id);
+        },
+        addProduct: (id: number, quantity: number) => {
+          console.log('add product ' + id + '(' + quantity + ') to order ' + customer.order.id);
+        }
       },
       emailRouterLink: ['../Email', {customerId: customer.id}],
       delete: () => {
@@ -93,6 +99,8 @@ export class CustomerModel {
 
 export class CustomerOrderModel {
   items: CustomerOrderItemModel[];
+  addBox: (id: number, quantity: number) => void;
+  addProduct: (id: number, quantity: number) => void;
 }
 
 export class CustomerOrderItemModel {

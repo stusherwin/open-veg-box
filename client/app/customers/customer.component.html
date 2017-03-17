@@ -23,30 +23,7 @@
       <div class="customer-detail-end"></div>
     </div>
 
-    <div style="" class="customer-order"cc-active [class.editing]="editingOrder" (activate)="editingOrder = true" (deactivate)="editingOrder = false">
-      <div *ngFor="let item of model.order.items; let i = index" class="customer-order-item" style="">
-        <div cc-distribute-width="name" class="customer-order-item-name" style="">{{item.name}}</div>
-        <div cc-distribute-width="quantity" class="customer-order-item-quantity" style="">
-          <cc-box-product-quantity
-            [(value)]="item.quantity"
-            (valueChange)="item.updateQuantity($event)"
-            [unitType]="item.unitType"
-            [editTabindex]="(index * 2) + 1">
-          </cc-box-product-quantity>
-        </div>
-        <div style="display: inline-block">
-          <a #remove
-            class="show-on-edit"
-            cc-active cc-activate-on-focus cc-deactivate-on-blur
-            [tabindex]="(index * 2) + 1"
-            (click)="onOrderItemRemove(item)"
-            (keydown.Enter)="onOrderItemRemove(item, true)"><i class="icon-trash"></i>
-          </a>
-        </div>
-      </div>
-      <div cc-distribute-width-sum="name,quantity" style="display: inline-block; border: 1px solid red">
-        Hi there
-      </div>
-    </div>
+    <cc-customer-order [model]="model.order" [index]="(index * 2) + 1">
+    </cc-customer-order>
   </div>
 </div>

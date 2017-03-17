@@ -7,8 +7,9 @@ import {Subscription} from 'rxjs/Subscription';
 import 'rxjs/add/operator/throttleTime';
 import 'rxjs/add/operator/bufferTime';
 import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/debounceTime';
 
-const MIN_WIDTH_THROTTLE_MS = 300;
+const MIN_WIDTH_DEBOUNCE_MS = 300;
 let id = 0;
 
 @Directive({
@@ -33,7 +34,6 @@ export class DistributeWidthDirective implements OnInit, OnDestroy {
 
     private changeDetector: ChangeDetectorRef) {
       this.id = id++;
-      // console.log(this.id + ' constructor')
   }
 
   get element() {
@@ -48,20 +48,16 @@ export class DistributeWidthDirective implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.shouldDetectChanges = false;
-    // console.log(this.key + this.id + ' OnInit');
 
     this.service.register(this);
     if(this.subscription) {
       this.subscription.unsubscribe();
     }
     this.subscription = this.service.minWidthChanged
-      .bufferTime(MIN_WIDTH_THROTTLE_MS)
-      .filter(a => !!a.length)
-      .map(a => a[a.length - 1])
-      .filter(e => e != null)
+      .filter(e => !!e)
+      .debounceTime(MIN_WIDTH_DEBOUNCE_MS)
       .subscribe(e => {
         if(this.minWidth != e[this.key]) {
-          console.log(this.key + this.id + ' minWidthChanged event: ' + e[this.key]);
           this.minWidth = e[this.key];
           if(this.shouldDetectChanges) {
             this.changeDetector.detectChanges();
@@ -83,7 +79,6 @@ export class DistributeWidthDirective implements OnInit, OnDestroy {
     if(newWidth != this.width) {
       this.width = newWidth;
       if(this.width != this.minWidth) {
-      // console.log(this.key + this.id + ' width changed: ' + newWidth );
         this.service.widthChanged(this);
       }
     }
@@ -114,7 +109,6 @@ export class DistributeWidthSumDirective implements OnInit, OnDestroy {
 
     private changeDetector: ChangeDetectorRef) {
       this.id = sumId++;
-      //console.log('sum' + this.id + ' constructor')
   }
 
   get element() {
@@ -123,6 +117,9 @@ export class DistributeWidthSumDirective implements OnInit, OnDestroy {
 
   @Input('cc-distribute-width-sum')
   keysString: string;
+
+  @Input('padding')
+  padding: number;
 
   keys: string[];
 
@@ -133,23 +130,20 @@ export class DistributeWidthSumDirective implements OnInit, OnDestroy {
     this.shouldDetectChanges = false;
 
     this.keys = this.keysString.split(',');
-    // console.log('sum' + this.id + ' OnInit');
 
     if(this.subscription) {
       this.subscription.unsubscribe();
     }
+
     this.subscription = this.service.minWidthChanged
-      .bufferTime(MIN_WIDTH_THROTTLE_MS)
-      .filter(a => !!a.length)
-      .map(a => a[a.length - 1])
-      .filter(e => e != null)
+      .filter(e => !!e)
+      .debounceTime(MIN_WIDTH_DEBOUNCE_MS)
       .subscribe(e => {
-        let newMinWidth = 0;
+        let newMinWidth = this.padding;
         for(let k of this.keys) {
           newMinWidth += e[k];
         }
         if(this.minWidth != newMinWidth) {
-          console.log('sum' + this.id + ' minWidthChanged event: ' + newMinWidth);
           this.minWidth = newMinWidth;
           if(this.shouldDetectChanges) {
             this.changeDetector.detectChanges();
@@ -201,10 +195,7 @@ export class DistributeWidthService {
     let newMinWidth = Math.max(...this.directives[key].map(c => c.width));
 
     if(newMinWidth != minWidth) {
-      // console.log('old minWidth: ' + minWidth);
-      // console.log('new minWidth: ' + newMinWidth);
       this.minWidths[key] = newMinWidth;
-      // console.log('emit event: ' + key + '(' + newMinWidth + ')')
       this._minWidthChanged.next(this.minWidths);
     }
   }

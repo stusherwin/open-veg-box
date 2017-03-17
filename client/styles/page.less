@@ -1054,20 +1054,28 @@ input[type="text"].price {
     width: 62px;
   }
 
-  margin-top: 20px;
-  margin-bottom: 10px;
+  margin-top: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 
   .customer-order-item {
     .boxProductClearFix;
     margin-top: 5px;
 
-    .customer-order-item-name {
+    .customer-order-item-part {
       display: inline-block;
     }
+  }
 
-    .customer-order-item-quantity {
-      display: inline-block;
-      margin-left: 10px;
+  .customer-order-item-add {
+    &.hover, &:hover {
+      color: @boxProductHover;
+      cursor: pointer;
+      a {
+        i {
+          color: @boxProductHover;
+        }
+      }
     }
   }
 

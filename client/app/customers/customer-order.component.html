@@ -1,0 +1,44 @@
+<div class="customer-order" cc-active [class.editing]="editingOrder" (activate)="editingOrder = true" (deactivate)="editingOrder = false">
+  <div class="customer-order-item" *ngFor="let item of model.items; let i = index">
+    <div class="customer-order-item-part"
+          cc-distribute-width="name">{{item.name}}</div><!--
+  --><div class="customer-order-item-part"
+          cc-distribute-width="quantity"
+          [style.margin-left.px]="orderItemPadding">
+      <cc-box-product-quantity
+        [(value)]="item.quantity"
+        (valueChange)="item.updateQuantity($event)"
+        [unitType]="item.unitType"
+        [editTabindex]="(index * 2) + 1">
+      </cc-box-product-quantity>
+    </div><!--
+  --><div class="customer-order-item-part"
+          [style.margin-left.px]="orderItemPadding">
+      <a #remove
+        class="show-on-edit"
+        cc-active cc-activate-on-focus cc-deactivate-on-blur
+        [tabindex]="(index * 2) + 1"
+        (click)="onOrderItemRemove(item)"
+        (keydown.Enter)="onOrderItemRemove(item, true)"><i class="icon-trash"></i>
+      </a>
+    </div>
+  </div>
+  <div class="customer-order-item customer-order-item-add"
+        [class.hover]="addFocused"
+        (click)="onOrderItemAdd()"
+        (keydown.Enter)="onOrderItemAdd(true)">
+    <div class="customer-order-item-part show-on-edit"
+          cc-distribute-width-sum="name,quantity"
+          [padding]="orderItemPadding * 2">
+      Add {{model.items.length? 'an' : 'another'}} item...
+    </div><!--
+  --><div class="customer-order-item-part show-on-edit">
+      <a #add
+        cc-active cc-activate-on-focus cc-deactivate-on-blur
+        [tabindex]="(index * 2) + 1"
+        (focus)="addFocused = true"
+        (blur)="addFocused = false"><i class="icon-add"></i>
+      </a>
+    </div>
+  </div>
+</div>
