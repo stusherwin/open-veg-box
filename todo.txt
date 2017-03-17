@@ -64,6 +64,7 @@ Bugs
 * row details should have constant padding
 * When cancel cc-numeric by pressing Escape and click to edit again, retains previously edited value
   (blur event fires when clicking on control to edit again, so thinks it was user input)
+* Fix round-customers rendering
 
 Ideas
 =====

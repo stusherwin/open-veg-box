@@ -23,22 +23,54 @@
       </a>
     </div>
   </div>
-  <div class="customer-order-item customer-order-item-add"
-        [class.hover]="addFocused"
-        (click)="onOrderItemAdd()"
-        (keydown.Enter)="onOrderItemAdd(true)">
-    <div class="customer-order-item-part show-on-edit"
-          cc-distribute-width-sum="name,quantity"
-          [padding]="orderItemPadding * 2">
-      Add {{model.items.length? 'an' : 'another'}} item...
-    </div><!--
-  --><div class="customer-order-item-part show-on-edit">
-      <a #add
-        cc-active cc-activate-on-focus cc-deactivate-on-blur
-        [tabindex]="tabindex"
-        (focus)="addFocused = true"
-        (blur)="addFocused = false"><i class="icon-add"></i>
-      </a>
-    </div>
+  <div>
+    <cc-editable-value #editable
+        className="customer-order-item customer-order-item-add"
+        (start)="onStartAdd()">
+      <display>
+        <div class="customer-order-item-add-display" [class.hover]="addFocused">
+          <div class="customer-order-item-part show-on-edit"
+                cc-distribute-width-sum="name,quantity"
+                [padding]="orderItemPadding * 2">
+            Add {{model.items.length? 'an' : 'another'}} item...
+          </div><!--
+        --><div class="customer-order-item-part show-on-edit">
+            <a #add
+              cc-active cc-activate-on-focus cc-deactivate-on-blur
+              [tabindex]="tabindex"
+              (focus)="addFocused = true"
+              (blur)="addFocused = false"><i class="icon-add"></i>
+            </a>
+          </div>
+        </div>
+      </display>
+      <edit>
+        <div class="customer-order-item-add-edit">
+          <select #select
+              cc-active cc-activate-on-focus
+              cc-distribute-width="name"
+              tabindex="{{editable.editing? tabindex : 9999}}"
+              (focus)="editable.startEdit()">
+            <option>Box</option>
+            <option>Product</option>
+          </select>
+          <input type="text"
+              cc-active cc-activate-on-focus
+              cc-distribute-width="quantity"
+              tabindex="{{editable.editing? tabindex : 9999}}"
+              (focus)="editable.startEdit()" />
+        </div>
+        <!--<cc-validatable
+            [valid]="editable.editingValue > 0"
+            message="Quantity should be a number greater than 0">
+          <input type="text" #input
+            class="inputx pricex"
+            cc-numeric maxDecimals="3" [(value)]="editable.editingValue"
+            cc-active cc-activate-on-focus
+            [tabindex]="tabindex"
+            (focus)="editable.startEdit()" />
+        </cc-validatable>-->
+      </edit>
+    </cc-editable-value>
   </div>
 </div>

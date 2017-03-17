@@ -1599,15 +1599,6 @@ input[type="text"].price {
 .customer-order .customer-order-item .customer-order-item-part {
   display: inline-block;
 }
-.customer-order .customer-order-item-add.hover,
-.customer-order .customer-order-item-add:hover {
-  color: #ffa011;
-  cursor: pointer;
-}
-.customer-order .customer-order-item-add.hover a i,
-.customer-order .customer-order-item-add:hover a i {
-  color: #ffa011;
-}
 .customer-order i {
   font-size: 80%;
   color: #999;
@@ -1618,6 +1609,18 @@ input[type="text"].price {
 .customer-order a:hover i,
 .customer-order a:focus i {
   color: #ffa011;
+}
+.customer-order .customer-order-item-add-display.hover,
+.customer-order .customer-order-item-add-display:hover {
+  color: #ffa011;
+  cursor: pointer;
+}
+.customer-order .customer-order-item-add-display.hover a i,
+.customer-order .customer-order-item-add-display:hover a i {
+  color: #ffa011;
+}
+.customer-order .customer-order-item-add .editable-value-edit {
+  padding-right: 46px;
 }
 .customer-order .show-on-edit {
   position: relative;

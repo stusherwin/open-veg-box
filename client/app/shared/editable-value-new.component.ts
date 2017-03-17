@@ -94,7 +94,8 @@ export class EditableValueComponent<T> implements OnInit {
 
     let newValue = this.editingValue;
 
-    if(newValue != this.value) {  
+    // Cheat to deep compare objects
+    if(JSON.stringify(newValue) != JSON.stringify(this.value)) {  
       this.value = newValue;
       this.valueChange.emit(this.value);
     }
@@ -164,4 +165,4 @@ export class EditableValueComponent<T> implements OnInit {
       this.onCancel();
     }
   }
-}
+} 

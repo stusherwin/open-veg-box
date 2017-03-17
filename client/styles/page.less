@@ -1067,18 +1067,6 @@ input[type="text"].price {
     }
   }
 
-  .customer-order-item-add {
-    &.hover, &:hover {
-      color: @boxProductHover;
-      cursor: pointer;
-      a {
-        i {
-          color: @boxProductHover;
-        }
-      }
-    }
-  }
-
   i {
     font-size: 80%;
     color: #999;
@@ -1094,6 +1082,23 @@ input[type="text"].price {
         color: @boxProductHover;
       }
     }
+  }
+
+  .customer-order-item-add-display {
+    &.hover, &:hover {
+      color: @boxProductHover;
+      cursor: pointer;
+
+      a {
+        i {
+          color: @boxProductHover;
+        }
+      }
+    }
+  }
+
+  .customer-order-item-add .editable-value-edit {
+    padding-right: 46px;
   }
 
   .show-on-edit {
