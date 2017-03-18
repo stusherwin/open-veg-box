@@ -59,7 +59,12 @@ export class EditableValueComponent<T> implements OnInit {
   valueChange = new EventEmitter<T>();
 
   ngOnInit() {
-    this.editingValue = this.value;
+    console.log(typeof this.value);
+    if(typeof this.value == 'object') {
+      this.editingValue = Object.assign({}, this.value);
+    } else {
+      this.editingValue = this.value;
+    }
   }
 
   get valid() {
@@ -79,7 +84,13 @@ export class EditableValueComponent<T> implements OnInit {
       // fire. Need a timeout window to prevent this.
       this.okKeyDownEnabled = false;
       setTimeout(() => this.okKeyDownEnabled = true, 100);
-      this.editingValue = this.value;
+      
+      if(typeof this.value == 'object') {
+        this.editingValue = Object.assign({}, this.value);
+      } else {
+        this.editingValue = this.value;
+      }
+
       this.editing = true;
       this.start.emit(null);
     }
@@ -92,12 +103,21 @@ export class EditableValueComponent<T> implements OnInit {
       return;
     }
 
-    let newValue = this.editingValue;
-
-    // Cheat to deep compare objects
-    if(JSON.stringify(newValue) != JSON.stringify(this.value)) {  
-      this.value = newValue;
-      this.valueChange.emit(this.value);
+    if(typeof this.value == 'object') {
+      // Cheat to deep compare objects
+      console.log('old: ' + JSON.stringify(this.value))
+      console.log('new: ' + JSON.stringify(this.editingValue))
+      if(JSON.stringify(this.editingValue) != JSON.stringify(this.value)) {  
+        console.log('changed')
+        Object.assign(this.value, this.editingValue);
+        this.valueChange.emit(this.value);
+      }
+    } else {
+      if(this.editingValue != this.value) {  
+        console.log('changed')
+        this.value = this.editingValue;
+        this.valueChange.emit(this.value);
+      }
     }
 
     this.endEdit();

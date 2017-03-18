@@ -1,6 +1,10 @@
 import { Component, OnInit, Input, Renderer } from '@angular/core';
 import { CustomerWithOrder } from './customer'
 import { CustomerService } from './customer.service'
+import { Box } from '../boxes/box'
+import { Product } from '../products/product';
+import { BoxService } from '../boxes/box.service'
+import { ProductService } from '../products/product.service'
 import { CustomerComponent } from './customer.component'
 import { CustomerAddComponent } from './customer-add.component'
 import { Observable } from 'rxjs/Observable';
@@ -14,10 +18,10 @@ import 'rxjs/add/operator/last';
   selector: 'cc-customers-home',
   templateUrl: 'app/customers/customers-home.component.html',
   directives: [CustomerComponent, CustomerAddComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective],
-  providers: [CustomerService, ActiveService, DistributeWidthService]
+  providers: [CustomerService, BoxService, ProductService, ActiveService, DistributeWidthService]
 })
 export class CustomersHomeComponent implements OnInit {
-  constructor(private customerService: CustomerService, routeParams: RouteParams, private renderer: Renderer) {
+  constructor(private customerService: CustomerService, private boxService: BoxService, private productService: ProductService, routeParams: RouteParams, private renderer: Renderer) {
     this.queryParams = routeParams.params;
 
     this.addModel = {
@@ -32,15 +36,23 @@ export class CustomersHomeComponent implements OnInit {
 
   addModel: AddCustomerModel;
   customers: CustomerModel[] = [];
+  boxes: Box[];
+  products: Product[];
   loaded: boolean;
 
   queryParams: {[key: string]: string};
 
   ngOnInit() {
-    this.customerService.getAll(this.queryParams).subscribe(customers => {
-      this.loaded = true;
-      this.customers = customers.map(c => this.createModel(c));
-    });
+    this.customerService.getAll(this.queryParams).combineLatest(
+        this.boxService.getAll(this.queryParams),
+        this.productService.getAll(this.queryParams),
+        (customers, boxes, products) => ({ customers, boxes, products }))
+      .subscribe(({customers, boxes, products}) => {
+        this.loaded = true;
+        this.boxes = boxes;
+        this.products = products;
+        this.customers = customers.map(c => this.createModel(c));
+      });
   }
 
   createModel(customer: CustomerWithOrder): CustomerModel {
@@ -51,6 +63,7 @@ export class CustomersHomeComponent implements OnInit {
       tel1: customer.tel1,
       order: {
         items: customer.order.items.map(i => ({
+          id: i.id,
           type: i.type,
           name: i.name,
           quantity: i.quantity,
@@ -62,6 +75,8 @@ export class CustomersHomeComponent implements OnInit {
             console.log('update order item ' + i.id + ' quantity to: ' + quantity);
           }
         })),
+        boxes: this.boxes,
+        products: this.products,
         addBox: (id: number, quantity: number) => {
           console.log('add box ' + id + '(' + quantity + ') to order ' + customer.order.id);
         },
@@ -99,11 +114,14 @@ export class CustomerModel {
 
 export class CustomerOrderModel {
   items: CustomerOrderItemModel[];
+  boxes: Box[];
+  products: Product[];
   addBox: (id: number, quantity: number) => void;
   addProduct: (id: number, quantity: number) => void;
 }
 
 export class CustomerOrderItemModel {
+  id: number;
   type: string;
   name: string;
   quantity: number;

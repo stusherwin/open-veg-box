@@ -26,7 +26,11 @@
   <div>
     <cc-editable-value #editable
         className="customer-order-item customer-order-item-add"
-        (start)="onStartAdd()">
+        [value]="addingItem"
+        [editing]="editing"
+        (start)="onAddStart()"
+        (ok)="onAddOk()"
+        (cancel)="onAddCancel()">
       <display>
         <div class="customer-order-item-add-display" [class.hover]="addFocused">
           <div class="customer-order-item-part show-on-edit"
@@ -50,26 +54,23 @@
               cc-active cc-activate-on-focus
               cc-distribute-width="name"
               tabindex="{{editable.editing? tabindex : 9999}}"
-              (focus)="editable.startEdit()">
-            <option>Box</option>
-            <option>Product</option>
+              (focus)="editable.startEdit()"
+              (change)="onPotentialItemChange($event)">
+            <option *ngFor="let p of potentialItems; let i = index" [value]="i">{{p.name}}</option>
           </select>
-          <input type="text"
-              cc-active cc-activate-on-focus
-              cc-distribute-width="quantity"
-              tabindex="{{editable.editing? tabindex : 9999}}"
-              (focus)="editable.startEdit()" />
-        </div>
-        <!--<cc-validatable
-            [valid]="editable.editingValue > 0"
+          <span class="box-product-quantity-each" *ngIf="addingItem.unitType == 'each'">x</span>
+          <cc-validatable
+            [valid]="addingItem.quantity > 0"
             message="Quantity should be a number greater than 0">
-          <input type="text" #input
-            class="inputx pricex"
-            cc-numeric maxDecimals="3" [(value)]="editable.editingValue"
-            cc-active cc-activate-on-focus
-            [tabindex]="tabindex"
-            (focus)="editable.startEdit()" />
-        </cc-validatable>-->
+              <input type="text"
+                  cc-active cc-activate-on-focus
+                  cc-distribute-width="quantity"
+                  cc-numeric [(value)]="addingItem.quantity"
+                  tabindex="{{editable.editing? tabindex : 9999}}"
+                  (focus)="editable.startEdit()" />
+          </cc-validatable>
+          <span class="box-product-quantity-perkg" *ngIf="addingItem.unitType == 'perKg'">Kg</span>
+        </div>
       </edit>
     </cc-editable-value>
   </div>
