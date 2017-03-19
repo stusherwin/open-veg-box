@@ -39,8 +39,8 @@ export class CustomersService {
           }
           
           if(r.customerorderproductid) {
-            if(customers[r.id].order.additionalProducts.findIndex(p => p.id == r.customerorderproductid) == -1) {
-              customers[r.id].order.additionalProducts.push(new CustomerOrderItem(r.customerorderproductid, r.customerorderproductname, r.customerorderproductquantity, r.customerorderproductunittype, r.customerorderproductprice * r.customerorderproductquantity));
+            if(customers[r.id].order.extraProducts.findIndex(p => p.id == r.customerorderproductid) == -1) {
+              customers[r.id].order.extraProducts.push(new CustomerOrderItem(r.customerorderproductid, r.customerorderproductname, r.customerorderproductquantity, r.customerorderproductunittype, r.customerorderproductprice * r.customerorderproductquantity));
             }
           }
         }
@@ -48,7 +48,7 @@ export class CustomersService {
         for(let id in customers) {
           customers[id].order.total =
             customers[id].order.boxes.reduce((total, b) => total + b.total, 0)
-            + customers[id].order.additionalProducts.reduce((total, p) => total + p.total, 0);
+            + customers[id].order.extraProducts.reduce((total, p) => total + p.total, 0);
           result.push(customers[id]);
         }
         return result;

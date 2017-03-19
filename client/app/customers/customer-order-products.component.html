@@ -3,7 +3,7 @@
       cc-distribute-width-sum="name,quantity,total" [padding]="orderItemPadding * 2">
     Extra Products
   </div>
-  <div class="customer-order-item" *ngIf="!model.additionalProducts.length">
+  <div class="customer-order-item" *ngIf="!model.extraProducts.length">
     <div class="customer-order-item-part"
         cc-distribute-width-sum="name,quantity" [padding]="orderItemPadding">
       None
@@ -14,7 +14,7 @@
         [innerHTML]="0 | money:true">
     </div>
   </div>
-  <div class="customer-order-item" *ngFor="let product of model.additionalProducts; let i = index">
+  <div class="customer-order-item" *ngFor="let product of model.extraProducts; let i = index">
     <div class="customer-order-item-part"
           cc-distribute-width="name">{{product.name}}</div><!--
   --><div class="customer-order-item-part"
@@ -56,7 +56,7 @@
           <div class="customer-order-item-part show-on-edit"
                 cc-distribute-width-sum="name,quantity,total"
                 [padding]="orderItemPadding * 3">
-            Add {{model.additionalProducts.length? 'another' : 'a'}} product...
+            Add {{model.extraProducts.length? 'another' : 'a'}} product...
           </div><!--
         --><div class="customer-order-item-part show-on-edit">
             <a #add
@@ -77,7 +77,7 @@
               [(ngModel)]="addingItem.id"
               (focus)="editable.startEdit()"
               (ngModelChange)="onProductChange($event)">
-            <option *ngFor="let p of model.additionalProductsAvailable" [ngValue]="p.id">{{p.name}}</option>
+            <option *ngFor="let p of model.extraProductsAvailable" [ngValue]="p.id">{{p.name}}</option>
           </select>
           <span class="box-product-quantity-each" *ngIf="addingItem.unitType == 'each'">x</span>
           <cc-validatable

@@ -84,7 +84,6 @@ Tidy up
 
 TODO (now)
 ==========
-* Add order totals
 * Server-side api
 * Distribute-width not working for product add (kg)
 * When no more boxes/products available?

@@ -36,7 +36,7 @@ export class CustomerOrderProductsComponent implements OnInit {
   }
 
   ngOnInit() {
-    let product = this.model.additionalProductsAvailable[0];
+    let product = this.model.extraProductsAvailable[0];
 
     this.addingItem = {
       id: product.id,
@@ -47,7 +47,7 @@ export class CustomerOrderProductsComponent implements OnInit {
 
   onOrderItemRemove(item: CustomerOrderItemModel, keyboard: boolean) {
     item.delete();
-    Arrays.remove(this.model.additionalProducts, item);
+    Arrays.remove(this.model.extraProducts, item);
   }
 
   onAddStart() {
@@ -55,7 +55,7 @@ export class CustomerOrderProductsComponent implements OnInit {
   }
 
   onProductChange(productId: number) {
-    let product = this.model.additionalProductsAvailable.find(p => p.id == productId);
+    let product = this.model.extraProductsAvailable.find(p => p.id == productId);
     
     this.addingItem.id = product.id;
     this.addingItem.unitType = product.unitType;
@@ -65,7 +65,7 @@ export class CustomerOrderProductsComponent implements OnInit {
     this.model.addProduct(this.addingItem.id, this.addingItem.quantity);
     this.editable.endEdit();
 
-    let product = this.model.additionalProductsAvailable[0];
+    let product = this.model.extraProductsAvailable[0];
     this.addingItem.id = product.id;
     this.addingItem.quantity = 1;
     this.addingItem.unitType = product.unitType;
@@ -74,7 +74,7 @@ export class CustomerOrderProductsComponent implements OnInit {
   onAddCancel() {
     this.editable.endEdit();
 
-    let product = this.model.additionalProductsAvailable[0];
+    let product = this.model.extraProductsAvailable[0];
     this.addingItem.id = product.id;
     this.addingItem.quantity = 1;
     this.addingItem.unitType = product.unitType;

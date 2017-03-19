@@ -76,7 +76,7 @@ export class CustomersHomeComponent implements OnInit {
             console.log('update box ' + b.id + ' quantity to ' + quantity + ' on order ' + customer.order.id);
           }
         })),
-        additionalProducts: customer.order.additionalProducts.map(p => ({
+        extraProducts: customer.order.extraProducts.map(p => ({
           id: p.id,
           name: p.name,
           quantity: p.quantity,
@@ -92,9 +92,9 @@ export class CustomersHomeComponent implements OnInit {
         boxesAvailable: Arrays.exceptByOther(
           this.boxes, b => b.id, 
           customer.order.boxes, b => b.id),
-        additionalProductsAvailable: Arrays.exceptByOther(
+        extraProductsAvailable: Arrays.exceptByOther(
           this.products, p => p.id,
-          customer.order.additionalProducts, p => p.id),
+          customer.order.extraProducts, p => p.id),
         total: customer.order.total,
         addBox: (id: number, quantity: number) => {
           console.log('add box ' + id + '(' + quantity + ') to order ' + customer.order.id);
@@ -133,9 +133,9 @@ export class CustomerModel {
 
 export class CustomerOrderModel {
   boxes: CustomerOrderItemModel[];
-  additionalProducts: CustomerOrderItemModel[];
+  extraProducts: CustomerOrderItemModel[];
   boxesAvailable: Box[];
-  additionalProductsAvailable: Product[];
+  extraProductsAvailable: Product[];
   total: number;
 
   addBox: (id: number, quantity: number) => void;
