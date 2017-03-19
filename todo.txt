@@ -65,6 +65,7 @@ Bugs
 * When cancel cc-numeric by pressing Escape and click to edit again, retains previously edited value
   (blur event fires when clicking on control to edit again, so thinks it was user input)
 * Fix round-customers rendering
+* cc-numeric is dodgy. Make this use ngModel somehow?
 
 Ideas
 =====
@@ -78,4 +79,12 @@ Ideas
 
 Tidy up
 =======
-* Bring value updating behaviour into editable-value component
+* Rename editable-value-new, editable-value
+* Add boxes.getAllWithProducts, change getAll to just return box data
+
+TODO (now)
+==========
+* Add order totals
+* Server-side api
+* Distribute-width not working for product add (kg)
+* When no more boxes/products available?

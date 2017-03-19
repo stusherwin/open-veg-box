@@ -11,6 +11,7 @@ import { Observable } from 'rxjs/Observable';
 import { RouteParams } from '@angular/router-deprecated';
 import { ActiveService, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
 import { DistributeWidthService } from './distribute-width.directive'
+import { Arrays } from '../shared/arrays';
 import 'rxjs/add/observable/concat';
 import 'rxjs/add/operator/last';
 
@@ -62,26 +63,41 @@ export class CustomersHomeComponent implements OnInit {
       email: customer.email,
       tel1: customer.tel1,
       order: {
-        items: customer.order.items.map(i => ({
-          id: i.id,
-          type: i.type,
-          name: i.name,
-          quantity: i.quantity,
-          unitType: i.unitType,
+        boxes: customer.order.boxes.map(b => ({
+          id: b.id,
+          name: b.name,
+          quantity: b.quantity,
+          unitType: 'each',
           delete: () => {
-            console.log('delete order item ' + i.id);
+            console.log('delete box ' + b.id + ' from order ' + customer.order.id);
           },
           updateQuantity: (quantity: number) => {
-            console.log('update order item ' + i.id + ' quantity to: ' + quantity);
+            console.log('update box ' + b.id + ' quantity to ' + quantity + ' on order ' + customer.order.id);
           }
         })),
-        boxes: this.boxes,
-        products: this.products,
+        additionalProducts: customer.order.additionalProducts.map(p => ({
+          id: p.id,
+          name: p.name,
+          quantity: p.quantity,
+          unitType: p.unitType,
+          delete: () => {
+            console.log('delete product ' + p.id + ' from order ' + customer.order.id);
+          },
+          updateQuantity: (quantity: number) => {
+            console.log('update product ' + p.id + ' quantity to ' + quantity + ' on order ' + customer.order.id);
+          }
+        })),
+        boxesAvailable: Arrays.exceptByOther(
+          this.boxes, b => b.id, 
+          customer.order.boxes, b => b.id),
+        additionalProductsAvailable: Arrays.exceptByOther(
+          this.products, p => p.id,
+          customer.order.additionalProducts, p => p.id),
         addBox: (id: number, quantity: number) => {
           console.log('add box ' + id + '(' + quantity + ') to order ' + customer.order.id);
         },
         addProduct: (id: number, quantity: number) => {
-          console.log('add product ' + id + '(' + quantity + ') to order ' + customer.order.id);
+          console.log('add additional product ' + id + '(' + quantity + ') to order ' + customer.order.id);
         }
       },
       emailRouterLink: ['../Email', {customerId: customer.id}],
@@ -113,16 +129,17 @@ export class CustomerModel {
 }
 
 export class CustomerOrderModel {
-  items: CustomerOrderItemModel[];
-  boxes: Box[];
-  products: Product[];
+  boxes: CustomerOrderItemModel[];
+  additionalProducts: CustomerOrderItemModel[];
+  boxesAvailable: Box[];
+  additionalProductsAvailable: Product[];
+
   addBox: (id: number, quantity: number) => void;
   addProduct: (id: number, quantity: number) => void;
 }
 
 export class CustomerOrderItemModel {
   id: number;
-  type: string;
   name: string;
   quantity: number;
   unitType: string;
@@ -133,4 +150,11 @@ export class CustomerOrderItemModel {
 
 export class AddCustomerModel {
   add: (properties: {[property: string]: any}) => void;
+}
+
+class NewOrderItem {
+  type: string;
+  id: number;
+  quantity: number;
+  unitType: string;
 }

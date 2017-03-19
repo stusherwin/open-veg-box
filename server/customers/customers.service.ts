@@ -28,19 +28,19 @@ export class CustomersService {
         let customers: { [id: number]: CustomerWithOrder; } = {};
         for(let r of rows) {
           if(!customers[r.id]) {
-            let order = new CustomerOrder(r.customerorderid, r.id, []);
+            let order = new CustomerOrder(r.customerorderid, r.id, [], []);
             customers[r.id] = new CustomerWithOrder(r.id, r.name, r.address, r.tel1, r.tel2, r.email, order);
           }
 
           if(r.customerorderboxid) {
-            if(customers[r.id].order.items.findIndex(i => i.type == 'box' && i.id == r.customerorderboxid) == -1) {
-              customers[r.id].order.items.push(new CustomerOrderItem('box', r.customerorderboxid, r.customerorderboxname, r.customerorderboxquantity, 'each'));
+            if(customers[r.id].order.boxes.findIndex(b => b.id == r.customerorderboxid) == -1) {
+              customers[r.id].order.boxes.push(new CustomerOrderItem(r.customerorderboxid, r.customerorderboxname, r.customerorderboxquantity, 'each'));
             }
           }
           
           if(r.customerorderproductid) {
-            if(customers[r.id].order.items.findIndex(i => i.type == 'product' && i.id == r.customerorderproductid) == -1) {
-              customers[r.id].order.items.push(new CustomerOrderItem('product', r.customerorderproductid, r.customerorderproductname, r.customerorderproductquantity, r.customerorderproductunittype));
+            if(customers[r.id].order.additionalProducts.findIndex(p => p.id == r.customerorderproductid) == -1) {
+              customers[r.id].order.additionalProducts.push(new CustomerOrderItem(r.customerorderproductid, r.customerorderproductname, r.customerorderproductquantity, r.customerorderproductunittype));
             }
           }
         }

@@ -59,7 +59,6 @@ export class EditableValueComponent<T> implements OnInit {
   valueChange = new EventEmitter<T>();
 
   ngOnInit() {
-    console.log(typeof this.value);
     if(typeof this.value == 'object') {
       this.editingValue = Object.assign({}, this.value);
     } else {
