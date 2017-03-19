@@ -68,6 +68,7 @@ export class CustomersHomeComponent implements OnInit {
           name: b.name,
           quantity: b.quantity,
           unitType: 'each',
+          total: b.total,
           delete: () => {
             console.log('delete box ' + b.id + ' from order ' + customer.order.id);
           },
@@ -80,6 +81,7 @@ export class CustomersHomeComponent implements OnInit {
           name: p.name,
           quantity: p.quantity,
           unitType: p.unitType,
+          total: p.total,
           delete: () => {
             console.log('delete product ' + p.id + ' from order ' + customer.order.id);
           },
@@ -93,6 +95,7 @@ export class CustomersHomeComponent implements OnInit {
         additionalProductsAvailable: Arrays.exceptByOther(
           this.products, p => p.id,
           customer.order.additionalProducts, p => p.id),
+        total: customer.order.total,
         addBox: (id: number, quantity: number) => {
           console.log('add box ' + id + '(' + quantity + ') to order ' + customer.order.id);
         },
@@ -133,6 +136,7 @@ export class CustomerOrderModel {
   additionalProducts: CustomerOrderItemModel[];
   boxesAvailable: Box[];
   additionalProductsAvailable: Product[];
+  total: number;
 
   addBox: (id: number, quantity: number) => void;
   addProduct: (id: number, quantity: number) => void;
@@ -143,6 +147,7 @@ export class CustomerOrderItemModel {
   name: string;
   quantity: number;
   unitType: string;
+  total: number;
 
   delete: () => void;
   updateQuantity: (quantity: number) => void;

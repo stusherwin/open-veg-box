@@ -4,13 +4,17 @@ import { DistributeWidthDirective, DistributeWidthSumDirective } from './distrib
 import { CustomerOrderModel } from './customers-home.component'
 import { CustomerOrderBoxesComponent } from './customer-order-boxes.component'
 import { CustomerOrderProductsComponent } from './customer-order-products.component'
+import { MoneyPipe } from '../shared/pipes'
 
 @Component({
   selector: 'cc-customer-order',
   templateUrl: 'app/customers/customer-order.component.html',
   directives: [ActiveElementDirective, DistributeWidthDirective, DistributeWidthSumDirective, CustomerOrderBoxesComponent, CustomerOrderProductsComponent],
+  pipes: [MoneyPipe]
 })
 export class CustomerOrderComponent {
+  orderItemPadding = 10;
+
   @Input()
   model: CustomerOrderModel;
 

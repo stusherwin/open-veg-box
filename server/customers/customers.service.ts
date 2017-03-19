@@ -12,9 +12,9 @@ export class CustomersService {
     + '  c.id, c.name, c.address, c.tel1, c.tel2, c.email'
     + ', co.id customerOrderId'
     + ', cob.boxId customerOrderBoxId, cob.quantity customerOrderBoxQuantity'
-    + ', b.name customerOrderBoxName'
+    + ', b.name customerOrderBoxName, b.price customerOrderBoxPrice'
     + ', cop.productId customerOrderProductId, cop.quantity customerOrderProductQuantity'
-    + ', p.name customerOrderProductName, p.unitType customerOrderProductUnitType'
+    + ', p.name customerOrderProductName, p.unitType customerOrderProductUnitType, p.price customerOrderProductPrice'
     + ' from customer c'
     + ' left join customerOrder co on co.customerId = c.id'
     + ' left join customerOrder_box cob on cob.customerOrderId = co.id'
@@ -28,24 +28,27 @@ export class CustomersService {
         let customers: { [id: number]: CustomerWithOrder; } = {};
         for(let r of rows) {
           if(!customers[r.id]) {
-            let order = new CustomerOrder(r.customerorderid, r.id, [], []);
+            let order = new CustomerOrder(r.customerorderid, r.id, [], [], 0);
             customers[r.id] = new CustomerWithOrder(r.id, r.name, r.address, r.tel1, r.tel2, r.email, order);
           }
 
           if(r.customerorderboxid) {
             if(customers[r.id].order.boxes.findIndex(b => b.id == r.customerorderboxid) == -1) {
-              customers[r.id].order.boxes.push(new CustomerOrderItem(r.customerorderboxid, r.customerorderboxname, r.customerorderboxquantity, 'each'));
+              customers[r.id].order.boxes.push(new CustomerOrderItem(r.customerorderboxid, r.customerorderboxname, r.customerorderboxquantity, 'each', r.customerorderboxprice * r.customerorderboxquantity));
             }
           }
           
           if(r.customerorderproductid) {
             if(customers[r.id].order.additionalProducts.findIndex(p => p.id == r.customerorderproductid) == -1) {
-              customers[r.id].order.additionalProducts.push(new CustomerOrderItem(r.customerorderproductid, r.customerorderproductname, r.customerorderproductquantity, r.customerorderproductunittype));
+              customers[r.id].order.additionalProducts.push(new CustomerOrderItem(r.customerorderproductid, r.customerorderproductname, r.customerorderproductquantity, r.customerorderproductunittype, r.customerorderproductprice * r.customerorderproductquantity));
             }
           }
         }
         let result: CustomerWithOrder[] = [];
         for(let id in customers) {
+          customers[id].order.total =
+            customers[id].order.boxes.reduce((total, b) => total + b.total, 0)
+            + customers[id].order.additionalProducts.reduce((total, p) => total + p.total, 0);
           result.push(customers[id]);
         }
         return result;

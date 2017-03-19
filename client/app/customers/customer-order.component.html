@@ -1,6 +1,17 @@
-<div class="customer-order" cc-active [class.editing]="editingOrder" (activate)="editingOrder = true" (deactivate)="editingOrder = false">
+<div class="customer-order">
   <cc-customer-order-boxes [model]="model" [tabindex]="(tabindex * 2) + 1">
   </cc-customer-order-boxes>
   <cc-customer-order-products [model]="model" [tabindex]="(tabindex * 2) + 1">
   </cc-customer-order-products>
+  <div class="customer-order-item border-top"
+       cc-distribute-width-sum="name,quantity,total" [padding]="orderItemPadding * 2">
+    <div class="customer-order-item-part"
+        cc-distribute-width-sum="name,quantity" [padding]="orderItemPadding * 1">
+    </div><!--
+ --><div class="customer-order-item-part customer-order-total"
+        cc-distribute-width="total"
+        [innerHTML]="model.total | money:true"
+        [style.margin-left.px]="orderItemPadding">
+    </div>
+  </div>
 </div>

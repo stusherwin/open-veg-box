@@ -1065,6 +1065,20 @@ input[type="text"].price {
     .customer-order-item-part {
       display: inline-block;
     }
+
+    .customer-order-total {
+      text-align: right;
+    }
+  }
+
+  .border-bottom {
+    padding-bottom: 5px;
+    border-bottom: 1px dashed #ccc;
+  }
+
+  .border-top {
+    padding-top: 5px;
+    border-top: 1px dashed #ccc;
   }
 
   i {
@@ -1106,9 +1120,11 @@ input[type="text"].price {
     left: -10000px;
   }
 
-  &:hover, &.editing {
-    .show-on-edit {
-      left: 0px;     
+  .customer-order-boxes, .customer-order-products {
+    &:hover, &.editing {
+      .show-on-edit {
+        left: 0px;     
+      }
     }
   }
 

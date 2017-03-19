@@ -7,11 +7,13 @@ import { EditableValueComponent } from '../shared/editable-value.component'
 import { Arrays } from '../shared/arrays'
 import { NumericDirective } from '../shared/numeric.directive'
 import { Box } from '../boxes/box'
+import { MoneyPipe } from '../shared/pipes'
 
 @Component({
   selector: 'cc-customer-order-boxes',
   templateUrl: 'app/customers/customer-order-boxes.component.html',
   directives: [ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, DistributeWidthDirective, BoxProductQuantityComponent, DistributeWidthSumDirective, EditableValueComponent, NumericDirective],
+  pipes: [MoneyPipe]
 })
 export class CustomerOrderBoxesComponent implements OnInit {
   orderItemPadding = 10;

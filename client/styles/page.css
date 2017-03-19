@@ -1599,6 +1599,17 @@ input[type="text"].price {
 .customer-order .customer-order-item .customer-order-item-part {
   display: inline-block;
 }
+.customer-order .customer-order-item .customer-order-total {
+  text-align: right;
+}
+.customer-order .border-bottom {
+  padding-bottom: 5px;
+  border-bottom: 1px dashed #ccc;
+}
+.customer-order .border-top {
+  padding-top: 5px;
+  border-top: 1px dashed #ccc;
+}
 .customer-order i {
   font-size: 80%;
   color: #999;
@@ -1626,8 +1637,10 @@ input[type="text"].price {
   position: relative;
   left: -10000px;
 }
-.customer-order:hover .show-on-edit,
-.customer-order.editing .show-on-edit {
+.customer-order .customer-order-boxes:hover .show-on-edit,
+.customer-order .customer-order-products:hover .show-on-edit,
+.customer-order .customer-order-boxes.editing .show-on-edit,
+.customer-order .customer-order-products.editing .show-on-edit {
   left: 0px;
 }
 .customer-order .box-product-quantity.editable-value .editable-value-display {

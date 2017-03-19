@@ -26,29 +26,33 @@ export class CustomerWithOrder extends Customer {
 }
 
 export class CustomerOrder {
-  constructor(id: number, customerId: number, boxes: CustomerOrderItem[], additionalProducts: CustomerOrderItem[]) {
+  constructor(id: number, customerId: number, boxes: CustomerOrderItem[], additionalProducts: CustomerOrderItem[], total: number) {
     this.id = id;
     this.customerId = customerId;
     this.boxes = boxes;
     this.additionalProducts = additionalProducts;
+    this.total = total;
   }
 
   id: number;
   customerId: number;
   boxes: CustomerOrderItem[];
   additionalProducts: CustomerOrderItem[];
+  total: number;
 }
 
 export class CustomerOrderItem {
-  constructor(id: number, name: string, quantity: number, unitType: string) {
+  constructor(id: number, name: string, quantity: number, unitType: string, total: number) {
     this.id = id;
     this.name = name;
     this.quantity = quantity;
     this.unitType = unitType;
+    this.total = total;
   }
 
   id: number;
   name: string;
   quantity: number;
   unitType: string;
+  total: number;
 }

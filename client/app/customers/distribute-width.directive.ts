@@ -94,10 +94,8 @@ let sumId = 0;
   // }
 })
 export class DistributeWidthSumDirective implements OnInit, OnDestroy {
+  @HostBinding('style.width.px')
   width: number = 0;
-
-  @HostBinding('style.min-width.px')
-  minWidth: number = 0;
 
   id: number;
 
@@ -139,12 +137,12 @@ export class DistributeWidthSumDirective implements OnInit, OnDestroy {
       .filter(e => !!e)
       .debounceTime(MIN_WIDTH_DEBOUNCE_MS)
       .subscribe(e => {
-        let newMinWidth = this.padding;
+        let newWidth = this.padding;
         for(let k of this.keys) {
-          newMinWidth += e[k];
+          newWidth += e[k];
         }
-        if(this.minWidth != newMinWidth) {
-          this.minWidth = newMinWidth;
+        if(this.width != newWidth) {
+          this.width = newWidth;
           if(this.shouldDetectChanges) {
             this.changeDetector.detectChanges();
           }

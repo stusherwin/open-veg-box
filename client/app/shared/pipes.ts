@@ -2,8 +2,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({name: 'money'})
 export class MoneyPipe implements PipeTransform {
-  transform(value: number): string {
-    return (value || 0) < 1 ? ((value || 0) * 100).toFixed(0) + 'p' : '&pound;' + value.toFixed(2);
+  transform(value: number, forcePounds: boolean): string {
+    return forcePounds || (value || 0) >= 1
+      ? '&pound;' + value.toFixed(2)
+      : ((value || 0) * 100).toFixed(0) + 'p';
   }
 }
 
