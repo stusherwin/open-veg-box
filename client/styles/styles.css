@@ -2532,16 +2532,26 @@ input[type="text"].price {
 .customer-order .customer-order-item .customer-order-item-part {
   display: inline-block;
 }
-.customer-order .customer-order-item .customer-order-total {
+.customer-order .customer-order-item .customer-order-item-total {
   text-align: right;
 }
-.customer-order .border-bottom {
-  padding-bottom: 5px;
-  border-bottom: 1px dashed #ccc;
+.customer-order .customer-order-heading {
+  font-size: 75%;
+  color: #999;
+  text-transform: uppercase;
+  padding-bottom: 2px;
+  border-bottom: 1px solid #ccc;
 }
-.customer-order .border-top {
+.customer-order .customer-order-total {
+  text-align: right;
   padding-top: 5px;
-  border-top: 1px dashed #ccc;
+  border-top: 1px solid #ccc;
+}
+.customer-order .customer-order-total.modified {
+  color: #ffa011;
+}
+.customer-order .customer-order-item-add {
+  margin-bottom: 10px;
 }
 .customer-order i {
   font-size: 80%;
@@ -2564,16 +2574,14 @@ input[type="text"].price {
   color: #ffa011;
 }
 .customer-order .customer-order-item-add .editable-value-edit {
-  padding-right: 46px;
+  padding-right: 39px;
 }
 .customer-order .show-on-edit {
   position: relative;
   left: -10000px;
 }
-.customer-order .customer-order-boxes:hover .show-on-edit,
-.customer-order .customer-order-products:hover .show-on-edit,
-.customer-order .customer-order-boxes.editing .show-on-edit,
-.customer-order .customer-order-products.editing .show-on-edit {
+.customer-order .customer-order-section:hover .show-on-edit,
+.customer-order .customer-order-section.editing .show-on-edit {
   left: 0px;
 }
 .customer-order .box-product-quantity.editable-value .editable-value-display {

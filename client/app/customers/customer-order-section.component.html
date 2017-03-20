@@ -1,0 +1,108 @@
+<div class="customer-order-section" cc-active [class.editing]="editingOrder" (activate)="editingOrder = true" (deactivate)="editingOrder = false">
+  <div class="customer-order-item customer-order-heading"
+      cc-distribute-width-sum="name,quantity,total" [padding]="orderItemPadding * 2">
+    {{heading}}
+  </div>
+  <div class="customer-order-item" *ngIf="!model.items.length">
+    <div class="customer-order-item-part"
+        cc-distribute-width-sum="name,quantity" [padding]="orderItemPadding">
+      None
+    </div><!--
+ --><div class="customer-order-item-part customer-order-item-total"
+        cc-distribute-width="total"
+        [style.margin-left.px]="orderItemPadding"
+        [innerHTML]="0 | money:true">
+    </div>
+  </div>
+  <div class="customer-order-item" *ngFor="let item of model.items; let i = index">
+    <div class="customer-order-item-part"
+          cc-distribute-width="name">{{item.name}}</div><!--
+  --><div class="customer-order-item-part"
+          cc-distribute-width="quantity"
+          [style.margin-left.px]="orderItemPadding">
+      <cc-box-product-quantity
+        [(value)]="item.quantity"
+        (valueChange)="item.updateQuantity($event);"
+        [unitType]="item.unitType"
+        [tabindex]="tabindex">
+      </cc-box-product-quantity>
+    </div><!--
+  --><div class="customer-order-item-part customer-order-item-total"
+          cc-distribute-width="total"
+          [innerHTML]="item.total | money:true"
+          [style.margin-left.px]="orderItemPadding">
+     </div><!--
+  --><div class="customer-order-item-part"
+          [style.margin-left.px]="orderItemPadding">
+      <a #remove
+        class="show-on-edit"
+        cc-active cc-activate-on-focus cc-deactivate-on-blur
+        [tabindex]="tabindex"
+        (click)="onOrderItemRemove(item)"
+        (keydown.Enter)="onOrderItemRemove(item, true)"><i class="icon-trash"></i>
+      </a>
+    </div>
+  </div>
+  <div>
+    <cc-editable-value #editable
+        className="customer-order-item customer-order-item-add"
+        [value]="addingItem"
+        [editing]="editing"
+        (start)="onAddStart()"
+        (ok)="onAddOk()"
+        (cancel)="onAddCancel()">
+      <display>
+        <div class="customer-order-item-add-display" [class.hover]="addFocused">
+          <div class="customer-order-item-part show-on-edit"
+                cc-distribute-width-sum="name,quantity,total"
+                [padding]="orderItemPadding * 3">
+            Add {{model.items.length? 'another' : itemNameArticle }} {{itemName}}...
+          </div><!--
+        --><div class="customer-order-item-part show-on-edit">
+            <a #add
+              cc-active cc-activate-on-focus cc-deactivate-on-blur
+              [tabindex]="tabindex"
+              (focus)="addFocused = true"
+              (blur)="addFocused = false"><i class="icon-add"></i>
+            </a>
+          </div>
+        </div>
+      </display>
+      <edit>
+        <div class="customer-order-item-add-edit">
+          <div class="customer-order-item-part"
+               cc-distribute-width="name">
+            <select #select
+                cc-active cc-activate-on-focus
+                tabindex="{{editable.editing? tabindex : 9999}}"
+                [(ngModel)]="addingItem.id"
+                (focus)="editable.startEdit()"
+                (ngModelChange)="onItemChange($event)">
+              <option *ngFor="let p of model.itemsAvailable" [ngValue]="p.id">{{p.name}}</option>
+            </select>
+          </div><!--
+       --><div class="customer-order-item-part"
+               cc-distribute-width="quantity"
+               [style.margin-left.px]="orderItemPadding">
+            <span [style.visibility]="addingItem.unitType == 'each' ? 'visible' : 'hidden'">x</span>
+              <cc-validatable
+                [valid]="addingItem.quantity > 0"
+                message="Quantity should be a number greater than 0">
+                  <input type="text"
+                      cc-active cc-activate-on-focus
+                      cc-numeric [(value)]="addingItem.quantity" (valueChange)="onAddingItemQuantityChange($event)"
+                      tabindex="{{editable.editing? tabindex : 9999}}"
+                      (focus)="editable.startEdit()" />
+              </cc-validatable>
+            <span [style.visibility]="addingItem.unitType == 'perKg' ? 'visible' : 'hidden'">Kg</span>
+          </div><!--
+       --><div class="customer-order-item-part customer-order-item-total"
+               cc-distribute-width="total"
+               [style.margin-left.px]="orderItemPadding"
+               [innerHTML]="addingItem.price * addingItem.quantity | money: true">
+          </div>
+        </div>
+      </edit>
+    </cc-editable-value>
+  </div>
+</div>

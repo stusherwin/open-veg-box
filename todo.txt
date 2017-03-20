@@ -80,10 +80,12 @@ Ideas
 Tidy up
 =======
 * Rename editable-value-new, editable-value
-* Add boxes.getAllWithProducts, change getAll to just return box data
+* Add boxes.getAllWithProducts, change getAll to just return box data (BoxWithProducts override)
 
 TODO (now)
 ==========
 * Server-side api
 * Distribute-width not working for product add (kg)
 * When no more boxes/products available?
+* Distribute-width not shrinking when width of largest element reduced
+* order total jumps to left when total exceeds width (until widths recalculated)
