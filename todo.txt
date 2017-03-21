@@ -86,5 +86,5 @@ TODO (now)
 ==========
 * Server-side api
 * When no more boxes/products available?
-* Edit quantity should update order total
 * distribute-width should maybe use document selectors to set min-width (quicker?)
+* Prices should be integers in pence, not floating point!!

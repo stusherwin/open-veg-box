@@ -1624,9 +1624,6 @@ input[type="text"].price {
   padding-top: 5px;
   border-top: 1px solid #ccc;
 }
-.customer-order .customer-order-total.modified {
-  color: #ffa011;
-}
 .customer-order .customer-order-item-add {
   margin-bottom: 10px;
 }
@@ -1639,6 +1636,9 @@ input[type="text"].price {
 }
 .customer-order a:hover i,
 .customer-order a:focus i {
+  color: #ffa011;
+}
+.customer-order .modified {
   color: #ffa011;
 }
 .customer-order .customer-order-item-add-display.hover,

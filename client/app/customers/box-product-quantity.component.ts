@@ -32,13 +32,25 @@ export class BoxProductQuantityComponent {
   @ViewChild('input')
   input: ElementRef
 
+  @ViewChild('editable')
+  editable: EditableValueComponent<number>
+
   @Output()
   valueChange = new EventEmitter<number>();
+
+  @Output()
+  editingValueChange = new EventEmitter<number>();
   
   constructor(private renderer: Renderer) {
   }
 
   onStart() {
     this.renderer.invokeElementMethod(this.input.nativeElement, 'focus', []);
+  }
+
+  onEditingValueChange(quantity: number) {
+    if(this.editable.editing) {
+      this.editingValueChange.emit(quantity);
+    }
   }
 }

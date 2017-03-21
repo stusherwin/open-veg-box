@@ -2,8 +2,10 @@
     className="box-product-quantity"
     [value]="value"
     [editing]="editing"
-    (valueChange)="valueChange.emit($event)"
-    (start)="onStart()">
+    (valueChange)="valueChange.emit($event);"
+    (start)="onStart()"
+    (ok)="editingValueChange.emit(null);"
+    (cancel)="editingValueChange.emit(null);">
   <display>
     <span class="box-product-quantity-each" [style.visibility]="unitType == 'each' ? 'visible' : 'hidden'">x</span>
     <span *ngIf="unitType == 'perKg'">{{value | weight}}</span>
@@ -17,7 +19,7 @@
         message="Quantity should be a number greater than 0">
       <input type="text" #input
         class="inputx pricex"
-        cc-numeric maxDecimals="3" [(value)]="editable.editingValue"
+        cc-numeric maxDecimals="3" [(value)]="editable.editingValue" (valueChange)="onEditingValueChange($event)"
         cc-active cc-activate-on-focus
         [tabindex]="tabindex"
         (focus)="editable.startEdit()" />

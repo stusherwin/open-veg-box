@@ -55,6 +55,9 @@ export class CustomerOrderSectionComponent implements OnInit {
       quantity: 1,
       unitType: item.unitType
     };
+    this.model.items.forEach((i: any) => {
+      i.editingTotal = i.total;
+    })
   }
 
   onOrderItemRemove(item: CustomerOrderItemModel, keyboard: boolean) {
@@ -103,6 +106,18 @@ export class CustomerOrderSectionComponent implements OnInit {
     if(this.editable.editing) {
       this.addTotalChange.emit(this.addingItem.price * quantity);
     }
+  }
+
+  onItemQuantityChange(item: any, quantity: number) {
+    if(quantity == null) {
+      item.editingTotal = item.total;
+      this.addTotalChange.emit(0);
+      return;
+    }
+
+    let price = item.total / item.quantity;
+    item.editingTotal = price * quantity;
+    this.addTotalChange.emit(item.editingTotal - item.total);
   }
 }
 

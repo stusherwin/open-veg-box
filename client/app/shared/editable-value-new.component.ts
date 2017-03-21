@@ -58,6 +58,12 @@ export class EditableValueComponent<T> implements OnInit {
   @Output()
   valueChange = new EventEmitter<T>();
 
+  @Output()
+  ok = new EventEmitter<boolean>()
+
+  @Output()
+  cancel = new EventEmitter<void>()
+
   ngOnInit() {
     if(typeof this.value == 'object') {
       this.editingValue = Object.assign({}, this.value);
@@ -102,6 +108,8 @@ export class EditableValueComponent<T> implements OnInit {
       return;
     }
 
+    this.ok.emit(this.tabbedAway);
+
     if(typeof this.value == 'object') {
       // Cheat to deep compare objects
       console.log('old: ' + JSON.stringify(this.value))
@@ -123,6 +131,7 @@ export class EditableValueComponent<T> implements OnInit {
   }
 
   onCancel() {
+    this.cancel.emit(null);
     this.endEdit();
   }
 

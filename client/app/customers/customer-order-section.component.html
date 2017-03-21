@@ -23,13 +23,15 @@
       <cc-box-product-quantity
         [(value)]="item.quantity"
         (valueChange)="item.updateQuantity($event);"
+        (editingValueChange)="onItemQuantityChange(item, $event);"
         [unitType]="item.unitType"
         [tabindex]="tabindex">
       </cc-box-product-quantity>
     </div><!--
   --><div class="customer-order-item-part customer-order-item-total"
           cc-distribute-width="total"
-          [innerHTML]="item.total | money:true"
+          [innerHTML]="item.editingTotal | money:true"
+          [class.modified]="item.editingTotal != item.total"
           [style.margin-left.px]="orderItemPadding">
      </div><!--
   --><div class="customer-order-item-part"
