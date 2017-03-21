@@ -45,8 +45,9 @@
       </a>
     </div>
   </div>
-  <div>
+  <div style="margin-bottom: 10px;">
     <cc-editable-value #editable
+        *ngIf="model.itemsAvailable.length"
         className="customer-order-item customer-order-item-add"
         [value]="addingItem"
         [editing]="editing"

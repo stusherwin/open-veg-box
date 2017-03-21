@@ -17,7 +17,7 @@
  --><div class="customer-order-item-part customer-order-total"
          cc-distribute-width="total"
          [class.modified]="addTotal"
-         [innerHTML]="model.total + addTotal | money:true"
+         [innerHTML]="model.order.total + addTotal | money:true"
          [style.margin-left.px]="orderItemPadding">
     </div>
   </div>

@@ -7,7 +7,7 @@ import { Arrays } from '../shared/arrays'
 import { NumericDirective } from '../shared/numeric.directive'
 import { MoneyPipe } from '../shared/pipes'
 import { CustomerOrderSectionModel, CustomerOrderAvailableItem } from './customer-order.component'
-import { CustomerOrderItemModel } from './customers-home.component'
+import { CustomerOrderItemModel } from './customer-order.component'
 
 @Component({
   selector: 'cc-customer-order-section',
@@ -50,14 +50,11 @@ export class CustomerOrderSectionComponent implements OnInit {
     let item = this.model.itemsAvailable[0];
 
     this.addingItem = {
-      id: item.id,
-      price: item.price,
+      id: item? item.id : 0,
+      price: item? item.price : 0,
       quantity: 1,
-      unitType: item.unitType
+      unitType: item? item.unitType : 'each'
     };
-    this.model.items.forEach((i: any) => {
-      i.editingTotal = i.total;
-    })
   }
 
   onOrderItemRemove(item: CustomerOrderItemModel, keyboard: boolean) {
@@ -108,15 +105,14 @@ export class CustomerOrderSectionComponent implements OnInit {
     }
   }
 
-  onItemQuantityChange(item: any, quantity: number) {
+  onItemQuantityChange(item: CustomerOrderItemModel, quantity: number) {
     if(quantity == null) {
       item.editingTotal = item.total;
       this.addTotalChange.emit(0);
       return;
     }
 
-    let price = item.total / item.quantity;
-    item.editingTotal = price * quantity;
+    item.editingTotal = item.price * quantity;
     this.addTotalChange.emit(item.editingTotal - item.total);
   }
 }

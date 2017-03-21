@@ -85,6 +85,9 @@ Tidy up
 TODO (now)
 ==========
 * Server-side api
-* When no more boxes/products available?
+* Errors when no more boxes/products available
 * distribute-width should maybe use document selectors to set min-width (quicker?)
 * Prices should be integers in pence, not floating point!!
+* Select not pre-selecting first box after add, or first product after remove
+* Select not updating box/product id after add (fk violation)
+* When finished editing quantity, reverts back to old value before getting new value from server

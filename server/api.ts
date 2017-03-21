@@ -10,6 +10,7 @@ import {getBoxes} from './boxes/boxes.router'
 import {getCustomers} from './customers/customers.router'
 import {getRounds} from './rounds/rounds.router'
 import {getEmail} from './email/email.router'
+import {getOrder} from './customers/order.router'
 
 var express = require('express');
 
@@ -45,10 +46,12 @@ mainDb.all<{id: number, db: Db}>(
   let customers = getCustomers(authorize);
   let rounds = getRounds(authorize);
   let email = getEmail(config.email, authorize);
+  let order = getOrder(authorize);
 
   api.use('/products', products);
   api.use('/boxes', boxes);
   api.use('/customers', customers);
+  api.use('/order', order);
   api.use('/rounds', rounds);
   api.use('/email', email);
   api.use('/auth', auth);

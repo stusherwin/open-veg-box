@@ -1,11 +1,17 @@
 PRAGMA foreign_keys=on;
 
+DROP TABLE IF EXISTS customerOrder_box;
+DROP TABLE IF EXISTS customerOrder_product;
+DROP TABLE IF EXISTS customerOrder;
 DROP TABLE IF EXISTS round_customer;
-
 DROP TABLE IF EXISTS round;
+DROP TABLE IF EXISTS customer;
+DROP TABLE IF EXISTS box_product;
+DROP TABLE IF EXISTS box;
+DROP TABLE IF EXISTS product;
+
 CREATE TABLE round(id integer primary key NOT NULL, name text NOT NULL);
 
-DROP TABLE IF EXISTS customer;
 CREATE TABLE customer(id integer primary key NOT NULL, name text NOT NULL, address text, tel1 text null, tel2 text null, email text null);
 
 CREATE TABLE round_customer(
@@ -16,12 +22,8 @@ CREATE TABLE round_customer(
   FOREIGN KEY(customerId) REFERENCES customer(id)
 );
 
-DROP TABLE IF EXISTS box_product;
-
-DROP TABLE IF EXISTS box;
 CREATE TABLE box(id integer primary key NOT NULL, name text NOT NULL, price real NOT NULL);
 
-DROP TABLE IF EXISTS product;
 CREATE TABLE product(id integer primary key NOT NULL, name text NOT NULL, price real NOT NULL, unitType text NOT NULL, unitQuantity real NOT NULL);
 
 CREATE TABLE box_product(
@@ -33,10 +35,6 @@ CREATE TABLE box_product(
   FOREIGN KEY(productId) REFERENCES product(id)
 );
 
-DROP TABLE IF EXISTS customerOrder_box;
-DROP TABLE IF EXISTS customerOrder_product;
-
-DROP TABLE IF EXISTS customerOrder;
 CREATE TABLE customerOrder(
   id integer primary key NOT NULL,
   customerId integer NOT NULL,

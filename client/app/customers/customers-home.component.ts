@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Renderer } from '@angular/core';
-import { CustomerWithOrder } from './customer'
+import { CustomerWithOrder, CustomerOrder } from './customer'
 import { CustomerService } from './customer.service'
 import { Box } from '../boxes/box'
 import { Product } from '../products/product';
@@ -63,45 +63,9 @@ export class CustomersHomeComponent implements OnInit {
       email: customer.email,
       tel1: customer.tel1,
       order: {
-        boxes: customer.order.boxes.map(b => ({
-          id: b.id,
-          name: b.name,
-          quantity: b.quantity,
-          unitType: 'each',
-          total: b.total,
-          delete: () => {
-            console.log('delete box ' + b.id + ' from order ' + customer.order.id);
-          },
-          updateQuantity: (quantity: number) => {
-            console.log('update box ' + b.id + ' quantity to ' + quantity + ' on order ' + customer.order.id);
-          }
-        })),
-        extraProducts: customer.order.extraProducts.map(p => ({
-          id: p.id,
-          name: p.name,
-          quantity: p.quantity,
-          unitType: p.unitType,
-          total: p.total,
-          delete: () => {
-            console.log('delete product ' + p.id + ' from order ' + customer.order.id);
-          },
-          updateQuantity: (quantity: number) => {
-            console.log('update product ' + p.id + ' quantity to ' + quantity + ' on order ' + customer.order.id);
-          }
-        })),
-        boxesAvailable: Arrays.exceptByOther(
-          this.boxes, b => b.id, 
-          customer.order.boxes, b => b.id),
-        extraProductsAvailable: Arrays.exceptByOther(
-          this.products, p => p.id,
-          customer.order.extraProducts, p => p.id),
-        total: customer.order.total,
-        addBox: (id: number, quantity: number) => {
-          console.log('add box ' + id + '(' + quantity + ') to order ' + customer.order.id);
-        },
-        addProduct: (id: number, quantity: number) => {
-          console.log('add additional product ' + id + '(' + quantity + ') to order ' + customer.order.id);
-        }
+        order: customer.order,
+        boxes: this.boxes,
+        products: this.products
       },
       emailRouterLink: ['../Email', {customerId: customer.id}],
       delete: () => {
@@ -132,34 +96,11 @@ export class CustomerModel {
 }
 
 export class CustomerOrderModel {
-  boxes: CustomerOrderItemModel[];
-  extraProducts: CustomerOrderItemModel[];
-  boxesAvailable: Box[];
-  extraProductsAvailable: Product[];
-  total: number;
-
-  addBox: (id: number, quantity: number) => void;
-  addProduct: (id: number, quantity: number) => void;
-}
-
-export class CustomerOrderItemModel {
-  id: number;
-  name: string;
-  quantity: number;
-  unitType: string;
-  total: number;
-
-  delete: () => void;
-  updateQuantity: (quantity: number) => void;
+  order: CustomerOrder;
+  boxes: Box[];
+  products: Product[];
 }
 
 export class AddCustomerModel {
   add: (properties: {[property: string]: any}) => void;
-}
-
-class NewOrderItem {
-  type: string;
-  id: number;
-  quantity: number;
-  unitType: string;
 }
