@@ -2519,6 +2519,16 @@ input[type="text"].price {
 }
 .customer-order input[type="text"] {
   width: 62px;
+  position: relative;
+  left: -3px;
+  padding-left: 3px;
+  padding-right: 3px;
+  margin-right: -3px;
+}
+.customer-order select {
+  position: relative;
+  left: -5px;
+  margin-right: -5px;
 }
 .customer-order .customer-order-item {
   margin-top: 5px;
@@ -2575,6 +2585,8 @@ input[type="text"].price {
 }
 .customer-order .customer-order-item-add .editable-value-edit {
   padding-right: 39px;
+  left: -8px;
+  padding-left: 8px;
 }
 .customer-order .show-on-edit {
   position: relative;
@@ -2585,13 +2597,13 @@ input[type="text"].price {
   left: 0px;
 }
 .customer-order .box-product-quantity.editable-value .editable-value-display {
-  border: 1px solid transparent;
+  padding-right: 52px;
 }
 .customer-order .box-product-quantity.editable-value .editable-value-edit {
-  left: -8px;
+  left: -4px;
   top: -6px;
-  right: -58px;
-  padding-right: 0;
+  right: -8px;
+  padding-right: 0px;
 }
 .home {
   background: #579532;

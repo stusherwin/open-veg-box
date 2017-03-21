@@ -85,7 +85,6 @@ Tidy up
 TODO (now)
 ==========
 * Server-side api
-* Distribute-width not working for product add (kg)
 * When no more boxes/products available?
-* Distribute-width not shrinking when width of largest element reduced
-* order total jumps to left when total exceeds width (until widths recalculated)
+* Edit quantity should update order total
+* distribute-width should maybe use document selectors to set min-width (quicker?)

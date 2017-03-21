@@ -9,22 +9,19 @@ import 'rxjs/add/operator/bufferTime';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/debounceTime';
 
-const MIN_WIDTH_DEBOUNCE_MS = 300;
+const MIN_WIDTH_DEBOUNCE_MS = 1;
 let id = 0;
 
 @Directive({
   selector: '[cc-distribute-width]',
-  // host: {
-  //   '(window:resize)': 'windowResized($event)',
-  // }
 })
-export class DistributeWidthDirective implements OnInit, OnDestroy {
+export class DistributeWidthDirective implements OnInit, OnDestroy, AfterViewInit, AfterViewChecked {
   width: number = 0;
 
   @HostBinding('style.min-width.px')
   minWidth: number = 0;
-
   id: number;
+  innerHTML: string = '';
 
   constructor(
     private el: ElementRef,
@@ -32,7 +29,8 @@ export class DistributeWidthDirective implements OnInit, OnDestroy {
     @Inject(forwardRef(() => DistributeWidthService))
     private service: DistributeWidthService,
 
-    private changeDetector: ChangeDetectorRef) {
+    private changeDetector: ChangeDetectorRef,
+    private renderer: Renderer) {
       this.id = id++;
   }
 
@@ -71,15 +69,35 @@ export class DistributeWidthDirective implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  ngAfterViewInit() {
+  }
+
+  resizing = true;
   ngAfterViewChecked() {
     this.shouldDetectChanges = true;
-    // TODO: move this out of AfterViewChecked?
-    // Here because AfterViewChecked is the earliest event where correct element widths are available
-    let newWidth = this.el.nativeElement.getBoundingClientRect().width;
-    if(newWidth != this.width) {
-      this.width = newWidth;
+
+    if(!this.resizing) {
+      let innerHTML = this.el.nativeElement.innerHTML;
+      if(this.innerHTML != innerHTML) {
+        this.innerHTML = innerHTML;
+        this.minWidth = 0;
+        this.resizing = true;
+        this.changeDetector.detectChanges();
+      }
+      return;
+    }
+    
+    if(this.resizing) {
+      this.resizing = false;
+      // TODO: move this out of AfterViewChecked?
+      // Here because AfterViewChecked is the earliest event where correct element widths are available
+      this.width = this.el.nativeElement.getBoundingClientRect().width;
       if(this.width != this.minWidth) {
-        this.service.widthChanged(this);
+        let newMinWidth = this.service.widthChanged(this);
+        if(newMinWidth != this.minWidth) {
+          this.minWidth = newMinWidth;
+          this.changeDetector.detectChanges();
+        }
       }
     }
   }
@@ -89,9 +107,6 @@ let sumId = 0;
 
 @Directive({
   selector: '[cc-distribute-width-sum]',
-  // host: {
-  //   '(window:resize)': 'windowResized($event)',
-  // }
 })
 export class DistributeWidthSumDirective implements OnInit, OnDestroy {
   @HostBinding('style.width.px')
@@ -184,11 +199,11 @@ export class DistributeWidthService {
     this.recalculateWidths(directive.key);
   }
 
-  widthChanged(directive: DistributeWidthDirective) {
-    this.recalculateWidths(directive.key);
+  widthChanged(directive: DistributeWidthDirective): number {
+    return this.recalculateWidths(directive.key);
   }
 
-  private recalculateWidths(key: string) {
+  private recalculateWidths(key: string): number {
     let minWidth = this.minWidths[key];
     let newMinWidth = Math.max(...this.directives[key].map(c => c.width));
 
@@ -196,5 +211,7 @@ export class DistributeWidthService {
       this.minWidths[key] = newMinWidth;
       this._minWidthChanged.next(this.minWidths);
     }
+
+    return newMinWidth;
   }
 }
