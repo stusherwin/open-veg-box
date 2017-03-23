@@ -70,7 +70,6 @@ export class CustomerService {
   }
 
   private hydrate(p: any) {
-   console.log(p.order);
    return new CustomerWithOrder(p.id, p.name, p.address, p.tel1, p.tel2, p.email, p.order);
   }
 }

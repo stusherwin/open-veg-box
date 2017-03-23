@@ -81,7 +81,6 @@ export class OrderService {
   }
 
   private hydrate(o: any) {
-    console.log(o);
     return new CustomerOrder(
       o.id,
       o.customerId,

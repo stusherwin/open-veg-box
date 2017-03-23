@@ -1,15 +1,14 @@
 <cc-editable-value #editable 
     className="box-product-quantity"
-    [value]="value"
+    [(value)]="value"
     [editing]="editing"
     (valueChange)="valueChange.emit($event);"
     (start)="onStart()"
-    (ok)="editingValueChange.emit(null);"
-    (cancel)="editingValueChange.emit(null);">
+    (cancel)="editingValueChange.emit(value);">
   <display>
     <span class="box-product-quantity-each" [style.visibility]="unitType == 'each' ? 'visible' : 'hidden'">x</span>
-    <span *ngIf="unitType == 'perKg'">{{value | weight}}</span>
-    <span *ngIf="unitType != 'perKg'">{{value}}</span>
+    <span *ngIf="unitType == 'perKg'">{{editable.value | weight}}</span>
+    <span *ngIf="unitType != 'perKg'">{{editable.value}}</span>
     <a class="edit"><i class="icon-edit"></i></a>
   </display>
   <edit>

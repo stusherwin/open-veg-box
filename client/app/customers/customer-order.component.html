@@ -1,13 +1,11 @@
 <div class="customer-order">
   <cc-customer-order-section heading="Boxes" itemName="box"
-    [model]="boxesModel"
-    [tabindex]="(tabindex * 2) + 1"
-    (addTotalChange)="addTotal = $event">
+    [model]="model.boxes"
+    [tabindex]="(tabindex * 2) + 1">
   </cc-customer-order-section>
   <cc-customer-order-section heading="Extra Products" itemName="product"
-    [model]="productsModel"
-    [tabindex]="(tabindex * 2) + 1"
-    (addTotalChange)="addTotal = $event">
+    [model]="model.products"
+    [tabindex]="(tabindex * 2) + 1">
   </cc-customer-order-section>
   <div class="customer-order-item">
     <div class="customer-order-item-part"
@@ -16,8 +14,8 @@
     </div><!--
  --><div class="customer-order-item-part customer-order-total"
          cc-distribute-width="total"
-         [class.modified]="addTotal"
-         [innerHTML]="model.order.total + addTotal | money:true"
+         [class.modified]="model.editingTotal != model.total"
+         [innerHTML]="model.editingTotal | money:true"
          [style.margin-left.px]="orderItemPadding">
     </div>
   </div>

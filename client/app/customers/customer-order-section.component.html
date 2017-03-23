@@ -23,7 +23,7 @@
       <cc-box-product-quantity
         [(value)]="item.quantity"
         (valueChange)="item.updateQuantity($event);"
-        (editingValueChange)="onItemQuantityChange(item, $event);"
+        (editingValueChange)="item.modifyQuantity($event);"
         [unitType]="item.unitType"
         [tabindex]="tabindex">
       </cc-box-product-quantity>
@@ -49,10 +49,11 @@
     <cc-editable-value #editable
         *ngIf="model.itemsAvailable.length"
         className="customer-order-item customer-order-item-add"
-        [value]="addingItem"
         [editing]="editing"
+        [catchTabAway]="model.itemsAvailable.length > 1"
+        [tabindex]="tabindex"
         (start)="onAddStart()"
-        (ok)="onAddOk()"
+        (ok)="onAddOk($event)"
         (cancel)="onAddCancel()">
       <display>
         <div class="customer-order-item-add-display" [class.hover]="addFocused">
@@ -66,7 +67,8 @@
               cc-active cc-activate-on-focus cc-deactivate-on-blur
               [tabindex]="tabindex"
               (focus)="addFocused = true"
-              (blur)="addFocused = false"><i class="icon-add"></i>
+              (blur)="addFocused = false"
+              (keydown.Enter)="editable.startEdit()"><i class="icon-add"></i>
             </a>
           </div>
         </div>
@@ -78,31 +80,31 @@
             <select #select
                 cc-active cc-activate-on-focus
                 tabindex="{{editable.editing? tabindex : 9999}}"
-                [(ngModel)]="addingItem.id"
+                [(ngModel)]="model.addingItem"
                 (focus)="editable.startEdit()"
-                (ngModelChange)="onItemChange($event)">
-              <option *ngFor="let p of model.itemsAvailable" [ngValue]="p.id">{{p.name}}</option>
+                (ngModelChange)="model.recalculateTotal()">
+              <option *ngFor="let i of model.itemsAvailable" [ngValue]="i">{{i.name}}</option>
             </select>
           </div><!--
        --><div class="customer-order-item-part"
                cc-distribute-width="quantity"
                [style.margin-left.px]="orderItemPadding">
-            <span [style.visibility]="addingItem.unitType == 'each' ? 'visible' : 'hidden'">x</span>
+            <span [style.visibility]="model.addingItem?.unitType == 'each' ? 'visible' : 'hidden'">x</span>
               <cc-validatable
-                [valid]="addingItem.quantity > 0"
+                [valid]="model.addingItemQuantity > 0"
                 message="Quantity should be a number greater than 0">
                   <input type="text"
                       cc-active cc-activate-on-focus
-                      cc-numeric [(value)]="addingItem.quantity" (valueChange)="onAddingItemQuantityChange($event)"
+                      cc-numeric [(value)]="model.addingItemQuantity" (valueChange)="model.recalculateTotal()"
                       tabindex="{{editable.editing? tabindex : 9999}}"
                       (focus)="editable.startEdit()" />
               </cc-validatable>
-            <span [style.visibility]="addingItem.unitType == 'perKg' ? 'visible' : 'hidden'">Kg</span>
+            <span [style.visibility]="model.addingItem?.unitType == 'perKg' ? 'visible' : 'hidden'">Kg</span>
           </div><!--
        --><div class="customer-order-item-part customer-order-item-total"
                cc-distribute-width="total"
                [style.margin-left.px]="orderItemPadding"
-               [innerHTML]="addingItem.price * addingItem.quantity | money: true">
+               [innerHTML]="(model.addingItem?.price * model.addingItemQuantity || 0) | money: true">
           </div>
         </div>
       </edit>

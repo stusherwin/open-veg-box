@@ -20,8 +20,7 @@ export class CustomersService {
     + ' left join customerOrder_box cob on cob.customerOrderId = co.id'
     + ' left join box b on b.id = cob.boxId'
     + ' left join customerOrder_product cop on cop.customerOrderId = co.id'
-    + ' left join product p on p.id = cop.productId'
-    + ' order by c.id, customerOrderBoxName, customerOrderProductName',
+    + ' left join product p on p.id = cop.productId',
       {},
       queryParams,
       rows => {

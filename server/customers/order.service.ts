@@ -21,8 +21,7 @@ export class OrderService {
     + ' left join box b on b.id = ob.boxId'
     + ' left join customerOrder_product op on op.customerOrderId = o.id'
     + ' left join product p on p.id = op.productId'
-    + ' where o.id = @id'
-    + ' order by boxName, productName',
+    + ' where o.id = @id',
       {id: id},
       rows => {
         let order: CustomerOrder = null;

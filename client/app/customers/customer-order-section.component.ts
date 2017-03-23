@@ -6,8 +6,9 @@ import { EditableValueComponent } from '../shared/editable-value.component'
 import { Arrays } from '../shared/arrays'
 import { NumericDirective } from '../shared/numeric.directive'
 import { MoneyPipe } from '../shared/pipes'
-import { CustomerOrderSectionModel, CustomerOrderAvailableItem } from './customer-order.component'
-import { CustomerOrderItemModel } from './customer-order.component'
+import { CustomerOrderModel, CustomerOrderAvailableItem } from './customer-order.model'
+import { CustomerOrderSectionModel } from './customer-order-section.model'
+import { CustomerOrderItemModel } from './customer-order-item.model'
 
 @Component({
   selector: 'cc-customer-order-section',
@@ -18,11 +19,10 @@ import { CustomerOrderItemModel } from './customer-order.component'
 export class CustomerOrderSectionComponent implements OnInit {
   orderItemPadding = 10;
   quantity: number = 1;
-  addingItem: AddingItem;
   itemNameArticle: string;
 
   @Input()
-  model: CustomerOrderSectionModel;
+  model: CustomerOrderSectionModel
 
   @Input()
   tabindex: number;
@@ -33,93 +33,46 @@ export class CustomerOrderSectionComponent implements OnInit {
   @Input()
   itemName: string;
 
+  @ViewChild('add')
+  addBtn: ElementRef;
+
   @ViewChild('select')
   select: ElementRef;
 
   @ViewChild('editable')
   editable: EditableValueComponent
 
-  @Output()
-  addTotalChange = new EventEmitter<number>()
-
   constructor(private renderer: Renderer) {
   }
 
   ngOnInit() {
     this.itemNameArticle = /^[aeiou]/i.test(this.itemName) ? 'an' : 'a';
-    let item = this.model.itemsAvailable[0];
-
-    this.addingItem = {
-      id: item? item.id : 0,
-      price: item? item.price : 0,
-      quantity: 1,
-      unitType: item? item.unitType : 'each'
-    };
   }
 
   onOrderItemRemove(item: CustomerOrderItemModel, keyboard: boolean) {
-    item.delete();
-    Arrays.remove(this.model.items, item);
+    item.remove();
   }
 
   onAddStart() {
     this.renderer.invokeElementMethod(this.select.nativeElement, 'focus', []);
-    this.addTotalChange.emit(this.addingItem.price * this.addingItem.quantity);
+    this.model.startAdd();
   }
 
-  onItemChange(itemId: number) {
-    let item = this.model.itemsAvailable.find(p => p.id == itemId);
-    
-    this.addingItem.id = item.id;
-    this.addingItem.price = item.price;
-    this.addingItem.unitType = item.unitType;
-    this.addTotalChange.emit(this.addingItem.price * this.addingItem.quantity);    
-  }
+  onAddOk(tabbedAway: boolean) {
+    if(tabbedAway && this.model.itemsAvailable.length > 1) {
+      setTimeout(() => this.renderer.invokeElementMethod(this.addBtn.nativeElement, 'focus', []))
+    }
 
-  onAddOk() {
-    this.model.addItem(this.addingItem.id, this.addingItem.quantity);
+    this.model.add();
     this.editable.endEdit();
-
-    let item = this.model.itemsAvailable[0];
-    this.addingItem.id = item.id;
-    this.addingItem.price = item.price;
-    this.addingItem.quantity = 1;
-    this.addingItem.unitType = item.unitType;
-    this.addTotalChange.emit(0);
   }
 
   onAddCancel() {
+    this.model.cancelAdd();
     this.editable.endEdit();
-
-    let item = this.model.itemsAvailable[0];
-    this.addingItem.id = item.id;
-    this.addingItem.price = item.price;
-    this.addingItem.quantity = 1;
-    this.addingItem.unitType = item.unitType;
-    this.addTotalChange.emit(0);
   }
 
   onAddingItemQuantityChange(quantity: number) {
-    if(this.editable.editing) {
-      this.addTotalChange.emit(this.addingItem.price * quantity);
-    }
+    this.model.recalculateTotal();
   }
-
-  onItemQuantityChange(item: CustomerOrderItemModel, quantity: number) {
-    if(quantity == null) {
-      item.editingTotal = item.total;
-      this.addTotalChange.emit(0);
-      return;
-    }
-
-    item.editingTotal = item.price * quantity;
-    this.addTotalChange.emit(item.editingTotal - item.total);
-  }
-}
-
-class AddingItem {
-  id: number;
-  price: number;
-  quantity: number;
-  unitType: string;
 }

@@ -112,16 +112,12 @@ export class EditableValueComponent<T> implements OnInit {
 
     if(typeof this.value == 'object') {
       // Cheat to deep compare objects
-      console.log('old: ' + JSON.stringify(this.value))
-      console.log('new: ' + JSON.stringify(this.editingValue))
       if(JSON.stringify(this.editingValue) != JSON.stringify(this.value)) {  
-        console.log('changed')
         Object.assign(this.value, this.editingValue);
         this.valueChange.emit(this.value);
       }
     } else {
-      if(this.editingValue != this.value) {  
-        console.log('changed')
+      if(this.editingValue != this.value) {
         this.value = this.editingValue;
         this.valueChange.emit(this.value);
       }
