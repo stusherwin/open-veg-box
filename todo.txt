@@ -64,8 +64,8 @@ Bugs
 * row details should have constant padding
 * When cancel cc-numeric by pressing Escape and click to edit again, retains previously edited value
   (blur event fires when clicking on control to edit again, so thinks it was user input)
-* Fix round-customers rendering
 * cc-numeric is dodgy. Make this use ngModel somehow?
+* When server error happens, breaks website?
 
 Ideas
 =====
@@ -84,11 +84,11 @@ Tidy up
 
 TODO (now)
 ==========
-* Server-side api
 * Errors when no more boxes/products available
 * distribute-width should maybe use document selectors to set min-width (quicker?)
 * Prices should be integers in pence, not floating point!!
 * Use trackBy with ngFor to clean up box-products
 * Sort boxes/product in select by name
 * Extend total row?
-* When remove item, add row displays and is squashed.
+* When adding, adds to end then when comes back from server is sorted.
+* Had a FK violation when adding box for first time on FireFox. Out of date cache?

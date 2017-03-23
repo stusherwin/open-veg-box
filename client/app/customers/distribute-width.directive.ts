@@ -51,6 +51,7 @@ export class DistributeWidthDirective implements OnInit, OnDestroy, AfterViewIni
     if(this.subscription) {
       this.subscription.unsubscribe();
     }
+    this.minWidth = this.service.getMinWidths()[this.key];
     this.subscription = this.service.minWidthChanged
       .filter(e => !!e)
       .debounceTime(MIN_WIDTH_DEBOUNCE_MS)
@@ -110,7 +111,7 @@ let sumId = 0;
 })
 export class DistributeWidthSumDirective implements OnInit, OnDestroy {
   @HostBinding('style.width.px')
-  width: number = 0;
+  width: number;
 
   id: number;
 
@@ -144,6 +145,8 @@ export class DistributeWidthSumDirective implements OnInit, OnDestroy {
 
     this.keys = this.keysString.split(',');
 
+    this.width = this.calculateWidth(this.service.getMinWidths());
+
     if(this.subscription) {
       this.subscription.unsubscribe();
     }
@@ -152,10 +155,7 @@ export class DistributeWidthSumDirective implements OnInit, OnDestroy {
       .filter(e => !!e)
       .debounceTime(MIN_WIDTH_DEBOUNCE_MS)
       .subscribe(e => {
-        let newWidth = this.padding;
-        for(let k of this.keys) {
-          newWidth += e[k];
-        }
+        let newWidth = this.calculateWidth(e);
         if(this.width != newWidth) {
           this.width = newWidth;
           if(this.shouldDetectChanges) {
@@ -171,6 +171,14 @@ export class DistributeWidthSumDirective implements OnInit, OnDestroy {
 
   ngAfterViewChecked() {
     this.shouldDetectChanges = true;
+  }
+
+  calculateWidth(minWidths: { [key: string]: number; }): number {
+    let newWidth = this.padding;
+    for(let k of this.keys) {
+      newWidth += minWidths[k];
+    }
+    return newWidth;
   }
 }
 
@@ -201,6 +209,10 @@ export class DistributeWidthService {
 
   widthChanged(directive: DistributeWidthDirective): number {
     return this.recalculateWidths(directive.key);
+  }
+
+  getMinWidths(): { [key: string]: number; } {
+    return this.minWidths;
   }
 
   private recalculateWidths(key: string): number {

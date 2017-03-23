@@ -12,14 +12,14 @@ export class CustomerOrderSectionModel {
 
   constructor(
     orderItems: CustomerOrderItem[],
-    all: CustomerOrderAvailableItem[],
+    private  _all: CustomerOrderAvailableItem[],
     private _add: (item: CustomerOrderAvailableItem, quantity: number) => void,
     private _update: (item: CustomerOrderItemModel) => void,
     private _remove: (item: CustomerOrderItemModel) => void,
     private _recalculate: () => void
   ) {
     this.itemsAvailable = Arrays.exceptByOther(
-      all, i => i.id,
+      _all, i => i.id,
       orderItems, i => i.id
     );
     this.items = orderItems.map(i => CustomerOrderItemModel.fromOrderItem(
@@ -30,6 +30,10 @@ export class CustomerOrderSectionModel {
       },
       (item: CustomerOrderItemModel) => {
         Arrays.removeWhere(this.items, i => i.id == item.id);
+        this.itemsAvailable = Arrays.exceptByOther(
+          _all, i => i.id,
+          this.items, i => i.id
+        )
         this.recalculateTotal()
         _remove(item);
       },
@@ -48,6 +52,10 @@ export class CustomerOrderSectionModel {
       () => this.recalculateTotal()
     );
     this.items.push(newItem);
+    this.itemsAvailable = Arrays.exceptByOther(
+      this._all, i => i.id,
+      this.items, i => i.id
+    );
 
     this._add(this.addingItem, this.addingItemQuantity);
   }
