@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Renderer } from '@angular/core';
 import { CustomerWithOrder } from './customer'
-import { Order } from './order'
+import { Order } from './orders/order'
 import { CustomerService } from './customer.service'
 import { Box } from '../boxes/box'
 import { Product } from '../products/product';

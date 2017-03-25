@@ -1,5 +1,5 @@
-import { Product } from '../products/product'
-import { Box } from '../boxes/box'
+import { Product } from '../../products/product'
+import { Box } from '../../boxes/box'
 import { Order, OrderItem } from './order'
 import { OrderSectionModel } from './order-section.model'
 import { OrderItemModel } from './order-item.model'

@@ -1,18 +1,18 @@
 import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, ElementRef, OnInit, Renderer, ViewChildren, QueryList } from '@angular/core';
-import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
-import { DistributeWidthDirective, DistributeWidthSumDirective } from './distribute-width.directive'
-import { BoxProductQuantityComponent } from './box-product-quantity.component'
-import { EditableValueComponent } from '../shared/editable-value.component'
-import { Arrays } from '../shared/arrays'
-import { NumericDirective } from '../shared/numeric.directive'
-import { MoneyPipe } from '../shared/pipes'
+import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../../shared/active-elements'
+import { DistributeWidthDirective, DistributeWidthSumDirective } from '../distribute-width.directive'
+import { BoxProductQuantityComponent } from '../box-product-quantity.component'
+import { EditableValueComponent } from '../../shared/editable-value.component'
+import { Arrays } from '../../shared/arrays'
+import { NumericDirective } from '../../shared/numeric.directive'
+import { MoneyPipe } from '../../shared/pipes'
 import { OrderModel, OrderAvailableItem } from './order.model'
 import { OrderSectionModel } from './order-section.model'
 import { OrderItemModel } from './order-item.model'
 
 @Component({
   selector: 'cc-order-section',
-  templateUrl: 'app/customers/order-section.component.html',
+  templateUrl: 'app/customers/orders/order-section.component.html',
   directives: [ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, DistributeWidthDirective, BoxProductQuantityComponent, DistributeWidthSumDirective, EditableValueComponent, NumericDirective],
   pipes: [MoneyPipe]
 })

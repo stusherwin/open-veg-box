@@ -1,7 +1,7 @@
 import { OrderModel, OrderAvailableItem } from './order.model'
 import { OrderItemModel } from './order-item.model'
 import { OrderItem } from './order'
-import { Arrays } from '../shared/arrays';
+import { Arrays } from '../../shared/arrays';
 
 export class OrderSectionModel {
   editingTotal: number;

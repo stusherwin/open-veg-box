@@ -1,20 +1,20 @@
 import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, ElementRef, OnInit, Renderer, ViewChildren, QueryList } from '@angular/core';
-import { ActiveElementDirective } from '../shared/active-elements'
-import { DistributeWidthDirective, DistributeWidthSumDirective } from './distribute-width.directive'
+import { ActiveElementDirective } from '../../shared/active-elements'
+import { DistributeWidthDirective, DistributeWidthSumDirective } from '../distribute-width.directive'
 import { Order, OrderItem } from './order'
 import { OrderSectionComponent } from './order-section.component'
 import { OrderService } from './order.service'
-import { MoneyPipe } from '../shared/pipes'
-import { Product } from '../products/product'
-import { Box } from '../boxes/box'
-import { Arrays } from '../shared/arrays';
-import { OrderModel as HomeOrderModel } from './customers-home.component'
+import { MoneyPipe } from '../../shared/pipes'
+import { Product } from '../../products/product'
+import { Box } from '../../boxes/box'
+import { Arrays } from '../../shared/arrays';
+import { OrderModel as HomeOrderModel } from '../customers-home.component'
 import { OrderModel, OrderAvailableItem } from './order.model'
 import { OrderItemModel } from './order-item.model'
 
 @Component({
   selector: 'cc-order',
-  templateUrl: 'app/customers/order.component.html',
+  templateUrl: 'app/customers/orders/order.component.html',
   directives: [ActiveElementDirective, DistributeWidthDirective, DistributeWidthSumDirective, OrderSectionComponent],
   providers: [OrderService],
   pipes: [MoneyPipe]

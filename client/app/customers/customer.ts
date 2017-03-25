@@ -1,4 +1,4 @@
-import { Order } from './order' 
+import { Order } from './orders/order' 
 
 export class Customer {
   constructor(id: number, name:string, address: string, tel1: string, tel2: string, email: string) {

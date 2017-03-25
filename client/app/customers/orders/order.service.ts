@@ -2,7 +2,7 @@ import { Order, OrderItem } from './order'
 import { Injectable, Inject } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { UsersService } from '../users/users.service'
+import { UsersService } from '../../users/users.service'
 import { Router } from '@angular/router-deprecated';
 
 import 'rxjs/add/observable/throw';
