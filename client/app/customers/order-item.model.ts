@@ -1,7 +1,7 @@
-import { CustomerOrderModel, CustomerOrderAvailableItem } from './customer-order.model'
-import { CustomerOrderItem } from './customer'
+import { OrderModel, OrderAvailableItem } from './order.model'
+import { OrderItem } from './order'
 
-export class CustomerOrderItemModel {
+export class OrderItemModel {
   id: number;
   name: string;
   price: number;
@@ -18,8 +18,8 @@ export class CustomerOrderItemModel {
     unitType: string,
     total: number,
     editingTotal: number,
-    private _update: (item: CustomerOrderItem) => void,
-    private _remove: (item: CustomerOrderItem) => void,
+    private _update: (item: OrderItem) => void,
+    private _remove: (item: OrderItem) => void,
     private _recalculate: () => void
   ) {
     this.id = id;
@@ -32,13 +32,13 @@ export class CustomerOrderItemModel {
   }
 
   static fromAvailableItem (
-      item: CustomerOrderAvailableItem,
+      item: OrderAvailableItem,
       quantity: number,
-      update: (item: CustomerOrderItemModel) => void,
-      remove: (item: CustomerOrderItemModel) => void,
+      update: (item: OrderItemModel) => void,
+      remove: (item: OrderItemModel) => void,
       recalculate: () => void
-  ): CustomerOrderItemModel {
-    return new CustomerOrderItemModel(
+  ): OrderItemModel {
+    return new OrderItemModel(
       item.id,
       item.name,
       item.price,
@@ -53,11 +53,11 @@ export class CustomerOrderItemModel {
   }
   
   static fromOrderItem(
-      item: CustomerOrderItem,
-      update: (item: CustomerOrderItemModel) => void,
-      remove: (item: CustomerOrderItemModel) => void,
-      recalculate: () => void): CustomerOrderItemModel {
-    return new CustomerOrderItemModel(
+      item: OrderItem,
+      update: (item: OrderItemModel) => void,
+      remove: (item: OrderItemModel) => void,
+      recalculate: () => void): OrderItemModel {
+    return new OrderItemModel(
       item.id,
       item.name,
       item.total / item.quantity,

@@ -1,34 +1,34 @@
-import { CustomerOrderModel, CustomerOrderAvailableItem } from './customer-order.model'
-import { CustomerOrderItemModel } from './customer-order-item.model'
-import { CustomerOrderItem } from './customer'
+import { OrderModel, OrderAvailableItem } from './order.model'
+import { OrderItemModel } from './order-item.model'
+import { OrderItem } from './order'
 import { Arrays } from '../shared/arrays';
 
-export class CustomerOrderSectionModel {
+export class OrderSectionModel {
   editingTotal: number;
-  addingItem: CustomerOrderAvailableItem;
+  addingItem: OrderAvailableItem;
   addingItemQuantity = 1;
-  itemsAvailable: CustomerOrderAvailableItem[]
-  items: CustomerOrderItemModel[]
+  itemsAvailable: OrderAvailableItem[]
+  items: OrderItemModel[]
 
   constructor(
-    orderItems: CustomerOrderItem[],
-    private  _all: CustomerOrderAvailableItem[],
-    private _add: (item: CustomerOrderAvailableItem, quantity: number) => void,
-    private _update: (item: CustomerOrderItemModel) => void,
-    private _remove: (item: CustomerOrderItemModel) => void,
+    orderItems: OrderItem[],
+    private  _all: OrderAvailableItem[],
+    private _add: (item: OrderAvailableItem, quantity: number) => void,
+    private _update: (item: OrderItemModel) => void,
+    private _remove: (item: OrderItemModel) => void,
     private _recalculate: () => void
   ) {
     this.itemsAvailable = Arrays.exceptByOther(
       _all, i => i.id,
       orderItems, i => i.id
     );
-    this.items = orderItems.map(i => CustomerOrderItemModel.fromOrderItem(
+    this.items = orderItems.map(i => OrderItemModel.fromOrderItem(
       i,
-      (item: CustomerOrderItemModel) => {
+      (item: OrderItemModel) => {
         this.recalculateTotal();
         _update(item);
       },
-      (item: CustomerOrderItemModel) => {
+      (item: OrderItemModel) => {
         Arrays.removeWhere(this.items, i => i.id == item.id);
         this.itemsAvailable = Arrays.exceptByOther(
           _all, i => i.id,
@@ -44,11 +44,11 @@ export class CustomerOrderSectionModel {
   }
 
   add() {
-    let newItem = CustomerOrderItemModel.fromAvailableItem(
+    let newItem = OrderItemModel.fromAvailableItem(
       this.addingItem,
       this.addingItemQuantity,
-      (item: CustomerOrderItemModel) => {},
-      (item: CustomerOrderItemModel) => Arrays.removeWhere(this.items, i => i.id == item.id),
+      (item: OrderItemModel) => {},
+      (item: OrderItemModel) => Arrays.removeWhere(this.items, i => i.id == item.id),
       () => this.recalculateTotal()
     );
     this.items.push(newItem);

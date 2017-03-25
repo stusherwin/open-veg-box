@@ -1,4 +1,4 @@
-import {Customer, CustomerWithOrder, CustomerOrder, CustomerOrderItem} from './customer'
+import {Customer, CustomerWithOrder, Order, OrderItem} from './customer'
 import {Observable} from 'rxjs/Observable';
 import {Db} from '../shared/db';
 import 'rxjs/add/operator/mergeMap';
@@ -28,19 +28,19 @@ export class CustomersService {
         let customers: { [id: number]: CustomerWithOrder; } = {};
         for(let r of rows) {
           if(!customers[r.id]) {
-            let order = new CustomerOrder(r.orderid, r.id, [], [], 0);
+            let order = new Order(r.orderid, r.id, [], [], 0);
             customers[r.id] = new CustomerWithOrder(r.id, r.name, r.address, r.tel1, r.tel2, r.email, order);
           }
 
           if(r.boxid) {
             if(customers[r.id].order.boxes.findIndex(b => b.id == r.boxid) == -1) {
-              customers[r.id].order.boxes.push(new CustomerOrderItem(r.boxid, r.boxname, r.boxquantity, 'each', r.boxprice * r.boxquantity));
+              customers[r.id].order.boxes.push(new OrderItem(r.boxid, r.boxname, r.boxquantity, 'each', r.boxprice * r.boxquantity));
             }
           }
           
           if(r.productid) {
             if(customers[r.id].order.extraProducts.findIndex(p => p.id == r.productid) == -1) {
-              customers[r.id].order.extraProducts.push(new CustomerOrderItem(r.productid, r.productname, r.productquantity, r.productunittype, r.productprice * r.productquantity));
+              customers[r.id].order.extraProducts.push(new OrderItem(r.productid, r.productname, r.productquantity, r.productunittype, r.productprice * r.productquantity));
             }
           }
         }

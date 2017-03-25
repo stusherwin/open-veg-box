@@ -1,4 +1,4 @@
-import { CustomerOrder, CustomerOrderItem } from './customer'
+import { Order, OrderItem } from './order'
 import { Injectable, Inject } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -20,13 +20,13 @@ export class OrderService {
     this.router = router;
   }
 
-  get(id: number): Observable<CustomerOrder> {
+  get(id: number): Observable<Order> {
     return this.http.get('/api/order/' + id)
                        .map(res => res.json())
                        .map(this.hydrate);
   }
 
-  addBox(id: number, boxId: number, params: any): Observable<CustomerOrder> {
+  addBox(id: number, boxId: number, params: any): Observable<Order> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
@@ -35,7 +35,7 @@ export class OrderService {
                     .map(this.hydrate);
   }
 
-  updateBox(id: number, boxId: number, params: any): Observable<CustomerOrder> {
+  updateBox(id: number, boxId: number, params: any): Observable<Order> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
@@ -44,7 +44,7 @@ export class OrderService {
                     .map(this.hydrate);
   }
 
-  removeBox(id: number, boxId: number): Observable<CustomerOrder> {
+  removeBox(id: number, boxId: number): Observable<Order> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
@@ -53,7 +53,7 @@ export class OrderService {
                     .map(this.hydrate);
   }
 
-  addProduct(id: number, productId: number, params: any): Observable<CustomerOrder> {
+  addProduct(id: number, productId: number, params: any): Observable<Order> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
@@ -62,7 +62,7 @@ export class OrderService {
                     .map(this.hydrate);
   }
 
-  updateProduct(id: number, productId: number, params: any): Observable<CustomerOrder> {
+  updateProduct(id: number, productId: number, params: any): Observable<Order> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
@@ -71,7 +71,7 @@ export class OrderService {
                     .map(this.hydrate);
   }
 
-  removeProduct(id: number, productId: number): Observable<CustomerOrder> {
+  removeProduct(id: number, productId: number): Observable<Order> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
@@ -81,11 +81,11 @@ export class OrderService {
   }
 
   private hydrate(o: any) {
-    return new CustomerOrder(
+    return new Order(
       o.id,
       o.customerId,
-      o.boxes.map((b:any) => new CustomerOrderItem(b.id, b.name, b.quantity, b.unitType, b.total)),
-      o.extraProducts.map((p:any) => new CustomerOrderItem(p.id, p.name, p.quantity, p.unitType, p.total)),
+      o.boxes.map((b:any) => new OrderItem(b.id, b.name, b.quantity, b.unitType, b.total)),
+      o.extraProducts.map((p:any) => new OrderItem(p.id, p.name, p.quantity, p.unitType, p.total)),
       o.total);
  }
 }

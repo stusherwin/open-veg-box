@@ -1,18 +1,18 @@
-<div class="customer-order">
-  <cc-customer-order-section heading="Boxes" itemName="box"
+<div class="order">
+  <cc-order-section heading="Boxes" itemName="box"
     [model]="model.boxes"
     [tabindex]="(tabindex * 2) + 1">
-  </cc-customer-order-section>
-  <cc-customer-order-section heading="Extra Products" itemName="product"
+  </cc-order-section>
+  <cc-order-section heading="Extra Products" itemName="product"
     [model]="model.products"
     [tabindex]="(tabindex * 2) + 1">
-  </cc-customer-order-section>
-  <div class="customer-order-item">
-    <div class="customer-order-item-part"
+  </cc-order-section>
+  <div class="order-item">
+    <div class="order-item-part"
         cc-distribute-width-sum="name,quantity" [padding]="orderItemPadding * 1">
         &nbsp;
     </div><!--
- --><div class="customer-order-item-part customer-order-total"
+ --><div class="order-item-part order-total"
          cc-distribute-width="total"
          [class.modified]="model.editingTotal != model.total"
          [innerHTML]="model.editingTotal | money:true"

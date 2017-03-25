@@ -2512,12 +2512,12 @@ input[type="text"].price {
 .email-edit:hover .muted {
   color: #f8c77e !important;
 }
-.customer-order {
+.order {
   margin-top: 10px;
   padding-top: 10px;
   padding-bottom: 10px;
 }
-.customer-order input[type="text"] {
+.order input[type="text"] {
   width: 62px;
   position: relative;
   left: -3px;
@@ -2525,78 +2525,78 @@ input[type="text"].price {
   padding-right: 3px;
   margin-right: -3px;
 }
-.customer-order select {
+.order select {
   position: relative;
   left: -5px;
   margin-right: -5px;
 }
-.customer-order .customer-order-item {
+.order .order-item {
   margin-top: 5px;
 }
-.customer-order .customer-order-item::after {
+.order .order-item::after {
   display: block;
   clear: left;
   content: ' ';
   height: 0px;
 }
-.customer-order .customer-order-item .customer-order-item-part {
+.order .order-item .order-item-part {
   display: inline-block;
 }
-.customer-order .customer-order-item .customer-order-item-total {
+.order .order-item .order-item-total {
   text-align: right;
 }
-.customer-order .customer-order-heading {
+.order .order-heading {
   font-size: 60%;
   color: #999;
   text-transform: uppercase;
   padding-bottom: 2px;
   border-bottom: 1px solid #ccc;
 }
-.customer-order .customer-order-total {
+.order .order-total {
   text-align: right;
   padding-top: 5px;
   border-top: 1px solid #ccc;
 }
-.customer-order i {
+.order i {
   font-size: 80%;
   color: #999;
 }
-.customer-order i::before {
+.order i::before {
   margin: 0;
 }
-.customer-order a:hover i,
-.customer-order a:focus i {
+.order a:hover i,
+.order a:focus i {
   color: #ffa011;
 }
-.customer-order .modified {
+.order .modified {
   color: #ffa011;
 }
-.customer-order .customer-order-item-add-display.hover,
-.customer-order .customer-order-item-add-display:hover {
+.order .order-item-add-display.hover,
+.order .order-item-add-display:hover {
   color: #ffa011;
   cursor: pointer;
 }
-.customer-order .customer-order-item-add-display.hover a i,
-.customer-order .customer-order-item-add-display:hover a i {
+.order .order-item-add-display.hover a i,
+.order .order-item-add-display:hover a i {
   color: #ffa011;
 }
-.customer-order .customer-order-item-add .editable-value-edit {
+.order .order-item-add .editable-value-edit {
   padding-right: 39px;
   left: -8px;
   padding-left: 8px;
 }
-.customer-order .show-on-edit {
+.order .show-on-edit {
   position: relative;
   left: -10000px;
 }
-.customer-order .customer-order-section:hover .show-on-edit,
-.customer-order .customer-order-section.editing .show-on-edit {
+.order .order-section:hover .show-on-edit,
+.order .order-section.editing .show-on-edit {
   left: 0px;
 }
-.customer-order .box-product-quantity.editable-value .editable-value-display {
+.order .box-product-quantity.editable-value .editable-value-display {
   padding-right: 52px;
 }
-.customer-order .box-product-quantity.editable-value .editable-value-edit {
+.order .box-product-quantity.editable-value .editable-value-edit {
   left: -4px;
   top: -6px;
   right: -8px;

@@ -1,4 +1,4 @@
-import { Customer, CustomerWithOrder, CustomerOrder, CustomerOrderItem } from './customer'
+import { Customer, CustomerWithOrder } from './customer'
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';

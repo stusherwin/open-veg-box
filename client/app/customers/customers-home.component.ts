@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Renderer } from '@angular/core';
-import { CustomerWithOrder, CustomerOrder } from './customer'
+import { CustomerWithOrder } from './customer'
+import { Order } from './order'
 import { CustomerService } from './customer.service'
 import { Box } from '../boxes/box'
 import { Product } from '../products/product';
@@ -88,15 +89,15 @@ export class CustomerModel {
   address: string;
   tel1: string;
   email: string;
-  order: CustomerOrderModel;
+  order: OrderModel;
   emailRouterLink: any[];
 
   delete: () => void;
   update: (properties: {[property: string]: any}) => void;
 }
 
-export class CustomerOrderModel {
-  order: CustomerOrder;
+export class OrderModel {
+  order: Order;
   boxes: Box[];
   products: Product[];
 }

@@ -6,23 +6,23 @@ import { EditableValueComponent } from '../shared/editable-value.component'
 import { Arrays } from '../shared/arrays'
 import { NumericDirective } from '../shared/numeric.directive'
 import { MoneyPipe } from '../shared/pipes'
-import { CustomerOrderModel, CustomerOrderAvailableItem } from './customer-order.model'
-import { CustomerOrderSectionModel } from './customer-order-section.model'
-import { CustomerOrderItemModel } from './customer-order-item.model'
+import { OrderModel, OrderAvailableItem } from './order.model'
+import { OrderSectionModel } from './order-section.model'
+import { OrderItemModel } from './order-item.model'
 
 @Component({
-  selector: 'cc-customer-order-section',
-  templateUrl: 'app/customers/customer-order-section.component.html',
+  selector: 'cc-order-section',
+  templateUrl: 'app/customers/order-section.component.html',
   directives: [ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, DistributeWidthDirective, BoxProductQuantityComponent, DistributeWidthSumDirective, EditableValueComponent, NumericDirective],
   pipes: [MoneyPipe]
 })
-export class CustomerOrderSectionComponent implements OnInit {
+export class OrderSectionComponent implements OnInit {
   orderItemPadding = 10;
   quantity: number = 1;
   itemNameArticle: string;
 
   @Input()
-  model: CustomerOrderSectionModel
+  model: OrderSectionModel
 
   @Input()
   tabindex: number;
@@ -52,7 +52,7 @@ export class CustomerOrderSectionComponent implements OnInit {
     this.itemNameArticle = /^[aeiou]/i.test(this.itemName) ? 'an' : 'a';
   }
 
-  onOrderItemRemove(item: CustomerOrderItemModel, keyboard: boolean) {
+  onOrderItemRemove(item: OrderItemModel, keyboard: boolean) {
     let index = this.model.items.findIndex(i => i == item);
     item.remove();
     if(keyboard) {
@@ -97,7 +97,7 @@ export class CustomerOrderSectionComponent implements OnInit {
     this.model.recalculateTotal();
   }
 
-  getItemId(item: CustomerOrderItemModel) {
+  getItemId(item: OrderItemModel) {
     return item.id;
   }
 }

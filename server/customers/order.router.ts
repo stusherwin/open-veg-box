@@ -1,4 +1,4 @@
-import {CustomerOrder, CustomerOrderItem} from './customer'
+import {Order, OrderItem} from './customer'
 import {OrderService} from './order.service'
 import {Objects} from '../shared/objects'
 

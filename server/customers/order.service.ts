@@ -1,4 +1,4 @@
-import {CustomerOrder, CustomerOrderItem} from './customer'
+import {Order, OrderItem} from './customer'
 import {Observable} from 'rxjs/Observable';
 import {Db} from '../shared/db';
 import {Objects} from '../shared/objects';
@@ -8,8 +8,8 @@ export class OrderService {
   boxFields: string[] = ['quantity'];
   productFields: string[] = ['quantity'];
 
-  get(id: number, db: Db): Observable<CustomerOrder> {
-    return db.singleWithReduce<CustomerOrder>(
+  get(id: number, db: Db): Observable<Order> {
+    return db.singleWithReduce<Order>(
       ' select'
     + '  o.id orderId, o.customerId customerId'
     + ', ob.boxId boxid, ob.quantity boxquantity'
@@ -25,21 +25,21 @@ export class OrderService {
     + ' order by b.name, p.name',
       {id: id},
       rows => {
-        let order: CustomerOrder = null;
+        let order: Order = null;
         for(let r of rows) {
           if(!order) {
-            order = new CustomerOrder(r.orderid, r.customerId, [], [], 0);
+            order = new Order(r.orderid, r.customerId, [], [], 0);
           }
 
           if(r.boxid) {
             if(order.boxes.findIndex(b => b.id == r.boxid) == -1) {
-              order.boxes.push(new CustomerOrderItem(r.boxid, r.boxname, r.boxquantity, 'each', r.boxprice * r.boxquantity));
+              order.boxes.push(new OrderItem(r.boxid, r.boxname, r.boxquantity, 'each', r.boxprice * r.boxquantity));
             }
           }
           
           if(r.productid) {
             if(order.extraProducts.findIndex(p => p.id == r.productid) == -1) {
-              order.extraProducts.push(new CustomerOrderItem(r.productid, r.productname, r.productquantity, r.productunittype, r.productprice * r.productquantity));
+              order.extraProducts.push(new OrderItem(r.productid, r.productname, r.productquantity, r.productunittype, r.productprice * r.productquantity));
             }
           }
         }
@@ -51,7 +51,7 @@ export class OrderService {
       });
   }
 
-  addBox(orderId: number, boxId: number, params: any, db: Db): Observable<CustomerOrder> {
+  addBox(orderId: number, boxId: number, params: any, db: Db): Observable<Order> {
     let whiteListed = Objects.whiteList(params, this.boxFields);
     let columns = Object.getOwnPropertyNames(whiteListed);
 
@@ -62,7 +62,7 @@ export class OrderService {
       .mergeMap(() => this.get(orderId, db));
   }
 
-  addProduct(orderId: number, productId: number, params: any, db: Db): Observable<CustomerOrder> {
+  addProduct(orderId: number, productId: number, params: any, db: Db): Observable<Order> {
     let whiteListed = Objects.whiteList(params, this.productFields);
     let columns = Object.getOwnPropertyNames(whiteListed);
 
@@ -73,7 +73,7 @@ export class OrderService {
       .mergeMap(() => this.get(orderId, db));
   }
 
-  updateBox(orderId: number, boxId: number, params: any, db: Db): Observable<CustomerOrder> {
+  updateBox(orderId: number, boxId: number, params: any, db: Db): Observable<Order> {
     let whiteListed = Objects.whiteList(params, this.productFields);
     let columns = Object.getOwnPropertyNames(whiteListed);
 
@@ -85,7 +85,7 @@ export class OrderService {
       .mergeMap(() => this.get(orderId, db));
   }
 
-  updateProduct(orderId: number, productId: number, params: any, db: Db): Observable<CustomerOrder> {
+  updateProduct(orderId: number, productId: number, params: any, db: Db): Observable<Order> {
     let whiteListed = Objects.whiteList(params, this.productFields);
     let columns = Object.getOwnPropertyNames(whiteListed);
 
@@ -97,7 +97,7 @@ export class OrderService {
       .mergeMap(() => this.get(orderId, db));
   }
   
-  removeBox(orderId: number, boxId: number, db: Db): Observable<CustomerOrder> {
+  removeBox(orderId: number, boxId: number, db: Db): Observable<Order> {
     return db.execute(
         'delete from order_box'
         + ' where orderId = @orderId and boxId = @boxId',
@@ -105,7 +105,7 @@ export class OrderService {
       .mergeMap(() => this.get(orderId, db));
   }
   
-  removeProduct(orderId: number, productId: number, db: Db): Observable<CustomerOrder> {
+  removeProduct(orderId: number, productId: number, db: Db): Observable<Order> {
     return db.execute(
         'delete from order_product'
         + ' where orderId = @orderId and productId = @productId',

@@ -1,23 +1,23 @@
-<div class="customer-order-section" cc-active [class.editing]="editingOrder" (activate)="editingOrder = true" (deactivate)="editingOrder = false">
-  <div class="customer-order-item customer-order-heading"
+<div class="order-section" cc-active [class.editing]="editingOrder" (activate)="editingOrder = true" (deactivate)="editingOrder = false">
+  <div class="order-item order-heading"
       cc-distribute-width-sum="name,quantity,total" [padding]="orderItemPadding * 2">
     {{heading}}
   </div>
-  <div class="customer-order-item" *ngIf="!model.items.length">
-    <div class="customer-order-item-part"
+  <div class="order-item" *ngIf="!model.items.length">
+    <div class="order-item-part"
         cc-distribute-width-sum="name,quantity" [padding]="orderItemPadding">
       None
     </div><!--
- --><div class="customer-order-item-part customer-order-item-total"
+ --><div class="order-item-part order-item-total"
         cc-distribute-width="total"
         [style.margin-left.px]="orderItemPadding"
         [innerHTML]="0 | money:true">
     </div>
   </div>
-  <div class="customer-order-item" *ngFor="let item of model.items; let i = index; trackBy:getItemId">
-    <div class="customer-order-item-part"
+  <div class="order-item" *ngFor="let item of model.items; let i = index; trackBy:getItemId">
+    <div class="order-item-part"
           cc-distribute-width="name">{{item.name}}</div><!--
-  --><div class="customer-order-item-part"
+  --><div class="order-item-part"
           cc-distribute-width="quantity"
           [style.margin-left.px]="orderItemPadding">
       <cc-box-product-quantity
@@ -28,13 +28,13 @@
         [tabindex]="tabindex">
       </cc-box-product-quantity>
     </div><!--
-  --><div class="customer-order-item-part customer-order-item-total"
+  --><div class="order-item-part order-item-total"
           cc-distribute-width="total"
           [innerHTML]="item.editingTotal | money:true"
           [class.modified]="item.editingTotal != item.total"
           [style.margin-left.px]="orderItemPadding">
      </div><!--
-  --><div class="customer-order-item-part"
+  --><div class="order-item-part"
           [style.margin-left.px]="orderItemPadding">
       <a #remove
         class="show-on-edit"
@@ -48,7 +48,7 @@
   <div style="margin-bottom: 10px;">
     <cc-editable-value #editable
         *ngIf="model.itemsAvailable.length"
-        className="customer-order-item customer-order-item-add"
+        className="order-item order-item-add"
         [editing]="editing"
         [catchTabAway]="model.itemsAvailable.length > 1"
         [tabindex]="tabindex"
@@ -56,13 +56,13 @@
         (ok)="onAddOk($event)"
         (cancel)="onAddCancel()">
       <display>
-        <div class="customer-order-item-add-display" [class.hover]="addFocused">
-          <div class="customer-order-item-part show-on-edit"
+        <div class="order-item-add-display" [class.hover]="addFocused">
+          <div class="order-item-part show-on-edit"
                 cc-distribute-width-sum="name,quantity,total"
                 [padding]="orderItemPadding * 3">
             Add {{model.items.length? 'another' : itemNameArticle }} {{itemName}}...
           </div><!--
-        --><div class="customer-order-item-part show-on-edit">
+        --><div class="order-item-part show-on-edit">
             <a #add
               cc-active cc-activate-on-focus cc-deactivate-on-blur
               [tabindex]="tabindex"
@@ -74,8 +74,8 @@
         </div>
       </display>
       <edit>
-        <div class="customer-order-item-add-edit">
-          <div class="customer-order-item-part"
+        <div class="order-item-add-edit">
+          <div class="order-item-part"
                cc-distribute-width="name">
             <select #select
                 cc-active cc-activate-on-focus
@@ -86,7 +86,7 @@
               <option *ngFor="let i of model.itemsAvailable" [ngValue]="i">{{i.name}}</option>
             </select>
           </div><!--
-       --><div class="customer-order-item-part"
+       --><div class="order-item-part"
                cc-distribute-width="quantity"
                [style.margin-left.px]="orderItemPadding">
             <span [style.visibility]="model.addingItem?.unitType == 'each' ? 'visible' : 'hidden'">x</span>
@@ -101,7 +101,7 @@
               </cc-validatable>
             <span [style.visibility]="model.addingItem?.unitType == 'perKg' ? 'visible' : 'hidden'">Kg</span>
           </div><!--
-       --><div class="customer-order-item-part customer-order-item-total"
+       --><div class="order-item-part order-item-total"
                cc-distribute-width="total"
                [style.margin-left.px]="orderItemPadding"
                [innerHTML]="(model.addingItem?.price * model.addingItemQuantity || 0) | money: true">

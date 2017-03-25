@@ -6,12 +6,12 @@ import { CustomerTelComponent } from './customer-tel.component'
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
 import { CustomerModel } from './customers-home.component'
-import { CustomerOrderComponent } from './customer-order.component'
+import { OrderComponent } from './order.component'
 
 @Component({
   selector: 'cc-customer',
   templateUrl: 'app/customers/customer.component.html',
-  directives: [HeadingComponent, CustomerAddressComponent, CustomerEmailComponent, CustomerTelComponent, ROUTER_DIRECTIVES, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, CustomerOrderComponent],
+  directives: [HeadingComponent, CustomerAddressComponent, CustomerEmailComponent, CustomerTelComponent, ROUTER_DIRECTIVES, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, OrderComponent],
 })
 export class CustomerComponent {
   @ViewChild('customerName')
