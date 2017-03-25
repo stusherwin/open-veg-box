@@ -7,12 +7,16 @@
     [model]="model.products"
     [tabindex]="(tabindex * 2) + 1">
   </cc-order-section>
+  <div class="order-item order-heading"
+      cc-distribute-width-sum="name,quantity,total" [padding]="orderItemPadding * 2">
+    Total
+  </div>
   <div class="order-item">
     <div class="order-item-part"
         cc-distribute-width-sum="name,quantity" [padding]="orderItemPadding * 1">
         &nbsp;
     </div><!--
- --><div class="order-item-part order-total"
+ --><div class="order-item-part"
          cc-distribute-width="total"
          [class.modified]="model.editingTotal != model.total"
          [innerHTML]="model.editingTotal | money:true"
