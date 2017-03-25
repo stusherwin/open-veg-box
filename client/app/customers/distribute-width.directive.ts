@@ -59,7 +59,15 @@ export class DistributeWidthDirective implements OnInit, OnDestroy, AfterViewIni
         if(this.minWidth != e[this.key]) {
           this.minWidth = e[this.key];
           if(this.shouldDetectChanges) {
-            this.changeDetector.detectChanges();
+            try {
+              this.changeDetector.detectChanges();
+            } catch(e) {
+              // Hack: ARRGH! Sometimes a directive enters destroyed state without calling ngOnDestroy
+              // - looks like a race condition bug in Angular2? If that happens detectChanges()
+              // blows up, but there's no way to detect that state as ngOnDestroy is the earliest
+              // warning we have that the directive is being destroyed. So have to catch and throw "";
+              // away the error.
+            }
           }
         }
       })
@@ -160,7 +168,15 @@ export class DistributeWidthSumDirective implements OnInit, OnDestroy {
         if(this.width != newWidth) {
           this.width = newWidth;
           if(this.shouldDetectChanges) {
-            this.changeDetector.detectChanges();
+            try {
+              this.changeDetector.detectChanges();
+            } catch (e) {
+              // Hack: ARRGH! Sometimes a directive enters destroyed state without calling ngOnDestroy
+              // - looks like a race condition bug in Angular2? If that happens detectChanges()
+              // blows up, but there's no way to detect that state as ngOnDestroy is the earliest
+              // warning we have that the directive is being destroyed. So have to catch and throw "";
+              // away the error.
+            }
           }
         }
       })
@@ -168,7 +184,9 @@ export class DistributeWidthSumDirective implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.shouldDetectChanges = false;
-    this.subscription.unsubscribe();
+    if(this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   ngAfterViewChecked() {
