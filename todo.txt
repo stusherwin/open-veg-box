@@ -92,3 +92,4 @@ TODO (now)
 * Extend total row?
 * When adding, adds to end then when comes back from server is sorted.
 * Had a FK violation when adding box for first time on FireFox. Out of date cache?
+* On remove, focus next remove button/add row

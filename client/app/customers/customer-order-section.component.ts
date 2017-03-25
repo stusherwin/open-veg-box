@@ -42,6 +42,9 @@ export class CustomerOrderSectionComponent implements OnInit {
   @ViewChild('editable')
   editable: EditableValueComponent
 
+  @ViewChildren('remove')
+  removeBtns: QueryList<ElementRef>
+
   constructor(private renderer: Renderer) {
   }
 
@@ -50,8 +53,29 @@ export class CustomerOrderSectionComponent implements OnInit {
   }
 
   onOrderItemRemove(item: CustomerOrderItemModel, keyboard: boolean) {
+    let index = this.model.items.findIndex(i => i == item);
     item.remove();
-  }
+    if(keyboard) {
+      if(this.model.items.length) {
+        setTimeout(() => {
+          let nextRemoveFocusIndex = Math.min(index, this.model.items.length - 1);
+          let nextFocusBtn = this.removeBtns.toArray()[nextRemoveFocusIndex];
+          this.renderer.invokeElementMethod(nextFocusBtn.nativeElement, 'focus', [])
+        })
+      } else if(this.model.itemsAvailable.length) {
+        setTimeout(() => this.renderer.invokeElementMethod(this.addBtn.nativeElement, 'focus', []))
+      }
+    }
+ 
+    // if(keyboard) {
+    //   if(this.value.length) {
+    //     let nextRemoveFocusIndex = Math.min(index, this.value.length - 1);
+    //     setTimeout(() => this.removeComponents.toArray()[nextRemoveFocusIndex].focus());     
+    //   } else {
+    //     setTimeout(() => this.addComponent.focus());
+    //   }
+    // }
+ }
 
   onAddStart() {
     this.renderer.invokeElementMethod(this.select.nativeElement, 'focus', []);
@@ -74,5 +98,9 @@ export class CustomerOrderSectionComponent implements OnInit {
 
   onAddingItemQuantityChange(quantity: number) {
     this.model.recalculateTotal();
+  }
+
+  getItemId(item: CustomerOrderItemModel) {
+    return item.id;
   }
 }

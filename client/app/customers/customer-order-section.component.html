@@ -14,7 +14,7 @@
         [innerHTML]="0 | money:true">
     </div>
   </div>
-  <div class="customer-order-item" *ngFor="let item of model.items; let i = index">
+  <div class="customer-order-item" *ngFor="let item of model.items; let i = index; trackBy:getItemId">
     <div class="customer-order-item-part"
           cc-distribute-width="name">{{item.name}}</div><!--
   --><div class="customer-order-item-part"

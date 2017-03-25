@@ -12,16 +12,17 @@ export class OrderService {
     return db.singleWithReduce<CustomerOrder>(
       ' select'
     + '  o.id orderId, o.customerId customerId'
-    + ', ob.boxId boxId, ob.quantity boxQuantity'
-    + ', b.name boxName, b.price boxPrice'
-    + ', op.productId productId, op.quantity productQuantity'
-    + ', p.name productName, p.unitType productUnitType, p.price productPrice'
+    + ', ob.boxId boxid, ob.quantity boxquantity'
+    + ', b.name boxname, b.price boxprice'
+    + ', op.productId productid, op.quantity productquantity'
+    + ', p.name productname, p.unitType productunittype, p.price productprice'
     + ' from customerOrder o'
     + ' left join customerOrder_box ob on ob.customerOrderId = o.id'
     + ' left join box b on b.id = ob.boxId'
     + ' left join customerOrder_product op on op.customerOrderId = o.id'
     + ' left join product p on p.id = op.productId'
-    + ' where o.id = @id',
+    + ' where o.id = @id'
+    + ' order by b.name, p.name',
       {id: id},
       rows => {
         let order: CustomerOrder = null;

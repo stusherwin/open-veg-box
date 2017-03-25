@@ -10,36 +10,37 @@ export class CustomersService {
     return db.allWithReduce<CustomerWithOrder>(
       ' select'
     + '  c.id, c.name, c.address, c.tel1, c.tel2, c.email'
-    + ', co.id customerOrderId'
-    + ', cob.boxId customerOrderBoxId, cob.quantity customerOrderBoxQuantity'
-    + ', b.name customerOrderBoxName, b.price customerOrderBoxPrice'
-    + ', cop.productId customerOrderProductId, cop.quantity customerOrderProductQuantity'
-    + ', p.name customerOrderProductName, p.unitType customerOrderProductUnitType, p.price customerOrderProductPrice'
+    + ', o.id orderid'
+    + ', ob.boxId boxid, ob.quantity boxquantity'
+    + ', b.name boxname, b.price boxprice'
+    + ', op.productId productid, op.quantity productquantity'
+    + ', p.name productname, p.unitType productunittype, p.price productprice'
     + ' from customer c'
-    + ' left join customerOrder co on co.customerId = c.id'
-    + ' left join customerOrder_box cob on cob.customerOrderId = co.id'
-    + ' left join box b on b.id = cob.boxId'
-    + ' left join customerOrder_product cop on cop.customerOrderId = co.id'
-    + ' left join product p on p.id = cop.productId',
+    + ' left join customerOrder o on o.customerId = c.id'
+    + ' left join customerOrder_box ob on ob.customerOrderId = o.id'
+    + ' left join box b on b.id = ob.boxId'
+    + ' left join customerOrder_product op on op.customerOrderId = o.id'
+    + ' left join product p on p.id = op.productId'
+    + ' order by o.id, b.name, p.name',
       {},
       queryParams,
       rows => {
         let customers: { [id: number]: CustomerWithOrder; } = {};
         for(let r of rows) {
           if(!customers[r.id]) {
-            let order = new CustomerOrder(r.customerorderid, r.id, [], [], 0);
+            let order = new CustomerOrder(r.orderid, r.id, [], [], 0);
             customers[r.id] = new CustomerWithOrder(r.id, r.name, r.address, r.tel1, r.tel2, r.email, order);
           }
 
-          if(r.customerorderboxid) {
-            if(customers[r.id].order.boxes.findIndex(b => b.id == r.customerorderboxid) == -1) {
-              customers[r.id].order.boxes.push(new CustomerOrderItem(r.customerorderboxid, r.customerorderboxname, r.customerorderboxquantity, 'each', r.customerorderboxprice * r.customerorderboxquantity));
+          if(r.boxid) {
+            if(customers[r.id].order.boxes.findIndex(b => b.id == r.boxid) == -1) {
+              customers[r.id].order.boxes.push(new CustomerOrderItem(r.boxid, r.boxname, r.boxquantity, 'each', r.boxprice * r.boxquantity));
             }
           }
           
-          if(r.customerorderproductid) {
-            if(customers[r.id].order.extraProducts.findIndex(p => p.id == r.customerorderproductid) == -1) {
-              customers[r.id].order.extraProducts.push(new CustomerOrderItem(r.customerorderproductid, r.customerorderproductname, r.customerorderproductquantity, r.customerorderproductunittype, r.customerorderproductprice * r.customerorderproductquantity));
+          if(r.productid) {
+            if(customers[r.id].order.extraProducts.findIndex(p => p.id == r.productid) == -1) {
+              customers[r.id].order.extraProducts.push(new CustomerOrderItem(r.productid, r.productname, r.productquantity, r.productunittype, r.productprice * r.productquantity));
             }
           }
         }
