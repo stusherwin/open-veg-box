@@ -75,18 +75,18 @@ export class PostgresDb implements Db {
   }
 
   private anyObs(sql: string, params: {}) {
-    return Observable.fromPromise<any[]>(this.db.any(PostgresDb.convertParams(sql), params));
+    return Observable.fromPromise<any[]>(this.db.any(PostgresDb.transformSql(sql), params));
   }
 
   private oneObs(sql: string, params: {}) {
-    return Observable.fromPromise<any>(this.db.oneOrNone(PostgresDb.convertParams(sql), params)); 
+    return Observable.fromPromise<any>(this.db.oneOrNone(PostgresDb.transformSql(sql), params)); 
   }
 
   private noneObs(sql: string, params: {}) {
-    return Observable.fromPromise<void>(this.db.none(PostgresDb.convertParams(sql), params));
+    return Observable.fromPromise<void>(this.db.none(PostgresDb.transformSql(sql), params));
   }
 
-  private static convertParams(sql: string) {
-    return sql.replace(/@(\w+)/g, '$[$1]');
+  private static transformSql(sql: string) {
+    return sql.replace(/\[(\w+)\]/g, '"$1"').replace(/@(\w+)/g, '$[$1]');
   }
 }

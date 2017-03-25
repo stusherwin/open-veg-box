@@ -84,7 +84,6 @@ Tidy up
 
 TODO (now)
 ==========
-* Errors when no more boxes/products available
 * distribute-width should maybe use document selectors to set min-width (quicker?)
 * Prices should be integers in pence, not floating point!!
 * Use trackBy with ngFor to clean up box-products
@@ -92,4 +91,5 @@ TODO (now)
 * Extend total row?
 * When adding, adds to end then when comes back from server is sorted.
 * Had a FK violation when adding box for first time on FireFox. Out of date cache?
-* On remove, focus next remove button/add row
+* Error: Attempt to use a destroyed view: detectChanges
+  (when navigating away from Customers - distribute-width subscription still active)

@@ -66,8 +66,9 @@ export class DistributeWidthDirective implements OnInit, OnDestroy, AfterViewIni
   }
 
   ngOnDestroy() {
-    this.service.deregister(this);
+    this.shouldDetectChanges = false;
     this.subscription.unsubscribe();
+    this.service.deregister(this);
   }
 
   ngAfterViewInit() {
@@ -166,6 +167,7 @@ export class DistributeWidthSumDirective implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.shouldDetectChanges = false;
     this.subscription.unsubscribe();
   }
 

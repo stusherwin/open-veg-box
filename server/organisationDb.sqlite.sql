@@ -1,8 +1,8 @@
 PRAGMA foreign_keys=on;
 
-DROP TABLE IF EXISTS customerOrder_box;
-DROP TABLE IF EXISTS customerOrder_product;
-DROP TABLE IF EXISTS customerOrder;
+DROP TABLE IF EXISTS order_box;
+DROP TABLE IF EXISTS order_product;
+DROP TABLE IF EXISTS [order];
 DROP TABLE IF EXISTS round_customer;
 DROP TABLE IF EXISTS round;
 DROP TABLE IF EXISTS customer;
@@ -35,27 +35,27 @@ CREATE TABLE box_product(
   FOREIGN KEY(productId) REFERENCES product(id)
 );
 
-CREATE TABLE customerOrder(
+CREATE TABLE [order](
   id integer primary key NOT NULL,
   customerId integer NOT NULL,
   FOREIGN KEY(customerId) REFERENCES customer(id)
 );
 
-CREATE TABLE customerOrder_box(
-  customerOrderId integer NOT NULL,
+CREATE TABLE order_box(
+  orderId integer NOT NULL,
   boxId integer NOT NULL,
   quantity integer NOT NULL,
-  PRIMARY KEY(customerOrderId, boxId),
-  FOREIGN KEY(customerOrderId) REFERENCES customerOrder(id),
+  PRIMARY KEY(orderId, boxId),
+  FOREIGN KEY(orderId) REFERENCES [order](id),
   FOREIGN KEY(boxId) REFERENCES box(id)
 );
 
-CREATE TABLE customerOrder_product(
-  customerOrderId integer NOT NULL,
+CREATE TABLE order_product(
+  orderId integer NOT NULL,
   productId integer NOT NULL,
   quantity real NOT NULL,
-  PRIMARY KEY(customerOrderId, productId),
-  FOREIGN KEY(customerOrderId) REFERENCES customerOrder(id),
+  PRIMARY KEY(orderId, productId),
+  FOREIGN KEY(orderId) REFERENCES [order](id),
   FOREIGN KEY(productId) REFERENCES product(id)
 );
 
@@ -111,17 +111,17 @@ INSERT INTO box_product VALUES(2, 4, 2.0);
 INSERT INTO box_product VALUES(3, 1, 1.0);
 INSERT INTO box_product VALUES(3, 2, 0.5);
 
-INSERT INTO customerOrder VALUES(1, 1);
-INSERT INTO customerOrder VALUES(2, 2);
-INSERT INTO customerOrder VALUES(3, 3);
-INSERT INTO customerOrder VALUES(4, 4);
+INSERT INTO [order] VALUES(1, 1);
+INSERT INTO [order] VALUES(2, 2);
+INSERT INTO [order] VALUES(3, 3);
+INSERT INTO [order] VALUES(4, 4);
 
-INSERT INTO customerOrder_box VALUES(1, 1, 1);
-INSERT INTO customerOrder_box VALUES(2, 2, 1);
-INSERT INTO customerOrder_box VALUES(2, 3, 1);
-INSERT INTO customerOrder_box VALUES(3, 3, 2);
-INSERT INTO customerOrder_box VALUES(4, 3, 1);
+INSERT INTO order_box VALUES(1, 1, 1);
+INSERT INTO order_box VALUES(2, 2, 1);
+INSERT INTO order_box VALUES(2, 3, 1);
+INSERT INTO order_box VALUES(3, 3, 2);
+INSERT INTO order_box VALUES(4, 3, 1);
 
-INSERT INTO customerOrder_product VALUES(1, 7, 5);
-INSERT INTO customerOrder_product VALUES(4, 5, 1.0);
-INSERT INTO customerOrder_product VALUES(4, 6, 1.5);
+INSERT INTO order_product VALUES(1, 7, 5);
+INSERT INTO order_product VALUES(4, 5, 1.0);
+INSERT INTO order_product VALUES(4, 6, 1.5);

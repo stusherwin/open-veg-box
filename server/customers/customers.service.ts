@@ -16,10 +16,10 @@ export class CustomersService {
     + ', op.productId productid, op.quantity productquantity'
     + ', p.name productname, p.unitType productunittype, p.price productprice'
     + ' from customer c'
-    + ' left join customerOrder o on o.customerId = c.id'
-    + ' left join customerOrder_box ob on ob.customerOrderId = o.id'
+    + ' left join [order] o on o.customerId = c.id'
+    + ' left join order_box ob on ob.orderId = o.id'
     + ' left join box b on b.id = ob.boxId'
-    + ' left join customerOrder_product op on op.customerOrderId = o.id'
+    + ' left join order_product op on op.orderId = o.id'
     + ' left join product p on p.id = op.productId'
     + ' order by o.id, b.name, p.name',
       {},

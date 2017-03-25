@@ -16,10 +16,10 @@ export class OrderService {
     + ', b.name boxname, b.price boxprice'
     + ', op.productId productid, op.quantity productquantity'
     + ', p.name productname, p.unitType productunittype, p.price productprice'
-    + ' from customerOrder o'
-    + ' left join customerOrder_box ob on ob.customerOrderId = o.id'
+    + ' from [order] o'
+    + ' left join order_box ob on ob.orderId = o.id'
     + ' left join box b on b.id = ob.boxId'
-    + ' left join customerOrder_product op on op.customerOrderId = o.id'
+    + ' left join order_product op on op.orderId = o.id'
     + ' left join product p on p.id = op.productId'
     + ' where o.id = @id'
     + ' order by b.name, p.name',
@@ -56,7 +56,7 @@ export class OrderService {
     let columns = Object.getOwnPropertyNames(whiteListed);
 
     return db.execute(
-        'insert into customerOrder_box (customerOrderId, boxId, ' + columns.join(', ') + ')'
+        'insert into order_box (orderId, boxId, ' + columns.join(', ') + ')'
         + ' values (@orderId, @boxId, ' + columns.map(c => '@' + c).join(', ') + ')',
         Objects.extend(whiteListed, {orderId, boxId}))
       .mergeMap(() => this.get(orderId, db));
@@ -67,7 +67,7 @@ export class OrderService {
     let columns = Object.getOwnPropertyNames(whiteListed);
 
     return db.execute(
-        'insert into customerOrder_product (customerOrderId, productId, ' + columns.join(', ') + ')'
+        'insert into order_product (orderId, productId, ' + columns.join(', ') + ')'
         + ' values (@orderId, @productId, ' + columns.map(c => '@' + c).join(', ') + ')',
         Objects.extend(whiteListed, {orderId, productId}))
       .mergeMap(() => this.get(orderId, db));
@@ -78,9 +78,9 @@ export class OrderService {
     let columns = Object.getOwnPropertyNames(whiteListed);
 
     return db.execute(
-        'update customerOrder_box set '
+        'update order_box set '
         + columns.map((f:string) => f + ' = @' + f).join(', ')
-        + ' where customerOrderId = @orderId and boxId = @boxId',
+        + ' where orderId = @orderId and boxId = @boxId',
         Objects.extend(whiteListed, {orderId, boxId}))
       .mergeMap(() => this.get(orderId, db));
   }
@@ -90,25 +90,25 @@ export class OrderService {
     let columns = Object.getOwnPropertyNames(whiteListed);
 
     return db.execute(
-        'update customerOrder_product set '
+        'update order_product set '
         + columns.map((f:string) => f + ' = @' + f).join(', ')
-        + ' where customerOrderId = @orderId and productId = @productId',
+        + ' where orderId = @orderId and productId = @productId',
         Objects.extend(whiteListed, {orderId, productId}))
       .mergeMap(() => this.get(orderId, db));
   }
   
   removeBox(orderId: number, boxId: number, db: Db): Observable<CustomerOrder> {
     return db.execute(
-        'delete from customerOrder_box'
-        + ' where customerOrderId = @orderId and boxId = @boxId',
+        'delete from order_box'
+        + ' where orderId = @orderId and boxId = @boxId',
         {orderId, boxId})
       .mergeMap(() => this.get(orderId, db));
   }
   
   removeProduct(orderId: number, productId: number, db: Db): Observable<CustomerOrder> {
     return db.execute(
-        'delete from customerOrder_product'
-        + ' where customerOrderId = @orderId and productId = @productId',
+        'delete from order_product'
+        + ' where orderId = @orderId and productId = @productId',
         {orderId, productId})
       .mergeMap(() => this.get(orderId, db));
   }

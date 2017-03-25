@@ -81,7 +81,7 @@ export class SqliteDb implements Db {
 
   private allObs(sql: string, params: {}): Observable<any[]> {
     return Observable.bindNodeCallback<any[]>((sql: string, params: {}, callback: any) => this.db.all(sql, params, callback))
-      (SqliteDb.convertParams(sql), SqliteDb.escapeParams(params))
+      (SqliteDb.transformSql(sql), SqliteDb.escapeParams(params))
       .map(rows => (rows || [])
         .map(r => Objects.convertPropertyNames(r, c => c.toLowerCase())));
   }
@@ -91,11 +91,11 @@ export class SqliteDb implements Db {
     // https://github.com/ReactiveX/rxjs/issues/2254
 
     // return Observable.bindNodeCallback<any>((sql: string, params: {}, callback: any) => this.db.get(sql, params, callback))
-    //   (SqliteDb.convertParams(sql), SqliteDb.escapeParams(params))
+    //   (SqliteDb.transformSql(sql), SqliteDb.escapeParams(params))
     //     .map(row => row ? Objects.convertPropertyNames(row, c => c.toLowerCase()) : null);
 
     return Observable.bindNodeCallback<any[]>((sql: string, params: {}, callback: any) => this.db.all(sql, params, callback))
-      (SqliteDb.convertParams(sql), SqliteDb.escapeParams(params))
+      (SqliteDb.transformSql(sql), SqliteDb.escapeParams(params))
         .map(rows => (rows || [])
           .map(r => Objects.convertPropertyNames(r, c => c.toLowerCase())))
         .map(rows => rows.length ? rows[0] : null);
@@ -103,11 +103,11 @@ export class SqliteDb implements Db {
 
   private runObs(sql: string, params: {}): Observable<void> {
     return Observable.bindNodeCallback<any>((sql: string, params: {}, callback: any) => this.db.run(sql, params, callback)) 
-      (SqliteDb.convertParams(sql), SqliteDb.escapeParams(params))
+      (SqliteDb.transformSql(sql), SqliteDb.escapeParams(params))
         .map(_ => null);
   }
 
-  private static convertParams(sql: string) {
+  private static transformSql(sql: string) {
     return sql.replace(/@(\w+)/g, '$$$1');
   }
 
