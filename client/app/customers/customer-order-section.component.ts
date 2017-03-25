@@ -65,16 +65,13 @@ export class CustomerOrderSectionComponent implements OnInit {
       } else if(this.model.itemsAvailable.length) {
         setTimeout(() => this.renderer.invokeElementMethod(this.addBtn.nativeElement, 'focus', []))
       }
+    } else {
+      if(this.model.items.length) {
+        let nextRemoveFocusIndex = Math.min(index, this.model.items.length - 1);
+        let nextFocusBtn = this.removeBtns.toArray()[nextRemoveFocusIndex];
+        this.renderer.invokeElementMethod(nextFocusBtn.nativeElement, 'blur', [])
+      }
     }
- 
-    // if(keyboard) {
-    //   if(this.value.length) {
-    //     let nextRemoveFocusIndex = Math.min(index, this.value.length - 1);
-    //     setTimeout(() => this.removeComponents.toArray()[nextRemoveFocusIndex].focus());     
-    //   } else {
-    //     setTimeout(() => this.addComponent.focus());
-    //   }
-    // }
  }
 
   onAddStart() {
