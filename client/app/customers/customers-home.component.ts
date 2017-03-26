@@ -13,6 +13,7 @@ import { RouteParams } from '@angular/router-deprecated';
 import { ActiveService, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
 import { DistributeWidthService } from './distribute-width.directive'
 import { Arrays } from '../shared/arrays';
+import { Objects } from '../shared/objects';
 import 'rxjs/add/observable/concat';
 import 'rxjs/add/operator/last';
 
@@ -28,7 +29,7 @@ export class CustomersHomeComponent implements OnInit {
 
     this.addModel = {
       add: (properties: {[property: string]: any}) => {
-        this.customerService.add(properties, this.queryParams).subscribe(customers => {
+        this.customerService.add(properties, Objects.extend(this.queryParams, {o: true})).subscribe(customers => {
           this.customers = customers.map(c => this.createModel(c));
           setTimeout(() => this.renderer.invokeElementMethod(window, 'scrollTo', [0, document.body.scrollHeight]));
         });
@@ -45,7 +46,7 @@ export class CustomersHomeComponent implements OnInit {
   queryParams: {[key: string]: string};
 
   ngOnInit() {
-    this.customerService.getAll(this.queryParams).combineLatest(
+    this.customerService.getAllWithOrders(this.queryParams).combineLatest(
         this.boxService.getAll(this.queryParams),
         this.productService.getAll(this.queryParams),
         (customers, boxes, products) => ({ customers, boxes, products }))

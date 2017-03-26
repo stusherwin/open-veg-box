@@ -17,7 +17,7 @@ export let getCustomers = function(authorize: (req: any, res: any, next:() => vo
   });
 
   customers.get('/no_round', function(req: any, res: any, next: any) {
-    customersService.getAllWithNoRound(req.query, req.db)
+    customersService.getAllHavingNoRound(req.query, req.db)
                     .subscribe(customers => res.json(customers), next);
   });
 

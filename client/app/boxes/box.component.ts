@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, ElementRef, Renderer } from '@angular/core';
-import { Box, BoxProduct } from './box';
+import { Box, BoxWithProducts, BoxProduct } from './box';
 import { Product } from '../products/product'
 import { WeightPipe, MoneyPipe } from '../shared/pipes';
 import { HeadingComponent } from '../shared/heading.component';
@@ -25,7 +25,7 @@ export class BoxComponent {
   boxName: HeadingComponent;
 
   @Input()
-  box: Box;
+  box: BoxWithProducts;
 
   @Input()
   tabindex: number;

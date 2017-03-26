@@ -15,7 +15,7 @@ import { NumericDirective } from '../shared/numeric.directive'
   directives: [HeadingComponent, BoxPriceComponent, BoxProductsComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, ValidatableComponent, NumericDirective]
 })
 export class BoxAddComponent {
-  box = new Box(0, '', 10.0, []);
+  box = new Box(0, '', 10.0);
   adding: boolean;
   rowFocused: boolean;
 
@@ -81,7 +81,7 @@ export class BoxAddComponent {
 
   cancelAdd() {
     this.adding = false;
-    this.box = new Box(0, 'New box', 10.0, []);
+    this.box = new Box(0, 'New box', 10.0);
     this.active.makeInactive();
     this.validated = false;
   }

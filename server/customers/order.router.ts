@@ -12,7 +12,7 @@ export let getOrder = function(authorize: (req: any, res: any, next:() => void) 
 
   order.get('/:id', function(req: any, res: any, next: any) {
     orderService.get(req.params.id, req.db)
-                 .subscribe(order => res.json(order), next);
+                .subscribe(order => res.json(order), next);
   });
 
   order.put('/:id/boxes/:boxId', function(req: any, res: any, next: any) {

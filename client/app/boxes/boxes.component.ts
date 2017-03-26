@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, Input, ViewChild, ElementRef, ChangeDetectorRef, AfterViewChecked, ViewChildren, QueryList, Renderer } from '@angular/core';
-import { Box, BoxProduct } from './box'
+import { Box, BoxWithProducts, BoxProduct } from './box'
 import { Product } from '../products/product';
 import { BoxService } from './box.service'
 import { ProductService } from '../products/product.service'
@@ -23,13 +23,13 @@ export class BoxesComponent implements OnInit {
     this.queryParams = routeParams.params;
   }
 
-  boxes: Box[] = [];
+  boxes: BoxWithProducts[] = [];
   products: Product[] = [];
   loaded: boolean;
   queryParams: {[key: string]: string};
 
   ngOnInit() {
-    this.boxService.getAll(this.queryParams)
+    this.boxService.getAllWithProducts(this.queryParams)
       .combineLatest(this.productService.getAll(this.queryParams), (boxes, products) => ({ boxes, products }))
       .subscribe(({boxes, products}) => {
         this.loaded = true;

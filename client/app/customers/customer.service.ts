@@ -24,8 +24,8 @@ export class CustomerService {
                  .join('&');
   }
 
-  getAll(queryParams: {[key: string]: string}): Observable<CustomerWithOrder[]> {
-    return this.http.get('/api/customers?' + this.toQueryString(queryParams))
+  getAllWithOrders(queryParams: {[key: string]: string}): Observable<CustomerWithOrder[]> {
+    return this.http.get('/api/customers?orders=true&' + this.toQueryString(queryParams))
                     .map(res => res.json())
                     .map(ps => ps.map(this.hydrate));
   }
@@ -46,7 +46,7 @@ export class CustomerService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.put('api/customers?' + this.toQueryString(queryParams), JSON.stringify(params), options)
+    return this.http.put('api/customers?orders=true&' + this.toQueryString(queryParams), JSON.stringify(params), options)
                     .map(res => res.json())
                     .map(ps => ps.map(this.hydrate));
   }
@@ -55,7 +55,7 @@ export class CustomerService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.post('api/customers/' + id + '?' + this.toQueryString(queryParams), JSON.stringify(params), options)
+    return this.http.post('api/customers/' + id + '?orders=true&' + this.toQueryString(queryParams), JSON.stringify(params), options)
                     .map(res => res.json())
                     .map(ps => ps.map(this.hydrate));
   }
@@ -64,7 +64,7 @@ export class CustomerService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.delete('api/customers/' + id + '?' + this.toQueryString(queryParams), options)
+    return this.http.delete('api/customers/' + id + '?orders=true&' + this.toQueryString(queryParams), options)
                     .map(res => res.json())
                     .map(ps => ps.map(this.hydrate));
   }

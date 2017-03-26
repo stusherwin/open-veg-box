@@ -6,7 +6,15 @@ import 'rxjs/add/operator/mergeMap';
 export class CustomersService {
   fields: string[] = ['name', 'address', 'tel1', 'tel2', 'email'];
 
-  getAll(queryParams: any, db: Db): Observable<CustomerWithOrder[]> {
+  getAll(queryParams: any, db: Db): Observable<Customer[]> {
+    if(queryParams.orders) {
+      return this.allWithOrders(queryParams, db);
+    } else {
+      return this.all(queryParams, db);
+    }
+  }
+
+  private allWithOrders(queryParams: any, db: Db): Observable<Customer[]> {
     return db.allWithReduce<CustomerWithOrder>(
       ' select'
     + '  c.id, c.name, c.address, c.tel1, c.tel2, c.email'
@@ -55,7 +63,15 @@ export class CustomersService {
       });
   }
   
-  getAllWithNoRound(queryParams: any, db: Db): Observable<Customer[]> {
+  private all(queryParams: any, db: Db): Observable<Customer[]> {
+    return db.all<Customer>(
+      ' select c.id, c.name, c.address, c.tel1, c.tel2, c.email from customer c' 
+    + ' left join round_customer rc on rc.customerId = c.id'
+    + ' order by c.name',
+      {}, queryParams, r => new Customer(r.id, r.name, r.address, r.tel1, r.tel2, r.email));
+  }
+  
+  getAllHavingNoRound(queryParams: any, db: Db): Observable<Customer[]> {
     return db.all<Customer>(
       ' select c.id, c.name, c.address, c.tel1, c.tel2, c.email from customer c' 
     + ' left join round_customer rc on rc.customerId = c.id'
@@ -71,17 +87,17 @@ export class CustomersService {
       {id: id}, r => new Customer(r.id, r.name, r.address, r.tel1, r.tel2, r.email));
   }
   
-  add(params: any, queryParams: any, db: Db): Observable<Customer[]> {
+  add(params: any, queryParams: any, db: Db): Observable<CustomerWithOrder[]> {
     return db.insert('customer', this.fields, params)
       .mergeMap(() => this.getAll(queryParams, db));
   }
 
-  update(id: number, params: any, queryParams: any, db: Db): Observable<Customer[]> {
+  update(id: number, params: any, queryParams: any, db: Db): Observable<CustomerWithOrder[]> {
     return db.update('customer', this.fields, id, params)
       .mergeMap(() => this.getAll(queryParams, db));
   }
 
-  delete(id: number, queryParams: any, db: Db): Observable<Customer[]> {
+  delete(id: number, queryParams: any, db: Db): Observable<CustomerWithOrder[]> {
     return db.delete('customer', id)
       .mergeMap(() => this.getAll(queryParams, db));
   }

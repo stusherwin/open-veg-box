@@ -1,4 +1,4 @@
-import { Box, BoxProduct } from './box'
+import { Box, BoxWithProducts, BoxProduct } from './box'
 import { Injectable, Inject } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -35,58 +35,66 @@ export class BoxService {
                        .map(ps => ps.map(this.hydrate));
   }
 
-  add(params: any, queryParams: {[key: string]: string}): Observable<Box[]> {
+  getAllWithProducts(queryParams: {[key: string]: string}): Observable<BoxWithProducts[]> {
+    return this.http.get('/api/boxes?products=true&' + this.toQueryString(queryParams))
+                       .map(res => res.json())
+                       .map(ps => ps.map(this.hydrate));
+  }
+
+  add(params: any, queryParams: {[key: string]: string}): Observable<BoxWithProducts[]> {
     let options = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' }) });
 
-    return this.http.put('api/boxes?' + this.toQueryString(queryParams), JSON.stringify(params), options)
+    return this.http.put('api/boxes?products=true&' + this.toQueryString(queryParams), JSON.stringify(params), options)
                     .map(res => res.json())
                     .map(ps => ps.map(this.hydrate));
   }
 
-  update(id: number, params: any, queryParams: {[key: string]: string}): Observable<Box[]> {
+  update(id: number, params: any, queryParams: {[key: string]: string}): Observable<BoxWithProducts[]> {
     let options = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' }) });
 
-    return this.http.post('api/boxes/' + id + '?' + this.toQueryString(queryParams), JSON.stringify(params), options)
+    return this.http.post('api/boxes/' + id + '?products=true&' + this.toQueryString(queryParams), JSON.stringify(params), options)
                     .map(res => res.json())
                     .map(ps => ps.map(this.hydrate));
   }
 
-  delete(id: number, queryParams: {[key: string]: string}): Observable<Box[]> {
+  delete(id: number, queryParams: {[key: string]: string}): Observable<BoxWithProducts[]> {
     let options = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' }) });
 
-    return this.http.delete('api/boxes/' + id + '?' + this.toQueryString(queryParams), options)
+    return this.http.delete('api/boxes/' + id + '?products=true&' + this.toQueryString(queryParams), options)
                     .map(res => res.json())
                     .map(ps => ps.map(this.hydrate));
   }
 
-  addProduct(id: number, productId: number, params: any, queryParams: {[key: string]: string}): Observable<Box[]> {
+  addProduct(id: number, productId: number, params: any, queryParams: {[key: string]: string}): Observable<BoxWithProducts[]> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.put('api/boxes/' + id + '/products/' + productId + '?' + this.toQueryString(queryParams), JSON.stringify(params), options)
+    return this.http.put('api/boxes/' + id + '/products/' + productId + '?products=true&' + this.toQueryString(queryParams), JSON.stringify(params), options)
                     .map(res => res.json())
                     .map(rs => rs.map(this.hydrate));
   }
 
-  updateProduct(id: number, productId: number, params: any, queryParams: {[key: string]: string}): Observable<Box[]> {
+  updateProduct(id: number, productId: number, params: any, queryParams: {[key: string]: string}): Observable<BoxWithProducts[]> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.post('api/boxes/' + id + '/products/' + productId + '?' + this.toQueryString(queryParams), JSON.stringify(params), options)
+    return this.http.post('api/boxes/' + id + '/products/' + productId + '?products=true&' + this.toQueryString(queryParams), JSON.stringify(params), options)
                     .map(res => res.json())
                     .map(rs => rs.map(this.hydrate));
   }
 
-  removeProduct(id: number, productId: number, queryParams: {[key: string]: string}): Observable<Box[]> {
+  removeProduct(id: number, productId: number, queryParams: {[key: string]: string}): Observable<BoxWithProducts[]> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.delete('api/boxes/' + id + '/products/' + productId + '?' + this.toQueryString(queryParams), options)
+    return this.http.delete('api/boxes/' + id + '/products/' + productId + '?products=true&' + this.toQueryString(queryParams), options)
                     .map(res => res.json())
                     .map(rs => rs.map(this.hydrate));
   }
 
-  private hydrate(b: any) {
-    return new Box(b.id, b.name, b.price, b.products.map((p:any) => new BoxProduct(p.id, p.name, p.quantity, p.unitType)));
+  private hydrate(b: any) : Box {
+    return b.products
+      ? new BoxWithProducts(b.id, b.name, b.price, b.products.map((p:any) => new BoxProduct(p.id, p.name, p.quantity, p.unitType)))
+      : new Box(b.id, b.name, b.price);
  }
 }
