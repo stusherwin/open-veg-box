@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, ElementRef, Renderer } from '@angular/core';
-import { Box, BoxWithProducts, BoxProduct } from './box';
-import { Product } from '../products/product'
+import { Box, BoxWithProducts } from './box';
+import { Product, ProductQuantity } from '../products/product'
 import { WeightPipe, MoneyPipe } from '../shared/pipes';
 import { HeadingComponent } from '../shared/heading.component';
 import { BoxPriceComponent } from './box-price.component';
@@ -9,7 +9,7 @@ import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirec
 
 export interface BoxProductEvent {
   boxId: number;
-  product: BoxProduct;
+  product: ProductQuantity;
 }
 
 @Component({
@@ -60,15 +60,15 @@ export class BoxComponent {
     this.update.emit(this.box);
   }
 
-  onProductAdd(product: BoxProduct) {
+  onProductAdd(product: ProductQuantity) {
     this.productAdd.emit({boxId: this.box.id, product});
   }
 
-  onProductUpdate(product: BoxProduct) {
+  onProductUpdate(product: ProductQuantity) {
     this.productUpdate.emit({boxId: this.box.id, product});
   }
 
-  onProductRemove(product: BoxProduct) {
+  onProductRemove(product: ProductQuantity) {
     this.productRemove.emit({boxId: this.box.id, product});
   }
 }

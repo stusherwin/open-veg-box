@@ -1,4 +1,5 @@
-import {Box, BoxWithProducts, BoxProduct} from './box'
+import {Box, BoxWithProducts} from './box'
+import {ProductQuantity} from '../products/product'
 import {Observable} from 'rxjs/Observable';
 import {Db} from '../shared/db';
 import {Objects} from '../shared/objects';
@@ -40,7 +41,7 @@ export class BoxesService {
             boxes[r.id] = new BoxWithProducts(r.id, r.name, r.price, []);
           }
           if(r.productid) {
-            boxes[r.id].products.push(new BoxProduct(r.productid, r.productname, r.productquantity, r.productunittype));
+            boxes[r.id].products.push(new ProductQuantity(r.productid, r.productname, r.productquantity, r.productunittype));
           }
         }
         let result: BoxWithProducts[] = [];

@@ -1,3 +1,5 @@
+import {ProductQuantity} from '../products/product'
+
 export class Box {
   constructor(id: number, name:string, price: number) {
     this.id = id;
@@ -15,28 +17,14 @@ export class Box {
 }
 
 export class BoxWithProducts extends Box {
-  constructor(id: number, name:string, price: number, products: BoxProduct[]) {
+  constructor(id: number, name:string, price: number, products: ProductQuantity[]) {
     super(id, name, price);
     this.products = products;
   }
     
-  products: BoxProduct[]
+  products: ProductQuantity[]
 
   clone() {
-    return new BoxWithProducts(this.id, this.name, this.price, this.products.map(p => new BoxProduct(p.id, p.name, p.quantity, p.unitType)));
+    return new BoxWithProducts(this.id, this.name, this.price, this.products.map(p => new ProductQuantity(p.id, p.name, p.quantity, p.unitType)));
   }
-}
-
-export class BoxProduct {
-  constructor(id: number, name: string, quantity: number, unitType: string) {
-    this.id = id;
-    this.name = name;
-    this.quantity = quantity;
-    this.unitType = unitType;
-  }
-    
-  id: number;
-  name: string;
-  quantity: number;
-  unitType: string;
 }

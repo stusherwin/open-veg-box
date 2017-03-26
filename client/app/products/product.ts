@@ -33,3 +33,21 @@ export let unitTypes: UnitType[] = [
   new UnitType("per Kg", "perKg"),
   new UnitType("each", "each")
 ];
+
+export class ProductQuantity {
+  constructor(id: number, name:string, quantity: number, unitType: string) {
+    this.id = id;
+    this.name = name;
+    this.quantity = quantity;
+    this.unitType = unitType;
+  }
+    
+  id: number;
+  name: string;
+  quantity: number;
+  unitType: string;
+
+  clone() {
+    return new ProductQuantity(this.id, this.name, this.quantity, this.unitType);
+  }
+}

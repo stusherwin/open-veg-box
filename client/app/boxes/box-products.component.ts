@@ -1,6 +1,5 @@
 import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, ViewChildren, QueryList, AfterViewInit, ChangeDetectorRef, AfterViewChecked, OnChanges, Inject, forwardRef, OnInit, OnDestroy } from '@angular/core';
-import { BoxProduct } from './box'
-import { Product } from '../products/product'
+import { Product, ProductQuantity } from '../products/product'
 import { Subscription } from 'rxjs/Subscription'
 import { Observable } from 'rxjs/Observable';
 import { Arrays } from '../shared/arrays'
@@ -36,13 +35,13 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
   productQuantityMaxWidth: number;
   columnWidth: number;
   columnPadding: number;
-  columns: BoxProduct[][] = [];
+  columns: ProductQuantity[][] = [];
   maxColumns: number = 0;
   unusedProducts: Product[] = [];
   editing: boolean;
   
   @Input()
-  value: BoxProduct[];
+  value: ProductQuantity[];
 
   @Input()
   products: Product[];
@@ -69,13 +68,13 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
   removeComponents: QueryList<BoxProductRemoveComponent> 
 
   @Output()
-  add = new EventEmitter<BoxProduct>();
+  add = new EventEmitter<ProductQuantity>();
 
   @Output()
-  remove = new EventEmitter<BoxProduct>();
+  remove = new EventEmitter<ProductQuantity>();
 
   @Output()
-  update = new EventEmitter<BoxProduct>(); 
+  update = new EventEmitter<ProductQuantity>(); 
 
   constructor(
     @Inject(forwardRef(() => BoxProductsService))
@@ -144,7 +143,7 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
   }
 
   repopulateColumns() {
-    let columns: BoxProduct[][] = [];
+    let columns: ProductQuantity[][] = [];
 
     // Distribute evenly across columns
     for(let i = 0; i < this.value.length; i++) {
@@ -187,7 +186,7 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
     this.repopulateColumns();
   }
 
-  onProductAdd(product: BoxProduct) {
+  onProductAdd(product: ProductQuantity) {
     this.value.push(product);
     this.add.emit(product);
     
@@ -195,7 +194,7 @@ export class BoxProductsComponent implements OnInit, AfterViewChecked {
     this.repopulateColumns();
   }
 
-  onRemove(product: BoxProduct, keyboard: boolean) {
+  onRemove(product: ProductQuantity, keyboard: boolean) {
     this.remove.emit(product);
     let index = this.value.findIndex(p => p.id == product.id);
     Arrays.remove(this.value, product);

@@ -1,4 +1,5 @@
-import { Box, BoxWithProducts, BoxProduct } from './box'
+import { Box, BoxWithProducts } from './box'
+import { ProductQuantity } from '../products/product'
 import { Injectable, Inject } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -94,7 +95,7 @@ export class BoxService {
 
   private hydrate(b: any) : Box {
     return b.products
-      ? new BoxWithProducts(b.id, b.name, b.price, b.products.map((p:any) => new BoxProduct(p.id, p.name, p.quantity, p.unitType)))
+      ? new BoxWithProducts(b.id, b.name, b.price, b.products.map((p:any) => new ProductQuantity(p.id, p.name, p.quantity, p.unitType)))
       : new Box(b.id, b.name, b.price);
  }
 }

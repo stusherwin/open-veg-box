@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, ElementRef, Renderer, ViewChildren, QueryList } from '@angular/core';
-import { Box, BoxProduct } from './box';
-import { Product } from '../products/product'
+import { Box } from './box';
+import { Product, ProductQuantity } from '../products/product'
 import { WeightPipe, MoneyPipe } from '../shared/pipes';
 import { HeadingComponent } from '../shared/heading.component';
 import { BoxPriceComponent } from './box-price.component';

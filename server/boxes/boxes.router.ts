@@ -1,4 +1,5 @@
-import {Box, BoxProduct} from './box'
+import {Box} from './box'
+import {ProductQuantity} from '../products/product'
 import {BoxesService} from './boxes.service'
 import {Objects} from '../shared/objects'
 

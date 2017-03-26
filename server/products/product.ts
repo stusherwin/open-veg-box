@@ -13,3 +13,17 @@ export class Product {
   unitType: string;
   unitQuantity: number;
 }
+
+export class ProductQuantity {
+  constructor(id: number, name: string, quantity: number, unitType: string) {
+    this.id = id;
+    this.name = name;
+    this.quantity = quantity;
+    this.unitType = unitType;
+  }
+    
+  id: number;
+  name: string;
+  quantity: number;
+  unitType: string;
+}

@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, Input, ViewChild, ElementRef, ChangeDetectorRef, AfterViewChecked, ViewChildren, QueryList, Renderer } from '@angular/core';
-import { Box, BoxWithProducts, BoxProduct } from './box'
-import { Product } from '../products/product';
+import { Box, BoxWithProducts } from './box'
+import { Product, ProductQuantity } from '../products/product';
 import { BoxService } from './box.service'
 import { ProductService } from '../products/product.service'
 import { UsersService } from '../users/users.service'

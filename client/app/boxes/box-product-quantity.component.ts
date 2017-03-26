@@ -1,5 +1,5 @@
 import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, ViewChildren, QueryList, AfterViewInit, ChangeDetectorRef, AfterViewChecked, OnChanges, Inject, forwardRef, OnInit, OnDestroy, Renderer } from '@angular/core';
-import { BoxProduct } from './box'
+import { ProductQuantity } from '../products/product'
 import { WeightPipe } from '../shared/pipes'
 import { Arrays } from '../shared/arrays'
 import { ActiveElementDirective, ActivateOnFocusDirective } from '../shared/active-elements';

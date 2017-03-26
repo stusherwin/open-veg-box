@@ -1,6 +1,5 @@
 import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, ViewChildren, QueryList, AfterViewInit, ChangeDetectorRef, AfterViewChecked, OnChanges, Inject, forwardRef, OnInit, OnDestroy, Renderer } from '@angular/core';
-import { BoxProduct } from './box'
-import { Product } from '../products/product'
+import { Product, ProductQuantity } from '../products/product'
 import { Subscription } from 'rxjs/Subscription'
 import { Observable } from 'rxjs/Observable';
 import { BoxProductsService } from './box-products.service'
@@ -50,7 +49,7 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit, OnChanges 
   editable: EditableValueComponent  
 
   @Output()
-  add = new EventEmitter<BoxProduct>();
+  add = new EventEmitter<ProductQuantity>();
 
   constructor(
     private service: BoxProductsService,
@@ -105,7 +104,7 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit, OnChanges 
       this.service.setInactive(this.editId);
     }
 
-    this.add.emit(new BoxProduct(this.product.id, this.product.name, this.quantityEditingValue, this.product.unitType));
+    this.add.emit(new ProductQuantity(this.product.id, this.product.name, this.quantityEditingValue, this.product.unitType));
 
     this.product = this.products[0];
     this.editable.endEdit();
