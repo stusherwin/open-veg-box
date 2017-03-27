@@ -37,10 +37,9 @@ export class RoundService {
                     .map(this.hydrate);
   }
 
-  getProductList(id: number): Observable<ProductQuantity[]> {
+  getProductList(id: number): Observable<ProductList> {
     return this.http.get('/api/rounds/' + id + '/product_list/')
-                    .map(res => res.json())
-                    .map(rs => rs.map((r: any) => new ProductQuantity(r.id, r.name, r.quantity, r.unitType)));
+                    .map(res => res.json());
   }
 
   add(params: any, queryParams: {[key: string]: string}): Observable<Round[]> {
@@ -95,4 +94,16 @@ export class RoundService {
 
     return new Round(r.id, r.name, r.customers.map((c:any) => new RoundCustomer(c.id, c.name, c.address, c.email)));
   }
+}
+
+export class ProductList {
+  totals: ProductQuantity[];
+  customers: CustomerProductList[];
+}
+
+export class CustomerProductList {
+  id: number;
+  name: string;
+  address: string;
+  products: ProductQuantity[]
 }

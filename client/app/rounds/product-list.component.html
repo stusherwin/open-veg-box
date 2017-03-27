@@ -1,9 +1,22 @@
 <div *ngIf="round">
   <h2>Product list: {{round.name}}</h2>
-  <table>
-    <tr *ngFor="let p of products">
-      <td>{{p.name}}</td>
-      <td><cc-product-quantity [quantity]="p.quantity" [unitType]="p.unitType"></cc-product-quantity></td>
-    </tr>
-  </table>
+  <div class="totals">
+    <h3>Totals</h3>
+    <table>
+      <tr *ngFor="let p of productList.totals">
+        <td>{{p.name}}</td>
+        <td><cc-product-quantity [quantity]="p.quantity" [unitType]="p.unitType"></cc-product-quantity></td>
+      </tr>
+    </table>
+  </div>
+  <div class="customer" *ngFor="let c of productList.customers">
+    <h3>{{c.name}}</h3>
+    <p>{{c.address}}</p>
+    <table>
+      <tr *ngFor="let p of c.products">
+        <td>{{p.name}}</td>
+        <td><cc-product-quantity [quantity]="p.quantity" [unitType]="p.unitType"></cc-product-quantity></td>
+      </tr>
+    </table>
+  </div>
 </div>

@@ -3,6 +3,7 @@ import {ProductQuantity} from '../products/product'
 import {Observable} from 'rxjs/Observable';
 import {Db} from '../shared/db';
 import 'rxjs/add/operator/mergeMap';
+let _ = require('lodash');
 
 export class RoundsService {
   getAll(queryParams: any, db: Db): Observable<Round[]> {
@@ -53,10 +54,10 @@ export class RoundsService {
       });
   }
 
-  getProductList(id: number, db: Db): Observable<ProductQuantity[]> {
-    return db.all<ProductQuantity>(
-      ' select id, name, unittype, sum(quantity) quantity from'
-    + ' (select p.id, p.name, p.unitType, op.quantity'
+  getProductList(id: number, db: Db): Observable<ProductList> {
+    return db.singleWithReduce<ProductList>(
+      ' select customerId, customerName, address, productId, productName, unittype, sum(quantity) quantity from'
+    + ' (select c.id customerId, c.name customerName, c.address, p.id productId, p.name productName, p.unitType, op.quantity'
     + ' from round r'
     + ' inner join round_customer rc on rc.roundId = r.id'
     + ' inner join customer c on c.id = rc.customerId'
@@ -65,7 +66,7 @@ export class RoundsService {
     + ' inner join product p on p.id = op.productId'
     + ' where r.id = @id'
     + ' union'
-    + ' select p.id, p.name, p.unitType, bp.quantity'
+    + ' select c.id customerId, c.name customerName, c.address, p.id productId, p.name productName, p.unitType, bp.quantity'
     + ' from round r'
     + ' inner join round_customer rc on rc.roundId = r.id'
     + ' inner join customer c on c.id = rc.customerId'
@@ -75,9 +76,42 @@ export class RoundsService {
     + ' inner join box_product bp on bp.boxId = b.id'
     + ' inner join product p on p.id = bp.productId'
     + ' where r.id = @id) x'
-    + ' group by id, name, unitType'
-    + ' order by name',
-      {id}, {}, r => new ProductQuantity(r.id, r.name, r.quantity, r.unittype));
+    + ' group by customerId, customerName, address, productId, productName, unitType'
+    + ' order by customerName, productName',
+      {id}, rows => {
+        let customers = {};
+        let products = {};
+        for(let r of rows) {
+          if(!customers[r.customerid]) {
+            customers[r.customerid] = {
+              id: r.customerid,
+              name: r.customername,
+              address: r.address,
+              products: []
+            }
+          }
+          customers[r.customerid].products.push(new ProductQuantity(r.productid, r.productname, r.quantity, r.unittype));
+          if(!products[r.productid]) {
+            products[r.productid] = new ProductQuantity(r.productid, r.productname, r.quantity, r.unittype);
+          } else {
+            products[r.productid].quantity += r.quantity;
+          }
+        }
+
+        return {
+          totals: _.chain(products)
+                   .values()
+                   .sortBy(['name'])
+                   .value(),
+          customers: _.chain(customers)
+                      .values()
+                      .forEach((c: CustomerProductList) => {
+                        _.sortBy(c.products, ['name']);
+                      })
+                      .sortBy(['name'])
+                      .value()
+        };
+      });
   }
 
   add(params: any, queryParams: any, db: Db): Observable<Round[]> {
@@ -107,4 +141,16 @@ export class RoundsService {
         {id, customerId})
       .mergeMap(() => this.getAll(queryParams, db));
   }
+}
+
+export class ProductList {
+  totals: ProductQuantity[];
+  customers: CustomerProductList[];
+}
+
+export class CustomerProductList {
+  id: number;
+  name: string;
+  address: string;
+  products: ProductQuantity[]
 }

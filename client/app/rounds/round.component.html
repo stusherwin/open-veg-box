@@ -1,6 +1,12 @@
 <div class="row" #active=cc-active cc-active [class.focused]="rowFocused" (activate)="rowFocused = true" (deactivate)="rowFocused = false">
   <div class="actions">
     <div class="action">
+      <button class="button" [routerLink]="['../OrderList', {roundId: round.id}]" cc-active cc-activate-on-focus cc-deactivate-on-blur [tabindex]="(tabindex * 2) + 2">
+        <div class="icon"><i class="icon-warning"></i></div>
+        <span>Order list</span>
+      </button>
+    </div>
+    <div class="action">
       <button class="button" [routerLink]="['../ProductList', {roundId: round.id}]" cc-active cc-activate-on-focus cc-deactivate-on-blur [tabindex]="(tabindex * 2) + 2">
         <div class="icon"><i class="icon-carrot"></i></div>
         <span>Product list</span>
