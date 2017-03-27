@@ -20,13 +20,13 @@
   --><div class="order-item-part"
           cc-distribute-width="quantity"
           [style.margin-left.px]="orderItemPadding">
-      <cc-box-product-quantity
+      <cc-order-item-quantity
         [(value)]="item.quantity"
         (valueChange)="item.updateQuantity($event);"
         (editingValueChange)="item.modifyQuantity($event);"
         [unitType]="item.unitType"
         [tabindex]="tabindex">
-      </cc-box-product-quantity>
+      </cc-order-item-quantity>
     </div><!--
   --><div class="order-item-part order-item-total"
           cc-distribute-width="total"

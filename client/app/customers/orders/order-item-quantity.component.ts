@@ -1,19 +1,20 @@
 import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, ViewChildren, QueryList, AfterViewInit, ChangeDetectorRef, AfterViewChecked, OnChanges, Inject, forwardRef, OnInit, OnDestroy, Renderer } from '@angular/core';
-import { WeightPipe } from '../shared/pipes'
-import { Arrays } from '../shared/arrays'
-import { ActiveElementDirective, ActivateOnFocusDirective } from '../shared/active-elements';
-import { ValidatableComponent } from '../shared/validatable.component';
+import { WeightPipe } from '../../shared/pipes'
+import { Arrays } from '../../shared/arrays'
+import { ActiveElementDirective, ActivateOnFocusDirective } from '../../shared/active-elements';
+import { ValidatableComponent } from '../../shared/validatable.component';
 import { Subscription } from 'rxjs/Subscription'
-import { EditableValueComponent } from '../shared/editable-value-new.component'
-import { NumericDirective } from '../shared/numeric.directive'
+import { EditableValueComponent } from '../../shared/editable-value-new.component'
+import { NumericDirective } from '../../shared/numeric.directive'
+import { ProductQuantityComponent } from '../../products/product-quantity.component'
 
 @Component({
-  selector: 'cc-box-product-quantity',
-  directives: [ActiveElementDirective, ActivateOnFocusDirective, ValidatableComponent, EditableValueComponent, NumericDirective],
+  selector: 'cc-order-item-quantity',
+  directives: [ActiveElementDirective, ActivateOnFocusDirective, ValidatableComponent, EditableValueComponent, NumericDirective, ProductQuantityComponent],
   pipes: [WeightPipe],
-  templateUrl: 'app/customers/box-product-quantity.component.html'
+  templateUrl: 'app/customers/orders/order-item-quantity.component.html'
 })
-export class BoxProductQuantityComponent {
+export class OrderItemQuantityComponent {
   @Input()
   editing: boolean;
   

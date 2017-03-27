@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, ElementRef, OnInit, Renderer, ViewChildren, QueryList } from '@angular/core';
 import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../../shared/active-elements'
 import { DistributeWidthDirective, DistributeWidthSumDirective } from '../distribute-width.directive'
-import { BoxProductQuantityComponent } from '../box-product-quantity.component'
+import { OrderItemQuantityComponent } from './order-item-quantity.component'
 import { EditableValueComponent } from '../../shared/editable-value.component'
 import { Arrays } from '../../shared/arrays'
 import { NumericDirective } from '../../shared/numeric.directive'
@@ -13,7 +13,7 @@ import { OrderItemModel } from './order-item.model'
 @Component({
   selector: 'cc-order-section',
   templateUrl: 'app/customers/orders/order-section.component.html',
-  directives: [ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, DistributeWidthDirective, BoxProductQuantityComponent, DistributeWidthSumDirective, EditableValueComponent, NumericDirective],
+  directives: [ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, DistributeWidthDirective, OrderItemQuantityComponent, DistributeWidthSumDirective, EditableValueComponent, NumericDirective],
   pipes: [MoneyPipe]
 })
 export class OrderSectionComponent implements OnInit {

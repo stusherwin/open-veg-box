@@ -1,0 +1,9 @@
+<div *ngIf="round">
+  <h2>Product list: {{round.name}}</h2>
+  <table>
+    <tr *ngFor="let p of products">
+      <td>{{p.name}}</td>
+      <td><cc-product-quantity [quantity]="p.quantity" [unitType]="p.unitType"></cc-product-quantity></td>
+    </tr>
+  </table>
+</div>

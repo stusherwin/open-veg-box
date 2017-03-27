@@ -90,3 +90,6 @@ TODO (now)
 * When adding, adds to end then when comes back from server is sorted.
 * Add button not highlighted when hovering over certain area
 * queryparams not whitelisted on server side
+* Button carrot icon gets bigger when button pressed
+* Both buttons become active when one is pressed!
+* Rounds route should be /round/:id/product-list etc

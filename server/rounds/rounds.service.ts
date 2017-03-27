@@ -1,4 +1,5 @@
 import {Round, RoundCustomer} from './round'
+import {ProductQuantity} from '../products/product'
 import {Observable} from 'rxjs/Observable';
 import {Db} from '../shared/db';
 import 'rxjs/add/operator/mergeMap';
@@ -50,6 +51,33 @@ export class RoundsService {
         }
         return round;
       });
+  }
+
+  getProductList(id: number, db: Db): Observable<ProductQuantity[]> {
+    return db.all<ProductQuantity>(
+      ' select id, name, unittype, sum(quantity) quantity from'
+    + ' (select p.id, p.name, p.unitType, op.quantity'
+    + ' from round r'
+    + ' inner join round_customer rc on rc.roundId = r.id'
+    + ' inner join customer c on c.id = rc.customerId'
+    + ' inner join [order] o on o.customerId = c.id'
+    + ' inner join order_product op on op.orderId = o.id'
+    + ' inner join product p on p.id = op.productId'
+    + ' where r.id = @id'
+    + ' union'
+    + ' select p.id, p.name, p.unitType, bp.quantity'
+    + ' from round r'
+    + ' inner join round_customer rc on rc.roundId = r.id'
+    + ' inner join customer c on c.id = rc.customerId'
+    + ' inner join [order] o on o.customerId = c.id'
+    + ' inner join order_box ob on ob.orderId = o.id'
+    + ' inner join box b on b.id = ob.boxId'
+    + ' inner join box_product bp on bp.boxId = b.id'
+    + ' inner join product p on p.id = bp.productId'
+    + ' where r.id = @id) x'
+    + ' group by id, name, unitType'
+    + ' order by name',
+      {id}, {}, r => new ProductQuantity(r.id, r.name, r.quantity, r.unittype));
   }
 
   add(params: any, queryParams: any, db: Db): Observable<Round[]> {

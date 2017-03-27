@@ -1,4 +1,5 @@
 import { Round, RoundCustomer } from './round'
+import { ProductQuantity } from '../products/product'
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -34,6 +35,12 @@ export class RoundService {
     return this.http.get('/api/rounds/' + id)
                     .map(res => res.json())
                     .map(this.hydrate);
+  }
+
+  getProductList(id: number): Observable<ProductQuantity[]> {
+    return this.http.get('/api/rounds/' + id + '/product_list/')
+                    .map(res => res.json())
+                    .map(rs => rs.map((r: any) => new ProductQuantity(r.id, r.name, r.quantity, r.unitType)));
   }
 
   add(params: any, queryParams: {[key: string]: string}): Observable<Round[]> {

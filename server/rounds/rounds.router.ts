@@ -13,12 +13,17 @@ export let getRounds = function(authorize: (req: any, res: any, next:() => void)
 
   rounds.get('/', function(req: any, res: any, next: any) {
     roundsService.getAll(req.query, req.db)
-                .subscribe(rounds => res.json(rounds), next);
+                 .subscribe(rounds => res.json(rounds), next);
   });
 
   rounds.get('/:id', function(req: any, res: any, next: any) {
     roundsService.get(req.params.id, req.db)
-                .subscribe(round => res.json(round), next);
+                 .subscribe(round => res.json(round), next);
+  });
+
+  rounds.get('/:id/product_list', function(req: any, res: any, next: any) {
+    roundsService.getProductList(req.params.id, req.db)
+                 .subscribe(products => res.json(products), next);
   });
 
   rounds.post('/:id', function(req: any, res: any, next: any) {

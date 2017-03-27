@@ -7,10 +7,11 @@ import { ValidatableComponent } from '../shared/validatable.component';
 import { Subscription } from 'rxjs/Subscription'
 import { EditableValueComponent } from '../shared/editable-value.component'
 import { NumericDirective } from '../shared/numeric.directive'
+import { ProductQuantityComponent } from '../products/product-quantity.component'
 
 @Component({
   selector: 'cc-box-product-quantity',
-  directives: [ActiveElementDirective, ActivateOnFocusDirective, ValidatableComponent, EditableValueComponent, NumericDirective],
+  directives: [ActiveElementDirective, ActivateOnFocusDirective, ValidatableComponent, EditableValueComponent, NumericDirective, ProductQuantityComponent],
   pipes: [WeightPipe],
   templateUrl: 'app/boxes/box-product-quantity.component.html'
 })
