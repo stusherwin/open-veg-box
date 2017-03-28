@@ -62,6 +62,7 @@
     "canonical-path": "0.0.2",
     "concurrently": "^2.2.0",
     "gulp": "^3.9.1",
+    "gulp-cached": "^1.1.1",
     "gulp-debug": "2.1.2",
     "gulp-exec": "2.1.2",
     "gulp-less": "3.1.0",
@@ -80,6 +81,7 @@
     "protractor": "^3.3.0",
     "rimraf": "^2.5.2",
     "serve": "1.4.0",
+    "through2": "^2.0.3",
     "tslint": "^3.7.4",
     "typescript": "^1.8.10",
     "typings": "^1.0.4"

@@ -1,10 +1,10 @@
-<div class="row-view" cc-active [class.focused]="focused" (activate)="focused = true" (deactivate)="focused = false">
-  <cc-rounds-page-round *ngIf="loaded"
-    [round]="round"
-    [unusedCustomers]="unusedCustomers"
-    [tabindex]="1"
-    (update)="onUpdate($event)"
-    (customerAdd)="onCustomerAdd($event)"
-    (customerRemove)="onCustomerRemove($event)">
-  </cc-rounds-page-round>
+<div class="right-nav">
+  <a class="new right"><i class="icon-trash"></i>Delete</a>
+  <a class="new right"><i class="icon-carrot"></i>Product list</a>
+</div>
+<div *ngIf="loaded">
+  <h2>{{round.name}}</h2>
+  <a class="new"><i class="icon-trash"></i>Delete</a>
+  <a class="new"><i class="icon-carrot"></i>Product list</a>
+
 </div>

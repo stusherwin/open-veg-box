@@ -16,6 +16,12 @@ import 'rxjs/add/observable/combineLatest';
 @Component({
   templateUrl: 'app/rounds/round-page.component.html',
   directives: [RoundsPageRoundComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective],
+  styleUrls: ['app/rounds/round-page.component.css'],
+  styles: [`
+    html>/**/body a i::before, x:-moz-any-link {
+      margin-top: -1px;
+    }
+  `],
   providers: [RoundService, CustomerService, ActiveService, RoundCustomersService]
 })
 export class RoundPageComponent implements OnInit {
