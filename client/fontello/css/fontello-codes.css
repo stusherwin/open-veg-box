@@ -16,6 +16,7 @@
 .icon-home:before { content: '\e80e'; } /* '' */
 .icon-flag:before { content: '\e80f'; } /* '' */
 .icon-print:before { content: '\e810'; } /* '' */
+.icon-basket:before { content: '\e811'; } /* '' */
 .icon-spinner:before { content: '\e812'; } /* '' */
 .icon-login:before { content: '\e813'; } /* '' */
 .icon-logout:before { content: '\e814'; } /* '' */
@@ -26,5 +27,9 @@
 .icon-mail-1:before { content: '\e819'; } /* '' */
 .icon-trash:before { content: '\e81a'; } /* '' */
 .icon-send-mail:before { content: '\e81b'; } /* '' */
+.icon-list-alt:before { content: '\e81c'; } /* '' */
 .icon-spin3:before { content: '\e832'; } /* '' */
 .icon-mail-dark:before { content: '\f0e0'; } /* '' */
+.icon-history:before { content: '\f1da'; } /* '' */
+.icon-map-signs:before { content: '\f277'; } /* '' */
+.icon-map-o:before { content: '\f278'; } /* '' */
