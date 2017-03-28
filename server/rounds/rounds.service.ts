@@ -98,20 +98,86 @@ export class RoundsService {
           }
         }
 
-        return {
-          totals: _.chain(products)
-                   .values()
-                   .sortBy(['name'])
-                   .value(),
-          customers: _.chain(customers)
-                      .values()
-                      .forEach((c: CustomerProductList) => {
-                        _.sortBy(c.products, ['name']);
-                      })
-                      .sortBy(['name'])
-                      .value()
-        };
+        let t = _.chain(products)
+                 .values()
+                 .sortBy('name')
+                 .value();
+
+        let c = _.chain(customers)
+                 .values()
+                 .forEach((c: CustomerProductList) => {
+                   _.sortBy(c.products, 'name');
+                 })
+                 .sortBy('name')
+                 .value()
+        return {totals: t, customers: c};
       });
+  }
+
+  getOrderList(id: number, db: Db): Observable<CustomerOrderList> {
+    return db.singleWithReduce<CustomerOrderList>(
+      ' select customerId, customerName, address, itemType, itemId, itemName, price, quantity, unittype, totalCost from'
+    + ' (select c.id customerId, c.name customerName, c.address, \'product\' itemType, p.id itemId, p.name itemName, p.price, p.unitType, op.quantity, p.price * op.quantity totalCost'
+    + ' from round r'
+    + ' inner join round_customer rc on rc.roundId = r.id'
+    + ' inner join customer c on c.id = rc.customerId'
+    + ' inner join [order] o on o.customerId = c.id'
+    + ' inner join order_product op on op.orderId = o.id'
+    + ' inner join product p on p.id = op.productId'
+    + ' where r.id = @id'
+    + ' union'
+    + ' select c.id customerId, c.name customerName, c.address, \'box\' itemType, b.id itemId, b.name itemName, b.price, \'each\' unitType, ob.quantity, b.price * ob.quantity totalCost'
+    + ' from round r'
+    + ' inner join round_customer rc on rc.roundId = r.id'
+    + ' inner join customer c on c.id = rc.customerId'
+    + ' inner join [order] o on o.customerId = c.id'
+    + ' inner join order_box ob on ob.orderId = o.id'
+    + ' inner join box b on b.id = ob.boxId'
+    + ' where r.id = @id) x'
+    + ' order by customerName, itemType, itemName',
+      {id}, rows => {
+        let customers = {};
+        for(let r of rows) {
+          if(!customers[r.customerid]) {
+            customers[r.customerid] = {
+              id: r.customerid,
+              name: r.customername,
+              address: r.address,
+              boxes: [],
+              extraProducts: []
+            }
+          }
+
+          let item = {
+            id: r.itemid,
+            name: r.itemname,
+            price: r.price,
+            quantity: r.quantity,
+            unitType: r.unittype,
+            totalCost: r.totalcost
+          };
+          if(r.itemtype == 'box') {
+            customers[r.customerid].boxes.push(item);
+          } else {
+            customers[r.customerid].extraProducts.push(item);
+          }
+        }
+
+        let orders =
+         _.chain(customers)
+          .values()
+          .forEach((c: CustomerOrder) => {
+            _.sortBy(c.boxes, 'name');
+            _.sortBy(c.extraProducts, 'name');
+            c.totalCost = _.chain(c.boxes).concat(c.extraProducts).sumBy('totalCost').value();
+          })
+          .sortBy('name')
+          .value();
+
+        let totalCost = _.sumBy(orders, 'totalCost');
+
+        return ({ orders, totalCost });
+    });
   }
 
   add(params: any, queryParams: any, db: Db): Observable<Round[]> {
@@ -153,4 +219,27 @@ export class CustomerProductList {
   name: string;
   address: string;
   products: ProductQuantity[]
+}
+
+export class CustomerOrderList {
+  totalCost: number;
+  orders: CustomerOrder[];
+}
+
+export class CustomerOrder {
+  id: number;
+  name: string;
+  address: string;
+  totalCost: number;
+  boxes: CustomerOrderItem[];
+  extraProducts: CustomerOrderItem[];
+}
+
+export class CustomerOrderItem {
+  id: number;
+  name: string;
+  price: number;
+  quantity: number;
+  unitType: string;
+  totalCost: number;
 }

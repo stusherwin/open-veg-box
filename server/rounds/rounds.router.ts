@@ -26,6 +26,11 @@ export let getRounds = function(authorize: (req: any, res: any, next:() => void)
                  .subscribe(products => res.json(products), next);
   });
 
+  rounds.get('/:id/order_list', function(req: any, res: any, next: any) {
+    roundsService.getOrderList(req.params.id, req.db)
+                 .subscribe(orders => res.json(orders), next);
+  });
+
   rounds.post('/:id', function(req: any, res: any, next: any) {
     roundsService.update(req.params.id, req.body, req.query, req.db)
                 .subscribe(rounds => res.json(rounds), next);

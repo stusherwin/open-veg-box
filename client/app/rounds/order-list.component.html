@@ -1,3 +1,30 @@
 <div *ngIf="round">
   <h2>Order list: {{round.name}}</h2>
+  <div class="totals">
+    <h3>Total orders: <span [innerHTML]="orderList.totalCost | money:true"></span></h3>
+  </div>
+  <div class="customer" *ngFor="let o of orderList.orders">
+    <h3>{{o.name}}</h3>
+    <p>{{o.address}}</p>
+    <table>
+      <tr *ngFor="let b of o.boxes">
+        <td>{{b.name}}</td>
+        <td [innerHTML]="b.price | money: true"></td>
+        <td><cc-product-quantity [quantity]="b.quantity" [unitType]="b.unitType"></cc-product-quantity></td>
+        <td [innerHTML]="b.totalCost | money:true"></td>
+      </tr>
+      <tr *ngFor="let p of o.extraProducts">
+        <td>{{p.name}}</td>
+        <td [innerHTML]="p.price | money: true"></td>
+        <td><cc-product-quantity [quantity]="p.quantity" [unitType]="p.unitType"></cc-product-quantity></td>
+        <td [innerHTML]="p.totalCost | money:true">
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td [innerHTML]="o.totalCost | money:true"></td>
+      </tr>
+    </table>
+  </div>
 </div>

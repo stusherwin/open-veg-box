@@ -93,3 +93,9 @@ TODO (now)
 * Button carrot icon gets bigger when button pressed
 * Both buttons become active when one is pressed!
 * Need sub-menu for Rounds/Customers - breadcrumb trail?
+* 404 when missing server-side resource not handled
+* Should be two types of orders - dynamic and historic. 
+  Customer -> Order
+  Round ->* Delivery ->* HistoricOrder
+                     ->* HistoricProductQuantity ?
+* Make distribute-width work with tables

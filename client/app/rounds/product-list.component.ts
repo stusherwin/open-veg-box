@@ -4,6 +4,8 @@ import { ProductQuantity } from '../products/product'
 import { RoundService, ProductList } from './round.service'
 import { RouteParams } from '@angular/router-deprecated';
 import { ProductQuantityComponent } from '../products/product-quantity.component'
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/combineLatest';
 
 @Component({
   selector: 'cc-product-list',
@@ -21,12 +23,13 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit() {
     let roundId = +this.routeParams.params['roundId'];
-    this.roundService.get(roundId).combineLatest(
-        this.roundService.getProductList(roundId),
-        (round, productList) => ({ round, productList }))
-      .subscribe(({round, productList}) => {
-      this.round = round;
-      this.productList = productList;
+    Observable.combineLatest(
+      this.roundService.get(roundId),
+      this.roundService.getProductList(roundId),
+      (r, p) => ({r, p})
+    ).subscribe(({r, p}) => {
+      this.round = r;
+      this.productList = p;
     });
   }
 }

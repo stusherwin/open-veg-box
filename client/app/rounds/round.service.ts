@@ -42,6 +42,11 @@ export class RoundService {
                     .map(res => res.json());
   }
 
+  getOrderList(id: number): Observable<CustomerOrderList> {
+    return this.http.get('/api/rounds/' + id + '/order_list/')
+                    .map(res => res.json());
+  }
+
   add(params: any, queryParams: {[key: string]: string}): Observable<Round[]> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
@@ -106,4 +111,27 @@ export class CustomerProductList {
   name: string;
   address: string;
   products: ProductQuantity[]
+}
+
+export class CustomerOrderList {
+  totalCost: number;
+  orders: CustomerOrder[];
+}
+
+export class CustomerOrder {
+  id: number;
+  name: string;
+  address: string;
+  totalCost: number;
+  boxes: CustomerOrderItem[];
+  extraProducts: CustomerOrderItem[];
+}
+
+export class CustomerOrderItem {
+  id: number;
+  name: string;
+  price: number;
+  quantity: number;
+  unitType: string;
+  totalCost: number;
 }
