@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { RoundsPageComponent } from './rounds-page.component'
+import { RoundPageComponent } from './round-page.component'
 import { EmailPageComponent } from './email-page.component'
 import { ProductListPageComponent } from './product-list-page.component'
 import { OrderListPageComponent } from './order-list-page.component'
@@ -18,6 +19,11 @@ import { ErrorNotifyComponent } from '../shared/error-notify.component'
     path: '',
     name: 'Rounds',
     component: RoundsPageComponent
+  },
+  {
+    path: ':roundId',
+    name: 'Round',
+    component: RoundPageComponent
   },
   {
     path: ':roundId/email/',

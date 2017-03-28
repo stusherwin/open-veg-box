@@ -1,0 +1,10 @@
+<div class="row-view" cc-active [class.focused]="focused" (activate)="focused = true" (deactivate)="focused = false">
+  <cc-rounds-page-round *ngIf="loaded"
+    [round]="round"
+    [unusedCustomers]="unusedCustomers"
+    [tabindex]="1"
+    (update)="onUpdate($event)"
+    (customerAdd)="onCustomerAdd($event)"
+    (customerRemove)="onCustomerRemove($event)">
+  </cc-rounds-page-round>
+</div>
