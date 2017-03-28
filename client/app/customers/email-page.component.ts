@@ -6,12 +6,11 @@ import { EmailRecipient } from '../email/email.service';
 import { RouteParams } from '@angular/router-deprecated';
 
 @Component({
-  selector: 'cc-email-customer',
-  templateUrl: 'app/customers/email-customer.component.html',
+  templateUrl: 'app/customers/email-page.component.html',
   providers: [CustomerService],
   directives: [SendEmailComponent]
 })
-export class EmailCustomerComponent implements OnInit {
+export class EmailPageComponent implements OnInit {
   constructor(private customerService: CustomerService, private routeParams: RouteParams) {
   }
 

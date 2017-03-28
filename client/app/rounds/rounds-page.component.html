@@ -5,7 +5,7 @@
     <div class="icon"><i class="icon-add"></i></div>
     <span>Add</span>
   </button>
-  <cc-round *ngFor="let r of rounds; let i = index"
+  <cc-rounds-page-round *ngFor="let r of rounds; let i = index"
     [round]="r"
     [unusedCustomers]="unusedCustomers"
     [tabindex]="i"
@@ -13,11 +13,11 @@
     (update)="onUpdate($event)"
     (customerAdd)="onCustomerAdd($event)"
     (customerRemove)="onCustomerRemove($event)">
-  </cc-round>
-  <cc-round-add #add
+  </cc-rounds-page-round>
+  <cc-rounds-page-add #add
     [showAddMessage]="!rounds.length"
     [loaded]="loaded"
     (add)="onAdd($event)"
     [tabindex]="rounds.length">
-  </cc-round-add>
+  </cc-rounds-page-add>
 </div>

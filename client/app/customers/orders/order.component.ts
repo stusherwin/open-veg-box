@@ -8,7 +8,7 @@ import { MoneyPipe } from '../../shared/pipes'
 import { Product } from '../../products/product'
 import { Box } from '../../boxes/box'
 import { Arrays } from '../../shared/arrays';
-import { OrderModel as HomeOrderModel } from '../customers-home.component'
+import { CustomerOrderModel } from '../customer.model'
 import { OrderModel, OrderAvailableItem } from './order.model'
 import { OrderItemModel } from './order-item.model'
 
@@ -24,7 +24,7 @@ export class OrderComponent implements OnInit {
   model: OrderModel;
 
   @Input()
-  order: HomeOrderModel;
+  customerOrder: CustomerOrderModel;
 
   @Input()
   tabindex: number;
@@ -33,14 +33,14 @@ export class OrderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.createModel(this.order.order);
+    this.createModel(this.customerOrder.order);
   }
 
   createModel(order: Order) {
     this.model = new OrderModel(
       order,
-      this.order.boxes,
-      this.order.products,
+      this.customerOrder.boxes,
+      this.customerOrder.products,
       (item: OrderAvailableItem, quantity: number) => {
         console.log('add box ' + item.id + '(' + quantity + ') to order ' + order.id);
         this.orderService.addBox(order.id, item.id, {quantity}).subscribe(o => {

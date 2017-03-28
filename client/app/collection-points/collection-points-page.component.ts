@@ -3,10 +3,10 @@ import { ActiveElementDirective, ActiveService, ActivateOnFocusDirective } from 
 import { Arrays } from '../shared/arrays';
 
 @Component({
-  selector: 'cc-collection-points',
-  templateUrl: 'app/collection-points/collection-points.component.html',
+  selector: 'cc-collection-points-page',
+  templateUrl: 'app/collection-points/collection-points-page.component.html',
   directives: [ActiveElementDirective, ActivateOnFocusDirective],
   providers: [ActiveService]
 })
 
-export class CollectionPointsComponent { }
+export class CollectionPointsPageComponent { }

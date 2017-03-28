@@ -6,11 +6,11 @@ import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
 
 @Component({
-  selector: 'cc-round',
-  templateUrl: 'app/rounds/round.component.html',
+  selector: 'cc-rounds-page-round',
+  templateUrl: 'app/rounds/rounds-page-round.component.html',
   directives: [HeadingComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, RoundCustomersComponent, ROUTER_DIRECTIVES]
 })
-export class RoundComponent {
+export class RoundsPageRoundComponent {
   rowFocused: boolean;
 
   constructor(private renderer: Renderer) {

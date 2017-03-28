@@ -7,7 +7,7 @@ import { CustomerTelComponent } from './customer-tel.component'
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
 import { ValidatableComponent } from '../shared/validatable.component';
-import { AddCustomerModel } from './customers-home.component'
+import { AddCustomerModel } from './customer.model'
 
 @Component({
   selector: 'cc-customer-add',

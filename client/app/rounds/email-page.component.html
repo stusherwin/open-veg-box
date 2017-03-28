@@ -1,0 +1,4 @@
+<div *ngIf="round">
+  <h2>Email {{round.name}}</h2>
+  <cc-send-email [recipients]="customerEmails" [cancelLinkParams]="['../Rounds']" [successLinkParams]="['../Rounds']"></cc-send-email>
+</div>

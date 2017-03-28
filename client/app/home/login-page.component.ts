@@ -6,13 +6,12 @@ import { ErrorNotifyComponent } from '../shared/error-notify.component'
 import { HeaderComponent } from '../header/header.component';
 
 @Component({
-  selector: 'cc-login',
-  templateUrl: 'app/home/login.component.html',
+  templateUrl: 'app/home/login-page.component.html',
   directives: [ROUTER_DIRECTIVES, ErrorNotifyComponent, HeaderComponent],
   providers: [UsersService]
 })
 
-export class LoginComponent { 
+export class LoginPageComponent { 
   usersService: UsersService;
   router: Router;
   invalidLogin: boolean = false;

@@ -1,12 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { CustomersHomeComponent } from './customers-home.component'
-import { EmailCustomerComponent } from './email-customer.component'
+import { CustomersPageComponent } from './customers-page.component'
+import { EmailPageComponent } from './email-page.component'
 import { RouteConfig, Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { ActiveService, ActiveElementDirective, ActivateOnFocusDirective } from '../shared/active-elements'
 
 @Component({
-  selector: 'cc-customers',
-  templateUrl: 'app/customers/customers.component.html',
+  templateUrl: 'app/customers/customers-section.component.html',
   directives: [ROUTER_DIRECTIVES],
   providers: [ActiveService]
 })
@@ -14,19 +13,19 @@ import { ActiveService, ActiveElementDirective, ActivateOnFocusDirective } from 
 @RouteConfig([
   {
     path: '',
-    name: 'CustomersHome',
-    component: CustomersHomeComponent
+    name: 'Customers',
+    component: CustomersPageComponent
   },
   {
     path: 'email/:customerId',
     name: 'Email',
-    component: EmailCustomerComponent
+    component: EmailPageComponent
   },
   {
     path: '/*anything-else',
     name: 'NotFound',
-    redirectTo: ['CustomersHome']
+    redirectTo: ['./Customers']
   }
 ])
-export class CustomersComponent {
+export class CustomersSectionComponent {
 }

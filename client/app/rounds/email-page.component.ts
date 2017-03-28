@@ -7,12 +7,12 @@ import { EmailRecipient } from '../email/email.service';
 import { RouteParams } from '@angular/router-deprecated';
 
 @Component({
-  selector: 'cc-email-round',
-  templateUrl: 'app/rounds/email-round.component.html',
+  selector: 'cc-email-page',
+  templateUrl: 'app/rounds/email-page.component.html',
   providers: [RoundService, CustomerService],
   directives: [SendEmailComponent]
 })
-export class EmailRoundComponent implements OnInit {
+export class EmailPageComponent implements OnInit {
   constructor(private roundService: RoundService, private routeParams: RouteParams) {
   }
 

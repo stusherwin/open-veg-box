@@ -7,13 +7,12 @@ import { LogoutComponent } from '../auth/logout.component'
 import { ErrorNotifyComponent } from '../shared/error-notify.component'
 
 @Component({
-  selector: 'cc-home',
-  templateUrl: 'app/home/home-sections.component.html',
+  templateUrl: 'app/home/home-sections-page.component.html',
   directives: [ROUTER_DIRECTIVES, HeaderComponent, LogoutComponent, ErrorNotifyComponent],
   providers: [UsersService]
 })
 
-export class HomeSectionsComponent { 
+export class HomeSectionsPageComponent { 
   usersService: UsersService;
   router: Router;
 
@@ -22,7 +21,7 @@ export class HomeSectionsComponent {
     this.router = router;
   }
 
-  currentUser() {
+  currentUser(): User {
     return this.usersService.getCurrentUser();
   }
 } 

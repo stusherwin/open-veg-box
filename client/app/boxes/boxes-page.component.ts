@@ -13,12 +13,12 @@ import { ActiveService, ActiveElementDirective, ActivateOnFocusDirective, Deacti
 import 'rxjs/add/operator/combineLatest';
 
 @Component({
-  selector: 'cc-boxes',
-  templateUrl: 'app/boxes/boxes.component.html',
+  selector: 'cc-boxes-page',
+  templateUrl: 'app/boxes/boxes-page.component.html',
   directives: [BoxComponent, ActiveElementDirective, BoxAddComponent, ActivateOnFocusDirective, DeactivateOnBlurDirective],
   providers: [BoxService, ProductService, UsersService, BoxProductsService, ActiveService]
 })
-export class BoxesComponent implements OnInit {
+export class BoxesPageComponent implements OnInit {
   constructor(private boxService: BoxService, private productService: ProductService, private routeParams: RouteParams, private changeDetector: ChangeDetectorRef, private renderer: Renderer) {
     this.queryParams = routeParams.params;
   }

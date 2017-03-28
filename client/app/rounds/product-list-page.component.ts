@@ -1,38 +1,35 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Round } from './round'
 import { ProductQuantity } from '../products/product'
-import { RoundService, CustomerOrderList } from './round.service'
+import { RoundService, ProductList } from './round.service'
 import { RouteParams } from '@angular/router-deprecated';
-import { MoneyPipe } from '../shared/pipes'; 
 import { ProductQuantityComponent } from '../products/product-quantity.component'
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/combineLatest';
 
 @Component({
-  selector: 'cc-order-list',
-  templateUrl: 'app/rounds/order-list.component.html',
-  styleUrls: ['app/rounds/order-list.component.css'],
-  pipes: [MoneyPipe],
+  selector: 'cc-product-list-page',
+  templateUrl: 'app/rounds/product-list-page.component.html',
+  styleUrls: ['app/rounds/product-list-page.component.css'],
   directives: [ProductQuantityComponent],
   providers: [RoundService]
 })
-export class OrderListComponent implements OnInit {
+export class ProductListPageComponent implements OnInit {
   constructor(private roundService: RoundService, private routeParams: RouteParams) {
   }
 
   round: Round;
-  orderList: CustomerOrderList;
+  productList: ProductList
 
   ngOnInit() {
     let roundId = +this.routeParams.params['roundId'];
-
     Observable.combineLatest(
       this.roundService.get(roundId),
-      this.roundService.getOrderList(roundId),
-      (r, o) => ({r, o})
-    ).subscribe(({r, o}) => {
+      this.roundService.getProductList(roundId),
+      (r, p) => ({r, p})
+    ).subscribe(({r, p}) => {
       this.round = r;
-      this.orderList = o;
+      this.productList = p;
     });
   }
 }

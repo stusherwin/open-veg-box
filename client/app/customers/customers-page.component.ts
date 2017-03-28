@@ -14,16 +14,16 @@ import { ActiveService, ActiveElementDirective, ActivateOnFocusDirective, Deacti
 import { DistributeWidthService } from './distribute-width.directive'
 import { Arrays } from '../shared/arrays';
 import { Objects } from '../shared/objects';
+import { CustomerModel, AddCustomerModel } from './customer.model';
 import 'rxjs/add/observable/concat';
 import 'rxjs/add/operator/last';
 
 @Component({
-  selector: 'cc-customers-home',
-  templateUrl: 'app/customers/customers-home.component.html',
+  templateUrl: 'app/customers/customers-page.component.html',
   directives: [CustomerComponent, CustomerAddComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective],
   providers: [CustomerService, BoxService, ProductService, ActiveService, DistributeWidthService]
 })
-export class CustomersHomeComponent implements OnInit {
+export class CustomersPageComponent implements OnInit {
   constructor(private customerService: CustomerService, private boxService: BoxService, private productService: ProductService, routeParams: RouteParams, private renderer: Renderer) {
     this.queryParams = routeParams.params;
 
@@ -83,26 +83,4 @@ export class CustomersHomeComponent implements OnInit {
       }
     }
   }
-}
-
-export class CustomerModel {
-  name: string;
-  address: string;
-  tel1: string;
-  email: string;
-  order: OrderModel;
-  emailRouterLink: any[];
-
-  delete: () => void;
-  update: (properties: {[property: string]: any}) => void;
-}
-
-export class OrderModel {
-  order: Order;
-  boxes: Box[];
-  products: Product[];
-}
-
-export class AddCustomerModel {
-  add: (properties: {[property: string]: any}) => void;
 }

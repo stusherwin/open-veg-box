@@ -9,12 +9,12 @@ import { RouteParams } from '@angular/router-deprecated';
 import { ActiveService, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
 
 @Component({
-  selector: 'cc-products',
-  templateUrl: 'app/products/products.component.html',
+  selector: 'cc-products-page',
+  templateUrl: 'app/products/products-page.component.html',
   directives: [ProductComponent, ActiveElementDirective, ProductAddComponent, ActivateOnFocusDirective, DeactivateOnBlurDirective],
   providers: [ProductService, UsersService, ActiveService]
 })
-export class ProductsComponent implements OnInit {
+export class ProductsPageComponent implements OnInit {
   constructor(productService: ProductService, routeParams: RouteParams, private renderer: Renderer) {
     this.productService = productService;
     this.queryParams = routeParams.params;

@@ -5,7 +5,7 @@ import { CustomerEmailComponent } from './customer-email.component'
 import { CustomerTelComponent } from './customer-tel.component'
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
-import { CustomerModel } from './customers-home.component'
+import { CustomerModel } from './customer.model'
 import { OrderComponent } from './orders/order.component'
 
 @Component({

@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
-import { ProductsComponent } from './products/products.component';
-import { CustomersComponent } from './customers/customers.component';
-import { CollectionPointsComponent } from './collection-points/collection-points.component';
-import { BoxesComponent } from './boxes/boxes.component';
-import { RoundsComponent } from './rounds/rounds.component';
+import { ProductsPageComponent } from './products/products-page.component';
+import { CustomersSectionComponent } from './customers/customers-section.component';
+import { CollectionPointsPageComponent } from './collection-points/collection-points-page.component';
+import { BoxesPageComponent } from './boxes/boxes-page.component';
+import { RoundsSectionComponent } from './rounds/rounds-section.component';
 import { RouteConfig, Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { LoggedInRouterOutlet } from './auth/logged-in-router-outlet';
 import { ErrorNotifyComponent } from './shared/error-notify.component'
 
 @Component({
-  selector: 'cc-page',
-  templateUrl: 'app/page.component.html',
+  selector: 'cc-section',
+  templateUrl: 'app/section.component.html',
   directives: [LoggedInRouterOutlet, HeaderComponent, ErrorNotifyComponent]
 })
 
@@ -19,28 +19,28 @@ import { ErrorNotifyComponent } from './shared/error-notify.component'
   {
     path: 'products',
     name: 'Products',
-    component: ProductsComponent
+    component: ProductsPageComponent
   },
   {
     path: 'boxes',
     name: 'Boxes',
-    component: BoxesComponent
+    component: BoxesPageComponent
   },
   {
     path: 'customers/...',
     name: 'Customers',
-    component: CustomersComponent
+    component: CustomersSectionComponent
   },
   {
     path: 'collection-points',
     name: 'CollectionPoints',
-    component: CollectionPointsComponent
+    component: CollectionPointsPageComponent
   },
   {
     path: 'rounds/...',
     name: 'Rounds',
-    component: RoundsComponent
+    component: RoundsSectionComponent
   }
 ])
-export class PageComponent {
+export class SectionComponent {
 }
