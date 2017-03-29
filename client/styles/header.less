@@ -32,12 +32,13 @@
     margin-left: auto;
     margin-right: auto;
     margin-top:2px;
-    background-image: url(../img/logo-colored.svg);
-    background-size: 50px;
+    background-image: url(../img/logo-new-carrot.svg);
+    background-size: 40px;
     background-repeat: no-repeat;
     background-position: 0px 5px;
-    padding-left:65px;
-    padding-top:3px;
+    //text-shadow: darken(@header, 20%) 0px 0px 5px;
+    padding-left:50px;
+    padding-top:0px;
     height: 84px;
     color: lighten(desaturate(@header, 25%), 55%);
     
@@ -47,7 +48,7 @@
     }
 
     &:hover {
-      background-image: url(../img/logo-white.svg);
+      background-image: url(../img/logo-new-carrot-lighter.svg);
       color: white;
       span {
         color: lighten(@carrot, 14%);
@@ -125,7 +126,8 @@
             color: @col;////#444;
           }
           &::after {
-            border-color: @carrot;
+            //border-color: @carrot;
+            border: none;
           }
         } 
       }
