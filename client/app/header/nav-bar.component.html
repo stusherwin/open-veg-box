@@ -1,34 +1,16 @@
 <nav>
-  <ul>
-    <li>
-      <cc-nav-bar-link [linkParams]="['Section/Products']">
-        <div class="icon"><i class="icon-carrot"></i></div>
-        <span>Products</span>
-      </cc-nav-bar-link>
-    </li>
-    <li>
-      <cc-nav-bar-link [linkParams]="['Section/Boxes']">
-        <div class="icon"><i class="icon-box"></i></div>
-        <span>Boxes</span>
-      </cc-nav-bar-link>
-    </li>
-    <li>
-      <cc-nav-bar-link [linkParams]="['Section', 'Customers', 'Customers']">
-        <div class="icon"><i class="icon-person"></i></div>
-        <span>Customers</span>
-      </cc-nav-bar-link>
-    </li>
-    <li>
-      <cc-nav-bar-link [linkParams]="['Section', 'Rounds', 'Rounds']">
-        <div class="icon"><i class="icon-truck"></i></div>
-        <span>Rounds</span>
-      </cc-nav-bar-link>
-    </li>
-    <li>
-      <cc-nav-bar-link [linkParams]="['Section', 'CollectionPoints']">
-        <div class="icon"><i class="icon-flag"></i></div>
-        <span>Collection Points</span>        
-      </cc-nav-bar-link>
-    </li>
-  </ul>
+  <span>
+    <cc-nav-bar-link icon="carrot" text="Products"
+                      [linkParams]="['Section/Products']">
+    </cc-nav-bar-link>
+    <cc-nav-bar-link icon="box" text="Boxes"
+                      [linkParams]="['Section/Boxes']">
+    </cc-nav-bar-link>
+    <cc-nav-bar-link icon="person" text="Customers"
+                      [linkParams]="['Section', 'Customers', 'Customers']">
+    </cc-nav-bar-link>
+    <cc-nav-bar-link icon="map-signs" text="Rounds"
+                      [linkParams]="['Section', 'Rounds', 'Rounds']">
+    </cc-nav-bar-link>
+  </span>
 </nav>

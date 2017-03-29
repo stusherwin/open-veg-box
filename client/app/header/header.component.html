@@ -1,4 +1,4 @@
-<div class="header">
+<!--<div class="header">
   <a [routerLink]="['Home']">
     <h1>open<span>veg</span>box</h1>
   </a>
@@ -11,4 +11,12 @@
     <h2><i class="icon-map-signs"></i> Ableton &amp; Biddleton</h2>
   
   </div>
+</div>-->
+
+<div class="header-new">
+  <a [routerLink]="['Home']">
+    <h1>open<span>veg</span>box</h1>
+  </a>
+  <cc-nav-bar></cc-nav-bar>
+  <cc-logout *ngIf="showLogout"></cc-logout>
 </div>

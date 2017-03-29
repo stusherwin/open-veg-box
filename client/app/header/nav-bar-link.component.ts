@@ -3,12 +3,22 @@ import { ROUTER_DIRECTIVES, Router } from '@angular/router-deprecated';
 
 @Component({
   selector: 'cc-nav-bar-link',
-  template: '<a [class.selected]="isCurrent()" [routerLink]="linkParams"><ng-content></ng-content></a>',
+  template: `
+    <a class="new" [class.selected]="isCurrent()" [routerLink]="linkParams">
+      <i class="icon-{{icon}}"></i>{{text}}
+    </a>
+  `,
   directives: [ROUTER_DIRECTIVES]
 })
 
 export class NavBarLinkComponent {
   constructor(private router: Router) { }
+
+  @Input()
+  icon: string;
+
+  @Input()
+  text: string;
 
   @Input()
   linkParams:any[];
