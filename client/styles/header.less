@@ -8,7 +8,8 @@
 
   padding:0;
   background: @header;
-  border-bottom: 1px solid @header;
+  //border-bottom: 1px solid @header;
+  border-bottom: 1px solid #fff;
   box-shadow: 0 2px 12px 1px rgba(0, 0, 0, 0.3);
 
   h1, h2, h3, a {
@@ -62,8 +63,73 @@
   }
 
   .header-border {
-    height: 3px;
+    border-top: 1px solid #fff;//lighten(@header, 10%);
+    box-shadow: inset #444 0px 0px 0px 0px;
+   // height: 3px;
     background: #eee;
+    @col: #444;
+    background: @col;
+    padding: 10px 5px;
+    
+    h2 {
+      color: #ddd;
+      margin: 0;
+      padding-left: 40px;
+      //position: relative;
+
+      i {
+        margin-right: 10px;
+        border-radius: 32px;
+        height: 32px;
+        width: 32px;
+        display: inline-block;
+        border: 1px solid #fff;
+        position: absolute;
+        left: 5px;
+        vertical-align: middle;
+
+        &::before {
+          margin: 0;
+          font-size: 20px;
+          line-height: 20px; 
+          display: block;
+          position: absolute;
+          top: 6px;
+          left: 5px;
+        }
+      }
+    }
+
+    a.new {
+      float: right;
+      margin-top: 11px;
+      margin-right: 5px;
+      margin-left: 10px;
+
+      i {
+        background: #ddd;
+        background: @col;
+        &::before {
+          color: #444;
+          color: #ddd;
+        }
+        &::after {
+          border-color: #ddd;
+        }
+      }
+
+      &:hover {
+        i {
+          background: @carrot;
+          &::before {
+            color: @col;////#444;
+          }
+          &::after {
+            border-color: @carrot;
+          }
+        } 
+      }
+    }
   }
 
   nav {
