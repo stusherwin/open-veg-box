@@ -31,12 +31,6 @@ export class RoundsPageAddComponent {
   @Input()
   tabindex: number;
 
-  @Input()
-  showAddMessage: boolean;
-
-  @Input()
-  loaded: boolean;
-
   @Output()
   add = new EventEmitter<Round>();
 
@@ -57,7 +51,7 @@ export class RoundsPageAddComponent {
     this.round.name = '';
 
     setTimeout(() => {
-      this.renderer.invokeElementMethod(window, 'scrollTo', [0, document.body.scrollHeight])
+      this.renderer.invokeElementMethod(window, 'scrollTo', [0, 0])
       this.renderer.invokeElementMethod(this.roundName.nativeElement, 'focus', [])
     });
   }

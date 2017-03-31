@@ -31,12 +31,6 @@ export class BoxAddComponent {
   @Input()
   tabindex: number;
 
-  @Input()
-  showAddMessage: boolean;
-
-  @Input()
-  loaded: boolean;
-
   @ViewChild('active')
   active: ActiveElementDirective;
 
@@ -61,7 +55,7 @@ export class BoxAddComponent {
     this.box.price = 10.0;
     
     setTimeout(() => {
-      this.renderer.invokeElementMethod(window, 'scrollTo', [0, document.body.scrollHeight])
+      this.renderer.invokeElementMethod(window, 'scrollTo', [0, 0])
       this.renderer.invokeElementMethod(this.boxName.nativeElement, 'focus', [])
     });
   }

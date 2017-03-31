@@ -1,26 +1,24 @@
-<h2>Boxes</h2>
-
+<div class="section-header">
+  <a class="new right" (click)="add.startAdd()" tabindex="1"><i class="icon-add"></i>New box</a>
+  <h2><i class="icon-box"></i>Boxes</h2>
+</div>
+<div class="loading-indicator" *ngIf="!loaded"><i class="icon-spin3 animate-spin"></i></div>
+<p *ngIf="loaded && !boxes.length">There are no boxes yet.</p>
 <div class="row-view" cc-active [class.focused]="focused" (activate)="focused = true" (deactivate)="focused = false">
-  <button class="add-button" (click)="add.startAdd()" tabindex="1" cc-active cc-activate-on-focus cc-deactivate-on-blur>
-    <div class="icon"><i class="icon-add"></i></div>
-    <span>Add</span>
-  </button>
+  <cc-box-add #add
+    (add)="onAdd($event)"
+    [tabindex]="1">
+  </cc-box-add>
   <cc-box *ngFor="let b of boxes; let i = index"
     [box]="b"
     [products]="products"
     [productNameWidth]="productNameWidth"
     [productQuantityWidth]="productQuantityWidth"
-    [tabindex]="i"
+    [tabindex]="i + 1"
     (delete)="onDelete($event)"
     (update)="onUpdate($event)"
     (productAdd)="onProductAdd($event)"
     (productUpdate)="onProductUpdate($event)"
     (productRemove)="onProductRemove($event)">
   </cc-box>
-  <cc-box-add #add
-    [showAddMessage]="!boxes.length"
-    [loaded]="loaded"
-    (add)="onAdd($event)"
-    [tabindex]="boxes.length">
-  </cc-box-add>
 </div>

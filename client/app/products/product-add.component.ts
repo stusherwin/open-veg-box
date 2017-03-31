@@ -32,12 +32,6 @@ export class ProductAddComponent {
   @Input()
   tabindex: number;
 
-  @Input()
-  showAddMessage: boolean;
-
-  @Input()
-  loaded: boolean;
-
   @Output()
   add = new EventEmitter<Product>();
 

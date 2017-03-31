@@ -40,9 +40,6 @@ export class CustomerAddComponent implements OnInit {
   @ViewChild('active')
   active: ActiveElementDirective;
 
-  // @Output()
-  // add = new EventEmitter<Customer>();
-
   @ViewChildren(ValidatableComponent)
   validatables: QueryList<ValidatableComponent>
 
@@ -69,7 +66,7 @@ export class CustomerAddComponent implements OnInit {
     this.validated = false;
     this.resetCustomer();
     setTimeout(() => {
-      this.renderer.invokeElementMethod(window, 'scrollTo', [0, document.body.scrollHeight])
+      this.renderer.invokeElementMethod(window, 'scrollTo', [0, 0])
       this.renderer.invokeElementMethod(this.customerName.nativeElement, 'focus', [])
     });
   }
