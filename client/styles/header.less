@@ -204,7 +204,6 @@
   z-index: 9999;
   padding: 5px;
   background: @header;
-  border-bottom: 1px solid #fff;
 
   h1, h2, h3, a {
     color: white;
@@ -227,16 +226,16 @@
   h1 {
     margin: 0;
     padding: 0;
-    height: 62px;
+    height: 57px;
     display:block;
     text-align: left;
     background-image: url(../img/logo-new-carrot.svg);
     background-size: 40px;
     background-repeat: no-repeat;
-    background-position: 5px 5px;
+    background-position: 5px 3px;
     //text-shadow: darken(@header, 20%) 0px 0px 5px;
-    padding-left:50px;
-    padding-top: 5px;
+    padding-left:55px;
+    padding-top: 3px;
     color: lighten(desaturate(@header, 25%), 55%);
     
     span {
@@ -259,7 +258,7 @@
     position: absolute;
     left: 265px;
     right: 100px;
-    top: 18px;
+    top: 13px;
     //padding-top: 8px;
     //padding-bottom: 11px;
     // border-bottom: 1px solid lighten(desaturate(@header, 10%), 10%);
@@ -277,11 +276,11 @@
 
 
     cc-nav-bar-link {
-      padding-top: 12px;
+      padding-top: 17px;
       padding-left: 12px;
       padding-right: 12px;
       display: inline-block;
-      height: 34px;
+      height: 42px;
 
       a {
         margin-right: 0;
@@ -371,4 +370,94 @@
       } 
     }
   }
+}
+
+.sub-header {
+  position: fixed;
+  z-index: 9999;
+  top: 67px;
+  width: 100%;
+  border-top: 1px solid #fff;//lighten(@header, 10%);
+  border-bottom: 1px solid #fff;//lighten(@header, 10%);
+  // box-shadow: inset #444 0px 0px 0px 0px;
+  box-shadow: 0 2px 12px 1px rgba(0, 0, 0, 0.3);
+  // height: 3px;
+  background: #eee;
+  @col: #444;
+  background: @col;
+  padding: 10px 10px;
+  
+  h2 {
+    color: #ddd;
+    margin: 0;
+    padding-left: 40px;
+    //position: relative;
+
+    i {
+      margin-right: 10px;
+      border-radius: 32px;
+      height: 32px;
+      width: 32px;
+      display: inline-block;
+      border: 1px solid #fff;
+      position: absolute;
+      left: 10px;
+      vertical-align: middle;
+
+      &::before {
+        margin: 0;
+        font-size: 20px;
+        line-height: 20px; 
+        display: block;
+        position: absolute;
+        top: 6px;
+        left: 5px;
+      }
+    }
+  }
+
+  a.new {
+    float: right;
+    margin-top: 11px;
+    margin-right: 5px;
+    margin-left: 10px;
+    color: #ddd;
+
+    i {
+      background: #ddd;
+      background: @col;
+      &::before {
+        color: #444;
+        color: #ddd;
+      }
+      &::after {
+        border-color: #ddd;
+      }
+    }
+
+    &:hover {
+      i {
+        background: @carrot;
+        &::before {
+          color: @col;////#444;
+        }
+        &::after {
+          //border-color: @carrot;
+          border: none;
+        }
+      } 
+    }
+  }
+  // &::after {
+  //   content: '.';
+  //   color: transparent;
+  //   background: white;
+  //   display: block;
+  //   position: fixed;
+  //   height: 10px;
+  //   width: 100%;
+  //   top: 125px;
+  //   left: 0;
+  //   z-index: 1;
+  // }
 }

@@ -994,7 +994,6 @@ h4 {
   z-index: 9999;
   padding: 5px;
   background: #579532;
-  border-bottom: 1px solid #fff;
 }
 .header-new h1,
 .header-new h2,
@@ -1016,15 +1015,15 @@ h4 {
 .header-new h1 {
   margin: 0;
   padding: 0;
-  height: 62px;
+  height: 57px;
   display: block;
   text-align: left;
   background-image: url(../img/logo-new-carrot.svg);
   background-size: 40px;
   background-repeat: no-repeat;
-  background-position: 5px 5px;
-  padding-left: 50px;
-  padding-top: 5px;
+  background-position: 5px 3px;
+  padding-left: 55px;
+  padding-top: 3px;
   color: #eff4ec;
 }
 .header-new h1 span {
@@ -1042,18 +1041,18 @@ h4 {
   position: absolute;
   left: 265px;
   right: 100px;
-  top: 18px;
+  top: 13px;
   text-align: center;
 }
 .header-new nav > span {
   display: inline-block;
 }
 .header-new nav cc-nav-bar-link {
-  padding-top: 12px;
+  padding-top: 17px;
   padding-left: 12px;
   padding-right: 12px;
   display: inline-block;
-  height: 34px;
+  height: 42px;
 }
 .header-new nav cc-nav-bar-link a {
   margin-right: 0;
@@ -1128,6 +1127,70 @@ h4 {
 }
 .header-new .logout:hover i::after {
   border: #579532;
+}
+.sub-header {
+  position: fixed;
+  z-index: 9999;
+  top: 67px;
+  width: 100%;
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  box-shadow: 0 2px 12px 1px rgba(0, 0, 0, 0.3);
+  background: #eee;
+  background: #444;
+  padding: 10px 10px;
+}
+.sub-header h2 {
+  color: #ddd;
+  margin: 0;
+  padding-left: 40px;
+}
+.sub-header h2 i {
+  margin-right: 10px;
+  border-radius: 32px;
+  height: 32px;
+  width: 32px;
+  display: inline-block;
+  border: 1px solid #fff;
+  position: absolute;
+  left: 10px;
+  vertical-align: middle;
+}
+.sub-header h2 i::before {
+  margin: 0;
+  font-size: 20px;
+  line-height: 20px;
+  display: block;
+  position: absolute;
+  top: 6px;
+  left: 5px;
+}
+.sub-header a.new {
+  float: right;
+  margin-top: 11px;
+  margin-right: 5px;
+  margin-left: 10px;
+  color: #ddd;
+}
+.sub-header a.new i {
+  background: #ddd;
+  background: #444;
+}
+.sub-header a.new i::before {
+  color: #444;
+  color: #ddd;
+}
+.sub-header a.new i::after {
+  border-color: #ddd;
+}
+.sub-header a.new:hover i {
+  background: #ff8f1d;
+}
+.sub-header a.new:hover i::before {
+  color: #444;
+}
+.sub-header a.new:hover i::after {
+  border: none;
 }
 html {
   height: 100%;
@@ -2864,9 +2927,6 @@ a.new:hover {
 }
 a.new:hover i {
   background: #ffa011;
-}
-a.new:hover i::before {
-  text-shadow: #dd8500 0px 0px 1px;
 }
 a.new:hover i::after {
   border-color: #ffa011;

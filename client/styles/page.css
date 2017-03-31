@@ -1737,9 +1737,6 @@ a.new:hover {
 a.new:hover i {
   background: #ffa011;
 }
-a.new:hover i::before {
-  text-shadow: #dd8500 0px 0px 1px;
-}
 a.new:hover i::after {
   border-color: #ffa011;
 }
