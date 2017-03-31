@@ -1,10 +1,10 @@
-import { Component, Input, AfterViewInit } from '@angular/core';
+import { Component, Input, AfterViewInit, HostBinding } from '@angular/core';
 import { ROUTER_DIRECTIVES, Router } from '@angular/router-deprecated';
 
 @Component({
   selector: 'cc-nav-bar-link',
   template: `
-    <a class="new" [class.selected]="isCurrent()" [routerLink]="linkParams">
+    <a class="new" [routerLink]="linkParams">
       <i class="icon-{{icon}}"></i>{{text}}
     </a>
   `,
@@ -23,7 +23,8 @@ export class NavBarLinkComponent {
   @Input()
   linkParams:any[];
 
-  isCurrent() {
+  @HostBinding('class.current')
+  get isCurrent(): boolean {
     return this.router.isRouteActive(this.router.generate(this.linkParams));
   }
 } 

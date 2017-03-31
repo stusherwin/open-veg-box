@@ -7,19 +7,14 @@ html {
 body {
   min-height: 100%;
   min-width: 380px;
-  box-shadow: inset rgba(0, 0, 0, 0.5) 0px 3px 10px 0px;
 }
 .page {
-  padding: 170px 10px 10px 10px;
+  padding-top: 170px;
 }
 @media only screen and (min-width : 780px) {
   .page {
-    padding-top: 106px;
+    padding-top: 131px;
   }
-}
-.page h2,
-.page p {
-  margin-left: 10px;
 }
 .page p {
   font-weight: 300;
@@ -1802,4 +1797,12 @@ a.new:hover i::after {
   border-bottom-left-radius: 24px;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
+}
+.loading-indicator {
+  padding-top: 200px;
+  text-align: center;
+}
+.loading-indicator i {
+  font-size: 500%;
+  color: #eee;
 }

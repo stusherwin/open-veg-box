@@ -6,6 +6,7 @@ import { EmailRecipient } from '../email/email.service';
 import { RouteParams } from '@angular/router-deprecated';
 
 @Component({
+  selector: 'cc-email-page',
   templateUrl: 'app/customers/email-page.component.html',
   providers: [CustomerService],
   directives: [SendEmailComponent]

@@ -99,3 +99,6 @@ TODO (now)
   Round ->* Delivery ->* HistoricOrder
                      ->* HistoricProductQuantity ?
 * Make distribute-width work with tables
+* Need to archive products/boxes not delete them (only delete if not used!)
+* Add blurb/useful links to each section on home page?
+* Products added from the top, but displayed in alphabetical order when reloaded

@@ -14,6 +14,7 @@ import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/observable/combineLatest';
 
 @Component({
+  selector: 'cc-round-page',
   templateUrl: 'app/rounds/round-page.component.html',
   directives: [RoundsPageRoundComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective],
   styleUrls: ['app/rounds/round-page.component.css'],

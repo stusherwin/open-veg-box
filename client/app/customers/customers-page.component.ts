@@ -19,6 +19,7 @@ import 'rxjs/add/observable/concat';
 import 'rxjs/add/operator/last';
 
 @Component({
+  selector: 'cc-customers-page',
   templateUrl: 'app/customers/customers-page.component.html',
   directives: [CustomerComponent, CustomerAddComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective],
   providers: [CustomerService, BoxService, ProductService, ActiveService, DistributeWidthService]

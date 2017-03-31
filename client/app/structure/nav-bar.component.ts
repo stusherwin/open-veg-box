@@ -3,7 +3,7 @@ import { NavBarLinkComponent } from './nav-bar-link.component';
 
 @Component({
   selector: 'cc-nav-bar',
-  templateUrl: 'app/header/nav-bar.component.html',
+  templateUrl: 'app/structure/nav-bar.component.html',
   directives: [NavBarLinkComponent]
 })
 

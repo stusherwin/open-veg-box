@@ -1,208 +1,13 @@
 @import "variables";
 @import "mixins";
 
-.header {
-  position: absolute;
-  min-width: 400px;
-  width: 100%;
-
-  padding:0;
-  background: @header;
-  //border-bottom: 1px solid @header;
-  border-bottom: 1px solid #fff;
-  box-shadow: 0 2px 12px 1px rgba(0, 0, 0, 0.3);
-
-  h1, h2, h3, a {
-    color: white;
-  }
-
-  a {
-    text-decoration: none;
-
-    svg {
-      width: 50px;
-      height: 50px;
-    }
-  }
-
-  h1 {
-    display:block;
-    width: 280px;
-    text-align: left;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top:2px;
-    background-image: url(../img/logo-new-carrot.svg);
-    background-size: 40px;
-    background-repeat: no-repeat;
-    background-position: 0px 5px;
-    //text-shadow: darken(@header, 20%) 0px 0px 5px;
-    padding-left:50px;
-    padding-top:0px;
-    height: 84px;
-    color: lighten(desaturate(@header, 25%), 55%);
-    
-    span {
-      color:lighten(@carrot, 10%);
-      font-weight: 400;
-    }
-
-    &:hover {
-      background-image: url(../img/logo-new-carrot-lighter.svg);
-      color: white;
-      span {
-        color: lighten(@carrot, 14%);
-      }
-    }
-
-    @media @header-side-by-side {
-      display:inline-block;
-      margin-top: 15px;
-      margin-left:13px;
-      margin-right: 13px;
-    }
-  }
-
-  .header-border {
-    border-top: 1px solid #fff;//lighten(@header, 10%);
-    box-shadow: inset #444 0px 0px 0px 0px;
-   // height: 3px;
-    background: #eee;
-    @col: #444;
-    background: @col;
-    padding: 10px 5px;
-    
-    h2 {
-      color: #ddd;
-      margin: 0;
-      padding-left: 40px;
-      //position: relative;
-
-      i {
-        margin-right: 10px;
-        border-radius: 32px;
-        height: 32px;
-        width: 32px;
-        display: inline-block;
-        border: 1px solid #fff;
-        position: absolute;
-        left: 5px;
-        vertical-align: middle;
-
-        &::before {
-          margin: 0;
-          font-size: 20px;
-          line-height: 20px; 
-          display: block;
-          position: absolute;
-          top: 6px;
-          left: 5px;
-        }
-      }
-    }
-
-    a.new {
-      float: right;
-      margin-top: 11px;
-      margin-right: 5px;
-      margin-left: 10px;
-
-      i {
-        background: #ddd;
-        background: @col;
-        &::before {
-          color: #444;
-          color: #ddd;
-        }
-        &::after {
-          border-color: #ddd;
-        }
-      }
-
-      &:hover {
-        i {
-          background: @carrot;
-          &::before {
-            color: @col;////#444;
-          }
-          &::after {
-            //border-color: @carrot;
-            border: none;
-          }
-        } 
-      }
-    }
-  }
-
-  nav {
-    margin-top:-90px;
-    width: 100%;
-    height: 92px;
-    display: block;
-  
-    @media @header-side-by-side {
-      margin-top:-109px;
-      padding-right:72px;
-    }
-
-    @media @header-full-width {
-      padding-left: 0px;
-      padding-right: 0px;
-    }
-	
-    ul {
-      display: block;
-      width: 400px;
-      height: 92px;
-      margin-top:70px;
-      margin-left: auto;
-      margin-right: auto;
-
-      @media @header-side-by-side {
-        margin-top:0;
-        margin-right:10px;
-        float:right;
-      }
-
-      @media @header-full-width {
-        margin: 0 auto;
-        float:none; 
-      } 
-    }
-    
-    li {
-      display: block;
-      float:left;
-      margin: 0;
-
-      a {
-        .button(solid, small, @header);
-      }
-    }
-  }
-}
-
-.header .logout-button {
-  display: none;
-
-  @media @header-side-by-side {
-    display: block;
-    .button(solid; small; @header);
-    position: absolute;
-    top: 0px;
-    right: 2px;
-    i {
-      padding-top:8px;
-    }
-  }
-}
-
-
-.header-new {
+.main-header {
   position: fixed;
   width: 100%;
   z-index: 9999;
-  padding: 5px;
+  padding: 10px;
+  padding-left: 0;
+  height: 77px;
   background: @header;
 
   h1, h2, h3, a {
@@ -224,9 +29,12 @@
   }
 
   h1 {
+    position: absolute;
+    left: 5px;
+    top: 10px;
+    bottom: 0;
     margin: 0;
     padding: 0;
-    height: 57px;
     display:block;
     text-align: left;
     background-image: url(../img/logo-new-carrot.svg);
@@ -234,8 +42,8 @@
     background-repeat: no-repeat;
     background-position: 5px 3px;
     //text-shadow: darken(@header, 20%) 0px 0px 5px;
-    padding-left:55px;
-    padding-top: 3px;
+    padding-left:54px;
+    padding-top: 11px;
     color: lighten(desaturate(@header, 25%), 55%);
     
     span {
@@ -254,33 +62,22 @@
     @col: lighten(desaturate(@header, 10%), 50%);
 
   nav {
-    // border-top: 1px solid lighten(desaturate(@header, 10%), 10%);
     position: absolute;
     left: 265px;
     right: 100px;
-    top: 13px;
-    //padding-top: 8px;
-    //padding-bottom: 11px;
-    // border-bottom: 1px solid lighten(desaturate(@header, 10%), 10%);
+    top: 31px;
     text-align: center;
-    // display: flex;
-    // flex-direction: row;
-    //       justify-content: space-between;
-        
-    // background: darken(@header, 2%);
-    //     border: 1px solid lighten(@header, 2%);
 
     > span {
       display: inline-block;
     }
 
-
     cc-nav-bar-link {
-      padding-top: 17px;
+      padding-top: 12px;
       padding-left: 12px;
       padding-right: 12px;
       display: inline-block;
-      height: 42px;
+      height: 34px;
 
       a {
         margin-right: 0;
@@ -316,9 +113,7 @@
         margin-left: 0;
       }
       
-      &:nth-child(2) {
-        // border-top: 1px solid white;
-        // border-bottom: 1px solid white;
+      &.current {
         border: 1px solid darken(@header, 5%);
         background: darken(@header, 2%);
         border-radius: 2px;
@@ -341,8 +136,8 @@
 
   .logout {
     position: absolute;
-    right: 0;
-    top: 13px;
+    right: 5px;
+    top: 20px;
     color: @col;
 
     i {
@@ -372,25 +167,24 @@
   }
 }
 
-.sub-header {
+.section-header {
   position: fixed;
   z-index: 9999;
-  top: 67px;
+  top: 77px;
   width: 100%;
-  border-top: 1px solid #fff;//lighten(@header, 10%);
-  border-bottom: 1px solid #fff;//lighten(@header, 10%);
-  // box-shadow: inset #444 0px 0px 0px 0px;
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #fff;
   box-shadow: 0 2px 12px 1px rgba(0, 0, 0, 0.3);
-  // height: 3px;
   background: #eee;
   @col: #444;
   background: @col;
   padding: 10px 10px;
+  //padding-left: 15px;
   
   h2 {
     color: #ddd;
     margin: 0;
-    padding-left: 40px;
+    padding: 0;
     //position: relative;
 
     i {
@@ -400,18 +194,15 @@
       width: 32px;
       display: inline-block;
       border: 1px solid #fff;
-      position: absolute;
-      left: 10px;
-      vertical-align: middle;
+      vertical-align: top;
 
       &::before {
         margin: 0;
         font-size: 20px;
         line-height: 20px; 
         display: block;
-        position: absolute;
-        top: 6px;
-        left: 5px;
+        margin-top: 6px;
+        margin-left: 5px;
       }
     }
   }

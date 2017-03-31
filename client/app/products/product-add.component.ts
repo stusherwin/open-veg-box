@@ -59,7 +59,7 @@ export class ProductAddComponent {
     this.product.price = 1.0;
     this.product.unitType = 'perKg';
     setTimeout(() => {
-      this.renderer.invokeElementMethod(window, 'scrollTo', [0, document.body.scrollHeight])
+      this.renderer.invokeElementMethod(window, 'scrollTo', [0, 0])
       this.renderer.invokeElementMethod(this.productName.nativeElement, 'focus', [])
     })
   }

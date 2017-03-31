@@ -4,8 +4,8 @@ import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { LogoutComponent } from '../auth/logout.component'
 
 @Component({
-  selector: 'cc-header',
-  templateUrl: 'app/header/header.component.html',
+  selector: 'cc-main-header',
+  templateUrl: 'app/structure/main-header.component.html',
   directives: [NavBarComponent, LogoutComponent, ROUTER_DIRECTIVES]
 })
 
