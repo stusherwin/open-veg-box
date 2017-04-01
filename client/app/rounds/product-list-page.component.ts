@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { Round } from './round'
 import { ProductQuantity } from '../products/product'
 import { RoundService, ProductList } from './round.service'
@@ -11,7 +12,7 @@ import 'rxjs/add/observable/combineLatest';
   selector: 'cc-product-list-page',
   templateUrl: 'app/rounds/product-list-page.component.html',
   styleUrls: ['app/rounds/product-list-page.component.css'],
-  directives: [ProductQuantityComponent],
+  directives: [ProductQuantityComponent, ROUTER_DIRECTIVES],
   providers: [RoundService]
 })
 export class ProductListPageComponent implements OnInit {

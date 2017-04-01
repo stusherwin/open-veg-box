@@ -16,7 +16,7 @@ import 'rxjs/add/observable/combineLatest';
 @Component({
   selector: 'cc-round-page',
   templateUrl: 'app/rounds/round-page.component.html',
-  directives: [RoundsPageRoundComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective],
+  directives: [RoundsPageRoundComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, ROUTER_DIRECTIVES],
   styleUrls: ['app/rounds/round-page.component.css'],
   styles: [`
     html>/**/body a i::before, x:-moz-any-link {
@@ -29,7 +29,6 @@ export class RoundPageComponent implements OnInit {
   queryParams: {[key: string]: string};
   round: Round;
   unusedCustomers: RoundCustomer[] = [];
-  loaded: boolean;
 
   constructor(
     private roundService: RoundService,
@@ -48,7 +47,6 @@ export class RoundPageComponent implements OnInit {
       (r, c) => ({r, c})
     )
     .subscribe(({r, c}) => {
-      this.loaded = true;
       this.round = r;
       this.unusedCustomers = c.map(c => new RoundCustomer(c.id, c.name, c.address, c.email));
     });

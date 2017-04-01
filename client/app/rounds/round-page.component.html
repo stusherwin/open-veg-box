@@ -1,10 +1,6 @@
-<!--<div class="right-nav">
-  <a class="new right"><i class="icon-trash"></i>Delete</a>
-  <a class="new right"><i class="icon-carrot"></i>Product list</a>
-</div>-->
-<div *ngIf="loaded">
-  <h2>&nbsp;</h2>
-  <a class="new"><i class="icon-trash"></i>Delete</a>
-  <a class="new"><i class="icon-carrot"></i>Product list</a>
-
+<div class="section-header">
+  <a class="new right" tabindex="1" [routerLink]="['../OrderList', {roundId: round?.id}]"><i class="icon-basket"></i>Order list</a>
+  <a class="new right" tabindex="1" [routerLink]="['../ProductList', {roundId: round?.id}]"><i class="icon-carrot"></i>Product list</a>
+  <h2><i class="icon-map-signs"></i>{{round?.name}}</h2>
 </div>
+<div class="loading-indicator" *ngIf="!round"><i class="icon-spin3 animate-spin"></i></div>
