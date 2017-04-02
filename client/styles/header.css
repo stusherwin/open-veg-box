@@ -219,5 +219,5 @@
 }
 .section-header a.new:hover i::after,
 .section-header a.new.selected i::after {
-  border: none;
+  border-color: #ff8f1d;
 }

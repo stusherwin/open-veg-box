@@ -106,4 +106,7 @@ TODO (now)
 * Section header on section component - how to set buttons from individual page?
 * Loading component (content when loaded)
 * How to link to individual round page from rounds page?
-* 
+* Email page should take cancel link route as input
+* Log out button alignment / hover position
+* Section header more left padding?
+* Main header buttons should be bigger

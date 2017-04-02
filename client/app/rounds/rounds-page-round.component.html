@@ -1,30 +1,5 @@
 <div class="row" #active=cc-active cc-active [class.focused]="rowFocused" (activate)="rowFocused = true" (deactivate)="rowFocused = false">
-  <div class="actions">
-    <div class="action">
-      <button class="button" [routerLink]="['../OrderList', {roundId: round.id}]" cc-active cc-activate-on-focus cc-deactivate-on-blur [tabindex]="(tabindex * 2) + 2">
-        <div class="icon"><i class="icon-basket"></i></div>
-        <span>Order list</span>
-      </button>
-    </div>
-    <div class="action">
-      <button class="button" [routerLink]="['../ProductList', {roundId: round.id}]" cc-active cc-activate-on-focus cc-deactivate-on-blur [tabindex]="(tabindex * 2) + 2">
-        <div class="icon"><i class="icon-carrot"></i></div>
-        <span>Product list</span>
-      </button>
-    </div>
-    <div class="action">
-      <button class="button" [disabled]="!canEmail" [routerLink]="['../Email', {roundId: round.id}]" cc-active cc-activate-on-focus cc-deactivate-on-blur [tabindex]="(tabindex * 2) + 2">
-        <div class="icon"><i class="icon-mail-dark"></i></div>
-        <span>Email</span>
-      </button>
-    </div>
-    <div class="action">
-      <button cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="onDelete()" [tabindex]="(tabindex * 2) + 2">
-        <div class="icon"><i class="icon-trash"></i></div>
-        <span>Delete</span>
-      </button>
-    </div>
-  </div>
+
   <div class="details">
     <cc-heading #roundName [(value)]="round.name" (update)="onUpdate()" [tabindex]="(tabindex * 2) + 1"></cc-heading>
     <cc-round-customers
@@ -34,5 +9,14 @@
       [unusedCustomers]="unusedCustomers"
       [tabindex]="(tabindex * 2) + 1">
     </cc-round-customers>
+  </div>
+  <div class="actions" style="">
+    <a class="new right" tabindex="1"  [routerLink]="['../Email', {roundId: round.id}]"><i class="icon-mail-dark"></i>Email</a>
+    <a class="new right" tabindex="1" [routerLink]="['../Round', {roundId: round?.id}]"><i class="icon-edit"></i>Edit</a>
+    <a class="new right" tabindex="1" (click)="onDelete()"><i class="icon-trash"></i>Delete</a>
+      <!--<button class="button" [disabled]="!canEmail" [routerLink]="['../Email', {roundId: round.id}]" cc-active cc-activate-on-focus cc-deactivate-on-blur [tabindex]="(tabindex * 2) + 2">
+        <div class="icon"><i class="icon-mail-dark"></i></div>
+        <span>Email</span>
+      </button>-->
   </div>
 </div>

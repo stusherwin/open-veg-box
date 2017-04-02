@@ -7,6 +7,7 @@ html {
 body {
   min-height: 100%;
   min-width: 380px;
+  background: #eee;
 }
 .page {
   padding-top: 170px;
@@ -1667,12 +1668,12 @@ input[type="text"].price {
 a.new {
   display: inline-block;
   position: relative;
-  margin-right: 10px;
   padding-left: 26px;
   text-transform: uppercase;
   text-decoration: none;
   font-size: 10px;
   line-height: 10px;
+  color: #999;
 }
 a.new i {
   display: block;
@@ -1682,7 +1683,7 @@ a.new i {
   position: absolute;
   left: 0;
   top: calc(50% -  10px);
-  background: #bbb;
+  background: #fff;
 }
 a.new i::before {
   font-size: 13px;
@@ -1694,15 +1695,14 @@ a.new i::before {
   left: calc(50% -  6.5px);
   top: calc(50% -  6.5px);
   margin: 0;
-  color: #fff;
-  text-shadow: #999 0px 0px 1px;
+  color: #aaa;
 }
 a.new i::after {
   display: block;
   border-radius: 24px;
   height: 24px;
   width: 24px;
-  border: 1px solid #ccc;
+  border: 1px solid #bbb;
   content: '.';
   color: transparent;
   position: absolute;
@@ -1719,6 +1719,50 @@ a.new i.icon-carrot::before {
   left: calc(50% -  6px);
   top: calc(50% -  6px);
 }
+a.new:hover {
+  display: inline-block;
+  position: relative;
+  padding-left: 26px;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: 10px;
+  line-height: 10px;
+  color: #ffa011;
+}
+a.new:hover i {
+  display: block;
+  border-radius: 20px;
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  left: 0;
+  top: calc(50% -  10px);
+  background: #ffa011;
+}
+a.new:hover i::before {
+  font-size: 13px;
+  display: block;
+  border-radius: 13px;
+  height: 13px;
+  width: 13px;
+  position: absolute;
+  left: calc(50% -  6.5px);
+  top: calc(50% -  6.5px);
+  margin: 0;
+  color: #fff;
+}
+a.new:hover i::after {
+  display: block;
+  border-radius: 24px;
+  height: 24px;
+  width: 24px;
+  border: 1px solid #ffa011;
+  content: '.';
+  color: transparent;
+  position: absolute;
+  top: -2px;
+  left: -2px;
+}
 a.new.right {
   padding-left: 0;
   padding-right: 26px;
@@ -1727,77 +1771,10 @@ a.new.right i {
   left: inherit;
   right: 0;
 }
-a.new:hover {
-  color: #ffa011;
-}
-a.new:hover i {
-  background: #ffa011;
-}
-a.new:hover i::after {
-  border-color: #ffa011;
-}
 @-moz-document url-prefix() {
   a.new i::before {
     margin-top: -1px;
   }
-}
-.right-nav {
-  background: white;
-  position: absolute;
-  right: 0;
-  margin-top: -12px;
-  padding: 10px;
-  width: 15px;
-  padding-left: 0;
-  padding-right: 7px;
-}
-.right-nav .new {
-  float: right;
-  clear: right;
-  white-space: nowrap;
-  margin: 15px 0;
-}
-.right-nav .new:first-of-type {
-  margin-top: 20px;
-}
-.right-nav .new i {
-  z-index: 2;
-}
-.right-nav .new i::after {
-  border: none;
-}
-.right-nav .new::before {
-  border-top-right-radius: 24px;
-  border-bottom-right-radius: 24px;
-  border-radius: 28px;
-  box-shadow: inset #444 0px 0px 8px -2px;
-  display: block;
-  content: '.';
-  color: transparent;
-  width: 28px;
-  height: 28px;
-  position: absolute;
-  right: -4px;
-  top: -9px;
-  z-index: 1;
-  background: #fff;
-}
-.right-nav .new::after {
-  box-shadow: #fff 0px 0px 5px 0px;
-  display: block;
-  content: '.';
-  color: transparent;
-  width: 15px;
-  height: 28px;
-  position: absolute;
-  right: 9px;
-  top: -9px;
-  z-index: 1;
-  background: #fff;
-  border-top-left-radius: 24px;
-  border-bottom-left-radius: 24px;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
 }
 .loading-indicator {
   padding-top: 200px;
@@ -1805,5 +1782,32 @@ a.new:hover i::after {
 }
 .loading-indicator i {
   font-size: 500%;
-  color: #eee;
+  color: #ddd;
+}
+.row-view-new .row {
+  display: table;
+  width: 100%;
+  background: #fafafa;
+  padding: 15px;
+  border-bottom: 1px solid #e6e6e6;
+}
+.row-view-new .row .details {
+  display: table-cell;
+  vertical-align: top;
+}
+.row-view-new .row .actions {
+  display: table-cell;
+  vertical-align: top;
+  width: 100px;
+}
+.row-view-new .row .actions a {
+  float: right;
+  clear: right;
+  margin-top: 20px;
+}
+.row-view-new .row .actions a:first-of-type {
+  margin-top: 8px;
+}
+.row-view-new > *:nth-child(2n+1) > .row {
+  background: #f5f5f5;
 }
