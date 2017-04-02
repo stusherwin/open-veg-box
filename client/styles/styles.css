@@ -634,6 +634,13 @@ h4 {
   margin: 0;
   padding: 0;
 }
+.section-header h2 > a {
+  color: #ddd;
+  text-decoration: none;
+}
+.section-header h2 > a:hover {
+  color: white;
+}
 .section-header h2 i {
   margin-right: 10px;
   border-radius: 32px;
@@ -669,13 +676,20 @@ h4 {
 .section-header a.new i::after {
   border-color: #ddd;
 }
-.section-header a.new:hover i {
+.section-header a.new:hover,
+.section-header a.new.selected {
+  color: #ff8f1d;
+}
+.section-header a.new:hover i,
+.section-header a.new.selected i {
   background: #ff8f1d;
 }
-.section-header a.new:hover i::before {
+.section-header a.new:hover i::before,
+.section-header a.new.selected i::before {
   color: #444;
 }
-.section-header a.new:hover i::after {
+.section-header a.new:hover i::after,
+.section-header a.new.selected i::after {
   border: none;
 }
 html {

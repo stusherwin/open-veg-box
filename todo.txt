@@ -102,3 +102,8 @@ TODO (now)
 * Need to archive products/boxes not delete them (only delete if not used!)
 * Add blurb/useful links to each section on home page?
 * Products added from the top, but displayed in alphabetical order when reloaded
+* Use distribute-width on order-list page
+* Section header on section component - how to set buttons from individual page?
+* Loading component (content when loaded)
+* How to link to individual round page from rounds page?
+* 
