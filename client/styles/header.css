@@ -187,37 +187,35 @@
   margin-top: 6px;
   margin-left: 5px;
 }
-.section-header a.new {
+.section-header a.button-new {
+  color: #ddd;
   float: right;
   margin-top: 11px;
   margin-right: 5px;
   margin-left: 10px;
-  color: #ddd;
 }
-.section-header a.new i {
-  background: #ddd;
-  background: #444;
-}
-.section-header a.new i::before {
-  color: #444;
-  color: #ddd;
-}
-.section-header a.new i::after {
+.section-header a.button-new::before {
   border-color: #ddd;
 }
-.section-header a.new:hover,
-.section-header a.new.selected {
+.section-header a.button-new i {
+  background-color: #444;
+}
+.section-header a.button-new i::before {
+  color: #ddd;
+}
+.section-header a.button-new:hover,
+.section-header a.button-new.selected {
   color: #ff8f1d;
 }
-.section-header a.new:hover i,
-.section-header a.new.selected i {
-  background: #ff8f1d;
-}
-.section-header a.new:hover i::before,
-.section-header a.new.selected i::before {
-  color: #444;
-}
-.section-header a.new:hover i::after,
-.section-header a.new.selected i::after {
+.section-header a.button-new:hover::before,
+.section-header a.button-new.selected::before {
   border-color: #ff8f1d;
+}
+.section-header a.button-new:hover i,
+.section-header a.button-new.selected i {
+  background-color: #ff8f1d;
+}
+.section-header a.button-new:hover i::before,
+.section-header a.button-new.selected i::before {
+  color: #444;
 }

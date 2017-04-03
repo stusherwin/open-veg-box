@@ -330,3 +330,92 @@
 .r {
   border: 1px solid red;
 }
+
+.circle(@size) {
+  display: block;
+  border-radius: @size;
+  height: @size;
+  width: @size;
+}
+
+.circle(@size; centred;) {
+  .circle(@size);
+  position: absolute;
+  left: calc(~"50% - "@size / 2);
+  top: calc(~"50% - "@size / 2);
+}
+
+@outerSize: 24px;
+@outerPadding: 2px;
+@iconSize: 13px;
+@textSize: 10px;
+
+.buttonNew() {
+  display: block;
+  position: relative;
+  padding-left: @outerSize + 5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: @textSize;
+  line-height: @textSize;
+  color: #000;
+
+  @innerSize: @outerSize - (@outerPadding * 2);
+
+  &::before {
+    position: absolute;
+    left: 0;
+    top: calc(~"50% - " @outerSize / 2);
+    .circle(@outerSize);
+    border: 1px solid #000;
+    content:'.';
+    color: transparent;
+  }
+
+  i {
+    .circle(@innerSize);
+    position: absolute;
+    left: @outerPadding;
+    top: calc(~"50% + " @outerPadding ~" - " @outerSize / 2);
+    background: #000;
+
+    &::before {
+      position: absolute;
+      font-size: @iconSize;
+      margin: 0;
+      color: #000;
+      left: calc(~"50% - "@iconSize / 2);
+      top: calc(~"50% - "@iconSize / 2);
+    }
+  }
+}
+
+.buttonNewColors(@text; @icon; @background; @border) {
+  color: @text;
+  &::before {
+    border-color: @border;
+  }
+
+  i {
+    background-color: @background;
+
+    &::before {
+      color: @icon;
+    }
+  }
+}
+
+.buttonNewRight() {
+  padding-left: 0;
+  padding-right: @outerSize + 5px;
+
+  &::before {
+    left: inherit;
+    right: 0;
+  }
+
+  i {
+    left: inherit;
+    right: @outerPadding;
+  }
+}

@@ -39,15 +39,15 @@ body {
       color: #555;
       font-size: 80%;
     }
-  }  
+  }
 }
 
 input[type="text"], input[type="password"], select, textarea {
-  color: #999; 
+  color: #999;
   padding: 2px 4px;
   border: 1px solid #bbb;
   border-radius: 3px;
-  font-size: 100%; 
+  font-size: 100%;
   margin:0;
 }
 
@@ -82,7 +82,7 @@ select {
 
   .row {
     min-height: 83px;
-    border-top: 1px solid lighten(@itemBorderColor, 10%); 
+    border-top: 1px solid lighten(@itemBorderColor, 10%);
     padding: 0;
     position: relative;
 
@@ -104,7 +104,7 @@ select {
       float: right;
       height:30px;
       padding-right:4px;
-      
+
       .action {
         margin-right: -4px;
         display: inline-block;
@@ -131,7 +131,7 @@ select {
     button, a.button {
       .button(outline; small; darken(@itemHoverColor, 2%));
     }
-    
+
     &.focused {
       background: @itemHoverColor;
       button, a.button {
@@ -145,7 +145,7 @@ select {
     &:hover {
       background: lighten(@itemHoverColor, 4%);
     }
-    
+
     .editable-display:hover {
       background: lighten(@itemHoverColor, 6%);
     }
@@ -162,9 +162,9 @@ select {
 }
 
 .flex {
-  display:flex; 
-  flex-direction:row; 
-  flex-grow:0; 
+  display:flex;
+  flex-direction:row;
+  flex-grow:0;
   justify-content: space-between;
 
   // & > div {
@@ -191,9 +191,9 @@ select {
   margin-left: 0px;
   padding: 10px;
   padding-left: 12px;
-  border-top: 1px solid lighten(@itemBorderColor, 10%); 
+  border-top: 1px solid lighten(@itemBorderColor, 10%);
   border-bottom: 1px solid lighten(@itemBorderColor, 10%);
-  padding-bottom: 0; 
+  padding-bottom: 0;
 
   .removed {
     text-decoration: line-through;
@@ -258,7 +258,7 @@ select {
         .icon-warning {
           top: -2px;
         }
-      } 
+      }
     }
   }
 }
@@ -267,8 +267,8 @@ input[type="text"], input[type="password"], textarea, select {
   &:focus {
     @col: desaturate(darken(@itemHoverColor, 20%),10%);
     border: 1px solid desaturate(darken(@itemHoverColor, 20%),10%);
-    box-shadow: @col 0px 0px 1px 0px,  
-                fade(@col, 30%) 0px 0px 2px 0px inset;  
+    box-shadow: @col 0px 0px 1px 0px,
+                fade(@col, 30%) 0px 0px 2px 0px inset;
   }
 }
 
@@ -309,10 +309,10 @@ select:-moz-focusring {
       margin: 0;
     }
   }
-  
+
   .editable-value-display {
     padding-bottom: 2px;
-    
+
     a.edit {
       position: relative;
       left: -10000px;
@@ -327,7 +327,7 @@ select:-moz-focusring {
     &:hover {
       cursor: pointer;
       color: @boxProductHover;
-      
+
       a.edit {
         left: 0;
         i {
@@ -390,7 +390,7 @@ select:-moz-focusring {
   &.editing {
     .editable-value-display {
       visibility: hidden;
-    }    
+    }
 
     .editable-value-outer {
       left: 0px;
@@ -428,7 +428,7 @@ select:-moz-focusring {
   .input-wrapper.invalid {
     input[type="text"], input[type="password"], textarea, select {
       border: 1px solid #E80000;
-      box-shadow: fade(#E80000, 50%) 0px 0px 3px 0px,  
+      box-shadow: fade(#E80000, 50%) 0px 0px 3px 0px,
                   #E80000 0px 0px 2px 0px inset;
       padding-right:18px;
     }
@@ -504,14 +504,14 @@ input[type="text"].price {
     left: -6px;
     top: -6px;
     padding-left: 2px;
-    
+
     input[type="text"] {
       width: 200px;
       font-size: 150%;
       font-weight: 300;
     }
 
-    a {   
+    a {
       top: 12px;
     }
 
@@ -579,7 +579,7 @@ input[type="text"].price {
 
   &:hover, &.editing {
     .show-on-edit {
-      left: 0px;     
+      left: 0px;
     }
   }
 
@@ -700,7 +700,7 @@ input[type="text"].price {
 
   &:hover, &.editing {
     .show-on-edit {
-      left: 0px;     
+      left: 0px;
     }
   }
 
@@ -766,7 +766,7 @@ input[type="text"].price {
       .editable-value-display {
         width: 100%;
         display: table;
-        
+
         .detail-marker {
           display: table-cell;
           width: 20px;
@@ -903,7 +903,7 @@ input[type="text"].price {
           vertical-align: top;
           width: 20px;
           min-width: 20px;
-          
+
           i {
             font-size: 90%;
             color: #999;
@@ -938,7 +938,7 @@ input[type="text"].price {
           }
         }
       }
-      
+
       &.tel {
         input[type="text"] {
           max-width: 170px;
@@ -964,12 +964,12 @@ input[type="text"].price {
 
     .email {
       width: 40%;
-      min-width: 205px;       
+      min-width: 205px;
     }
 
     .tel {
       width: 20%;
-      min-width: 158px; 
+      min-width: 158px;
     }
 
     .customer-detail-end {
@@ -1117,7 +1117,7 @@ input[type="text"].price {
       }
     }
   }
-  
+
   .modified {
     color: @boxProductHover;
   }
@@ -1149,7 +1149,7 @@ input[type="text"].price {
   .order-section {
     &:hover, &.editing {
       .show-on-edit {
-        left: 0px;     
+        left: 0px;
       }
     }
   }
@@ -1168,194 +1168,24 @@ input[type="text"].price {
   }
 }
 
-.circle(@size) {
-  display: block;
-  border-radius: @size;
-  height: @size;
-  width: @size;
-}
-
-.circle(@size; centred;) {
-  .circle(@size);
-  position: absolute;
-  left: calc(~"50% - "@size / 2);
-  top: calc(~"50% - "@size / 2);
-}
-
-@outerSize: 24px;
-@outerPadding: 2px;
-@iconSize: 13px;
-@textSize: 10px;
-
-.button(@text; @icon; @background; @border) {
-  display: inline-block;
-  position: relative;
-  padding-left: @outerSize + 2px;
-  text-transform: uppercase;
-  text-decoration: none;
-  font-size: @textSize;
-  line-height: @textSize;
-  color: @text;
-
-  i {
-    @size: @outerSize - (@outerPadding * 2);
-    .circle(@size);
-    position: absolute;
-    left: 0;
-    top: calc(~"50% - "@size / 2);
-    background: @background;
-
-    &::before {
-      font-size: @iconSize;
-      .circle(@iconSize; centred);
-      margin: 0;
-      color: @icon;
-      //text-shadow: #999 0px 0px 1px;
-    }
-
-    &::after {
-      .circle(@outerSize);
-      border: 1px solid @border;
-      content:'.';
-      color: transparent;
-      position: absolute;
-      top:-@outerPadding;
-      left: -@outerPadding;
-    }
-  }
-}
-
-.buttonRight() {
-  padding-left: 0;
-  padding-right: @outerSize + 2px;
-
-  i {
-    left: inherit;
-    right: 0;
-  }
-}
-
-a.new {
-  // .button(#999; #fff; #ccc; #999);
-  .button(#999; #aaa; #fff; #bbb);
-  i::after {
-    // box-shadow: rgba(0,0,0,0.2) 0px 1px 8px;
-    // box-shadow: #fff 0px 0px 1px;
-
-  }
-  // .button(#999; #777; #ccc; #aaa);
-
-  i.icon-carrot {
-    &::before {
-      font-size: @iconSize - 1;
-      .circle(@iconSize - 1; centred);
-    }
-  }
+a.button-new {
+  .buttonNew();
+  .buttonNewColors(#999; #aaa; #fff; #bbb);
 
   &:hover {
-    .button(@boxProductHover; #fff; @boxProductHover; @boxProductHover);
+    .buttonNewColors(@boxProductHover; #fff; @boxProductHover; @boxProductHover);
   }
 
-  &.right {
-    .buttonRight();
+  &.button-new-right {
+    .buttonNewRight();
   }
 }
 
-@-moz-document url-prefix() { 
+@-moz-document url-prefix() {
   a.new i::before {
     margin-top: -1px;
   }
 }
-
-// .right-nav {
-//   // border: 1px solid red;
-//   background: white;
-//   position: absolute;
-//   right: 0;
-//   margin-top: -12px;
-//   padding: 10px;
-//   width: 15px;
-//   padding-left: 0;
-//   padding-right: 7px;
-
-//   .new {
-//     float: right;
-//     clear: right;
-//     white-space: nowrap;
-//     //position: absolute;
-//     //right: 0;
-//     margin: 15px 0;
-
-//     &:first-of-type {
-//       margin-top: 20px;
-//     }
-
-//     i {
-//       z-index: 2;
-//       &::after {
-//         border: none;
-//       }
-//     }
-
-//     &::before {
-//       //border: 1px solid red;
-//       border-top-right-radius: 24px;
-//       border-bottom-right-radius: 24px;
-//       border-radius: 28px;
-//       // border-left: 1px solid red; 
-//       //border-top: 1px solid red; 
-//       //border-bottom: 1px solid red; 
-//       //box-shadow: inset #444 0px 0px 8px 0px;
-//       box-shadow: inset #444 0px 0px 8px -2px;
-//       display: block;
-//       content: '.';
-//       color: transparent;
-//       width: 28px;
-//       height: 28px;
-//       position: absolute;
-//       right: -4px;
-//       top: -9px;
-//       z-index: 1;
-//       background: #fff;
-//     }
-
-//     &::after {
-//       // border: 1px solid blue;
-      
-//       // box-shadow: red 0px 0px 0px 0px;
-//       // display: block;
-//       // content: '.';
-//       // color: transparent;
-//       // width: 16px;
-//       // height: 24px;
-//       // position: absolute;
-//       // right: 10px;
-//       // top: -7px;
-//       // z-index: 1;      
-//       // background: #fff;
-//       // border-top-left-radius: 24px;
-//       // border-bottom-left-radius: 24px;
-//       // border-top-right-radius: 5px;
-//       // border-bottom-right-radius: 5px;
-
-//       box-shadow: #fff 0px 0px 5px 0px;
-//       display: block;
-//       content: '.';
-//       color: transparent;
-//       width: 15px;
-//       height: 28px;
-//       position: absolute;
-//       right: 9px;
-//       top: -9px;
-//       z-index: 1;
-//       background: #fff;
-//       border-top-left-radius: 24px;
-//       border-bottom-left-radius: 24px;
-//       border-top-right-radius: 10px;
-//       border-bottom-right-radius: 10px;
-//     }
-//   }
-// }
 
 .loading-indicator {
   padding-top: 200px;

@@ -11,9 +11,9 @@
     </cc-round-customers>
   </div>
   <div class="actions" style="">
-    <a class="new right" tabindex="1"  [routerLink]="['../Email', {roundId: round.id}]"><i class="icon-mail-dark"></i>Email</a>
-    <a class="new right" tabindex="1" [routerLink]="['../Round', {roundId: round?.id}]"><i class="icon-edit"></i>Edit</a>
-    <a class="new right" tabindex="1" (click)="onDelete()"><i class="icon-trash"></i>Delete</a>
+    <a class="button-new button-new-right" tabindex="1"  [routerLink]="['../Email', {roundId: round.id}]"><i class="icon-mail-dark"></i>Email</a>
+    <a class="button-new button-new-right" tabindex="1" [routerLink]="['../Round', {roundId: round?.id}]"><i class="icon-edit"></i>Edit</a>
+    <a class="button-new button-new-right" tabindex="1" (click)="onDelete()"><i class="icon-trash"></i>Delete</a>
       <!--<button class="button" [disabled]="!canEmail" [routerLink]="['../Email', {roundId: round.id}]" cc-active cc-activate-on-focus cc-deactivate-on-blur [tabindex]="(tabindex * 2) + 2">
         <div class="icon"><i class="icon-mail-dark"></i></div>
         <span>Email</span>

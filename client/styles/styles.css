@@ -658,39 +658,37 @@ h4 {
   margin-top: 6px;
   margin-left: 5px;
 }
-.section-header a.new {
+.section-header a.button-new {
+  color: #ddd;
   float: right;
   margin-top: 11px;
   margin-right: 5px;
   margin-left: 10px;
-  color: #ddd;
 }
-.section-header a.new i {
-  background: #ddd;
-  background: #444;
-}
-.section-header a.new i::before {
-  color: #444;
-  color: #ddd;
-}
-.section-header a.new i::after {
+.section-header a.button-new::before {
   border-color: #ddd;
 }
-.section-header a.new:hover,
-.section-header a.new.selected {
+.section-header a.button-new i {
+  background-color: #444;
+}
+.section-header a.button-new i::before {
+  color: #ddd;
+}
+.section-header a.button-new:hover,
+.section-header a.button-new.selected {
   color: #ff8f1d;
 }
-.section-header a.new:hover i,
-.section-header a.new.selected i {
-  background: #ff8f1d;
-}
-.section-header a.new:hover i::before,
-.section-header a.new.selected i::before {
-  color: #444;
-}
-.section-header a.new:hover i::after,
-.section-header a.new.selected i::after {
+.section-header a.button-new:hover::before,
+.section-header a.button-new.selected::before {
   border-color: #ff8f1d;
+}
+.section-header a.button-new:hover i,
+.section-header a.button-new.selected i {
+  background-color: #ff8f1d;
+}
+.section-header a.button-new:hover i::before,
+.section-header a.button-new.selected i::before {
+  color: #444;
 }
 html {
   height: 100%;
@@ -2356,111 +2354,79 @@ input[type="text"].price {
   right: -8px;
   padding-right: 0px;
 }
-a.new {
-  display: inline-block;
+a.button-new {
+  display: block;
   position: relative;
-  padding-left: 26px;
+  padding-left: 29px;
   text-transform: uppercase;
   text-decoration: none;
   font-size: 10px;
   line-height: 10px;
+  color: #000;
   color: #999;
 }
-a.new i {
+a.button-new::before {
+  position: absolute;
+  left: 0;
+  top: calc(50% -  12px);
+  display: block;
+  border-radius: 24px;
+  height: 24px;
+  width: 24px;
+  border: 1px solid #000;
+  content: '.';
+  color: transparent;
+}
+a.button-new i {
   display: block;
   border-radius: 20px;
   height: 20px;
   width: 20px;
   position: absolute;
-  left: 0;
-  top: calc(50% -  10px);
-  background: #fff;
+  left: 2px;
+  top: calc(50% +  2px  -  12px);
+  background: #000;
 }
-a.new i::before {
-  font-size: 13px;
-  display: block;
-  border-radius: 13px;
-  height: 13px;
-  width: 13px;
+a.button-new i::before {
   position: absolute;
+  font-size: 13px;
+  margin: 0;
+  color: #000;
   left: calc(50% -  6.5px);
   top: calc(50% -  6.5px);
-  margin: 0;
+}
+a.button-new::before {
+  border-color: #bbb;
+}
+a.button-new i {
+  background-color: #fff;
+}
+a.button-new i::before {
   color: #aaa;
 }
-a.new i::after {
-  display: block;
-  border-radius: 24px;
-  height: 24px;
-  width: 24px;
-  border: 1px solid #bbb;
-  content: '.';
-  color: transparent;
-  position: absolute;
-  top: -2px;
-  left: -2px;
-}
-a.new i.icon-carrot::before {
-  font-size: 12px;
-  display: block;
-  border-radius: 12px;
-  height: 12px;
-  width: 12px;
-  position: absolute;
-  left: calc(50% -  6px);
-  top: calc(50% -  6px);
-}
-a.new:hover {
-  display: inline-block;
-  position: relative;
-  padding-left: 26px;
-  text-transform: uppercase;
-  text-decoration: none;
-  font-size: 10px;
-  line-height: 10px;
+a.button-new:hover {
   color: #ffa011;
 }
-a.new:hover i {
-  display: block;
-  border-radius: 20px;
-  height: 20px;
-  width: 20px;
-  position: absolute;
-  left: 0;
-  top: calc(50% -  10px);
-  background: #ffa011;
+a.button-new:hover::before {
+  border-color: #ffa011;
 }
-a.new:hover i::before {
-  font-size: 13px;
-  display: block;
-  border-radius: 13px;
-  height: 13px;
-  width: 13px;
-  position: absolute;
-  left: calc(50% -  6.5px);
-  top: calc(50% -  6.5px);
-  margin: 0;
+a.button-new:hover i {
+  background-color: #ffa011;
+}
+a.button-new:hover i::before {
   color: #fff;
 }
-a.new:hover i::after {
-  display: block;
-  border-radius: 24px;
-  height: 24px;
-  width: 24px;
-  border: 1px solid #ffa011;
-  content: '.';
-  color: transparent;
-  position: absolute;
-  top: -2px;
-  left: -2px;
-}
-a.new.right {
+a.button-new.button-new-right {
   padding-left: 0;
-  padding-right: 26px;
+  padding-right: 29px;
 }
-a.new.right i {
+a.button-new.button-new-right::before {
   left: inherit;
   right: 0;
+}
+a.button-new.button-new-right i {
+  left: inherit;
+  right: 2px;
 }
 @-moz-document url-prefix() {
   a.new i::before {
