@@ -1,0 +1,7 @@
+<div class="section-header">
+  <a class="button-new button-new-right" [class.selected]="isCurrent(['../Email', {roundId: round?.id}])" [routerLink]="['../Email', {roundId: round?.id}]" tabindex="1"><i class="icon-mail-dark"></i>Email</a>
+  <a class="button-new button-new-right" [class.selected]="isCurrent(['../OrderList', {roundId: round?.id}])" [routerLink]="['../OrderList', {roundId: round?.id}]" tabindex="1"><i class="icon-basket"></i>Order list</a>
+  <a class="button-new button-new-right" [class.selected]="isCurrent(['../ProductList', {roundId: round?.id}])" [routerLink]="['../ProductList', {roundId: round?.id}]" tabindex="1"><i class="icon-carrot"></i>Product list</a>
+  <h2><a [routerLink]="['../Round', {roundId: round?.id}]"><i class="icon-map-signs"></i>{{round?.name}}</a></h2>
+</div>
+<div class="loading-indicator" *ngIf="!round"><i class="icon-spin3 animate-spin"></i></div>

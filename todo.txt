@@ -103,10 +103,6 @@ TODO (now)
 * Add blurb/useful links to each section on home page?
 * Products added from the top, but displayed in alphabetical order when reloaded
 * Use distribute-width on order-list page
-* Section header on section component - how to set buttons from individual page?
 * Loading component (content when loaded)
-* How to link to individual round page from rounds page?
 * Email page should take cancel link route as input
-* Log out button alignment / hover position
-* Section header more left padding?
-* Main header buttons should be bigger
+* How to make section header stay when reloading within page? Probably needs round page sub-route

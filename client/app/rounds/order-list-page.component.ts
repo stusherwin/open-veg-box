@@ -8,13 +8,14 @@ import { MoneyPipe } from '../shared/pipes';
 import { ProductQuantityComponent } from '../products/product-quantity.component'
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/combineLatest';
+import { RoundPageHeaderComponent } from './round-page-header.component'
 
 @Component({
   selector: 'cc-order-list-page',
   templateUrl: 'app/rounds/order-list-page.component.html',
   styleUrls: ['app/rounds/order-list-page.component.css'],
   pipes: [MoneyPipe],
-  directives: [ProductQuantityComponent, ROUTER_DIRECTIVES],
+  directives: [ProductQuantityComponent, ROUTER_DIRECTIVES, RoundPageHeaderComponent],
   providers: [RoundService]
 })
 export class OrderListPageComponent implements OnInit {

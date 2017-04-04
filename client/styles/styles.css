@@ -2477,7 +2477,7 @@ a.button-new i.icon-mail-dark::before {
   top: calc(50% -  6px);
 }
 a.button-new i.icon-logout::before {
-  margin-top: 1px;
+  margin-top: 0px;
   margin-left: 1px;
 }
 a.button-new i.icon-add {

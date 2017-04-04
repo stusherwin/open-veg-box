@@ -7,12 +7,13 @@ import { RouteParams } from '@angular/router-deprecated';
 import { ProductQuantityComponent } from '../products/product-quantity.component'
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/combineLatest';
+import { RoundPageHeaderComponent } from './round-page-header.component'
 
 @Component({
   selector: 'cc-product-list-page',
   templateUrl: 'app/rounds/product-list-page.component.html',
   styleUrls: ['app/rounds/product-list-page.component.css'],
-  directives: [ProductQuantityComponent, ROUTER_DIRECTIVES],
+  directives: [ProductQuantityComponent, ROUTER_DIRECTIVES, RoundPageHeaderComponent],
   providers: [RoundService]
 })
 export class ProductListPageComponent implements OnInit {

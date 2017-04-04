@@ -6,12 +6,13 @@ import { SendEmailComponent } from '../email/send-email.component';
 import { EmailRecipient } from '../email/email.service';
 import { RouteParams } from '@angular/router-deprecated';
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
+import { RoundPageHeaderComponent } from './round-page-header.component'
 
 @Component({
   selector: 'cc-email-page',
   templateUrl: 'app/rounds/email-page.component.html',
   providers: [RoundService, CustomerService],
-  directives: [SendEmailComponent, ROUTER_DIRECTIVES]
+  directives: [SendEmailComponent, ROUTER_DIRECTIVES, RoundPageHeaderComponent]
 })
 export class EmailPageComponent implements OnInit {
   constructor(private roundService: RoundService, private routeParams: RouteParams) {

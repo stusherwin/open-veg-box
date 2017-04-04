@@ -8,6 +8,7 @@ import { RouteParams } from '@angular/router-deprecated';
 import { RouteConfig, Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { ActiveService, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
 import { RoundCustomersService } from './round-customers.service'
+import { RoundPageHeaderComponent } from './round-page-header.component'
 import 'rxjs/add/observable/concat';
 import 'rxjs/add/operator/last';
 import 'rxjs/add/operator/mergeMap';
@@ -16,7 +17,7 @@ import 'rxjs/add/observable/combineLatest';
 @Component({
   selector: 'cc-round-page',
   templateUrl: 'app/rounds/round-page.component.html',
-  directives: [RoundsPageRoundComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, ROUTER_DIRECTIVES],
+  directives: [RoundsPageRoundComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, ROUTER_DIRECTIVES, RoundPageHeaderComponent],
   styleUrls: ['app/rounds/round-page.component.css'],
   styles: [`
     html>/**/body a i::before, x:-moz-any-link {
