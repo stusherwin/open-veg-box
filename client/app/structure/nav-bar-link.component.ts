@@ -4,7 +4,7 @@ import { ROUTER_DIRECTIVES, Router } from '@angular/router-deprecated';
 @Component({
   selector: 'cc-nav-bar-link',
   template: `
-    <a class="new" [routerLink]="linkParams">
+    <a class="button-new" tabindex="1" [routerLink]="linkParams">
       <i class="icon-{{icon}}"></i>{{text}}
     </a>
   `,

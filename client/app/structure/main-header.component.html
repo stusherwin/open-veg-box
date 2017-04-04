@@ -1,7 +1,7 @@
 <div class="main-header">
-  <a [routerLink]="['Home']">
+  <cc-logout *ngIf="showLogout"></cc-logout>
+  <a class="heading" tabindex="1" [routerLink]="['Home']">
     <h1>open<span>veg</span>box</h1>
   </a>
   <cc-nav-bar></cc-nav-bar>
-  <cc-logout *ngIf="showLogout"></cc-logout>
 </div>

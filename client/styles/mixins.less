@@ -350,7 +350,7 @@
 @iconSize: 13px;
 @textSize: 10px;
 
-.buttonNew() {
+.buttonNew(@outerSize; @outerPadding; @iconSize; @textSize) {
   display: block;
   position: relative;
   padding-left: @outerSize + 5px;
@@ -378,12 +378,13 @@
     left: @outerPadding;
     top: calc(~"50% + " @outerPadding ~" - " @outerSize / 2);
     background: #000;
+    color: #000;
+    font-size: @iconSize;
 
     &::before {
+      .circle(@iconSize);
       position: absolute;
-      font-size: @iconSize;
       margin: 0;
-      color: #000;
       left: calc(~"50% - "@iconSize / 2);
       top: calc(~"50% - "@iconSize / 2);
     }
@@ -398,14 +399,28 @@
 
   i {
     background-color: @background;
-
-    &::before {
-      color: @icon;
-    }
+    color: @icon;
   }
 }
 
-.buttonNewRight() {
+.buttonNewColors(@text; @icon; @background; @border; @borderBackground) {
+  .buttonNewColors(@text; @icon; @background; @border);
+  &::before {
+    background: @borderBackground;
+  }
+}
+
+.buttonNewColors(@text; @icon; @background; @outerBorder; @outerBorderBackground; @innerBorder) {
+  .buttonNewColors(@text; @icon; @background; @outerBorder);
+  &::before {
+    background: @outerBorderBackground;
+  }
+  i {
+    border: 1px solid @innerBorder;
+  }
+}
+
+.buttonNewRight(@outerSize; @outerPadding) {
   padding-left: 0;
   padding-right: @outerSize + 5px;
 
@@ -417,5 +432,22 @@
   i {
     left: inherit;
     right: @outerPadding;
+  }
+}
+
+.buttonIconNudge(@nudgeLeft; @nudgeTop) {
+  &::before {
+    margin-top: @nudgeTop;
+    margin-left: @nudgeLeft;
+  }
+}
+
+.buttonIconSize(@iconSize) {
+  font-size: @iconSize;
+
+  &::before {
+    .circle(@iconSize);
+    left: calc(~"50% - "@iconSize / 2);
+    top: calc(~"50% - "@iconSize / 2);
   }
 }

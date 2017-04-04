@@ -51,16 +51,8 @@
 .icon i.icon-trash {
   padding-left: 2px;
 }
-.icon i.icon-logout {
-  padding-left: 6px;
-  padding-top: 9px;
-}
 .home i.icon-login {
   padding-left: 0px;
-  padding-top: 7px;
-}
-.home i.icon-logout {
-  padding-left: 4px;
   padding-top: 7px;
 }
 .home ul li a i.icon-box {

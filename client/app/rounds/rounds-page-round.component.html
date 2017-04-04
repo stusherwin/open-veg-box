@@ -1,22 +1,17 @@
 <div class="row" #active=cc-active cc-active [class.focused]="rowFocused" (activate)="rowFocused = true" (deactivate)="rowFocused = false">
-
   <div class="details">
-    <cc-heading #roundName [(value)]="round.name" (update)="onUpdate()" [tabindex]="(tabindex * 2) + 1"></cc-heading>
+    <cc-heading #roundName [(value)]="round.name" (update)="onUpdate()" [tabindex]="tabindex"></cc-heading>
     <cc-round-customers
       [(value)]="round.customers"
       (add)="onCustomerAdd($event)" 
       (remove)="onCustomerRemove($event)"
       [unusedCustomers]="unusedCustomers"
-      [tabindex]="(tabindex * 2) + 1">
+      [tabindex]="tabindex">
     </cc-round-customers>
   </div>
-  <div class="actions" style="">
-    <a class="button-new button-new-right" tabindex="1"  [routerLink]="['../Email', {roundId: round.id}]"><i class="icon-mail-dark"></i>Email</a>
-    <a class="button-new button-new-right" tabindex="1" [routerLink]="['../Round', {roundId: round?.id}]"><i class="icon-edit"></i>Edit</a>
-    <a class="button-new button-new-right" tabindex="1" (click)="onDelete()"><i class="icon-trash"></i>Delete</a>
-      <!--<button class="button" [disabled]="!canEmail" [routerLink]="['../Email', {roundId: round.id}]" cc-active cc-activate-on-focus cc-deactivate-on-blur [tabindex]="(tabindex * 2) + 2">
-        <div class="icon"><i class="icon-mail-dark"></i></div>
-        <span>Email</span>
-      </button>-->
+  <div class="actions">           <!-- [disabled]="!canEmail" -->
+    <a class="button-new button-new-right" cc-active cc-activate-on-focus [tabindex]="tabindex" [routerLink]="['../Email', {roundId: round.id}]"><i class="icon-mail-dark"></i>Email</a>
+    <a class="button-new button-new-right" cc-active cc-activate-on-focus [tabindex]="tabindex" [routerLink]="['../Round', {roundId: round?.id}]"><i class="icon-edit"></i>Edit</a>
+    <a class="button-new button-new-right" cc-active cc-activate-on-focus [tabindex]="tabindex" (click)="onDelete()"><i class="icon-trash"></i>Delete</a>
   </div>
 </div>

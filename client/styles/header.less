@@ -14,52 +14,55 @@
     color: white;
   }
 
-  a {
-    text-decoration: none;
-
-    svg {
-      width: 50px;
-      height: 50px;
-    }
-  }
-
-  & > a {
+  a.heading {
     display: block;
     width: 240px;
-  }
+    text-decoration: none;
 
-  h1 {
-    position: absolute;
-    left: 5px;
-    top: 10px;
-    bottom: 0;
-    margin: 0;
-    padding: 0;
-    display:block;
-    text-align: left;
-    background-image: url(../img/logo-new-carrot.svg);
-    background-size: 40px;
-    background-repeat: no-repeat;
-    background-position: 5px 3px;
-    //text-shadow: darken(@header, 20%) 0px 0px 5px;
-    padding-left:54px;
-    padding-top: 11px;
-    color: lighten(desaturate(@header, 25%), 55%);
-    
-    span {
-      color:lighten(@carrot, 10%);
-      font-weight: 400;
+    h1 {
+      position: absolute;
+      left: 5px;
+      top: 10px;
+      bottom: 0;
+      margin: 0;
+      padding: 0;
+      display:block;
+      text-align: left;
+      background-image: url(../img/logo-new-carrot.svg);
+      background-size: 40px;
+      background-repeat: no-repeat;
+      background-position: 5px 3px;
+      padding-left:54px;
+      padding-top: 11px;
+      color: lighten(desaturate(@header, 25%), 55%);
+      
+      span {
+        color:lighten(@carrot, 10%);
+        font-weight: 400;
+      }
     }
 
-    &:hover {
-      background-image: url(../img/logo-new-carrot-lighter.svg);
-      color: white;
-      span {
-        color: lighten(@carrot, 14%);
+    &:hover, &:focus {
+      h1 {
+        background-image: url(../img/logo-new-carrot-lighter.svg);
+        color: white;
+        span {
+          color: lighten(@carrot, 14%);
+        }
       }
     }
   }
-    @col: lighten(desaturate(@header, 10%), 50%);
+  
+  @col: lighten(desaturate(@header, 10%), 50%);
+
+  a.button-new {
+    .buttonNewColors(@col; @col; @header; @col);
+    margin-right: 0;
+
+    &:hover, &:focus {
+      .buttonNewColors(white; @header; white; white);
+    }
+  }
 
   nav {
     position: absolute;
@@ -79,36 +82,6 @@
       display: inline-block;
       height: 34px;
 
-      a {
-        margin-right: 0;
-        color: @col;
-
-        i {
-          margin-top: -1px;
-          background: @header;
-          &::before {
-            color: @col;
-          }
-          &::after {
-            border-color: @col;
-          }
-        }
-
-        &:hover {
-          color: white;
-
-          i {
-            background: white;
-            &::before {
-              color: @header;
-            }
-            &::after {
-              border: @header;
-            }
-          } 
-        }
-      }
-
       &:first-of-type {
         margin-left: 0;
       }
@@ -117,18 +90,13 @@
         border: 1px solid darken(@header, 5%);
         background: darken(@header, 2%);
         border-radius: 2px;
-         a {
-          color: white;
 
-          i {
-            background: white;
-            &::before {
-              color: @header;
-            }
-            &::after {
-              border: @header;
-            }
-          } 
+        a.button-new {
+          .buttonNewColors(white; @header; white; @header);
+
+          &:hover, &:focus {
+           .buttonNewColors(white; @header; white; white);
+          }
         }
       }
     }
@@ -136,34 +104,9 @@
 
   .logout {
     position: absolute;
-    right: 5px;
-    top: 20px;
+    right: 10px;
+    top: 15px;
     color: @col;
-
-    i {
-      margin-top: -1px;
-      background: @header;
-      &::before {
-        color: @col;
-      }
-      &::after {
-        border-color: @col;
-      }
-    }
-
-    &:hover {
-      color: white;
-
-      i {
-        background: white;
-        &::before {
-          color: @header;
-        }
-        &::after {
-          border: @header;
-        }
-      } 
-    }
   }
 }
 
@@ -178,8 +121,7 @@
   background: #eee;
   @col: #444;
   background: @col;
-  padding: 10px 10px;
-  //padding-left: 15px;
+  padding: 10px;
   
   h2 {
     color: #ddd;
@@ -192,7 +134,6 @@
     }
     margin: 0;
     padding: 0;
-    //position: relative;
 
     i {
       margin-right: 10px;
@@ -216,38 +157,20 @@
 
   a.button-new {
     .buttonNewColors(#ddd, #ddd, @col, #ddd);
+
     float: right;
     margin-top: 11px;
-    margin-right: 5px;
-    margin-left: 10px;
-    // color: #ddd;
+    margin-left: 20px;
 
-    // i {
-    //   background: #ddd;
-    //   background: @col;
-    //   &::before {
-    //     color: #444;
-    //     color: #ddd;
-    //   }
-    //   &::after {
-    //     border-color: #ddd;
-    //   }
-    // }
-
-    &:hover, &.selected { 
+    &:hover, &:focus { 
       .buttonNewColors(@carrot, @col, @carrot, @carrot);
     }
+
+    &.selected { 
+      .buttonNewColors(@carrot, @col, @carrot, @col);
+      &:hover {
+        .buttonNewColors(@carrot, @col, @carrot, @carrot);
+      }
+    }
   }
-  // &::after {
-  //   content: '.';
-  //   color: transparent;
-  //   background: white;
-  //   display: block;
-  //   position: fixed;
-  //   height: 10px;
-  //   width: 100%;
-  //   top: 125px;
-  //   left: 0;
-  //   z-index: 1;
-  // }
 }

@@ -5,7 +5,7 @@ import { User } from '../users/user'
 
 @Component({
   selector: 'cc-logout',
-  template: `<a class="new right logout" (click)="logout()"><i class="icon-logout"></i>Log out</a>`,
+  template: `<a class="button-new button-new-right logout" tabindex="1" (click)="logout()"><i class="icon-logout"></i>Log out</a>`,
   providers: [UsersService]
 })
 

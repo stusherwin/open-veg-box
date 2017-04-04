@@ -1002,6 +1002,7 @@ input[type="text"].price {
 }
 
 .round-add {
+  padding: 0;
   .round-name {
     input {
       width: 100%;
@@ -1169,15 +1170,47 @@ input[type="text"].price {
 }
 
 a.button-new {
-  .buttonNew();
-  .buttonNewColors(#999; #aaa; #fff; #bbb);
+  @outerSize: 24px;
+  @outerPadding: 2px;
+  @iconSize: 13px;
+  @textSize: 10px;
 
-  &:hover {
+  .buttonNew(@outerSize; @outerPadding; @iconSize; @textSize);
+  .buttonNewColors(#999; #aaa; transparent; #aaa);
+
+  &:hover, &:focus {
     .buttonNewColors(@boxProductHover; #fff; @boxProductHover; @boxProductHover);
   }
 
   &.button-new-right {
-    .buttonNewRight();
+    .buttonNewRight(@outerSize; @outerPadding);
+  }
+
+  i.icon-carrot {
+    .buttonIconSize(11px);
+    .buttonIconNudge(0; 1px);
+  }
+
+  i.icon-person {
+    .buttonIconSize(12px);
+    .buttonIconNudge(0; -1px);
+  }
+
+  i.icon-map-signs {
+    .buttonIconNudge(0; 1px);
+  }
+
+  i.icon-mail-dark {
+    .buttonIconSize(12px);
+  }
+
+  i.icon-logout {
+    .buttonIconNudge(1px; 1px);
+  }
+
+  i.icon-add {
+    .buttonIconSize(14px);
+    .buttonIconNudge(0px; 0.5px);
   }
 }
 
@@ -1198,16 +1231,37 @@ a.button-new {
 }
 
 .row-view-new {
+  @row: #fafafa;
+  @rowHover: @itemHoverColor;
+  @rowOdd: #f5f5f5;
+  @unfocusedRowHover: lighten(@itemHoverColor, 3%);
+
+  .buttons(@background; @color: #999) {
+    .button-new {
+      .buttonNewColors(darken(@color, 10%); @color; @background; @color; #fff);
+      &:hover, &:focus {
+       .buttonNewColors(desaturate(darken(@boxProductHover, 5%), 10%); #fff; @boxProductHover; @boxProductHover; #fff);
+      }
+    }
+  }
+
   .row {
     display: table;
     width: 100%;
-    background: #fafafa;
-    padding: 15px;
+    padding: 15px 10px;
     border-bottom: 1px solid lighten(@itemBorderColor, 10%);
+    background: @row;
+    .buttons(@row);
+
+    &.focused, &:hover {
+      background: @rowHover;
+      .buttons(@rowHover);
+    }
 
     .details {
       display: table-cell;
       vertical-align: top;
+      padding-left: 5px;
     }
 
     .actions {
@@ -1215,19 +1269,37 @@ a.button-new {
       vertical-align: top;
       width: 100px;
 
-      a {
+      .button-new {
         float: right;
         clear: right;
         margin-top: 20px;
 
         &:first-of-type {
-          margin-top: 8px;
+          margin-top: 0px;
         }
       }
     }
   }
 
   & > *:nth-child(2n+1) > .row {
-    background: #f5f5f5;
+    background: @rowOdd;
+    .buttons(@rowOdd);
+    &.focused, &:hover {
+      background: @rowHover;
+      .buttons(@rowHover);
+    }
+  }
+
+  &.focused {
+    .row, & > *:nth-child(2n+1) > .row {
+      &:hover {
+        background: @unfocusedRowHover;
+        .buttons(@unfocusedRowHover);
+      }
+      &.focused, &.focused:hover {
+        background: @rowHover;
+        .buttons(@rowHover);
+      }
+    }
   }
 }

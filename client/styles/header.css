@@ -16,18 +16,12 @@
 .main-header a {
   color: white;
 }
-.main-header a {
-  text-decoration: none;
-}
-.main-header a svg {
-  width: 50px;
-  height: 50px;
-}
-.main-header > a {
+.main-header a.heading {
   display: block;
   width: 240px;
+  text-decoration: none;
 }
-.main-header h1 {
+.main-header a.heading h1 {
   position: absolute;
   left: 5px;
   top: 10px;
@@ -44,16 +38,42 @@
   padding-top: 11px;
   color: #eff4ec;
 }
-.main-header h1 span {
+.main-header a.heading h1 span {
   color: #ffa850;
   font-weight: 400;
 }
-.main-header h1:hover {
+.main-header a.heading:hover h1,
+.main-header a.heading:focus h1 {
   background-image: url(../img/logo-new-carrot-lighter.svg);
   color: white;
 }
-.main-header h1:hover span {
+.main-header a.heading:hover h1 span,
+.main-header a.heading:focus h1 span {
   color: #ffb264;
+}
+.main-header a.button-new {
+  color: #e0eed8;
+  margin-right: 0;
+}
+.main-header a.button-new::before {
+  border-color: #e0eed8;
+}
+.main-header a.button-new i {
+  background-color: #579532;
+  color: #e0eed8;
+}
+.main-header a.button-new:hover,
+.main-header a.button-new:focus {
+  color: white;
+}
+.main-header a.button-new:hover::before,
+.main-header a.button-new:focus::before {
+  border-color: white;
+}
+.main-header a.button-new:hover i,
+.main-header a.button-new:focus i {
+  background-color: white;
+  color: #579532;
 }
 .main-header nav {
   position: absolute;
@@ -72,32 +92,6 @@
   display: inline-block;
   height: 34px;
 }
-.main-header nav cc-nav-bar-link a {
-  margin-right: 0;
-  color: #e0eed8;
-}
-.main-header nav cc-nav-bar-link a i {
-  margin-top: -1px;
-  background: #579532;
-}
-.main-header nav cc-nav-bar-link a i::before {
-  color: #e0eed8;
-}
-.main-header nav cc-nav-bar-link a i::after {
-  border-color: #e0eed8;
-}
-.main-header nav cc-nav-bar-link a:hover {
-  color: white;
-}
-.main-header nav cc-nav-bar-link a:hover i {
-  background: white;
-}
-.main-header nav cc-nav-bar-link a:hover i::before {
-  color: #579532;
-}
-.main-header nav cc-nav-bar-link a:hover i::after {
-  border: #579532;
-}
 .main-header nav cc-nav-bar-link:first-of-type {
   margin-left: 0;
 }
@@ -106,45 +100,34 @@
   background: #538d2f;
   border-radius: 2px;
 }
-.main-header nav cc-nav-bar-link.current a {
+.main-header nav cc-nav-bar-link.current a.button-new {
   color: white;
 }
-.main-header nav cc-nav-bar-link.current a i {
-  background: white;
+.main-header nav cc-nav-bar-link.current a.button-new::before {
+  border-color: #579532;
 }
-.main-header nav cc-nav-bar-link.current a i::before {
+.main-header nav cc-nav-bar-link.current a.button-new i {
+  background-color: white;
   color: #579532;
 }
-.main-header nav cc-nav-bar-link.current a i::after {
-  border: #579532;
+.main-header nav cc-nav-bar-link.current a.button-new:hover,
+.main-header nav cc-nav-bar-link.current a.button-new:focus {
+  color: white;
+}
+.main-header nav cc-nav-bar-link.current a.button-new:hover::before,
+.main-header nav cc-nav-bar-link.current a.button-new:focus::before {
+  border-color: white;
+}
+.main-header nav cc-nav-bar-link.current a.button-new:hover i,
+.main-header nav cc-nav-bar-link.current a.button-new:focus i {
+  background-color: white;
+  color: #579532;
 }
 .main-header .logout {
   position: absolute;
-  right: 5px;
-  top: 20px;
+  right: 10px;
+  top: 15px;
   color: #e0eed8;
-}
-.main-header .logout i {
-  margin-top: -1px;
-  background: #579532;
-}
-.main-header .logout i::before {
-  color: #e0eed8;
-}
-.main-header .logout i::after {
-  border-color: #e0eed8;
-}
-.main-header .logout:hover {
-  color: white;
-}
-.main-header .logout:hover i {
-  background: white;
-}
-.main-header .logout:hover i::before {
-  color: #579532;
-}
-.main-header .logout:hover i::after {
-  border: #579532;
 }
 .section-header {
   position: fixed;
@@ -156,7 +139,7 @@
   box-shadow: 0 2px 12px 1px rgba(0, 0, 0, 0.3);
   background: #eee;
   background: #444;
-  padding: 10px 10px;
+  padding: 10px;
 }
 .section-header h2 {
   color: #ddd;
@@ -191,31 +174,45 @@
   color: #ddd;
   float: right;
   margin-top: 11px;
-  margin-right: 5px;
-  margin-left: 10px;
+  margin-left: 20px;
 }
 .section-header a.button-new::before {
   border-color: #ddd;
 }
 .section-header a.button-new i {
   background-color: #444;
-}
-.section-header a.button-new i::before {
   color: #ddd;
 }
 .section-header a.button-new:hover,
-.section-header a.button-new.selected {
+.section-header a.button-new:focus {
   color: #ff8f1d;
 }
 .section-header a.button-new:hover::before,
-.section-header a.button-new.selected::before {
+.section-header a.button-new:focus::before {
   border-color: #ff8f1d;
 }
 .section-header a.button-new:hover i,
+.section-header a.button-new:focus i {
+  background-color: #ff8f1d;
+  color: #444;
+}
+.section-header a.button-new.selected {
+  color: #ff8f1d;
+}
+.section-header a.button-new.selected::before {
+  border-color: #444;
+}
 .section-header a.button-new.selected i {
   background-color: #ff8f1d;
+  color: #444;
 }
-.section-header a.button-new:hover i::before,
-.section-header a.button-new.selected i::before {
+.section-header a.button-new.selected:hover {
+  color: #ff8f1d;
+}
+.section-header a.button-new.selected:hover::before {
+  border-color: #ff8f1d;
+}
+.section-header a.button-new.selected:hover i {
+  background-color: #ff8f1d;
   color: #444;
 }

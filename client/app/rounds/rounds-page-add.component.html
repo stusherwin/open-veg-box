@@ -1,23 +1,13 @@
-<div class="row add-mode" *ngIf="adding" #active=cc-active cc-active [class.focused]="rowFocused" (activate)="onActivate()" (deactivate)="onDeactivate()">
-  <div class="actions">
-    <div class="action">
-      <button cc-active cc-activate-on-focus (click)="completeAdd()" [tabindex]="(tabindex * 2) + 2">
-        <div class="icon"><i class="icon-ok"></i></div>
-        <span>Save</span>
-      </button>  
-    </div>
-    <div class="action">
-      <button cc-active cc-activate-on-focus (click)="cancelAdd()" [tabindex]="(tabindex * 2) + 2">
-        <div class="icon"><i class="icon-cancel"></i></div>
-        <span>Cancel</span>
-      </button>  
-    </div>
-  </div>
-  <div class="details round-add" [class.invalid]="!valid">
+<div class="row round-add" *ngIf="adding" #active=cc-active cc-active [class.focused]="rowFocused" (activate)="onActivate()" (deactivate)="onDeactivate()">
+  <div class="details" [class.invalid]="!valid">
     <div class="round-name">
       <cc-validatable [valid]="!!round.name.length" message="Name should not be empty">
         <input #roundName placeholder="New Round" type="text" [(ngModel)]="round.name" [tabindex]="(tabindex * 2) + 1" cc-active cc-activate-on-focus />
       </cc-validatable>
     </div>
+  </div>
+  <div class="actions">
+    <a class="button-new button-new-right" cc-active cc-activate-on-focus [tabindex]="tabindex" (click)="completeAdd()"><i class="icon-ok"></i>OK</a>
+    <a class="button-new button-new-right" cc-active cc-activate-on-focus [tabindex]="tabindex" (click)="cancelAdd()"><i class="icon-cancel"></i>Cancel</a>
   </div>
 </div>
