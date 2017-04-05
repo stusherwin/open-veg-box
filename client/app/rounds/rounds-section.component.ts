@@ -1,17 +1,16 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { RoundsPageComponent } from './rounds-page.component'
-import { RoundPageComponent } from './round-page.component'
-import { EmailPageComponent } from './email-page.component'
-import { ProductListPageComponent } from './product-list-page.component'
-import { OrderListPageComponent } from './order-list-page.component'
+import { RoundSectionComponent } from './round-section.component'
 import { RouteParams } from '@angular/router-deprecated';
 import { RouteConfig, Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { ErrorNotifyComponent } from '../shared/error-notify.component'
+import { RoundService } from './round.service'
 
 @Component({
   selector: 'cc-rounds-section',
   templateUrl: 'app/rounds/rounds-section.component.html',
-  directives: [ROUTER_DIRECTIVES, ErrorNotifyComponent]
+  directives: [ROUTER_DIRECTIVES, ErrorNotifyComponent],
+  providers: [RoundService]
 })
 
 @RouteConfig([
@@ -21,24 +20,9 @@ import { ErrorNotifyComponent } from '../shared/error-notify.component'
     component: RoundsPageComponent
   },
   {
-    path: ':roundId',
+    path: ':roundId/...',
     name: 'Round',
-    component: RoundPageComponent
-  },
-  {
-    path: ':roundId/email/',
-    name: 'Email',
-    component: EmailPageComponent
-  },
-  {
-    path: ':roundId/product-list/',
-    name: 'ProductList',
-    component: ProductListPageComponent
-  },
-  {
-    path: ':roundId/order-list/',
-    name: 'OrderList',
-    component: OrderListPageComponent
+    component: RoundSectionComponent
   },
   {
     path: '/*anything-else',

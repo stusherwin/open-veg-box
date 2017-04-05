@@ -1,31 +1,26 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Inject, forwardRef } from '@angular/core';
 import { Round } from './round'
 import { RoundService } from './round.service'
 import { CustomerService } from '../customers/customer.service'
 import { SendEmailComponent } from '../email/send-email.component';
 import { EmailRecipient } from '../email/email.service';
 import { RouteParams } from '@angular/router-deprecated';
-import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
-import { RoundPageHeaderComponent } from './round-page-header.component'
+import { RoundSectionService } from './round-section.component'
 
 @Component({
   selector: 'cc-email-page',
   templateUrl: 'app/rounds/email-page.component.html',
-  providers: [RoundService, CustomerService],
-  directives: [SendEmailComponent, ROUTER_DIRECTIVES, RoundPageHeaderComponent]
+  directives: [SendEmailComponent]
 })
 export class EmailPageComponent implements OnInit {
-  constructor(private roundService: RoundService, private routeParams: RouteParams) {
+  constructor(private roundService: RoundService,
+  @Inject(forwardRef(() => RoundSectionService))
+  private roundSectionService: RoundSectionService) {
   }
 
-  round: Round;
   customerEmails: EmailRecipient[];
 
   ngOnInit() {
-    let roundId = +this.routeParams.params['roundId'];
-    this.roundService.get(roundId).subscribe(round => {
-      this.round = round;
-      this.customerEmails = round.customers.map(c => new EmailRecipient(c.name, c.email));
-    });
+    this.customerEmails = this.roundSectionService.round.customers.map(c => new EmailRecipient(c.name, c.email));
   }
 }

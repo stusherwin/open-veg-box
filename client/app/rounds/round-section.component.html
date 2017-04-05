@@ -1,0 +1,3 @@
+<cc-round-page-header [round]="round"></cc-round-page-header>
+<div class="loading-indicator" *ngIf="!round"><i class="icon-spin3 animate-spin"></i></div>
+<router-outlet *ngIf="round"></router-outlet>

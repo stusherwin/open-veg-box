@@ -1,11 +1,4 @@
-<div class="section-header">
-  <a class="button-new button-new-right" tabindex="1" [routerLink]="['../Email', {roundId: round?.id}]"><i class="icon-mail-dark"></i>Email</a>
-  <a class="button-new button-new-right selected" tabindex="1" [routerLink]="['../OrderList', {roundId: round?.id}]"><i class="icon-basket"></i>Order list</a>
-  <a class="button-new button-new-right" tabindex="1" [routerLink]="['../ProductList', {roundId: round?.id}]"><i class="icon-carrot"></i>Product list</a>
-  <h2><a [routerLink]="['../Round', {roundId: round?.id}]"><i class="icon-map-signs"></i>{{round?.name}}</a></h2>
-</div>
-<div class="loading-indicator" *ngIf="!round"><i class="icon-spin3 animate-spin"></i></div>
-<div *ngIf="round">
+<div *ngIf="orderList">
   <div class="totals">
     <h3>Total orders: <span [innerHTML]="orderList.totalCost | money:true"></span></h3>
   </div>
