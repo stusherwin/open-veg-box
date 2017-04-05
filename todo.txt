@@ -90,9 +90,6 @@ TODO (now)
 * When adding, adds to end then when comes back from server is sorted.
 * Add button not highlighted when hovering over certain area
 * queryparams not whitelisted on server side
-* Button carrot icon gets bigger when button pressed
-* Both buttons become active when one is pressed!
-* Need sub-menu for Rounds/Customers - breadcrumb trail?
 * 404 when missing server-side resource not handled
 * Should be two types of orders - dynamic and historic. 
   Customer -> Order
@@ -105,4 +102,3 @@ TODO (now)
 * Use distribute-width on order-list page
 * Loading component (content when loaded)
 * Email page should take cancel link route as input
-* How to make section header stay when reloading within page? Probably needs round page sub-route
