@@ -51,27 +51,27 @@
 .main-header a.heading:focus h1 span {
   color: #ffb264;
 }
-.main-header a.button-new {
+.main-header .button-new {
   color: #e0eed8;
   margin-right: 0;
 }
-.main-header a.button-new::before {
+.main-header .button-new::before {
   border-color: #e0eed8;
 }
-.main-header a.button-new i {
+.main-header .button-new i {
   background-color: #579532;
   color: #e0eed8;
 }
-.main-header a.button-new:hover,
-.main-header a.button-new:focus {
+.main-header .button-new:hover,
+.main-header .button-new:focus {
   color: white;
 }
-.main-header a.button-new:hover::before,
-.main-header a.button-new:focus::before {
+.main-header .button-new:hover::before,
+.main-header .button-new:focus::before {
   border-color: white;
 }
-.main-header a.button-new:hover i,
-.main-header a.button-new:focus i {
+.main-header .button-new:hover i,
+.main-header .button-new:focus i {
   background-color: white;
   color: #579532;
 }
@@ -100,26 +100,26 @@
   background: #538d2f;
   border-radius: 2px;
 }
-.main-header nav cc-nav-bar-link.current a.button-new {
+.main-header nav cc-nav-bar-link.current .button-new {
   color: white;
 }
-.main-header nav cc-nav-bar-link.current a.button-new::before {
+.main-header nav cc-nav-bar-link.current .button-new::before {
   border-color: #579532;
 }
-.main-header nav cc-nav-bar-link.current a.button-new i {
+.main-header nav cc-nav-bar-link.current .button-new i {
   background-color: white;
   color: #579532;
 }
-.main-header nav cc-nav-bar-link.current a.button-new:hover,
-.main-header nav cc-nav-bar-link.current a.button-new:focus {
+.main-header nav cc-nav-bar-link.current .button-new:hover,
+.main-header nav cc-nav-bar-link.current .button-new:focus {
   color: white;
 }
-.main-header nav cc-nav-bar-link.current a.button-new:hover::before,
-.main-header nav cc-nav-bar-link.current a.button-new:focus::before {
+.main-header nav cc-nav-bar-link.current .button-new:hover::before,
+.main-header nav cc-nav-bar-link.current .button-new:focus::before {
   border-color: white;
 }
-.main-header nav cc-nav-bar-link.current a.button-new:hover i,
-.main-header nav cc-nav-bar-link.current a.button-new:focus i {
+.main-header nav cc-nav-bar-link.current .button-new:hover i,
+.main-header nav cc-nav-bar-link.current .button-new:focus i {
   background-color: white;
   color: #579532;
 }
@@ -170,52 +170,52 @@
   margin-top: 6px;
   margin-left: 5px;
 }
-.section-header a.button-new {
+.section-header .button-new {
   color: #ddd;
   float: right;
   margin-top: 11px;
   margin-left: 20px;
 }
-.section-header a.button-new::before {
+.section-header .button-new::before {
   border-color: #ddd;
 }
-.section-header a.button-new i {
+.section-header .button-new i {
   background-color: #444;
   color: #ddd;
 }
-.section-header a.button-new:hover,
-.section-header a.button-new:focus {
+.section-header .button-new:hover,
+.section-header .button-new:focus {
   color: #ff8f1d;
 }
-.section-header a.button-new:hover::before,
-.section-header a.button-new:focus::before {
+.section-header .button-new:hover::before,
+.section-header .button-new:focus::before {
   border-color: #ff8f1d;
 }
-.section-header a.button-new:hover i,
-.section-header a.button-new:focus i {
+.section-header .button-new:hover i,
+.section-header .button-new:focus i {
   background-color: #ff8f1d;
   color: #444;
 }
-.section-header a.button-new.selected {
+.section-header .button-new.selected {
   color: #ff8f1d;
 }
-.section-header a.button-new.selected::before {
+.section-header .button-new.selected::before {
   border-color: #444;
 }
-.section-header a.button-new.selected i {
+.section-header .button-new.selected i {
   background-color: #ff8f1d;
   color: #444;
 }
-.section-header a.button-new.selected:hover,
-.section-header a.button-new.selected:focus {
+.section-header .button-new.selected:hover,
+.section-header .button-new.selected:focus {
   color: #ff8f1d;
 }
-.section-header a.button-new.selected:hover::before,
-.section-header a.button-new.selected:focus::before {
+.section-header .button-new.selected:hover::before,
+.section-header .button-new.selected:focus::before {
   border-color: #ff8f1d;
 }
-.section-header a.button-new.selected:hover i,
-.section-header a.button-new.selected:focus i {
+.section-header .button-new.selected:hover i,
+.section-header .button-new.selected:focus i {
   background-color: #ff8f1d;
   color: #444;
 }

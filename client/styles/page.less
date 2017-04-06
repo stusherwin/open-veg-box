@@ -236,7 +236,7 @@ select {
     .boxProductClearFix;
     padding-bottom: 20px;
     padding-top: 5px;
-    
+
     .button-new {
       float:right;
       margin-left: 20px
@@ -1184,7 +1184,7 @@ input[type="text"].price {
   }
 }
 
-a.button-new {
+.button-new {
   @outerSize: 24px;
   @outerPadding: 2px;
   @iconSize: 13px;
@@ -1251,26 +1251,15 @@ a.button-new {
   @rowOdd: #f5f5f5;
   @unfocusedRowHover: lighten(@itemHoverColor, 3%);
 
-  .buttons(@background; @color: #999) {
-    .button-new {
-      .buttonNewColors(darken(@color, 10%); @color; @background; @color; #fff);
-      &:hover, &:focus {
-       .buttonNewColors(desaturate(darken(@boxProductHover, 5%), 10%); #fff; @boxProductHover; @boxProductHover; #fff);
-      }
-    }
-  }
-
   .row {
     display: table;
     width: 100%;
     padding: 15px 10px;
     border-bottom: 1px solid lighten(@itemBorderColor, 10%);
     background: @row;
-    .buttons(@row);
 
     &.focused, &:hover {
       background: @rowHover;
-      .buttons(@rowHover);
     }
 
     .details {
@@ -1298,10 +1287,9 @@ a.button-new {
 
   & > *:nth-child(2n+1) > .row {
     background: @rowOdd;
-    .buttons(@rowOdd);
+
     &.focused, &:hover {
       background: @rowHover;
-      .buttons(@rowHover);
     }
   }
 
@@ -1309,11 +1297,9 @@ a.button-new {
     .row, & > *:nth-child(2n+1) > .row {
       &:hover {
         background: @unfocusedRowHover;
-        .buttons(@unfocusedRowHover);
       }
       &.focused, &.focused:hover {
         background: @rowHover;
-        .buttons(@rowHover);
       }
     }
   }

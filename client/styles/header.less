@@ -55,7 +55,7 @@
   
   @col: lighten(desaturate(@header, 10%), 50%);
 
-  a.button-new {
+  .button-new {
     .buttonNewColors(@col; @col; @header; @col);
     margin-right: 0;
 
@@ -91,7 +91,7 @@
         background: darken(@header, 2%);
         border-radius: 2px;
 
-        a.button-new {
+        .button-new {
           .buttonNewColors(white; @header; white; @header);
 
           &:hover, &:focus {
@@ -155,7 +155,7 @@
     }
   }
 
-  a.button-new {
+  .button-new {
     .buttonNewColors(#ddd, #ddd, @col, #ddd);
 
     float: right;

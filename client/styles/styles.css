@@ -522,27 +522,27 @@ h4 {
 .main-header a.heading:focus h1 span {
   color: #ffb264;
 }
-.main-header a.button-new {
+.main-header .button-new {
   color: #e0eed8;
   margin-right: 0;
 }
-.main-header a.button-new::before {
+.main-header .button-new::before {
   border-color: #e0eed8;
 }
-.main-header a.button-new i {
+.main-header .button-new i {
   background-color: #579532;
   color: #e0eed8;
 }
-.main-header a.button-new:hover,
-.main-header a.button-new:focus {
+.main-header .button-new:hover,
+.main-header .button-new:focus {
   color: white;
 }
-.main-header a.button-new:hover::before,
-.main-header a.button-new:focus::before {
+.main-header .button-new:hover::before,
+.main-header .button-new:focus::before {
   border-color: white;
 }
-.main-header a.button-new:hover i,
-.main-header a.button-new:focus i {
+.main-header .button-new:hover i,
+.main-header .button-new:focus i {
   background-color: white;
   color: #579532;
 }
@@ -571,26 +571,26 @@ h4 {
   background: #538d2f;
   border-radius: 2px;
 }
-.main-header nav cc-nav-bar-link.current a.button-new {
+.main-header nav cc-nav-bar-link.current .button-new {
   color: white;
 }
-.main-header nav cc-nav-bar-link.current a.button-new::before {
+.main-header nav cc-nav-bar-link.current .button-new::before {
   border-color: #579532;
 }
-.main-header nav cc-nav-bar-link.current a.button-new i {
+.main-header nav cc-nav-bar-link.current .button-new i {
   background-color: white;
   color: #579532;
 }
-.main-header nav cc-nav-bar-link.current a.button-new:hover,
-.main-header nav cc-nav-bar-link.current a.button-new:focus {
+.main-header nav cc-nav-bar-link.current .button-new:hover,
+.main-header nav cc-nav-bar-link.current .button-new:focus {
   color: white;
 }
-.main-header nav cc-nav-bar-link.current a.button-new:hover::before,
-.main-header nav cc-nav-bar-link.current a.button-new:focus::before {
+.main-header nav cc-nav-bar-link.current .button-new:hover::before,
+.main-header nav cc-nav-bar-link.current .button-new:focus::before {
   border-color: white;
 }
-.main-header nav cc-nav-bar-link.current a.button-new:hover i,
-.main-header nav cc-nav-bar-link.current a.button-new:focus i {
+.main-header nav cc-nav-bar-link.current .button-new:hover i,
+.main-header nav cc-nav-bar-link.current .button-new:focus i {
   background-color: white;
   color: #579532;
 }
@@ -641,52 +641,52 @@ h4 {
   margin-top: 6px;
   margin-left: 5px;
 }
-.section-header a.button-new {
+.section-header .button-new {
   color: #ddd;
   float: right;
   margin-top: 11px;
   margin-left: 20px;
 }
-.section-header a.button-new::before {
+.section-header .button-new::before {
   border-color: #ddd;
 }
-.section-header a.button-new i {
+.section-header .button-new i {
   background-color: #444;
   color: #ddd;
 }
-.section-header a.button-new:hover,
-.section-header a.button-new:focus {
+.section-header .button-new:hover,
+.section-header .button-new:focus {
   color: #ff8f1d;
 }
-.section-header a.button-new:hover::before,
-.section-header a.button-new:focus::before {
+.section-header .button-new:hover::before,
+.section-header .button-new:focus::before {
   border-color: #ff8f1d;
 }
-.section-header a.button-new:hover i,
-.section-header a.button-new:focus i {
+.section-header .button-new:hover i,
+.section-header .button-new:focus i {
   background-color: #ff8f1d;
   color: #444;
 }
-.section-header a.button-new.selected {
+.section-header .button-new.selected {
   color: #ff8f1d;
 }
-.section-header a.button-new.selected::before {
+.section-header .button-new.selected::before {
   border-color: #444;
 }
-.section-header a.button-new.selected i {
+.section-header .button-new.selected i {
   background-color: #ff8f1d;
   color: #444;
 }
-.section-header a.button-new.selected:hover,
-.section-header a.button-new.selected:focus {
+.section-header .button-new.selected:hover,
+.section-header .button-new.selected:focus {
   color: #ff8f1d;
 }
-.section-header a.button-new.selected:hover::before,
-.section-header a.button-new.selected:focus::before {
+.section-header .button-new.selected:hover::before,
+.section-header .button-new.selected:focus::before {
   border-color: #ff8f1d;
 }
-.section-header a.button-new.selected:hover i,
-.section-header a.button-new.selected:focus i {
+.section-header .button-new.selected:hover i,
+.section-header .button-new.selected:focus i {
   background-color: #ff8f1d;
   color: #444;
 }
@@ -2377,7 +2377,7 @@ input[type="text"].price {
   right: -8px;
   padding-right: 0px;
 }
-a.button-new {
+.button-new {
   display: block;
   position: relative;
   padding-left: 29px;
@@ -2388,7 +2388,7 @@ a.button-new {
   color: #000;
   color: #999;
 }
-a.button-new::before {
+.button-new::before {
   position: absolute;
   left: 0;
   top: calc(50% -  12px);
@@ -2400,7 +2400,7 @@ a.button-new::before {
   content: '.';
   color: transparent;
 }
-a.button-new i {
+.button-new i {
   display: block;
   border-radius: 20px;
   height: 20px;
@@ -2412,7 +2412,7 @@ a.button-new i {
   color: #000;
   font-size: 13px;
 }
-a.button-new i::before {
+.button-new i::before {
   display: block;
   border-radius: 13px;
   height: 13px;
@@ -2422,42 +2422,42 @@ a.button-new i::before {
   left: calc(50% -  6.5px);
   top: calc(50% -  6.5px);
 }
-a.button-new::before {
+.button-new::before {
   border-color: #aaa;
 }
-a.button-new i {
+.button-new i {
   background-color: transparent;
   color: #aaa;
 }
-a.button-new:hover,
-a.button-new:focus {
+.button-new:hover,
+.button-new:focus {
   color: #ffa011;
 }
-a.button-new:hover::before,
-a.button-new:focus::before {
+.button-new:hover::before,
+.button-new:focus::before {
   border-color: #ffa011;
 }
-a.button-new:hover i,
-a.button-new:focus i {
+.button-new:hover i,
+.button-new:focus i {
   background-color: #ffa011;
   color: #fff;
 }
-a.button-new.button-new-right {
+.button-new.button-new-right {
   padding-left: 0;
   padding-right: 29px;
 }
-a.button-new.button-new-right::before {
+.button-new.button-new-right::before {
   left: inherit;
   right: 0;
 }
-a.button-new.button-new-right i {
+.button-new.button-new-right i {
   left: inherit;
   right: 2px;
 }
-a.button-new i.icon-carrot {
+.button-new i.icon-carrot {
   font-size: 11px;
 }
-a.button-new i.icon-carrot::before {
+.button-new i.icon-carrot::before {
   display: block;
   border-radius: 11px;
   height: 11px;
@@ -2465,14 +2465,14 @@ a.button-new i.icon-carrot::before {
   left: calc(50% -  5.5px);
   top: calc(50% -  5.5px);
 }
-a.button-new i.icon-carrot::before {
+.button-new i.icon-carrot::before {
   margin-top: 1px;
   margin-left: 0;
 }
-a.button-new i.icon-person {
+.button-new i.icon-person {
   font-size: 12px;
 }
-a.button-new i.icon-person::before {
+.button-new i.icon-person::before {
   display: block;
   border-radius: 12px;
   height: 12px;
@@ -2480,18 +2480,18 @@ a.button-new i.icon-person::before {
   left: calc(50% -  6px);
   top: calc(50% -  6px);
 }
-a.button-new i.icon-person::before {
+.button-new i.icon-person::before {
   margin-top: -1px;
   margin-left: 0;
 }
-a.button-new i.icon-map-signs::before {
+.button-new i.icon-map-signs::before {
   margin-top: 1px;
   margin-left: 0;
 }
-a.button-new i.icon-mail-dark {
+.button-new i.icon-mail-dark {
   font-size: 12px;
 }
-a.button-new i.icon-mail-dark::before {
+.button-new i.icon-mail-dark::before {
   display: block;
   border-radius: 12px;
   height: 12px;
@@ -2499,14 +2499,14 @@ a.button-new i.icon-mail-dark::before {
   left: calc(50% -  6px);
   top: calc(50% -  6px);
 }
-a.button-new i.icon-logout::before {
+.button-new i.icon-logout::before {
   margin-top: 0px;
   margin-left: 1px;
 }
-a.button-new i.icon-add {
+.button-new i.icon-add {
   font-size: 14px;
 }
-a.button-new i.icon-add::before {
+.button-new i.icon-add::before {
   display: block;
   border-radius: 14px;
   height: 14px;
@@ -2514,7 +2514,7 @@ a.button-new i.icon-add::before {
   left: calc(50% -  7px);
   top: calc(50% -  7px);
 }
-a.button-new i.icon-add::before {
+.button-new i.icon-add::before {
   margin-top: 0.5px;
   margin-left: 0px;
 }
@@ -2538,81 +2538,9 @@ a.button-new i.icon-add::before {
   border-bottom: 1px solid #e6e6e6;
   background: #fafafa;
 }
-.row-view-new .row .button-new {
-  color: #808080;
-}
-.row-view-new .row .button-new::before {
-  border-color: #999;
-}
-.row-view-new .row .button-new i {
-  background-color: #fafafa;
-  color: #999;
-}
-.row-view-new .row .button-new::before {
-  background: #fff;
-}
-.row-view-new .row .button-new:hover,
-.row-view-new .row .button-new:focus {
-  color: #ea910c;
-}
-.row-view-new .row .button-new:hover::before,
-.row-view-new .row .button-new:focus::before {
-  border-color: #ffa011;
-}
-.row-view-new .row .button-new:hover i,
-.row-view-new .row .button-new:focus i {
-  background-color: #ffa011;
-  color: #fff;
-}
-.row-view-new .row .button-new:hover::before,
-.row-view-new .row .button-new:focus::before {
-  background: #fff;
-}
 .row-view-new .row.focused,
 .row-view-new .row:hover {
   background: #fff1dd;
-}
-.row-view-new .row.focused .button-new,
-.row-view-new .row:hover .button-new {
-  color: #808080;
-}
-.row-view-new .row.focused .button-new::before,
-.row-view-new .row:hover .button-new::before {
-  border-color: #999;
-}
-.row-view-new .row.focused .button-new i,
-.row-view-new .row:hover .button-new i {
-  background-color: #fff1dd;
-  color: #999;
-}
-.row-view-new .row.focused .button-new::before,
-.row-view-new .row:hover .button-new::before {
-  background: #fff;
-}
-.row-view-new .row.focused .button-new:hover,
-.row-view-new .row:hover .button-new:hover,
-.row-view-new .row.focused .button-new:focus,
-.row-view-new .row:hover .button-new:focus {
-  color: #ea910c;
-}
-.row-view-new .row.focused .button-new:hover::before,
-.row-view-new .row:hover .button-new:hover::before,
-.row-view-new .row.focused .button-new:focus::before,
-.row-view-new .row:hover .button-new:focus::before {
-  border-color: #ffa011;
-}
-.row-view-new .row.focused .button-new:hover i,
-.row-view-new .row:hover .button-new:hover i,
-.row-view-new .row.focused .button-new:focus i,
-.row-view-new .row:hover .button-new:focus i {
-  background-color: #ffa011;
-  color: #fff;
-}
-.row-view-new .row.focused .button-new:hover::before,
-.row-view-new .row:hover .button-new:hover::before,
-.row-view-new .row.focused .button-new:focus::before,
-.row-view-new .row:hover .button-new:focus::before {
-  background: #fff;
 }
 .row-view-new .row .details {
   display: table-cell;
@@ -2635,199 +2563,19 @@ a.button-new i.icon-add::before {
 .row-view-new > *:nth-child(2n+1) > .row {
   background: #f5f5f5;
 }
-.row-view-new > *:nth-child(2n+1) > .row .button-new {
-  color: #808080;
-}
-.row-view-new > *:nth-child(2n+1) > .row .button-new::before {
-  border-color: #999;
-}
-.row-view-new > *:nth-child(2n+1) > .row .button-new i {
-  background-color: #f5f5f5;
-  color: #999;
-}
-.row-view-new > *:nth-child(2n+1) > .row .button-new::before {
-  background: #fff;
-}
-.row-view-new > *:nth-child(2n+1) > .row .button-new:hover,
-.row-view-new > *:nth-child(2n+1) > .row .button-new:focus {
-  color: #ea910c;
-}
-.row-view-new > *:nth-child(2n+1) > .row .button-new:hover::before,
-.row-view-new > *:nth-child(2n+1) > .row .button-new:focus::before {
-  border-color: #ffa011;
-}
-.row-view-new > *:nth-child(2n+1) > .row .button-new:hover i,
-.row-view-new > *:nth-child(2n+1) > .row .button-new:focus i {
-  background-color: #ffa011;
-  color: #fff;
-}
-.row-view-new > *:nth-child(2n+1) > .row .button-new:hover::before,
-.row-view-new > *:nth-child(2n+1) > .row .button-new:focus::before {
-  background: #fff;
-}
 .row-view-new > *:nth-child(2n+1) > .row.focused,
 .row-view-new > *:nth-child(2n+1) > .row:hover {
   background: #fff1dd;
 }
-.row-view-new > *:nth-child(2n+1) > .row.focused .button-new,
-.row-view-new > *:nth-child(2n+1) > .row:hover .button-new {
-  color: #808080;
-}
-.row-view-new > *:nth-child(2n+1) > .row.focused .button-new::before,
-.row-view-new > *:nth-child(2n+1) > .row:hover .button-new::before {
-  border-color: #999;
-}
-.row-view-new > *:nth-child(2n+1) > .row.focused .button-new i,
-.row-view-new > *:nth-child(2n+1) > .row:hover .button-new i {
-  background-color: #fff1dd;
-  color: #999;
-}
-.row-view-new > *:nth-child(2n+1) > .row.focused .button-new::before,
-.row-view-new > *:nth-child(2n+1) > .row:hover .button-new::before {
-  background: #fff;
-}
-.row-view-new > *:nth-child(2n+1) > .row.focused .button-new:hover,
-.row-view-new > *:nth-child(2n+1) > .row:hover .button-new:hover,
-.row-view-new > *:nth-child(2n+1) > .row.focused .button-new:focus,
-.row-view-new > *:nth-child(2n+1) > .row:hover .button-new:focus {
-  color: #ea910c;
-}
-.row-view-new > *:nth-child(2n+1) > .row.focused .button-new:hover::before,
-.row-view-new > *:nth-child(2n+1) > .row:hover .button-new:hover::before,
-.row-view-new > *:nth-child(2n+1) > .row.focused .button-new:focus::before,
-.row-view-new > *:nth-child(2n+1) > .row:hover .button-new:focus::before {
-  border-color: #ffa011;
-}
-.row-view-new > *:nth-child(2n+1) > .row.focused .button-new:hover i,
-.row-view-new > *:nth-child(2n+1) > .row:hover .button-new:hover i,
-.row-view-new > *:nth-child(2n+1) > .row.focused .button-new:focus i,
-.row-view-new > *:nth-child(2n+1) > .row:hover .button-new:focus i {
-  background-color: #ffa011;
-  color: #fff;
-}
-.row-view-new > *:nth-child(2n+1) > .row.focused .button-new:hover::before,
-.row-view-new > *:nth-child(2n+1) > .row:hover .button-new:hover::before,
-.row-view-new > *:nth-child(2n+1) > .row.focused .button-new:focus::before,
-.row-view-new > *:nth-child(2n+1) > .row:hover .button-new:focus::before {
-  background: #fff;
-}
 .row-view-new.focused .row:hover,
 .row-view-new.focused > *:nth-child(2n+1) > .row:hover {
   background: #fff8ec;
-}
-.row-view-new.focused .row:hover .button-new,
-.row-view-new.focused > *:nth-child(2n+1) > .row:hover .button-new {
-  color: #808080;
-}
-.row-view-new.focused .row:hover .button-new::before,
-.row-view-new.focused > *:nth-child(2n+1) > .row:hover .button-new::before {
-  border-color: #999;
-}
-.row-view-new.focused .row:hover .button-new i,
-.row-view-new.focused > *:nth-child(2n+1) > .row:hover .button-new i {
-  background-color: #fff8ec;
-  color: #999;
-}
-.row-view-new.focused .row:hover .button-new::before,
-.row-view-new.focused > *:nth-child(2n+1) > .row:hover .button-new::before {
-  background: #fff;
-}
-.row-view-new.focused .row:hover .button-new:hover,
-.row-view-new.focused > *:nth-child(2n+1) > .row:hover .button-new:hover,
-.row-view-new.focused .row:hover .button-new:focus,
-.row-view-new.focused > *:nth-child(2n+1) > .row:hover .button-new:focus {
-  color: #ea910c;
-}
-.row-view-new.focused .row:hover .button-new:hover::before,
-.row-view-new.focused > *:nth-child(2n+1) > .row:hover .button-new:hover::before,
-.row-view-new.focused .row:hover .button-new:focus::before,
-.row-view-new.focused > *:nth-child(2n+1) > .row:hover .button-new:focus::before {
-  border-color: #ffa011;
-}
-.row-view-new.focused .row:hover .button-new:hover i,
-.row-view-new.focused > *:nth-child(2n+1) > .row:hover .button-new:hover i,
-.row-view-new.focused .row:hover .button-new:focus i,
-.row-view-new.focused > *:nth-child(2n+1) > .row:hover .button-new:focus i {
-  background-color: #ffa011;
-  color: #fff;
-}
-.row-view-new.focused .row:hover .button-new:hover::before,
-.row-view-new.focused > *:nth-child(2n+1) > .row:hover .button-new:hover::before,
-.row-view-new.focused .row:hover .button-new:focus::before,
-.row-view-new.focused > *:nth-child(2n+1) > .row:hover .button-new:focus::before {
-  background: #fff;
 }
 .row-view-new.focused .row.focused,
 .row-view-new.focused > *:nth-child(2n+1) > .row.focused,
 .row-view-new.focused .row.focused:hover,
 .row-view-new.focused > *:nth-child(2n+1) > .row.focused:hover {
   background: #fff1dd;
-}
-.row-view-new.focused .row.focused .button-new,
-.row-view-new.focused > *:nth-child(2n+1) > .row.focused .button-new,
-.row-view-new.focused .row.focused:hover .button-new,
-.row-view-new.focused > *:nth-child(2n+1) > .row.focused:hover .button-new {
-  color: #808080;
-}
-.row-view-new.focused .row.focused .button-new::before,
-.row-view-new.focused > *:nth-child(2n+1) > .row.focused .button-new::before,
-.row-view-new.focused .row.focused:hover .button-new::before,
-.row-view-new.focused > *:nth-child(2n+1) > .row.focused:hover .button-new::before {
-  border-color: #999;
-}
-.row-view-new.focused .row.focused .button-new i,
-.row-view-new.focused > *:nth-child(2n+1) > .row.focused .button-new i,
-.row-view-new.focused .row.focused:hover .button-new i,
-.row-view-new.focused > *:nth-child(2n+1) > .row.focused:hover .button-new i {
-  background-color: #fff1dd;
-  color: #999;
-}
-.row-view-new.focused .row.focused .button-new::before,
-.row-view-new.focused > *:nth-child(2n+1) > .row.focused .button-new::before,
-.row-view-new.focused .row.focused:hover .button-new::before,
-.row-view-new.focused > *:nth-child(2n+1) > .row.focused:hover .button-new::before {
-  background: #fff;
-}
-.row-view-new.focused .row.focused .button-new:hover,
-.row-view-new.focused > *:nth-child(2n+1) > .row.focused .button-new:hover,
-.row-view-new.focused .row.focused:hover .button-new:hover,
-.row-view-new.focused > *:nth-child(2n+1) > .row.focused:hover .button-new:hover,
-.row-view-new.focused .row.focused .button-new:focus,
-.row-view-new.focused > *:nth-child(2n+1) > .row.focused .button-new:focus,
-.row-view-new.focused .row.focused:hover .button-new:focus,
-.row-view-new.focused > *:nth-child(2n+1) > .row.focused:hover .button-new:focus {
-  color: #ea910c;
-}
-.row-view-new.focused .row.focused .button-new:hover::before,
-.row-view-new.focused > *:nth-child(2n+1) > .row.focused .button-new:hover::before,
-.row-view-new.focused .row.focused:hover .button-new:hover::before,
-.row-view-new.focused > *:nth-child(2n+1) > .row.focused:hover .button-new:hover::before,
-.row-view-new.focused .row.focused .button-new:focus::before,
-.row-view-new.focused > *:nth-child(2n+1) > .row.focused .button-new:focus::before,
-.row-view-new.focused .row.focused:hover .button-new:focus::before,
-.row-view-new.focused > *:nth-child(2n+1) > .row.focused:hover .button-new:focus::before {
-  border-color: #ffa011;
-}
-.row-view-new.focused .row.focused .button-new:hover i,
-.row-view-new.focused > *:nth-child(2n+1) > .row.focused .button-new:hover i,
-.row-view-new.focused .row.focused:hover .button-new:hover i,
-.row-view-new.focused > *:nth-child(2n+1) > .row.focused:hover .button-new:hover i,
-.row-view-new.focused .row.focused .button-new:focus i,
-.row-view-new.focused > *:nth-child(2n+1) > .row.focused .button-new:focus i,
-.row-view-new.focused .row.focused:hover .button-new:focus i,
-.row-view-new.focused > *:nth-child(2n+1) > .row.focused:hover .button-new:focus i {
-  background-color: #ffa011;
-  color: #fff;
-}
-.row-view-new.focused .row.focused .button-new:hover::before,
-.row-view-new.focused > *:nth-child(2n+1) > .row.focused .button-new:hover::before,
-.row-view-new.focused .row.focused:hover .button-new:hover::before,
-.row-view-new.focused > *:nth-child(2n+1) > .row.focused:hover .button-new:hover::before,
-.row-view-new.focused .row.focused .button-new:focus::before,
-.row-view-new.focused > *:nth-child(2n+1) > .row.focused .button-new:focus::before,
-.row-view-new.focused .row.focused:hover .button-new:focus::before,
-.row-view-new.focused > *:nth-child(2n+1) > .row.focused:hover .button-new:focus::before {
-  background: #fff;
 }
 .home {
   background: #579532;
