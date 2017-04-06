@@ -17,8 +17,8 @@
       <textarea class="field" cc-active cc-activate-on-focus cc-deactivate-on-blur tabindex="1" [(ngModel)]="body"></textarea>
     </cc-validatable>
   </div>
-  <div class="actions"> <!-- [disabled]="noRecipients" -->
-    <a class="button-new button-new-right" cc-active cc-activate-on-focus [tabindex]="1" (click)="send()"><i class="icon-mail-dark"></i>Send</a>
+  <div class="actions">
+    <button class="button-new button-new-right" [disabled]="noRecipients" cc-active cc-activate-on-focus [tabindex]="1" (click)="send()"><i class="icon-mail-dark"></i>Send</button>
     <a class="button-new button-new-right" cc-active cc-activate-on-focus [tabindex]="1" [routerLink]="cancelLinkParams"><i class="icon-cancel"></i>Cancel</a>
   </div>  
 </div>

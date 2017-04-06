@@ -9,8 +9,8 @@
       [tabindex]="tabindex">
     </cc-round-customers>
   </div>
-  <div class="actions">           <!-- [disabled]="!canEmail" -->
-    <a class="button-new button-new-right" cc-active cc-activate-on-focus [tabindex]="tabindex" [routerLink]="['../Round', {roundId: round.id}, 'Email']"><i class="icon-mail-dark"></i>Email</a>
+  <div class="actions">
+    <button class="button-new button-new-right" [disabled]="!canEmail" cc-active cc-activate-on-focus [tabindex]="tabindex" [routerLink]="['../Round', {roundId: round.id}, 'Email']"><i class="icon-mail-dark"></i>Email</button>
     <a class="button-new button-new-right" cc-active cc-activate-on-focus [tabindex]="tabindex" [routerLink]="['../Round', {roundId: round.id}, 'Details']"><i class="icon-edit"></i>Edit</a>
     <a class="button-new button-new-right" cc-active cc-activate-on-focus [tabindex]="tabindex" (click)="onDelete()"><i class="icon-trash"></i>Delete</a>
   </div>

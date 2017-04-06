@@ -65,12 +65,12 @@ select {
     height: 80px;
   }
 
-  button.top-level {
-    position: absolute;
-    top:-83px;
-    height: 83px;
-    right:0;
-  }
+  // button.top-level {
+  //   position: absolute;
+  //   top:-83px;
+  //   height: 83px;
+  //   right:0;
+  // }
 
   p {
     margin-top:20px;
@@ -111,11 +111,11 @@ select {
         width: 66px;
         height: 83px;
 
-        button, a.button {
-          position: absolute;
-          height:100%;
-          top:0;
-        }
+        // button, a.button {
+        //   position: absolute;
+        //   height:100%;
+        //   top:0;
+        // }
       }
     }
 
@@ -128,15 +128,15 @@ select {
 
 .focused {
   .row {
-    button, a.button {
-      .button(outline; small; darken(@itemHoverColor, 2%));
-    }
+    // button, a.button {
+    //   .button(outline; small; darken(@itemHoverColor, 2%));
+    // }
 
     &.focused {
       background: @itemHoverColor;
-      button, a.button {
-        .button(outline; small; @highlight);
-      }
+      // button, a.button {
+      //   .button(outline; small; @highlight);
+      // }
     }
     &.focused:hover {
       background: @itemHoverColor;
@@ -251,9 +251,9 @@ select {
   &.focused, &:hover {
     background: @itemHoverColor;
     .row {
-      button, a.button {
-        .button(outline; small; @highlight);
-      }
+      // button, a.button {
+      //   .button(outline; small; @highlight);
+      // }
     }
   }
 
@@ -1184,6 +1184,17 @@ input[type="text"].price {
   }
 }
 
+button.button-new {
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  &[disabled] {
+    cursor: inherit;
+  }
+}
+
 .button-new {
   @outerSize: 24px;
   @outerPadding: 2px;
@@ -1226,6 +1237,15 @@ input[type="text"].price {
   i.icon-add {
     .buttonIconSize(14px);
     .buttonIconNudge(0px; 0.5px);
+  }
+}
+
+button.button-new {
+  &[disabled] {
+    cursor: inherit;
+    &, &:hover, &:focus {
+     .buttonNewColors(#aaa; #bbb; transparent; #bbb);
+    }
   }
 }
 
@@ -1278,7 +1298,7 @@ input[type="text"].price {
         clear: right;
         margin-top: 20px;
 
-        &:first-of-type {
+        &:first-child {
           margin-top: 0px;
         }
       }
