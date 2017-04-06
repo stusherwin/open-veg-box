@@ -11,9 +11,6 @@ export class BoxProductRemoveComponent implements AfterViewInit {
   @Input()
   editId: string;
 
-  @Input()
-  tabindex: number;
-
   @ViewChild('remove')
   removeBtn: ElementRef
 

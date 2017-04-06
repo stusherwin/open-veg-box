@@ -20,7 +20,7 @@ import { ValidatableComponent } from './validatable.component';
         </div>
       </div>
     </div>
-    <input type="text" *ngIf="editing && catchTabAway" [tabindex]="tabindex" style="position: absolute; left: -10000px" (focus)="onDeactivate()" />
+    <input type="text" *ngIf="editing && catchTabAway" tabindex="1" style="position: absolute; left: -10000px" (focus)="onDeactivate()" />
   `
 })
 export class EditableValueComponent implements AfterViewInit {
@@ -32,9 +32,6 @@ export class EditableValueComponent implements AfterViewInit {
 
   @Input()
   catchTabAway: boolean
-
-  @Input()
-  tabindex: number
 
   @Input()
   okOnEnter: boolean = true

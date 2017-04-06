@@ -8,16 +8,12 @@
 <div class="loading-indicator" *ngIf="!loaded"><i class="icon-spin3 animate-spin"></i></div>
 <p *ngIf="loaded && !boxes.length">There are no boxes yet.</p>
 <div class="row-view-new" cc-active [class.focused]="focused" (activate)="focused = true" (deactivate)="focused = false">
-  <cc-box-add #add
-    (add)="onAdd($event)"
-    [tabindex]="1">
-  </cc-box-add>
+  <cc-box-add #add (add)="onAdd($event)"></cc-box-add>
   <cc-box *ngFor="let b of boxes; let i = index"
     [box]="b"
     [products]="products"
     [productNameWidth]="productNameWidth"
     [productQuantityWidth]="productQuantityWidth"
-    [tabindex]="i + 1"
     (delete)="onDelete($event)"
     (update)="onUpdate($event)"
     (productAdd)="onProductAdd($event)"

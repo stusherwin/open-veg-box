@@ -19,7 +19,4 @@ export class CustomerComponent {
 
   @Input()
   model: CustomerModel;
-
-  @Input()
-  tabindex: number;
 }

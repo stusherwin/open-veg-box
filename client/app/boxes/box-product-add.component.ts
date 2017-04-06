@@ -31,9 +31,6 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit, OnChanges 
   productQuantityWidth: number;
 
   @Input()
-  tabindex: number;
-
-  @Input()
   text: string;
 
   @ViewChildren('select')

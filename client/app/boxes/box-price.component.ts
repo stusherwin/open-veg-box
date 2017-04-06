@@ -18,7 +18,7 @@ import { NumericDirective } from '../shared/numeric.directive'
       <edit>
         &pound;
         <cc-validatable [valid]="editingValue > 0" message="Price should be a number greater than 0">
-          <input type="text" #input class="input price" cc-numeric fixedDecimals="2" [(value)]="editingValue" [tabindex]="tabindex" (focus)="startEdit()" cc-active cc-activate-on-focus />
+          <input type="text" #input class="input price" cc-numeric fixedDecimals="2" [(value)]="editingValue" tabindex="1" (focus)="startEdit()" cc-active cc-activate-on-focus />
         </cc-validatable>
       </edit>
     </cc-editable-value>
@@ -29,9 +29,6 @@ export class BoxPriceComponent implements OnInit, AfterViewInit {
 
   @Input()
   value: number;
-
-  @Input()
-  tabindex: number;
 
   @ViewChild('input')
   input: ElementRef;

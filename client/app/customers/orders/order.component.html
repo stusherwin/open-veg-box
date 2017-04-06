@@ -1,11 +1,9 @@
 <div class="order">
   <cc-order-section heading="Boxes" itemName="box"
-    [model]="model.boxes"
-    [tabindex]="(tabindex * 2) + 1">
+    [model]="model.boxes">
   </cc-order-section>
   <cc-order-section heading="Extra Products" itemName="product"
-    [model]="model.products"
-    [tabindex]="(tabindex * 2) + 1">
+    [model]="model.products">
   </cc-order-section>
   <div class="order-item order-heading"
       cc-distribute-width-sum="name,quantity,total" [padding]="orderItemPadding * 2">

@@ -28,9 +28,6 @@ export class BoxAddComponent {
   @ViewChild('add')
   addButton: ElementRef;
 
-  @Input()
-  tabindex: number;
-
   @ViewChild('active')
   active: ActiveElementDirective;
 

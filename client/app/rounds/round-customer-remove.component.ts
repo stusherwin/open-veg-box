@@ -7,9 +7,6 @@ import { ActiveElementDirective, ActiveService, ActivateOnFocusDirective, Deacti
   directives: [ActivateOnFocusDirective, ActiveElementDirective, DeactivateOnBlurDirective]
 })
 export class RoundCustomerRemoveComponent {
-  @Input()
-  tabindex: number;
-
   @ViewChild('remove')
   removeBtn: ElementRef
 

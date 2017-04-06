@@ -6,7 +6,7 @@
   <edit>
     <span class="box-product-quantity-each" *ngIf="unitType == 'each'">x</span>
     <cc-validatable [valid]="editingValue > 0" message="Quantity should be a number greater than 0">
-      <input type="text" #input cc-numeric maxDecimals="3" [(value)]="editingValue" cc-active cc-activate-on-focus [tabindex]="tabindex" (focus)="onFocus()" />
+      <input type="text" #input cc-numeric maxDecimals="3" [(value)]="editingValue" cc-active cc-activate-on-focus tabindex="1" (focus)="onFocus()" />
     </cc-validatable>
     <span class="box-product-quantity-perkg" *ngIf="unitType == 'perKg'">Kg</span>
   </edit>

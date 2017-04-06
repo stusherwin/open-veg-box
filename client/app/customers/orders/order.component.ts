@@ -26,9 +26,6 @@ export class OrderComponent implements OnInit {
   @Input()
   customerOrder: CustomerOrderModel;
 
-  @Input()
-  tabindex: number;
-
   constructor(private orderService: OrderService) {
   }
 

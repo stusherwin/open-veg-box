@@ -20,9 +20,6 @@ export class ProductComponent {
   @Input()
   product: Product;
 
-  @Input()
-  tabindex: number;
-
   @ViewChild('active')
   active: ActiveElementDirective;
 

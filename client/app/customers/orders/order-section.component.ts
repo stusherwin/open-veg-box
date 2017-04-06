@@ -25,9 +25,6 @@ export class OrderSectionComponent implements OnInit {
   model: OrderSectionModel
 
   @Input()
-  tabindex: number;
-
-  @Input()
   heading: string;
 
   @Input()

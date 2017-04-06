@@ -29,9 +29,6 @@ export class ProductAddComponent {
   @ViewChild('active')
   active: ActiveElementDirective;
 
-  @Input()
-  tabindex: number;
-
   @Output()
   add = new EventEmitter<Product>();
 

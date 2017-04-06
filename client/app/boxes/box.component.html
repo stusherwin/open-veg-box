@@ -1,12 +1,11 @@
 <div class="row" [class.focused]="rowFocused" #active=cc-active cc-active (activate)="rowFocused = true" (deactivate)="rowFocused = false">
   <div class="details">
-    <cc-heading #boxName [(value)]="box.name" (update)="onUpdate()" [tabindex]="1"></cc-heading>
+    <cc-heading #boxName [(value)]="box.name" (update)="onUpdate()"></cc-heading>
     <div class="flex">
       <div class="price-detail">
         <cc-box-price
           [(value)]="box.price"
-          (update)="onUpdate()"
-          [tabindex]="1">
+          (update)="onUpdate()">
         </cc-box-price>
       </div>
       <div></div>
@@ -15,14 +14,13 @@
       editId="bp{{box.id}}"
       [value]="box.products"
       [products]="products"
-      [tabindex]="1"
       (add)="onProductAdd($event)"
       (update)="onProductUpdate($event)"
       (remove)="onProductRemove($event)">
     </cc-box-products>
   </div>
   <div class="actions">
-    <button class="button-new button-new-right" cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="onDelete()" [tabindex]="1">
+    <button class="button-new button-new-right" cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="onDelete()" tabindex="1">
       <i class="icon-trash"></i>Delete
     </button>
   </div>

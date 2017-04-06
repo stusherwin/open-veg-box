@@ -33,9 +33,6 @@ export class RoundCustomersComponent implements AfterViewChecked {
   @Input()
   unusedCustomers: Customer[] = [];
 
-  @Input()
-  tabindex: number;
-
   @ViewChild('add')
   addComponent: RoundCustomerAddComponent
 

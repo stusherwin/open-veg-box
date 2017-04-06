@@ -8,12 +8,9 @@
 <div class="loading-indicator" *ngIf="!loaded"><i class="icon-spin3 animate-spin"></i></div>
 <p *ngIf="loaded && !customers.length">There are no customers yet.</p>
 <div class="row-view-new" cc-active (activate)="focused = true" (deactivate)="focused = false" [class.focused]="focused">
-  <cc-customer-add #add
-                   [model]="addModel"
-                   [tabindex]="1">
+  <cc-customer-add #add [model]="addModel">
   </cc-customer-add>
   <cc-customer *ngFor="let c of customers; let i = index"
-               [model]="c"
-               [tabindex]="1">
+               [model]="c">
   </cc-customer>
 </div>

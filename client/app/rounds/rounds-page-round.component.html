@@ -1,17 +1,16 @@
 <div class="row" #active=cc-active cc-active [class.focused]="rowFocused" (activate)="rowFocused = true" (deactivate)="rowFocused = false">
   <div class="details">
-    <cc-heading #roundName [(value)]="round.name" (update)="onUpdate()" [tabindex]="tabindex"></cc-heading>
+    <cc-heading #roundName [(value)]="round.name" (update)="onUpdate()"></cc-heading>
     <cc-round-customers
       [(value)]="round.customers"
       (add)="onCustomerAdd($event)" 
       (remove)="onCustomerRemove($event)"
-      [unusedCustomers]="unusedCustomers"
-      [tabindex]="tabindex">
+      [unusedCustomers]="unusedCustomers">
     </cc-round-customers>
   </div>
   <div class="actions">
-    <button class="button-new button-new-right" [disabled]="!canEmail" cc-active cc-activate-on-focus [tabindex]="tabindex" [routerLink]="['../Round', {roundId: round.id}, 'Email']"><i class="icon-mail-dark"></i>Email</button>
-    <a class="button-new button-new-right" cc-active cc-activate-on-focus [tabindex]="tabindex" [routerLink]="['../Round', {roundId: round.id}, 'Details']"><i class="icon-edit"></i>Edit</a>
-    <a class="button-new button-new-right" cc-active cc-activate-on-focus [tabindex]="tabindex" (click)="onDelete()"><i class="icon-trash"></i>Delete</a>
+    <button class="button-new button-new-right" [disabled]="!canEmail" cc-active cc-activate-on-focus tabindex="1" [routerLink]="['../Round', {roundId: round.id}, 'Email']"><i class="icon-mail-dark"></i>Email</button>
+    <a class="button-new button-new-right" cc-active cc-activate-on-focus tabindex="1" [routerLink]="['../Round', {roundId: round.id}, 'Details']"><i class="icon-edit"></i>Edit</a>
+    <a class="button-new button-new-right" cc-active cc-activate-on-focus tabindex="1" (click)="onDelete()"><i class="icon-trash"></i>Delete</a>
   </div>
 </div>

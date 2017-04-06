@@ -27,9 +27,6 @@ export class OrderItemQuantityComponent {
   @Input()
   editId: string;
 
-  @Input()
-  tabindex: number;
-
   @ViewChild('input')
   input: ElementRef
 

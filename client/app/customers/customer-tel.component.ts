@@ -21,7 +21,7 @@ import { DefaultToPipe } from '../shared/pipes'
       <edit>
         <div class="detail-marker"><i class="icon-phone"></i></div>
         <div class="detail-edit">
-          <input type="text" #input [(ngModel)]="editingValue" cc-active cc-activate-on-focus [tabindex]="tabindex" (focus)="startEdit()" />
+          <input type="text" #input [(ngModel)]="editingValue" cc-active cc-activate-on-focus tabindex="1" (focus)="startEdit()" />
         </div>
       </edit>
     </cc-editable-value>
@@ -35,9 +35,6 @@ export class CustomerTelComponent implements OnInit {
 
   @ViewChild('editable')
   editable: EditableValueComponent
-
-  @Input()
-  tabindex: number;
 
   @Input()
   value: string;

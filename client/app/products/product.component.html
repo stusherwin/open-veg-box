@@ -1,15 +1,15 @@
 <div class="row" #active=cc-active cc-active [class.focused]="rowFocused" (activate)="rowFocused = true" (deactivate)="rowFocused = false">
   <div class="details">
-    <cc-heading #productName [(value)]="product.name" (update)="onUpdate()" [tabindex]="1"></cc-heading>
+    <cc-heading #productName [(value)]="product.name" (update)="onUpdate()"></cc-heading>
     <div class="flex">
       <div class="price-detail">
-        <cc-product-price [(price)]="product.price" [(unitType)]="product.unitType" (update)="onUpdate()" [tabindex]="1"></cc-product-price>
+        <cc-product-price [(price)]="product.price" [(unitType)]="product.unitType" (update)="onUpdate()"></cc-product-price>
       </div>  
       <div></div>
     </div>
   </div>
   <div class="actions">
-    <button class="button-new button-new-right" cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="onDelete()" [tabindex]="1">
+    <button class="button-new button-new-right" cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="onDelete()" tabindex="1">
       <i class="icon-trash"></i>Delete
     </button>
   </div>

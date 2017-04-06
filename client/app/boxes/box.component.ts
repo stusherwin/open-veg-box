@@ -28,9 +28,6 @@ export class BoxComponent {
   box: BoxWithProducts;
 
   @Input()
-  tabindex: number;
-
-  @Input()
   products: Product[];
 
   @ViewChild('active')

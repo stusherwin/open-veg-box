@@ -26,9 +26,6 @@ export class CustomerAddComponent implements OnInit {
   addButton: ElementRef;
 
   @Input()
-  tabindex: number;
-
-  @Input()
   showAddMessage: boolean;
 
   @Input()

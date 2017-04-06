@@ -21,7 +21,7 @@ import { SingleLinePipe, PreserveLinesPipe, DefaultToPipe } from '../shared/pipe
       <edit>
         <div class="detail-marker"><i class="icon-home"></i></div>
         <div class="detail-edit">
-          <textarea #textarea [(ngModel)]="editingValue" cc-active cc-activate-on-focus [tabindex]="tabindex" (focus)="startEdit()"></textarea>
+          <textarea #textarea [(ngModel)]="editingValue" cc-active cc-activate-on-focus tabindex="1" (focus)="startEdit()"></textarea>
         </div>
       </edit>
     </cc-editable-value>
@@ -32,9 +32,6 @@ export class CustomerAddressComponent implements OnInit {
 
   @Input()
   value: string;
-
-  @Input()
-  tabindex: number;
 
   @ViewChild('textarea')
   textarea: ElementRef;

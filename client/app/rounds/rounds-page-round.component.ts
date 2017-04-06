@@ -26,9 +26,6 @@ export class RoundsPageRoundComponent {
   round: Round;
 
   @Input()
-  tabindex: number;
-
-  @Input()
   unusedCustomers: RoundCustomer[];
 
   @Output()

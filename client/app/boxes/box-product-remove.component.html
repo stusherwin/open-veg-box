@@ -1,7 +1,7 @@
 <a #remove
   class="show-on-edit"
   cc-active cc-activate-on-focus cc-deactivate-on-blur (activate)="onActivate()" (deactivate)="onDeactivate()"
-  [tabindex]="tabindex"
+  tabindex="1"
   (click)="onClick(false)"
   (keydown)="onKeyDown($event)"><i class="icon-trash"></i>
 </a>

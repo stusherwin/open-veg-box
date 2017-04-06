@@ -28,9 +28,6 @@ export class RoundsPageAddComponent {
   @ViewChild('active')
   active: ActiveElementDirective;
 
-  @Input()
-  tabindex: number;
-
   @Output()
   add = new EventEmitter<Round>();
 

@@ -2,12 +2,12 @@
   <div class="details" [class.invalid]="!valid">
     <div class="round-name">
       <cc-validatable [valid]="!!round.name.length" message="Name should not be empty">
-        <input #roundName placeholder="New Round" type="text" [(ngModel)]="round.name" [tabindex]="1" cc-active cc-activate-on-focus />
+        <input #roundName placeholder="New Round" type="text" [(ngModel)]="round.name" tabindex="1" cc-active cc-activate-on-focus />
       </cc-validatable>
     </div>
   </div>
   <div class="actions">
-    <a class="button-new button-new-right" cc-active cc-activate-on-focus [tabindex]="1" (click)="completeAdd()"><i class="icon-ok"></i>OK</a>
-    <a class="button-new button-new-right" cc-active cc-activate-on-focus [tabindex]="1" (click)="cancelAdd()"><i class="icon-cancel"></i>Cancel</a>
+    <a class="button-new button-new-right" cc-active cc-activate-on-focus tabindex="1" (click)="completeAdd()"><i class="icon-ok"></i>OK</a>
+    <a class="button-new button-new-right" cc-active cc-activate-on-focus tabindex="1" (click)="cancelAdd()"><i class="icon-cancel"></i>Cancel</a>
   </div>
 </div>

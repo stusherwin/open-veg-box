@@ -12,14 +12,12 @@
           editId="{{editId}}:q:{{p.id}}"
           [value]="p.quantity"
           [unitType]="p.unitType"
-          [tabindex]="tabindex"
           (update)="onProductQuantityUpdate(p.id, $event)">
         </cc-box-product-quantity>
       </td>
       <td>
         <cc-box-product-remove #remove
           editId="{{editId}}:r:{{p.id}}"
-          [tabindex]="tabindex" 
           (remove)="onRemove(p, $event)">
         </cc-box-product-remove>
       </td>
@@ -32,7 +30,6 @@
       [products]="unusedProducts"
       [productNameWidth]="productNameWidth + productNamePadding"
       [productQuantityWidth]="productQuantityWidth + productQuantityPadding"
-      [tabindex]="tabindex"
       text="Add {{!value.length? 'a' : 'another'}} product..."
       (add)="onProductAdd($event)">
     </cc-box-product-add>

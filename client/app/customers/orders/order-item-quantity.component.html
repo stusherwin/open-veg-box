@@ -18,7 +18,7 @@
         class="inputx pricex"
         cc-numeric maxDecimals="3" [(value)]="editable.editingValue" (valueChange)="onEditingValueChange($event)"
         cc-active cc-activate-on-focus
-        [tabindex]="tabindex"
+        tabindex="1"
         (focus)="editable.startEdit()" />
     </cc-validatable>
     <span class="box-product-quantity-perkg" [style.visibility]="unitType == 'perKg' ? 'visible' : 'hidden'">Kg</span>

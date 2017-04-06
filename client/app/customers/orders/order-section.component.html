@@ -24,8 +24,7 @@
         [(value)]="item.quantity"
         (valueChange)="item.updateQuantity($event);"
         (editingValueChange)="item.modifyQuantity($event);"
-        [unitType]="item.unitType"
-        [tabindex]="tabindex">
+        [unitType]="item.unitType">
       </cc-order-item-quantity>
     </div><!--
   --><div class="order-item-part order-item-total"
@@ -39,7 +38,7 @@
       <a #remove
         class="show-on-edit"
         cc-active cc-activate-on-focus cc-deactivate-on-blur
-        [tabindex]="tabindex"
+        tabindex="1"
         (click)="onOrderItemRemove(item)"
         (keydown.Enter)="onOrderItemRemove(item, true)"><i class="icon-trash"></i>
       </a>
@@ -51,7 +50,6 @@
         className="order-item order-item-add"
         [editing]="editing"
         [catchTabAway]="model.itemsAvailable.length > 1"
-        [tabindex]="tabindex"
         (start)="onAddStart()"
         (ok)="onAddOk($event)"
         (cancel)="onAddCancel()">
@@ -65,7 +63,7 @@
         --><div class="order-item-part show-on-edit">
             <a #add
               cc-active cc-activate-on-focus cc-deactivate-on-blur
-              [tabindex]="tabindex"
+              tabindex="1"
               (focus)="addFocused = true"
               (blur)="addFocused = false"
               (keydown.Enter)="editable.startEdit()"><i class="icon-add"></i>
