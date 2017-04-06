@@ -677,13 +677,16 @@ h4 {
   background-color: #ff8f1d;
   color: #444;
 }
-.section-header a.button-new.selected:hover {
+.section-header a.button-new.selected:hover,
+.section-header a.button-new.selected:focus {
   color: #ff8f1d;
 }
-.section-header a.button-new.selected:hover::before {
+.section-header a.button-new.selected:hover::before,
+.section-header a.button-new.selected:focus::before {
   border-color: #ff8f1d;
 }
-.section-header a.button-new.selected:hover i {
+.section-header a.button-new.selected:hover i,
+.section-header a.button-new.selected:focus i {
   background-color: #ff8f1d;
   color: #444;
 }
@@ -1336,6 +1339,20 @@ select {
 .email-edit .recipients li {
   margin-bottom: 5px;
 }
+.email-edit .actions {
+  padding-bottom: 20px;
+  padding-top: 5px;
+}
+.email-edit .actions::after {
+  display: block;
+  clear: both;
+  content: ' ';
+  height: 0px;
+}
+.email-edit .actions .button-new {
+  float: right;
+  margin-left: 20px;
+}
 .email-edit .row-view {
   margin-top: -2px;
   margin-right: -10px;
@@ -1744,6 +1761,12 @@ select:-moz-focusring {
   color: transparent;
   text-shadow: 0 0 0 #aaa;
 }
+.clear-fix::after {
+  display: block;
+  clear: both;
+  content: ' ';
+  height: 0px;
+}
 .width-test {
   position: absolute;
   left: -10000px;
@@ -1908,7 +1931,7 @@ input[type="text"].price {
 }
 .box-products::after {
   display: block;
-  clear: left;
+  clear: both;
   content: ' ';
   height: 0px;
 }
@@ -2009,7 +2032,7 @@ input[type="text"].price {
 }
 .round-customers::after {
   display: block;
-  clear: left;
+  clear: both;
   content: ' ';
   height: 0px;
 }
@@ -2082,7 +2105,7 @@ input[type="text"].price {
 }
 .customer-details .customer-detail::after {
   display: block;
-  clear: left;
+  clear: both;
   content: ' ';
   height: 0px;
 }
@@ -2287,7 +2310,7 @@ input[type="text"].price {
 }
 .order .order-item::after {
   display: block;
-  clear: left;
+  clear: both;
   content: ' ';
   height: 0px;
 }

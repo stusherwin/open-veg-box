@@ -232,6 +232,17 @@ select {
     }
   }
 
+  .actions {
+    .boxProductClearFix;
+    padding-bottom: 20px;
+    padding-top: 5px;
+    
+    .button-new {
+      float:right;
+      margin-left: 20px
+    }
+  }
+
   .row-view {
     margin-top: -2px;
     margin-right: -10px;
@@ -285,10 +296,14 @@ select:-moz-focusring {
 .boxProductClearFix() {
   &::after {
     display: block;
-    clear: left;
+    clear: both;
     content: ' ';
     height: 0px;
   }
+}
+
+.clear-fix {
+  .boxProductClearFix;
 }
 
 

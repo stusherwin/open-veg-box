@@ -102,3 +102,5 @@ TODO (now)
 * Use distribute-width on order-list page
 * Loading component (content when loaded)
 * Email page should take cancel link route as input
+* Disable/enable links?
+* Email invalid icons out of alignment

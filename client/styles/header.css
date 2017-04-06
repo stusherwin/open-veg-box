@@ -206,13 +206,16 @@
   background-color: #ff8f1d;
   color: #444;
 }
-.section-header a.button-new.selected:hover {
+.section-header a.button-new.selected:hover,
+.section-header a.button-new.selected:focus {
   color: #ff8f1d;
 }
-.section-header a.button-new.selected:hover::before {
+.section-header a.button-new.selected:hover::before,
+.section-header a.button-new.selected:focus::before {
   border-color: #ff8f1d;
 }
-.section-header a.button-new.selected:hover i {
+.section-header a.button-new.selected:hover i,
+.section-header a.button-new.selected:focus i {
   background-color: #ff8f1d;
   color: #444;
 }
