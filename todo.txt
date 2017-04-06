@@ -106,3 +106,6 @@ TODO (now)
 * Cancel out of add should focus add button
 * Save should start a new add
 * Rename Save to OK or Add? 'Add' icon?
+* Padding around add control
+* Section header buttons tab from right to left (floated right)
+* Sort out tabindexes

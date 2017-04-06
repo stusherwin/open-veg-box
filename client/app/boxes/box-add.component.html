@@ -1,29 +1,23 @@
 <div class="row add-mode" *ngIf="adding" [class.focused]="rowFocused" #active=cc-active cc-active (activate)="onActivate()" (deactivate)="onDeactivate()">
-  <div class="actions">
-    <div class="action">
-      <button cc-active cc-activate-on-focus (click)="completeAdd()" [tabindex]="(tabindex * 2) + 2">
-        <div class="icon"><i class="icon-ok"></i></div>
-        <span>Save</span>
-      </button>  
-    </div>
-    <div class="action">
-      <button cc-active cc-activate-on-focus (click)="cancelAdd()" [tabindex]="(tabindex * 2) + 2">
-        <div class="icon"><i class="icon-cancel"></i></div>
-        <span>Cancel</span>
-      </button>  
-    </div>
-  </div>
   <div class="details box-add" [class.invalid]="!valid">
     <div class="box-name">
       <cc-validatable [valid]="!!box.name.length" message="Name should not be empty">
-        <input #boxName placeholder="New Box" type="text" [(ngModel)]="box.name" [tabindex]="(tabindex * 2) + 1" cc-active cc-activate-on-focus />
+        <input #boxName placeholder="New Box" type="text" [(ngModel)]="box.name" [tabindex]="1" cc-active cc-activate-on-focus />
       </cc-validatable>
     </div>
     <div style="margin: 5px 0">
       <span style="display: inline-block">&pound;</span>
       <cc-validatable [valid]="box.price > 0" message="Price should be a number greater than 0">
-        <input type="text" #input class="input price" cc-numeric fixedDecimals="2" [(value)]="box.price" [tabindex]="(tabindex * 2) + 1" cc-active cc-activate-on-focus />
+        <input type="text" #input class="input price" cc-numeric fixedDecimals="2" [(value)]="box.price" [tabindex]="1" cc-active cc-activate-on-focus />
       </cc-validatable>
     </div>
+  </div>
+  <div class="actions">
+    <button class="button-new button-new-right" cc-active cc-activate-on-focus (click)="completeAdd()" [tabindex]="1">
+      <i class="icon-ok"></i>Save
+    </button>  
+    <button class="button-new button-new-right" cc-active cc-activate-on-focus (click)="cancelAdd()" [tabindex]="1">
+      <i class="icon-cancel"></i>Cancel
+    </button>  
   </div>
 </div>

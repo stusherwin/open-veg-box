@@ -175,6 +175,10 @@
   margin-top: 5px;
   margin-left: 6px;
 }
+.section-header h2 i.icon-box::before {
+  margin-top: 5px;
+  margin-left: 6px;
+}
 .section-header .button-new {
   color: #ddd;
   float: right;
