@@ -170,6 +170,11 @@
   margin-top: 6px;
   margin-left: 5px;
 }
+.section-header h2 i.icon-carrot::before {
+  font-size: 18px;
+  margin-top: 5px;
+  margin-left: 6px;
+}
 .section-header .button-new {
   color: #ddd;
   float: right;

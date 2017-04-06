@@ -402,6 +402,11 @@ h4 {
   margin-top: 6px;
   margin-left: 5px;
 }
+.section-header h2 i.icon-carrot::before {
+  font-size: 18px;
+  margin-top: 5px;
+  margin-left: 6px;
+}
 .section-header .button-new {
   color: #ddd;
   float: right;
@@ -491,70 +496,6 @@ textarea {
 select {
   padding: 1px 0px;
 }
-.row-view {
-  position: relative;
-}
-.row-view .add-button {
-  position: absolute;
-  right: 0;
-  top: -80px;
-  height: 80px;
-}
-.row-view p {
-  margin-top: 20px;
-}
-.row-view *:nth-child(2n) > .row {
-  background: #fafafa;
-}
-.row-view .row {
-  min-height: 83px;
-  border-top: 1px solid #e6e6e6;
-  padding: 0;
-  position: relative;
-}
-.row-view .row.add-mode {
-  border-bottom: 1px solid #e6e6e6;
-}
-.row-view .row.no-border,
-.row-view .row.no-border.add-mode {
-  border: none;
-}
-.row-view .row:hover {
-  background: #fff1dd;
-}
-.row-view .row.no-hover:hover {
-  background: inherit;
-}
-.row-view .row .actions {
-  float: right;
-  height: 30px;
-  padding-right: 4px;
-}
-.row-view .row .actions .action {
-  margin-right: -4px;
-  display: inline-block;
-  width: 66px;
-  height: 83px;
-}
-.row-view .row .details {
-  overflow: hidden;
-  padding: 15px 10px 0px 10px;
-}
-.focused .row.focused {
-  background: #fff1dd;
-}
-.focused .row.focused:hover {
-  background: #fff1dd;
-}
-.focused .row:hover {
-  background: #fffaf1;
-}
-.focused .row .editable-display:hover {
-  background: #fffefc;
-}
-.focused .row.focused .editable-display:hover {
-  background: #fffaf1;
-}
 .price-detail {
   width: 100%;
 }
@@ -625,10 +566,6 @@ select {
 .email-edit .actions .button-new {
   float: right;
   margin-left: 20px;
-}
-.email-edit .row-view {
-  margin-top: -2px;
-  margin-right: -10px;
 }
 .email-edit.invalid .input-wrapper.invalid .icon-warning {
   top: -3px;
