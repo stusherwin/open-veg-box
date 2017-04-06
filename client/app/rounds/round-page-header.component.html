@@ -1,5 +1,5 @@
 <div class="section-header">
-  <a class="button-new button-new-right" [class.selected]="isCurrent(['./Email'])" [routerLink]="['./Email']" tabindex="1"><i class="icon-mail-dark"></i>Email</a>
+  <a class="button-new button-new-right" [class.selected]="isCurrent(['./Email'])" [routerLink]="['./Email', {fromRound: true}]" tabindex="1"><i class="icon-mail-dark"></i>Email</a>
   <a class="button-new button-new-right" [class.selected]="isCurrent(['./OrderList'])" [routerLink]="['./OrderList']" tabindex="1"><i class="icon-basket"></i>Order list</a>
   <a class="button-new button-new-right" [class.selected]="isCurrent(['./ProductList'])" [routerLink]="['./ProductList']" tabindex="1"><i class="icon-carrot"></i>Product list</a>
   <h2><a [routerLink]="['./Details']"><i class="icon-map-signs"></i>{{round?.name}}</a></h2>

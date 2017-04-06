@@ -15,12 +15,16 @@ import { RoundSectionService } from './round-section.component'
 export class EmailPageComponent implements OnInit {
   constructor(private roundService: RoundService,
   @Inject(forwardRef(() => RoundSectionService))
-  private roundSectionService: RoundSectionService) {
+  private roundSectionService: RoundSectionService, private routeParams: RouteParams) {
   }
 
   customerEmails: EmailRecipient[];
+  cancelLinkParams: any[];
 
   ngOnInit() {
     this.customerEmails = this.roundSectionService.round.customers.map(c => new EmailRecipient(c.name, c.email));
+    this.cancelLinkParams = this.routeParams.params['fromRound']
+      ? ['../Details']
+      : ['../../Rounds']
   }
 }

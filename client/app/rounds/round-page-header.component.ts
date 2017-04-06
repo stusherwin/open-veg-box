@@ -16,7 +16,9 @@ export class RoundPageHeaderComponent {
   isCurrent(linkParams: any[]): boolean {
     //router.isRouteActive() isn't working here for some reason :(
     //need to switch to the new router anyway.
-    let pathname = this.router.generate(linkParams).toLinkUrl().replace(/\/$/, '');
-    return window.location.pathname.replace(/\/$/, '') == pathname;
+    let cleanUp = (s:string) => s.replace(/;[^\/]+\/?$/, '');
+    let pathname = cleanUp(this.router.generate(linkParams).toLinkUrl());
+    let currentPathname = cleanUp(window.location.pathname);
+    return currentPathname == pathname;
   }
 }

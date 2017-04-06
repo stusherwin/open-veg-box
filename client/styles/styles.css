@@ -570,7 +570,7 @@ select {
   clear: both;
 }
 .email-edit {
-  background: #fafafa;
+  background: #fff1dd;
   margin-left: 0px;
   padding: 10px;
   padding-left: 12px;
@@ -629,10 +629,6 @@ select {
 .email-edit .row-view {
   margin-top: -2px;
   margin-right: -10px;
-}
-.email-edit.focused,
-.email-edit:hover {
-  background: #fff1dd;
 }
 .email-edit.invalid .input-wrapper.invalid .icon-warning {
   top: -3px;

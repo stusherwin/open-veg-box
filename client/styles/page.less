@@ -186,7 +186,7 @@ select {
 
 .email-edit {
   @labelWidth: 70px;
-  background: #fafafa;
+  background: @itemHoverColor;
 
   margin-left: 0px;
   padding: 10px;
@@ -246,15 +246,6 @@ select {
   .row-view {
     margin-top: -2px;
     margin-right: -10px;
-  }
-
-  &.focused, &:hover {
-    background: @itemHoverColor;
-    .row {
-      // button, a.button {
-      //   .button(outline; small; @highlight);
-      // }
-    }
   }
 
   &.invalid {
