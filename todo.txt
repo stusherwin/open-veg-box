@@ -109,3 +109,5 @@ TODO (now)
 * Padding around add control
 * Section header buttons tab from right to left (floated right)
 * Sort out tabindexes
+* Rename -new classes
+* Customer email page cancel redirect

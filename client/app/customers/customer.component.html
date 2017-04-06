@@ -1,29 +1,23 @@
 <div class="row" #active=cc-active cc-active [class.focused]="rowFocused" (activate)="rowFocused = true" (deactivate)="rowFocused = false">
-  <div class="actions">
-    <div class="action">
-      <button class="button" [routerLink]="model.emailRouterLink" cc-active cc-activate-on-focus cc-deactivate-on-blur [tabindex]="(tabindex * 2) + 2" [disabled]="!model.email">
-        <div class="icon"><i class="icon-mail-dark"></i></div>
-        <span>Email</span>
-      </button>
-    </div>
-    <div class="action">
-      <button cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="model.delete();active.makeInactive()" [tabindex]="(tabindex * 2) + 2">
-        <div class="icon"><i class="icon-trash"></i></div>
-        <span>Delete</span>
-      </button>
-    </div>
-  </div>
   <div class="details">
-    <cc-heading #customerName [(value)]="model.name" (valueChange)="model.update({name: $event})" [tabindex]="(tabindex * 2) + 1"></cc-heading>
+    <cc-heading #customerName [(value)]="model.name" (valueChange)="model.update({name: $event})" [tabindex]="1"></cc-heading>
 
     <div class="customer-details">  
-      <cc-customer-address [(value)]="model.address" (valueChange)="model.update({address: $event})" [tabindex]="(tabindex * 2) + 1"></cc-customer-address>
-      <cc-customer-email [(value)]="model.email" (valueChange)="model.update({email: $event})" [tabindex]="(tabindex * 2) + 1"></cc-customer-email>
-      <cc-customer-tel [(value)]="model.tel1" (valueChange)="model.update({tel1: $event})" [tabindex]="(tabindex * 2) + 1"></cc-customer-tel>
+      <cc-customer-address [(value)]="model.address" (valueChange)="model.update({address: $event})" [tabindex]="1"></cc-customer-address>
+      <cc-customer-email [(value)]="model.email" (valueChange)="model.update({email: $event})" [tabindex]="1"></cc-customer-email>
+      <cc-customer-tel [(value)]="model.tel1" (valueChange)="model.update({tel1: $event})" [tabindex]="1"></cc-customer-tel>
       <div class="customer-detail-end"></div>
     </div>
 
-    <cc-order [customerOrder]="model.order" [tabindex]="(tabindex * 2) + 1">
+    <cc-order [customerOrder]="model.order" [tabindex]="1">
     </cc-order>
+  </div>
+  <div class="actions">
+      <button class="button-new button-new-right" [routerLink]="model.emailRouterLink" cc-active cc-activate-on-focus cc-deactivate-on-blur [tabindex]="1" [disabled]="!model.email">
+        <i class="icon-mail-dark"></i>Email
+      </button>
+      <button class="button-new button-new-right" cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="model.delete();active.makeInactive()" [tabindex]="1">
+        <i class="icon-trash"></i>Delete
+      </button>
   </div>
 </div>

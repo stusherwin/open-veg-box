@@ -179,6 +179,11 @@
   margin-top: 5px;
   margin-left: 6px;
 }
+.section-header h2 i.icon-person::before {
+  font-size: 17px;
+  margin-top: 4px;
+  margin-left: 6px;
+}
 .section-header .button-new {
   color: #ddd;
   float: right;

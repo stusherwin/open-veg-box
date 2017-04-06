@@ -1,17 +1,19 @@
 <div class="section-header">
-  <a class="new right" (click)="add.startAdd()" tabindex="1"><i class="icon-add"></i>New customer</a>
+  <a class="button-new button-new-right" tabindex="1"
+     cc-active cc-activate-on-focus
+     (click)="add.startAdd()"
+     (keydown.Enter)="add.startAdd()"><i class="icon-add"></i>New customer</a>
   <h2><i class="icon-person"></i>Customers</h2>
 </div>
 <div class="loading-indicator" *ngIf="!loaded"><i class="icon-spin3 animate-spin"></i></div>
 <p *ngIf="loaded && !customers.length">There are no customers yet.</p>
-<div class="row-view" cc-active (activate)="focused = true" (deactivate)="focused = false" [class.focused]="focused">
+<div class="row-view-new" cc-active (activate)="focused = true" (deactivate)="focused = false" [class.focused]="focused">
   <cc-customer-add #add
                    [model]="addModel"
                    [tabindex]="1">
   </cc-customer-add>
   <cc-customer *ngFor="let c of customers; let i = index"
                [model]="c"
-               [tabindex]="i + 1">
+               [tabindex]="1">
   </cc-customer>
-  
 </div>
