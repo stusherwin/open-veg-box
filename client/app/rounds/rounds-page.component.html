@@ -1,5 +1,7 @@
 <div class="section-header">
-  <a class="button-new button-new-right" (click)="add.startAdd()" tabindex="1"><i class="icon-add"></i>New round</a>
+  <a class="button-new button-new-right" tabindex="1"
+     (click)="add.startAdd()"
+     (keydown.Enter)="add.startAdd()"><i class="icon-add"></i>New round</a>
   <h2><i class="icon-map-signs"></i>Rounds</h2>
 </div>
 <div class="loading-indicator" *ngIf="!loaded"><i class="icon-spin3 animate-spin"></i></div>
@@ -12,7 +14,7 @@
   <cc-rounds-page-round *ngFor="let r of rounds; let i = index"
     [round]="r"
     [unusedCustomers]="unusedCustomers"
-    [tabindex]="i + 1"
+    [tabindex]="1"
     (delete)="onDelete($event)"
     (update)="onUpdate($event)"
     (customerAdd)="onCustomerAdd($event)"
