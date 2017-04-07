@@ -1,7 +1,7 @@
-<!--<cc-main-header [showLogout]="false"></cc-main-header>-->
+<h1>open<span>veg</span>box</h1>
 <form>
   <cc-error-notify></cc-error-notify>
-  <p>Enter your account details:</p>
+  <h2>Enter your account details:</h2>
   <div class="form-row">
     <div *ngIf="invalidLogin" class="form-validation-message">Didn't recognise that username or password.</div>
     <label>Username:</label> <input #username type="text" />
@@ -9,18 +9,14 @@
   <div class="form-row">
     <label>Password:</label> <input #password type="password" />
   </div>
-
-  <button type="button" (click)="login(username.value, password.value)">
+  <button class="button-new login" (click)="login(username.value, password.value)">
     <div class="icon"><i class="icon-login"></i></div>
     <span>Log in</span>
   </button>
-
-  <div class="look-around">
-    <p>Don't have an account?</p>
-    <button type="button" (click)="login('guest', '')">
-      <div class="icon"><i class="icon-swing"></i></div>
-      <span>Have a play</span>
-    </button>
-  </div>
-
+  <h2 class="no-account">Don't have an account?</h2>
+  <p>Log in as a guest and have a play around.</p>
+  <button class="button-new play" (click)="login('guest', '')">
+    <div class="icon"><i class="icon-swing"></i></div>
+    <span>Have fun!</span>
+  </button>
 </form>

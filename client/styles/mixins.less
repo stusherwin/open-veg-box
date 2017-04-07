@@ -451,3 +451,12 @@
     top: calc(~"50% - "@iconSize / 2);
   }
 }
+
+.boxProductClearFix() {
+  &::after {
+    display: block;
+    clear: both;
+    content: ' ';
+    height: 0px;
+  }
+}

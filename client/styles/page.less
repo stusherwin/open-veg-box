@@ -171,15 +171,6 @@ select:-moz-focusring {
 @boxProductHover: darken(@highlight, 30%);
 @boxProductFadeout: desaturate(darken(@itemHoverColor, 15%), 40%);
 
-.boxProductClearFix() {
-  &::after {
-    display: block;
-    clear: both;
-    content: ' ';
-    height: 0px;
-  }
-}
-
 .clear-fix {
   .boxProductClearFix;
 }
@@ -1062,17 +1053,6 @@ input[type="text"].price {
   }
 }
 
-button.button-new {
-  padding: 0;
-  background: none;
-  border: none;
-  cursor: pointer;
-
-  &[disabled] {
-    cursor: inherit;
-  }
-}
-
 .button-new {
   @outerSize: 24px;
   @outerPadding: 2px;
@@ -1115,6 +1095,22 @@ button.button-new {
   i.icon-add {
     .buttonIconSize(14px);
     .buttonIconNudge(0px; 0.5px);
+  }
+
+  i.icon-login {
+    .buttonIconNudge(-1px, 0px);
+  }
+}
+
+button.button-new {
+  padding-top: 0;
+  padding-bottom: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  &[disabled] {
+    cursor: inherit;
   }
 }
 

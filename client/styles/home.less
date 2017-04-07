@@ -3,149 +3,52 @@
 
 .home {
   background: @header;
-  box-shadow: none;
-  min-width: 570px;
   padding-top: 120px;
-   
-  .header {
-    top: 0;
-    box-shadow: none;
-    border: none;
-    min-width: 570px;
-    width: 100%;
 
-    .header-border {
-      display: none;
-    }
-    
-    margin: 0 auto;
-
-    nav {
-      display: none;
-    }
-    
-    h1 {
-      display:block;
-      margin-top:30px;
-      margin-bottom: 0;
-      
-      @media @header-side-by-side { 
-        margin-left: auto;
-        margin-right: auto;
-      }
-    }
-  }
-
-  p, label{
-    color: lighten(desaturate(@header, 10%), 40%);
-  }
-
-  form {
-    margin: 0 auto;
-    display:block;
-    overflow: hidden;
-    position:relative;
-    width:438px;
-
-    p {
-      text-align: left;
-      margin-top:40px;
-      margin-left:10px;
-      display: block;
-      float:left;
-      width:330px;
-      margin-bottom:10px;
-    }
-  }
-
-  .form-row {
-    float:left;
-    margin-top:10px;
-    margin-left:10px;
-  }
-
-  .form-validation-message {
-    color:#ffa850;
-    margin-top: 10px;
-    margin-bottom: 10px
-  }
-
-  label {
-    display:block;
-    float:left;
-    font-size:110%;
-    font-weight: 300;
-    width: 85px;
-    height:30px;
-    padding-top:5px;
-  }
-
-  input[type="text"], input[type="password"] {
-    float:left;
-    width: 250px;
-    height:30px;
-    border-radius:3px;
-    border: 1px solid darken(@header, 1.5%);
-    &:focus{
-      outline:0;
-    }
-  }
-
-  p {
-    text-align: center;
-    font-weight:300;
-    font-size: 150%;
-  }
-
-  .look-around {
-    clear: left;
-    padding-top: 30px;
-
-    button {
-      margin-left:15px;
-      margin-top:18px;
-    }
-  }
-
-  .sections {
-    width: 570px;
-    margin: 0 auto;
-  }
-
-  ul {
-    margin-top: 20px;
-
-    &::after {
-      display: block;
-      clear: both;
-      content: '.';
-      height: 0px;
-    }
-
-    li {
-      float: left;
-
-      &:nth-child(1) {
-        margin-left:0px;
-      }
-      
-      &:nth-child(3) {
-        margin-right:0px;
-      }
-    
-      &:nth-child(4) {
-        margin-left:90px;
-      }
-    }
-  }
-}
-
-.home {
   .button-new {
     .buttonNewColors(@col; @col; @header; @col);
 
     &:hover, &:focus {
       .buttonNewColors(white; @header; white; white);
+    }
+  }
+
+  a.heading {
+    display: block;
+    width: 240px;
+    text-decoration: none;
+
+    h1 {
+      position: absolute;
+      left: 5px;
+      top: 10px;
+      bottom: 0;
+      margin: 0;
+      padding: 0;
+      display:block;
+      text-align: left;
+      background-image: url(../img/logo-new-carrot.svg);
+      background-size: 40px;
+      background-repeat: no-repeat;
+      background-position: 5px 3px;
+      padding-left:54px;
+      padding-top: 11px;
+      color: lighten(desaturate(@header, 25%), 55%);
+      
+      span {
+        color:lighten(@carrot, 10%);
+        font-weight: 400;
+      }
+    }
+
+    &:hover, &:focus {
+      h1 {
+        background-image: url(../img/logo-new-carrot-lighter.svg);
+        color: white;
+        span {
+          color: lighten(@carrot, 14%);
+        }
+      }
     }
   }
 
@@ -181,6 +84,14 @@
     position: absolute;
     right: 10px;
     top: 15px;
+  }
+
+  p, label {
+    color: lighten(desaturate(@header, 10%), 50%);
+  }
+
+  p {
+    font-weight:300;
   }
 
   .home-sections {
@@ -286,7 +197,6 @@
         font-size: 20px;
         position: absolute;
         bottom: 20px;
-        text-align: center;
         left: 20px;
         right: 20px;
       }
@@ -311,5 +221,76 @@
         }
       }
     }
+  }
+
+  form {
+    margin: 0 auto;
+    display:block;
+    position:relative;
+    width:438px;
+
+    h2 {
+      color: lighten(desaturate(@header, 10%), 50%);
+      font-weight:300;
+      font-size: 150%;
+      text-align: left;
+      margin-top:40px;
+      margin-left:10px;
+      display: block;
+      margin-bottom:20px;
+    }
+
+    p {
+      margin-left: 10px;
+    }
+  }
+
+  .form-row {
+    .boxProductClearFix;
+    margin-top:10px;
+    margin-left:10px;
+  }
+
+  .form-validation-message {
+    color:#ffa850;
+    margin-top: 10px;
+    margin-bottom: 10px
+  }
+
+  label {
+    display:block;
+    float:left;
+    font-size:110%;
+    font-weight: 300;
+    width: 85px;
+    height:30px;
+    padding-top:5px;
+  }
+
+  input[type="text"], input[type="password"] {
+    float:left;
+    width: 250px;
+    height:30px;
+    border-radius:3px;
+    border: 1px solid darken(@header, 1.5%);
+    &:focus {
+      outline:0;
+    }
+  }
+  
+  .no-account {
+    margin-top: 60px;
+  }
+
+  .login {
+    position: relative;
+    left: 365px;
+    top: -20px;
+  }
+
+  .play {
+    position: relative;
+    left: 365px;
+    top: -13px;
   }
 }

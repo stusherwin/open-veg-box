@@ -10,6 +10,4 @@ import { LogoutComponent } from '../auth/logout.component'
 })
 
 export class HeaderComponent {
-  @Input()
-  showLogout: boolean = true;
 }

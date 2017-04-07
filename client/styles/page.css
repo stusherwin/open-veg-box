@@ -752,15 +752,6 @@ input[type="text"].price {
   right: -8px;
   padding-right: 0px;
 }
-button.button-new {
-  padding: 0;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-button.button-new[disabled] {
-  cursor: inherit;
-}
 .button-new {
   display: block;
   position: relative;
@@ -901,6 +892,20 @@ button.button-new[disabled] {
 .button-new i.icon-add::before {
   margin-top: 0.5px;
   margin-left: 0px;
+}
+.button-new i.icon-login::before {
+  margin-top: 0px;
+  margin-left: -1px;
+}
+button.button-new {
+  padding-top: 0;
+  padding-bottom: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+button.button-new[disabled] {
+  cursor: inherit;
 }
 button.button-new[disabled] {
   cursor: inherit;

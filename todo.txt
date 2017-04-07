@@ -115,4 +115,5 @@ TODO (now)
 * Error notification
 * Rename RoundsPage, CustomersPage to AllRoundsPage etc
 * Redo @media
+  - header nav problems with small screen width
 * Bottom padding on rows

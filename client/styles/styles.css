@@ -1216,15 +1216,6 @@ input[type="text"].price {
   right: -8px;
   padding-right: 0px;
 }
-button.button-new {
-  padding: 0;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-button.button-new[disabled] {
-  cursor: inherit;
-}
 .button-new {
   display: block;
   position: relative;
@@ -1366,6 +1357,20 @@ button.button-new[disabled] {
   margin-top: 0.5px;
   margin-left: 0px;
 }
+.button-new i.icon-login::before {
+  margin-top: 0px;
+  margin-left: -1px;
+}
+button.button-new {
+  padding-top: 0;
+  padding-bottom: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+button.button-new[disabled] {
+  cursor: inherit;
+}
 button.button-new[disabled] {
   cursor: inherit;
 }
@@ -1446,123 +1451,7 @@ button.button-new[disabled]:focus i {
 }
 .home {
   background: #579532;
-  box-shadow: none;
-  min-width: 570px;
   padding-top: 120px;
-}
-.home .header {
-  top: 0;
-  box-shadow: none;
-  border: none;
-  min-width: 570px;
-  width: 100%;
-  margin: 0 auto;
-}
-.home .header .header-border {
-  display: none;
-}
-.home .header nav {
-  display: none;
-}
-.home .header h1 {
-  display: block;
-  margin-top: 30px;
-  margin-bottom: 0;
-}
-@media only screen and (min-width : 780px) {
-  .home .header h1 {
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-.home p,
-.home label {
-  color: #c4dfb4;
-}
-.home form {
-  margin: 0 auto;
-  display: block;
-  overflow: hidden;
-  position: relative;
-  width: 438px;
-}
-.home form p {
-  text-align: left;
-  margin-top: 40px;
-  margin-left: 10px;
-  display: block;
-  float: left;
-  width: 330px;
-  margin-bottom: 10px;
-}
-.home .form-row {
-  float: left;
-  margin-top: 10px;
-  margin-left: 10px;
-}
-.home .form-validation-message {
-  color: #ffa850;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-.home label {
-  display: block;
-  float: left;
-  font-size: 110%;
-  font-weight: 300;
-  width: 85px;
-  height: 30px;
-  padding-top: 5px;
-}
-.home input[type="text"],
-.home input[type="password"] {
-  float: left;
-  width: 250px;
-  height: 30px;
-  border-radius: 3px;
-  border: 1px solid #548f30;
-}
-.home input[type="text"]:focus,
-.home input[type="password"]:focus {
-  outline: 0;
-}
-.home p {
-  text-align: center;
-  font-weight: 300;
-  font-size: 150%;
-}
-.home .look-around {
-  clear: left;
-  padding-top: 30px;
-}
-.home .look-around button {
-  margin-left: 15px;
-  margin-top: 18px;
-}
-.home .sections {
-  width: 570px;
-  margin: 0 auto;
-}
-.home ul {
-  margin-top: 20px;
-}
-.home ul::after {
-  display: block;
-  clear: both;
-  content: '.';
-  height: 0px;
-}
-.home ul li {
-  float: left;
-}
-.home ul li:nth-child(1) {
-  margin-left: 0px;
-}
-.home ul li:nth-child(3) {
-  margin-right: 0px;
-}
-.home ul li:nth-child(4) {
-  margin-left: 90px;
 }
 .home .button-new {
   color: #e0eed8;
@@ -1586,6 +1475,41 @@ button.button-new[disabled]:focus i {
 .home .button-new:focus i {
   background-color: white;
   color: #579532;
+}
+.home a.heading {
+  display: block;
+  width: 240px;
+  text-decoration: none;
+}
+.home a.heading h1 {
+  position: absolute;
+  left: 5px;
+  top: 10px;
+  bottom: 0;
+  margin: 0;
+  padding: 0;
+  display: block;
+  text-align: left;
+  background-image: url(../img/logo-new-carrot.svg);
+  background-size: 40px;
+  background-repeat: no-repeat;
+  background-position: 5px 3px;
+  padding-left: 54px;
+  padding-top: 11px;
+  color: #eff4ec;
+}
+.home a.heading h1 span {
+  color: #ffa850;
+  font-weight: 400;
+}
+.home a.heading:hover h1,
+.home a.heading:focus h1 {
+  background-image: url(../img/logo-new-carrot-lighter.svg);
+  color: white;
+}
+.home a.heading:hover h1 span,
+.home a.heading:focus h1 span {
+  color: #ffb264;
 }
 .home h1 {
   cursor: default;
@@ -1614,6 +1538,13 @@ button.button-new[disabled]:focus i {
   position: absolute;
   right: 10px;
   top: 15px;
+}
+.home p,
+.home label {
+  color: #e0eed8;
+}
+.home p {
+  font-weight: 300;
 }
 .home .home-sections {
   position: absolute;
@@ -1693,7 +1624,6 @@ button.button-new[disabled]:focus i {
   font-size: 20px;
   position: absolute;
   bottom: 20px;
-  text-align: center;
   left: 20px;
   right: 20px;
 }
@@ -1717,6 +1647,74 @@ button.button-new[disabled]:focus i {
 .home .home-sections .home-section:hover i::after,
 .home .home-sections .home-section:focus i::after {
   border-color: white;
+}
+.home form {
+  margin: 0 auto;
+  display: block;
+  position: relative;
+  width: 438px;
+}
+.home form h2 {
+  color: #e0eed8;
+  font-weight: 300;
+  font-size: 150%;
+  text-align: left;
+  margin-top: 40px;
+  margin-left: 10px;
+  display: block;
+  margin-bottom: 20px;
+}
+.home form p {
+  margin-left: 10px;
+}
+.home .form-row {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+.home .form-row::after {
+  display: block;
+  clear: both;
+  content: ' ';
+  height: 0px;
+}
+.home .form-validation-message {
+  color: #ffa850;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.home label {
+  display: block;
+  float: left;
+  font-size: 110%;
+  font-weight: 300;
+  width: 85px;
+  height: 30px;
+  padding-top: 5px;
+}
+.home input[type="text"],
+.home input[type="password"] {
+  float: left;
+  width: 250px;
+  height: 30px;
+  border-radius: 3px;
+  border: 1px solid #548f30;
+}
+.home input[type="text"]:focus,
+.home input[type="password"]:focus {
+  outline: 0;
+}
+.home .no-account {
+  margin-top: 60px;
+}
+.home .login {
+  position: relative;
+  left: 365px;
+  top: -20px;
+}
+.home .play {
+  position: relative;
+  left: 365px;
+  top: -13px;
 }
 .icon i {
   padding-left: 3px;
