@@ -18,24 +18,6 @@
       display: none;
     }
     
-    // .logout-button {
-    //   position: absolute;
-    //   top: 50px;
-    //   right: 10px;
-    //   display: block;
-
-    //   @media @header-side-by-side {
-    //     top: 50px;
-    //     right: 10px;
-    //     .button(solid; home; @header);
-    //     position: absolute;
-
-    //     i {
-    //       padding-top:7px;
-    //     }
-    //   }
-    // }
-
     margin: 0 auto;
 
     nav {
@@ -109,15 +91,6 @@
     }
   }
 
-  // button {
-  //   float: left;
-  //   display: block;
-  //   margin-top:-40px;
-  //   margin-left:10px;
-
-  //   .button(solid; home; @header);
-  // }
-
   p {
     text-align: center;
     font-weight:300;
@@ -163,10 +136,180 @@
       &:nth-child(4) {
         margin-left:90px;
       }
+    }
+  }
+}
 
-      // a {
-      //   .button(solid; large; @header);
-      // }
+.home {
+  .button-new {
+    .buttonNewColors(@col; @col; @header; @col);
+
+    &:hover, &:focus {
+      .buttonNewColors(white; @header; white; white);
+    }
+  }
+
+  h1 {
+    cursor: default;
+    position: absolute;
+    display: block;
+    color: white;
+    @width: 240px;
+    width: @width;
+    left: calc(~"50% - "(@width / 2));
+    top: 10px;
+    bottom: 0;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    background-image: url(../img/logo-new-carrot-lighter.svg);
+    background-size: 40px;
+    background-repeat: no-repeat;
+    background-position: 5px 3px;
+    padding-left:54px;
+    padding-top: 11px;
+
+    span {
+      color: lighten(@carrot, 14%);
+      font-weight: 400;
+    }
+  }
+
+  @col: lighten(desaturate(@header, 10%), 50%);
+
+  .logout {
+    position: absolute;
+    right: 10px;
+    top: 15px;
+  }
+
+  .home-sections {
+    position: absolute;
+    @sectionWidth: 250px;
+    @sectionHeight: 200px;
+    @margin: 50px;
+    @sectionsPerLine: 2;
+    @width: (@sectionWidth * @sectionsPerLine) + (@margin * (@sectionsPerLine - 1));
+    width: @width;
+    left: calc(~"50% - "(@width / 2));
+
+    .home-section {
+      text-decoration: none;
+      position: relative;
+      @background: darken(@header, 5%); 
+      @border: desaturate(lighten(@header, 10%), 10%);
+              @border: darken(@header, 10%);
+        @background: darken(@header, 5%);
+
+      float: left;
+      width: @sectionWidth;
+      height: @sectionHeight;
+      border-radius: 10px;
+      border: 1px solid @border;
+      background: @background;
+      margin-left: @margin;
+      margin-top: @margin;
+
+      &:nth-child(@{sectionsPerLine}n + 1) {
+        margin-left: 0;
+      }
+
+      .remove-first-children-top-margins(@n, @i: 1) when (@i =< @n) {
+        &:nth-child(@{i}) {
+          margin-top: 0;
+        }
+        .remove-first-children-top-margins(@n, (@i + 1));
+      }
+      .remove-first-children-top-margins(@sectionsPerLine);
+
+      text-align: center;
+
+      i {
+        margin-top: 20px;
+        @outerSize: 50px;
+        display: inline-block;
+        @padding: 5px;
+        @size: @outerSize - (@padding * 2);
+        width: @size;
+        height: @size;
+        border-radius: @size;
+        position: relative;
+
+        &::after {
+          display: block;
+          border-radius: @outerSize;
+          border: 1px solid @col;
+          width: @outerSize;
+          height: @outerSize;
+          position: absolute;
+          left: calc(~"50% - "@outerSize / 2);
+          top: calc(~"50% - "@outerSize / 2);
+          content: '.';
+          color: transparent;
+        }
+
+        &::before {
+          color: @col;
+          margin:0;
+          @size: 25px;
+          width: @size;
+          height: @size;
+          font-size: @size;
+          line-height: @size;
+          position: absolute;
+          top: calc(~"50% - "@size / 2);
+          left: calc(~"50% - "@size / 2);
+        }
+
+        &.icon-box::before {
+          margin-left: 1px;
+        }
+
+        &.icon-person::before {
+          margin-left: -1px;
+          margin-top: -2px;
+        }
+
+        &.icon-map-signs::before {
+          margin-top: 1px;
+        }
+      }
+
+      h2 {
+        color: @col;
+        text-transform: uppercase;
+        font-size: 20px;
+        margin-top: 17px;
+      }
+
+      p {
+        font-size: 20px;
+        position: absolute;
+        bottom: 20px;
+        text-align: center;
+        left: 20px;
+        right: 20px;
+      }
+
+      &:hover, &:focus {
+        @background: darken(@header, 8%);
+        background: @background;
+        border-color: darken(@header, 12%);
+        
+        h2 {
+          color: white;
+        }
+
+        i {
+          background: white;
+          &::before {
+            color: @background;
+          }
+          &::after {
+            border-color: white;
+          }
+        }
+      }
     }
   }
 }

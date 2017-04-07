@@ -1564,6 +1564,160 @@ button.button-new[disabled]:focus i {
 .home ul li:nth-child(4) {
   margin-left: 90px;
 }
+.home .button-new {
+  color: #e0eed8;
+}
+.home .button-new::before {
+  border-color: #e0eed8;
+}
+.home .button-new i {
+  background-color: #579532;
+  color: #e0eed8;
+}
+.home .button-new:hover,
+.home .button-new:focus {
+  color: white;
+}
+.home .button-new:hover::before,
+.home .button-new:focus::before {
+  border-color: white;
+}
+.home .button-new:hover i,
+.home .button-new:focus i {
+  background-color: white;
+  color: #579532;
+}
+.home h1 {
+  cursor: default;
+  position: absolute;
+  display: block;
+  color: white;
+  width: 240px;
+  left: calc(50% -  120px);
+  top: 10px;
+  bottom: 0;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  background-image: url(../img/logo-new-carrot-lighter.svg);
+  background-size: 40px;
+  background-repeat: no-repeat;
+  background-position: 5px 3px;
+  padding-left: 54px;
+  padding-top: 11px;
+}
+.home h1 span {
+  color: #ffb264;
+  font-weight: 400;
+}
+.home .logout {
+  position: absolute;
+  right: 10px;
+  top: 15px;
+}
+.home .home-sections {
+  position: absolute;
+  width: 550px;
+  left: calc(50% -  275px);
+}
+.home .home-sections .home-section {
+  text-decoration: none;
+  position: relative;
+  float: left;
+  width: 250px;
+  height: 200px;
+  border-radius: 10px;
+  border: 1px solid #416f25;
+  background: #4c822c;
+  margin-left: 50px;
+  margin-top: 50px;
+  text-align: center;
+}
+.home .home-sections .home-section:nth-child(2n + 1) {
+  margin-left: 0;
+}
+.home .home-sections .home-section:nth-child(1) {
+  margin-top: 0;
+}
+.home .home-sections .home-section:nth-child(2) {
+  margin-top: 0;
+}
+.home .home-sections .home-section i {
+  margin-top: 20px;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+  position: relative;
+}
+.home .home-sections .home-section i::after {
+  display: block;
+  border-radius: 50px;
+  border: 1px solid #e0eed8;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  left: calc(50% -  25px);
+  top: calc(50% -  25px);
+  content: '.';
+  color: transparent;
+}
+.home .home-sections .home-section i::before {
+  color: #e0eed8;
+  margin: 0;
+  width: 25px;
+  height: 25px;
+  font-size: 25px;
+  line-height: 25px;
+  position: absolute;
+  top: calc(50% -  12.5px);
+  left: calc(50% -  12.5px);
+}
+.home .home-sections .home-section i.icon-box::before {
+  margin-left: 1px;
+}
+.home .home-sections .home-section i.icon-person::before {
+  margin-left: -1px;
+  margin-top: -2px;
+}
+.home .home-sections .home-section i.icon-map-signs::before {
+  margin-top: 1px;
+}
+.home .home-sections .home-section h2 {
+  color: #e0eed8;
+  text-transform: uppercase;
+  font-size: 20px;
+  margin-top: 17px;
+}
+.home .home-sections .home-section p {
+  font-size: 20px;
+  position: absolute;
+  bottom: 20px;
+  text-align: center;
+  left: 20px;
+  right: 20px;
+}
+.home .home-sections .home-section:hover,
+.home .home-sections .home-section:focus {
+  background: #457628;
+  border-color: #3c6723;
+}
+.home .home-sections .home-section:hover h2,
+.home .home-sections .home-section:focus h2 {
+  color: white;
+}
+.home .home-sections .home-section:hover i,
+.home .home-sections .home-section:focus i {
+  background: white;
+}
+.home .home-sections .home-section:hover i::before,
+.home .home-sections .home-section:focus i::before {
+  color: #457628;
+}
+.home .home-sections .home-section:hover i::after,
+.home .home-sections .home-section:focus i::after {
+  border-color: white;
+}
 .icon i {
   padding-left: 3px;
   padding-top: 6px;

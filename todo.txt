@@ -108,6 +108,11 @@ TODO (now)
 * Rename Save to OK or Add? 'Add' icon?
 * Padding around add control
 * Section header buttons tab from right to left (floated right)
-* Sort out tabindexes
 * Rename -new classes
 * Customer email page cancel redirect
+* Home sections
+* Editable value buttons
+* Error notification
+* Rename RoundsPage, CustomersPage to AllRoundsPage etc
+* Redo @media
+* Bottom padding on rows
