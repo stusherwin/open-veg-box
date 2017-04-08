@@ -1,5 +1,5 @@
 <div class="section-header">
-  <ng-content></ng-content>
+  <span style="float: right"><ng-content></ng-content></span>
   <h2 *ngIf="headerRouterLink"><a [routerLink]="headerRouterLink"><i class="icon-{{headerIcon}}"></i>{{headerTitle}}</a></h2>
   <h2 *ngIf="!headerRouterLink"><i class="icon-{{headerIcon}}"></i>{{headerTitle}}</h2>
 </div>

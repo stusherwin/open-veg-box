@@ -108,13 +108,10 @@ TODO (now)
 * Save should start a new add
 * Rename Save to OK or Add? 'Add' icon?
 * Padding around add control
-* Section header buttons tab from right to left (floated right)
 * Rename -new classes
 * Customer email page cancel redirect
   - & Customer page sub-section
-* Home sections
 * Editable value buttons
-* Error notification
 * Rename RoundsPage, CustomersPage to AllRoundsPage etc
 * Redo @media
   - header nav problems with small screen width
