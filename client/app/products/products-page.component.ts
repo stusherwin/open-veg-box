@@ -7,11 +7,12 @@ import { ProductAddComponent } from './product-add.component'
 import { Observable } from 'rxjs/Observable';
 import { RouteParams } from '@angular/router-deprecated';
 import { ActiveService, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
+import { SectionHeaderComponent } from '../structure/section-header.component'
 
 @Component({
   selector: 'cc-products-page',
   templateUrl: 'app/products/products-page.component.html',
-  directives: [ProductComponent, ActiveElementDirective, ProductAddComponent, ActivateOnFocusDirective, DeactivateOnBlurDirective],
+  directives: [ProductComponent, ActiveElementDirective, ProductAddComponent, ActivateOnFocusDirective, DeactivateOnBlurDirective, SectionHeaderComponent],
   providers: [ProductService, UsersService, ActiveService]
 })
 export class ProductsPageComponent implements OnInit {

@@ -184,13 +184,16 @@ h4 {
   font-style: italic;
 }
 .error-notify {
-  position: relative;
-  background: #E56B6B;
+  position: fixed;
+  z-index: 9999;
+  left: 5px;
+  right: 5px;
+  margin-top: 5px;
+  background: rgba(229, 107, 107, 0.8);
   border: 1px solid #E80000;
   color: white;
   border-radius: 2px;
   padding: 5px 23px 5px 28px;
-  opacity: 1;
   max-height: 100px;
   overflow: hidden;
 }
@@ -1715,6 +1718,10 @@ button.button-new[disabled]:focus i {
   position: relative;
   left: 365px;
   top: -13px;
+}
+.home .error-notify {
+  background: #E56B6B;
+  margin-top: -40px;
 }
 .icon i {
   padding-left: 3px;

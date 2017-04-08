@@ -1,10 +1,9 @@
-<div class="section-header">
+<cc-section-header headerIcon="box" headerTitle="Boxes">
   <a class="button-new button-new-right" tabindex="1"
      cc-active cc-activate-on-focus
      (click)="add.startAdd()"
      (keydown.Enter)="add.startAdd()"><i class="icon-add"></i>New box</a>
-  <h2><i class="icon-box"></i>Boxes</h2>
-</div>
+</cc-section-header>
 <div class="loading-indicator" *ngIf="!loaded"><i class="icon-spin3 animate-spin"></i></div>
 <p *ngIf="loaded && !boxes.length">There are no boxes yet.</p>
 <div class="row-view-new" cc-active [class.focused]="focused" (activate)="focused = true" (deactivate)="focused = false">

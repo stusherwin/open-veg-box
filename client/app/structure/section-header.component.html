@@ -1,5 +1,6 @@
 <div class="section-header">
-  <a class="new right"><i class="icon-trash"></i>Delete</a>
-  <a class="new right"><i class="icon-carrot"></i>Product list</a>
-  <h2><i class="icon-map-signs"></i> Ableton &amp; Biddleton</h2>
+  <ng-content></ng-content>
+  <h2 *ngIf="headerRouterLink"><a [routerLink]="headerRouterLink"><i class="icon-{{headerIcon}}"></i>{{headerTitle}}</a></h2>
+  <h2 *ngIf="!headerRouterLink"><i class="icon-{{headerIcon}}"></i>{{headerTitle}}</h2>
 </div>
+<cc-error-notify></cc-error-notify>

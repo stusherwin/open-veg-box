@@ -15,13 +15,14 @@ import { DistributeWidthService } from './distribute-width.directive'
 import { Arrays } from '../shared/arrays';
 import { Objects } from '../shared/objects';
 import { CustomerModel, AddCustomerModel } from './customer.model';
+import { SectionHeaderComponent } from '../structure/section-header.component'
 import 'rxjs/add/observable/concat';
 import 'rxjs/add/operator/last';
 
 @Component({
   selector: 'cc-customers-page',
   templateUrl: 'app/customers/customers-page.component.html',
-  directives: [CustomerComponent, CustomerAddComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective],
+  directives: [CustomerComponent, CustomerAddComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, SectionHeaderComponent],
   providers: [CustomerService, BoxService, ProductService, ActiveService, DistributeWidthService]
 })
 export class CustomersPageComponent implements OnInit {

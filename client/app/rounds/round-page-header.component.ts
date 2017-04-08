@@ -1,11 +1,12 @@
 import { Component, OnInit, Input, Renderer } from '@angular/core';
 import { Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { Round } from './round'
+import { SectionHeaderComponent } from '../structure/section-header.component'
 
 @Component({
   selector: 'cc-round-page-header',
   templateUrl: 'app/rounds/round-page-header.component.html',
-  directives: [ROUTER_DIRECTIVES]
+  directives: [ROUTER_DIRECTIVES, SectionHeaderComponent]
 })
 export class RoundPageHeaderComponent {
   constructor(private router: Router) { }

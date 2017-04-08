@@ -13,11 +13,12 @@ import 'rxjs/add/observable/concat';
 import 'rxjs/add/operator/last';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/combineLatest';
+import { SectionHeaderComponent } from '../structure/section-header.component'
 
 @Component({
   selector: 'cc-rounds-page',
   templateUrl: 'app/rounds/rounds-page.component.html',
-  directives: [RoundsPageRoundComponent, ActiveElementDirective, RoundsPageAddComponent, ActivateOnFocusDirective, DeactivateOnBlurDirective],
+  directives: [RoundsPageRoundComponent, ActiveElementDirective, RoundsPageAddComponent, ActivateOnFocusDirective, DeactivateOnBlurDirective, SectionHeaderComponent],
   providers: [RoundService, CustomerService, ActiveService, RoundCustomersService]
 })
 export class RoundsPageComponent implements OnInit {

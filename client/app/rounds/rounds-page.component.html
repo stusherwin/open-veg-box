@@ -1,9 +1,8 @@
-<div class="section-header">
+<cc-section-header headerIcon="map-signs" headerTitle="Rounds">
   <a class="button-new button-new-right" tabindex="1"
      (click)="add.startAdd()"
      (keydown.Enter)="add.startAdd()"><i class="icon-add"></i>New round</a>
-  <h2><i class="icon-map-signs"></i>Rounds</h2>
-</div>
+</cc-section-header>
 <div class="loading-indicator" *ngIf="!loaded"><i class="icon-spin3 animate-spin"></i></div>
 <p *ngIf="loaded && !rounds.length">There are no rounds yet.</p>
 <div class="row-view-new" cc-active [class.focused]="focused" (activate)="focused = true" (deactivate)="focused = false">
