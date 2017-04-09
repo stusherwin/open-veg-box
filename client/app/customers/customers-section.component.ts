@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ListPageComponent } from './list-page/list-page.component'
-import { EmailPageComponent } from './customer-page/email-page.component'
+import { CustomerPageComponent } from './customer-page/customer-page.component'
 import { RouteConfig, Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { ActiveService, ActiveElementDirective, ActivateOnFocusDirective } from '../shared/active-elements'
 
@@ -17,9 +17,9 @@ import { ActiveService, ActiveElementDirective, ActivateOnFocusDirective } from 
     component: ListPageComponent
   },
   {
-    path: 'email/:customerId',
-    name: 'Email',
-    component: EmailPageComponent
+    path: ':customerId/...',
+    name: 'Customer',
+    component: CustomerPageComponent
   },
   {
     path: '/*anything-else',

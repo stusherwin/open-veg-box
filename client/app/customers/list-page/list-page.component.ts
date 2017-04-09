@@ -71,7 +71,7 @@ export class ListPageComponent implements OnInit {
         boxes: this.boxes,
         products: this.products
       },
-      emailRouterLink: ['../Email', {customerId: customer.id}],
+      emailRouterLink: ['../Customer', {customerId: customer.id}, 'Email'],
       delete: () => {
         this.customerService.delete(customer.id, this.queryParams).subscribe(customers => {
           this.customers = customers.map(c => this.createModel(c));
