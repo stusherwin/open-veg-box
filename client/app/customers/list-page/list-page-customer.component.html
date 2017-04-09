@@ -13,9 +13,10 @@
     </cc-order>
   </div>
   <div class="actions">
-      <button class="button-new button-new-right" [routerLink]="model.emailRouterLink" cc-active cc-activate-on-focus cc-deactivate-on-blur tabindex="1" [disabled]="!model.email">
+      <button class="button-new button-new-right" [routerLink]="['../Customer', {customerId: model.id}, 'Email']" cc-active cc-activate-on-focus cc-deactivate-on-blur tabindex="1" [disabled]="!model.email">
         <i class="icon-mail-dark"></i>Email
       </button>
+      <a class="button-new button-new-right" cc-active cc-activate-on-focus tabindex="1" [routerLink]="['../Customer', {customerId: model.id}, 'Details']"><i class="icon-edit"></i>Edit</a>
       <button class="button-new button-new-right" cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="model.delete();active.makeInactive()" tabindex="1">
         <i class="icon-trash"></i>Delete
       </button>

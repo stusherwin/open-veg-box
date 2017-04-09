@@ -62,6 +62,7 @@ export class ListPageComponent implements OnInit {
 
   createModel(customer: CustomerWithOrder): CustomerModel {
     return {
+      id: customer.id,
       name: customer.name,
       address: customer.address,
       email: customer.email,
@@ -71,7 +72,6 @@ export class ListPageComponent implements OnInit {
         boxes: this.boxes,
         products: this.products
       },
-      emailRouterLink: ['../Customer', {customerId: customer.id}, 'Email'],
       delete: () => {
         this.customerService.delete(customer.id, this.queryParams).subscribe(customers => {
           this.customers = customers.map(c => this.createModel(c));
