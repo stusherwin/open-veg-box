@@ -40,11 +40,6 @@ export class RoundPageService {
     path: 'order-list',
     name: 'OrderList',
     component: OrderListPageComponent
-  },
-  {
-    path: '/*anything-else',
-    name: 'NotFound',
-    redirectTo: ['./Details']
   }
 ])
 export class RoundPageComponent implements OnInit {

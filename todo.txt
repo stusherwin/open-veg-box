@@ -118,4 +118,5 @@ TODO (now)
   - header nav problems with small screen width
 * Bottom padding on rows
 * Better section/headings on Product/Order List pages
-* redirectTo on routes? shouldn't it just go to 404 page?
+* Need 404 icon (info icon without background?)
+* 404 redirect for nonexistent entities

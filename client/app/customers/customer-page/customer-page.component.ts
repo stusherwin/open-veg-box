@@ -28,11 +28,6 @@ export class CustomerPageService {
     path: 'email',
     name: 'Email',
     component: EmailPageComponent
-  },
-  {
-    path: '/*anything-else',
-    name: 'NotFound',
-    redirectTo: ['./Details']
   }
 ])
 export class CustomerPageComponent implements OnInit {

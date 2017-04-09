@@ -20,11 +20,6 @@ import { ActiveService, ActiveElementDirective, ActivateOnFocusDirective } from 
     path: ':customerId/...',
     name: 'Customer',
     component: CustomerPageComponent
-  },
-  {
-    path: '/*anything-else',
-    name: 'NotFound',
-    redirectTo: ['./Customers']
   }
 ])
 export class CustomersSectionComponent {

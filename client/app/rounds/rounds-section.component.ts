@@ -23,11 +23,6 @@ import { RoundService } from './round.service'
     path: ':roundId/...',
     name: 'Round',
     component: RoundPageComponent
-  },
-  {
-    path: '/*anything-else',
-    name: 'NotFound',
-    redirectTo: ['./Rounds']
   }
 ])
 export class RoundsSectionComponent {
