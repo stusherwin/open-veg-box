@@ -83,40 +83,45 @@ Tidy up
 
 TODO (now)
 ==========
-* distribute-width should maybe use document selectors to set min-width (quicker?)
 * Prices should be integers in pence, not floating point!!
 * Use trackBy with ngFor to clean up box-products
-* Sort boxes/product in select by name
-* When adding, adds to end then when comes back from server is sorted.
-* Add button not highlighted when hovering over certain area
+* round-customers add button not highlighted when hovering over certain area
 * queryparams not whitelisted on server side
-* 404 when missing server-side resource not handled
 * Should be two types of orders - dynamic and historic. 
   Customer -> Order
   Round ->* Delivery ->* HistoricOrder
                      ->* HistoricProductQuantity ?
-* Make distribute-width work with tables
 * Need to archive products/boxes not delete them (only delete if not used!)
 * Add blurb/useful links to each section on home page?
+
+* When adding, adds to end then when comes back from server is sorted.
+* Sort boxes/product in select by name
 * Products should added from the top, but displayed in alphabetical order when reloaded from server
   - Server API should return id of new entity
   - Page update in-memory but not refreshed from server (server API doesn't return entity list - more efficient)
   - New entity in memory should be updated with id from server
+
+* distribute-width should maybe use document selectors to set min-width (quicker?)
 * Use distribute-width on order-list page
+* Make distribute-width work with tables
+
 * Loading component (content when loaded)
 * Email invalid icons out of alignment
+
 * Add product link doesn't activate on focus? (Previously activated component doesn't deactivate)
 * Cancel out of add should focus add button
 * Escape should cancel out of add
 * Save should start a new add
 * Rename Save to OK or Add? 'Add' icon?
 * Padding around add control
+
 * Rename -new classes
 * Editable value buttons
-* Rename RoundsPage, CustomersPage to AllRoundsPage etc
 * Redo @media
   - header nav problems with small screen width
 * Bottom padding on rows
 * Better section/headings on Product/Order List pages
+
+* 404 when missing server-side resource not handled
 * Need 404 icon (info icon without background?)
 * 404 redirect for nonexistent entities
