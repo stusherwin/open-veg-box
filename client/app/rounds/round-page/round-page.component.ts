@@ -44,6 +44,7 @@ export class RoundPageService {
 ])
 export class RoundPageComponent implements OnInit {
   round: Round;
+  loading = true;
 
   constructor(
     private roundService: RoundService,
@@ -55,6 +56,7 @@ export class RoundPageComponent implements OnInit {
   ngOnInit() {
     let roundId = +this.routeParams.params['roundId'];
     this.roundService.get(roundId).subscribe(r => {
+      this.loading = false;
       this.roundPageService.round = r;
       this.round = r;
     });

@@ -124,4 +124,3 @@ TODO (now)
 
 * 404 when missing server-side resource not handled
 * Need 404 icon (info icon without background?)
-* 404 redirect for nonexistent entities

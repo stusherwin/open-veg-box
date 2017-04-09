@@ -69,7 +69,11 @@ export class CustomerService {
                     .map(ps => ps.map(this.hydrate));
   }
 
-  private hydrate(p: any) {
-   return new CustomerWithOrder(p.id, p.name, p.address, p.tel1, p.tel2, p.email, p.order);
+  private hydrate(c: any) {
+    if(!c) {
+      return null;
+    }
+
+   return new CustomerWithOrder(c.id, c.name, c.address, c.tel1, c.tel2, c.email, c.order);
   }
 }

@@ -1,5 +1,6 @@
-<cc-section-header headerIcon="person" [headerTitle]="customer?.name" [headerRouterLink]="['./Details']">
-  <a class="button-new button-new-right" [class.selected]="isCurrent(['./Email'])" [routerLink]="['./Email', {fromCustomer: true}]" tabindex="1"><i class="icon-mail-dark"></i>Email</a>
+<cc-section-header headerIcon="person" [headerTitle]="loading? '' : (customer?.name || 'Customer not found')" [headerRouterLink]="customer? ['./Details'] : null">
+  <a *ngIf="customer" class="button-new button-new-right" [class.selected]="isCurrent(['./Email'])" [routerLink]="['./Email', {fromCustomer: true}]" tabindex="1"><i class="icon-mail-dark"></i>Email</a>
 </cc-section-header>
-<div class="loading-indicator" *ngIf="!customer"><i class="icon-spin3 animate-spin"></i></div>
+<div class="loading-indicator" *ngIf="loading"><i class="icon-spin3 animate-spin"></i></div>
 <router-outlet *ngIf="customer"></router-outlet>
+<p *ngIf="!loading && !customer" style="margin-left: 10px; margin-top: 20px;">Sorry, couldn't find any Customer with ID '{{routeParams.params['customerId']}}'.</p>

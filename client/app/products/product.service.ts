@@ -60,6 +60,10 @@ export class ProductService {
   }
 
   private hydrate(p: any) {
+    if(!p) {
+      return null;
+    }
+    
     return new Product( p.id, p.name, p.price, p.unitType, p.unitQuantity);
   }
 }

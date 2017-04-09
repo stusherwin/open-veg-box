@@ -32,6 +32,7 @@ export class CustomerPageService {
 ])
 export class CustomerPageComponent implements OnInit {
   customer: Customer;
+  loading = true;
 
   constructor(
     private customerService: CustomerService,
@@ -43,6 +44,7 @@ export class CustomerPageComponent implements OnInit {
   ngOnInit() {
     let customerId = +this.routeParams.params['customerId'];
     this.customerService.get(customerId).subscribe(c => {
+      this.loading = false;
       this.customerPageService.customer = c;
       this.customer = c;
     });

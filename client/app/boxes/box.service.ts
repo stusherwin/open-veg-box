@@ -94,6 +94,10 @@ export class BoxService {
   }
 
   private hydrate(b: any) : Box {
+    if(!b) {
+      return null;
+    }
+    
     return b.products
       ? new BoxWithProducts(b.id, b.name, b.price, b.products.map((p:any) => new ProductQuantity(p.id, p.name, p.quantity, p.unitType)))
       : new Box(b.id, b.name, b.price);
