@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, ElementRef, OnInit, Renderer, ViewChildren, QueryList } from '@angular/core';
 import { ActiveElementDirective } from '../../shared/active-elements'
-import { DistributeWidthDirective, DistributeWidthSumDirective } from '../distribute-width.directive'
+import { DistributeWidthDirective, DistributeWidthSumDirective } from '../../shared/distribute-width.directive'
 import { Order, OrderItem } from './order'
 import { OrderSectionComponent } from './order-section.component'
 import { OrderService } from './order.service'

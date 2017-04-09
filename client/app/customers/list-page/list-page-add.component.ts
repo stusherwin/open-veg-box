@@ -1,20 +1,20 @@
 import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, ElementRef, Renderer, OnInit, ViewChildren, QueryList } from '@angular/core';
-import { Customer } from './customer'
-import { HeadingComponent } from '../shared/heading.component'
+import { Customer } from '../customer'
+import { HeadingComponent } from '../../shared/heading.component'
 import { CustomerAddressComponent } from './customer-address.component'
 import { CustomerEmailComponent } from './customer-email.component'
 import { CustomerTelComponent } from './customer-tel.component'
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
-import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
-import { ValidatableComponent } from '../shared/validatable.component';
-import { AddCustomerModel } from './customer.model'
+import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../../shared/active-elements'
+import { ValidatableComponent } from '../../shared/validatable.component';
+import { AddCustomerModel } from '../customer.model'
 
 @Component({
-  selector: 'cc-customer-add',
-  templateUrl: 'app/customers/customer-add.component.html',
+  selector: 'cc-list-page-add',
+  templateUrl: 'app/customers/list-page/list-page-add.component.html',
   directives: [HeadingComponent, CustomerAddressComponent, CustomerEmailComponent, CustomerTelComponent, ROUTER_DIRECTIVES, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, ValidatableComponent],
 })
-export class CustomerAddComponent implements OnInit {
+export class ListPageAddComponent implements OnInit {
   customer = new Customer(0, '', '', '', '', '');
   adding: boolean;
   rowFocused: boolean;

@@ -1,13 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { CustomerService } from './customer.service'
-import { Customer } from './customer'
-import { SendEmailComponent } from '../email/send-email.component';
-import { EmailRecipient } from '../email/email.service';
+import { CustomerService } from '../customer.service'
+import { Customer } from '../customer'
+import { SendEmailComponent } from '../../email/send-email.component';
+import { EmailRecipient } from '../../email/email.service';
 import { RouteParams } from '@angular/router-deprecated';
 
 @Component({
   selector: 'cc-email-page',
-  templateUrl: 'app/customers/email-page.component.html',
+  templateUrl: 'app/customers/customer-page/email-page.component.html',
   providers: [CustomerService],
   directives: [SendEmailComponent]
 })

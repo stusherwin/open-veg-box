@@ -1,31 +1,31 @@
 import { Component, OnInit, Input, Renderer } from '@angular/core';
-import { CustomerWithOrder } from './customer'
-import { Order } from './orders/order'
-import { CustomerService } from './customer.service'
-import { Box } from '../boxes/box'
-import { Product } from '../products/product';
-import { BoxService } from '../boxes/box.service'
-import { ProductService } from '../products/product.service'
-import { CustomerComponent } from './customer.component'
-import { CustomerAddComponent } from './customer-add.component'
+import { CustomerWithOrder } from '../customer'
+import { Order } from '../orders/order'
+import { CustomerService } from '../customer.service'
+import { Box } from '../../boxes/box'
+import { Product } from '../../products/product';
+import { BoxService } from '../../boxes/box.service'
+import { ProductService } from '../../products/product.service'
+import { ListPageCustomerComponent } from './list-page-customer.component'
+import { ListPageAddComponent } from './list-page-add.component'
 import { Observable } from 'rxjs/Observable';
 import { RouteParams } from '@angular/router-deprecated';
-import { ActiveService, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
-import { DistributeWidthService } from './distribute-width.directive'
-import { Arrays } from '../shared/arrays';
-import { Objects } from '../shared/objects';
-import { CustomerModel, AddCustomerModel } from './customer.model';
-import { SectionHeaderComponent } from '../structure/section-header.component'
+import { ActiveService, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../../shared/active-elements'
+import { DistributeWidthService } from '../../shared/distribute-width.directive'
+import { Arrays } from '../../shared/arrays';
+import { Objects } from '../../shared/objects';
+import { CustomerModel, AddCustomerModel } from '../customer.model';
+import { SectionHeaderComponent } from '../../structure/section-header.component'
 import 'rxjs/add/observable/concat';
 import 'rxjs/add/operator/last';
 
 @Component({
-  selector: 'cc-customers-page',
-  templateUrl: 'app/customers/customers-page.component.html',
-  directives: [CustomerComponent, CustomerAddComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, SectionHeaderComponent],
+  selector: 'cc-list-page',
+  templateUrl: 'app/customers/list-page/list-page.component.html',
+  directives: [ListPageCustomerComponent, ListPageAddComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, SectionHeaderComponent],
   providers: [CustomerService, BoxService, ProductService, ActiveService, DistributeWidthService]
 })
-export class CustomersPageComponent implements OnInit {
+export class ListPageComponent implements OnInit {
   constructor(private customerService: CustomerService, private boxService: BoxService, private productService: ProductService, routeParams: RouteParams, private renderer: Renderer) {
     this.queryParams = routeParams.params;
 

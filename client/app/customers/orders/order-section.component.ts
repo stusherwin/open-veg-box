@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, ElementRef, OnInit, Renderer, ViewChildren, QueryList } from '@angular/core';
 import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../../shared/active-elements'
-import { DistributeWidthDirective, DistributeWidthSumDirective } from '../distribute-width.directive'
+import { DistributeWidthDirective, DistributeWidthSumDirective } from '../../shared/distribute-width.directive'
 import { OrderItemQuantityComponent } from './order-item-quantity.component'
 import { EditableValueComponent } from '../../shared/editable-value.component'
 import { Arrays } from '../../shared/arrays'

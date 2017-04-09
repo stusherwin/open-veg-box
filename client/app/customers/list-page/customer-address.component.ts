@@ -1,8 +1,8 @@
 import { Component, Input, ViewChild, ElementRef, Output, EventEmitter, OnInit, AfterViewInit, Renderer } from '@angular/core';
-import { ActiveElementDirective, ActivateOnFocusDirective } from '../shared/active-elements'
-import { EditableValueComponent } from '../shared/editable-value.component'
-import { ValidatableComponent } from '../shared/validatable.component';
-import { SingleLinePipe, PreserveLinesPipe, DefaultToPipe } from '../shared/pipes'
+import { ActiveElementDirective, ActivateOnFocusDirective } from '../../shared/active-elements'
+import { EditableValueComponent } from '../../shared/editable-value.component'
+import { ValidatableComponent } from '../../shared/validatable.component';
+import { SingleLinePipe, PreserveLinesPipe, DefaultToPipe } from '../../shared/pipes'
 
 @Component({
   selector: 'cc-customer-address',
