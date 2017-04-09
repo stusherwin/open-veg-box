@@ -1,23 +1,23 @@
 import { Component, OnInit, Input, Renderer } from '@angular/core';
-import { Round, RoundCustomer } from './round'
-import { RoundService } from './round.service'
-import { CustomerService } from '../customers/customer.service'
+import { Round, RoundCustomer } from '../round'
+import { RoundService } from '../round.service'
+import { CustomerService } from '../../customers/customer.service'
 import { ListPageRoundComponent } from './list-page-round.component'
 import { ListPageAddComponent } from './list-page-add.component'
 import { Observable } from 'rxjs/Observable';
 import { RouteParams } from '@angular/router-deprecated';
 import { RouteConfig, Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
-import { ActiveService, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
+import { ActiveService, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../../shared/active-elements'
 import { RoundCustomersService } from './round-customers.service'
 import 'rxjs/add/observable/concat';
 import 'rxjs/add/operator/last';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/combineLatest';
-import { SectionHeaderComponent } from '../structure/section-header.component'
+import { SectionHeaderComponent } from '../../structure/section-header.component'
 
 @Component({
   selector: 'cc-list-page',
-  templateUrl: 'app/rounds/list-page.component.html',
+  templateUrl: 'app/rounds/list-page/list-page.component.html',
   directives: [ListPageRoundComponent, ActiveElementDirective, ListPageAddComponent, ActivateOnFocusDirective, DeactivateOnBlurDirective, SectionHeaderComponent],
   providers: [RoundService, CustomerService, ActiveService, RoundCustomersService]
 })

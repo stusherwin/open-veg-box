@@ -1,16 +1,16 @@
 import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, ViewChildren, QueryList, AfterViewInit, ChangeDetectorRef, AfterViewChecked, Inject, forwardRef, OnInit, OnDestroy, Renderer, OnChanges } from '@angular/core';
-import { RoundCustomer } from './round'
-import { Customer } from '../customers/customer'
+import { RoundCustomer } from '../round'
+import { Customer } from '../../customers/customer'
 import { Subscription } from 'rxjs/Subscription'
 import { Observable } from 'rxjs/Observable';
-import { ActiveElementDirective, ActiveService, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements';
-import { EditableValueComponent } from '../shared/editable-value.component'
-import { Arrays } from '../shared/arrays'
-import { DefaultToPipe } from '../shared/pipes'
+import { ActiveElementDirective, ActiveService, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../../shared/active-elements';
+import { EditableValueComponent } from '../../shared/editable-value.component'
+import { Arrays } from '../../shared/arrays'
+import { DefaultToPipe } from '../../shared/pipes'
 
 @Component({
   selector: 'cc-round-customer-add',
-  templateUrl: 'app/rounds/round-customer-add.component.html',
+  templateUrl: 'app/rounds/list-page/round-customer-add.component.html',
   directives: [ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, EditableValueComponent],
   pipes: [DefaultToPipe]
 })

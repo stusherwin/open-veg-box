@@ -1,14 +1,14 @@
 import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, ElementRef, Renderer, ViewChildren, QueryList } from '@angular/core';
-import { Round, RoundCustomer } from './round';
-import { HeadingComponent } from '../shared/heading.component';
+import { Round, RoundCustomer } from '../round';
+import { HeadingComponent } from '../../shared/heading.component';
 import { RoundCustomersComponent } from './round-customers.component';
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
-import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
-import { ValidatableComponent } from '../shared/validatable.component';
+import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../../shared/active-elements'
+import { ValidatableComponent } from '../../shared/validatable.component';
 
 @Component({
   selector: 'cc-list-page-add',
-  templateUrl: 'app/rounds/list-page-add.component.html',
+  templateUrl: 'app/rounds/list-page/list-page-add.component.html',
   directives: [HeadingComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, RoundCustomersComponent, ROUTER_DIRECTIVES, ValidatableComponent]
 })
 export class ListPageAddComponent {

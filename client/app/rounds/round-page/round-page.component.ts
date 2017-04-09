@@ -1,13 +1,13 @@
 import { Component, OnInit, Input, Inject, forwardRef } from '@angular/core';
-import { Round } from './round'
-import { RoundService } from './round.service'
+import { Round } from '../round'
+import { RoundService } from '../round.service'
 import { RoundDetailsPageComponent } from './details-page.component'
 import { EmailPageComponent } from './email-page.component'
 import { ProductListPageComponent } from './product-list-page.component'
 import { OrderListPageComponent } from './order-list-page.component'
 import { RouteParams } from '@angular/router-deprecated';
 import { RouteConfig, ROUTER_DIRECTIVES, Router } from '@angular/router-deprecated';
-import { SectionHeaderComponent } from '../structure/section-header.component'
+import { SectionHeaderComponent } from '../../structure/section-header.component'
 
 export class RoundPageService {
   round: Round;
@@ -15,7 +15,7 @@ export class RoundPageService {
 
 @Component({
   selector: 'cc-round-page',
-  templateUrl: 'app/rounds/round-page.component.html',
+  templateUrl: 'app/rounds/round-page/round-page.component.html',
   directives: [ROUTER_DIRECTIVES, SectionHeaderComponent],
   providers: [RoundPageService]
 })

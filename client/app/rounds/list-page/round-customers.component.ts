@@ -1,14 +1,14 @@
 import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, ViewChildren, QueryList, AfterViewInit, ChangeDetectorRef, AfterViewChecked, OnChanges, Inject, forwardRef, OnInit, OnDestroy } from '@angular/core';
-import { RoundCustomer } from './round'
-import { Customer } from '../customers/customer'
+import { RoundCustomer } from '../round'
+import { Customer } from '../../customers/customer'
 import { Subscription } from 'rxjs/Subscription'
 import { Observable } from 'rxjs/Observable';
-import { Arrays } from '../shared/arrays'
+import { Arrays } from '../../shared/arrays'
 import { RoundCustomerAddComponent } from './round-customer-add.component' 
 import { RoundCustomerRemoveComponent } from './round-customer-remove.component' 
-import { ActiveElementDirective } from '../shared/active-elements';
+import { ActiveElementDirective } from '../../shared/active-elements';
 import { RoundCustomersService } from './round-customers.service'
-import { DefaultToPipe } from '../shared/pipes'
+import { DefaultToPipe } from '../../shared/pipes'
 
 const CUSTOMER_NAME_PADDING = 20;
 const CUSTOMER_ADDRESS_PADDING = 20;
@@ -17,7 +17,7 @@ const CUSTOMER_ADDRESS_PADDING = 20;
   selector: 'cc-round-customers',
   directives: [RoundCustomerAddComponent, RoundCustomerRemoveComponent, ActiveElementDirective],
   pipes: [DefaultToPipe],
-  templateUrl: 'app/rounds/round-customers.component.html'
+  templateUrl: 'app/rounds/list-page/round-customers.component.html'
 })
 export class RoundCustomersComponent implements AfterViewChecked {
   customerNamePadding = CUSTOMER_NAME_PADDING;

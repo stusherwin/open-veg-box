@@ -1,5 +1,5 @@
 import {RoundCustomersComponent} from './round-customers.component'
-import {Arrays} from '../shared/arrays'
+import {Arrays} from '../../shared/arrays'
 
 export class RoundCustomersService {
   componentMaxWidths: ComponentMaxWidth[] = [];

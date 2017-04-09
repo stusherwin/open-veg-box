@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ListPageComponent } from './list-page.component'
-import { RoundPageComponent } from './round-page.component'
+import { ListPageComponent } from './list-page/list-page.component'
+import { RoundPageComponent } from './round-page/round-page.component'
 import { RouteParams } from '@angular/router-deprecated';
 import { RouteConfig, Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { ErrorNotifyComponent } from '../shared/error-notify.component'
