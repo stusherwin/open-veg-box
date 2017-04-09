@@ -19,11 +19,11 @@ export class EmailPageComponent implements OnInit {
   }
 
   customerEmails: EmailRecipient[];
-  cancelLinkParams: any[];
+  backLinkParams: any[];
 
   ngOnInit() {
     this.customerEmails = this.roundPageService.round.customers.map(c => new EmailRecipient(c.name, c.email));
-    this.cancelLinkParams = this.routeParams.params['fromRound']
+    this.backLinkParams = this.routeParams.params['fromRound']
       ? ['../Details']
       : ['../../Rounds']
   }

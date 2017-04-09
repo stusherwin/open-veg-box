@@ -5,6 +5,7 @@ import { EmailPageComponent } from './email-page.component'
 import { RouteParams } from '@angular/router-deprecated';
 import { RouteConfig, ROUTER_DIRECTIVES, Router } from '@angular/router-deprecated';
 import { SectionHeaderComponent } from '../../structure/section-header.component'
+import { DetailsPageComponent } from './details-page.component'
 
 export class CustomerPageService {
   customer: Customer;
@@ -18,11 +19,11 @@ export class CustomerPageService {
 })
 
 @RouteConfig([
-  // {
-  //   path: '',
-  //   name: 'Details',
-  //   component: RoundDetailsPageComponent
-  // },
+  {
+    path: '',
+    name: 'Details',
+    component: DetailsPageComponent
+  },
   {
     path: 'email',
     name: 'Email',
@@ -31,8 +32,7 @@ export class CustomerPageService {
   {
     path: '/*anything-else',
     name: 'NotFound',
-    redirectTo: ['./Email']
-    // redirectTo: ['./Details']
+    redirectTo: ['./Details']
   }
 ])
 export class CustomerPageComponent implements OnInit {

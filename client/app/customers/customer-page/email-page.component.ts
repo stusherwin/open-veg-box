@@ -17,11 +17,14 @@ export class EmailPageComponent implements OnInit {
     private customerPageService: CustomerPageService, private routeParams: RouteParams) {
   }
 
-  customerEmails: EmailRecipient[] = [];
+  customerEmails: EmailRecipient[];
+  backLinkParams: any[];
 
   ngOnInit() {
-    this.customerService.get(this.customerPageService.customer.id).subscribe(customer => {
-      this.customerEmails = [new EmailRecipient(customer.name, customer.email)];
-    });
+    let customer = this.customerPageService.customer;
+    this.customerEmails = [new EmailRecipient(customer.name, customer.email)];
+    this.backLinkParams = this.routeParams.params['fromCustomer']
+      ? ['../Details']
+      : ['../../Customers'];
   }
 }

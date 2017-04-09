@@ -112,11 +112,10 @@ TODO (now)
 * Rename Save to OK or Add? 'Add' icon?
 * Padding around add control
 * Rename -new classes
-* Customer email page cancel redirect
-  - & Customer page sub-section
 * Editable value buttons
 * Rename RoundsPage, CustomersPage to AllRoundsPage etc
 * Redo @media
   - header nav problems with small screen width
 * Bottom padding on rows
 * Better section/headings on Product/Order List pages
+* redirectTo on routes? shouldn't it just go to 404 page?

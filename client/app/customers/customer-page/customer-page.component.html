@@ -1,5 +1,5 @@
-<cc-section-header headerIcon="person" [headerTitle]="customer?.name" [headerRouterLink]="['./Email']">
-  <a class="button-new button-new-right" [class.selected]="isCurrent(['./Email'])" [routerLink]="['./Email', {fromRound: true}]" tabindex="1"><i class="icon-mail-dark"></i>Email</a>
+<cc-section-header headerIcon="person" [headerTitle]="customer?.name" [headerRouterLink]="['./Details']">
+  <a class="button-new button-new-right" [class.selected]="isCurrent(['./Email'])" [routerLink]="['./Email', {fromCustomer: true}]" tabindex="1"><i class="icon-mail-dark"></i>Email</a>
 </cc-section-header>
 <div class="loading-indicator" *ngIf="!customer"><i class="icon-spin3 animate-spin"></i></div>
 <router-outlet *ngIf="customer"></router-outlet>
