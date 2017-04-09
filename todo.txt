@@ -98,7 +98,10 @@ TODO (now)
 * Make distribute-width work with tables
 * Need to archive products/boxes not delete them (only delete if not used!)
 * Add blurb/useful links to each section on home page?
-* Products added from the top, but displayed in alphabetical order when reloaded
+* Products should added from the top, but displayed in alphabetical order when reloaded from server
+  - Server API should return id of new entity
+  - Page update in-memory but not refreshed from server (server API doesn't return entity list - more efficient)
+  - New entity in memory should be updated with id from server
 * Use distribute-width on order-list page
 * Loading component (content when loaded)
 * Email invalid icons out of alignment
@@ -116,3 +119,4 @@ TODO (now)
 * Redo @media
   - header nav problems with small screen width
 * Bottom padding on rows
+* Better section/headings on Product/Order List pages
