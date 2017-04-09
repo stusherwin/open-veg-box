@@ -6,15 +6,15 @@
 <div class="loading-indicator" *ngIf="!loaded"><i class="icon-spin3 animate-spin"></i></div>
 <p *ngIf="loaded && !rounds.length">There are no rounds yet.</p>
 <div class="row-view-new" cc-active [class.focused]="focused" (activate)="focused = true" (deactivate)="focused = false">
-  <cc-rounds-page-add #add
+  <cc-list-page-add #add
     (add)="onAdd($event)">
-  </cc-rounds-page-add>
-  <cc-rounds-page-round *ngFor="let r of rounds; let i = index"
+  </cc-list-page-add>
+  <cc-list-page-round *ngFor="let r of rounds; let i = index"
     [round]="r"
     [unusedCustomers]="unusedCustomers"
     (delete)="onDelete($event)"
     (update)="onUpdate($event)"
     (customerAdd)="onCustomerAdd($event)"
     (customerRemove)="onCustomerRemove($event)">
-  </cc-rounds-page-round>
+  </cc-list-page-round>
 </div>

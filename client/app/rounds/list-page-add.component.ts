@@ -7,11 +7,11 @@ import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirec
 import { ValidatableComponent } from '../shared/validatable.component';
 
 @Component({
-  selector: 'cc-rounds-page-add',
-  templateUrl: 'app/rounds/rounds-page-add.component.html',
+  selector: 'cc-list-page-add',
+  templateUrl: 'app/rounds/list-page-add.component.html',
   directives: [HeadingComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, RoundCustomersComponent, ROUTER_DIRECTIVES, ValidatableComponent]
 })
-export class RoundsPageAddComponent {
+export class ListPageAddComponent {
   round = new Round(0, '', []);
   adding: boolean;
   rowFocused: boolean;

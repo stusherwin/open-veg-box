@@ -2,8 +2,8 @@ import { Component, OnInit, Input, Renderer } from '@angular/core';
 import { Round, RoundCustomer } from './round'
 import { RoundService } from './round.service'
 import { CustomerService } from '../customers/customer.service'
-import { RoundsPageRoundComponent } from './rounds-page-round.component'
-import { RoundsPageAddComponent } from './rounds-page-add.component'
+import { ListPageRoundComponent } from './list-page-round.component'
+import { ListPageAddComponent } from './list-page-add.component'
 import { Observable } from 'rxjs/Observable';
 import { RouteParams } from '@angular/router-deprecated';
 import { RouteConfig, Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
@@ -16,12 +16,12 @@ import 'rxjs/add/operator/combineLatest';
 import { SectionHeaderComponent } from '../structure/section-header.component'
 
 @Component({
-  selector: 'cc-rounds-page',
-  templateUrl: 'app/rounds/rounds-page.component.html',
-  directives: [RoundsPageRoundComponent, ActiveElementDirective, RoundsPageAddComponent, ActivateOnFocusDirective, DeactivateOnBlurDirective, SectionHeaderComponent],
+  selector: 'cc-list-page',
+  templateUrl: 'app/rounds/list-page.component.html',
+  directives: [ListPageRoundComponent, ActiveElementDirective, ListPageAddComponent, ActivateOnFocusDirective, DeactivateOnBlurDirective, SectionHeaderComponent],
   providers: [RoundService, CustomerService, ActiveService, RoundCustomersService]
 })
-export class RoundsPageComponent implements OnInit {
+export class ListPageComponent implements OnInit {
   queryParams: {[key: string]: string};
   rounds: Round[] = [];
   unusedCustomers: RoundCustomer[] = [];

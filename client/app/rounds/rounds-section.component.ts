@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { RoundsPageComponent } from './rounds-page.component'
+import { ListPageComponent } from './list-page.component'
 import { RoundPageComponent } from './round-page.component'
 import { RouteParams } from '@angular/router-deprecated';
 import { RouteConfig, Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
@@ -17,7 +17,7 @@ import { RoundService } from './round.service'
   {
     path: '',
     name: 'Rounds',
-    component: RoundsPageComponent
+    component: ListPageComponent
   },
   {
     path: ':roundId/...',
