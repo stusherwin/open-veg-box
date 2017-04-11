@@ -92,6 +92,7 @@
   padding-right: 12px;
   display: inline-block;
   height: 34px;
+  border: 1px solid #579532;
 }
 .main-header nav cc-nav-bar-link:first-of-type {
   margin-left: 0;
@@ -138,7 +139,7 @@
   z-index: 9999;
   top: 77px;
   width: 100%;
-  border-top: 1px solid #70af4b;
+  border-top: 1px solid #acc0a0;
   border-bottom: 1px solid #fff;
   box-shadow: 0 2px 12px 1px rgba(0, 0, 0, 0.3);
   background: #eee;
@@ -261,11 +262,19 @@
   .main-header {
     height: 110px;
   }
+  .main-header a.heading {
+    position: static;
+    margin: 0 auto;
+  }
+  .main-header a.heading h1 {
+    position: static;
+    height: 60px;
+  }
   .main-header nav {
     width: 100%;
     top: 70px;
     left: 0px;
-    text-align: left;
+    text-align: center;
   }
   .main-header nav span cc-nav-bar-link {
     width: inherit;
@@ -276,8 +285,7 @@
   }
   .section-header .buttons {
     top: 50px;
-    right: inherit;
-    left: 10px;
+    box-shadow: none;
   }
   .page {
     padding-top: 200px;
@@ -285,19 +293,47 @@
 }
 @media only screen and (max-width: 425px) {
   .main-header {
-    height: 145px;
+    height: 143px;
+  }
+  .main-header a.heading {
+    position: absolute;
+    margin: 0;
+    top: 0;
+  }
+  .main-header a.heading h1 {
+    position: absolute;
+  }
+  .main-header nav span {
+    display: block;
+    margin: 0 5px;
   }
   .main-header nav span cc-nav-bar-link {
     width: calc(50% - 2px);
+    padding-top: 11px;
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+  .main-header nav span cc-nav-bar-link:nth-child(2n) .button-new {
+    padding-left: 0;
+    padding-right: 29px;
+    text-align: right;
+  }
+  .main-header nav span cc-nav-bar-link:nth-child(2n) .button-new::before {
+    left: inherit;
+    right: 0;
+  }
+  .main-header nav span cc-nav-bar-link:nth-child(2n) .button-new i {
+    left: inherit;
+    right: 2px;
   }
   .section-header {
-    top: 145px;
+    top: 143px;
   }
   .page {
-    padding-top: 235px;
+    padding-top: 233px;
   }
 }
-@media only screen and (min-width: 621px) {
+@media only screen and (min-width: 0px) {
   .section-header .buttons .button-new {
     margin-right: 0;
     margin-left: 20px;

@@ -41,7 +41,7 @@
       padding-left:54px;
       padding-top: 11px;
       color: lighten(desaturate(@header, 25%), 55%);
-      
+
       span {
         color:lighten(@carrot, 10%);
         font-weight: 400;
@@ -58,7 +58,7 @@
       }
     }
   }
-  
+
   .button-new {
     .buttonNewColors(@mainHeaderButtonBackground; @mainHeaderButtonBackground; @header; @mainHeaderButtonBackground);
     margin-right: 0;
@@ -85,11 +85,12 @@
       padding-right: 12px;
       display: inline-block;
       height: 34px;
+      border: 1px solid @header;
 
       &:first-of-type {
         margin-left: 0;
       }
-      
+
       &.current {
         border: 1px solid darken(@header, 5%);
         background: darken(@header, 2%);
@@ -123,13 +124,13 @@
   z-index: 9999;
   top: 77px;
   width: 100%;
-  border-top: 1px solid desaturate(lighten(@header, 10%), 10%);//#fff;
+  border-top: 1px solid desaturate(lighten(@header, 30%), 30%);
   border-bottom: 1px solid #fff;
   box-shadow: 0 2px 12px 1px rgba(0, 0, 0, 0.3);
   background: #eee;
   background: @sectionHeaderButtonBackground;
   padding: 10px;
-  
+
   h2 {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -159,7 +160,7 @@
       &::before {
         margin: 0;
         font-size: 20px;
-        line-height: 20px; 
+        line-height: 20px;
         display: block;
         margin-top: 6px;
         margin-left: 5px;
@@ -190,7 +191,7 @@
     right: 10px;
     height: 33px;
     background: @sectionHeaderButtonBackground;
-    
+
     .button-new {
       .buttonNewColors(#ddd, #ddd, @sectionHeaderButtonBackground, #ddd);
 
@@ -198,11 +199,11 @@
       margin-top: 11px;
       margin-right: 20px;
 
-      &:hover, &:focus { 
+      &:hover, &:focus {
         .buttonNewColors(@carrot, @sectionHeaderButtonBackground, @carrot, @carrot);
       }
 
-      &.selected { 
+      &.selected {
         .buttonNewColors(@carrot, @sectionHeaderButtonBackground, @carrot, @sectionHeaderButtonBackground);
         &:hover, &:focus {
           .buttonNewColors(@carrot, @sectionHeaderButtonBackground, @carrot, @carrot);
@@ -230,11 +231,21 @@
   .main-header {
     height: 110px;
 
+    a.heading {
+      position: static;
+      margin: 0 auto;
+
+      h1 {
+        position: static;
+        height: 60px;
+      }
+    }
+
     nav {
       width: 100%;
       top: 70px;
       left: 0px;
-      text-align: left;
+      text-align: center;
 
       span {
         cc-nav-bar-link {
@@ -250,8 +261,7 @@
 
     .buttons {
       top: 50px;
-      right: inherit;
-      left: 10px;
+      box-shadow: none;
     }
   }
 
@@ -262,27 +272,51 @@
 
 @media only screen and (max-width: 425px) {
   .main-header {
-    height: 145px;
-    
+    height: 143px;
+
+    a.heading {
+      position: absolute;
+      margin: 0;
+      top: 0;
+
+      h1 {
+        position: absolute;
+      }
+    }
+
     nav {
       span {
+        display: block;
+        margin: 0 5px;
+
         cc-nav-bar-link {
           width: calc(~"50% - 2px");
+          padding-top: 11px;
+          padding-left: 4px;
+          padding-right: 4px;
+
+          &:nth-child(2n) {
+            .button-new {
+              .buttonNewRight(@outerSize; @outerPadding);
+              text-align: right;
+
+            }
+          }
         }
       }
     }
   }
 
   .section-header {
-    top: 145px;
+    top: 143px;
   }
 
   .page {
-    padding-top: 235px;
+    padding-top: 233px;
   }
 }
 
-@media only screen and (min-width: 621px) {
+@media only screen and (min-width: 0px) {
   .section-header {
     .buttons {
       .button-new {
