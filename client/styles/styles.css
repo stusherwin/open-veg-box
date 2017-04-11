@@ -381,7 +381,11 @@ h4 {
   padding: 10px;
 }
 .section-header h2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
   color: #ddd;
+  width: 100%;
+  height: 32px;
   margin: 0;
   padding: 0;
 }
@@ -423,52 +427,59 @@ h4 {
   margin-top: 4px;
   margin-left: 6px;
 }
-.section-header .button-new {
+.section-header .buttons {
+  box-shadow: rgba(68, 68, 68, 0.9) -20px 0 10px 5px;
+  position: absolute;
+  right: 10px;
+  height: 33px;
+  background: #444;
+}
+.section-header .buttons .button-new {
   color: #ddd;
   float: left;
   margin-top: 11px;
-  margin-left: 20px;
+  margin-right: 20px;
 }
-.section-header .button-new::before {
+.section-header .buttons .button-new::before {
   border-color: #ddd;
 }
-.section-header .button-new i {
+.section-header .buttons .button-new i {
   background-color: #444;
   color: #ddd;
 }
-.section-header .button-new:hover,
-.section-header .button-new:focus {
+.section-header .buttons .button-new:hover,
+.section-header .buttons .button-new:focus {
   color: #ff8f1d;
 }
-.section-header .button-new:hover::before,
-.section-header .button-new:focus::before {
+.section-header .buttons .button-new:hover::before,
+.section-header .buttons .button-new:focus::before {
   border-color: #ff8f1d;
 }
-.section-header .button-new:hover i,
-.section-header .button-new:focus i {
+.section-header .buttons .button-new:hover i,
+.section-header .buttons .button-new:focus i {
   background-color: #ff8f1d;
   color: #444;
 }
-.section-header .button-new.selected {
+.section-header .buttons .button-new.selected {
   color: #ff8f1d;
 }
-.section-header .button-new.selected::before {
+.section-header .buttons .button-new.selected::before {
   border-color: #444;
 }
-.section-header .button-new.selected i {
+.section-header .buttons .button-new.selected i {
   background-color: #ff8f1d;
   color: #444;
 }
-.section-header .button-new.selected:hover,
-.section-header .button-new.selected:focus {
+.section-header .buttons .button-new.selected:hover,
+.section-header .buttons .button-new.selected:focus {
   color: #ff8f1d;
 }
-.section-header .button-new.selected:hover::before,
-.section-header .button-new.selected:focus::before {
+.section-header .buttons .button-new.selected:hover::before,
+.section-header .buttons .button-new.selected:focus::before {
   border-color: #ff8f1d;
 }
-.section-header .button-new.selected:hover i,
-.section-header .button-new.selected:focus i {
+.section-header .buttons .button-new.selected:hover i,
+.section-header .buttons .button-new.selected:focus i {
   background-color: #ff8f1d;
   color: #444;
 }
@@ -496,9 +507,15 @@ h4 {
   }
   .section-header {
     top: 110px;
+    height: 90px;
+  }
+  .section-header .buttons {
+    top: 50px;
+    right: inherit;
+    left: 10px;
   }
   .page {
-    padding-top: 163px;
+    padding-top: 200px;
   }
 }
 @media only screen and (max-width: 425px) {
@@ -512,7 +529,23 @@ h4 {
     top: 145px;
   }
   .page {
-    padding-top: 198px;
+    padding-top: 235px;
+  }
+}
+@media only screen and (min-width: 621px) {
+  .section-header .buttons .button-new {
+    margin-right: 0;
+    margin-left: 20px;
+    padding-left: 0;
+    padding-right: 29px;
+  }
+  .section-header .buttons .button-new::before {
+    left: inherit;
+    right: 0;
+  }
+  .section-header .buttons .button-new i {
+    left: inherit;
+    right: 2px;
   }
 }
 html {

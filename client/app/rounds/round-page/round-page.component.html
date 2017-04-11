@@ -1,7 +1,7 @@
 <cc-section-header headerIcon="map-signs" [headerTitle]="loading ? '' : (round?.name || 'Round not found')" [headerRouterLink]="round? ['./Details'] : null">
-  <a *ngIf="round" class="button-new button-new-right" [class.selected]="isCurrent(['./ProductList'])" [routerLink]="['./ProductList']" tabindex="1"><i class="icon-carrot"></i>Product list</a>
-  <a *ngIf="round" class="button-new button-new-right" [class.selected]="isCurrent(['./OrderList'])" [routerLink]="['./OrderList']" tabindex="1"><i class="icon-basket"></i>Order list</a>
-  <a *ngIf="round" class="button-new button-new-right" [class.selected]="isCurrent(['./Email'])" [routerLink]="['./Email', {fromRound: true}]" tabindex="1"><i class="icon-mail-dark"></i>Email</a>
+  <a *ngIf="round" class="button-new" [class.selected]="isCurrent(['./ProductList'])" [routerLink]="['./ProductList']" tabindex="1"><i class="icon-carrot"></i>Product list</a>
+  <a *ngIf="round" class="button-new" [class.selected]="isCurrent(['./OrderList'])" [routerLink]="['./OrderList']" tabindex="1"><i class="icon-basket"></i>Order list</a>
+  <a *ngIf="round" class="button-new" [class.selected]="isCurrent(['./Email'])" [routerLink]="['./Email', {fromRound: true}]" tabindex="1"><i class="icon-mail-dark"></i>Email</a>
 </cc-section-header>
 <div class="loading-indicator" *ngIf="loading"><i class="icon-spin3 animate-spin"></i></div>
 <router-outlet *ngIf="round"></router-outlet>

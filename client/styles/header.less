@@ -1,6 +1,11 @@
 @import "variables";
 @import "mixins";
 
+@mainHeaderButtonBackground: lighten(desaturate(@header, 10%), 50%);
+@sectionHeaderButtonBackground: #444;
+@outerSize: 24px;
+@outerPadding: 2px;
+
 .main-header {
   position: fixed;
   width: 100%;
@@ -54,10 +59,8 @@
     }
   }
   
-  @col: lighten(desaturate(@header, 10%), 50%);
-
   .button-new {
-    .buttonNewColors(@col; @col; @header; @col);
+    .buttonNewColors(@mainHeaderButtonBackground; @mainHeaderButtonBackground; @header; @mainHeaderButtonBackground);
     margin-right: 0;
 
     &:hover, &:focus {
@@ -107,7 +110,7 @@
     position: absolute;
     right: 10px;
     top: 15px;
-    color: @col;
+    color: @mainHeaderButtonBackground;
   }
 }
 
@@ -124,13 +127,16 @@
   border-bottom: 1px solid #fff;
   box-shadow: 0 2px 12px 1px rgba(0, 0, 0, 0.3);
   background: #eee;
-  @col: #444;
-  // @col: desaturate(darken(@header, 15%), 40%);
-  background: @col;
+  background: @sectionHeaderButtonBackground;
   padding: 10px;
   
   h2 {
+    overflow: hidden;
+    text-overflow: ellipsis;
     color: #ddd;
+    width: 100%;
+    height: 32px;
+
     & > a {
       color: #ddd;
       text-decoration: none;
@@ -178,21 +184,29 @@
     }
   }
 
-  .button-new {
-    .buttonNewColors(#ddd, #ddd, @col, #ddd);
+  .buttons {
+    box-shadow: fadeout(@sectionHeaderButtonBackground, 10%) -20px 0 10px 5px;
+    position: absolute;
+    right: 10px;
+    height: 33px;
+    background: @sectionHeaderButtonBackground;
+    
+    .button-new {
+      .buttonNewColors(#ddd, #ddd, @sectionHeaderButtonBackground, #ddd);
 
-    float: left;
-    margin-top: 11px;
-    margin-left: 20px;
+      float: left;
+      margin-top: 11px;
+      margin-right: 20px;
 
-    &:hover, &:focus { 
-      .buttonNewColors(@carrot, @col, @carrot, @carrot);
-    }
+      &:hover, &:focus { 
+        .buttonNewColors(@carrot, @sectionHeaderButtonBackground, @carrot, @carrot);
+      }
 
-    &.selected { 
-      .buttonNewColors(@carrot, @col, @carrot, @col);
-      &:hover, &:focus {
-        .buttonNewColors(@carrot, @col, @carrot, @carrot);
+      &.selected { 
+        .buttonNewColors(@carrot, @sectionHeaderButtonBackground, @carrot, @sectionHeaderButtonBackground);
+        &:hover, &:focus {
+          .buttonNewColors(@carrot, @sectionHeaderButtonBackground, @carrot, @carrot);
+        }
       }
     }
   }
@@ -232,10 +246,17 @@
 
   .section-header {
     top: 110px;
+    height: 90px;
+
+    .buttons {
+      top: 50px;
+      right: inherit;
+      left: 10px;
+    }
   }
 
   .page {
-    padding-top: 163px;
+    padding-top: 200px;
   }
 }
 
@@ -257,6 +278,19 @@
   }
 
   .page {
-    padding-top: 198px;
+    padding-top: 235px;
+  }
+}
+
+@media only screen and (min-width: 621px) {
+  .section-header {
+    .buttons {
+      .button-new {
+        margin-right: 0;
+        margin-left: 20px;
+
+        .buttonNewRight(@outerSize; @outerPadding);
+      }
+    }
   }
 }
