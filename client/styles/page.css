@@ -9,14 +9,6 @@ body {
   min-width: 380px;
   background: #eee;
 }
-.page {
-  padding-top: 170px;
-}
-@media only screen and (min-width : 780px) {
-  .page {
-    padding-top: 131px;
-  }
-}
 .page p {
   font-weight: 300;
   color: black;

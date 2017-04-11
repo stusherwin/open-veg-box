@@ -18,7 +18,8 @@
 }
 .main-header a.heading {
   display: block;
-  width: 240px;
+  width: 255px;
+  height: 60px;
   text-decoration: none;
 }
 .main-header a.heading h1 {
@@ -129,12 +130,15 @@
   top: 15px;
   color: #e0eed8;
 }
+.page {
+  padding-top: 131px;
+}
 .section-header {
   position: fixed;
   z-index: 9999;
   top: 77px;
   width: 100%;
-  border-top: 1px solid #fff;
+  border-top: 1px solid #70af4b;
   border-bottom: 1px solid #fff;
   box-shadow: 0 2px 12px 1px rgba(0, 0, 0, 0.3);
   background: #eee;
@@ -232,4 +236,47 @@
 .section-header .button-new.selected:focus i {
   background-color: #ff8f1d;
   color: #444;
+}
+@media only screen and (max-width: 790px) {
+  .main-header nav {
+    top: 4px;
+  }
+  .main-header nav span cc-nav-bar-link {
+    width: calc(50% - 2px);
+    text-align: left;
+  }
+}
+@media only screen and (max-width: 620px) {
+  .main-header {
+    height: 110px;
+  }
+  .main-header nav {
+    width: 100%;
+    top: 70px;
+    left: 0px;
+    text-align: left;
+  }
+  .main-header nav span cc-nav-bar-link {
+    width: inherit;
+  }
+  .section-header {
+    top: 110px;
+  }
+  .page {
+    padding-top: 163px;
+  }
+}
+@media only screen and (max-width: 425px) {
+  .main-header {
+    height: 145px;
+  }
+  .main-header nav span cc-nav-bar-link {
+    width: calc(50% - 2px);
+  }
+  .section-header {
+    top: 145px;
+  }
+  .page {
+    padding-top: 198px;
+  }
 }

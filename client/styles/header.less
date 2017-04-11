@@ -16,7 +16,8 @@
 
   a.heading {
     display: block;
-    width: 240px;
+    width: 255px;
+    height: 60px;
     text-decoration: none;
 
     h1 {
@@ -110,16 +111,21 @@
   }
 }
 
+.page {
+  padding-top: 131px;
+}
+
 .section-header {
   position: fixed;
   z-index: 9999;
   top: 77px;
   width: 100%;
-  border-top: 1px solid #fff;
+  border-top: 1px solid desaturate(lighten(@header, 10%), 10%);//#fff;
   border-bottom: 1px solid #fff;
   box-shadow: 0 2px 12px 1px rgba(0, 0, 0, 0.3);
   background: #eee;
   @col: #444;
+  // @col: desaturate(darken(@header, 15%), 40%);
   background: @col;
   padding: 10px;
   
@@ -189,5 +195,68 @@
         .buttonNewColors(@carrot, @col, @carrot, @carrot);
       }
     }
+  }
+}
+
+@media only screen and (max-width : 790px) {
+  .main-header {
+    nav {
+      top: 4px;
+      span {
+        cc-nav-bar-link {
+          width: calc(~"50% - 2px");
+          text-align: left;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 620px) {
+  .main-header {
+    height: 110px;
+
+    nav {
+      width: 100%;
+      top: 70px;
+      left: 0px;
+      text-align: left;
+
+      span {
+        cc-nav-bar-link {
+          width: inherit;
+        }
+      }
+    }
+  }
+
+  .section-header {
+    top: 110px;
+  }
+
+  .page {
+    padding-top: 163px;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .main-header {
+    height: 145px;
+    
+    nav {
+      span {
+        cc-nav-bar-link {
+          width: calc(~"50% - 2px");
+        }
+      }
+    }
+  }
+
+  .section-header {
+    top: 145px;
+  }
+
+  .page {
+    padding-top: 198px;
   }
 }
