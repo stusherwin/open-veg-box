@@ -117,8 +117,6 @@ TODO (now)
 
 * Rename -new classes
 * Editable value buttons
-* Redo @media
-  - header nav problems with small screen width
 * Bottom padding on rows
 * Better section/headings on Product/Order List pages
 
