@@ -1,0 +1,23 @@
+<div class="row-view-new">
+  <div class="row" style="height: 0;padding: 0">
+  </div>
+  <div class="row">
+    <div class="details">
+      <h3>Contact details</h3>
+      <div class="customer-details">
+        <cc-customer-address [(value)]="model.address" (valueChange)="model.update({address: $event})"></cc-customer-address>
+        <cc-customer-email [(value)]="model.email" (valueChange)="model.update({email: $event})"></cc-customer-email>
+        <cc-customer-tel [(value)]="model.tel1" (valueChange)="model.update({tel1: $event})"></cc-customer-tel>
+        <!-- todo: :after pseudo -->
+        <div class="customer-detail-end"></div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="details">
+      <h3>Order</h3>
+      <cc-order [order]="page.customer.order" [boxes]="page.boxes" [products]="page.products">
+      </cc-order>
+    </div>
+  </div>
+</div>

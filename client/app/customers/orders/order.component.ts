@@ -8,7 +8,6 @@ import { MoneyPipe } from '../../shared/pipes'
 import { Product } from '../../products/product'
 import { Box } from '../../boxes/box'
 import { Arrays } from '../../shared/arrays';
-import { CustomerOrderModel } from '../customer.model'
 import { OrderModel, OrderAvailableItem } from './order.model'
 import { OrderItemModel } from './order-item.model'
 
@@ -24,56 +23,22 @@ export class OrderComponent implements OnInit {
   model: OrderModel;
 
   @Input()
-  customerOrder: CustomerOrderModel;
+  order: Order;
+
+  @Input()
+  boxes: Box[];
+
+  @Input()
+  products: Product[];
 
   constructor(private orderService: OrderService) {
   }
 
   ngOnInit() {
-    this.createModel(this.customerOrder.order);
-  }
-
-  createModel(order: Order) {
     this.model = new OrderModel(
-      order,
-      this.customerOrder.boxes,
-      this.customerOrder.products,
-      (item: OrderAvailableItem, quantity: number) => {
-        console.log('add box ' + item.id + '(' + quantity + ') to order ' + order.id);
-        this.orderService.addBox(order.id, item.id, {quantity}).subscribe(o => {
-          this.createModel(o);
-        })
-      },
-      (item: OrderItemModel) => {
-        console.log('update box ' + item.id + ' quantity to ' + item.quantity + ' on order ' + order.id);
-        this.orderService.updateBox(order.id, item.id, {quantity: item.quantity}).subscribe(o => {
-          this.createModel(o);
-        })
-      },
-      (item: OrderItemModel) => {
-        console.log('delete box ' + item.id + ' from order ' + order.id);
-        this.orderService.removeBox(order.id, item.id).subscribe(o => {
-          this.createModel(o);
-        })
-      },
-      (item: OrderAvailableItem, quantity: number) => {
-        console.log('add product ' + item.id + '(' + quantity + ') to order ' + order.id);
-        this.orderService.addProduct(order.id, item.id, {quantity}).subscribe(o => {
-          this.createModel(o);
-        })
-      },
-      (item: OrderItemModel) => {
-        console.log('update product ' + item.id + ' quantity to ' + item.quantity + ' on order ' + order.id);
-        this.orderService.updateProduct(order.id, item.id, {quantity: item.quantity}).subscribe(o => {
-          this.createModel(o);
-        })
-      },
-      (item: OrderItemModel) => {
-        console.log('delete product ' + item.id + ' from order ' + order.id);
-        this.orderService.removeProduct(order.id, item.id).subscribe(o => {
-          this.createModel(o);
-        })
-      }
-    )
+      this.order,
+      this.boxes,
+      this.products,
+      this.orderService)
   }
 }

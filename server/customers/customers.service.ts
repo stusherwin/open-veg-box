@@ -2,19 +2,20 @@ import {Customer, CustomerWithOrder, Order, OrderItem} from './customer'
 import {Observable} from 'rxjs/Observable';
 import {Db} from '../shared/db';
 import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/first';
 
 export class CustomersService {
   fields: string[] = ['name', 'address', 'tel1', 'tel2', 'email'];
 
   getAll(queryParams: any, db: Db): Observable<Customer[]> {
     if(queryParams.orders) {
-      return this.allWithOrders(queryParams, db);
+      return this.allWithOrders(queryParams, {}, db, '');
     } else {
       return this.all(queryParams, db);
     }
   }
 
-  private allWithOrders(queryParams: any, db: Db): Observable<Customer[]> {
+  private allWithOrders(queryParams: any, params: any, db: Db, whereClause: string): Observable<Customer[]> {
     return db.allWithReduce<CustomerWithOrder>(
       ' select'
     + '  c.id, c.name, c.address, c.tel1, c.tel2, c.email'
@@ -29,8 +30,9 @@ export class CustomersService {
     + ' left join box b on b.id = ob.boxId'
     + ' left join order_product op on op.orderId = o.id'
     + ' left join product p on p.id = op.productId'
+    + ' ' + whereClause
     + ' order by o.id, b.name, p.name',
-      {},
+      params,
       queryParams,
       rows => {
         let customers: { [id: number]: CustomerWithOrder; } = {};
@@ -80,11 +82,19 @@ export class CustomersService {
       {}, queryParams, r => new Customer(r.id, r.name, r.address, r.tel1, r.tel2, r.email));
   }
 
-  get(id: number, db: Db): Observable<Customer> {
-    return db.single<Customer>(
+  get(id: number, queryParams: any, db: Db): Observable<Customer> {
+    console.log(queryParams);
+    if(queryParams.orders) {
+      console.log('orders')
+      return this.allWithOrders(queryParams, {id}, db, 'where c.id = @id').map(cs => cs.length? cs[0] : null);
+    } else {
+      console.log('no orders')
+      
+      return db.single<Customer>(
       ' select c.id, c.name, c.address, c.tel1, c.tel2, c.email from customer c'
     + ' where c.id = @id',
-      {id: id}, r => new Customer(r.id, r.name, r.address, r.tel1, r.tel2, r.email));
+      {id}, r => new Customer(r.id, r.name, r.address, r.tel1, r.tel2, r.email));
+    }
   }
   
   add(params: any, queryParams: any, db: Db): Observable<CustomerWithOrder[]> {

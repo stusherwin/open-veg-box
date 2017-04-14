@@ -5,13 +5,15 @@ import { CustomerEmailComponent } from './customer-email.component'
 import { CustomerTelComponent } from './customer-tel.component'
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../../shared/active-elements'
-import { CustomerModel } from '../customer.model'
+import { CustomerModel } from './customer.model'
 import { OrderComponent } from '../orders/order.component'
+import { MoneyPipe } from '../../shared/pipes'
 
 @Component({
   selector: 'cc-list-page-customer',
   templateUrl: 'app/customers/list-page/list-page-customer.component.html',
   directives: [HeadingComponent, CustomerAddressComponent, CustomerEmailComponent, CustomerTelComponent, ROUTER_DIRECTIVES, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, OrderComponent],
+  pipes: [MoneyPipe]
 })
 export class ListPageCustomerComponent {
   @ViewChild('customerName')

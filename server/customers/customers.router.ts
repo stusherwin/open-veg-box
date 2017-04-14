@@ -22,7 +22,7 @@ export let getCustomers = function(authorize: (req: any, res: any, next:() => vo
   });
 
   customers.get('/:id', function(req: any, res: any, next: any) {
-    customersService.get(req.params.id, req.db)
+    customersService.get(req.params.id, req.query, req.db)
                     .subscribe(customer => res.json(customer), next);
   });
 

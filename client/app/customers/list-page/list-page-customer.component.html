@@ -1,24 +1,16 @@
 <div class="row" #active=cc-active cc-active [class.focused]="rowFocused" (activate)="rowFocused = true" (deactivate)="rowFocused = false">
   <div class="details">
     <cc-heading #customerName [(value)]="model.name" (valueChange)="model.update({name: $event})"></cc-heading>
-
-    <div class="customer-details">  
-      <cc-customer-address [(value)]="model.address" (valueChange)="model.update({address: $event})"></cc-customer-address>
-      <cc-customer-email [(value)]="model.email" (valueChange)="model.update({email: $event})"></cc-customer-email>
-      <cc-customer-tel [(value)]="model.tel1" (valueChange)="model.update({tel1: $event})"></cc-customer-tel>
-      <div class="customer-detail-end"></div>
-    </div>
-
-    <cc-order [customerOrder]="model.order">
-    </cc-order>
+    <p style="font-size: 95%">{{model.address}}</p>
+    <p style="font-size: 95%; margin-top: 10px" innerHTML="Order: {{model.orderTotal | money}}"></p>
   </div>
   <div class="actions">
-      <button class="button-new button-new-right" [routerLink]="['../Customer', {customerId: model.id}, 'Email']" cc-active cc-activate-on-focus cc-deactivate-on-blur tabindex="1" [disabled]="!model.email">
-        <i class="icon-mail-dark"></i>Email
-      </button>
-      <a class="button-new button-new-right" cc-active cc-activate-on-focus tabindex="1" [routerLink]="['../Customer', {customerId: model.id}, 'Details']"><i class="icon-edit"></i>Edit</a>
-      <button class="button-new button-new-right" cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="model.delete();active.makeInactive()" tabindex="1">
-        <i class="icon-trash"></i>Delete
-      </button>
+    <a class="button-new button-new-right" cc-active cc-activate-on-focus tabindex="1" [routerLink]="['../Customer', {customerId: model.id}, 'Details']"><i class="icon-list-alt"></i>Details</a>
+    <button class="button-new button-new-right" [routerLink]="['../Customer', {customerId: model.id}, 'Email']" cc-active cc-activate-on-focus cc-deactivate-on-blur tabindex="1" [disabled]="!model.canEmail">
+      <i class="icon-mail-dark"></i>Email
+    </button>
+    <button class="button-new button-new-right" cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="model.delete();active.makeInactive()" tabindex="1">
+      <i class="icon-trash"></i>Delete
+    </button>
   </div>
 </div>

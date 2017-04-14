@@ -14,7 +14,7 @@ import { ActiveService, ActiveElementDirective, ActivateOnFocusDirective, Deacti
 import { DistributeWidthService } from '../../shared/distribute-width.directive'
 import { Arrays } from '../../shared/arrays';
 import { Objects } from '../../shared/objects';
-import { CustomerModel, AddCustomerModel } from '../customer.model';
+import { CustomerModel, AddCustomerModel } from './customer.model';
 import { SectionHeaderComponent } from '../../structure/section-header.component'
 import 'rxjs/add/observable/concat';
 import 'rxjs/add/operator/last';
@@ -65,22 +65,12 @@ export class ListPageComponent implements OnInit {
       id: customer.id,
       name: customer.name,
       address: customer.address,
-      email: customer.email,
-      tel1: customer.tel1,
-      order: {
-        order: customer.order,
-        boxes: this.boxes,
-        products: this.products
-      },
+      tel: customer.tel1,
+      canEmail: customer.email && !!customer.email.length,
+      orderTotal: customer.order.total,
       delete: () => {
         this.customerService.delete(customer.id, this.queryParams).subscribe(customers => {
           this.customers = customers.map(c => this.createModel(c));
-        });
-      },
-      update: (properties: {[property: string]: any}) => {
-        console.log('update customer ' + customer.id + ':');
-        console.log(properties);
-        this.customerService.update(customer.id, properties, this.queryParams).subscribe(customers => {
         });
       }
     }

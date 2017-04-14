@@ -122,3 +122,6 @@ TODO (now)
 
 * 404 when missing server-side resource not handled
 * Need 404 icon (info icon without background?)
+
+* Tidy up providers (BoxService, ProductService etc, shared directives, pipes)
+* Customer firstname/surname

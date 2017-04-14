@@ -1,21 +1,30 @@
 import { Component, OnInit, Input, Inject, forwardRef } from '@angular/core';
-import { Customer } from '../customer'
+import { CustomerWithOrder } from '../customer'
 import { CustomerService } from '../customer.service'
 import { EmailPageComponent } from './email-page.component'
 import { RouteParams } from '@angular/router-deprecated';
 import { RouteConfig, ROUTER_DIRECTIVES, Router } from '@angular/router-deprecated';
 import { SectionHeaderComponent } from '../../structure/section-header.component'
 import { DetailsPageComponent } from './details-page.component'
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/combineLatest';
+import { BoxService } from '../../boxes/box.service'
+import { ProductService } from '../../products/product.service'
+import { Box } from '../../boxes/box'
+import { Product } from '../../products/product';
+import { DistributeWidthService } from '../../shared/distribute-width.directive'
 
 export class CustomerPageService {
-  customer: Customer;
+  customer: CustomerWithOrder;
+  boxes: Box[];
+  products: Product[];
 }
 
 @Component({
   selector: 'cc-customer-page',
   templateUrl: 'app/customers/customer-page/customer-page.component.html',
   directives: [ROUTER_DIRECTIVES, SectionHeaderComponent],
-  providers: [CustomerPageService, CustomerService]
+  providers: [CustomerPageService, CustomerService, BoxService, ProductService, DistributeWidthService]
 })
 
 @RouteConfig([
@@ -31,11 +40,13 @@ export class CustomerPageService {
   }
 ])
 export class CustomerPageComponent implements OnInit {
-  customer: Customer;
+  customer: CustomerWithOrder;
   loading = true;
 
   constructor(
     private customerService: CustomerService,
+    private boxService: BoxService,
+    private productService: ProductService,
     private customerPageService: CustomerPageService,
     private routeParams: RouteParams,
     private router: Router) {
@@ -43,10 +54,17 @@ export class CustomerPageComponent implements OnInit {
 
   ngOnInit() {
     let customerId = +this.routeParams.params['customerId'];
-    this.customerService.get(customerId).subscribe(c => {
+    Observable.combineLatest(
+      this.customerService.getWithOrder(customerId),
+      this.boxService.getAll({}),
+      this.productService.getAll({}),
+      (customer, boxes, products) => ({ customer, boxes, products })
+    ).subscribe(({customer, boxes, products}) => {
       this.loading = false;
-      this.customerPageService.customer = c;
-      this.customer = c;
+      this.customer = customer;
+      this.customerPageService.customer = customer;
+      this.customerPageService.boxes = boxes;
+      this.customerPageService.products = products;
     });
   }
 

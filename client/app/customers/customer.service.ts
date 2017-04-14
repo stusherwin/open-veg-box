@@ -36,6 +36,13 @@ export class CustomerService {
                     .map(this.hydrate);
   }
 
+  getWithOrder(id: number): Observable<CustomerWithOrder> {
+    console.log('getWithOrder')
+    return this.http.get('/api/customers/' + id + '/?orders=true')
+                    .map(res => res.json())
+                    .map(this.hydrate);
+  }
+
   getAllWithNoRound(queryParams: {[key: string]: string}): Observable<Customer[]> {
     return this.http.get('/api/customers/no_round?' + this.toQueryString(queryParams))
                     .map(res => res.json())
