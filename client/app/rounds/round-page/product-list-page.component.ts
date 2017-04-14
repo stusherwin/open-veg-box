@@ -14,13 +14,13 @@ import { RoundPageService } from './round-page.component'
 export class ProductListPageComponent implements OnInit {
   constructor(private roundService: RoundService,
   @Inject(forwardRef(() => RoundPageService))
-  private roundPageService: RoundPageService) {
+  private page: RoundPageService) {
   }
 
   productList: ProductList
 
   ngOnInit() {
-    this.roundService.getProductList(this.roundPageService.round.id)
+    this.roundService.getProductList(this.page.round.id)
                      .subscribe(p => this.productList = p);
   }
 }

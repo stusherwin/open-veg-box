@@ -1,0 +1,17 @@
+<div class="row-view-new">
+  <div class="row" style="height: 0;padding: 0">
+  </div>
+  <div class="row">
+    <div class="details">
+      <h3>Customers</h3>
+      <cc-round-customers
+        [(value)]="page.round.customers"
+        [unusedCustomers]="page.unusedCustomers">
+      </cc-round-customers>
+      <!--
+        (add)="onCustomerAdd($event)" 
+        (remove)="onCustomerRemove($event)"
+      -->
+    </div>
+  </div>
+</div>

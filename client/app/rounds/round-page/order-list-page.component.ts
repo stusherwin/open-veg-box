@@ -16,13 +16,13 @@ import { RoundPageService } from './round-page.component'
 export class OrderListPageComponent implements OnInit {
   constructor(private roundService: RoundService,
   @Inject(forwardRef(() => RoundPageService))
-  private roundPageService: RoundPageService) {
+  private page: RoundPageService) {
   }
 
   orderList: CustomerOrderList;
 
   ngOnInit() {
-      this.roundService.getOrderList(this.roundPageService.round.id)
+      this.roundService.getOrderList(this.page.round.id)
                        .subscribe(o => this.orderList = o);
   }
 }

@@ -15,14 +15,14 @@ import { RoundPageService } from './round-page.component'
 export class EmailPageComponent implements OnInit {
   constructor(private roundService: RoundService,
   @Inject(forwardRef(() => RoundPageService))
-  private roundPageService: RoundPageService, private routeParams: RouteParams) {
+  private page: RoundPageService, private routeParams: RouteParams) {
   }
 
   customerEmails: EmailRecipient[];
   backLinkParams: any[];
 
   ngOnInit() {
-    this.customerEmails = this.roundPageService.round.customers.map(c => new EmailRecipient(c.name, c.email));
+    this.customerEmails = this.page.round.customers.map(c => new EmailRecipient(c.name, c.email));
     this.backLinkParams = this.routeParams.params['fromRound']
       ? ['../Details']
       : ['../../Rounds']

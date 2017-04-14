@@ -22,7 +22,6 @@ export class DetailsPageComponent implements OnInit {
     @Inject(forwardRef(() => CustomerPageService))
     private page: CustomerPageService,
     private customerService: CustomerService) {
-    console.log(page);
     this.model = new CustomerModel(page.customer, customerService);
   }
 

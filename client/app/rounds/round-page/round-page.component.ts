@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Inject, forwardRef } from '@angular/core';
 import { Round } from '../round'
+import { Customer } from '../../customers/customer'
 import { RoundService } from '../round.service'
+import { RoundCustomersService } from '../list-page/round-customers.service'
 import { RoundDetailsPageComponent } from './details-page.component'
 import { EmailPageComponent } from './email-page.component'
 import { ProductListPageComponent } from './product-list-page.component'
@@ -8,16 +10,18 @@ import { OrderListPageComponent } from './order-list-page.component'
 import { RouteParams } from '@angular/router-deprecated';
 import { RouteConfig, ROUTER_DIRECTIVES, Router } from '@angular/router-deprecated';
 import { SectionHeaderComponent } from '../../structure/section-header.component'
+import { ActiveService } from '../../shared/active-elements'
 
 export class RoundPageService {
   round: Round;
+  unusedCustomers: Customer[] = []
 }
 
 @Component({
   selector: 'cc-round-page',
   templateUrl: 'app/rounds/round-page/round-page.component.html',
   directives: [ROUTER_DIRECTIVES, SectionHeaderComponent],
-  providers: [RoundPageService]
+  providers: [RoundPageService, RoundCustomersService, ActiveService]
 })
 
 @RouteConfig([
@@ -48,7 +52,7 @@ export class RoundPageComponent implements OnInit {
 
   constructor(
     private roundService: RoundService,
-    private roundPageService: RoundPageService,
+    private page: RoundPageService,
     private routeParams: RouteParams,
     private router: Router) {
   }
@@ -57,7 +61,7 @@ export class RoundPageComponent implements OnInit {
     let roundId = +this.routeParams.params['roundId'];
     this.roundService.get(roundId).subscribe(r => {
       this.loading = false;
-      this.roundPageService.round = r;
+      this.page.round = r;
       this.round = r;
     });
   }

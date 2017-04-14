@@ -1,4 +1,5 @@
-<cc-section-header headerIcon="map-signs" [headerTitle]="loading ? '' : (round?.name || 'Round not found')" [headerRouterLink]="round? ['./Details'] : null">
+<cc-section-header headerIcon="map-signs" [headerTitle]="loading ? '' : (round?.name || 'Round not found')">
+  <a *ngIf="round" class="button-new" [class.selected]="isCurrent(['./Details'])" [routerLink]="['./Details']" tabindex="1"><i class="icon-list-alt"></i>Details</a>
   <a *ngIf="round" class="button-new" [class.selected]="isCurrent(['./ProductList'])" [routerLink]="['./ProductList']" tabindex="1"><i class="icon-carrot"></i>Product list</a>
   <a *ngIf="round" class="button-new" [class.selected]="isCurrent(['./OrderList'])" [routerLink]="['./OrderList']" tabindex="1"><i class="icon-basket"></i>Order list</a>
   <a *ngIf="round" class="button-new" [class.selected]="isCurrent(['./Email'])" [routerLink]="['./Email', {fromRound: true}]" tabindex="1"><i class="icon-mail-dark"></i>Email</a>

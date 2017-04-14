@@ -14,15 +14,14 @@ import { CustomerPageService } from './customer-page.component'
 export class EmailPageComponent implements OnInit {
   constructor(private customerService: CustomerService,
     @Inject(forwardRef(() => CustomerPageService))
-    private customerPageService: CustomerPageService, private routeParams: RouteParams) {
+    private page: CustomerPageService, private routeParams: RouteParams) {
   }
 
   customerEmails: EmailRecipient[];
   backLinkParams: any[];
 
   ngOnInit() {
-    let customer = this.customerPageService.customer;
-    this.customerEmails = [new EmailRecipient(customer.name, customer.email)];
+    this.customerEmails = [new EmailRecipient(this.page.customer.name, this.page.customer.email)];
     this.backLinkParams = this.routeParams.params['fromCustomer']
       ? ['../Details']
       : ['../../Customers'];

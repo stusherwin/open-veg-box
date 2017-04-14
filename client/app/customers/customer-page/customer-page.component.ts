@@ -47,7 +47,7 @@ export class CustomerPageComponent implements OnInit {
     private customerService: CustomerService,
     private boxService: BoxService,
     private productService: ProductService,
-    private customerPageService: CustomerPageService,
+    private page: CustomerPageService,
     private routeParams: RouteParams,
     private router: Router) {
   }
@@ -62,9 +62,9 @@ export class CustomerPageComponent implements OnInit {
     ).subscribe(({customer, boxes, products}) => {
       this.loading = false;
       this.customer = customer;
-      this.customerPageService.customer = customer;
-      this.customerPageService.boxes = boxes;
-      this.customerPageService.products = products;
+      this.page.customer = customer;
+      this.page.boxes = boxes;
+      this.page.products = products;
     });
   }
 
