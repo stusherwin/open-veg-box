@@ -11,7 +11,7 @@
     </cc-round-customers-->
   </div>
   <div class="actions">
-    <a class="button-new button-new-right" cc-active cc-activate-on-focus tabindex="1" [routerLink]="['../Round', {roundId: round.id}, 'Details']"><i class="icon-list-alt"></i>Details</a>
+    <a class="button-new button-new-right" cc-active cc-activate-on-focus tabindex="1" [routerLink]="['../Round', {roundId: round.id}, 'Details']"><i class="icon-doc-text"></i>Details</a>
     <button class="button-new button-new-right" [disabled]="!canEmail" cc-active cc-activate-on-focus tabindex="1" [routerLink]="['../Round', {roundId: round.id}, 'Email']"><i class="icon-mail-dark"></i>Email</button>
     <a class="button-new button-new-right" cc-active cc-activate-on-focus tabindex="1" (click)="onDelete()"><i class="icon-trash"></i>Delete</a>
   </div>

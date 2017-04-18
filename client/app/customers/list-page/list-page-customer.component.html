@@ -5,7 +5,7 @@
     <p style="font-size: 95%; margin-top: 10px" innerHTML="Order: {{model.orderTotal | money}}"></p>
   </div>
   <div class="actions">
-    <a class="button-new button-new-right" cc-active cc-activate-on-focus tabindex="1" [routerLink]="['../Customer', {customerId: model.id}, 'Details']"><i class="icon-list-alt"></i>Details</a>
+    <a class="button-new button-new-right" cc-active cc-activate-on-focus tabindex="1" [routerLink]="['../Customer', {customerId: model.id}, 'Details']"><i class="icon-doc-text"></i>Details</a>
     <button class="button-new button-new-right" [routerLink]="['../Customer', {customerId: model.id}, 'Email']" cc-active cc-activate-on-focus cc-deactivate-on-blur tabindex="1" [disabled]="!model.canEmail">
       <i class="icon-mail-dark"></i>Email
     </button>

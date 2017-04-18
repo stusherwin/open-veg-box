@@ -1486,6 +1486,21 @@ input[type="text"].price {
   margin-top: 0px;
   margin-left: 0px;
 }
+.button-new i.icon-doc-text {
+  font-size: 12.5px;
+}
+.button-new i.icon-doc-text::before {
+  display: block;
+  border-radius: 12.5px;
+  height: 12.5px;
+  width: 12.5px;
+  left: calc(50% -  6.25px);
+  top: calc(50% -  6.25px);
+}
+.button-new i.icon-doc-text::before {
+  margin-top: 0.5px;
+  margin-left: 0.5px;
+}
 button.button-new {
   padding-top: 0;
   padding-bottom: 0;
