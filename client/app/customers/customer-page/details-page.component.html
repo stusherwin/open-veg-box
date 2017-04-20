@@ -1,7 +1,7 @@
-<div class="row-view-new">
+<div class="row-view-new" cc-active (activate)="rowViewFocused = true" (deactivate)="rowViewFocused = false" [class.focused]="rowViewFocused">
   <div class="row" style="height: 0;padding: 0">
   </div>
-  <div class="row">
+  <div class="row" cc-active (activate)="contactFocused = true" (deactivate)="contactFocused = false" [class.focused]="contactFocused">
     <div class="details">
       <h3>Contact details</h3>
       <div class="customer-details">
@@ -13,7 +13,7 @@
       </div>
     </div>
   </div>
-  <div class="row">
+  <div class="row" cc-active (activate)="orderFocused = true" (deactivate)="orderFocused = false" [class.focused]="orderFocused">
     <div class="details">
       <h3>Order</h3>
       <cc-order [order]="page.customer.order" [boxes]="page.boxes" [products]="page.products">

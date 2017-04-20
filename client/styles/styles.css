@@ -1530,6 +1530,45 @@ button.button-new[disabled]:focus i {
   background-color: transparent;
   color: #bbb;
 }
+.button-new-small {
+  display: inline-block;
+  background: rgba(187, 187, 187, 0.5);
+  border-radius: 16px;
+  width: 16px;
+  height: 16px;
+  padding: 3px 1.5px;
+  color: white;
+  border: 1px solid rgba(187, 187, 187, 0.5);
+  position: relative;
+}
+.button-new-small i::before {
+  font-size: 11px;
+}
+.button-new-small i::before {
+  font-size: 11px;
+  color: white;
+}
+.button-new-small:hover {
+  border: 1px solid #ffa011;
+  background: #ffa011;
+}
+.button-new-small:hover i::before {
+  color: white;
+}
+.button-new-small i.icon-edit::before {
+  font-size: 10px;
+}
+.button-new-small i.icon-edit::before {
+  margin-top: -1px;
+  margin-left: 1px;
+}
+.editable-value-display:hover .button-new-small {
+  border: 1px solid #ffa011;
+  background: #ffa011;
+}
+.editable-value-display:hover .button-new-small i::before {
+  color: white;
+}
 @-moz-document url-prefix() {
   a.new i::before {
     margin-top: -1px;
@@ -1591,6 +1630,16 @@ button.button-new[disabled]:focus i {
 .row-view-new.focused .row.focused:hover,
 .row-view-new.focused > *:nth-child(2n+1) > .row.focused:hover {
   background: #fff1dd;
+}
+.row-view-new.no-hover:hover .row,
+.row-view-new.no-hover.focused .row {
+  background: #fafafa;
+}
+.row-view-new.no-hover:hover > *:nth-child(2n+1) > .row,
+.row-view-new.no-hover.focused > *:nth-child(2n+1) > .row,
+.row-view-new.no-hover:hover > .row:nth-child(2n+1),
+.row-view-new.no-hover.focused > .row:nth-child(2n+1) {
+  background: #f5f5f5;
 }
 .home {
   background: #579532;

@@ -1,8 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { ListPageComponent } from './list-page/list-page.component'
 import { CustomerPageComponent } from './customer-page/customer-page.component'
-import { RouteConfig, Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
-import { ActiveService, ActiveElementDirective, ActivateOnFocusDirective } from '../shared/active-elements'
+import { RouteConfig, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
+import { ActiveService } from '../shared/active-elements'
 
 @Component({
   templateUrl: 'app/customers/customers-section.component.html',

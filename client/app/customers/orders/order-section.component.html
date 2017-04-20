@@ -1,4 +1,4 @@
-<div class="order-section" cc-active [class.editing]="editingOrder" (activate)="editingOrder = true" (deactivate)="editingOrder = false">
+<div class="order-section editing">
   <div class="order-item order-heading"
       cc-distribute-width-sum="name,quantity,total" [padding]="orderItemPadding * 2">
     {{heading}}
@@ -36,7 +36,7 @@
   --><div class="order-item-part"
           [style.margin-left.px]="orderItemPadding">
       <a #remove
-        class="show-on-edit"
+        class="button-new-small show-on-edit"
         cc-active cc-activate-on-focus cc-deactivate-on-blur
         tabindex="1"
         (click)="onOrderItemRemove(item)"
@@ -58,10 +58,10 @@
           <div class="order-item-part show-on-edit"
                 cc-distribute-width-sum="name,quantity,total"
                 [padding]="orderItemPadding * 3">
-            Add {{model.items.length? 'another' : itemNameArticle }} {{itemName}}...
+            <!--Add {{model.items.length? 'another' : itemNameArticle }} {{itemName}}...-->
           </div><!--
         --><div class="order-item-part show-on-edit">
-            <a #add
+            <a class="button-new-small" #add
               cc-active cc-activate-on-focus cc-deactivate-on-blur
               tabindex="1"
               (focus)="addFocused = true"
@@ -77,10 +77,10 @@
                cc-distribute-width="name">
             <select #select
                 cc-active cc-activate-on-focus
-                tabindex="{{editable.editing? tabindex : 9999}}"
+                tabindex="{{editable.editing? 1 : 9999}}"
                 [(ngModel)]="model.addingItem"
                 (focus)="editable.startEdit()"
-                (ngModelChange)="model.recalculateTotal()">
+                (ngModelChange)="model.editingTotalRecalculationNeeded()">
               <option *ngFor="let i of model.itemsAvailable" [ngValue]="i">{{i.name}}</option>
             </select>
           </div><!--
@@ -93,8 +93,8 @@
                 message="Quantity should be a number greater than 0">
                   <input type="text"
                       cc-active cc-activate-on-focus
-                      cc-numeric [(value)]="model.addingItemQuantity" (valueChange)="model.recalculateTotal()"
-                      tabindex="{{editable.editing? tabindex : 9999}}"
+                      cc-numeric [(value)]="model.addingItemQuantity" (valueChange)="model.editingTotalRecalculationNeeded()"
+                      tabindex="{{editable.editing? 1 : 9999}}"
                       (focus)="editable.startEdit()" />
               </cc-validatable>
             <span [style.visibility]="model.addingItem?.unitType == 'perKg' ? 'visible' : 'hidden'">Kg</span>

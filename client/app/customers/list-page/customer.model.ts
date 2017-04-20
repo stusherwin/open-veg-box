@@ -6,6 +6,7 @@ export class CustomerModel {
   tel: string;
   orderTotal: number;
 
+  update: (params: any) => void;
   delete: () => void;
 }
 

@@ -125,3 +125,8 @@ TODO (now)
 
 * Tidy up providers (BoxService, ProductService etc, shared directives, pipes)
 * Customer firstname/surname
+
+* When changing customer page, should reload customer
+* Email edit font size wierdness
+* Make button-new-small structure same as button-new
+* Make button-new background white

@@ -1126,6 +1126,61 @@ button.button-new {
   }
 }
 
+.button-new-small {
+  display: inline-block;
+  background: rgba(187,187,187, 0.5);
+  border-radius: 16px;
+  width: 16px;
+  height: 16px;
+  padding: 3px 1.5px;
+  color: white;
+  border: 1px solid rgba(187,187,187, 0.5);
+  position: relative;
+
+  .buttonIconSize(@iconSize) {
+    &::before {
+      font-size: @iconSize;
+    }
+  }
+
+  i {
+    .buttonIconSize(11px);
+
+    &::before {
+      font-size: 11px;
+      color: white;
+    }
+  }
+
+  &:hover {
+    border: 1px solid @boxProductHover;
+    background: @boxProductHover;
+
+    i::before {
+      color: white;
+    }
+  }
+
+  i.icon-edit {
+    .buttonIconSize(10px);
+    .buttonIconNudge(1px; -1px);
+  }
+
+  i.icon-trash {
+  }
+}
+
+.editable-value-display:hover {
+  .button-new-small {
+    border: 1px solid @boxProductHover;
+    background: @boxProductHover;
+
+    i::before {
+      color: white;
+    }
+  }
+}
+
 @-moz-document url-prefix() {
   a.new i::before {
     margin-top: -1px;
@@ -1198,6 +1253,18 @@ button.button-new {
       &.focused, &.focused:hover {
         background: @rowHover;
       }
+    }
+  }
+
+  &.no-hover {
+    &:hover, &.focused {
+      .row {
+        background: @row;
+      }
+      & > *:nth-child(2n+1) > .row, & > .row:nth-child(2n+1) {
+        background: @rowOdd;
+      }
+    
     }
   }
 }

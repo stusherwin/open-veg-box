@@ -41,21 +41,14 @@ export class ListPageComponent implements OnInit {
 
   addModel: AddCustomerModel;
   customers: CustomerModel[] = [];
-  boxes: Box[];
-  products: Product[];
   loaded: boolean;
 
   queryParams: {[key: string]: string};
 
   ngOnInit() {
-    this.customerService.getAllWithOrders(this.queryParams).combineLatest(
-        this.boxService.getAll(this.queryParams),
-        this.productService.getAll(this.queryParams),
-        (customers, boxes, products) => ({ customers, boxes, products }))
-      .subscribe(({customers, boxes, products}) => {
+    this.customerService.getAllWithOrders(this.queryParams)
+      .subscribe(customers => {
         this.loaded = true;
-        this.boxes = boxes;
-        this.products = products;
         this.customers = customers.map(c => this.createModel(c));
       });
   }
@@ -68,6 +61,10 @@ export class ListPageComponent implements OnInit {
       tel: customer.tel1,
       canEmail: customer.email && !!customer.email.length,
       orderTotal: customer.order.total,
+      update: (params: any) => {
+        this.customerService.update(customer.id, params, this.queryParams).subscribe(customers => {
+        });
+      },
       delete: () => {
         this.customerService.delete(customer.id, this.queryParams).subscribe(customers => {
           this.customers = customers.map(c => this.createModel(c));
