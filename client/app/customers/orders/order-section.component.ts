@@ -11,7 +11,7 @@ import { OrderSectionModel } from './order-section.model'
 import { OrderItemModel } from './order-item.model'
 
 @Component({
-  selector: 'cc-order-section',
+  selector: '[cc-order-section]',
   templateUrl: 'app/customers/orders/order-section.component.html',
   directives: [ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, DistributeWidthDirective, OrderItemQuantityComponent, DistributeWidthSumDirective, EditableValueComponent, NumericDirective],
   pipes: [MoneyPipe]

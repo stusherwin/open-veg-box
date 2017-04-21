@@ -1,14 +1,46 @@
-<div class="order-section editing">
+<tr>
+  <th colspan="4">{{heading}}</th>
+</tr>
+<tr *ngFor="let item of model.items; let i = index; trackBy:getItemId">
+  <td>{{item.name}}</td>
+  <td>
+    <cc-order-item-quantity
+      [(value)]="item.quantity"
+      (valueChange)="item.updateQuantity($event);"
+      (editingValueChange)="item.modifyQuantity($event);"
+      [unitType]="item.unitType">
+    </cc-order-item-quantity>
+  </td>
+  <td [innerHTML]="item.editingTotal | money:true"
+      [class.modified]="item.editingTotal != item.total" style="background: red"></td>
+  <td>
+    <a #remove
+      class="button-new-small show-on-edit"
+      cc-active cc-activate-on-focus cc-deactivate-on-blur
+      tabindex="1"
+      (click)="onOrderItemRemove(item)"
+      (keydown.Enter)="onOrderItemRemove(item, true)"><i class="icon-trash"></i>
+    </a>
+  </td>
+</tr>
+<!--<div class="order-section editing">
   <div class="order-item order-heading"
-      cc-distribute-width-sum="name,quantity,total" [padding]="orderItemPadding * 2">
-    {{heading}}
+      cc-distribute-width-sum="name,quantity,total" [padding]="orderItemPadding * 2 + 30">
+    <div class="order-item-part" cc-distribute-width-sum="name,quantity,total" [padding]="orderItemPadding * 2 + 7">{{heading}}</div>
+    <div class="order-item-part"><a class="button-new-small" #add
+              cc-active cc-activate-on-focus cc-deactivate-on-blur
+              tabindex="1"
+              (focus)="addFocused = true"
+              (blur)="addFocused = false"
+              (keydown.Enter)="editable.startEdit()"><i class="icon-add"></i>
+            </a></div>
   </div>
   <div class="order-item" *ngIf="!model.items.length">
     <div class="order-item-part"
         cc-distribute-width-sum="name,quantity" [padding]="orderItemPadding">
       &nbsp;
     </div><!--
- --><div class="order-item-part order-item-total"
+ -><div class="order-item-part order-item-total"
         cc-distribute-width="total"
         [style.margin-left.px]="orderItemPadding"
         [innerHTML]="0 | money:true">
@@ -17,7 +49,7 @@
   <div class="order-item" *ngFor="let item of model.items; let i = index; trackBy:getItemId">
     <div class="order-item-part"
           cc-distribute-width="name">{{item.name}}</div><!--
-  --><div class="order-item-part"
+  -><div class="order-item-part"
           cc-distribute-width="quantity"
           [style.margin-left.px]="orderItemPadding">
       <cc-order-item-quantity
@@ -27,13 +59,13 @@
         [unitType]="item.unitType">
       </cc-order-item-quantity>
     </div><!--
-  --><div class="order-item-part order-item-total"
+  -><div class="order-item-part order-item-total"
           cc-distribute-width="total"
           [innerHTML]="item.editingTotal | money:true"
           [class.modified]="item.editingTotal != item.total"
           [style.margin-left.px]="orderItemPadding">
      </div><!--
-  --><div class="order-item-part"
+  -><div class="order-item-part"
           [style.margin-left.px]="orderItemPadding">
       <a #remove
         class="button-new-small show-on-edit"
@@ -58,16 +90,10 @@
           <div class="order-item-part show-on-edit"
                 cc-distribute-width-sum="name,quantity,total"
                 [padding]="orderItemPadding * 3">
-            <!--Add {{model.items.length? 'another' : itemNameArticle }} {{itemName}}...-->
+            <!--Add {{model.items.length? 'another' : itemNameArticle }} {{itemName}}...->
           </div><!--
-        --><div class="order-item-part show-on-edit">
-            <a class="button-new-small" #add
-              cc-active cc-activate-on-focus cc-deactivate-on-blur
-              tabindex="1"
-              (focus)="addFocused = true"
-              (blur)="addFocused = false"
-              (keydown.Enter)="editable.startEdit()"><i class="icon-add"></i>
-            </a>
+        -><div class="order-item-part show-on-edit">
+            
           </div>
         </div>
       </display>
@@ -84,7 +110,7 @@
               <option *ngFor="let i of model.itemsAvailable" [ngValue]="i">{{i.name}}</option>
             </select>
           </div><!--
-       --><div class="order-item-part"
+       -><div class="order-item-part"
                cc-distribute-width="quantity"
                [style.margin-left.px]="orderItemPadding">
             <span [style.visibility]="model.addingItem?.unitType == 'each' ? 'visible' : 'hidden'">x</span>
@@ -99,7 +125,7 @@
               </cc-validatable>
             <span [style.visibility]="model.addingItem?.unitType == 'perKg' ? 'visible' : 'hidden'">Kg</span>
           </div><!--
-       --><div class="order-item-part order-item-total"
+       -><div class="order-item-part order-item-total"
                cc-distribute-width="total"
                [style.margin-left.px]="orderItemPadding"
                [innerHTML]="(model.addingItem?.price * model.addingItemQuantity || 0) | money: true">
@@ -108,4 +134,4 @@
       </edit>
     </cc-editable-value>
   </div>
-</div>
+</div>-->

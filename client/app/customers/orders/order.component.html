@@ -1,5 +1,17 @@
-<div class="order">
-  <cc-order-section heading="Boxes" itemName="box"
+<table class="order" style="width:100%;background: #aaf">
+  <tbody style="background: #afa; width: 100%" cc-order-section heading="Boxes" itemName="box" [model]="model.boxes">
+  </tbody>
+  <tbody style="background: #afa; width: 100%" cc-order-section heading="Extra Products" itemName="product" [model]="model.products">
+  </tbody>
+  <tbody  style="background: #afa; width: 100%">
+    <tr>
+      <td>Total</td>
+      <td [class.modified]="model.editingTotal != model.total"
+          [innerHTML]="model.editingTotal | money:true"></td>
+    </tr>
+  </tbody>
+</table>
+  <!--<cc-order-section heading="Boxes" itemName="box"
     [model]="model.boxes">
   </cc-order-section>
   <cc-order-section heading="Extra Products" itemName="product"
@@ -14,11 +26,11 @@
         cc-distribute-width-sum="name,quantity" [padding]="orderItemPadding * 1">
         &nbsp;
     </div><!--
- --><div class="order-item-part"
+ -><div class="order-item-part"
          cc-distribute-width="total"
          [class.modified]="model.editingTotal != model.total"
          [innerHTML]="model.editingTotal | money:true"
          [style.margin-left.px]="orderItemPadding">
     </div>
   </div>
-</div>
+</div>-->

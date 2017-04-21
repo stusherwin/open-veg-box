@@ -1058,3 +1058,15 @@ button.button-new[disabled]:focus i {
 .row-view-new.no-hover.focused > .row:nth-child(2n+1) {
   background: #f5f5f5;
 }
+table.order {
+  width: 100%;
+  background: #aaf;
+}
+table.order tbody {
+  width: 100%;
+  background: #afa;
+}
+table.order tbody > tbody {
+  width: 100%;
+  background: #ffa;
+}
