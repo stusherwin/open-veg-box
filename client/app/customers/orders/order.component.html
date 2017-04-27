@@ -1,36 +1,20 @@
-<table class="order" style="width:100%;background: #aaf">
-  <tbody style="background: #afa; width: 100%" cc-order-section heading="Boxes" itemName="box" [model]="model.boxes">
-  </tbody>
-  <tbody style="background: #afa; width: 100%" cc-order-section heading="Extra Products" itemName="product" [model]="model.products">
-  </tbody>
-  <tbody  style="background: #afa; width: 100%">
-    <tr>
-      <td>Total</td>
-      <td [class.modified]="model.editingTotal != model.total"
-          [innerHTML]="model.editingTotal | money:true"></td>
-    </tr>
-  </tbody>
-</table>
-  <!--<cc-order-section heading="Boxes" itemName="box"
+<cc-table>
+  <cc-tbody cc-order-section heading="Boxes" itemName="box"
     [model]="model.boxes">
-  </cc-order-section>
-  <cc-order-section heading="Extra Products" itemName="product"
+  </cc-tbody>
+  <cc-tbody cc-order-section heading="Extra Products" itemName="product"
     [model]="model.products">
-  </cc-order-section>
-  <div class="order-item order-heading"
-      cc-distribute-width-sum="name,quantity,total" [padding]="orderItemPadding * 2">
-    Total
-  </div>
-  <div class="order-item">
-    <div class="order-item-part"
-        cc-distribute-width-sum="name,quantity" [padding]="orderItemPadding * 1">
-        &nbsp;
-    </div><!--
- -><div class="order-item-part"
-         cc-distribute-width="total"
-         [class.modified]="model.editingTotal != model.total"
-         [innerHTML]="model.editingTotal | money:true"
-         [style.margin-left.px]="orderItemPadding">
-    </div>
-  </div>
-</div>-->
+  </cc-tbody>
+  <cc-tbody>
+    <cc-tr>
+      <cc-td></cc-td>
+      <cc-td></cc-td>
+      <cc-td></cc-td>
+      <cc-td class="order-total"
+             [class.modified]="model.editingTotal != model.total"
+             [innerHTML]="model.editingTotal | money:true">
+      </cc-td>
+      <cc-td></cc-td>
+    </cc-tr>
+  </cc-tbody>
+</cc-table>

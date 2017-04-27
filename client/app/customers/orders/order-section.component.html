@@ -1,72 +1,94 @@
-<tr>
-  <th colspan="4">{{heading}}</th>
-</tr>
-<tr *ngFor="let item of model.items; let i = index; trackBy:getItemId">
-  <td>{{item.name}}</td>
-  <td>
-    <cc-order-item-quantity
-      [(value)]="item.quantity"
-      (valueChange)="item.updateQuantity($event);"
-      (editingValueChange)="item.modifyQuantity($event);"
-      [unitType]="item.unitType">
-    </cc-order-item-quantity>
-  </td>
-  <td [innerHTML]="item.editingTotal | money:true"
-      [class.modified]="item.editingTotal != item.total" style="background: red"></td>
-  <td>
-    <a #remove
-      class="button-new-small show-on-edit"
-      cc-active cc-activate-on-focus cc-deactivate-on-blur
-      tabindex="1"
-      (click)="onOrderItemRemove(item)"
-      (keydown.Enter)="onOrderItemRemove(item, true)"><i class="icon-trash"></i>
-    </a>
-  </td>
-</tr>
-<!--<div class="order-section editing">
-  <div class="order-item order-heading"
-      cc-distribute-width-sum="name,quantity,total" [padding]="orderItemPadding * 2 + 30">
-    <div class="order-item-part" cc-distribute-width-sum="name,quantity,total" [padding]="orderItemPadding * 2 + 7">{{heading}}</div>
-    <div class="order-item-part"><a class="button-new-small" #add
-              cc-active cc-activate-on-focus cc-deactivate-on-blur
-              tabindex="1"
-              (focus)="addFocused = true"
-              (blur)="addFocused = false"
-              (keydown.Enter)="editable.startEdit()"><i class="icon-add"></i>
-            </a></div>
-  </div>
-  <div class="order-item" *ngIf="!model.items.length">
-    <div class="order-item-part"
-        cc-distribute-width-sum="name,quantity" [padding]="orderItemPadding">
-      &nbsp;
-    </div><!--
- -><div class="order-item-part order-item-total"
-        cc-distribute-width="total"
-        [style.margin-left.px]="orderItemPadding"
-        [innerHTML]="0 | money:true">
-    </div>
-  </div>
-  <div class="order-item" *ngFor="let item of model.items; let i = index; trackBy:getItemId">
-    <div class="order-item-part"
-          cc-distribute-width="name">{{item.name}}</div><!--
-  -><div class="order-item-part"
-          cc-distribute-width="quantity"
-          [style.margin-left.px]="orderItemPadding">
-      <cc-order-item-quantity
+  <cc-tr-header class="order-header">
+    <cc-td>{{heading}}</cc-td>
+    <cc-td></cc-td>
+    <cc-td></cc-td>
+    <cc-td></cc-td>
+    <cc-td class="action">
+      <a class="button-new-small" #add
+         cc-active cc-activate-on-focus cc-deactivate-on-blur
+         cc-editable-button="{{heading}}-add"
+         tabindex="1"><i class="icon-add"></i>
+      </a>
+    </cc-td>
+  </cc-tr-header>
+  <cc-tr cc-editable-edit="{{heading}}-add" cc-editable-background="{{heading}}-add">
+    <cc-td>Stu</cc-td>
+    <cc-td></cc-td>
+    <cc-td></cc-td>
+    <cc-td class="total" [innerHTML]="0 | money:true"></cc-td>
+    <cc-td class="action">
+        <a class="button-new-small"
+          cc-ok-button="{{heading}}-add"
+          cc-active cc-activate-on-focus cc-deactivate-on-blur
+          tabindex="1"><i class="icon-ok"></i>
+        </a>
+        <a class="button-new-small"
+          cc-cancel-button="{{heading}}-add"
+          cc-active cc-activate-on-focus cc-deactivate-on-blur
+          tabindex="1"><i class="icon-cancel"></i>
+        </a>
+    </cc-td>
+  </cc-tr>
+  <cc-tr *ngIf="!model.items.length">
+    <cc-td></cc-td>
+    <cc-td></cc-td>
+    <cc-td></cc-td>
+    <cc-td class="total" [innerHTML]="0 | money:true"></cc-td>
+    <cc-td></cc-td>
+  </cc-tr>
+  <cc-tr *ngFor="let item of model.items; let i = index; trackBy:getItemId">
+    <cc-td>{{item.name}}</cc-td>
+    <cc-td cc-editable-background="{{heading}}-{{i}}">
+      <span cc-editable-display="{{heading}}-{{i}}">
+        <cc-product-quantity [quantity]="item.quantity" [unitType]="item.unitType"></cc-product-quantity>
+      </span>
+      <span cc-editable-edit="{{heading}}-{{i}}">
+        <span class="box-product-quantity-each" *ngIf="item.unitType == 'each'">x</span>
+        <!--<cc-validatable
+            [valid]="editable.editingValue > 0"
+            message="Quantity should be a number greater than 0">-->
+          <input type="text" #input
+            class="inputx pricex editable-input"
+            cc-numeric maxDecimals="3" [(value)]="item.quantity"
+            cc-active cc-activate-on-focus
+            tabindex="1"
+            (focus)="editable.startEdit()" />
+        <!--</cc-validatable>-->
+        <span class="box-product-quantity-perkg" *ngIf="item.unitType == 'perKg'">Kg</span>
+      </span>
+      <!--<cc-order-item-quantity
         [(value)]="item.quantity"
         (valueChange)="item.updateQuantity($event);"
         (editingValueChange)="item.modifyQuantity($event);"
         [unitType]="item.unitType">
-      </cc-order-item-quantity>
-    </div><!--
-  -><div class="order-item-part order-item-total"
-          cc-distribute-width="total"
-          [innerHTML]="item.editingTotal | money:true"
-          [class.modified]="item.editingTotal != item.total"
-          [style.margin-left.px]="orderItemPadding">
-     </div><!--
-  -><div class="order-item-part"
-          [style.margin-left.px]="orderItemPadding">
+      </cc-order-item-quantity>-->
+    </cc-td>
+    <cc-td class="action" cc-editable-background="{{heading}}-{{i}}">
+      <span cc-editable-display="{{heading}}-{{i}}">
+        <a class="button-new-small"
+          cc-editable-button="{{heading}}-{{i}}"
+          cc-active cc-activate-on-focus cc-deactivate-on-blur
+          tabindex="1"><i class="icon-edit"></i>
+        </a>
+      </span>
+      <span cc-editable-edit="{{heading}}-{{i}}">
+        <a class="button-new-small"
+          cc-ok-button="{{heading}}-{{i}}"
+          cc-active cc-activate-on-focus cc-deactivate-on-blur
+          tabindex="1"><i class="icon-ok"></i>
+        </a>
+        <a class="button-new-small"
+          cc-cancel-button="{{heading}}-{{i}}"
+          cc-active cc-activate-on-focus cc-deactivate-on-blur
+          tabindex="1"><i class="icon-cancel"></i>
+        </a>
+      </span>
+    </cc-td>
+    <cc-td class="total"
+           [innerHTML]="item.editingTotal | money:true"
+           [class.modified]="item.editingTotal != item.total">
+    </cc-td>
+    <cc-td class="action">
       <a #remove
         class="button-new-small show-on-edit"
         cc-active cc-activate-on-focus cc-deactivate-on-blur
@@ -74,9 +96,9 @@
         (click)="onOrderItemRemove(item)"
         (keydown.Enter)="onOrderItemRemove(item, true)"><i class="icon-trash"></i>
       </a>
-    </div>
-  </div>
-  <div style="margin-bottom: 10px;">
+    </cc-td>
+  </cc-tr>
+  <!--div style="margin-bottom: 10px;">
     <cc-editable-value #editable
         *ngIf="model.itemsAvailable.length"
         className="order-item order-item-add"
@@ -133,5 +155,5 @@
         </div>
       </edit>
     </cc-editable-value>
-  </div>
-</div>-->
+  </div-->
+<!--</div>-->

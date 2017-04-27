@@ -1536,23 +1536,33 @@ button.button-new[disabled]:focus i {
   border-radius: 16px;
   width: 16px;
   height: 16px;
-  padding: 3px 1.5px;
+  padding: 3px 0px;
   color: white;
   border: 1px solid rgba(187, 187, 187, 0.5);
+  position: relative;
+}
+.button-new-small i {
+  display: inline-block;
+  padding: 0 2px;
   position: relative;
 }
 .button-new-small i::before {
   font-size: 11px;
 }
 .button-new-small i::before {
+  display: inline-block;
   font-size: 11px;
   color: white;
+  padding: 0;
+  margin: 0;
 }
-.button-new-small:hover {
+.button-new-small:hover,
+.button-new-small:focus {
   border: 1px solid #ffa011;
   background: #ffa011;
 }
-.button-new-small:hover i::before {
+.button-new-small:hover i::before,
+.button-new-small:focus i::before {
   color: white;
 }
 .button-new-small i.icon-edit::before {
@@ -1561,6 +1571,18 @@ button.button-new[disabled]:focus i {
 .button-new-small i.icon-edit::before {
   margin-top: -1px;
   margin-left: 1px;
+}
+.button-new-small i.icon-trash::before {
+  margin-top: -0.5px;
+  margin-left: 0px;
+}
+.button-new-small i.icon-ok::before {
+  margin-top: -0.5px;
+  margin-left: 0px;
+}
+.button-new-small i.icon-cancel::before {
+  margin-top: -0.5px;
+  margin-left: 0px;
 }
 .editable-value-display:hover .button-new-small {
   border: 1px solid #ffa011;
@@ -1652,6 +1674,74 @@ table.order tbody {
 table.order tbody > tbody {
   width: 100%;
   background: #ffa;
+}
+cc-table {
+  display: table;
+  position: relative;
+  overflow: hidden;
+}
+cc-tr,
+cc-tr-header {
+  display: table-row;
+}
+cc-td {
+  display: table-cell;
+  padding: 3px;
+  padding-left: 5px;
+}
+cc-tbody {
+  display: table-row-group;
+}
+cc-tbody:after {
+  content: '.';
+  color: transparent;
+  display: table-row;
+}
+.order-header > cc-td {
+  padding-top: 3px;
+  border-bottom: 1px solid #bbb;
+}
+.order-header > cc-td:first-of-type {
+  font-size: 60%;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+.order-header > cc-td:last-of-type {
+  font-size: 60%;
+  text-transform: uppercase;
+}
+.order-header > cc-td > .button-new-small:hover {
+  background: #ffa011;
+}
+.order-header > cc-td > .button-new-small:hover i:before {
+  color: white;
+}
+.order-total {
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+.total,
+.order-total {
+  text-align: right;
+}
+.action {
+  text-align: right;
+}
+.off-screen {
+  position: absolute;
+  left: -10000px;
+}
+.editable-background {
+  background: #ffe5be;
+}
+.button-new-small ~ .button-new-small {
+  margin-left: -2px;
+}
+.editable-input {
+  margin: 0;
+  padding: 0 3px !important;
+  width: 50px;
+  height: 20px;
 }
 .home {
   background: #579532;

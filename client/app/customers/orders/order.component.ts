@@ -10,12 +10,13 @@ import { Box } from '../../boxes/box'
 import { Arrays } from '../../shared/arrays';
 import { OrderModel, OrderAvailableItem } from './order.model'
 import { OrderItemModel } from './order-item.model'
+import { EditableService } from './order-section.component'
 
 @Component({
   selector: 'cc-order',
   templateUrl: 'app/customers/orders/order.component.html',
   directives: [ActiveElementDirective, DistributeWidthDirective, DistributeWidthSumDirective, OrderSectionComponent],
-  providers: [OrderService],
+  providers: [OrderService, EditableService],
   pipes: [MoneyPipe]
 })
 export class OrderComponent implements OnInit {
