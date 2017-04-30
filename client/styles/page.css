@@ -1093,20 +1093,29 @@ table.order tbody > tbody {
   background: #ffa;
 }
 cc-table {
+  box-sizing: border-box;
   display: table;
   position: relative;
   overflow: hidden;
 }
 cc-tr,
 cc-tr-header {
+  box-sizing: border-box;
   display: table-row;
 }
 cc-td {
+  box-sizing: border-box;
   display: table-cell;
-  padding: 3px;
-  padding-left: 5px;
+  padding: 3px 5px;
+}
+cc-td:first-of-type {
+  padding-left: 0;
+}
+cc-td:last-of-type {
+  padding-right: 0;
 }
 cc-tbody {
+  box-sizing: border-box;
   display: table-row-group;
 }
 cc-tbody:after {
@@ -1123,10 +1132,6 @@ cc-tbody:after {
   text-transform: uppercase;
   vertical-align: middle;
 }
-.order-header > cc-td:last-of-type {
-  font-size: 60%;
-  text-transform: uppercase;
-}
 .order-header > cc-td > .button-new-small:hover {
   background: #ffa011;
 }
@@ -1140,6 +1145,10 @@ cc-tbody:after {
 .total,
 .order-total {
   text-align: right;
+}
+.total.modified,
+.order-total.modified {
+  color: #ffa011;
 }
 .action {
   text-align: right;
@@ -1159,4 +1168,8 @@ cc-tbody:after {
   padding: 0 3px !important;
   width: 50px;
   height: 20px;
+}
+.editable-display-clickable:hover {
+  color: #ffa011;
+  cursor: pointer;
 }

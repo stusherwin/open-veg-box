@@ -1303,24 +1303,41 @@ table.order {
 }
 
 cc-table {
+  box-sizing: border-box;
   display: table;
   position: relative;
   overflow: hidden;
 }
 
 cc-tr, cc-tr-header {
+  box-sizing: border-box;
+  
   display: table-row;
+  &:nth-of-type(2) {
+    cc-td {
+      // background: #fff;
+    }
+  }
 }
 
 cc-td {
+  box-sizing: border-box;
+  
   display: table-cell;
-  padding: 3px;
-  padding-left: 5px;
+  padding: 3px 5px;//-top: 3px;
   //  background: #fff;
   //  border: 1px solid black;
+  &:first-of-type {
+    padding-left: 0;
+  }
+  &:last-of-type {
+    padding-right: 0;
+  }
 }
 
 cc-tbody {
+  box-sizing: border-box;
+  
   display: table-row-group;
   
   &:after {
@@ -1345,10 +1362,10 @@ cc-tbody {
       vertical-align: middle;
     }
 
-    &:last-of-type {
-      font-size: 60%;
-      text-transform: uppercase;
-    }
+    // &:last-of-type {
+    //   font-size: 60%;
+    //   text-transform: uppercase;
+    // }
 
     & > .button-new-small {
       //background: white;//transparent;
@@ -1382,10 +1399,15 @@ cc-tbody {
 
 .total, .order-total {
   text-align: right;
+  // background: blue;
+  &.modified {
+    color: @boxProductHover;
+  }
 }
 
 .action {
   text-align: right;
+  // width: 42px;
 }
 
 .off-screen {
@@ -1406,6 +1428,11 @@ cc-tbody {
   padding: 0 3px !important;
   width: 50px;
   height: 20px;
-  // position: relative;
-  // left: -3px;
+}
+
+.editable-display-clickable {
+  &:hover {
+    color: @boxProductHover;
+    cursor: pointer;
+  }
 }
