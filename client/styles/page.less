@@ -1436,3 +1436,18 @@ cc-tbody {
     cursor: pointer;
   }
 }
+
+.input-wrapper.invalid {
+  .icon-warning {
+    left: inherit;
+    right: 0px;
+  }
+
+  input, select {
+    border: 1px solid #E80000;
+    box-shadow: fade(#E80000, 50%) 0px 0px 3px 0px,
+                #E80000 0px 0px 2px 0px inset;
+    padding-right:18px;
+    background: lighten(#E80000, 50%);
+  }
+}

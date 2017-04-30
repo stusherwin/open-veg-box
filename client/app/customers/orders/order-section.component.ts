@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, ElementRef, OnInit, Renderer, ViewChildren, QueryList, Directive, HostListener, HostBinding, AfterViewInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, ElementRef, OnInit, Renderer, ViewChildren, QueryList, Directive, HostListener, HostBinding, AfterViewInit, ContentChildren } from '@angular/core';
 import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../../shared/active-elements'
 import { DistributeWidthDirective, DistributeWidthSumDirective } from '../../shared/distribute-width.directive'
 import { OrderItemQuantityComponent } from './order-item-quantity.component'
@@ -112,22 +112,34 @@ export class EditableButtonsComponent implements OnInit {
   }
 }
 
+export class InputComponent {
+  isValid: boolean;
+  validate(): boolean {
+    console.log('parent.validate()')
+    return true;
+  }
+}
+
 @Component({
   template: `
-    <input type="text" class="{{cssClass}}"
-           cc-active cc-activate-on-focus
-           [(ngModel)]="editingValue"
-           (ngModelChange)="editingValueChange.emit($event)"
-           (focus)="onInputFocus()"
-           (blur)="onInputBlur()"
-           (keydown.Tab)="service.handleTab($event.shiftKey)"
-           tabindex="1" />
+    <span class="input-wrapper" [class.invalid]="!isValid">
+      <input type="text" class="{{cssClass}}"
+            cc-active cc-activate-on-focus
+            [(ngModel)]="editingValue"
+            (ngModelChange)="editingValueChange.emit($event)"
+            (focus)="onInputFocus()"
+            (blur)="onInputBlur()"
+            (keydown.Tab)="service.handleTab($event.shiftKey)"
+            tabindex="1" />
+      <i *ngIf="!isValid" class="icon-warning" title="{{message}}"></i>
+    </span>
   `,
   selector: 'cc-text',
   directives: [ActiveElementDirective, ActivateOnFocusDirective]
 })
-export class TextComponent implements OnInit {
+export class TextComponent extends InputComponent implements OnInit {
   editingValue: string;
+  isValid: boolean = true;
 
   @Input()
   key: string
@@ -140,6 +152,12 @@ export class TextComponent implements OnInit {
 
   @Input()
   firstInput: boolean;
+
+  @Input()
+  valid: string
+
+  @Input()
+  message: string
 
   @ViewChild('input')
   input: ElementRef;
@@ -154,6 +172,7 @@ export class TextComponent implements OnInit {
     @Inject(forwardRef(() => EditableService))
     private service: EditableService,
     private renderer: Renderer) {
+      super();
   }
 
   onInputFocus() {
@@ -174,6 +193,7 @@ export class TextComponent implements OnInit {
         this.editingValue = this.value;
         this.editingValueChange.emit(this.value);
         this.valueChange.emit(this.value);
+        this.isValid = true;
       });
 
     this.service.cancel
@@ -181,6 +201,7 @@ export class TextComponent implements OnInit {
       .subscribe(key => {
         this.editingValue = this.value;
         this.editingValueChange.emit(this.value);
+        this.isValid = true;
       });
 
     if(this.firstInput) {
@@ -192,24 +213,34 @@ export class TextComponent implements OnInit {
         });
     }
   }
+
+  validate(): boolean {
+    let $value = this.editingValue;
+    this.isValid = eval(this.valid);
+    return this.isValid;
+  }
 }
 
 @Component({
   template: `
-    <input #input type="text" class="{{cssClass}}"
-           cc-active cc-activate-on-focus
-           [(ngModel)]="editingValue"
-           (ngModelChange)="editingValueChange.emit(toDecimalValue($event))"
-           (focus)="onInputFocus()"
-           (blur)="onInputBlur()"
-           (keydown.Tab)="service.handleTab($event.shiftKey)"
-           tabindex="1" />
+    <span class="input-wrapper" [class.invalid]="!isValid">
+      <input #input type="text" class="{{cssClass}}"
+            cc-active cc-activate-on-focus
+            [(ngModel)]="editingValue"
+            (ngModelChange)="editingValueChange.emit(toDecimalValue($event))"
+            (focus)="onInputFocus()"
+            (blur)="onInputBlur()"
+            (keydown.Tab)="service.handleTab($event.shiftKey)"
+            tabindex="1" />
+      <i *ngIf="!isValid" class="icon-warning" title="{{message}}"></i>
+    </span>
   `,
   selector: 'cc-number',
   directives: [ActiveElementDirective, ActivateOnFocusDirective]
 })
-export class NumberComponent implements OnInit {
+export class NumberComponent extends InputComponent implements OnInit {
   editingValue: string;
+  isValid: boolean = true;
 
   @Input()
   key: string
@@ -229,6 +260,12 @@ export class NumberComponent implements OnInit {
   @Input()
   firstInput: boolean
 
+  @Input()
+  valid: string
+
+  @Input()
+  message: string
+
   @ViewChild('input')
   input: ElementRef;
 
@@ -242,6 +279,7 @@ export class NumberComponent implements OnInit {
     @Inject(forwardRef(() => EditableService))
     private service: EditableService,
     private renderer: Renderer) {
+      super();
   }
 
   ngOnInit() {
@@ -254,6 +292,7 @@ export class NumberComponent implements OnInit {
         this.editingValue = this.toStringValue(this.value);
         this.editingValueChange.emit(this.value);
         this.valueChange.emit(this.value);
+        this.isValid = true;
       });
 
     this.service.cancel
@@ -261,6 +300,7 @@ export class NumberComponent implements OnInit {
       .subscribe(key => {
         this.editingValue = this.toStringValue(this.value);
         this.editingValueChange.emit(this.value);
+        this.isValid = true;
       });
 
     if(this.firstInput) {
@@ -279,6 +319,14 @@ export class NumberComponent implements OnInit {
 
   onInputBlur() {
     this.service.tryEndEdit(this.key);
+  }
+
+  validate(): boolean {
+    console.log('child.validate()')
+    let $value = this.toDecimalValue(this.editingValue);
+    this.isValid = eval(this.valid);
+    console.log('valid: ' + this.isValid);
+    return this.isValid;
   }
 
   private toStringValue(value: number): string {
@@ -326,15 +374,16 @@ export class EditableDisplayDirective implements OnInit {
   }
 }
 
-@Directive({
-  selector: '[cc-editable-edit]'
+@Component({
+  selector: 'cc-editable-edit-form',
+  template: '<ng-content></ng-content>'
 })
-export class EditableEditDirective implements OnInit {
-  @Input('cc-editable-edit')
+export class EditableEditFormComponent implements OnInit, AfterViewInit {
+  @Input()
   key: string;
 
-  @ViewChildren(TextComponent)
-  texts: QueryList<TextComponent>
+  @ContentChildren('input')
+  inputs: QueryList<InputComponent>
 
   @HostBinding('class.off-screen')
   hidden: boolean = true;
@@ -348,9 +397,48 @@ export class EditableEditDirective implements OnInit {
   @HostListener('keydown.Escape')
   escape() {
     console.log('escape()')
-    
     this.service.endEdit(this.key, false);
   }
+
+  constructor(
+    @Inject(forwardRef(() => EditableService))
+    private service: EditableService) {
+  }
+
+  ngOnInit() {
+    this.service.currentlyEditing
+      .subscribe(key => {
+        this.hidden = key != this.key;
+      });
+  }
+
+  ngAfterViewInit() {
+    let inputs = this.inputs.toArray();
+    console.log(inputs);
+    this.service.registerValidate(this.key, () => {
+      return this.validate();
+    });
+  }
+
+  validate(): boolean {
+    console.log(this.inputs);
+    console.log(this.inputs.toArray());
+    this.inputs.forEach(i => i.validate());
+    let valid = this.inputs.reduce((valid, i) => valid && i.isValid, true);
+    console.log('valid: ' + valid);
+    return valid;
+  }
+}
+
+@Directive({
+  selector: '[cc-editable-edit]'
+})
+export class EditableEditDirective implements OnInit {
+  @Input('cc-editable-edit')
+  key: string;
+
+  @HostBinding('class.off-screen')
+  hidden: boolean = true;
 
   constructor(
     @Inject(forwardRef(() => EditableService))
@@ -421,7 +509,7 @@ export class EditableFirstInputDirective implements OnInit {
 @Component({
   selector: '[cc-order-section]',
   templateUrl: 'app/customers/orders/order-section.component.html',
-  directives: [ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, DistributeWidthDirective, OrderItemQuantityComponent, DistributeWidthSumDirective, EditableValueComponent, NumericDirective, ProductQuantityComponent, EditableDisplayDirective, EditableEditDirective, EditableEditButtonComponent, EditableButtonsComponent, EditableBackgroundDirective, EditableFirstInputDirective, TextComponent, NumberComponent],
+  directives: [ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, DistributeWidthDirective, OrderItemQuantityComponent, DistributeWidthSumDirective, EditableValueComponent, NumericDirective, ProductQuantityComponent, EditableDisplayDirective, EditableEditDirective, EditableEditButtonComponent, EditableButtonsComponent, EditableBackgroundDirective, EditableFirstInputDirective, TextComponent, NumberComponent, EditableEditFormComponent],
   pipes: [MoneyPipe]
 })
 export class OrderSectionComponent implements OnInit {
@@ -512,6 +600,7 @@ export class EditableService {
   private currentlyEditingSubject = new BehaviorSubject<string>(null);
   private okSubject = new BehaviorSubject<string>(null);
   private cancelSubject = new BehaviorSubject<string>(null);
+  private validates: {[key: string]: () => boolean} = {};
 
   get currentlyEditing(): Observable<string> {
     return this.currentlyEditingSubject;
@@ -523,6 +612,10 @@ export class EditableService {
 
   get cancel(): Observable<string> {
     return this.cancelSubject;
+  }
+
+  registerValidate(key: string, validate: () => boolean) {
+    this.validates[key] = validate;
   }
 
   startEdit(key: string) {
@@ -565,14 +658,23 @@ export class EditableService {
       this.currentlyTryingToEnd = null;
     }
     if(ok) {
-      this.okSubject.next(key);
+      let valid = this.validates[key]();
+      if(valid) {
+        this.okSubject.next(key);
+        if(this.currentKey == key) {
+          this.currentKey = null;
+          this.currentlyEditingSubject.next(null);
+        }
+      } else {
+        this.currentlyEditingSubject.next(key);
+        // this.cancelSubject.next(key);
+      }
     } else {
       this.cancelSubject.next(key);
-    }
-
-    if(this.currentKey == key) {
-      this.currentKey = null;
-      this.currentlyEditingSubject.next(null);
+      if(this.currentKey == key) {
+        this.currentKey = null;
+        this.currentlyEditingSubject.next(null);
+      }
     }
   }
 }
