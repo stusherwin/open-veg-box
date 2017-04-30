@@ -113,7 +113,8 @@ export class EditableButtonsComponent implements OnInit {
 }
 
 export class InputComponent {
-  isValid: boolean;
+  isValid: boolean = true;
+
   validate(): boolean {
     console.log('parent.validate()')
     return true;
@@ -176,7 +177,11 @@ export class TextComponent extends InputComponent implements OnInit {
   }
 
   onInputFocus() {
-    this.service.startEdit(this.key);
+    if(this.firstInput) {
+      this.service.startEdit(this.key);
+    } else {
+      this.service.preventEndEdit(this.key);
+    }
   }
 
   onInputBlur() {
@@ -314,7 +319,11 @@ export class NumberComponent extends InputComponent implements OnInit {
   }
 
   onInputFocus() {
-    this.service.startEdit(this.key);
+    if(this.firstInput) {
+      this.service.startEdit(this.key);
+    } else {
+      this.service.preventEndEdit(this.key);
+    }
   }
 
   onInputBlur() {
@@ -348,6 +357,84 @@ export class NumberComponent extends InputComponent implements OnInit {
     }
 
     return parseFloat(parsed.toFixed(this.decimalPrecision));
+  }
+}
+
+
+@Component({
+  template: `
+    <select #select class="{{cssClass}}"
+        cc-active cc-activate-on-focus
+        tabindex="1"
+        (focus)="onSelectFocus()"
+        (blur)="onSelectBlur()"
+        (keydown.Tab)="service.handleTab($event.shiftKey)"
+        [(ngModel)]="value"
+        (ngModelChange)="valueChange.emit($event)">
+      <option *ngFor="let o of options" [ngValue]="o">{{getText(o)}}</option>
+    </select>
+  `,
+  selector: 'cc-select',
+  directives: [ActiveElementDirective, ActivateOnFocusDirective]
+})
+export class SelectComponent extends InputComponent implements OnInit {
+  @Input()
+  key: string
+
+  @Input()
+  cssClass: string;
+
+  @Input()
+  value: string;
+
+  @Input()
+  firstInput: boolean;
+
+  @Input()
+  textProperty: string
+
+  @Input()
+  options: any[]
+
+  @ViewChild('select')
+  select: ElementRef;
+
+  @Output()
+  valueChange = new EventEmitter<string>()
+
+  constructor(
+    @Inject(forwardRef(() => EditableService))
+    private service: EditableService,
+    private renderer: Renderer) {
+      super();
+  }
+
+  getText(option: any) {
+    return option[this.textProperty];
+  }
+
+  onSelectFocus() {
+    if(this.firstInput) {
+      this.service.startEdit(this.key);
+    } else {
+      this.service.preventEndEdit(this.key);
+    }
+  }
+
+  onSelectBlur() {
+    this.service.tryEndEdit(this.key);
+  }
+
+  ngOnInit() {
+    if(this.firstInput) {
+      this.service.currentlyEditing
+        .subscribe(key => {
+          console.log('currentlyEditing: ' + key)
+          if(key == this.key) {
+            setTimeout(this.renderer.invokeElementMethod(this.select.nativeElement, 'focus', []));
+          }
+        });
+    }
   }
 }
 
@@ -400,6 +487,15 @@ export class EditableEditFormComponent implements OnInit, AfterViewInit {
     this.service.endEdit(this.key, false);
   }
 
+  @Output()
+  start = new EventEmitter<any>()
+
+  @Output()
+  ok = new EventEmitter<any>()
+
+  @Output()
+  cancel = new EventEmitter<any>()
+
   constructor(
     @Inject(forwardRef(() => EditableService))
     private service: EditableService) {
@@ -409,7 +505,18 @@ export class EditableEditFormComponent implements OnInit, AfterViewInit {
     this.service.currentlyEditing
       .subscribe(key => {
         this.hidden = key != this.key;
+        if(!this.hidden) {
+          setTimeout(() => this.start.emit(null));
+        }
       });
+
+    this.service.ok
+      .filter(key => key == this.key)
+      .subscribe(() => setTimeout(() => this.ok.emit(null)));
+
+    this.service.cancel
+      .filter(key => key == this.key)
+      .subscribe(() => setTimeout(() => this.cancel.emit(null)));
   }
 
   ngAfterViewInit() {
@@ -509,7 +616,7 @@ export class EditableFirstInputDirective implements OnInit {
 @Component({
   selector: '[cc-order-section]',
   templateUrl: 'app/customers/orders/order-section.component.html',
-  directives: [ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, DistributeWidthDirective, OrderItemQuantityComponent, DistributeWidthSumDirective, EditableValueComponent, NumericDirective, ProductQuantityComponent, EditableDisplayDirective, EditableEditDirective, EditableEditButtonComponent, EditableButtonsComponent, EditableBackgroundDirective, EditableFirstInputDirective, TextComponent, NumberComponent, EditableEditFormComponent],
+  directives: [ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, DistributeWidthDirective, OrderItemQuantityComponent, DistributeWidthSumDirective, EditableValueComponent, NumericDirective, ProductQuantityComponent, EditableDisplayDirective, EditableEditDirective, EditableEditButtonComponent, EditableButtonsComponent, EditableBackgroundDirective, EditableFirstInputDirective, TextComponent, NumberComponent, EditableEditFormComponent, SelectComponent],
   pipes: [MoneyPipe]
 })
 export class OrderSectionComponent implements OnInit {
@@ -568,8 +675,8 @@ export class OrderSectionComponent implements OnInit {
  }
 
   onAddStart() {
-    this.renderer.invokeElementMethod(this.select.nativeElement, 'focus', []);
-    this.model.startAdd();
+    // this.renderer.invokeElementMethod(this.select.nativeElement, 'focus', []);
+    // this.model.startAdd();
   }
 
   onAddOk(tabbedAway: boolean) {
@@ -583,7 +690,7 @@ export class OrderSectionComponent implements OnInit {
 
   onAddCancel() {
     this.model.cancelAdd();
-    this.editable.endEdit();
+    //this.editable.endEdit();
   }
 
   onAddingItemQuantityChange(quantity: number) {
@@ -621,6 +728,7 @@ export class EditableService {
   startEdit(key: string) {
     this.preventEndEdit(key);
     this.currentKey = key;
+    console.log('startEdit')
     this.currentlyEditingSubject.next(key);
   }
 
@@ -638,6 +746,7 @@ export class EditableService {
 
   currentlyTryingToEnd: string;
   tryEndEdit(key: string) {
+    console.log('tryEndEdit(' + key + ')')
     this.currentlyTryingToEnd = key;
     let tabbedAway = this._tabbingAway;
     setTimeout(() => {
@@ -648,12 +757,15 @@ export class EditableService {
   }
 
   preventEndEdit(key: string) {
+    console.log('preventEndEdit(' + key + ')')
+    
     if(this.currentlyTryingToEnd == key) {
       this.currentlyTryingToEnd = null;
     }
   }
 
   endEdit(key: string, ok: boolean) {
+    console.log('endEdit(' + key + ')')
     if(this.currentlyTryingToEnd == key) {
       this.currentlyTryingToEnd = null;
     }
@@ -663,9 +775,13 @@ export class EditableService {
         this.okSubject.next(key);
         if(this.currentKey == key) {
           this.currentKey = null;
+          console.log('endEdit(ok, valid)')
+          
           this.currentlyEditingSubject.next(null);
         }
       } else {
+          console.log('endEdit(ok, invalid)')
+        
         this.currentlyEditingSubject.next(key);
         // this.cancelSubject.next(key);
       }
@@ -673,6 +789,7 @@ export class EditableService {
       this.cancelSubject.next(key);
       if(this.currentKey == key) {
         this.currentKey = null;
+          console.log('endEdit(cancel)')
         this.currentlyEditingSubject.next(null);
       }
     }

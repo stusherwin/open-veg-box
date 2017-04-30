@@ -132,3 +132,4 @@ TODO (now)
 * Make button-new background white
 
 * Fix invalid style on editable-values (css for new input-wrapper.invalid)
+* Fix order after adding box/product to order

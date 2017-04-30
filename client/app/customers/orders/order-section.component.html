@@ -8,16 +8,34 @@
       </cc-editable-button>
     </cc-td>
   </cc-tr-header>
-  <cc-tr cc-editable-edit="{{heading}}-add" cc-editable-background="{{heading}}-add">
-    <cc-td>Stu</cc-td>
+  <cc-editable-edit-form key="{{heading}}-add" class="cc-tr add-row"
+      (start)="model.startAdd()" (ok)="model.add()" (cancel)="model.cancelAdd()" cc-editable-background="{{heading}}-add">
+    <cc-td>
+      <cc-select #input key="{{heading}}-add"
+        [firstInput]="true"
+        [(value)]="model.addingItem"
+        (valueChange)="model.editingTotalRecalculationNeeded()"
+        [options]="model.itemsAvailable"
+        textProperty="name">
+      </cc-select>
+    </cc-td>
+    <cc-td>
+      <cc-number #input key="{{heading}}-add" cssClass="editable-input" [decimalPrecision]="0"
+            [(value)]="model.addingItemQuantity"
+            (editingValueChange)="model.addingItemQuantity=$event;model.editingTotalRecalculationNeeded()"
+            valid="$value > 0"
+            message="Quantity should be a number greater than 0">
+      </cc-number>
+    </cc-td>
     <cc-td></cc-td>
-    <cc-td></cc-td>
-    <cc-td class="total" [innerHTML]="0 | money:true"></cc-td>
+    <cc-td class="total modified"
+           [innerHTML]="(model.addingItem?.price * model.addingItemQuantity || 0) | money: true">
+    </cc-td>
     <cc-td class="action">
       <cc-editable-buttons key="{{heading}}-add">
       </cc-editable-buttons>
     </cc-td>
-  </cc-tr>
+  </cc-editable-edit-form>
   <cc-tr *ngIf="!model.items.length" cc-editable-display="{{heading}}-add">
     <cc-td>None</cc-td>
     <cc-td></cc-td>
@@ -31,7 +49,7 @@
       <span cc-editable-display="{{heading}}-{{i}}">
         <cc-product-quantity [quantity]="item.quantity" [unitType]="item.unitType"></cc-product-quantity>
       </span>
-      <cc-editable-edit-form key="{{heading}}-{{i}}">
+      <cc-editable-edit-form key="{{heading}}-{{i}}" (ok)="item.updateQuantity(item.quantity)">
         <span class="box-product-quantity-each" *ngIf="item.unitType == 'each'">x</span>
         <!--<cc-validatable
             [valid]="editable.editingValue > 0"
@@ -45,7 +63,6 @@
           <cc-number #input key="{{heading}}-{{i}}" cssClass="editable-input" [decimalPrecision]="0"
                      [firstInput]="true"
                      [(value)]="item.quantity"
-                     (valueChange)="item.updateQuantity($event)"
                      valid="$value > 0"
                      message="Quantity should be a number greater than 0"
                      (editingValueChange)="item.modifyQuantity($event)">

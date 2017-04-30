@@ -1099,7 +1099,8 @@ cc-table {
   overflow: hidden;
 }
 cc-tr,
-cc-tr-header {
+cc-tr-header,
+.cc-tr {
   box-sizing: border-box;
   display: table-row;
 }
@@ -1173,12 +1174,12 @@ cc-tbody:after {
   color: #ffa011;
   cursor: pointer;
 }
-.input-wrapper.invalid .icon-warning {
+cc-order .input-wrapper.invalid .icon-warning {
   left: inherit;
   right: 0px;
 }
-.input-wrapper.invalid input,
-.input-wrapper.invalid select {
+cc-order .input-wrapper.invalid input,
+cc-order .input-wrapper.invalid select {
   border: 1px solid #E80000;
   box-shadow: rgba(232, 0, 0, 0.5) 0px 0px 3px 0px, #E80000 0px 0px 2px 0px inset;
   padding-right: 18px;
