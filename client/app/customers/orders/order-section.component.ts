@@ -18,16 +18,16 @@ import 'rxjs/add/operator/distinct'
 @Component({
   template: `
     <a *ngIf="visible" class="button-new-small"
-      cc-active cc-activate-on-focus cc-deactivate-on-blur
-      (click)="edit()" (keydown.Enter)="edit()"
-      tabindex="1"><i class="icon-{{icon}}"></i>
+      tabindex="1"
+      (click)="click.emit(null)"
+      (keydown.Enter)="click.emit(null)"><i class="icon-{{icon}}"></i>
     </a>
   `,
   selector: 'cc-editable-button',
   directives: [ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective]
 })
 export class EditableEditButtonComponent implements OnInit {
-  visible: boolean;
+  visible: boolean = true
 
   @Input()
   key: string
@@ -37,21 +37,11 @@ export class EditableEditButtonComponent implements OnInit {
 
   @Input()
   tabindex: number = 9999
-
-  constructor(
-    @Inject(forwardRef(() => EditableService))
-    private service: EditableService) {
-  }
-
-  edit() {
-    this.service.startEdit(this.key);
-  }
+  
+  @Output()
+  click = new EventEmitter<any>()
 
   ngOnInit() {
-    this.service.currentlyEditing
-      .subscribe(key => {
-        this.visible = key != this.key;
-      });
   }
 }
 
@@ -59,57 +49,33 @@ export class EditableEditButtonComponent implements OnInit {
   template: `
     <span *ngIf="visible">
       <a class="button-new-small"
-        (click)="ok()" (keydown.Enter)="ok()"
-        (focus)="onButtonFocus()"
-        (blur)="onButtonBlur()"
-        tabindex="1"><i class="icon-ok"></i>
+        tabindex="1"
+        (click)="ok.emit(null)"
+        (keydown.Enter)="ok.emit(null)">
+        <i class="icon-ok"></i>
       </a>
       <a class="button-new-small"
-        (click)="cancel()" (keydown.Enter)="cancel()"
-        (focus)="onButtonFocus()"
-        (blur)="onButtonBlur()"
-        tabindex="1"><i class="icon-cancel"></i>
+        tabindex="1"
+        (click)="cancel.emit(null)"
+        (keydown.Enter)="cancel.emit(null)"><i class="icon-cancel"></i>
       </a>
     </span>
-    <!--
-        (keydown.Tab)="service.handleTab($event.shiftKey)"
--->    
   `,
-  selector: 'cc-editable-buttons',
-  directives: [ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective]
+  selector: 'cc-editable-buttons'
 })
 export class EditableButtonsComponent implements OnInit {
-  visible: boolean;
+  visible: boolean = true
 
   @Input()
   key: string
 
-  constructor(
-    @Inject(forwardRef(() => EditableService))
-    private service: EditableService) {
-  }
+  @Output()
+  ok = new EventEmitter<any>()
+
+  @Output()
+  cancel = new EventEmitter<any>()
 
   ngOnInit() {
-    this.service.currentlyEditing
-      .subscribe(key => {
-        this.visible = key == this.key;
-      });
-  }
-
-  ok() {
-    this.service.endEdit(this.key, true);
-  }
-
-  cancel() {
-    this.service.endEdit(this.key, false);
-  }
-
-  onButtonFocus() {
-    this.service.preventEndEdit(this.key);
-  }
-
-  onButtonBlur() {
-    this.service.tryEndEdit(this.key);
   }
 }
 
@@ -117,7 +83,6 @@ export class InputComponent {
   isValid: boolean = true;
 
   validate(): boolean {
-    console.log('parent.validate()')
     return true;
   }
 }
@@ -126,25 +91,18 @@ export class InputComponent {
   template: `
     <span class="input-wrapper" [class.invalid]="!isValid">
       <input type="text" class="{{cssClass}}"
-            cc-active cc-activate-on-focus
-            [(ngModel)]="editingValue"
-            (ngModelChange)="editingValueChange.emit($event)"
+            [(ngModel)]="value"
+            (ngModelChange)="valueChange.emit($event)"
             (focus)="onInputFocus()"
             (blur)="onInputBlur()"
             tabindex="1" />
       <i *ngIf="!isValid" class="icon-warning" title="{{message}}"></i>
     </span>
-<!--            (keydown.Tab)="service.handleTab($event.shiftKey)"-->
   `,
-  selector: 'cc-text',
-  directives: [ActiveElementDirective, ActivateOnFocusDirective]
+  selector: 'cc-text'
 })
 export class TextComponent extends InputComponent implements OnInit {
-  editingValue: string;
   isValid: boolean = true;
-
-  @Input()
-  key: string
 
   @Input()
   cssClass: string;
@@ -153,78 +111,23 @@ export class TextComponent extends InputComponent implements OnInit {
   value: string;
 
   @Input()
-  firstInput: boolean;
-
-  @Input()
   valid: string
 
   @Input()
   message: string
 
-  @ViewChild('input')
-  input: ElementRef;
-
   @Output()
   valueChange = new EventEmitter<string>()
 
-  @Output()
-  editingValueChange = new EventEmitter<string>()
-
-  constructor(
-    @Inject(forwardRef(() => EditableService))
-    private service: EditableService,
-    private renderer: Renderer) {
-      super();
-  }
-
-  onInputFocus() {
-    if(this.firstInput) {
-      this.service.startEdit(this.key);
-    } else {
-      this.service.preventEndEdit(this.key);
-    }
-  }
-
-  onInputBlur() {
-    this.service.tryEndEdit(this.key);
+  constructor() {
+    super();
   }
 
   ngOnInit() {
-    this.editingValue = this.value;
-
-    this.service.ok
-      .filter(key => key == this.key)
-      .subscribe(key => {
-        this.value = this.editingValue;
-        this.editingValue = this.value;
-        this.editingValueChange.emit(this.value);
-        this.valueChange.emit(this.value);
-        this.isValid = true;
-      });
-
-    this.service.cancel
-      .filter(key => key == this.key)
-      .subscribe(key => {
-        this.editingValue = this.value;
-        this.editingValueChange.emit(this.value);
-        this.isValid = true;
-      });
-
-    if(this.firstInput) {
-      this.service.currentlyEditing
-        .subscribe(key => {
-          if(key == this.key) {
-            console.log('focusing...')
-            setTimeout(() => {
-              this.renderer.invokeElementMethod(this.input.nativeElement, 'focus', [])
-            });
-          }
-        });
-    }
   }
 
   validate(): boolean {
-    let $value = this.editingValue;
+    let $value = this.value;
     this.isValid = eval(this.valid);
     return this.isValid;
   }
@@ -234,27 +137,17 @@ export class TextComponent extends InputComponent implements OnInit {
   template: `
     <span class="input-wrapper" [class.invalid]="!isValid">
       <input #input type="text" class="{{cssClass}}"
-            cc-active cc-activate-on-focus
-            [(ngModel)]="editingValue"
-            (ngModelChange)="editingValueChange.emit(toDecimalValue($event))"
-            (focus)="onInputFocus()"
-            (blur)="onInputBlur()"
+            [(ngModel)]="stringValue"
+            (ngModelChange)="updateValue($event)"
             tabindex="1" />
       <i *ngIf="!isValid" class="icon-warning" title="{{message}}"></i>
     </span>
-    <!--
-            (keydown.Tab)="service.handleTab($event.shiftKey)"
--->    
   `,
-  selector: 'cc-number',
-  directives: [ActiveElementDirective, ActivateOnFocusDirective]
+  selector: 'cc-number'
 })
 export class NumberComponent extends InputComponent implements OnInit {
-  editingValue: string;
+  stringValue: string;
   isValid: boolean = true;
-
-  @Input()
-  key: string
 
   @Input()
   cssClass: string;
@@ -269,81 +162,30 @@ export class NumberComponent extends InputComponent implements OnInit {
   decimalPrecision: number;
 
   @Input()
-  firstInput: boolean
-
-  @Input()
   valid: string
 
   @Input()
   message: string
 
-  @ViewChild('input')
-  input: ElementRef;
-
   @Output()
   valueChange = new EventEmitter<number>()
 
-  @Output()
-  editingValueChange = new EventEmitter<number>()
-
-  constructor(
-    @Inject(forwardRef(() => EditableService))
-    private service: EditableService,
-    private renderer: Renderer) {
-      super();
+  constructor() {
+    super();
   }
 
   ngOnInit() {
-    this.editingValue = this.toStringValue(this.value);
-
-    this.service.ok
-      .filter(key => key == this.key)
-      .subscribe(key => {
-        this.value = this.toDecimalValue(this.editingValue);
-        this.editingValue = this.toStringValue(this.value);
-        this.editingValueChange.emit(this.value);
-        this.valueChange.emit(this.value);
-        this.isValid = true;
-      });
-
-    this.service.cancel
-      .filter(key => key == this.key)
-      .subscribe(key => {
-        this.editingValue = this.toStringValue(this.value);
-        this.editingValueChange.emit(this.value);
-        this.isValid = true;
-      });
-
-    if(this.firstInput) {
-      this.service.currentlyEditing
-        .subscribe(key => {
-          if(key == this.key) {
-            console.log('focusing...')
-            setTimeout(() => {
-              this.renderer.invokeElementMethod(this.input.nativeElement, 'focus', [])
-            });
-          }
-        });
-    }
+    this.stringValue = this.toStringValue(this.value);
   }
 
-  onInputFocus() {
-    if(this.firstInput) {
-      this.service.startEdit(this.key);
-    } else {
-      this.service.preventEndEdit(this.key);
-    }
-  }
-
-  onInputBlur() {
-    this.service.tryEndEdit(this.key);
+  updateValue(stringValue: string) {
+    this.value = this.toDecimalValue(stringValue);
+    this.valueChange.emit(this.value);
   }
 
   validate(): boolean {
-    console.log('child.validate()')
-    let $value = this.toDecimalValue(this.editingValue);
+    let $value = this.value;
     this.isValid = eval(this.valid);
-    console.log('valid: ' + this.isValid);
     return this.isValid;
   }
 
@@ -373,29 +215,15 @@ export class NumberComponent extends InputComponent implements OnInit {
 @Component({
   template: `
     <select #select class="{{cssClass}}"
-        cc-active cc-activate-on-focus (activate)="onActivate()"
         tabindex="1"
-        (focus)="onSelectFocus()"
-        (blur)="onSelectBlur()"
         [(ngModel)]="value"
         (ngModelChange)="valueChange.emit($event)">
       <option *ngFor="let o of options" [ngValue]="o">{{getText(o)}}</option>
     </select>
-    <!--
-        (keydown.Tab)="service.handleTab($event.shiftKey)"
--->    
   `,
-  selector: 'cc-select',
-  directives: [ActiveElementDirective, ActivateOnFocusDirective]
+  selector: 'cc-select'
 })
 export class SelectComponent extends InputComponent implements OnInit {
-  onActivate() {
-    console.log('stu-select');
-  }
-
-  @Input()
-  key: string
-
   @Input()
   cssClass: string;
 
@@ -403,263 +231,36 @@ export class SelectComponent extends InputComponent implements OnInit {
   value: string;
 
   @Input()
-  firstInput: boolean;
-
-  @Input()
   textProperty: string
 
   @Input()
   options: any[]
 
-  @ViewChild('select')
-  select: ElementRef;
-
   @Output()
   valueChange = new EventEmitter<string>()
 
-  constructor(
-    @Inject(forwardRef(() => EditableService))
-    private service: EditableService,
-    private renderer: Renderer) {
-      super();
+  constructor() {
+    super();
   }
 
   getText(option: any) {
     return option[this.textProperty];
   }
 
-  onSelectFocus() {
-    if(this.firstInput) {
-      this.service.startEdit(this.key);
-    } else {
-      this.service.preventEndEdit(this.key);
-    }
-  }
-
-  onSelectBlur() {
-    this.service.tryEndEdit(this.key);
-  }
-
   ngOnInit() {
-    if(this.firstInput) {
-      this.service.currentlyEditing
-        .subscribe(key => {
-          console.log('currentlyEditing: ' + key)
-          if(key == this.key) {
-            setTimeout(() => {
-              this.renderer.invokeElementMethod(this.select.nativeElement, 'focus', [])
-            });
-          }
-        });
-    }
-  }
-}
-
-@Directive({
-  selector: '[cc-editable-display]'
-})
-export class EditableDisplayDirective implements OnInit {
-  @Input('cc-editable-display')
-  key: string;
-
-  @HostBinding('class.off-screen')
-  hidden: boolean = false;
-
-  constructor(
-    @Inject(forwardRef(() => EditableService))
-    private service: EditableService) {
-  }
-
-  ngOnInit() {
-    this.service.currentlyEditing
-      .subscribe(key => {
-        this.hidden = key == this.key;
-      });
-  }
-}
-
-@Component({
-  selector: 'cc-editable-edit-form',
-  template: '<ng-content *ngIf="!hidden"></ng-content>',
-  directives: [ActiveElementDirective]
-})
-export class EditableEditFormComponent implements OnInit, AfterViewInit {
-  @Input()
-  key: string;
-
-  @ContentChildren('input')
-  inputs: QueryList<InputComponent>
-
-  @HostBinding('class.off-screen')
-  hidden: boolean = true;
-
-  // @HostListener('keydown.Enter')
-  // enter() {
-  //   console.log('enter()')
-  //   this.service.endEdit(this.key, true);
-  // }
-
-  // @HostListener('keydown.Escape')
-  // escape() {
-  //   console.log('escape()')
-  //   this.service.endEdit(this.key, false);
-  // }
-
-  @Output()
-  start = new EventEmitter<any>()
-
-  @Output()
-  ok = new EventEmitter<any>()
-
-  @Output()
-  cancel = new EventEmitter<any>()
-
-  constructor(
-    @Inject(forwardRef(() => EditableService))
-    private service: EditableService) {
-  }
-
-  ngOnInit() {
-    this.service.currentlyEditing
-      .subscribe(key => {
-        this.hidden = key != this.key;
-        if(!this.hidden) {
-          // setTimeout(() => this.start.emit(null));
-          this.start.emit(null);
-        }
-      });
-
-    this.service.ok
-      .filter(key => key == this.key)
-      .subscribe(() => {
-        console.log('ok event: ' + this.key)
-        // setTimeout(() => {
-          // console.log('ok event after timeout: ' + this.key)
-          this.ok.emit(null);
-        // });
-      });
-
-    this.service.cancel
-      .filter(key => key == this.key)
-      // .subscribe(() => setTimeout(() => this.cancel.emit(null)));
-      .subscribe(() => this.cancel.emit(null));
-  }
-
-  ngAfterViewInit() {
-    let inputs = this.inputs.toArray();
-    console.log(inputs);
-    this.service.registerValidate(this.key, () => {
-      return this.validate();
-    });
-  }
-
-  onDeactivate() {
-    this.service.endEdit(this.key, false);
-  }
-
-  validate(): boolean {
-    console.log(this.inputs);
-    console.log(this.inputs.toArray());
-    this.inputs.forEach(i => i.validate());
-    let valid = this.inputs.reduce((valid, i) => valid && i.isValid, true);
-    console.log('valid: ' + valid);
-    return valid;
-  }
-}
-
-@Directive({
-  selector: '[cc-editable-edit]'
-})
-export class EditableEditDirective implements OnInit {
-  @Input('cc-editable-edit')
-  key: string;
-
-  @HostBinding('class.off-screen')
-  hidden: boolean = true;
-
-  constructor(
-    @Inject(forwardRef(() => EditableService))
-    private service: EditableService) {
-  }
-
-  ngOnInit() {
-    this.service.currentlyEditing
-      .subscribe(key => {
-        this.hidden = key != this.key;
-      });
-  }
-}
-
-@Directive({
-  selector: '[cc-editable-background]'
-})
-export class EditableBackgroundDirective implements OnInit {
-  @Input('cc-editable-background')
-  key: string;
-
-  @HostBinding('class.editable-background')
-  editing: boolean = false;
-
-  constructor(
-    @Inject(forwardRef(() => EditableService))
-    private service: EditableService) {
-  }
-
-  ngOnInit() {
-    this.service.currentlyEditing
-      .subscribe(key => {
-        this.editing = key == this.key;
-      });
-  }
-}
-
-
-@Directive({
-  selector: '[cc-editable-first-input]'
-})
-export class EditableFirstInputDirective implements OnInit {
-  @Input('cc-editable-first-input')
-  key: string;
-
-  @HostListener('focus')
-  focus() {
-    this.service.startEdit(this.key);
-  }
-
-  constructor(
-    private el: ElementRef,
-    @Inject(forwardRef(() => EditableService))
-    private service: EditableService,
-    private renderer: Renderer) {
-  }
-
-  ngOnInit() {
-    this.service.currentlyEditing
-      .subscribe(key => {
-        if(key == this.key) {
-          setTimeout(this.renderer.invokeElementMethod(this.el.nativeElement, 'focus', []));
-        }
-      });
   }
 }
 
 @Component({
   selector: '[cc-order-section]',
   templateUrl: 'app/customers/orders/order-section.component.html',
-  directives: [ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, DistributeWidthDirective, OrderItemQuantityComponent, DistributeWidthSumDirective, EditableValueComponent, NumericDirective, ProductQuantityComponent, EditableDisplayDirective, EditableEditDirective, EditableEditButtonComponent, EditableButtonsComponent, EditableBackgroundDirective, EditableFirstInputDirective, TextComponent, NumberComponent, EditableEditFormComponent, SelectComponent],
+  directives: [ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, DistributeWidthDirective, OrderItemQuantityComponent, DistributeWidthSumDirective, EditableValueComponent, NumericDirective, ProductQuantityComponent, EditableEditButtonComponent, EditableButtonsComponent, TextComponent, NumberComponent, SelectComponent],
   pipes: [MoneyPipe]
 })
 export class OrderSectionComponent implements OnInit {
   orderItemPadding = 10;
   quantity: number = 1;
   itemNameArticle: string;
-
-  stu() {
-    console.log('stu');
-  }
-  start() {
-    console.log('stu-start');
-  }
 
   @Input()
   model: OrderSectionModel
@@ -736,100 +337,5 @@ export class OrderSectionComponent implements OnInit {
 
   getItemId(item: OrderItemModel) {
     return item.id;
-  }
-}
-
-export class EditableService {
-  private currentKey: string = null;
-  private currentlyEditingSubject = new BehaviorSubject<string>(null);
-  private okSubject = new BehaviorSubject<string>(null);
-  private cancelSubject = new BehaviorSubject<string>(null);
-  private validates: {[key: string]: () => boolean} = {};
-
-  get currentlyEditing(): Observable<string> {
-    return this.currentlyEditingSubject;
-  }
-
-  get ok(): Observable<string> {
-    return this.okSubject;
-  }
-
-  get cancel(): Observable<string> {
-    return this.cancelSubject;
-  }
-
-  registerValidate(key: string, validate: () => boolean) {
-    this.validates[key] = validate;
-  }
-
-  startEdit(key: string) {
-    this.preventEndEdit(key);
-    this.currentKey = key;
-    console.log('startEdit')
-    this.currentlyEditingSubject.next(key);
-  }
-
-  private _tabbingAway = false;
-
-  handleTab(shiftKey: boolean) {
-    // this._tabbedAway = false;
-    if(!shiftKey) {
-      this._tabbingAway = true;
-      // If user tabs away from this component and is blocked due to validation,
-      // we don't want to block them clicking away just because they tabbed away originally
-      setTimeout(() => this._tabbingAway = false, 100);
-    }
-  }
-
-  currentlyTryingToEnd: string;
-  tryEndEdit(key: string) {
-    console.log('tryEndEdit(' + key + ')')
-    this.currentlyTryingToEnd = key;
-    let tabbedAway = this._tabbingAway;
-    //setTimeout(() => {
-      if(this.currentlyTryingToEnd && this.currentlyTryingToEnd == key) {
-        this.endEdit(key, tabbedAway);
-      }
-    //}, 100)
-  }
-
-  preventEndEdit(key: string) {
-    console.log('preventEndEdit(' + key + ')')
-    
-    if(this.currentlyTryingToEnd == key) {
-      this.currentlyTryingToEnd = null;
-    }
-  }
-
-  endEdit(key: string, ok: boolean) {
-    console.log('endEdit(' + key + ')')
-
-    if(this.currentlyTryingToEnd == key) {
-      this.currentlyTryingToEnd = null;
-    }
-    if(ok) {
-      let valid = this.validates[key]();
-      if(valid) {
-        this.okSubject.next(key);
-        if(this.currentKey == key) {
-          this.currentKey = null;
-          console.log('endEdit(ok, valid)')
-          
-          this.currentlyEditingSubject.next(null);
-        }
-      } else {
-          console.log('endEdit(ok, invalid)')
-        
-        this.currentlyEditingSubject.next(key);
-        // this.cancelSubject.next(key);
-      }
-    } else {
-      this.cancelSubject.next(key);
-      if(this.currentKey == key) {
-        this.currentKey = null;
-          console.log('endEdit(cancel)')
-        this.currentlyEditingSubject.next(null);
-      }
-    }
   }
 }

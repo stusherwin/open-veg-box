@@ -1743,12 +1743,14 @@ cc-tbody:after {
 }
 input.order-quantity {
   margin: 0;
-  padding: 0 3px !important;
+  padding: 0 2px !important;
   width: 50px;
+  position: relative;
+  left: -2.5px;
 }
 select.order-item {
   margin: 0;
-  padding: 0 0px !important;
+  padding: 0 !important;
   position: relative;
   left: -4.5px;
 }

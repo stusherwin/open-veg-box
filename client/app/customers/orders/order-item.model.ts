@@ -9,6 +9,8 @@ export class OrderItemModel {
   unitType: string;
   total: number;
   editingTotal: number;
+  editingQuantity: number;
+  editing = false;
 
   constructor(
     id: number,
@@ -29,6 +31,7 @@ export class OrderItemModel {
     this.unitType = unitType;
     this.total = total;
     this.editingTotal = editingTotal;
+    this.editingQuantity = quantity;
   }
 
   static fromItem (
@@ -59,16 +62,29 @@ export class OrderItemModel {
     this.totalRecalculationNeeded();
   }
 
-  updateQuantity(quantity: number) {
+  startEdit() {
+    this.editing = true;
+    this.editingQuantity = this.quantity;
+  }
+
+  endEdit() {
+    this.quantity = this.editingQuantity;
     this._service.update(this);
     this.total = this.price * this.quantity;
     this.editingTotal = this.total;
     this.totalRecalculationNeeded();
+    this.editing = false;
+    this.editingQuantity = this.quantity;
   }
 
-  modifyQuantity(quantity: number) {
-    console.log('quantity modified: ' + quantity)
-    this.editingTotal = this.price * quantity;
+  cancelEdit() {
+    this.editing = false;
+    this.editingQuantity = this.quantity;
+    this.recalculateEditingTotal();
+  }
+
+  recalculateEditingTotal() {
+    this.editingTotal = this.price * this.editingQuantity;
     this.editingTotalRecalculationNeeded();
   }
 }
