@@ -4,44 +4,44 @@
     <cc-td></cc-td>
     <cc-td></cc-td>
     <cc-td class="action">
-      <cc-editable-button *ngIf="model.itemsAvailable.length && !model.addingItem"
-                          icon="add"
+      <cc-editable-button icon="add"
+                          *ngIf="!model.adding && model.itemsAvailable.length"
                           [tabindex]="1"
                           (click)="model.startAdd()">
       </cc-editable-button>
     </cc-td>
   </cc-tr-header>
-  <cc-tr *ngIf="model.itemsAvailable.length && model.addingItem" class="add-row editable-background">
+  <cc-tr class="add-row editable-background"
+         *ngIf="model.adding && model.itemsAvailable.length">
     <cc-td>
-      <cc-select #input cssClass="order-item"
+      <cc-select cssClass="order-item"
         [(value)]="model.addingItem"
-        (valueChange)="model.editingTotalRecalculationNeeded()"
         [options]="model.itemsAvailable"
         textProperty="name">
       </cc-select>
     </cc-td>
     <cc-td>
-      <span *ngIf="model.addingItem?.unitType == 'each'">x</span>
-      <cc-number #input cssClass="order-quantity" 
+      <span *ngIf="model.addingItem.unitType == 'each'">x</span>
+      <cc-number cssClass="order-quantity"
             [decimalPrecision]="0"
             [(value)]="model.addingItemQuantity"
-            (valueChange)="model.editingTotalRecalculationNeeded()"
             valid="$value > 0"
             message="Quantity should be a number greater than 0">
       </cc-number>
-      <span *ngIf="model.addingItem?.unitType == 'perKg'">Kg</span>
+      <span *ngIf="model.addingItem.unitType == 'perKg'">Kg</span>
     </cc-td>
     <cc-td></cc-td>
     <cc-td class="total modified"
-           [innerHTML]="(model.addingItem?.price * model.addingItemQuantity || 0) | money: true">
+           [innerHTML]="model.addingItemTotal | money: true">
     </cc-td>
     <cc-td class="action">
-      <cc-editable-buttons (ok)="model.add()" (cancel)="model.cancelAdd()">
+      <cc-editable-buttons (ok)="model.completeAdd()"
+                           (cancel)="model.cancelAdd()">
       </cc-editable-buttons>
     </cc-td>
   </cc-tr>
-  <cc-tr *ngIf="!model.items.length && !model.addingItem">
-    <cc-td>None</cc-td>
+  <cc-tr *ngIf="!model.adding && !model.items.length">
+    <cc-td>No {{heading | lowercase}}</cc-td>
     <cc-td></cc-td>
     <cc-td></cc-td>
     <cc-td class="total" [innerHTML]="0 | money:true"></cc-td>
@@ -55,19 +55,23 @@
       </span>
       <span *ngIf="item.editing">
         <span *ngIf="item.unitType == 'each'">x</span>
-          <cc-number #quantity cssClass="order-quantity" [decimalPrecision]="0"
+          <cc-number cssClass="order-quantity"
+                     [decimalPrecision]="0"
                      [(value)]="item.editingQuantity"
                      valid="$value > 0"
-                     message="Quantity should be a number greater than 0"
-                     (valueChange)="item.recalculateEditingTotal()">
+                     message="Quantity should be a number greater than 0">
           </cc-number>
         <span *ngIf="item.unitType == 'perKg'">Kg</span>
       </span>
     </cc-td>
     <cc-td class="action" [class.editable-background]="item.editing">
-      <cc-editable-button *ngIf="!item.editing" icon="edit" (click)="item.startEdit()">
+      <cc-editable-button icon="edit"
+                          *ngIf="!item.editing"
+                          (click)="item.startEdit()">
       </cc-editable-button>
-      <cc-editable-buttons *ngIf="item.editing" (ok)="item.endEdit()" (cancel)="item.cancelEdit()">
+      <cc-editable-buttons *ngIf="item.editing"
+                           (ok)="item.completeEdit()"
+                           (cancel)="item.cancelEdit()">
       </cc-editable-buttons>
     </cc-td>
     <cc-td class="total"
@@ -75,70 +79,11 @@
            [class.modified]="item.editingTotal != item.total">
     </cc-td>
     <cc-td class="action">
-      <a #remove
-        class="button-new-small show-on-edit"
-        tabindex="1"
-        (click)="onOrderItemRemove(item)"
-        (keydown.Enter)="onOrderItemRemove(item, true)"><i class="icon-trash"></i>
+      <a class="button-new-small show-on-edit"
+         tabindex="1"
+         (click)="item.remove()"
+         (keydown.Enter)="item.remove()">
+        <i class="icon-trash"></i>
       </a>
     </cc-td>
   </cc-tr>
-  <!--div style="margin-bottom: 10px;">
-    <cc-editable-value #editable
-        *ngIf="model.itemsAvailable.length"
-        className="order-item order-item-add"
-        [editing]="editing"
-        [catchTabAway]="model.itemsAvailable.length > 1"
-        (start)="onAddStart()"
-        (ok)="onAddOk($event)"
-        (cancel)="onAddCancel()">
-      <display>
-        <div class="order-item-add-display" [class.hover]="addFocused">
-          <div class="order-item-part show-on-edit"
-                cc-distribute-width-sum="name,quantity,total"
-                [padding]="orderItemPadding * 3">
-            <!--Add {{model.items.length? 'another' : itemNameArticle }} {{itemName}}...->
-          </div><!--
-        -><div class="order-item-part show-on-edit">
-            
-          </div>
-        </div>
-      </display>
-      <edit>
-        <div class="order-item-add-edit">
-          <div class="order-item-part"
-               cc-distribute-width="name">
-            <select #select
-                cc-active cc-activate-on-focus
-                tabindex="{{editable.editing? 1 : 9999}}"
-                [(ngModel)]="model.addingItem"
-                (focus)="editable.startEdit()"
-                (ngModelChange)="model.editingTotalRecalculationNeeded()">
-              <option *ngFor="let i of model.itemsAvailable" [ngValue]="i">{{i.name}}</option>
-            </select>
-          </div><!--
-       -><div class="order-item-part"
-               cc-distribute-width="quantity"
-               [style.margin-left.px]="orderItemPadding">
-            <span [style.visibility]="model.addingItem?.unitType == 'each' ? 'visible' : 'hidden'">x</span>
-              <cc-validatable
-                [valid]="model.addingItemQuantity > 0"
-                message="Quantity should be a number greater than 0">
-                  <input type="text"
-                      cc-active cc-activate-on-focus
-                      cc-numeric [(value)]="model.addingItemQuantity" (valueChange)="model.editingTotalRecalculationNeeded()"
-                      tabindex="{{editable.editing? 1 : 9999}}"
-                      (focus)="editable.startEdit()" />
-              </cc-validatable>
-            <span [style.visibility]="model.addingItem?.unitType == 'perKg' ? 'visible' : 'hidden'">Kg</span>
-          </div><!--
-       -><div class="order-item-part order-item-total"
-               cc-distribute-width="total"
-               [style.margin-left.px]="orderItemPadding"
-               [innerHTML]="(model.addingItem?.price * model.addingItemQuantity || 0) | money: true">
-          </div>
-        </div>
-      </edit>
-    </cc-editable-value>
-  </div-->
-<!--</div>-->

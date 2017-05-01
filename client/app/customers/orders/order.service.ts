@@ -84,8 +84,8 @@ export class OrderService {
     return new Order(
       o.id,
       o.customerId,
-      o.boxes.map((b:any) => new OrderItem(b.id, b.name, b.quantity, b.unitType, b.total)),
-      o.extraProducts.map((p:any) => new OrderItem(p.id, p.name, p.quantity, p.unitType, p.total)),
+      o.boxes.map((b:any) => new OrderItem(b.id, b.name, b.price, b.quantity, b.unitType, b.total)),
+      o.extraProducts.map((p:any) => new OrderItem(p.id, p.name, p.price, p.quantity, p.unitType, p.total)),
       o.total);
  }
 }

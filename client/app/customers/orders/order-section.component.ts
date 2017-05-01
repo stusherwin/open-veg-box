@@ -6,9 +6,9 @@ import { EditableValueComponent } from '../../shared/editable-value.component'
 import { Arrays } from '../../shared/arrays'
 import { NumericDirective } from '../../shared/numeric.directive'
 import { MoneyPipe } from '../../shared/pipes'
-import { OrderModel, OrderAvailableItem } from './order.model'
-import { OrderSectionModel } from './order-section.model'
-import { OrderItemModel } from './order-item.model'
+import { OrderModel } from './order.model'
+import { OrderSectionModel } from './order.model'
+import { OrderItemModel } from './order.model'
 import { ProductQuantityComponent } from '../../products/product-quantity.component'
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import { Subject } from 'rxjs/Subject'
@@ -288,51 +288,6 @@ export class OrderSectionComponent implements OnInit {
 
   ngOnInit() {
     this.itemNameArticle = /^[aeiou]/i.test(this.itemName) ? 'an' : 'a';
-  }
-
-  onOrderItemRemove(item: OrderItemModel, keyboard: boolean) {
-    let index = this.model.items.findIndex(i => i == item);
-    item.remove();
-    // if(keyboard) {
-    //   if(this.model.items.length) {
-    //     setTimeout(() => {
-    //       let nextRemoveFocusIndex = Math.min(index, this.model.items.length - 1);
-    //       let nextFocusBtn = this.removeBtns.toArray()[nextRemoveFocusIndex];
-    //       this.renderer.invokeElementMethod(nextFocusBtn.nativeElement, 'focus', [])
-    //     })
-    //   } else if(this.model.itemsAvailable.length) {
-    //     setTimeout(() => this.renderer.invokeElementMethod(this.addBtn.nativeElement, 'focus', []))
-    //   }
-    // } else {
-    //   if(this.model.items.length) {
-    //     let nextRemoveFocusIndex = Math.min(index, this.model.items.length - 1);
-    //     let nextFocusBtn = this.removeBtns.toArray()[nextRemoveFocusIndex];
-    //     this.renderer.invokeElementMethod(nextFocusBtn.nativeElement, 'blur', [])
-    //   }
-    // }
- }
-
-  onAddStart() {
-    // this.renderer.invokeElementMethod(this.select.nativeElement, 'focus', []);
-    // this.model.startAdd();
-  }
-
-  onAddOk(tabbedAway: boolean) {
-    if(tabbedAway && this.model.itemsAvailable.length > 1) {
-      setTimeout(() => this.renderer.invokeElementMethod(this.addBtn.nativeElement, 'focus', []))
-    }
-
-    this.model.add();
-    //this.editable.endEdit();
-  }
-
-  onAddCancel() {
-    this.model.cancelAdd();
-    //this.editable.endEdit();
-  }
-
-  onAddingItemQuantityChange(quantity: number) {
-    this.model.recalculateTotal();
   }
 
   getItemId(item: OrderItemModel) {

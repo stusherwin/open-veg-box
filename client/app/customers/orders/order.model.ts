@@ -1,113 +1,228 @@
 import { Product } from '../../products/product'
 import { Box } from '../../boxes/box'
 import { Order, OrderItem } from './order'
-import { OrderSectionModel } from './order-section.model'
-import { OrderItemModel } from './order-item.model'
 import { OrderService } from './order.service'
+import { Arrays } from '../../shared/arrays';
+import { Observable } from 'rxjs/Observable'
 
 export interface IOrderItemService {
-  add: (item: OrderAvailableItem, quantity: number) => void;
-  update: (item: OrderItemModel) => void;
-  remove: (item: OrderItemModel) => void;
+  add(itemId: number, quantity: number): Observable<any>;
+  update(itemId: number, quantity: number): Observable<any>;
+  remove(itemId: number): Observable<any>;
 }
 
-export class OrderModel {
-  boxes: OrderSectionModel;
-  products: OrderSectionModel;
-  total: number;
-  editingTotal: number;
-  private _boxService: IOrderItemService;
-  private _productService: IOrderItemService
-
-  constructor(
-    private _order: Order,
-    private _boxes: Box[],
-    private _products: Product[],
-    orderService: OrderService
-  ) {
-    this._boxService = {
-      add: (item: OrderAvailableItem, quantity: number) => {
-        console.log('add box ' + item.id + '(' + quantity + ') to order ' + _order.id);
-        orderService.addBox(_order.id, item.id, {quantity}).subscribe(o => {});//this.populate(o))
-      },
-      update: (item: OrderItemModel) => {
-        console.log('update box ' + item.id + ' quantity to ' + item.quantity + ' on order ' + _order.id);
-        orderService.updateBox(_order.id, item.id, {quantity: item.quantity}).subscribe(o => {});//this.populate(o))
-      },
-      remove: (item: OrderItemModel) => {
-        console.log('delete box ' + item.id + ' from order ' + _order.id);
-        orderService.removeBox(_order.id, item.id).subscribe(o => {});//this.populate(o))
-      }
-    };
-    this._productService = {
-      add: (item: OrderAvailableItem, quantity: number) => {
-        console.log('add product ' + item.id + '(' + quantity + ') to order ' + _order.id);
-        orderService.addProduct(_order.id, item.id, {quantity}).subscribe(o => {});//this.populate(o))
-      },
-      update: (item: OrderItemModel) => {
-        console.log('update product ' + item.id + ' quantity to ' + item.quantity + ' on order ' + _order.id);
-        orderService.updateProduct(_order.id, item.id, {quantity: item.quantity}).subscribe(o => {});//this.populate(o))
-      },
-      remove: (item: OrderItemModel) => {
-        console.log('delete product ' + item.id + ' from order ' + _order.id);
-        orderService.removeProduct(_order.id, item.id).subscribe(o => {});//this.populate(o))
-      }
-    };
-    this.populate(_order);
-  }
-
-  private populate(order: Order) {
-    this.total = order.total;
-    this.editingTotal = order.total;
-    
-    this.products = new OrderSectionModel(
-      order.extraProducts,
-      this._products,
-      this._productService,
-      () => this.recalculateTotal(),
-      () => this.recalculateEditingTotal()
-    );
-
-    this.boxes = new OrderSectionModel(
-      order.boxes,
-      this._boxes.map(b => ({
-        id: b.id,
-        name: b.name,
-        price: b.price,
-        unitType: 'each'
-      })),
-      this._boxService,
-      () => this.recalculateTotal(),
-      () => this.recalculateEditingTotal()
-    );
-  }
-
-  recalculateEditingTotal() {
-    console.log('recalculateEditingTotal')
-    this.boxes.recalculateEditingTotal();
-    this.products.recalculateEditingTotal();
-
-    this.editingTotal =
-      this.boxes.editingTotal +
-      this.products.editingTotal;
-  }
-
-  recalculateTotal() {
-    console.log('recalculateTotal')
-    this.boxes.recalculateTotal();
-    this.products.recalculateTotal();
-
-    this.total =
-      this.boxes.total +
-      this.products.total;
-
-    this.editingTotal = this.total;
-  }
-}
-
-export interface OrderAvailableItem {
+export interface IOrderAvailableItem {
   id: number;
   price: number;
   name: string;
   unitType: string;
+}
+
+export interface IOrderItem {
+  id: number;
+  name: string;
+  unitType: string;
+}
+
+export class OrderModel {
+  boxesSection: OrderSectionModel;
+  productsSection: OrderSectionModel;
+  addingSection: OrderSectionModel;
+  editingItem: OrderItemModel;
+
+  constructor(
+    order: Order,
+    boxes: Box[],
+    products: Product[],
+    orderService: OrderService
+  ) {
+    let allBoxes = boxes.map(b => ({
+     id: b.id,
+     name: b.name,
+     price: b.price,
+     unitType: 'each'
+    }));
+
+    this.boxesSection = new OrderSectionModel(order.boxes, allBoxes, {
+      add(itemId: number, quantity: number): Observable<any> {
+        return orderService.addBox(order.id, itemId, {quantity});
+      },
+      update(itemId: number, quantity: number): Observable<any> {
+        return orderService.updateBox(order.id, itemId, {quantity});
+      },
+      remove(itemId: number): Observable<any> {
+        return orderService.removeBox(order.id, itemId);
+      }
+    }, this);
+
+    this.productsSection = new OrderSectionModel(order.extraProducts, products, {
+      add(itemId: number, quantity: number): Observable<any> {
+        return orderService.addProduct(order.id, itemId, {quantity});
+      },
+      update(itemId: number, quantity: number): Observable<any> {
+        return orderService.updateProduct(order.id, itemId, {quantity});
+      },
+      remove(itemId: number): Observable<any> {
+        return orderService.removeProduct(order.id, itemId);
+      }
+    }, this);
+  }
+  
+  get total(): number {
+    return this.boxesSection.total + this.productsSection.total;
+  }
+  
+  get editingTotal(): number {
+    return this.boxesSection.editingTotal + this.productsSection.editingTotal;
+  }
+
+  startAdd(section: OrderSectionModel) {
+    this.addingSection = section;
+    this.editingItem = null;
+  }
+
+  endAdd() {
+    this.addingSection = null;
+  }
+
+  startEdit(item: OrderItemModel) {
+    this.editingItem = item;
+    this.addingSection = null;
+  }
+
+  endEdit() {
+    this.editingItem = null;
+  }
+}
+
+export class OrderSectionModel {
+  items: OrderItemModel[];
+  addingItem: IOrderAvailableItem;
+  addingItemQuantity: number;
+
+  constructor(
+      items: OrderItem[],
+      private _allItems: IOrderAvailableItem[],
+      private _service: IOrderItemService,
+      private _order: OrderModel) {
+    this.items = items.map(i => new OrderItemModel(i.id, i.name, i.price, i.quantity, i.unitType, this));
+    this.addingItem = this.itemsAvailable[0];
+    this.addingItemQuantity = 1;
+  }
+
+  get adding() {
+    return this._order.addingSection == this;
+  }
+
+  get editingItem() {
+    return this._order.editingItem;
+  }
+
+  get itemsAvailable() {
+    return Arrays.exceptByOther(
+      this._allItems, i => i.id,
+      this.items, i => i.id
+    );
+  }
+
+  get total(): number {
+    return this.items.reduce((total, i) => total + i.total, 0);
+  }
+
+  get addingItemTotal(): number {
+    if(!this.adding) {
+      return 0;
+    }
+
+    return this.addingItem.price * this.addingItemQuantity;
+  }
+
+  get editingTotal(): number {
+    return this.items.reduce((total, i) => total + i.editingTotal, 0) +
+      this.addingItemTotal;
+  }
+
+  startAdd() {
+    this.addingItem = this.itemsAvailable[0];
+    this.addingItemQuantity = 1;
+    this._order.startAdd(this);
+  }
+
+  completeAdd() {
+    this._service.add(this.addingItem.id, this.addingItemQuantity).subscribe(_ => {
+      this.items.unshift(new OrderItemModel(this.addingItem.id, this.addingItem.name, this.addingItem.price, this.addingItemQuantity, this.addingItem.unitType, this));
+      this._order.endAdd();
+    });
+  }
+
+  cancelAdd() {
+    this._order.endAdd();
+  }
+
+  removeItem(item: OrderItemModel) {
+    this._order.endAdd();
+    this._order.endEdit();
+    this._service.remove(item.id).subscribe(_ => {
+      Arrays.remove(this.items, item);
+    })
+  }
+
+  updateItem(itemId: number, quantity: number): Observable<any> {
+    return this._service.update(itemId, quantity);
+  }
+
+  startEdit(item: OrderItemModel) {
+    this._order.startEdit(item);
+  }
+
+  endEdit() {
+    this._order.endEdit();
+  }
+}
+
+export class OrderItemModel {
+  editingQuantity: number;
+
+  constructor(
+      public id: number,
+      public name: string,
+      public price: number,
+      public quantity: number,
+      public unitType: string,
+      private _section: OrderSectionModel) {
+    this.editingQuantity = quantity;
+  }
+
+  get editing() {
+    return this._section.editingItem == this;
+  }
+
+  get total() {
+    return this.price * this.quantity;
+  }
+
+  get editingTotal() {
+    return this.price * this.editingQuantity;
+  }
+
+  remove() {
+    this._section.removeItem(this);
+  }
+
+  startEdit() {
+    this.editingQuantity = this.quantity;
+    this._section.startEdit(this);
+  }
+
+  completeEdit() {
+    this._section.updateItem(this.id, this.editingQuantity).subscribe(_ => {
+      this.quantity = this.editingQuantity;
+      this._section.endEdit();
+    })
+  }
+
+  cancelEdit() {
+    this._section.endEdit();
+    this.editingQuantity = this.quantity;
+  }
 }

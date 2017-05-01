@@ -15,9 +15,10 @@ export class Order {
 }
 
 export class OrderItem {
-  constructor(id: number, name: string, quantity: number, unitType: string, total: number) {
+  constructor(id: number, name: string, price: number, quantity: number, unitType: string, total: number) {
     this.id = id;
     this.name = name;
+    this.price = price;
     this.quantity = quantity;
     this.unitType = unitType;
     this.total = total;
@@ -25,6 +26,7 @@ export class OrderItem {
 
   id: number;
   name: string;
+  price: number;
   quantity: number;
   unitType: string;
   total: number;

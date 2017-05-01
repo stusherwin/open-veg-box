@@ -44,13 +44,13 @@ export class CustomersService {
 
           if(r.boxid) {
             if(customers[r.id].order.boxes.findIndex(b => b.id == r.boxid) == -1) {
-              customers[r.id].order.boxes.push(new OrderItem(r.boxid, r.boxname, r.boxquantity, 'each', r.boxprice * r.boxquantity));
+              customers[r.id].order.boxes.push(new OrderItem(r.boxid, r.boxname, r.boxprice, r.boxquantity, 'each', r.boxprice * r.boxquantity));
             }
           }
           
           if(r.productid) {
             if(customers[r.id].order.extraProducts.findIndex(p => p.id == r.productid) == -1) {
-              customers[r.id].order.extraProducts.push(new OrderItem(r.productid, r.productname, r.productquantity, r.productunittype, r.productprice * r.productquantity));
+              customers[r.id].order.extraProducts.push(new OrderItem(r.productid, r.productname, r.productprice, r.productquantity, r.productunittype, r.productprice * r.productquantity));
             }
           }
         }

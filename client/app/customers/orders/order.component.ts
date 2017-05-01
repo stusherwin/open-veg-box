@@ -8,8 +8,7 @@ import { MoneyPipe } from '../../shared/pipes'
 import { Product } from '../../products/product'
 import { Box } from '../../boxes/box'
 import { Arrays } from '../../shared/arrays';
-import { OrderModel, OrderAvailableItem } from './order.model'
-import { OrderItemModel } from './order-item.model'
+import { OrderModel } from './order.model'
 
 @Component({
   selector: 'cc-order',

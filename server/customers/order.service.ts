@@ -33,13 +33,13 @@ export class OrderService {
 
           if(r.boxid) {
             if(order.boxes.findIndex(b => b.id == r.boxid) == -1) {
-              order.boxes.push(new OrderItem(r.boxid, r.boxname, r.boxquantity, 'each', r.boxprice * r.boxquantity));
+              order.boxes.push(new OrderItem(r.boxid, r.boxname, r.boxprice, r.boxquantity, 'each', r.boxprice * r.boxquantity));
             }
           }
           
           if(r.productid) {
             if(order.extraProducts.findIndex(p => p.id == r.productid) == -1) {
-              order.extraProducts.push(new OrderItem(r.productid, r.productname, r.productquantity, r.productunittype, r.productprice * r.productquantity));
+              order.extraProducts.push(new OrderItem(r.productid, r.productname, r.productprice, r.productquantity, r.productunittype, r.productprice * r.productquantity));
             }
           }
         }
