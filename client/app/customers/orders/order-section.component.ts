@@ -17,10 +17,10 @@ import 'rxjs/add/operator/distinct'
 
 @Component({
   template: `
-    <a class="button-new-small"
+    <a *ngIf="visible" class="button-new-small"
       cc-active cc-activate-on-focus cc-deactivate-on-blur
       (click)="edit()" (keydown.Enter)="edit()"
-      [tabindex]="tabindex"><i class="icon-{{icon}}"></i>
+      tabindex="1"><i class="icon-{{icon}}"></i>
     </a>
   `,
   selector: 'cc-editable-button',
@@ -57,22 +57,23 @@ export class EditableEditButtonComponent implements OnInit {
 
 @Component({
   template: `
-    <span cc-active (deactivate)="onDeactivate()">
+    <span *ngIf="visible">
       <a class="button-new-small"
-        cc-active cc-activate-on-focus cc-deactivate-on-blur
         (click)="ok()" (keydown.Enter)="ok()"
         (focus)="onButtonFocus()"
-        (keydown.Tab)="service.handleTab($event.shiftKey)"
-        [tabindex]="9999"><i class="icon-ok"></i>
+        (blur)="onButtonBlur()"
+        tabindex="1"><i class="icon-ok"></i>
       </a>
       <a class="button-new-small"
-        cc-active cc-activate-on-focus cc-deactivate-on-blur
         (click)="cancel()" (keydown.Enter)="cancel()"
         (focus)="onButtonFocus()"
-        (keydown.Tab)="service.handleTab($event.shiftKey)"
-        [tabindex]="9999"><i class="icon-cancel"></i>
+        (blur)="onButtonBlur()"
+        tabindex="1"><i class="icon-cancel"></i>
       </a>
     </span>
+    <!--
+        (keydown.Tab)="service.handleTab($event.shiftKey)"
+-->    
   `,
   selector: 'cc-editable-buttons',
   directives: [ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective]
@@ -107,7 +108,7 @@ export class EditableButtonsComponent implements OnInit {
     this.service.preventEndEdit(this.key);
   }
 
-  onDeactivate() {
+  onButtonBlur() {
     this.service.tryEndEdit(this.key);
   }
 }
@@ -130,10 +131,10 @@ export class InputComponent {
             (ngModelChange)="editingValueChange.emit($event)"
             (focus)="onInputFocus()"
             (blur)="onInputBlur()"
-            (keydown.Tab)="service.handleTab($event.shiftKey)"
             tabindex="1" />
       <i *ngIf="!isValid" class="icon-warning" title="{{message}}"></i>
     </span>
+<!--            (keydown.Tab)="service.handleTab($event.shiftKey)"-->
   `,
   selector: 'cc-text',
   directives: [ActiveElementDirective, ActivateOnFocusDirective]
@@ -213,7 +214,10 @@ export class TextComponent extends InputComponent implements OnInit {
       this.service.currentlyEditing
         .subscribe(key => {
           if(key == this.key) {
-            setTimeout(this.renderer.invokeElementMethod(this.input.nativeElement, 'focus', []));
+            console.log('focusing...')
+            setTimeout(() => {
+              this.renderer.invokeElementMethod(this.input.nativeElement, 'focus', [])
+            });
           }
         });
     }
@@ -235,10 +239,12 @@ export class TextComponent extends InputComponent implements OnInit {
             (ngModelChange)="editingValueChange.emit(toDecimalValue($event))"
             (focus)="onInputFocus()"
             (blur)="onInputBlur()"
-            (keydown.Tab)="service.handleTab($event.shiftKey)"
             tabindex="1" />
       <i *ngIf="!isValid" class="icon-warning" title="{{message}}"></i>
     </span>
+    <!--
+            (keydown.Tab)="service.handleTab($event.shiftKey)"
+-->    
   `,
   selector: 'cc-number',
   directives: [ActiveElementDirective, ActivateOnFocusDirective]
@@ -312,7 +318,10 @@ export class NumberComponent extends InputComponent implements OnInit {
       this.service.currentlyEditing
         .subscribe(key => {
           if(key == this.key) {
-            setTimeout(this.renderer.invokeElementMethod(this.input.nativeElement, 'focus', []));
+            console.log('focusing...')
+            setTimeout(() => {
+              this.renderer.invokeElementMethod(this.input.nativeElement, 'focus', [])
+            });
           }
         });
     }
@@ -364,20 +373,26 @@ export class NumberComponent extends InputComponent implements OnInit {
 @Component({
   template: `
     <select #select class="{{cssClass}}"
-        cc-active cc-activate-on-focus
+        cc-active cc-activate-on-focus (activate)="onActivate()"
         tabindex="1"
         (focus)="onSelectFocus()"
         (blur)="onSelectBlur()"
-        (keydown.Tab)="service.handleTab($event.shiftKey)"
         [(ngModel)]="value"
         (ngModelChange)="valueChange.emit($event)">
       <option *ngFor="let o of options" [ngValue]="o">{{getText(o)}}</option>
     </select>
+    <!--
+        (keydown.Tab)="service.handleTab($event.shiftKey)"
+-->    
   `,
   selector: 'cc-select',
   directives: [ActiveElementDirective, ActivateOnFocusDirective]
 })
 export class SelectComponent extends InputComponent implements OnInit {
+  onActivate() {
+    console.log('stu-select');
+  }
+
   @Input()
   key: string
 
@@ -431,7 +446,9 @@ export class SelectComponent extends InputComponent implements OnInit {
         .subscribe(key => {
           console.log('currentlyEditing: ' + key)
           if(key == this.key) {
-            setTimeout(this.renderer.invokeElementMethod(this.select.nativeElement, 'focus', []));
+            setTimeout(() => {
+              this.renderer.invokeElementMethod(this.select.nativeElement, 'focus', [])
+            });
           }
         });
     }
@@ -463,7 +480,8 @@ export class EditableDisplayDirective implements OnInit {
 
 @Component({
   selector: 'cc-editable-edit-form',
-  template: '<ng-content></ng-content>'
+  template: '<ng-content *ngIf="!hidden"></ng-content>',
+  directives: [ActiveElementDirective]
 })
 export class EditableEditFormComponent implements OnInit, AfterViewInit {
   @Input()
@@ -475,17 +493,17 @@ export class EditableEditFormComponent implements OnInit, AfterViewInit {
   @HostBinding('class.off-screen')
   hidden: boolean = true;
 
-  @HostListener('keydown.Enter')
-  enter() {
-    console.log('enter()')
-    this.service.endEdit(this.key, true);
-  }
+  // @HostListener('keydown.Enter')
+  // enter() {
+  //   console.log('enter()')
+  //   this.service.endEdit(this.key, true);
+  // }
 
-  @HostListener('keydown.Escape')
-  escape() {
-    console.log('escape()')
-    this.service.endEdit(this.key, false);
-  }
+  // @HostListener('keydown.Escape')
+  // escape() {
+  //   console.log('escape()')
+  //   this.service.endEdit(this.key, false);
+  // }
 
   @Output()
   start = new EventEmitter<any>()
@@ -506,17 +524,25 @@ export class EditableEditFormComponent implements OnInit, AfterViewInit {
       .subscribe(key => {
         this.hidden = key != this.key;
         if(!this.hidden) {
-          setTimeout(() => this.start.emit(null));
+          // setTimeout(() => this.start.emit(null));
+          this.start.emit(null);
         }
       });
 
     this.service.ok
       .filter(key => key == this.key)
-      .subscribe(() => setTimeout(() => this.ok.emit(null)));
+      .subscribe(() => {
+        console.log('ok event: ' + this.key)
+        // setTimeout(() => {
+          // console.log('ok event after timeout: ' + this.key)
+          this.ok.emit(null);
+        // });
+      });
 
     this.service.cancel
       .filter(key => key == this.key)
-      .subscribe(() => setTimeout(() => this.cancel.emit(null)));
+      // .subscribe(() => setTimeout(() => this.cancel.emit(null)));
+      .subscribe(() => this.cancel.emit(null));
   }
 
   ngAfterViewInit() {
@@ -525,6 +551,10 @@ export class EditableEditFormComponent implements OnInit, AfterViewInit {
     this.service.registerValidate(this.key, () => {
       return this.validate();
     });
+  }
+
+  onDeactivate() {
+    this.service.endEdit(this.key, false);
   }
 
   validate(): boolean {
@@ -624,6 +654,13 @@ export class OrderSectionComponent implements OnInit {
   quantity: number = 1;
   itemNameArticle: string;
 
+  stu() {
+    console.log('stu');
+  }
+  start() {
+    console.log('stu-start');
+  }
+
   @Input()
   model: OrderSectionModel
 
@@ -655,23 +692,23 @@ export class OrderSectionComponent implements OnInit {
   onOrderItemRemove(item: OrderItemModel, keyboard: boolean) {
     let index = this.model.items.findIndex(i => i == item);
     item.remove();
-    if(keyboard) {
-      if(this.model.items.length) {
-        setTimeout(() => {
-          let nextRemoveFocusIndex = Math.min(index, this.model.items.length - 1);
-          let nextFocusBtn = this.removeBtns.toArray()[nextRemoveFocusIndex];
-          this.renderer.invokeElementMethod(nextFocusBtn.nativeElement, 'focus', [])
-        })
-      } else if(this.model.itemsAvailable.length) {
-        setTimeout(() => this.renderer.invokeElementMethod(this.addBtn.nativeElement, 'focus', []))
-      }
-    } else {
-      if(this.model.items.length) {
-        let nextRemoveFocusIndex = Math.min(index, this.model.items.length - 1);
-        let nextFocusBtn = this.removeBtns.toArray()[nextRemoveFocusIndex];
-        this.renderer.invokeElementMethod(nextFocusBtn.nativeElement, 'blur', [])
-      }
-    }
+    // if(keyboard) {
+    //   if(this.model.items.length) {
+    //     setTimeout(() => {
+    //       let nextRemoveFocusIndex = Math.min(index, this.model.items.length - 1);
+    //       let nextFocusBtn = this.removeBtns.toArray()[nextRemoveFocusIndex];
+    //       this.renderer.invokeElementMethod(nextFocusBtn.nativeElement, 'focus', [])
+    //     })
+    //   } else if(this.model.itemsAvailable.length) {
+    //     setTimeout(() => this.renderer.invokeElementMethod(this.addBtn.nativeElement, 'focus', []))
+    //   }
+    // } else {
+    //   if(this.model.items.length) {
+    //     let nextRemoveFocusIndex = Math.min(index, this.model.items.length - 1);
+    //     let nextFocusBtn = this.removeBtns.toArray()[nextRemoveFocusIndex];
+    //     this.renderer.invokeElementMethod(nextFocusBtn.nativeElement, 'blur', [])
+    //   }
+    // }
  }
 
   onAddStart() {
@@ -685,7 +722,7 @@ export class OrderSectionComponent implements OnInit {
     }
 
     this.model.add();
-    this.editable.endEdit();
+    //this.editable.endEdit();
   }
 
   onAddCancel() {
@@ -749,11 +786,11 @@ export class EditableService {
     console.log('tryEndEdit(' + key + ')')
     this.currentlyTryingToEnd = key;
     let tabbedAway = this._tabbingAway;
-    setTimeout(() => {
+    //setTimeout(() => {
       if(this.currentlyTryingToEnd && this.currentlyTryingToEnd == key) {
         this.endEdit(key, tabbedAway);
       }
-    }, 100)
+    //}, 100)
   }
 
   preventEndEdit(key: string) {
@@ -766,6 +803,7 @@ export class EditableService {
 
   endEdit(key: string, ok: boolean) {
     console.log('endEdit(' + key + ')')
+
     if(this.currentlyTryingToEnd == key) {
       this.currentlyTryingToEnd = null;
     }

@@ -1306,7 +1306,7 @@ cc-table {
   box-sizing: border-box;
   display: table;
   position: relative;
-  overflow: hidden;
+  // overflow: hidden;
 }
 
 cc-tr, cc-tr-header, .cc-tr {
@@ -1325,13 +1325,14 @@ cc-td {
   
   display: table-cell;
   padding: 3px 5px;//-top: 3px;
+  padding-top: 2px;
   //  background: #fff;
   //  border: 1px solid black;
   &:first-of-type {
-    padding-left: 0;
+    // padding-left: 0;
   }
   &:last-of-type {
-    padding-right: 0;
+    // padding-right: 0;
   }
 }
 
@@ -1360,6 +1361,7 @@ cc-tbody {
       font-size: 60%;
       text-transform: uppercase;
       vertical-align: middle;
+      // padding-left: 0;
     }
 
     // &:last-of-type {
@@ -1423,11 +1425,18 @@ cc-tbody {
   margin-left: -2px;
 }
 
-.editable-input {
+input.order-quantity {
   margin: 0;
   padding: 0 3px !important;
   width: 50px;
-  height: 20px;
+}
+
+select.order-item {
+  margin: 0;
+  padding: 0 0px !important;
+  // margin-left: -4px;
+  position: relative;
+  left: -4.5px;
 }
 
 .editable-display-clickable {

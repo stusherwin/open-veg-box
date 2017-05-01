@@ -1096,7 +1096,6 @@ cc-table {
   box-sizing: border-box;
   display: table;
   position: relative;
-  overflow: hidden;
 }
 cc-tr,
 cc-tr-header,
@@ -1108,12 +1107,7 @@ cc-td {
   box-sizing: border-box;
   display: table-cell;
   padding: 3px 5px;
-}
-cc-td:first-of-type {
-  padding-left: 0;
-}
-cc-td:last-of-type {
-  padding-right: 0;
+  padding-top: 2px;
 }
 cc-tbody {
   box-sizing: border-box;
@@ -1164,11 +1158,16 @@ cc-tbody:after {
 .button-new-small ~ .button-new-small {
   margin-left: -2px;
 }
-.editable-input {
+input.order-quantity {
   margin: 0;
   padding: 0 3px !important;
   width: 50px;
-  height: 20px;
+}
+select.order-item {
+  margin: 0;
+  padding: 0 0px !important;
+  position: relative;
+  left: -4.5px;
 }
 .editable-display-clickable:hover {
   color: #ffa011;

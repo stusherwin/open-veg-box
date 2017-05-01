@@ -4,14 +4,14 @@
     <cc-td></cc-td>
     <cc-td></cc-td>
     <cc-td class="action">
-      <cc-editable-button icon="add" key="{{heading}}-add" [tabindex]="1">
+      <cc-editable-button *ngIf="model.itemsAvailable.length" icon="add" key="{{heading}}-add" [tabindex]="1">
       </cc-editable-button>
     </cc-td>
   </cc-tr-header>
-  <cc-editable-edit-form key="{{heading}}-add" class="cc-tr add-row"
-      (start)="model.startAdd()" (ok)="model.add()" (cancel)="model.cancelAdd()" cc-editable-background="{{heading}}-add">
+  <cc-editable-edit-form *ngIf="model.itemsAvailable.length" key="{{heading}}-add" class="cc-tr add-row"
+      (start)="start();model.startAdd()" (ok)="model.add()" (cancel)="stu();model.cancelAdd()" cc-editable-background="{{heading}}-add">
     <cc-td>
-      <cc-select #input key="{{heading}}-add"
+      <cc-select #input key="{{heading}}-add" cssClass="order-item"
         [firstInput]="true"
         [(value)]="model.addingItem"
         (valueChange)="model.editingTotalRecalculationNeeded()"
@@ -20,12 +20,14 @@
       </cc-select>
     </cc-td>
     <cc-td>
-      <cc-number #input key="{{heading}}-add" cssClass="editable-input" [decimalPrecision]="0"
+      <span *ngIf="model.addingItem?.unitType == 'each'">x</span>
+      <cc-number #input key="{{heading}}-add" cssClass="order-quantity" [decimalPrecision]="0"
             [(value)]="model.addingItemQuantity"
             (editingValueChange)="model.addingItemQuantity=$event;model.editingTotalRecalculationNeeded()"
             valid="$value > 0"
             message="Quantity should be a number greater than 0">
       </cc-number>
+      <span *ngIf="model.addingItem?.unitType == 'perKg'">Kg</span>
     </cc-td>
     <cc-td></cc-td>
     <cc-td class="total modified"
@@ -50,17 +52,17 @@
         <cc-product-quantity [quantity]="item.quantity" [unitType]="item.unitType"></cc-product-quantity>
       </span>
       <cc-editable-edit-form key="{{heading}}-{{i}}" (ok)="item.updateQuantity(item.quantity)">
-        <span class="box-product-quantity-each" *ngIf="item.unitType == 'each'">x</span>
+        <span *ngIf="item.unitType == 'each'">x</span>
         <!--<cc-validatable
             [valid]="editable.editingValue > 0"
             message="Quantity should be a number greater than 0">-->
           <!--<input type="text" #input
-            class="inputx pricex editable-input"
+            class="inputx pricex order-quantity"
             cc-numeric maxDecimals="3" [(value)]="item.quantity" (valueChange)="item.modifyQuantity($event)"
             cc-active cc-activate-on-focus
             cc-editable-first-input="{{heading}}-{{i}}"
             tabindex="1" />-->
-          <cc-number #input key="{{heading}}-{{i}}" cssClass="editable-input" [decimalPrecision]="0"
+          <cc-number #input key="{{heading}}-{{i}}" cssClass="order-quantity" [decimalPrecision]="0"
                      [firstInput]="true"
                      [(value)]="item.quantity"
                      valid="$value > 0"
@@ -68,7 +70,7 @@
                      (editingValueChange)="item.modifyQuantity($event)">
           </cc-number>
         <!--</cc-validatable>-->
-        <span class="box-product-quantity-perkg" *ngIf="item.unitType == 'perKg'">Kg</span>
+        <span *ngIf="item.unitType == 'perKg'">Kg</span>
       </cc-editable-edit-form>
       <!--<cc-order-item-quantity
         [(value)]="item.quantity"
@@ -78,14 +80,14 @@
       </cc-order-item-quantity>-->
     </cc-td>
     <cc-td class="action" cc-editable-background="{{heading}}-{{i}}">
-      <span cc-editable-display="{{heading}}-{{i}}">
+      <!--<span cc-editable-display="{{heading}}-{{i}}">-->
         <cc-editable-button icon="edit" key="{{heading}}-{{i}}">
         </cc-editable-button>
-      </span>
-      <span cc-editable-edit="{{heading}}-{{i}}">
+      <!--</span>-->
+      <!--<span cc-editable-edit="{{heading}}-{{i}}">-->
         <cc-editable-buttons key="{{heading}}-{{i}}">
         </cc-editable-buttons>
-      </span>
+      <!--</span>-->
     </cc-td>
     <cc-td class="total"
            [innerHTML]="item.editingTotal | money:true"

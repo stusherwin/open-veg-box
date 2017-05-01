@@ -80,13 +80,14 @@ export class OrderSectionModel {
       this.totalRecalculationNeeded,
       this.editingTotalRecalculationNeeded
     );
-    this.items.push(newItem);
+    this.items.unshift(newItem);
     this.itemsAvailable = Arrays.exceptByOther(
       this._all, i => i.id,
       this.items, i => i.id
     );
 
     this._service.add(this.addingItem, this.addingItemQuantity);
+    this.addingItem = undefined;
     this.totalRecalculationNeeded()
   }
 
