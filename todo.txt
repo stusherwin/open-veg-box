@@ -138,3 +138,4 @@ TODO (now)
 * Validation
 * Fix which buttons are focused after clicking/enter on buttons
 * Fix alignment on header row & when editing quantity & edit/ok/cancel buttons
+* Border around button-new-small on hover

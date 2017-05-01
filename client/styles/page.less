@@ -1188,7 +1188,7 @@ button.button-new {
   }
 }
 
-.editable-value-display:hover {
+.editable-value-display:hover, .hover {
   .button-new-small {
     border: 1px solid @boxProductHover;
     background: @boxProductHover;
@@ -1333,6 +1333,11 @@ cc-td {
   }
   &:last-of-type {
     // padding-right: 0;
+  }
+
+  &.hover {
+    color: @boxProductHover;
+    cursor: pointer;
   }
 }
 

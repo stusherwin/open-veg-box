@@ -49,7 +49,7 @@
   </cc-tr>
   <cc-tr *ngFor="let item of model.items; let i = index; trackBy:getItemId">
     <cc-td>{{item.name}}</cc-td>
-    <cc-td [class.editable-background]="item.editing">
+    <cc-td [class.editable-background]="item.editing" (mouseenter)="hover = i" (mouseleave)="hover = null" [class.hover]="!item.editing && hover == i">
       <span *ngIf="!item.editing">
         <cc-product-quantity [quantity]="item.quantity" [unitType]="item.unitType"></cc-product-quantity>
       </span>
@@ -64,7 +64,7 @@
         <span *ngIf="item.unitType == 'perKg'">Kg</span>
       </span>
     </cc-td>
-    <cc-td class="action" [class.editable-background]="item.editing">
+    <cc-td class="action" [class.editable-background]="item.editing" (mouseenter)="hover = i" (mouseleave)="hover = null" [class.hover]="!item.editing && hover == i">
       <cc-editable-button icon="edit"
                           *ngIf="!item.editing"
                           (click)="item.startEdit()">

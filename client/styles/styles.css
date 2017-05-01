@@ -1584,11 +1584,13 @@ button.button-new[disabled]:focus i {
   margin-top: -0.5px;
   margin-left: 0px;
 }
-.editable-value-display:hover .button-new-small {
+.editable-value-display:hover .button-new-small,
+.hover .button-new-small {
   border: 1px solid #ffa011;
   background: #ffa011;
 }
-.editable-value-display:hover .button-new-small i::before {
+.editable-value-display:hover .button-new-small i::before,
+.hover .button-new-small i::before {
   color: white;
 }
 @-moz-document url-prefix() {
@@ -1691,6 +1693,10 @@ cc-td {
   display: table-cell;
   padding: 3px 5px;
   padding-top: 2px;
+}
+cc-td.hover {
+  color: #ffa011;
+  cursor: pointer;
 }
 cc-tbody {
   box-sizing: border-box;
