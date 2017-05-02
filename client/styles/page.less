@@ -1055,7 +1055,7 @@ input[type="text"].price {
   .buttonNew(@outerSize; @outerPadding; @iconSize; @textSize);
   .buttonNewColors(#999; #aaa; transparent; #aaa);
 
-  &:hover, &:focus {
+  &:hover, &:focus, &.hover {
     .buttonNewColors(@boxProductHover; #fff; @boxProductHover; @boxProductHover);
   }
 
@@ -1257,6 +1257,10 @@ button.button-new-small {
       display: table-cell;
       vertical-align: top;
       padding-left: 5px;
+
+      &.hover {
+        cursor: pointer;
+      }
     }
 
     .actions {

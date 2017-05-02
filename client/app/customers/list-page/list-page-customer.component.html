@@ -1,11 +1,11 @@
 <div class="row" #active=cc-active cc-active [class.focused]="rowFocused" (activate)="rowFocused = true" (deactivate)="rowFocused = false">
-  <div class="details">
-    <cc-heading #customerName [(value)]="model.name" (valueChange)="model.update({name: $event})"></cc-heading>
+  <div class="details" (mouseenter)="hover = true" (mouseleave)="hover = false" [class.hover]="hover" [routerLink]="['../Customer', {customerId: model.id}, 'Details']">
+    <h3>{{model.name}}</h3>
     <p style="font-size: 95%">{{model.address}}</p>
     <p style="font-size: 95%; margin-top: 10px" innerHTML="Order: {{model.orderTotal | money}}"></p>
   </div>
   <div class="actions">
-    <a class="button-new button-new-right" cc-active cc-activate-on-focus tabindex="1" [routerLink]="['../Customer', {customerId: model.id}, 'Details']"><i class="icon-doc-text"></i>Details</a>
+    <a class="button-new button-new-right" [class.hover]="hover" cc-active cc-activate-on-focus tabindex="1" [routerLink]="['../Customer', {customerId: model.id}, 'Details']"><i class="icon-doc-text"></i>Details</a>
     <button class="button-new button-new-right" [routerLink]="['../Customer', {customerId: model.id}, 'Email']" cc-active cc-activate-on-focus cc-deactivate-on-blur tabindex="1" [disabled]="!model.canEmail">
       <i class="icon-mail-dark"></i>Email
     </button>

@@ -1379,15 +1379,18 @@ input[type="text"].price {
   color: #aaa;
 }
 .button-new:hover,
-.button-new:focus {
+.button-new:focus,
+.button-new.hover {
   color: #ffa011;
 }
 .button-new:hover::before,
-.button-new:focus::before {
+.button-new:focus::before,
+.button-new.hover::before {
   border-color: #ffa011;
 }
 .button-new:hover i,
-.button-new:focus i {
+.button-new:focus i,
+.button-new.hover i {
   background-color: #ffa011;
   color: #fff;
 }
@@ -1638,6 +1641,9 @@ button.button-new-small[disabled]:focus i:before {
   display: table-cell;
   vertical-align: top;
   padding-left: 5px;
+}
+.row-view-new .row .details.hover {
+  cursor: pointer;
 }
 .row-view-new .row .actions {
   display: table-cell;
