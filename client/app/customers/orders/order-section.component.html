@@ -15,7 +15,7 @@
          *ngIf="model.adding && model.itemsAvailable.length"
          [class.submitted]="submitted">
     <cc-td>
-      <cc-select cssClass="order-item"
+      <cc-select cssClass="order-item" #select
         [(value)]="model.addingItem"
         [options]="model.itemsAvailable"
         textProperty="name">
@@ -26,7 +26,8 @@
       <cc-number cssClass="order-quantity"
             [decimalPrecision]="0"
             [(value)]="model.addingItemQuantity"
-            [control]="quantity"[messages]="{notGreaterThanZero: 'Quantity must be greater than zero.', notNumeric: 'Quantity must be a number.'}">
+            [control]="quantity" 
+            [messages]="{notGreaterThanZero: 'Quantity must be greater than zero.', notNumeric: 'Quantity must be a number.'}">
       </cc-number>
       <span *ngIf="model.addingItem.unitType == 'perKg'">Kg</span>
     </cc-td>

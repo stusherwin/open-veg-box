@@ -18,31 +18,31 @@ import { Control, Validators, FORM_DIRECTIVES, FormBuilder, ControlGroup } from 
 import { NumberComponent, SelectComponent } from '../../shared/input.component'
 import { EditableEditButtonComponent } from '../../shared/editable-edit-button.component'
 import { EditableButtonsComponent } from '../../shared/editable-buttons.component'
-import { OrderItemComponent } from './order-item.component' 
 
 @Component({
-  selector: '[cc-order-section]',
-  templateUrl: 'app/customers/orders/order-section.component.html',
-  directives: [ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, DistributeWidthDirective, OrderItemQuantityComponent, DistributeWidthSumDirective, EditableValueComponent, NumericDirective, ProductQuantityComponent, EditableEditButtonComponent, EditableButtonsComponent, NumberComponent, SelectComponent, FORM_DIRECTIVES, OrderItemComponent],
+  selector: '[cc-order-item]',
+  templateUrl: 'app/customers/orders/order-item.component.html',
+  directives: [ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, DistributeWidthDirective, OrderItemQuantityComponent, DistributeWidthSumDirective, EditableValueComponent, NumericDirective, ProductQuantityComponent, EditableEditButtonComponent, EditableButtonsComponent, NumberComponent, SelectComponent, FORM_DIRECTIVES],
   pipes: [MoneyPipe]
 })
-export class OrderSectionComponent implements OnInit {
+export class OrderItemComponent implements OnInit {
+  hover: boolean;
+  
   @Input()
-  model: OrderSectionModel
+  model: OrderItemModel
 
-  @Input()
-  heading: string;
+  @ViewChildren('qty')
+  quantityComponent: QueryList<NumberComponent>
 
-  @Input()
-  itemName: string;
-
-  @ViewChildren('select')
-  select: QueryList<SelectComponent>;
+  @HostListener('mouseleave') 
+  mouseleave() {
+    this.hover = false;
+  }
 
   quantity: Control;
   form: ControlGroup;
   submitted = false;
-
+  
   constructor(private renderer: Renderer, private builder: FormBuilder) {
     this.quantity = new Control('', Validators.compose([Validators.required, NumberComponent.isNumeric, NumberComponent.isGreaterThanZero]))
     this.form = builder.group({
@@ -53,14 +53,10 @@ export class OrderSectionComponent implements OnInit {
   ngOnInit() {
   }
 
-  getItemId(item: OrderItemModel) {
-    return item.id;
-  }
-
-  startAdd(){
+  startEdit() {
     this.submitted = false;
-    this.model.startAdd();
-    let sub = this.select.changes.subscribe((l: QueryList<SelectComponent>) => {
+    this.model.startEdit();
+    let sub = this.quantityComponent.changes.subscribe((l: QueryList<NumberComponent>) => {
       if(l.length) {
         l.first.focus();
         sub.unsubscribe();
@@ -68,15 +64,15 @@ export class OrderSectionComponent implements OnInit {
     });
   }
 
-  completeAdd() {
+  completeEdit() {
     this.submitted = true;
-
+    
     if(this.quantity.valid) {
-      this.model.completeAdd();
+      this.model.completeEdit();
     }
   }
 
-  cancelAdd() {
-    this.model.cancelAdd();
+  cancelEdit() {
+    this.model.cancelEdit();
   }
 }

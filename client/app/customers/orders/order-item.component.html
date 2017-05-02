@@ -1,12 +1,12 @@
 <cc-td>{{model.name}}</cc-td>
-<cc-td [class.editable-background]="model.editing" (mouseenter)="hover = true" (mouseleave)="hover = false" [class.hover]="!model.editing && hover">
+<cc-td [class.editable-background]="model.editing" (mouseenter)="hover = true" (click)="startEdit()" [class.hover]="!model.editing && hover">
   <span *ngIf="!model.editing">
     <cc-product-quantity [quantity]="model.quantity" [unitType]="model.unitType"></cc-product-quantity>
   </span>
   <span *ngIf="model.editing">
     <span *ngIf="model.unitType == 'each'">x</span>
     <form [class.submitted]="submitted">
-      <cc-number cssClass="order-quantity"
+      <cc-number cssClass="order-quantity" #qty
                 [decimalPrecision]="0"
                 [(value)]="model.editingQuantity"
                 [control]="quantity"
@@ -16,7 +16,7 @@
     <span *ngIf="model.unitType == 'perKg'">Kg</span>
   </span>
 </cc-td>
-<cc-td class="action" [class.editable-background]="model.editing" (mouseenter)="hover = true" (mouseleave)="hover = false" [class.hover]="!model.editing && hover">
+<cc-td class="action" [class.editable-background]="model.editing" (mouseenter)="hover = true" [class.hover]="!model.editing && hover">
   <cc-editable-button icon="edit"
                       *ngIf="!model.editing"
                       (click)="startEdit()">
