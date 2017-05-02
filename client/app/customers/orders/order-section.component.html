@@ -7,12 +7,13 @@
       <cc-editable-button icon="add"
                           *ngIf="!model.adding && model.itemsAvailable.length"
                           [tabindex]="1"
-                          (click)="model.startAdd()">
+                          (click)="startAdd()">
       </cc-editable-button>
     </cc-td>
   </cc-tr-header>
-  <cc-tr class="add-row editable-background"
-         *ngIf="model.adding && model.itemsAvailable.length">
+  <form class="cc-tr add-row editable-background"
+         *ngIf="model.adding && model.itemsAvailable.length"
+         [class.submitted]="submitted">
     <cc-td>
       <cc-select cssClass="order-item"
         [(value)]="model.addingItem"
@@ -25,8 +26,7 @@
       <cc-number cssClass="order-quantity"
             [decimalPrecision]="0"
             [(value)]="model.addingItemQuantity"
-            valid="$value > 0"
-            message="Quantity should be a number greater than 0">
+            [control]="quantity">
       </cc-number>
       <span *ngIf="model.addingItem.unitType == 'perKg'">Kg</span>
     </cc-td>
@@ -35,11 +35,12 @@
            [innerHTML]="model.addingItemTotal | money: true">
     </cc-td>
     <cc-td class="action">
-      <cc-editable-buttons (ok)="model.completeAdd()"
-                           (cancel)="model.cancelAdd()">
+      <cc-editable-buttons [disabled]="submitted && !quantity.valid"
+                           (ok)="completeAdd()"
+                           (cancel)="cancelAdd()">
       </cc-editable-buttons>
     </cc-td>
-  </cc-tr>
+  </form>
   <cc-tr *ngIf="!model.adding && !model.items.length">
     <cc-td>No {{heading | lowercase}}</cc-td>
     <cc-td></cc-td>
@@ -47,43 +48,5 @@
     <cc-td class="total" [innerHTML]="0 | money:true"></cc-td>
     <cc-td></cc-td>
   </cc-tr>
-  <cc-tr *ngFor="let item of model.items; let i = index; trackBy:getItemId">
-    <cc-td>{{item.name}}</cc-td>
-    <cc-td [class.editable-background]="item.editing" (mouseenter)="hover = i" (mouseleave)="hover = null" [class.hover]="!item.editing && hover == i">
-      <span *ngIf="!item.editing">
-        <cc-product-quantity [quantity]="item.quantity" [unitType]="item.unitType"></cc-product-quantity>
-      </span>
-      <span *ngIf="item.editing">
-        <span *ngIf="item.unitType == 'each'">x</span>
-          <cc-number cssClass="order-quantity"
-                     [decimalPrecision]="0"
-                     [(value)]="item.editingQuantity"
-                     valid="$value > 0"
-                     message="Quantity should be a number greater than 0">
-          </cc-number>
-        <span *ngIf="item.unitType == 'perKg'">Kg</span>
-      </span>
-    </cc-td>
-    <cc-td class="action" [class.editable-background]="item.editing" (mouseenter)="hover = i" (mouseleave)="hover = null" [class.hover]="!item.editing && hover == i">
-      <cc-editable-button icon="edit"
-                          *ngIf="!item.editing"
-                          (click)="item.startEdit()">
-      </cc-editable-button>
-      <cc-editable-buttons *ngIf="item.editing"
-                           (ok)="item.completeEdit()"
-                           (cancel)="item.cancelEdit()">
-      </cc-editable-buttons>
-    </cc-td>
-    <cc-td class="total"
-           [innerHTML]="item.editingTotal | money:true"
-           [class.modified]="item.editingTotal != item.total">
-    </cc-td>
-    <cc-td class="action">
-      <a class="button-new-small show-on-edit"
-         tabindex="1"
-         (click)="item.remove()"
-         (keydown.Enter)="item.remove()">
-        <i class="icon-trash"></i>
-      </a>
-    </cc-td>
+  <cc-tr cc-order-item *ngFor="let item of model.items; let i = index; trackBy:getItemId" [model]="item">
   </cc-tr>

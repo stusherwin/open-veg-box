@@ -139,3 +139,6 @@ TODO (now)
 * Fix which buttons are focused after clicking/enter on buttons
 * Fix alignment on header row & when editing quantity & edit/ok/cancel buttons
 * Border around button-new-small on hover
+* button-new-small alignment between chrome/Firefox
+* edit button alignment wierd
+* Chrome border wierdness

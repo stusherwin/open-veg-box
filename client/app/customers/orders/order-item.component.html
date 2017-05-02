@@ -1,0 +1,40 @@
+<cc-td>{{model.name}}</cc-td>
+<cc-td [class.editable-background]="model.editing" (mouseenter)="hover = true" (mouseleave)="hover = false" [class.hover]="!model.editing && hover">
+  <span *ngIf="!model.editing">
+    <cc-product-quantity [quantity]="model.quantity" [unitType]="model.unitType"></cc-product-quantity>
+  </span>
+  <span *ngIf="model.editing">
+    <span *ngIf="model.unitType == 'each'">x</span>
+    <form [class.submitted]="submitted">
+      <cc-number cssClass="order-quantity"
+                [decimalPrecision]="0"
+                [(value)]="model.editingQuantity"
+                [control]="quantity">
+      </cc-number>
+    </form>
+    <span *ngIf="model.unitType == 'perKg'">Kg</span>
+  </span>
+</cc-td>
+<cc-td class="action" [class.editable-background]="model.editing" (mouseenter)="hover = true" (mouseleave)="hover = false" [class.hover]="!model.editing && hover">
+  <cc-editable-button icon="edit"
+                      *ngIf="!model.editing"
+                      (click)="startEdit()">
+  </cc-editable-button>
+  <cc-editable-buttons *ngIf="model.editing"
+                        [disabled]="submitted && !quantity.valid"
+                        (ok)="completeEdit()"
+                        (cancel)="cancelEdit()">
+  </cc-editable-buttons>
+</cc-td>
+<cc-td class="total"
+        [innerHTML]="model.editingTotal | money:true"
+        [class.modified]="model.editingTotal != model.total">
+</cc-td>
+<cc-td class="action">
+  <a class="button-new-small show-on-edit"
+      tabindex="1"
+      (click)="model.remove()"
+      (keydown.Enter)="model.remove()">
+    <i class="icon-trash"></i>
+  </a>
+</cc-td>

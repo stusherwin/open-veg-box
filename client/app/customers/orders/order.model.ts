@@ -202,7 +202,7 @@ export class OrderItemModel {
   }
 
   get editingTotal() {
-    return this.price * this.editingQuantity;
+    return this.price * (this.editing? this.editingQuantity : this.quantity);
   }
 
   remove() {

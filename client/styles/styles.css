@@ -1584,6 +1584,26 @@ button.button-new[disabled]:focus i {
   margin-top: -0.5px;
   margin-left: 0px;
 }
+button.button-new-small {
+  cursor: pointer;
+  top: -0.5px;
+  padding-top: 3px;
+}
+button.button-new-small[disabled] {
+  cursor: default;
+}
+button.button-new-small[disabled] i:before {
+  color: #eee;
+}
+button.button-new-small[disabled]:hover,
+button.button-new-small[disabled]:focus {
+  background: rgba(187, 187, 187, 0.5);
+  border: 1px solid rgba(187, 187, 187, 0.5);
+}
+button.button-new-small[disabled]:hover i:before,
+button.button-new-small[disabled]:focus i:before {
+  color: #eee;
+}
 .editable-value-display:hover .button-new-small,
 .hover .button-new-small {
   border: 1px solid #ffa011;
@@ -1592,11 +1612,6 @@ button.button-new[disabled]:focus i {
 .editable-value-display:hover .button-new-small i::before,
 .hover .button-new-small i::before {
   color: white;
-}
-@-moz-document url-prefix() {
-  a.new i::before {
-    margin-top: -1px;
-  }
 }
 .loading-indicator {
   padding-top: 200px;
@@ -1774,6 +1789,18 @@ cc-order .input-wrapper.invalid select {
   box-shadow: rgba(232, 0, 0, 0.5) 0px 0px 3px 0px, #E80000 0px 0px 2px 0px inset;
   padding-right: 18px;
   background: #ffe8e8;
+}
+cc-order form {
+  display: inline;
+}
+cc-order form.cc-tr {
+  display: table-row;
+}
+cc-order form.submitted input.ng-invalid,
+cc-order form.submitted select.ng-invalid {
+  border: 1px solid #ff4f4f;
+  box-shadow: #ff9c9c 0px 0px 3px 0px, #ff9c9c 0px 0px 3px 0px inset;
+  background: #fff2f2;
 }
 .home {
   background: #579532;

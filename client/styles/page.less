@@ -1188,6 +1188,25 @@ button.button-new {
   }
 }
 
+button.button-new-small {
+  cursor: pointer;
+  top: -0.5px;
+  padding-top: 3px;
+  &[disabled] {
+    cursor: default;
+    i:before {
+      color: #eee;
+    }
+    &:hover, &:focus {
+      background: rgba(187,187,187, 0.5);
+      border: 1px solid rgba(187,187,187, 0.5);
+      i:before {
+        color: #eee;
+      }
+    }
+  }
+}
+
 .editable-value-display:hover, .hover {
   .button-new-small {
     border: 1px solid @boxProductHover;
@@ -1200,8 +1219,10 @@ button.button-new {
 }
 
 @-moz-document url-prefix() {
-  a.new i::before {
-    margin-top: -1px;
+  a.button-new i::before, a.button-new-small i::before {
+    //position: relative;
+    //top: -0.5px;
+    // margin-top: -1px;
   }
 }
 
@@ -1464,5 +1485,24 @@ cc-order .input-wrapper.invalid {
                 #E80000 0px 0px 2px 0px inset;
     padding-right:18px;
     background: lighten(#E80000, 50%);
+  }
+}
+
+cc-order {
+  form {
+    display: inline;
+    &.cc-tr {
+      display: table-row;
+    }
+    &.submitted {
+      input.ng-invalid, select.ng-invalid {
+        border: 1px solid lighten(#E80000, 20%);
+        // box-shadow: fade(#E80000, 50%) 0px 0px 3px 0px,
+        //             #E80000 0px 0px 2px 0px inset;
+        box-shadow: lighten(#E80000, 35%) 0px 0px 3px 0px,
+                    lighten(#E80000, 35%) 0px 0px 3px 0px inset;
+        background: lighten(#E80000, 52%);
+      }
+    }
   }
 }

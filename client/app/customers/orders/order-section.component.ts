@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, ElementRef, OnInit, Renderer, ViewChildren, QueryList, Directive, HostListener, HostBinding, AfterViewInit, ContentChildren } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, ElementRef, OnInit, Renderer, ViewChildren, QueryList, Directive, HostListener, HostBinding, AfterViewInit, ContentChildren, ChangeDetectorRef } from '@angular/core';
 import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../../shared/active-elements'
 import { DistributeWidthDirective, DistributeWidthSumDirective } from '../../shared/distribute-width.directive'
 import { OrderItemQuantityComponent } from './order-item-quantity.component'
@@ -14,6 +14,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import { Subject } from 'rxjs/Subject'
 import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/operator/distinct'
+import { Control, Validators, FORM_DIRECTIVES, FormBuilder, ControlGroup } from '@angular/common'
 
 @Component({
   template: `
@@ -48,12 +49,13 @@ export class EditableEditButtonComponent implements OnInit {
 @Component({
   template: `
     <span *ngIf="visible">
-      <a class="button-new-small"
+      <button class="button-new-small"
+        [disabled]="disabled"
         tabindex="1"
         (click)="ok.emit(null)"
         (keydown.Enter)="ok.emit(null)">
         <i class="icon-ok"></i>
-      </a>
+      </button>
       <a class="button-new-small"
         tabindex="1"
         (click)="cancel.emit(null)"
@@ -68,6 +70,9 @@ export class EditableButtonsComponent implements OnInit {
 
   @Input()
   key: string
+
+  @Input()
+  disabled: boolean
 
   @Output()
   ok = new EventEmitter<any>()
@@ -93,13 +98,13 @@ export class InputComponent {
       <input type="text" class="{{cssClass}}"
             [(ngModel)]="value"
             (ngModelChange)="valueChange.emit($event)"
-            (focus)="onInputFocus()"
-            (blur)="onInputBlur()"
+            [ngFormControl]="control"
             tabindex="1" />
       <i *ngIf="!isValid" class="icon-warning" title="{{message}}"></i>
     </span>
   `,
-  selector: 'cc-text'
+  selector: 'cc-text',
+  directives: [FORM_DIRECTIVES]
 })
 export class TextComponent extends InputComponent implements OnInit {
   isValid: boolean = true;
@@ -139,11 +144,13 @@ export class TextComponent extends InputComponent implements OnInit {
       <input #input type="text" class="{{cssClass}}"
             [(ngModel)]="stringValue"
             (ngModelChange)="updateValue($event)"
+            [ngFormControl]="control"
             tabindex="1" />
       <i *ngIf="!isValid" class="icon-warning" title="{{message}}"></i>
     </span>
   `,
-  selector: 'cc-number'
+  selector: 'cc-number',
+  directives: [FORM_DIRECTIVES]
 })
 export class NumberComponent extends InputComponent implements OnInit {
   stringValue: string;
@@ -161,16 +168,19 @@ export class NumberComponent extends InputComponent implements OnInit {
   @Input()
   decimalPrecision: number;
 
-  @Input()
-  valid: string
+  // @Input()
+  // valid: string
+
+  // @Input()
+  // message: string
 
   @Input()
-  message: string
+  control: Control
 
   @Output()
   valueChange = new EventEmitter<number>()
 
-  constructor() {
+  constructor(private changeDetector: ChangeDetectorRef) {
     super();
   }
 
@@ -181,13 +191,14 @@ export class NumberComponent extends InputComponent implements OnInit {
   updateValue(stringValue: string) {
     this.value = this.toDecimalValue(stringValue);
     this.valueChange.emit(this.value);
+    this.changeDetector.detectChanges();
   }
 
-  validate(): boolean {
-    let $value = this.value;
-    this.isValid = eval(this.valid);
-    return this.isValid;
-  }
+  // validate(): boolean {
+  //   let $value = this.value;
+  //   this.isValid = eval(this.valid);
+  //   return this.isValid;
+  // }
 
   private toStringValue(value: number): string {
     if(this.fixedDecimals) {
@@ -209,6 +220,23 @@ export class NumberComponent extends InputComponent implements OnInit {
 
     return parseFloat(parsed.toFixed(this.decimalPrecision));
   }
+
+  static isGreaterThanZero(control: Control): ValidationResult { 
+    if (parseFloat(control.value) <= 0) {
+      return { "isNotGreaterThanZero": true };
+    }
+ 
+    return null;
+  }
+
+  static isNumeric(control: Control): ValidationResult { 
+    if (isNaN(parseFloat(control.value))) {
+      return { "isNotNumeric": true };
+    }
+ 
+    return null;
+  }
+
 }
 
 
@@ -251,15 +279,54 @@ export class SelectComponent extends InputComponent implements OnInit {
   }
 }
 
+
+
+@Component({
+  selector: '[cc-order-item]',
+  templateUrl: 'app/customers/orders/order-item.component.html',
+  directives: [ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, DistributeWidthDirective, OrderItemQuantityComponent, DistributeWidthSumDirective, EditableValueComponent, NumericDirective, ProductQuantityComponent, EditableEditButtonComponent, EditableButtonsComponent, TextComponent, NumberComponent, SelectComponent, FORM_DIRECTIVES],
+  pipes: [MoneyPipe]
+})
+export class OrderItemComponent {
+  @Input()
+  model: OrderItemModel
+
+  quantity: Control;
+  form: ControlGroup;
+  constructor(private renderer: Renderer, private builder: FormBuilder) {
+    this.quantity = new Control('', Validators.compose([Validators.required, NumberComponent.isNumeric, NumberComponent.isGreaterThanZero]))
+    this.form = builder.group({
+      quantity: this.quantity
+    })
+  }
+
+  submitted = false;
+  startEdit() {
+    this.submitted = false;
+    this.model.startEdit();
+  }
+
+  completeEdit() {
+    this.submitted = true;
+    
+    if(this.quantity.valid) {
+      this.model.completeEdit();
+    }
+  }
+
+  cancelEdit() {
+    this.model.cancelEdit();
+  }
+}
+
+
 @Component({
   selector: '[cc-order-section]',
   templateUrl: 'app/customers/orders/order-section.component.html',
-  directives: [ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, DistributeWidthDirective, OrderItemQuantityComponent, DistributeWidthSumDirective, EditableValueComponent, NumericDirective, ProductQuantityComponent, EditableEditButtonComponent, EditableButtonsComponent, TextComponent, NumberComponent, SelectComponent],
+  directives: [ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, DistributeWidthDirective, OrderItemQuantityComponent, DistributeWidthSumDirective, EditableValueComponent, NumericDirective, ProductQuantityComponent, EditableEditButtonComponent, EditableButtonsComponent, TextComponent, NumberComponent, SelectComponent, FORM_DIRECTIVES, OrderItemComponent],
   pipes: [MoneyPipe]
 })
 export class OrderSectionComponent implements OnInit {
-  orderItemPadding = 10;
-  quantity: number = 1;
   itemNameArticle: string;
 
   @Input()
@@ -283,7 +350,13 @@ export class OrderSectionComponent implements OnInit {
   @ViewChildren('remove')
   removeBtns: QueryList<ElementRef>
 
-  constructor(private renderer: Renderer) {
+  quantity: Control;
+  form: ControlGroup;
+  constructor(private renderer: Renderer, private builder: FormBuilder) {
+    this.quantity = new Control('', Validators.compose([Validators.required, NumberComponent.isNumeric, NumberComponent.isGreaterThanZero]))
+    this.form = builder.group({
+      quantity: this.quantity
+    })
   }
 
   ngOnInit() {
@@ -293,4 +366,27 @@ export class OrderSectionComponent implements OnInit {
   getItemId(item: OrderItemModel) {
     return item.id;
   }
+
+  submitted = false;
+
+  startAdd(){
+    this.submitted = false;
+    this.model.startAdd();
+  }
+
+  completeAdd() {
+    this.submitted = true;
+
+    if(this.quantity.valid) {
+      this.model.completeAdd();
+    }
+  }
+
+  cancelAdd() {
+    this.model.cancelAdd();
+  }
+}
+
+interface ValidationResult{
+   [key:string]:boolean;
 }
