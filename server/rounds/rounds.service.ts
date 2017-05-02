@@ -8,10 +8,10 @@ let _ = require('lodash');
 export class RoundsService {
   getAll(queryParams: any, db: Db): Observable<Round[]> {
     return db.allWithReduce<Round>(
-      ' select r.id, r.name, c.id customerId, c.name customerName, c.address customerAddress, c.email customerEmail from round r' 
+      ' select r.id, r.name, c.id customerId, c.firstName + \' \' + c.surname customerName, c.address customerAddress, c.email customerEmail from round r' 
     + ' left join round_customer rc on rc.roundId = r.id'
     + ' left join customer c on c.id = rc.customerId'
-    + ' order by r.id, c.name',
+    + ' order by r.id, c.surname, c.firstname',
       {},
       queryParams,
       rows => {
@@ -34,11 +34,11 @@ export class RoundsService {
 
   get(id: number, db: Db): Observable<Round> {
     return db.singleWithReduce<Round>(
-      ' select r.id, r.name, c.id customerId, c.name customerName, c.address customerAddress, c.email customerEmail from round r' 
+      ' select r.id, r.name, c.id customerId, c.firstName + \' \' + c.surname customerName, c.address customerAddress, c.email customerEmail from round r' 
     + ' left join round_customer rc on rc.roundId = r.id'
     + ' left join customer c on c.id = rc.customerId'
     + ' where r.id = @id'
-    + ' order by r.id, c.name',
+    + ' order by r.id, c.surname, c.firstname',
       {id: id},
       rows => {
         let round: Round = null;
@@ -57,7 +57,7 @@ export class RoundsService {
   getProductList(id: number, db: Db): Observable<ProductList> {
     return db.singleWithReduce<ProductList>(
       ' select customerId, customerName, address, productId, productName, unittype, sum(quantity) quantity from'
-    + ' (select c.id customerId, c.name customerName, c.address, p.id productId, p.name productName, p.unitType, op.quantity'
+    + ' (select c.id customerId, c.firstName + \' \' + c.surname customerName, c.address, p.id productId, p.name productName, p.unitType, op.quantity'
     + ' from round r'
     + ' inner join round_customer rc on rc.roundId = r.id'
     + ' inner join customer c on c.id = rc.customerId'
@@ -66,7 +66,7 @@ export class RoundsService {
     + ' inner join product p on p.id = op.productId'
     + ' where r.id = @id'
     + ' union'
-    + ' select c.id customerId, c.name customerName, c.address, p.id productId, p.name productName, p.unitType, bp.quantity'
+    + ' select c.id customerId, c.firstName + \' \' + c.surname customerName, c.address, p.id productId, p.name productName, p.unitType, bp.quantity'
     + ' from round r'
     + ' inner join round_customer rc on rc.roundId = r.id'
     + ' inner join customer c on c.id = rc.customerId'
@@ -117,7 +117,7 @@ export class RoundsService {
   getOrderList(id: number, db: Db): Observable<CustomerOrderList> {
     return db.singleWithReduce<CustomerOrderList>(
       ' select customerId, customerName, address, itemType, itemId, itemName, price, quantity, unittype, totalCost from'
-    + ' (select c.id customerId, c.name customerName, c.address, \'product\' itemType, p.id itemId, p.name itemName, p.price, p.unitType, op.quantity, p.price * op.quantity totalCost'
+    + ' (select c.id customerId, c.firstName + \' \' + c.surname customerName, c.address, \'product\' itemType, p.id itemId, p.name itemName, p.price, p.unitType, op.quantity, p.price * op.quantity totalCost'
     + ' from round r'
     + ' inner join round_customer rc on rc.roundId = r.id'
     + ' inner join customer c on c.id = rc.customerId'
@@ -126,7 +126,7 @@ export class RoundsService {
     + ' inner join product p on p.id = op.productId'
     + ' where r.id = @id'
     + ' union'
-    + ' select c.id customerId, c.name customerName, c.address, \'box\' itemType, b.id itemId, b.name itemName, b.price, \'each\' unitType, ob.quantity, b.price * ob.quantity totalCost'
+    + ' select c.id customerId, c.firstName + \' \' + c.surname customerName, c.address, \'box\' itemType, b.id itemId, b.name itemName, b.price, \'each\' unitType, ob.quantity, b.price * ob.quantity totalCost'
     + ' from round r'
     + ' inner join round_customer rc on rc.roundId = r.id'
     + ' inner join customer c on c.id = rc.customerId'

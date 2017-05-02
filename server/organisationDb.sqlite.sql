@@ -12,7 +12,7 @@ DROP TABLE IF EXISTS product;
 
 CREATE TABLE round(id integer primary key NOT NULL, name text NOT NULL);
 
-CREATE TABLE customer(id integer primary key NOT NULL, name text NOT NULL, address text, tel1 text null, tel2 text null, email text null);
+CREATE TABLE customer(id integer primary key NOT NULL, firstName text NOT NULL, surname text NOT NULL, address text, tel1 text null, tel2 text null, email text null);
 
 CREATE TABLE round_customer(
   roundId integer NOT NULL,
@@ -70,16 +70,16 @@ INSERT INTO product VALUES(5,'Bananas',2.5,'perKg',0.5);
 INSERT INTO product VALUES(6,'Apples',3.0,'perKg',0.5);
 INSERT INTO product VALUES(7,'Lemons',0.5,'each',1.0);
 
-INSERT INTO customer VALUES(1,'Andrew Atkinson','10 Acacia Avenue
+INSERT INTO customer VALUES(1,'Andrew', 'Atkinson','10 Acacia Avenue
 Ableton
 A11 1AA','07324 358774',null,'andrew@atkinson.com');
-INSERT INTO customer VALUES(2,'Betty Barnes','23 Beech Boulevard
+INSERT INTO customer VALUES(2,'Betty', 'Barnes','23 Beech Boulevard
 Biddleton
 B22 2BB','07324 358774',null,'betty@barnes.com');
-INSERT INTO customer VALUES(3,'Christine Cook','3a Cedar Close
+INSERT INTO customer VALUES(3,'Christine', 'Cook','3a Cedar Close
 Chompton
 C33 3CC','07324 358774',null,'christine@cook.com');
-INSERT INTO customer VALUES(4,'Derek Draper','4 Durian Drive
+INSERT INTO customer VALUES(4,'Derek', 'Draper','4 Durian Drive
 Digby
 D44 4DD','07324 358774',null,'derek@draper.com');
 

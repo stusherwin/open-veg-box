@@ -31,7 +31,7 @@ BEGIN
   DROP TABLE IF EXISTS product;
   
   CREATE TABLE round(id serial primary key NOT NULL, name text NOT NULL);
-  CREATE TABLE customer(id serial primary key NOT NULL, name text NOT NULL, address text, tel1 text null, tel2 text null, email text null);
+  CREATE TABLE customer(id serial primary key NOT NULL, firstName text NOT NULL, surname text NOT NULL, address text, tel1 text null, tel2 text null, email text null);
   CREATE TABLE round_customer(
     roundId integer NOT NULL REFERENCES round(id),
     customerId integer NOT NULL REFERENCES customer(id),
@@ -118,23 +118,23 @@ BEGIN
   SELECT id from round where name = 'Ableton & Biddleton' INTO roundId1;
   SELECT id from round where name = 'Chompton & Digby' INTO roundId2;
 
-  INSERT INTO customer (name, address, tel1, email) VALUES('Andrew Atkinson','10 Acacia Avenue
+  INSERT INTO customer (firstName, surname, address, tel1, email) VALUES('Andrew', 'Atkinson','10 Acacia Avenue
 Ableton
 A11 1AA','07324 358774','andrew@atkinson.com');
-  INSERT INTO customer (name, address, tel1, email) VALUES('Betty Barnes','23 Beech Boulevard
+  INSERT INTO customer (firstName, surname, address, tel1, email) VALUES('Betty', 'Barnes','23 Beech Boulevard
 Biddleton
 B22 2BB','07324 358774','betty@barnes.com');
-  INSERT INTO customer (name, address, tel1, email) VALUES('Christine Cook','3a Cedar Close
+  INSERT INTO customer (firstName, surname, address, tel1, email) VALUES('Christine', 'Cook','3a Cedar Close
 Chompton
 C33 3CC','07324 358774','christine@cook.com');
-  INSERT INTO customer (name, address, tel1, email) VALUES('Derek Draper','4 Durian Drive
+  INSERT INTO customer (firstName, surname, address, tel1, email) VALUES('Derek', 'Draper','4 Durian Drive
 Digby
 D44 4DD','07324 358774','derek@draper.com');
 
-  SELECT id from customer where name = 'Andrew Atkinson' INTO customerId1;
-  SELECT id from customer where name = 'Betty Barnes' INTO customerId2;
-  SELECT id from customer where name = 'Christine Cook' INTO customerId3;
-  SELECT id from customer where name = 'Derek Draper' INTO customerId4;
+  SELECT id from customer where firstName = 'Andrew' INTO customerId1;
+  SELECT id from customer where firstName = 'Betty' INTO customerId2;
+  SELECT id from customer where firstName = 'Christine' INTO customerId3;
+  SELECT id from customer where firstName = 'Derek' INTO customerId4;
 
   INSERT INTO round_customer (roundId, customerId) VALUES(roundId1, customerId1);
   INSERT INTO round_customer (roundId, customerId) VALUES(roundId1, customerId2);

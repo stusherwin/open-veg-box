@@ -18,7 +18,7 @@ export class CustomersService {
   private allWithOrders(queryParams: any, params: any, db: Db, whereClause: string): Observable<Customer[]> {
     return db.allWithReduce<CustomerWithOrder>(
       ' select'
-    + '  c.id, c.name, c.address, c.tel1, c.tel2, c.email'
+    + '  c.id, c.firstname, c.surname, c.address, c.tel1, c.tel2, c.email'
     + ', o.id orderid'
     + ', ob.boxId boxid, ob.quantity boxquantity'
     + ', b.name boxname, b.price boxprice'
@@ -39,7 +39,7 @@ export class CustomersService {
         for(let r of rows) {
           if(!customers[r.id]) {
             let order = new Order(r.orderid, r.id, [], [], 0);
-            customers[r.id] = new CustomerWithOrder(r.id, r.name, r.address, r.tel1, r.tel2, r.email, order);
+            customers[r.id] = new CustomerWithOrder(r.id, r.firstname, r.surname, r.address, r.tel1, r.tel2, r.email, order);
           }
 
           if(r.boxid) {
@@ -67,19 +67,19 @@ export class CustomersService {
   
   private all(queryParams: any, db: Db): Observable<Customer[]> {
     return db.all<Customer>(
-      ' select c.id, c.name, c.address, c.tel1, c.tel2, c.email from customer c' 
+      ' select c.id, c.firstname, c.surname, c.address, c.tel1, c.tel2, c.email from customer c' 
     + ' left join round_customer rc on rc.customerId = c.id'
-    + ' order by c.name',
-      {}, queryParams, r => new Customer(r.id, r.name, r.address, r.tel1, r.tel2, r.email));
+    + ' order by c.surname, c.firstname',
+      {}, queryParams, r => new Customer(r.id, r.firstname, r.surname, r.address, r.tel1, r.tel2, r.email));
   }
   
   getAllHavingNoRound(queryParams: any, db: Db): Observable<Customer[]> {
     return db.all<Customer>(
-      ' select c.id, c.name, c.address, c.tel1, c.tel2, c.email from customer c' 
+      ' select c.id, c.firstname, c.surname, c.address, c.tel1, c.tel2, c.email from customer c' 
     + ' left join round_customer rc on rc.customerId = c.id'
     + ' where rc.roundId is null'
-    + ' order by c.name',
-      {}, queryParams, r => new Customer(r.id, r.name, r.address, r.tel1, r.tel2, r.email));
+    + ' order by c.surname, c.firstname',
+      {}, queryParams, r => new Customer(r.id, r.firstname, r.surname, r.address, r.tel1, r.tel2, r.email));
   }
 
   get(id: number, queryParams: any, db: Db): Observable<Customer> {
@@ -91,9 +91,9 @@ export class CustomersService {
       console.log('no orders')
       
       return db.single<Customer>(
-      ' select c.id, c.name, c.address, c.tel1, c.tel2, c.email from customer c'
+      ' select c.id, c.firstname, c.surname, c.address, c.tel1, c.tel2, c.email from customer c'
     + ' where c.id = @id',
-      {id}, r => new Customer(r.id, r.name, r.address, r.tel1, r.tel2, r.email));
+      {id}, r => new Customer(r.id, r.firstname, r.surname, r.address, r.tel1, r.tel2, r.email));
     }
   }
   

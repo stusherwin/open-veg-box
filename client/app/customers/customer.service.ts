@@ -81,6 +81,6 @@ export class CustomerService {
       return null;
     }
 
-   return new CustomerWithOrder(c.id, c.name, c.address, c.tel1, c.tel2, c.email, c.order);
+   return new CustomerWithOrder(c.id, c.firstName, c.surname, c.address, c.tel1, c.tel2, c.email, c.order);
   }
 }

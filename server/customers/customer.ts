@@ -1,7 +1,8 @@
 export class Customer {
-  constructor(id: number, name:string, address: string, tel1: string, tel2: string, email: string) {
+  constructor(id: number, firstName:string, surname: string, address: string, tel1: string, tel2: string, email: string) {
     this.id = id;
-    this.name = name;
+    this.firstName = firstName;
+    this.surname = surname;
     this.address = address;
     this.tel1 = tel1;
     this.tel2 = tel2;
@@ -9,7 +10,8 @@ export class Customer {
   }
     
   id: number;
-  name: string;
+  firstName: string;
+  surname: string;
   address: string;
   tel1: string;
   tel2: string;
@@ -17,8 +19,8 @@ export class Customer {
 }
 
 export class CustomerWithOrder extends Customer {
-  constructor(id: number, name:string, address: string, tel1: string, tel2: string, email: string, order: Order) {
-    super(id, name, address, tel1, tel2, email);
+  constructor(id: number, firstName:string, surname: string, address: string, tel1: string, tel2: string, email: string, order: Order) {
+    super(id, firstName, surname, address, tel1, tel2, email);
     this.order = order;
   }
 
