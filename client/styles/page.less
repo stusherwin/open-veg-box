@@ -1312,180 +1312,197 @@ button.button-new-small {
   }
 }
 
-table.order {
-  width:100%;
-  background: #aaf;
-
-  tbody {
-    width: 100%;
-    background: #afa;
-
-    & > tbody {
-      width: 100%;
-      background: #ffa;
-    }
+.details {
+  cc-table, table {
+    box-sizing: border-box;
+    display: table;
+    position: relative;
   }
-}
 
-cc-table {
-  box-sizing: border-box;
-  display: table;
-  position: relative;
-}
-
-cc-tr, cc-tr-header, .cc-tr {
-  box-sizing: border-box;
-  display: table-row;
-}
-
-cc-td {
-  box-sizing: border-box;
-  
-  display: table-cell;
-  padding: 3px 5px;
-  padding-top: 2px;
-
-  &.hover {
-    color: @boxProductHover;
-    cursor: pointer;
-  }
-}
-
-cc-tbody {
-  box-sizing: border-box;
-  
-  display: table-row-group;
-  
-  &:after {
-    content: '.';
-    color: transparent;
+  cc-tr, cc-tr-header, .cc-tr, tr {
+    box-sizing: border-box;
     display: table-row;
   }
-}
 
-.order-header {
-  & > cc-td {
-    padding-top: 3px;
-    border-bottom: 1px solid #bbb;
+  cc-td, cc-th, td, th {
+    // background: #faa;
+    // border: 1px solid white;
+    
+    box-sizing: border-box;
+    display: table-cell;
+    padding: 3px 5px;
+    padding-top: 2px;
 
-    &:first-of-type {
-      font-size: 60%;
-      text-transform: uppercase;
-      vertical-align: middle;
+    &.hover {
+      color: @boxProductHover;
+      cursor: pointer;
     }
+  }
 
-    & > .button-new-small {
-      &:hover {
-        background: @boxProductHover;
-        i:before {
-          color: white;
+  cc-tbody, tbody {
+    box-sizing: border-box;
+    display: table-row-group;
+    
+    &:after {
+      content: '.';
+      color: transparent;
+      display: table-row;
+    }
+  }
+
+  .order-header {
+    & > cc-td, & > td {
+      padding-top: 3px;
+      border-bottom: 1px solid #bbb;
+
+      &:first-of-type {
+        font-size: 60%;
+        text-transform: uppercase;
+        vertical-align: middle;
+      }
+
+      & > .button-new-small {
+        &:hover {
+          background: @boxProductHover;
+          i:before {
+            color: white;
+          }
         }
       }
     }
   }
-}
 
-.order-total {
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
-}
-
-.total, .order-total {
-  text-align: right;
-  // background: blue;
-  &.modified {
-    color: @boxProductHover;
-  }
-}
-
-.action {
-  text-align: right;
-  // width: 42px;
-}
-
-.off-screen {
-  position: absolute;
-  left: -10000px;
-}
-
-.editable-background {
-  background: desaturate(darken(@itemHoverColor, 6%), 0%);
-}
-
-.button-new-small ~ .button-new-small {
-  margin-left: -2px;
-}
-
-input.order-quantity {
-  margin: 0;
-  padding: 0 2px !important;
-  width: 50px;
-  position: relative;
-  left: -2.5px;
-}
-
-select.order-item {
-  margin: 0;
-  padding: 0 !important;
-  position: relative;
-  left: -4.5px;
-}
-
-.editable-display-clickable {
-  &:hover {
-    color: @boxProductHover;
-    cursor: pointer;
-  }
-}
-
-cc-order .input-wrapper.invalid {
-  .icon-warning {
-    left: inherit;
-    right: 0px;
+  .order-total {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
   }
 
-  input, select {
-    border: 1px solid #E80000;
-    box-shadow: fade(#E80000, 50%) 0px 0px 3px 0px,
-                #E80000 0px 0px 2px 0px inset;
-    padding-right:18px;
-    background: lighten(#E80000, 50%);
+  .total, .order-total {
+    text-align: right;
+    // background: blue;
+    &.modified {
+      color: @boxProductHover;
+    }
   }
-}
 
-cc-order {
-  form {
-    display: inline;
+  .action {
+    text-align: right;
+    // width: 42px;
+  }
 
-    &.cc-tr {
-      display: table-row;
+  .off-screen {
+    position: absolute;
+    left: -10000px;
+  }
+
+  .editable-background {
+    background: desaturate(darken(@itemHoverColor, 6%), 0%);
+  }
+
+  .button-new-small ~ .button-new-small {
+    margin-left: -2px;
+  }
+
+  input.order-quantity {
+    margin: 0;
+    padding: 0 2px !important;
+    width: 50px;
+    position: relative;
+    left: -2.5px;
+  }
+
+  select.order-item {
+    margin: 0;
+    padding: 0 !important;
+    position: relative;
+    left: -4.5px;
+  }
+
+  .editable-display-clickable {
+    &:hover {
+      color: @boxProductHover;
+      cursor: pointer;
+    }
+  }
+
+  cc-order .input-wrapper.invalid {
+    .icon-warning {
+      left: inherit;
+      right: 0px;
     }
 
     input, select {
-      & ~ .icon-warning {
-        font-size: 80%;
-        padding: 0;
-        color: #E80000;
-        cursor: help;
-        display: none;
-        margin-left: -5px;
-        margin-right: -4px;
-        position: relative;
-        top: -1px;
-      }
+      border: 1px solid #E80000;
+      box-shadow: fade(#E80000, 50%) 0px 0px 3px 0px,
+                  #E80000 0px 0px 2px 0px inset;
+      padding-right:18px;
+      background: lighten(#E80000, 50%);
     }
+  }
 
-    &.submitted {
-      input.ng-invalid, select.ng-invalid {
-        border: 1px solid lighten(#E80000, 20%);
-        box-shadow: lighten(#E80000, 35%) 0px 0px 3px 0px,
-                    lighten(#E80000, 35%) 0px 0px 3px 0px inset;
-        background: lighten(#E80000, 52%);
+  cc-order {
+    form {
+      display: inline;
 
+      &.cc-tr {
+        display: table-row;
+      }
+
+      input, select {
         & ~ .icon-warning {
-          display: inline;
+          font-size: 80%;
+          padding: 0;
+          color: #E80000;
+          cursor: help;
+          display: none;
+          margin-left: -5px;
+          margin-right: -4px;
+          position: relative;
+          top: -1px;
+        }
+      }
+
+      &.submitted {
+        input.ng-invalid, select.ng-invalid {
+          border: 1px solid lighten(#E80000, 20%);
+          box-shadow: lighten(#E80000, 35%) 0px 0px 3px 0px,
+                      lighten(#E80000, 35%) 0px 0px 3px 0px inset;
+          background: lighten(#E80000, 52%);
+
+          & ~ .icon-warning {
+            display: inline;
+          }
         }
       }
     }
   }
+
+  .contact-details {
+    margin-left: -5px;
+
+    cc-td, td, cc-th, th {
+      vertical-align: top;
+      height: 25px;
+
+      .button-new-small {
+        vertical-align: top;
+        margin-left: 5px;
+      }
+    }
+
+    cc-th, th {
+      color: #aaa;
+      text-align: left;
+    }
+
+    cc-td, td {
+      & ~ cc-th, & ~ th {
+        padding-left: 100px;
+      }
+    }
+  }
+}
+
+.hover .muted {
+  color: @boxProductHover !important;
 }

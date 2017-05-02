@@ -1105,124 +1105,126 @@ button.button-new-small[disabled]:focus i:before {
 .row-view-new.no-hover.focused > .row:nth-child(2n+1) {
   background: #f5f5f5;
 }
-table.order {
-  width: 100%;
-  background: #aaf;
-}
-table.order tbody {
-  width: 100%;
-  background: #afa;
-}
-table.order tbody > tbody {
-  width: 100%;
-  background: #ffa;
-}
-cc-table {
+.details cc-table,
+.details table {
   box-sizing: border-box;
   display: table;
   position: relative;
 }
-cc-tr,
-cc-tr-header,
-.cc-tr {
+.details cc-tr,
+.details cc-tr-header,
+.details .cc-tr,
+.details tr {
   box-sizing: border-box;
   display: table-row;
 }
-cc-td {
+.details cc-td,
+.details cc-th,
+.details td,
+.details th {
   box-sizing: border-box;
   display: table-cell;
   padding: 3px 5px;
   padding-top: 2px;
 }
-cc-td.hover {
+.details cc-td.hover,
+.details cc-th.hover,
+.details td.hover,
+.details th.hover {
   color: #ffa011;
   cursor: pointer;
 }
-cc-tbody {
+.details cc-tbody,
+.details tbody {
   box-sizing: border-box;
   display: table-row-group;
 }
-cc-tbody:after {
+.details cc-tbody:after,
+.details tbody:after {
   content: '.';
   color: transparent;
   display: table-row;
 }
-.order-header > cc-td {
+.details .order-header > cc-td,
+.details .order-header > td {
   padding-top: 3px;
   border-bottom: 1px solid #bbb;
 }
-.order-header > cc-td:first-of-type {
+.details .order-header > cc-td:first-of-type,
+.details .order-header > td:first-of-type {
   font-size: 60%;
   text-transform: uppercase;
   vertical-align: middle;
 }
-.order-header > cc-td > .button-new-small:hover {
+.details .order-header > cc-td > .button-new-small:hover,
+.details .order-header > td > .button-new-small:hover {
   background: #ffa011;
 }
-.order-header > cc-td > .button-new-small:hover i:before {
+.details .order-header > cc-td > .button-new-small:hover i:before,
+.details .order-header > td > .button-new-small:hover i:before {
   color: white;
 }
-.order-total {
+.details .order-total {
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
 }
-.total,
-.order-total {
+.details .total,
+.details .order-total {
   text-align: right;
 }
-.total.modified,
-.order-total.modified {
+.details .total.modified,
+.details .order-total.modified {
   color: #ffa011;
 }
-.action {
+.details .action {
   text-align: right;
 }
-.off-screen {
+.details .off-screen {
   position: absolute;
   left: -10000px;
 }
-.editable-background {
+.details .editable-background {
   background: #ffe5be;
 }
-.button-new-small ~ .button-new-small {
+.details .button-new-small ~ .button-new-small {
   margin-left: -2px;
 }
-input.order-quantity {
+.details input.order-quantity {
   margin: 0;
   padding: 0 2px !important;
   width: 50px;
   position: relative;
   left: -2.5px;
 }
-select.order-item {
+.details select.order-item {
   margin: 0;
   padding: 0 !important;
   position: relative;
   left: -4.5px;
 }
-.editable-display-clickable:hover {
+.details .editable-display-clickable:hover {
   color: #ffa011;
   cursor: pointer;
 }
-cc-order .input-wrapper.invalid .icon-warning {
+.details cc-order .input-wrapper.invalid .icon-warning {
   left: inherit;
   right: 0px;
 }
-cc-order .input-wrapper.invalid input,
-cc-order .input-wrapper.invalid select {
+.details cc-order .input-wrapper.invalid input,
+.details cc-order .input-wrapper.invalid select {
   border: 1px solid #E80000;
   box-shadow: rgba(232, 0, 0, 0.5) 0px 0px 3px 0px, #E80000 0px 0px 2px 0px inset;
   padding-right: 18px;
   background: #ffe8e8;
 }
-cc-order form {
+.details cc-order form {
   display: inline;
 }
-cc-order form.cc-tr {
+.details cc-order form.cc-tr {
   display: table-row;
 }
-cc-order form input ~ .icon-warning,
-cc-order form select ~ .icon-warning {
+.details cc-order form input ~ .icon-warning,
+.details cc-order form select ~ .icon-warning {
   font-size: 80%;
   padding: 0;
   color: #E80000;
@@ -1233,13 +1235,44 @@ cc-order form select ~ .icon-warning {
   position: relative;
   top: -1px;
 }
-cc-order form.submitted input.ng-invalid,
-cc-order form.submitted select.ng-invalid {
+.details cc-order form.submitted input.ng-invalid,
+.details cc-order form.submitted select.ng-invalid {
   border: 1px solid #ff4f4f;
   box-shadow: #ff9c9c 0px 0px 3px 0px, #ff9c9c 0px 0px 3px 0px inset;
   background: #fff2f2;
 }
-cc-order form.submitted input.ng-invalid ~ .icon-warning,
-cc-order form.submitted select.ng-invalid ~ .icon-warning {
+.details cc-order form.submitted input.ng-invalid ~ .icon-warning,
+.details cc-order form.submitted select.ng-invalid ~ .icon-warning {
   display: inline;
+}
+.details .contact-details {
+  margin-left: -5px;
+}
+.details .contact-details cc-td,
+.details .contact-details td,
+.details .contact-details cc-th,
+.details .contact-details th {
+  vertical-align: top;
+  height: 25px;
+}
+.details .contact-details cc-td .button-new-small,
+.details .contact-details td .button-new-small,
+.details .contact-details cc-th .button-new-small,
+.details .contact-details th .button-new-small {
+  vertical-align: top;
+  margin-left: 5px;
+}
+.details .contact-details cc-th,
+.details .contact-details th {
+  color: #aaa;
+  text-align: left;
+}
+.details .contact-details cc-td ~ cc-th,
+.details .contact-details td ~ cc-th,
+.details .contact-details cc-td ~ th,
+.details .contact-details td ~ th {
+  padding-left: 100px;
+}
+.hover .muted {
+  color: #ffa011 !important;
 }

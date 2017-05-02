@@ -5,15 +5,17 @@ import { CustomerTelComponent } from '../list-page/customer-tel.component'
 import { ActiveElementDirective } from '../../shared/active-elements'
 import { CustomerModel } from './customer.model'
 import { OrderComponent } from '../orders/order.component'
-import { MoneyPipe } from '../../shared/pipes'
+import { PreserveLinesPipe, MoneyPipe } from '../../shared/pipes'
 import { Customer } from '../customer'
 import { CustomerPageService } from './customer-page.component'
 import { CustomerService } from '../customer.service'
+import { EditableEditButtonComponent } from '../../shared/editable-edit-button.component'
 
 @Component({
   selector: 'cc-details-page',
   templateUrl: 'app/customers/customer-page/details-page.component.html',
-  directives: [CustomerAddressComponent, CustomerEmailComponent, CustomerTelComponent, OrderComponent, ActiveElementDirective]
+  directives: [CustomerAddressComponent, CustomerEmailComponent, CustomerTelComponent, OrderComponent, ActiveElementDirective, EditableEditButtonComponent],
+  pipes: [PreserveLinesPipe, MoneyPipe]
 })
 export class DetailsPageComponent implements OnInit {
   model: CustomerModel;

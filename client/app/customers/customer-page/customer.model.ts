@@ -8,9 +8,11 @@ import { OrderService } from '../orders/order.service'
 
 export class CustomerModel {
   id: number;
-  name: string;
+  firstName: string;
+  surname: string;
   address: string;
   tel1: string;
+  tel2: string;
   email: string;
 
   constructor(
@@ -18,9 +20,11 @@ export class CustomerModel {
     customerService: CustomerService
   ) {
     this.id = _customer.id;
-    this.name = _customer.name;
+    this.firstName = _customer.firstName;
+    this.surname = _customer.surname;
     this.address = _customer.address;
     this.tel1 = _customer.tel1;
+    this.tel2 = _customer.tel2;
     this.email = _customer.email;
     this.update = (properties: {[property: string]: any}) => {
       console.log('update customer ' + _customer.id + ':');
