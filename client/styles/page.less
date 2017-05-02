@@ -1136,7 +1136,6 @@ button.button-new {
   color: white;
   border: 1px solid rgba(187,187,187, 0.5);
   position: relative;
-  // top: -1px;
 
   .buttonIconSize(@iconSize) {
     &::before {
@@ -1146,14 +1145,12 @@ button.button-new {
 
   i {
     display: inline-block;
-    // background: #faa;
     .buttonIconSize(11px);
     padding: 0 2px;
     position: relative;
 
     &::before {
       display: inline-block;
-      // background: #afa;
       font-size: 11px;
       color: white;
       padding: 0;
@@ -1194,14 +1191,17 @@ button.button-new-small {
   padding-top: 3px;
   &[disabled] {
     cursor: default;
+    background: rgba(187,187,187, 0.2);
+    border: 1px solid rgba(187,187,187, 0.2);
     i:before {
-      color: #eee;
+      color: rgba(255, 255, 255, 0.5);
     }
+
     &:hover, &:focus {
-      background: rgba(187,187,187, 0.5);
-      border: 1px solid rgba(187,187,187, 0.5);
+      background: rgba(187,187,187, 0.2);
+      border: 1px solid rgba(187,187,187, 0.2);
       i:before {
-        color: #eee;
+        color: rgba(255, 255, 255, 0.5);
       }
     }
   }
@@ -1327,34 +1327,19 @@ cc-table {
   box-sizing: border-box;
   display: table;
   position: relative;
-  // overflow: hidden;
 }
 
 cc-tr, cc-tr-header, .cc-tr {
   box-sizing: border-box;
-  
   display: table-row;
-  &:nth-of-type(2) {
-    cc-td {
-      // background: #fff;
-    }
-  }
 }
 
 cc-td {
   box-sizing: border-box;
   
   display: table-cell;
-  padding: 3px 5px;//-top: 3px;
+  padding: 3px 5px;
   padding-top: 2px;
-  //  background: #fff;
-  //  border: 1px solid black;
-  &:first-of-type {
-    // padding-left: 0;
-  }
-  &:last-of-type {
-    // padding-right: 0;
-  }
 
   &.hover {
     color: @boxProductHover;
@@ -1377,34 +1362,16 @@ cc-tbody {
 .order-header {
   & > cc-td {
     padding-top: 3px;
-    //background: rgba(187,187,187, 0.15);
-    //background: rgba(187,187,187, 0.5);
-    //border-top: 1px solid white;// rgba(255, 255, 255, 0.7);
-    border-bottom: 1px solid #bbb;// white;// #ddd;
-    //color: white;
+    border-bottom: 1px solid #bbb;
 
     &:first-of-type {
       font-size: 60%;
       text-transform: uppercase;
       vertical-align: middle;
-      // padding-left: 0;
     }
 
-    // &:last-of-type {
-    //   font-size: 60%;
-    //   text-transform: uppercase;
-    // }
-
     & > .button-new-small {
-      //background: white;//transparent;
-      //border: 1px solid white;
-
-      i:before {
-        //color: #ccc;
-      }
-
       &:hover {
-        //border-color: @boxProductHover;
         background: @boxProductHover;
         i:before {
           color: white;
@@ -1413,12 +1380,6 @@ cc-tbody {
     }
   }
 }
-
-// cc-tr:nth-child(2n+1) {
-//   cc-td {
-//     background: #eee;
-//   }
-// }
 
 .order-total {
   border-top: 1px solid #ccc;
@@ -1491,17 +1452,35 @@ cc-order .input-wrapper.invalid {
 cc-order {
   form {
     display: inline;
+
     &.cc-tr {
       display: table-row;
     }
+
+    input, select {
+      & ~ .icon-warning {
+        font-size: 80%;
+        padding: 0;
+        color: #E80000;
+        cursor: help;
+        display: none;
+        margin-left: -5px;
+        margin-right: -8px;
+        position: relative;
+        top: -1px;
+      }
+    }
+
     &.submitted {
       input.ng-invalid, select.ng-invalid {
         border: 1px solid lighten(#E80000, 20%);
-        // box-shadow: fade(#E80000, 50%) 0px 0px 3px 0px,
-        //             #E80000 0px 0px 2px 0px inset;
         box-shadow: lighten(#E80000, 35%) 0px 0px 3px 0px,
                     lighten(#E80000, 35%) 0px 0px 3px 0px inset;
         background: lighten(#E80000, 52%);
+
+        & ~ .icon-warning {
+          display: inline;
+        }
       }
     }
   }

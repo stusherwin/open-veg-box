@@ -9,7 +9,8 @@
       <cc-number cssClass="order-quantity"
                 [decimalPrecision]="0"
                 [(value)]="model.editingQuantity"
-                [control]="quantity">
+                [control]="quantity"
+                [messages]="{notGreaterThanZero: 'Quantity must be greater than zero.', notNumeric: 'Quantity must be a number.'}">
       </cc-number>
     </form>
     <span *ngIf="model.unitType == 'perKg'">Kg</span>

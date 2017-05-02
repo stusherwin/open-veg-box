@@ -52,8 +52,8 @@ export class EditableEditButtonComponent implements OnInit {
       <button class="button-new-small"
         [disabled]="disabled"
         tabindex="1"
-        (click)="ok.emit(null)"
-        (keydown.Enter)="ok.emit(null)">
+        (click)="onOk()"
+        (keydown.Enter)="onOk()">
         <i class="icon-ok"></i>
       </button>
       <a class="button-new-small"
@@ -82,6 +82,12 @@ export class EditableButtonsComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  onOk() {
+    if(!this.disabled) {
+      this.ok.emit(null)
+    }
+  }
 }
 
 export class InputComponent {
@@ -94,14 +100,11 @@ export class InputComponent {
 
 @Component({
   template: `
-    <span class="input-wrapper" [class.invalid]="!isValid">
-      <input type="text" class="{{cssClass}}"
-            [(ngModel)]="value"
-            (ngModelChange)="valueChange.emit($event)"
-            [ngFormControl]="control"
-            tabindex="1" />
-      <i *ngIf="!isValid" class="icon-warning" title="{{message}}"></i>
-    </span>
+    <input type="text" class="{{cssClass}}"
+          [(ngModel)]="value"
+          [ngFormControl]="control"
+          tabindex="1" />
+    <i class="icon-warning" [title]="message"></i>
   `,
   selector: 'cc-text',
   directives: [FORM_DIRECTIVES]
@@ -116,13 +119,22 @@ export class TextComponent extends InputComponent implements OnInit {
   value: string;
 
   @Input()
-  valid: string
+  control: Control
 
   @Input()
-  message: string
+  messages: any;
 
-  @Output()
-  valueChange = new EventEmitter<string>()
+  get message(): string {
+    if(!this.control || this.control.valid) {
+      return '';
+    }
+
+    for(let m in this.messages) {
+      if(this.control.errors[m]) {
+        return this.messages[m];
+      }
+    }
+  }
 
   constructor() {
     super();
@@ -130,24 +142,16 @@ export class TextComponent extends InputComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  validate(): boolean {
-    let $value = this.value;
-    this.isValid = eval(this.valid);
-    return this.isValid;
-  }
 }
 
 @Component({
   template: `
-    <span class="input-wrapper" [class.invalid]="!isValid">
-      <input #input type="text" class="{{cssClass}}"
-            [(ngModel)]="stringValue"
-            (ngModelChange)="updateValue($event)"
-            [ngFormControl]="control"
-            tabindex="1" />
-      <i *ngIf="!isValid" class="icon-warning" title="{{message}}"></i>
-    </span>
+    <input #input type="text" class="{{cssClass}}"
+          [(ngModel)]="stringValue"
+          (ngModelChange)="updateValue($event)"
+          [ngFormControl]="control"
+          tabindex="1" />
+    <i class="icon-warning" [title]="message"></i>
   `,
   selector: 'cc-number',
   directives: [FORM_DIRECTIVES]
@@ -168,14 +172,23 @@ export class NumberComponent extends InputComponent implements OnInit {
   @Input()
   decimalPrecision: number;
 
-  // @Input()
-  // valid: string
-
-  // @Input()
-  // message: string
-
   @Input()
   control: Control
+
+  @Input()
+  messages: any;
+
+  get message(): string {
+    if(!this.control || this.control.valid) {
+      return '';
+    }
+
+    for(let m in this.messages) {
+      if(this.control.errors[m]) {
+        return this.messages[m];
+      }
+    }
+  }
 
   @Output()
   valueChange = new EventEmitter<number>()
@@ -193,12 +206,6 @@ export class NumberComponent extends InputComponent implements OnInit {
     this.valueChange.emit(this.value);
     this.changeDetector.detectChanges();
   }
-
-  // validate(): boolean {
-  //   let $value = this.value;
-  //   this.isValid = eval(this.valid);
-  //   return this.isValid;
-  // }
 
   private toStringValue(value: number): string {
     if(this.fixedDecimals) {
@@ -223,7 +230,7 @@ export class NumberComponent extends InputComponent implements OnInit {
 
   static isGreaterThanZero(control: Control): ValidationResult { 
     if (parseFloat(control.value) <= 0) {
-      return { "isNotGreaterThanZero": true };
+      return { "notGreaterThanZero": true };
     }
  
     return null;
@@ -231,12 +238,11 @@ export class NumberComponent extends InputComponent implements OnInit {
 
   static isNumeric(control: Control): ValidationResult { 
     if (isNaN(parseFloat(control.value))) {
-      return { "isNotNumeric": true };
+      return { "notNumeric": true };
     }
  
     return null;
   }
-
 }
 
 

@@ -1008,18 +1008,20 @@ button.button-new-small {
 }
 button.button-new-small[disabled] {
   cursor: default;
+  background: rgba(187, 187, 187, 0.2);
+  border: 1px solid rgba(187, 187, 187, 0.2);
 }
 button.button-new-small[disabled] i:before {
-  color: #eee;
+  color: rgba(255, 255, 255, 0.5);
 }
 button.button-new-small[disabled]:hover,
 button.button-new-small[disabled]:focus {
-  background: rgba(187, 187, 187, 0.5);
-  border: 1px solid rgba(187, 187, 187, 0.5);
+  background: rgba(187, 187, 187, 0.2);
+  border: 1px solid rgba(187, 187, 187, 0.2);
 }
 button.button-new-small[disabled]:hover i:before,
 button.button-new-small[disabled]:focus i:before {
-  color: #eee;
+  color: rgba(255, 255, 255, 0.5);
 }
 .editable-value-display:hover .button-new-small,
 .hover .button-new-small {
@@ -1213,9 +1215,25 @@ cc-order form {
 cc-order form.cc-tr {
   display: table-row;
 }
+cc-order form input ~ .icon-warning,
+cc-order form select ~ .icon-warning {
+  font-size: 80%;
+  padding: 0;
+  color: #E80000;
+  cursor: help;
+  display: none;
+  margin-left: -5px;
+  margin-right: -8px;
+  position: relative;
+  top: -1px;
+}
 cc-order form.submitted input.ng-invalid,
 cc-order form.submitted select.ng-invalid {
   border: 1px solid #ff4f4f;
   box-shadow: #ff9c9c 0px 0px 3px 0px, #ff9c9c 0px 0px 3px 0px inset;
   background: #fff2f2;
+}
+cc-order form.submitted input.ng-invalid ~ .icon-warning,
+cc-order form.submitted select.ng-invalid ~ .icon-warning {
+  display: inline;
 }

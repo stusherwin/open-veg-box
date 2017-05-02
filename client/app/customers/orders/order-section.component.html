@@ -26,7 +26,7 @@
       <cc-number cssClass="order-quantity"
             [decimalPrecision]="0"
             [(value)]="model.addingItemQuantity"
-            [control]="quantity">
+            [control]="quantity"[messages]="{notGreaterThanZero: 'Quantity must be greater than zero.', notNumeric: 'Quantity must be a number.'}">
       </cc-number>
       <span *ngIf="model.addingItem.unitType == 'perKg'">Kg</span>
     </cc-td>
