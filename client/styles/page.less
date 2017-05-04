@@ -1469,15 +1469,29 @@ button.button-new-small {
 
   .contact-details {
     float: left;
-    margin-left: -5px;
+    margin: 0;
+    margin-right: 100px;
+    width: 400px;
+
+    tbody:after {
+      display: none;
+    }
+
+    & ~ .contact-details {
+      margin-right: 0;
+    }
 
     cc-td, td, cc-th, th {
+      &:first-child {
+        padding-left: 0;
+      }
+
       vertical-align: top;
       height: 25px;
 
       .button-new-small {
         vertical-align: top;
-        margin-left: 5px;
+        margin-left: 2px;
       }
     }
 

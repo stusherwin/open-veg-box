@@ -5,7 +5,7 @@ import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/first';
 
 export class CustomersService {
-  fields: string[] = ['name', 'address', 'tel1', 'tel2', 'email'];
+  fields: string[] = ['firstName', 'surname', 'address', 'tel1', 'tel2', 'email'];
 
   getAll(queryParams: any, db: Db): Observable<Customer[]> {
     if(queryParams.orders) {

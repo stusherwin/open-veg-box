@@ -37,7 +37,6 @@ export class CustomerService {
   }
 
   getWithOrder(id: number): Observable<CustomerWithOrder> {
-    console.log('getWithOrder')
     return this.http.get('/api/customers/' + id + '/?orders=true')
                     .map(res => res.json())
                     .map(this.hydrate);

@@ -29,7 +29,10 @@ export class CustomerModel {
     this.update = (properties: {[property: string]: any}) => {
       console.log('update customer ' + _customer.id + ':');
       console.log(properties);
-      customerService.update(_customer.id, properties, {}).subscribe(customers => {
+      customerService.update(_customer.id, properties, {}).subscribe(_ => {
+        for(let p in properties) {
+          _customer[p] = properties[p];
+        }
       });
     };
   }

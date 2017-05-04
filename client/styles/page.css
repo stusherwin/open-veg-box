@@ -1246,7 +1246,15 @@ button.button-new-small[disabled]:focus i:before {
 }
 .details .contact-details {
   float: left;
-  margin-left: -5px;
+  margin: 0;
+  margin-right: 100px;
+  width: 400px;
+}
+.details .contact-details tbody:after {
+  display: none;
+}
+.details .contact-details ~ .contact-details {
+  margin-right: 0;
 }
 .details .contact-details cc-td,
 .details .contact-details td,
@@ -1255,12 +1263,18 @@ button.button-new-small[disabled]:focus i:before {
   vertical-align: top;
   height: 25px;
 }
+.details .contact-details cc-td:first-child,
+.details .contact-details td:first-child,
+.details .contact-details cc-th:first-child,
+.details .contact-details th:first-child {
+  padding-left: 0;
+}
 .details .contact-details cc-td .button-new-small,
 .details .contact-details td .button-new-small,
 .details .contact-details cc-th .button-new-small,
 .details .contact-details th .button-new-small {
   vertical-align: top;
-  margin-left: 5px;
+  margin-left: 2px;
 }
 .details .contact-details cc-th,
 .details .contact-details th {

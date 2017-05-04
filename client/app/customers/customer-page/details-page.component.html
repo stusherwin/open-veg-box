@@ -9,6 +9,7 @@
           <th>First name(s):</th>
           <td>
             <cc-editable [(value)]="model.firstName"
+                         (valueChange)="model.update({firstName:$event})"
                          [validators]="firstNameValidators"
                          [messages]="{required: 'First name is required'}">
             </cc-editable>
@@ -18,6 +19,7 @@
           <th>Surname:</th>
           <td>
             <cc-editable [(value)]="model.surname"
+                         (valueChange)="model.update({surname:$event})"
                          [validators]="surnameValidators"
                          [messages]="{required: 'Surname is required'}">
             </cc-editable>
@@ -27,6 +29,7 @@
           <th rowspan="3">Address:</th>
           <td>
             <cc-editable [(value)]="model.address"
+                         (valueChange)="model.update({address:$event})"
                          [validators]="[]"
                          [messages]="{}">
             </cc-editable>
@@ -38,6 +41,7 @@
           <th>Email address:</th>
           <td>
             <cc-editable [(value)]="model.email"
+                         (valueChange)="model.update({email:$event})"
                          [validators]="[]"
                          [messages]="{}">
             </cc-editable>
@@ -47,6 +51,7 @@
           <th>Contact number #1:</th>
           <td>
             <cc-editable [(value)]="model.tel1"
+                         (valueChange)="model.update({tel1:$event})"
                          [validators]="[]"
                          [messages]="{}">
             </cc-editable>
@@ -56,6 +61,7 @@
           <th>Contact number #2:</th>
           <td>
             <cc-editable [(value)]="model.tel2"
+                         (valueChange)="model.update({tel2:$event})"
                          [validators]="[]"
                          [messages]="{}">
             </cc-editable>
