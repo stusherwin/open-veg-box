@@ -142,3 +142,10 @@ TODO (now)
 * button-new-small alignment between chrome/Firefox
 * edit button alignment wierd
 * Chrome border wierdness
+
+Editable
+========
+* Esc - to exit editable
+* textarea
+* deactivate when other editable activated - EditableService? (bring in cross-td editable here)
+* Call back to server

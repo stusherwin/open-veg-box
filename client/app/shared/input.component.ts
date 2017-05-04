@@ -15,9 +15,16 @@ interface ValidationResult{
 
 @Component({
   template: `
-    <input type="text" class="{{cssClass}}"
+    <input type="text" class="{{cssClass}}" #input
+          *ngIf="control"
           [(ngModel)]="value"
+          (ngModelChange)="valueChange.emit($event)"
           [ngFormControl]="control"
+          tabindex="1" />
+    <input type="text" class="{{cssClass}}" #input
+          *ngIf="!control"
+          [(ngModel)]="value"
+          (ngModelChange)="valueChange.emit($event)"
           tabindex="1" />
     <i class="icon-warning" [title]="message"></i>
   `,
@@ -39,6 +46,19 @@ export class TextComponent extends InputComponent implements OnInit {
   @Input()
   messages: any;
 
+  @Output()
+  valueChange = new EventEmitter<string>()
+
+  @ViewChild('input')
+  input: ElementRef;
+
+  constructor(private renderer: Renderer) {
+    super();
+  }
+
+  ngOnInit() {
+  }
+
   get message(): string {
     if(!this.control || this.control.valid) {
       return '';
@@ -51,20 +71,23 @@ export class TextComponent extends InputComponent implements OnInit {
     }
   }
 
-  constructor() {
-    super();
-  }
-
-  ngOnInit() {
+  focus() {
+    this.renderer.invokeElementMethod(this.input.nativeElement, 'focus', []);
   }
 }
 
 @Component({
   template: `
-    <input #input type="text" class="{{cssClass}}"
+    <input type="text" class="{{cssClass}}" #input
+          *ngIf="control"
           [(ngModel)]="stringValue"
           (ngModelChange)="updateValue($event)"
           [ngFormControl]="control"
+          tabindex="1" />
+    <input type="text" class="{{cssClass}}" #input
+          *ngIf="!control"
+          [(ngModel)]="stringValue"
+          (ngModelChange)="updateValue($event)"
           tabindex="1" />
     <i class="icon-warning" [title]="message"></i>
   `,
@@ -93,8 +116,19 @@ export class NumberComponent extends InputComponent implements OnInit {
   @Input()
   messages: any;
 
+  @Output()
+  valueChange = new EventEmitter<number>()
+
   @ViewChild('input')
   input: ElementRef;
+
+  constructor(private changeDetector: ChangeDetectorRef, private renderer: Renderer) {
+    super();
+  }
+
+  ngOnInit() {
+    this.stringValue = this.toStringValue(this.value);
+  }
 
   get message(): string {
     if(!this.control || this.control.valid) {
@@ -106,17 +140,6 @@ export class NumberComponent extends InputComponent implements OnInit {
         return this.messages[m];
       }
     }
-  }
-
-  @Output()
-  valueChange = new EventEmitter<number>()
-
-  constructor(private changeDetector: ChangeDetectorRef, private renderer: Renderer) {
-    super();
-  }
-
-  ngOnInit() {
-    this.stringValue = this.toStringValue(this.value);
   }
 
   updateValue(stringValue: string) {

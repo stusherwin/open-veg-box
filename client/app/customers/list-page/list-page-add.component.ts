@@ -15,7 +15,7 @@ import { AddCustomerModel } from './customer.model'
   directives: [HeadingComponent, CustomerAddressComponent, CustomerEmailComponent, CustomerTelComponent, ROUTER_DIRECTIVES, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, ValidatableComponent],
 })
 export class ListPageAddComponent implements OnInit {
-  customer = new Customer(0, '', '', '', '', '');
+  customer = new Customer(0, '', '', '', '', '', '');
   adding: boolean;
   rowFocused: boolean;
 

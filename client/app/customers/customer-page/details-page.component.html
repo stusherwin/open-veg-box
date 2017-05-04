@@ -7,47 +7,61 @@
       <table class="contact-details">
         <tr>
           <th>First name(s):</th>
-          <td [class.hover]="hover == 1" (mouseenter)="hover = 1" (mouseleave)="hover = 0">
-            <span *ngIf="model.firstName">{{model.firstName}}</span>
-            <span class="muted" *ngIf="!model.firstName">None</span>
-            <cc-editable-button icon="edit"></cc-editable-button>
-          </td>
-          <th>Email address:</th>
-          <td [class.hover]="hover == 2" (mouseenter)="hover = 2" (mouseleave)="hover = 0">
-            <span *ngIf="model.email">{{model.email}}</span>
-            <span class="muted" *ngIf="!model.email">None</span>
-            <cc-editable-button icon="edit"></cc-editable-button>
+          <td>
+            <cc-editable [(value)]="model.firstName"
+                         [validators]="firstNameValidators"
+                         [messages]="{required: 'First name is required'}">
+            </cc-editable>
           </td>
         </tr>
         <tr>
           <th>Surname:</th>
-          <td [class.hover]="hover == 3" (mouseenter)="hover = 3" (mouseleave)="hover = 0">
-            <span *ngIf="model.surname">{{model.surname}}</span>
-            <span class="muted" *ngIf="!model.surname">None</span>
-            <cc-editable-button icon="edit"></cc-editable-button>
-          </td>
-          <th>Contact number #1:</th>
-          <td [class.hover]="hover == 4" (mouseenter)="hover = 4" (mouseleave)="hover = 0">
-            <span *ngIf="model.tel1">{{model.tel1}}</span>
-            <span class="muted" *ngIf="!model.tel1">None</span>
-            <cc-editable-button icon="edit"></cc-editable-button>
+          <td>
+            <cc-editable [(value)]="model.surname"
+                         [validators]="surnameValidators"
+                         [messages]="{required: 'Surname is required'}">
+            </cc-editable>
           </td>
         </tr>
         <tr>
           <th rowspan="3">Address:</th>
-          <td rowspan="3" [class.hover]="hover == 5" (mouseenter)="hover = 5" (mouseleave)="hover = 0">
-            <span *ngIf="model.address" [innerHTML]="model.address | preserveLines"></span>
-            <span class="muted" *ngIf="!model.address">None</span>
-            <cc-editable-button icon="edit"></cc-editable-button>
-          </td>
-          <th>Contact number #2:</th>
-          <td [class.hover]="hover == 6" (mouseenter)="hover = 6" (mouseleave)="hover = 0">
-            <span *ngIf="model.tel2">{{model.tel2}}</span>
-            <span class="muted" *ngIf="!model.tel2">None</span>
-            <cc-editable-button icon="edit"></cc-editable-button>
+          <td>
+            <cc-editable [(value)]="model.address"
+                         [validators]="[]"
+                         [messages]="{}">
+            </cc-editable>
           </td>
         </tr>
       </table>
+      <table class="contact-details">
+        <tr>
+          <th>Email address:</th>
+          <td>
+            <cc-editable [(value)]="model.email"
+                         [validators]="[]"
+                         [messages]="{}">
+            </cc-editable>
+          </td>
+        </tr>
+        <tr>
+          <th>Contact number #1:</th>
+          <td>
+            <cc-editable [(value)]="model.tel1"
+                         [validators]="[]"
+                         [messages]="{}">
+            </cc-editable>
+          </td>
+        </tr>
+        <tr>
+          <th>Contact number #2:</th>
+          <td>
+            <cc-editable [(value)]="model.tel2"
+                         [validators]="[]"
+                         [messages]="{}">
+            </cc-editable>
+          </td>
+        </tr>
+      </table>      
     </div>
   </div>
   <div class="row" cc-active (activate)="orderFocused = true" (deactivate)="orderFocused = false" [class.focused]="orderFocused">

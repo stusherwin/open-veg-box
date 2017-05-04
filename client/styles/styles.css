@@ -1610,13 +1610,20 @@ button.button-new-small[disabled]:focus i:before {
   color: rgba(255, 255, 255, 0.5);
 }
 .editable-value-display:hover .button-new-small,
-.hover .button-new-small {
+.hover .button-new-small,
+.editable-display-clickable:hover .button-new-small {
   border: 1px solid #ffa011;
   background: #ffa011;
 }
 .editable-value-display:hover .button-new-small i::before,
-.hover .button-new-small i::before {
+.hover .button-new-small i::before,
+.editable-display-clickable:hover .button-new-small i::before {
   color: white;
+}
+@-moz-document url-prefix() {
+  button.button-new-small {
+    top: 0px;
+  }
 }
 .loading-indicator {
   padding-top: 200px;
@@ -1789,25 +1796,17 @@ button.button-new-small[disabled]:focus i:before {
   color: #ffa011;
   cursor: pointer;
 }
-.details cc-order .input-wrapper.invalid .icon-warning {
-  left: inherit;
-  right: 0px;
+.details .editable-display-clickable:hover .muted {
+  color: #ffa011 !important;
 }
-.details cc-order .input-wrapper.invalid input,
-.details cc-order .input-wrapper.invalid select {
-  border: 1px solid #E80000;
-  box-shadow: rgba(232, 0, 0, 0.5) 0px 0px 3px 0px, #E80000 0px 0px 2px 0px inset;
-  padding-right: 18px;
-  background: #ffe8e8;
-}
-.details cc-order form {
+.details form {
   display: inline;
 }
-.details cc-order form.cc-tr {
+.details form.cc-tr {
   display: table-row;
 }
-.details cc-order form input ~ .icon-warning,
-.details cc-order form select ~ .icon-warning {
+.details form input ~ .icon-warning,
+.details form select ~ .icon-warning {
   font-size: 80%;
   padding: 0;
   color: #E80000;
@@ -1818,17 +1817,18 @@ button.button-new-small[disabled]:focus i:before {
   position: relative;
   top: -1px;
 }
-.details cc-order form.submitted input.ng-invalid,
-.details cc-order form.submitted select.ng-invalid {
+.details form.submitted input.ng-invalid,
+.details form.submitted select.ng-invalid {
   border: 1px solid #ff4f4f;
   box-shadow: #ff9c9c 0px 0px 3px 0px, #ff9c9c 0px 0px 3px 0px inset;
   background: #fff2f2;
 }
-.details cc-order form.submitted input.ng-invalid ~ .icon-warning,
-.details cc-order form.submitted select.ng-invalid ~ .icon-warning {
+.details form.submitted input.ng-invalid ~ .icon-warning,
+.details form.submitted select.ng-invalid ~ .icon-warning {
   display: inline;
 }
 .details .contact-details {
+  float: left;
   margin-left: -5px;
 }
 .details .contact-details cc-td,
@@ -1850,14 +1850,34 @@ button.button-new-small[disabled]:focus i:before {
   color: #aaa;
   text-align: left;
 }
+.details .contact-details cc-td,
+.details .contact-details td {
+  width: 250px;
+}
 .details .contact-details cc-td ~ cc-th,
 .details .contact-details td ~ cc-th,
 .details .contact-details cc-td ~ th,
 .details .contact-details td ~ th {
   padding-left: 100px;
 }
-.hover .muted {
-  color: #ffa011 !important;
+.details .contact-details .editable {
+  position: relative;
+}
+.details .contact-details .editable-display {
+  border: 1px solid transparent;
+}
+.details .contact-details .editable-background {
+  display: inline-block;
+  position: absolute;
+  padding: 3px;
+  padding-right: 5px;
+  vertical-align: middle;
+  margin-top: -7px;
+  margin-left: -7px;
+}
+.details .contact-details .editable-background .button-new-small {
+  margin: 0;
+  margin-top: 5px;
 }
 .home {
   background: #579532;
