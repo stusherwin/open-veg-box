@@ -16,15 +16,9 @@ interface ValidationResult{
 @Component({
   template: `
     <input type="text" class="{{cssClass}}" #input
-          *ngIf="control"
           [(ngModel)]="value"
           (ngModelChange)="valueChange.emit($event)"
           [ngFormControl]="control"
-          tabindex="1" />
-    <input type="text" class="{{cssClass}}" #input
-          *ngIf="!control"
-          [(ngModel)]="value"
-          (ngModelChange)="valueChange.emit($event)"
           tabindex="1" />
     <i class="icon-warning" [title]="message"></i>
   `,
@@ -79,15 +73,9 @@ export class TextComponent extends InputComponent implements OnInit {
 @Component({
   template: `
     <input type="text" class="{{cssClass}}" #input
-          *ngIf="control"
           [(ngModel)]="stringValue"
           (ngModelChange)="updateValue($event)"
           [ngFormControl]="control"
-          tabindex="1" />
-    <input type="text" class="{{cssClass}}" #input
-          *ngIf="!control"
-          [(ngModel)]="stringValue"
-          (ngModelChange)="updateValue($event)"
           tabindex="1" />
     <i class="icon-warning" [title]="message"></i>
   `,
@@ -189,6 +177,69 @@ export class NumberComponent extends InputComponent implements OnInit {
     return null;
   }
 }
+
+@Component({
+  template: `
+    <textarea class="{{cssClass}}" #textarea
+          [(ngModel)]="value"
+          (ngModelChange)="valueChange.emit($event)"
+          [ngFormControl]="control"
+          tabindex="1"
+          [style.height.px]="height">
+    </textarea>
+    <i class="icon-warning" [title]="message"></i>
+  `,
+  selector: 'cc-textarea',
+  directives: [FORM_DIRECTIVES]
+})
+export class TextAreaComponent extends InputComponent implements OnInit {
+  isValid: boolean = true;
+
+  @Input()
+  cssClass: string;
+
+  @Input()
+  value: string;
+
+  @Input()
+  control: Control
+
+  @Input()
+  messages: any;
+
+  @Input()
+  height: number = 76;
+
+  @Output()
+  valueChange = new EventEmitter<string>()
+
+  @ViewChild('textarea')
+  textarea: ElementRef;
+
+  constructor(private renderer: Renderer) {
+    super();
+  }
+
+  ngOnInit() {
+  }
+
+  get message(): string {
+    if(!this.control || this.control.valid) {
+      return '';
+    }
+
+    for(let m in this.messages) {
+      if(this.control.errors[m]) {
+        return this.messages[m];
+      }
+    }
+  }
+
+  focus() {
+    this.renderer.invokeElementMethod(this.textarea.nativeElement, 'focus', []);
+  }
+}
+
 
 
 @Component({

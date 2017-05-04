@@ -28,11 +28,11 @@
         <tr>
           <th rowspan="3">Address:</th>
           <td>
-            <cc-editable [(value)]="model.address"
+            <cc-editable-area [(value)]="model.address"
                          (valueChange)="model.update({address:$event})"
                          [validators]="[]"
                          [messages]="{}">
-            </cc-editable>
+            </cc-editable-area>
           </td>
         </tr>
       </table>

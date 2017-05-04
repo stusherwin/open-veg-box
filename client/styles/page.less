@@ -1439,7 +1439,7 @@ button.button-new-small {
       display: table-row;
     }
 
-    input, select {
+    input, select, textarea {
       & ~ .icon-warning {
         font-size: 80%;
         padding: 0;
@@ -1454,7 +1454,7 @@ button.button-new-small {
     }
 
     &.submitted {
-      input.ng-invalid, select.ng-invalid {
+      input.ng-invalid, select.ng-invalid, textarea.ng-invalid {
         border: 1px solid lighten(#E80000, 20%);
         box-shadow: lighten(#E80000, 35%) 0px 0px 3px 0px,
                     lighten(#E80000, 35%) 0px 0px 3px 0px inset;
@@ -1521,12 +1521,28 @@ button.button-new-small {
       padding: 3px;
       padding-right: 5px;
       vertical-align: middle;
-      margin-top: -7px;
-      margin-left: -7px;
+      top: -7px;
+      left: -7px;
 
       .button-new-small {
         margin: 0;
         margin-top: 5px;
+      }
+    }
+
+    .multiline-text {
+      display: inline-block;
+      min-height: 60px;
+      line-height: 1.2em;
+    }
+
+    textarea {
+      line-height: 1.2em;
+    }
+
+    cc-editable-area {
+      .editable-background {
+        top: -5px;
       }
     }
   }

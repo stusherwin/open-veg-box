@@ -1223,7 +1223,8 @@ button.button-new-small[disabled]:focus i:before {
   display: table-row;
 }
 .details form input ~ .icon-warning,
-.details form select ~ .icon-warning {
+.details form select ~ .icon-warning,
+.details form textarea ~ .icon-warning {
   font-size: 80%;
   padding: 0;
   color: #E80000;
@@ -1235,13 +1236,15 @@ button.button-new-small[disabled]:focus i:before {
   top: -1px;
 }
 .details form.submitted input.ng-invalid,
-.details form.submitted select.ng-invalid {
+.details form.submitted select.ng-invalid,
+.details form.submitted textarea.ng-invalid {
   border: 1px solid #ff4f4f;
   box-shadow: #ff9c9c 0px 0px 3px 0px, #ff9c9c 0px 0px 3px 0px inset;
   background: #fff2f2;
 }
 .details form.submitted input.ng-invalid ~ .icon-warning,
-.details form.submitted select.ng-invalid ~ .icon-warning {
+.details form.submitted select.ng-invalid ~ .icon-warning,
+.details form.submitted textarea.ng-invalid ~ .icon-warning {
   display: inline;
 }
 .details .contact-details {
@@ -1303,10 +1306,21 @@ button.button-new-small[disabled]:focus i:before {
   padding: 3px;
   padding-right: 5px;
   vertical-align: middle;
-  margin-top: -7px;
-  margin-left: -7px;
+  top: -7px;
+  left: -7px;
 }
 .details .contact-details .editable-background .button-new-small {
   margin: 0;
   margin-top: 5px;
+}
+.details .contact-details .multiline-text {
+  display: inline-block;
+  min-height: 60px;
+  line-height: 1.2em;
+}
+.details .contact-details textarea {
+  line-height: 1.2em;
+}
+.details .contact-details cc-editable-area .editable-background {
+  top: -5px;
 }
