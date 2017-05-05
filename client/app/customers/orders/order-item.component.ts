@@ -18,7 +18,8 @@ import { Control, Validators, FORM_DIRECTIVES, FormBuilder, ControlGroup } from 
 import { NumberComponent, SelectComponent } from '../../shared/input.component'
 import { EditableEditButtonComponent } from '../../shared/editable-edit-button.component'
 import { EditableButtonsComponent } from '../../shared/editable-buttons.component'
-
+import { EditableService } from '../../shared/editable.component'
+ 
 @Component({
   selector: '[cc-order-item]',
   templateUrl: 'app/customers/orders/order-item.component.html',
@@ -43,7 +44,10 @@ export class OrderItemComponent implements OnInit {
   form: ControlGroup;
   submitted = false;
   
-  constructor(private renderer: Renderer, private builder: FormBuilder) {
+  constructor(private renderer: Renderer, private builder: FormBuilder, 
+  @Inject(forwardRef(() => EditableService))
+  private editableService: EditableService
+  ) {
     this.quantity = new Control('', Validators.compose([Validators.required, NumberComponent.isNumeric, NumberComponent.isGreaterThanZero]))
     this.form = builder.group({
       quantity: this.quantity
@@ -51,10 +55,16 @@ export class OrderItemComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.editableService.currentlyEditing.subscribe((e: any) => {
+      if(this.model.editing && e != this) {
+        this.cancelEdit();
+      }
+    })
   }
 
   startEdit() {
     this.submitted = false;
+    this.editableService.startEdit(this);
     this.model.startEdit();
     let sub = this.quantityComponent.changes.subscribe((l: QueryList<NumberComponent>) => {
       if(l.length) {
@@ -74,5 +84,10 @@ export class OrderItemComponent implements OnInit {
 
   cancelEdit() {
     this.model.cancelEdit();
+  }
+
+  remove() {
+    this.editableService.endEdit();
+    this.model.remove();
   }
 }

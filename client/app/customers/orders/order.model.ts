@@ -27,8 +27,6 @@ export interface IOrderItem {
 export class OrderModel {
   boxesSection: OrderSectionModel;
   productsSection: OrderSectionModel;
-  addingSection: OrderSectionModel;
-  editingItem: OrderItemModel;
 
   constructor(
     order: Order,
@@ -75,28 +73,11 @@ export class OrderModel {
   get editingTotal(): number {
     return this.boxesSection.editingTotal + this.productsSection.editingTotal;
   }
-
-  startAdd(section: OrderSectionModel) {
-    this.addingSection = section;
-    this.editingItem = null;
-  }
-
-  endAdd() {
-    this.addingSection = null;
-  }
-
-  startEdit(item: OrderItemModel) {
-    this.editingItem = item;
-    this.addingSection = null;
-  }
-
-  endEdit() {
-    this.editingItem = null;
-  }
 }
 
 export class OrderSectionModel {
   items: OrderItemModel[];
+  adding: boolean;
   addingItem: IOrderAvailableItem;
   addingItemQuantity: number;
 
@@ -108,14 +89,6 @@ export class OrderSectionModel {
     this.items = items.map(i => new OrderItemModel(i.id, i.name, i.price, i.quantity, i.unitType, this));
     this.addingItem = this.itemsAvailable[0];
     this.addingItemQuantity = 1;
-  }
-
-  get adding() {
-    return this._order.addingSection == this;
-  }
-
-  get editingItem() {
-    return this._order.editingItem;
   }
 
   get itemsAvailable() {
@@ -143,25 +116,23 @@ export class OrderSectionModel {
   }
 
   startAdd() {
+    this.adding = true;
     this.addingItem = this.itemsAvailable[0];
     this.addingItemQuantity = 1;
-    this._order.startAdd(this);
   }
 
   completeAdd() {
     this._service.add(this.addingItem.id, this.addingItemQuantity).subscribe(_ => {
       this.items.unshift(new OrderItemModel(this.addingItem.id, this.addingItem.name, this.addingItem.price, this.addingItemQuantity, this.addingItem.unitType, this));
-      this._order.endAdd();
+      this.adding = false;
     });
   }
 
   cancelAdd() {
-    this._order.endAdd();
+    this.adding = false;
   }
 
   removeItem(item: OrderItemModel) {
-    this._order.endAdd();
-    this._order.endEdit();
     this._service.remove(item.id).subscribe(_ => {
       Arrays.remove(this.items, item);
     })
@@ -170,17 +141,10 @@ export class OrderSectionModel {
   updateItem(itemId: number, quantity: number): Observable<any> {
     return this._service.update(itemId, quantity);
   }
-
-  startEdit(item: OrderItemModel) {
-    this._order.startEdit(item);
-  }
-
-  endEdit() {
-    this._order.endEdit();
-  }
 }
 
 export class OrderItemModel {
+  editing: boolean;
   editingQuantity: number;
 
   constructor(
@@ -191,10 +155,6 @@ export class OrderItemModel {
       public unitType: string,
       private _section: OrderSectionModel) {
     this.editingQuantity = quantity;
-  }
-
-  get editing() {
-    return this._section.editingItem == this;
   }
 
   get total() {
@@ -210,19 +170,19 @@ export class OrderItemModel {
   }
 
   startEdit() {
+    this.editing = true;
     this.editingQuantity = this.quantity;
-    this._section.startEdit(this);
   }
 
   completeEdit() {
     this._section.updateItem(this.id, this.editingQuantity).subscribe(_ => {
       this.quantity = this.editingQuantity;
-      this._section.endEdit();
+      this.editing = false;
     })
   }
 
   cancelEdit() {
-    this._section.endEdit();
+    this.editing = false;
     this.editingQuantity = this.quantity;
   }
 }

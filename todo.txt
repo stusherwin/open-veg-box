@@ -124,7 +124,6 @@ TODO (now)
 * Need 404 icon (info icon without background?)
 
 * Tidy up providers (BoxService, ProductService etc, shared directives, pipes)
-* Customer firstname/surname
 
 * When changing customer page, should reload customer
 * Email edit font size wierdness
@@ -132,9 +131,6 @@ TODO (now)
 * Make button-new background white
 
 * Fix invalid style on editable-values (css for new input-wrapper.invalid)
-* Fix order after adding box/product to order
-* ContentChildren - rename template variable from #input to #inputComponent
-
 * Validation
 * Fix which buttons are focused after clicking/enter on buttons
 * Fix alignment on header row & when editing quantity & edit/ok/cancel buttons
@@ -146,8 +142,6 @@ TODO (now)
 Editable
 ========
 * Esc - to exit editable
-* textarea
-* deactivate when other editable activated - EditableService? (bring in cross-td editable here)
-* Call back to server
 
 * Bug: if no properties whitelisted, get sql error
+* OnDestroy: unsubscribe to observables!

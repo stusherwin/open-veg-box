@@ -13,6 +13,7 @@ import { ProductService } from '../../products/product.service'
 import { Box } from '../../boxes/box'
 import { Product } from '../../products/product';
 import { DistributeWidthService } from '../../shared/distribute-width.directive'
+import { EditableService } from '../../shared/editable.component'
 
 export class CustomerPageService {
   customer: CustomerWithOrder;
@@ -24,7 +25,7 @@ export class CustomerPageService {
   selector: 'cc-customer-page',
   templateUrl: 'app/customers/customer-page/customer-page.component.html',
   directives: [ROUTER_DIRECTIVES, SectionHeaderComponent],
-  providers: [CustomerPageService, CustomerService, BoxService, ProductService, DistributeWidthService]
+  providers: [CustomerPageService, CustomerService, BoxService, ProductService, DistributeWidthService, EditableService]
 })
 
 @RouteConfig([
