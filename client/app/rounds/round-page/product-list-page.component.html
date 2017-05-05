@@ -1,6 +1,7 @@
-<div *ngIf="productList">
-  <div class="totals">
-    <h3>Totals</h3>
+<div class="row-view-new" *ngIf="productList">
+  <div class="row" style="height: 0"></div>
+  <div class="row totals">
+    <h3>Total products</h3>
     <table>
       <tr *ngFor="let p of productList.totals">
         <td>{{p.name}}</td>
@@ -8,7 +9,7 @@
       </tr>
     </table>
   </div>
-  <div class="customer" *ngFor="let c of productList.customers">
+  <div class="row customer" *ngFor="let c of productList.customers">
     <h3>{{c.name}}</h3>
     <p>{{c.address}}</p>
     <table>

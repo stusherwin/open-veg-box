@@ -1652,6 +1652,9 @@ button.button-new-small[disabled]:focus i:before {
 .row-view-new .row .details.hover {
   cursor: pointer;
 }
+.row-view-new .row .details h3 {
+  margin-bottom: 30px;
+}
 .row-view-new .row .actions {
   display: table-cell;
   vertical-align: top;

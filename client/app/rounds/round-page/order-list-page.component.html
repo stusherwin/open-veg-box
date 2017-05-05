@@ -1,28 +1,35 @@
-<div *ngIf="orderList">
-  <div class="totals">
+<div class="row-view-new no-hover" *ngIf="orderList">
+  <div class="row" style="height: 0"></div>
+  <div class="row totals">
     <h3>Total orders: <span [innerHTML]="orderList.totalCost | money:true"></span></h3>
   </div>
-  <div class="customer" *ngFor="let o of orderList.orders">
+  <div class="row customer" *ngFor="let o of orderList.orders">
     <h3>{{o.name}}</h3>
     <p>{{o.address}}</p>
     <table>
       <tr *ngFor="let b of o.boxes">
         <td>{{b.name}}</td>
-        <td [innerHTML]="b.price | money: true"></td>
         <td><cc-product-quantity [quantity]="b.quantity" [unitType]="b.unitType"></cc-product-quantity></td>
-        <td [innerHTML]="b.totalCost | money:true"></td>
+        <td>@</td>
+        <td class="money" [innerHTML]="b.price | money: true"></td>
+        <td>=</td>
+        <td class="money" [innerHTML]="b.totalCost | money:true"></td>
       </tr>
       <tr *ngFor="let p of o.extraProducts">
         <td>{{p.name}}</td>
-        <td [innerHTML]="p.price | money: true"></td>
         <td><cc-product-quantity [quantity]="p.quantity" [unitType]="p.unitType"></cc-product-quantity></td>
-        <td [innerHTML]="p.totalCost | money:true">
+        <td>@</td>
+        <td class="money" [innerHTML]="p.price | money: true"></td>
+        <td>=</td>
+        <td class="money" [innerHTML]="p.totalCost | money:true">
       </tr>
       <tr>
         <td></td>
         <td></td>
         <td></td>
-        <td [innerHTML]="o.totalCost | money:true"></td>
+        <td></td>
+        <td></td>
+        <td [innerHTML]="o.totalCost | money:true" class="money order-total"></td>
       </tr>
     </table>
   </div>
