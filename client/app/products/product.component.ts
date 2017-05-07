@@ -5,13 +5,13 @@ import { HeadingComponent } from '../shared/heading.component';
 import { ProductPriceComponent } from './product-price.component';
 import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
 import { Validators } from '@angular/common'
-import { EditableHeaderComponent } from '../shared/editable.component'
+import { EditableHeadingComponent } from '../shared/editable.component'
 
 @Component({
   selector: 'cc-product',
   templateUrl: 'app/products/product.component.html',
   pipes: [WeightPipe, MoneyPipe],
-  directives: [HeadingComponent, ProductPriceComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, EditableHeaderComponent]
+  directives: [HeadingComponent, ProductPriceComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, EditableHeadingComponent]
 })
 export class ProductComponent {
   unitTypes: {[key: string]: string } = {};

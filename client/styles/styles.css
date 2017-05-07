@@ -1909,13 +1909,13 @@ button.button-new-small[disabled]:focus i:before {
   top: -5px;
   padding-bottom: 0;
 }
-.editable-header h3 {
+.editable-heading h3 {
   display: inline-block;
 }
-.editable-header:hover h3 {
+.editable-heading:hover h3 {
   color: #ffa011;
 }
-.editable-header input[type="text"] {
+.editable-heading input[type="text"] {
   width: 200px;
   font-size: 150%;
   font-weight: 300;

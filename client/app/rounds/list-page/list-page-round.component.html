@@ -1,9 +1,9 @@
 <div class="row" #active=cc-active cc-active [class.focused]="rowFocused" (activate)="rowFocused = true" (deactivate)="rowFocused = false">
   <div class="details">
-    <cc-editable-header [(value)]="round.name" (valueChange)="onUpdate()"
+    <cc-editable-heading [(value)]="round.name" (valueChange)="onUpdate()"
                         [validators]="roundNameValidators"
                         [messages]="{required: 'Round name is required'}">
-    </cc-editable-header>
+    </cc-editable-heading>
     <p style="font-size: 95%">{{round.customers.length}} customers</p>
   </div>
   <div class="actions">

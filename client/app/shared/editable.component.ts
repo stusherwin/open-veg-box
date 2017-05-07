@@ -9,9 +9,9 @@ import { PreserveLinesPipe, MoneyPipe } from './pipes'
 
 
 @Component({
-  selector: 'cc-editable-header',
+  selector: 'cc-editable-heading',
   template: `
-    <div class="editable editable-header" [class.editable-display-clickable]="!editing" (click)="startEdit()">
+    <div class="editable editable-heading" [class.editable-display-clickable]="!editing" (click)="startEdit()">
       <span class="editable-display" [style.visibility]="editing? 'hidden' : 'visible'">
         <h3 *ngIf="value">{{value}}</h3>
         <h3 class="muted" *ngIf="!value">None</h3>
@@ -30,7 +30,7 @@ import { PreserveLinesPipe, MoneyPipe } from './pipes'
   directives: [EditableEditButtonComponent, TextComponent, EditableButtonsComponent],
   pipes: [PreserveLinesPipe, MoneyPipe]
 })
-export class EditableHeaderComponent implements OnInit {
+export class EditableHeadingComponent implements OnInit {
   editing: boolean;
   editingValue: string;
   control: Control;
