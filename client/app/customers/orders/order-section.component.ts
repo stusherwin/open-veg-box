@@ -19,7 +19,7 @@ import { NumberComponent, SelectComponent } from '../../shared/input.component'
 import { EditableEditButtonComponent } from '../../shared/editable-edit-button.component'
 import { EditableButtonsComponent } from '../../shared/editable-buttons.component'
 import { OrderItemComponent } from './order-item.component' 
-import { EditableService } from '../../shared/editable.component'
+import { EditableService } from '../../shared/editable.service'
 
 @Component({
   selector: '[cc-order-section]',

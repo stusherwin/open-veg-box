@@ -5,7 +5,7 @@ import { RouteParams } from '@angular/router-deprecated';
 import { RouteConfig, Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { ErrorNotifyComponent } from '../shared/error-notify.component'
 import { RoundService } from './round.service'
-import { EditableService } from '../shared/editable.component'
+import { EditableService } from '../shared/editable.service'
 
 @Component({
   selector: 'cc-rounds-section',

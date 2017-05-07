@@ -4,7 +4,7 @@ import { HeadingComponent } from '../../shared/heading.component';
 import { RoundCustomersComponent } from './round-customers.component';
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../../shared/active-elements'
-import { EditableHeadingComponent } from '../../shared/editable.component'
+import { EditableHeadingComponent } from '../../shared/editable-heading.component'
 import { Validators } from '@angular/common'
 
 @Component({

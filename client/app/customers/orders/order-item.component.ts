@@ -18,7 +18,7 @@ import { Control, Validators, FORM_DIRECTIVES, FormBuilder, ControlGroup } from 
 import { NumberComponent, SelectComponent } from '../../shared/input.component'
 import { EditableEditButtonComponent } from '../../shared/editable-edit-button.component'
 import { EditableButtonsComponent } from '../../shared/editable-buttons.component'
-import { EditableService } from '../../shared/editable.component'
+import { EditableService } from '../../shared/editable.service'
  
 @Component({
   selector: '[cc-order-item]',

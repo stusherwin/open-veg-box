@@ -6,7 +6,7 @@ import { HeadingComponent } from '../shared/heading.component';
 import { BoxPriceComponent } from './box-price.component';
 import { BoxProductsComponent } from './box-products.component';
 import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
-import { EditableHeadingComponent } from '../shared/editable.component'
+import { EditableHeadingComponent } from '../shared/editable-heading.component'
 import { Validators } from '@angular/common'
 
 export interface BoxProductEvent {

@@ -13,7 +13,7 @@ import { ProductService } from '../../products/product.service'
 import { Box } from '../../boxes/box'
 import { Product } from '../../products/product';
 import { DistributeWidthService } from '../../shared/distribute-width.directive'
-import { EditableService } from '../../shared/editable.component'
+import { EditableService } from '../../shared/editable.service'
 
 export class CustomerPageService {
   customer: CustomerWithOrder;

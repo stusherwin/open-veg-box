@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import { RouteParams } from '@angular/router-deprecated';
 import { ActiveService, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
 import { SectionHeaderComponent } from '../structure/section-header.component'
-import { EditableService } from '../shared/editable.component'
+import { EditableService } from '../shared/editable.service'
 
 @Component({
   selector: 'cc-products-page',

@@ -5,7 +5,7 @@ import { HeadingComponent } from '../shared/heading.component';
 import { ProductPriceComponent } from './product-price.component';
 import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
 import { Validators } from '@angular/common'
-import { EditableHeadingComponent } from '../shared/editable.component'
+import { EditableHeadingComponent } from '../shared/editable-heading.component'
 
 @Component({
   selector: 'cc-product',

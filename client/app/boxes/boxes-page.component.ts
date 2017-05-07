@@ -11,7 +11,7 @@ import { RouteParams } from '@angular/router-deprecated';
 import { BoxProductsService } from './box-products.service';
 import { ActiveService, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
 import { SectionHeaderComponent } from '../structure/section-header.component'
-import { EditableService } from '../shared/editable.component'
+import { EditableService } from '../shared/editable.service'
 import 'rxjs/add/operator/combineLatest';
 
 @Component({

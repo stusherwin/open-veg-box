@@ -10,7 +10,8 @@ import { EditableEditButtonComponent } from '../../shared/editable-edit-button.c
 import { EditableButtonsComponent } from '../../shared/editable-buttons.component'
 import { TextComponent, TextAreaComponent } from '../../shared/input.component'
 import { Validators } from '@angular/common'
-import { EditableTextComponent, EditableTextAreaComponent } from '../../shared/editable.component'
+import { EditableTextComponent } from '../../shared/editable-text.component'
+import { EditableTextAreaComponent } from '../../shared/editable-textarea.component'
 
 @Component({
   selector: 'cc-details-page',
