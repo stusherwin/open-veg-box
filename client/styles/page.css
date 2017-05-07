@@ -1193,8 +1193,24 @@ button.button-new-small[disabled]:focus i:before {
   position: absolute;
   left: -10000px;
 }
+.details .editable {
+  position: relative;
+}
+.details .editable-display {
+  border: 1px solid transparent;
+}
 .details .editable-background {
   background: #ffe5be;
+  position: absolute;
+  padding: 3px;
+  padding-right: 5px;
+  vertical-align: middle;
+  top: -7px;
+  left: -7px;
+}
+.details .editable-background .button-new-small {
+  margin: 0;
+  margin-top: 5px;
 }
 .details .button-new-small ~ .button-new-small {
   margin-left: -2px;
@@ -1220,7 +1236,7 @@ button.button-new-small[disabled]:focus i:before {
   color: #ffa011 !important;
 }
 .details form {
-  display: inline;
+  display: inline-block;
 }
 .details form.cc-tr {
   display: table-row;
@@ -1297,33 +1313,27 @@ button.button-new-small[disabled]:focus i:before {
 .details .contact-details td ~ th {
   padding-left: 100px;
 }
-.details .contact-details .editable {
-  position: relative;
-}
-.details .contact-details .editable-display {
-  border: 1px solid transparent;
-}
-.details .contact-details .editable-background {
-  display: inline-block;
-  position: absolute;
-  padding: 3px;
-  padding-right: 5px;
-  vertical-align: middle;
-  top: -7px;
-  left: -7px;
-}
-.details .contact-details .editable-background .button-new-small {
-  margin: 0;
-  margin-top: 5px;
-}
 .details .contact-details .multiline-text {
   display: inline-block;
   min-height: 60px;
   line-height: 1.2em;
+  margin-bottom: 5px;
 }
 .details .contact-details textarea {
   line-height: 1.2em;
 }
-.details .contact-details cc-editable-area .editable-background {
+.details .contact-details cc-editable-textarea .editable-background {
   top: -5px;
+  padding-bottom: 0;
+}
+.editable-header h3 {
+  display: inline-block;
+}
+.editable-header:hover h3 {
+  color: #ffa011;
+}
+.editable-header input[type="text"] {
+  width: 200px;
+  font-size: 150%;
+  font-weight: 300;
 }

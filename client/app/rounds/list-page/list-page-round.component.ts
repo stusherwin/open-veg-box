@@ -4,20 +4,20 @@ import { HeadingComponent } from '../../shared/heading.component';
 import { RoundCustomersComponent } from './round-customers.component';
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../../shared/active-elements'
+import { EditableHeaderComponent } from '../../shared/editable.component'
+import { Validators } from '@angular/common'
 
 @Component({
   selector: 'cc-list-page-round',
   templateUrl: 'app/rounds/list-page/list-page-round.component.html',
-  directives: [HeadingComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, RoundCustomersComponent, ROUTER_DIRECTIVES]
+  directives: [HeadingComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, RoundCustomersComponent, ROUTER_DIRECTIVES, EditableHeaderComponent]
 })
 export class ListPageRoundComponent {
   rowFocused: boolean;
+  roundNameValidators = [Validators.required];
 
   constructor(private renderer: Renderer) {
   }
-
-  @ViewChild('roundName')
-  roundName: HeadingComponent;
 
   @ViewChild('active')
   active: ActiveElementDirective;

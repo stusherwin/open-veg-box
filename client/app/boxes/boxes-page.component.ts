@@ -11,13 +11,14 @@ import { RouteParams } from '@angular/router-deprecated';
 import { BoxProductsService } from './box-products.service';
 import { ActiveService, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
 import { SectionHeaderComponent } from '../structure/section-header.component'
+import { EditableService } from '../shared/editable.component'
 import 'rxjs/add/operator/combineLatest';
 
 @Component({
   selector: 'cc-boxes-page',
   templateUrl: 'app/boxes/boxes-page.component.html',
   directives: [BoxComponent, ActiveElementDirective, BoxAddComponent, ActivateOnFocusDirective, DeactivateOnBlurDirective, SectionHeaderComponent],
-  providers: [BoxService, ProductService, UsersService, BoxProductsService, ActiveService]
+  providers: [BoxService, ProductService, UsersService, BoxProductsService, ActiveService, EditableService]
 })
 export class BoxesPageComponent implements OnInit {
   constructor(private boxService: BoxService, private productService: ProductService, private routeParams: RouteParams, private changeDetector: ChangeDetectorRef, private renderer: Renderer) {

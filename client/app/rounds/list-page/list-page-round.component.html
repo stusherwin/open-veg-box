@@ -1,14 +1,10 @@
 <div class="row" #active=cc-active cc-active [class.focused]="rowFocused" (activate)="rowFocused = true" (deactivate)="rowFocused = false">
   <div class="details">
-    <cc-heading #roundName [(value)]="round.name" (update)="onUpdate()"></cc-heading>
+    <cc-editable-header [(value)]="round.name" (valueChange)="onUpdate()"
+                        [validators]="roundNameValidators"
+                        [messages]="{required: 'Round name is required'}">
+    </cc-editable-header>
     <p style="font-size: 95%">{{round.customers.length}} customers</p>
-
-    <!--cc-round-customers
-      [(value)]="round.customers"
-      (add)="onCustomerAdd($event)" 
-      (remove)="onCustomerRemove($event)"
-      [unusedCustomers]="unusedCustomers">
-    </cc-round-customers-->
   </div>
   <div class="actions">
     <a class="button-new button-new-right" cc-active cc-activate-on-focus tabindex="1" [routerLink]="['../Round', {roundId: round.id}, 'Details']"><i class="icon-doc-text"></i>Details</a>

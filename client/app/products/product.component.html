@@ -1,6 +1,9 @@
 <div class="row" #active=cc-active cc-active [class.focused]="rowFocused" (activate)="rowFocused = true" (deactivate)="rowFocused = false">
   <div class="details">
-    <cc-heading #productName [(value)]="product.name" (update)="onUpdate()"></cc-heading>
+    <cc-editable-header [(value)]="product.name" (valueChange)="onUpdate()"
+                        [validators]="productNameValidators"
+                        [messages]="{required: 'Product name is required'}">
+    </cc-editable-header>
     <div class="flex">
       <div class="price-detail">
         <cc-product-price [(price)]="product.price" [(unitType)]="product.unitType" (update)="onUpdate()"></cc-product-price>

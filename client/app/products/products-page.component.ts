@@ -8,12 +8,13 @@ import { Observable } from 'rxjs/Observable';
 import { RouteParams } from '@angular/router-deprecated';
 import { ActiveService, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
 import { SectionHeaderComponent } from '../structure/section-header.component'
+import { EditableService } from '../shared/editable.component'
 
 @Component({
   selector: 'cc-products-page',
   templateUrl: 'app/products/products-page.component.html',
   directives: [ProductComponent, ActiveElementDirective, ProductAddComponent, ActivateOnFocusDirective, DeactivateOnBlurDirective, SectionHeaderComponent],
-  providers: [ProductService, UsersService, ActiveService]
+  providers: [ProductService, UsersService, ActiveService, EditableService]
 })
 export class ProductsPageComponent implements OnInit {
   constructor(productService: ProductService, routeParams: RouteParams, private renderer: Renderer) {
