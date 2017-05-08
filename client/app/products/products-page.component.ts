@@ -49,6 +49,6 @@ export class ProductsPageComponent implements OnInit {
   }
 
   onUpdate(product: Product) {
-    this.productService.update(product.id, product, this.queryParams).subscribe(products => {});
+    this.productService.update(product.id, {price: product.unitPrice.price, unitType: product.unitPrice.unitType}, this.queryParams).subscribe(products => {});
   }
 }

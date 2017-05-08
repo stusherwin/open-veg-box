@@ -100,8 +100,8 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit, OnChanges 
     } else {
       this.service.setInactive(this.editId);
     }
-
-    this.add.emit(new ProductQuantity(this.product.id, this.product.name, this.quantityEditingValue, this.product.unitType));
+ 
+    this.add.emit(new ProductQuantity(this.product.id, this.product.name, this.quantityEditingValue, this.product.unitPrice.unitType));
 
     this.product = this.products[0];
     this.editable.endEdit();

@@ -7,7 +7,12 @@
     </cc-editable-heading>
     <div class="flex">
       <div class="price-detail">
-        <cc-product-price [(price)]="product.price" [(unitType)]="product.unitType" (update)="onUpdate()"></cc-product-price>
+        <cc-editable-unit-price key="productPrice-{{product.id}}"
+                                [(value)]="product.unitPrice"
+                                (valueChange)="onUpdate()"
+                                [validators]="productUnitPriceValidators"
+                                [messages]="{required: 'Product price is required', notGreaterThanZero: 'Product price must be greater than zero.', notNumeric: 'Product price must be a number.'}">
+        </cc-editable-unit-price>
       </div>  
       <div></div>
     </div>

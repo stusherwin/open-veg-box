@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, ElementRef, Renderer, ViewChildren, QueryList } from '@angular/core';
-import { Product, UnitType, unitTypes } from './product';
+import { Product, UnitPrice, UnitType, unitTypes } from './product';
 import { HeadingComponent } from '../shared/heading.component';
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
@@ -13,7 +13,7 @@ import { NumericDirective } from '../shared/numeric.directive'
 })
 export class ProductAddComponent {
   unitTypes: UnitType[] = unitTypes;
-  product = new Product(0, '', 1.0, 'perKg', 1.0);
+  product = new Product(0, '', new UnitPrice(1.0, 'perKg'));
   adding: boolean;
   rowFocused: boolean;
 
@@ -47,8 +47,8 @@ export class ProductAddComponent {
     this.adding = true;
     this.validated = false;
     this.product.name = '';
-    this.product.price = 1.0;
-    this.product.unitType = 'perKg';
+    this.product.unitPrice.price = 1.0;
+    this.product.unitPrice.unitType = 'perKg';
     setTimeout(() => {
       this.renderer.invokeElementMethod(window, 'scrollTo', [0, 0])
       this.renderer.invokeElementMethod(this.productName.nativeElement, 'focus', [])

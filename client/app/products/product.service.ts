@@ -1,4 +1,4 @@
-import { Product } from './product'
+import { Product, UnitPrice } from './product'
 import { Injectable, Inject } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -64,6 +64,6 @@ export class ProductService {
       return null;
     }
     
-    return new Product( p.id, p.name, p.price, p.unitType, p.unitQuantity);
+    return new Product(p.id, p.name, new UnitPrice(p.price, p.unitType));
   }
 }

@@ -1651,6 +1651,7 @@ button.button-new-small {
 button.button-new-small[disabled] {
   cursor: default;
   background: rgba(187, 187, 187, 0.2);
+  box-shadow: rgba(187, 187, 187, 0.2) 0 2px 5px 0 inset;
 }
 button.button-new-small[disabled] i:before {
   color: rgba(255, 255, 255, 0.5);
@@ -1658,6 +1659,7 @@ button.button-new-small[disabled] i:before {
 button.button-new-small[disabled]:hover,
 button.button-new-small[disabled]:focus {
   background: rgba(187, 187, 187, 0.2);
+  box-shadow: rgba(187, 187, 187, 0.2) 0 2px 5px 0 inset;
 }
 button.button-new-small[disabled]:hover i:before,
 button.button-new-small[disabled]:focus i:before {
@@ -2005,6 +2007,19 @@ form.submitted textarea.ng-invalid ~ .icon-warning {
   padding-left: 5px;
 }
 .editable-price .editable-background input {
+  margin-left: -2px;
+  padding-left: 2px;
+  padding-right: 2px;
+  width: 66px;
+}
+.editable-unit-price {
+  height: 24px;
+}
+.editable-unit-price .editable-background {
+  margin-left: 3px;
+  padding-left: 5px;
+}
+.editable-unit-price .editable-background input {
   margin-left: -2px;
   padding-left: 2px;
   padding-right: 2px;

@@ -139,3 +139,4 @@ Editable
 * Bug: if no properties whitelisted, get sql error
 * OnDestroy: unsubscribe to observables!
 * button-new: transparent background is preventing hover highlight
+* Replace ok button with warning icon if invalid (set editable-background to red)

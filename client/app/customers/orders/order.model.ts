@@ -57,7 +57,15 @@ export class OrderModel {
       }
     }, this);
 
-    this.productsSection = new OrderSectionModel(order.extraProducts, products, {
+    
+    let allProducts = products.map(p => ({
+     id: p.id,
+     name: p.name,
+     price: p.unitPrice.price,
+     unitType: p.unitPrice.unitType
+    }));
+
+    this.productsSection = new OrderSectionModel(order.extraProducts, allProducts, {
       add(itemId: number, quantity: number): Observable<any> {
         return orderService.addProduct(order.id, itemId, {quantity})
                            .map(o => {order.total = o.total; return o});

@@ -1227,6 +1227,8 @@ button.button-new-small {
   &[disabled] {
     cursor: default;
     background: rgba(187,187,187, 0.2);
+    box-shadow: rgba(187,187,187, 0.2) 0 2px 5px 0 inset;
+    
     // border: 1px solid rgba(187,187,187, 0.2);
     i:before {
       color: rgba(255, 255, 255, 0.5);
@@ -1234,6 +1236,7 @@ button.button-new-small {
 
     &:hover, &:focus {
       background: rgba(187,187,187, 0.2);
+      box-shadow: rgba(187,187,187, 0.2) 0 2px 5px 0 inset;
       // border: 1px solid rgba(187,187,187, 0.2);
       i:before {
         color: rgba(255, 255, 255, 0.5);
@@ -1647,6 +1650,22 @@ form {
 }
 
 .editable-price {
+  height: 24px;
+
+  .editable-background {
+    margin-left: 3px;
+    padding-left: 5px;
+
+    input {
+      margin-left: -2px;
+      padding-left: 2px;
+      padding-right: 2px;
+      width: 66px;
+    }
+  }
+}
+
+.editable-unit-price {
   height: 24px;
 
   .editable-background {

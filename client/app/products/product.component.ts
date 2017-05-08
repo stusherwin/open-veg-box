@@ -6,16 +6,18 @@ import { ProductPriceComponent } from './product-price.component';
 import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
 import { Validators } from '@angular/common'
 import { EditableHeadingComponent } from '../shared/editable-heading.component'
+import { EditableUnitPriceComponent } from '../shared/editable-unit-price.component'
 
 @Component({
   selector: 'cc-product',
   templateUrl: 'app/products/product.component.html',
   pipes: [WeightPipe, MoneyPipe],
-  directives: [HeadingComponent, ProductPriceComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, EditableHeadingComponent]
+  directives: [HeadingComponent, ProductPriceComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, EditableHeadingComponent, EditableUnitPriceComponent]
 })
 export class ProductComponent {
   unitTypes: {[key: string]: string } = {};
   productNameValidators = [Validators.required];
+  productUnitPriceValidators = [Validators.required];
 
   @Input()
   product: Product;

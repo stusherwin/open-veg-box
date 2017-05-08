@@ -248,7 +248,7 @@ export class TextAreaComponent extends InputComponent implements OnInit {
         tabindex="1"
         [(ngModel)]="value"
         (ngModelChange)="valueChange.emit($event)">
-      <option *ngFor="let o of options" [ngValue]="o">{{getText(o)}}</option>
+      <option *ngFor="let o of options" [ngValue]="getValue(o)">{{getText(o)}}</option>
     </select>
   `,
   selector: 'cc-select'
@@ -264,6 +264,9 @@ export class SelectComponent extends InputComponent implements OnInit {
   textProperty: string
 
   @Input()
+  valueProperty: string
+
+  @Input()
   options: any[]
 
   @ViewChild('select')
@@ -277,7 +280,11 @@ export class SelectComponent extends InputComponent implements OnInit {
   }
 
   getText(option: any) {
-    return option[this.textProperty];
+    return this.textProperty ? option[this.textProperty] : option;
+  }
+
+  getValue(option: any) {
+    return this.valueProperty ? option[this.valueProperty] : option;
   }
 
   ngOnInit() {
