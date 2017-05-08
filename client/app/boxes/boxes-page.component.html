@@ -6,7 +6,7 @@
 </cc-section-header>
 <div class="loading-indicator" *ngIf="!loaded"><i class="icon-spin3 animate-spin"></i></div>
 <p *ngIf="loaded && !boxes.length">There are no boxes yet.</p>
-<div class="row-view-new" cc-active [class.focused]="focused" (activate)="focused = true" (deactivate)="focused = false">
+<div class="row-view-new no-hover" cc-active [class.focused]="focused" (activate)="focused = true" (deactivate)="focused = false">
   <cc-box-add #add (add)="onAdd($event)"></cc-box-add>
   <cc-box *ngFor="let b of boxes; let i = index"
     [box]="b"
