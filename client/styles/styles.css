@@ -1463,8 +1463,12 @@ input[type="text"].price {
   top: calc(50% -  5.5px);
 }
 .button-new i.icon-carrot::before {
-  margin-top: 1px;
+  margin-top: 0px;
   margin-left: 0;
+}
+.button-new i.icon-box::before {
+  margin-top: 0px;
+  margin-left: 0.5px;
 }
 .button-new i.icon-person {
   font-size: 12px;
@@ -1482,7 +1486,7 @@ input[type="text"].price {
   margin-left: 0;
 }
 .button-new i.icon-map-signs::before {
-  margin-top: 1px;
+  margin-top: 0.5px;
   margin-left: 0;
 }
 .button-new i.icon-mail-dark {
@@ -1512,7 +1516,7 @@ input[type="text"].price {
   top: calc(50% -  7px);
 }
 .button-new i.icon-add::before {
-  margin-top: 0.5px;
+  margin-top: 1px;
   margin-left: 0px;
 }
 .button-new i.icon-login::before {
@@ -1546,7 +1550,7 @@ input[type="text"].price {
   top: calc(50% -  6.25px);
 }
 .button-new i.icon-doc-text::before {
-  margin-top: 0.5px;
+  margin-top: -0.5px;
   margin-left: 0.5px;
 }
 button.button-new {
