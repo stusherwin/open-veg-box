@@ -1559,6 +1559,9 @@ button.button-new {
 button.button-new[disabled] {
   cursor: inherit;
 }
+button.button-new {
+  height: 20px;
+}
 button.button-new[disabled] {
   cursor: inherit;
 }
@@ -1704,6 +1707,10 @@ button.button-new-small[disabled]:focus i:before {
 }
 .row-view-new .row .actions .button-new:first-child {
   margin-top: 0px;
+}
+.row-view-new .row .actions button.button-new {
+  margin-top: 15px;
+  margin-bottom: -5px;
 }
 .row-view-new > *:nth-child(2n+1) > .row,
 .row-view-new > .row:nth-child(2n+1) {

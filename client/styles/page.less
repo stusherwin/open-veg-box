@@ -1125,6 +1125,8 @@ button.button-new {
 }
 
 button.button-new {
+  height: 20px;
+
   &[disabled] {
     cursor: inherit;
     &, &:hover, &:focus {
@@ -1303,6 +1305,11 @@ button.button-new-small {
         &:first-child {
           margin-top: 0px;
         }
+      }
+
+      button.button-new {
+        margin-top: 15px;
+        margin-bottom: -5px;
       }
     }
   }
