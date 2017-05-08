@@ -3,14 +3,16 @@
     <cc-editable-heading key="boxName-{{box.id}}" 
                          [(value)]="box.name" (valueChange)="onUpdate()"
                          [validators]="boxNameValidators"
-                         [messages]="{required: 'BoxProduct name is required'}">
+                         [messages]="{required: 'Box name is required.'}">
     </cc-editable-heading>
     <div class="flex">
       <div class="price-detail">
-        <cc-box-price
+        <cc-editable-price
           [(value)]="box.price"
-          (update)="onUpdate()">
-        </cc-box-price>
+          (valueChange)="onUpdate()"
+          [validators]="boxNameValidators"
+          [messages]="{required: 'Box price is required.', notGreaterThanZero: 'Box price must be greater than zero.', notNumeric: 'Box price must be a number.'}">
+        </cc-editable-price>
       </div>
       <div></div>
     </div>

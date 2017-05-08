@@ -1997,6 +1997,19 @@ form.submitted textarea.ng-invalid ~ .icon-warning {
   color: #888;
   font-weight: 400;
 }
+.editable-price {
+  height: 24px;
+}
+.editable-price .editable-background {
+  margin-left: 3px;
+  padding-left: 5px;
+}
+.editable-price .editable-background input {
+  margin-left: -2px;
+  padding-left: 2px;
+  padding-right: 2px;
+  width: 66px;
+}
 .home {
   background: #579532;
   padding-top: 120px;

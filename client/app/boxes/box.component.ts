@@ -7,6 +7,7 @@ import { BoxPriceComponent } from './box-price.component';
 import { BoxProductsComponent } from './box-products.component';
 import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
 import { EditableHeadingComponent } from '../shared/editable-heading.component'
+import { EditablePriceComponent } from '../shared/editable-price.component'
 import { Validators } from '@angular/common'
 
 export interface BoxProductEvent {
@@ -17,10 +18,11 @@ export interface BoxProductEvent {
 @Component({
   selector: 'cc-box',
   templateUrl: 'app/boxes/box.component.html',
-  directives: [HeadingComponent, BoxPriceComponent, BoxProductsComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, EditableHeadingComponent]
+  directives: [HeadingComponent, BoxPriceComponent, BoxProductsComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, EditableHeadingComponent, EditablePriceComponent]
 })
 export class BoxComponent {
   boxNameValidators = [Validators.required];
+  boxPriceValidators = [Validators.required];
 
   constructor(private renderer: Renderer) {
   }
