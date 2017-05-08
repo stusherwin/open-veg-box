@@ -1,6 +1,5 @@
 import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, ElementRef, OnInit, Renderer, ViewChildren, QueryList, Directive, HostListener, HostBinding, AfterViewInit, ContentChildren, ChangeDetectorRef } from '@angular/core';
 import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from './active-elements'
-import { EditableService } from './editable.service'
 
 @Component({
   template: `
@@ -36,20 +35,13 @@ export class EditableButtonsComponent {
   @Output()
   cancel = new EventEmitter<boolean>()
 
-  constructor(
-    @Inject(forwardRef(() => EditableService))
-    private service: EditableService) {
-  }
-
   onOk(keydown: boolean) {
     if(!this.disabled) {
       this.ok.emit(keydown)
-      this.service.endEdit(this.key);
    }
   }
 
   onCancel(keydown: boolean) {
     this.cancel.emit(keydown)
-    this.service.endEdit(this.key);
   }
 }

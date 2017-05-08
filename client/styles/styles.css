@@ -298,6 +298,9 @@ h4 {
   background-color: #579532;
   color: #e0eed8;
 }
+.main-header .button-new i {
+  box-shadow: #579532 0 2px 5px 0 inset;
+}
 .main-header .button-new:hover,
 .main-header .button-new:focus {
   color: white;
@@ -310,6 +313,10 @@ h4 {
 .main-header .button-new:focus i {
   background-color: white;
   color: #579532;
+}
+.main-header .button-new:hover i,
+.main-header .button-new:focus i {
+  box-shadow: white 0 2px 5px 0 inset;
 }
 .main-header nav {
   position: absolute;
@@ -347,6 +354,9 @@ h4 {
   background-color: white;
   color: #579532;
 }
+.main-header nav cc-nav-bar-link.current .button-new i {
+  box-shadow: white 0 2px 5px 0 inset;
+}
 .main-header nav cc-nav-bar-link.current .button-new:hover,
 .main-header nav cc-nav-bar-link.current .button-new:focus {
   color: white;
@@ -359,6 +369,10 @@ h4 {
 .main-header nav cc-nav-bar-link.current .button-new:focus i {
   background-color: white;
   color: #579532;
+}
+.main-header nav cc-nav-bar-link.current .button-new:hover i,
+.main-header nav cc-nav-bar-link.current .button-new:focus i {
+  box-shadow: white 0 2px 5px 0 inset;
 }
 .main-header .logout {
   position: absolute;
@@ -448,6 +462,9 @@ h4 {
   background-color: #444;
   color: #ddd;
 }
+.section-header .buttons .button-new i {
+  box-shadow: #444 0 2px 5px 0 inset;
+}
 .section-header .buttons .button-new:hover,
 .section-header .buttons .button-new:focus {
   color: #ff8f1d;
@@ -461,6 +478,10 @@ h4 {
   background-color: #ff8f1d;
   color: #444;
 }
+.section-header .buttons .button-new:hover i,
+.section-header .buttons .button-new:focus i {
+  box-shadow: #ff8f1d 0 2px 5px 0 inset;
+}
 .section-header .buttons .button-new.selected {
   color: #ff8f1d;
 }
@@ -470,6 +491,9 @@ h4 {
 .section-header .buttons .button-new.selected i {
   background-color: #ff8f1d;
   color: #444;
+}
+.section-header .buttons .button-new.selected i {
+  box-shadow: #ff8f1d 0 2px 5px 0 inset;
 }
 .section-header .buttons .button-new.selected:hover,
 .section-header .buttons .button-new.selected:focus {
@@ -483,6 +507,10 @@ h4 {
 .section-header .buttons .button-new.selected:focus i {
   background-color: #ff8f1d;
   color: #444;
+}
+.section-header .buttons .button-new.selected:hover i,
+.section-header .buttons .button-new.selected:focus i {
+  box-shadow: #ff8f1d 0 2px 5px 0 inset;
 }
 @media only screen and (max-width: 790px) {
   .main-header nav {
@@ -1372,27 +1400,44 @@ input[type="text"].price {
   top: calc(50% -  6.5px);
 }
 .button-new::before {
-  border-color: #aaa;
+  border-color: transparent;
 }
 .button-new i {
-  background-color: transparent;
-  color: #aaa;
+  background-color: rgba(153, 153, 153, 0.3);
+  color: #fff;
+}
+.button-new i {
+  box-shadow: rgba(119, 119, 119, 0.3) 0 2px 5px 0 inset;
 }
 .button-new:hover,
-.button-new:focus,
 .button-new.hover {
   color: #ffa011;
 }
 .button-new:hover::before,
-.button-new:focus::before,
 .button-new.hover::before {
-  border-color: #ffa011;
+  border-color: transparent;
 }
 .button-new:hover i,
-.button-new:focus i,
 .button-new.hover i {
   background-color: #ffa011;
   color: #fff;
+}
+.button-new:hover i,
+.button-new.hover i {
+  box-shadow: #ffa011 0 2px 5px 0 inset;
+}
+.button-new:focus {
+  color: #ffa011;
+}
+.button-new:focus::before {
+  border-color: #ffa011;
+}
+.button-new:focus i {
+  background-color: #ffa011;
+  color: #fff;
+}
+.button-new:focus i {
+  box-shadow: #ffa011 0 2px 5px 0 inset;
 }
 .button-new.button-new-right {
   padding-left: 0;
@@ -1541,8 +1586,8 @@ button.button-new[disabled]:focus i {
   height: 16px;
   padding: 3px 0px;
   color: white;
-  border: 1px solid rgba(187, 187, 187, 0.5);
   position: relative;
+  box-shadow: rgba(153, 153, 153, 0.5) 0 2px 5px 0 inset;
 }
 .button-new-small i {
   display: inline-block;
@@ -1561,8 +1606,8 @@ button.button-new[disabled]:focus i {
 }
 .button-new-small:hover,
 .button-new-small:focus {
-  border: 1px solid #ffa011;
   background: #ffa011;
+  box-shadow: #ffa011 0 2px 5px 0 inset;
 }
 .button-new-small:hover i::before,
 .button-new-small:focus i::before {
@@ -1572,8 +1617,8 @@ button.button-new[disabled]:focus i {
   font-size: 10px;
 }
 .button-new-small i.icon-edit::before {
-  margin-top: -1px;
-  margin-left: 1px;
+  margin-top: 0px;
+  margin-left: 1.5px;
 }
 .button-new-small i.icon-trash::before {
   margin-top: -0.5px;
@@ -1585,17 +1630,21 @@ button.button-new[disabled]:focus i {
 }
 .button-new-small i.icon-cancel::before {
   margin-top: -0.5px;
+  margin-left: 0.5px;
+}
+.button-new-small i.icon-add::before {
+  margin-top: 0px;
   margin-left: 0px;
 }
 button.button-new-small {
   cursor: pointer;
   top: -0.5px;
   padding-top: 3px;
+  border: none;
 }
 button.button-new-small[disabled] {
   cursor: default;
   background: rgba(187, 187, 187, 0.2);
-  border: 1px solid rgba(187, 187, 187, 0.2);
 }
 button.button-new-small[disabled] i:before {
   color: rgba(255, 255, 255, 0.5);
@@ -1603,22 +1652,10 @@ button.button-new-small[disabled] i:before {
 button.button-new-small[disabled]:hover,
 button.button-new-small[disabled]:focus {
   background: rgba(187, 187, 187, 0.2);
-  border: 1px solid rgba(187, 187, 187, 0.2);
 }
 button.button-new-small[disabled]:hover i:before,
 button.button-new-small[disabled]:focus i:before {
   color: rgba(255, 255, 255, 0.5);
-}
-.editable-value-display:hover .button-new-small,
-.hover .button-new-small,
-.editable-display-clickable:hover .button-new-small {
-  border: 1px solid #ffa011;
-  background: #ffa011;
-}
-.editable-value-display:hover .button-new-small i::before,
-.hover .button-new-small i::before,
-.editable-display-clickable:hover .button-new-small i::before {
-  color: white;
 }
 @-moz-document url-prefix() {
   button.button-new-small {
@@ -1698,24 +1735,25 @@ button.button-new-small[disabled]:focus i:before {
 .row-view-new.no-hover.focused > .row:nth-child(2n+1) {
   background: #f5f5f5;
 }
-.editable {
-  position: relative;
-}
-.editable.editable-display-clickable:hover {
+.editable-display-clickable:hover,
+.editable-display-clickable.hover {
   color: #ffa011;
   cursor: pointer;
 }
-.editable.editable-display-clickable:hover .muted {
+.editable-display-clickable:hover .muted,
+.editable-display-clickable.hover .muted {
   color: #ffa011 !important;
 }
-.editable .editable-display .editable-display-value {
-  border: 1px solid transparent;
+.editable-display-clickable:hover .button-new-small,
+.editable-display-clickable.hover .button-new-small {
+  background: #ffa011;
+  box-shadow: #ffa011 0 2px 5px 0 inset;
 }
-.editable .editable-display .button-new-small {
-  position: relative;
-  top: -2px;
+.editable-display-clickable:hover .button-new-small i::before,
+.editable-display-clickable.hover .button-new-small i::before {
+  color: white;
 }
-.editable .editable-background {
+.editable-background {
   background: #ffe5be;
   position: absolute;
   padding: 3px;
@@ -1724,16 +1762,16 @@ button.button-new-small[disabled]:focus i:before {
   top: -7px;
   left: -7px;
 }
-.editable .editable-background .button-new-small {
+.editable-background .button-new-small {
   margin: 0;
-  margin-top: 5px;
+  margin-top: 2px;
 }
-.editable form {
+form {
   display: inline-block;
 }
-.editable form input ~ .icon-warning,
-.editable form select ~ .icon-warning,
-.editable form textarea ~ .icon-warning {
+form input ~ .icon-warning,
+form select ~ .icon-warning,
+form textarea ~ .icon-warning {
   font-size: 80%;
   padding: 0;
   color: #E80000;
@@ -1744,17 +1782,27 @@ button.button-new-small[disabled]:focus i:before {
   position: relative;
   top: -1px;
 }
-.editable form.submitted input.ng-invalid,
-.editable form.submitted select.ng-invalid,
-.editable form.submitted textarea.ng-invalid {
+form.submitted input.ng-invalid,
+form.submitted select.ng-invalid,
+form.submitted textarea.ng-invalid {
   border: 1px solid #ff4f4f;
   box-shadow: #ff9c9c 0px 0px 3px 0px, #ff9c9c 0px 0px 3px 0px inset;
   background: #fff2f2;
 }
-.editable form.submitted input.ng-invalid ~ .icon-warning,
-.editable form.submitted select.ng-invalid ~ .icon-warning,
-.editable form.submitted textarea.ng-invalid ~ .icon-warning {
+form.submitted input.ng-invalid ~ .icon-warning,
+form.submitted select.ng-invalid ~ .icon-warning,
+form.submitted textarea.ng-invalid ~ .icon-warning {
   display: inline;
+}
+.editable {
+  position: relative;
+}
+.editable .editable-display .editable-display-value {
+  border: 1px solid transparent;
+}
+.editable .editable-display .button-new-small {
+  position: relative;
+  top: -2px;
 }
 .editable-textarea .editable-display .editable-display-value {
   display: inline-block;
@@ -1780,7 +1828,8 @@ button.button-new-small[disabled]:focus i:before {
 .editable-heading .editable-display h3.editable-display-value {
   display: inline-block;
 }
-.editable-heading:hover h3.editable-display-value {
+.editable-heading:hover h3.editable-display-value,
+.editable-heading.hover h3.editable-display-value {
   color: #ffa011;
 }
 .editable-heading input[type="text"] {
@@ -1812,13 +1861,6 @@ button.button-new-small[disabled]:focus i:before {
   display: table-cell;
   padding: 3px 5px;
   padding-top: 2px;
-}
-.details cc-td.hover,
-.details cc-th.hover,
-.details td.hover,
-.details th.hover {
-  color: #ffa011;
-  cursor: pointer;
 }
 .details cc-tbody,
 .details tbody {

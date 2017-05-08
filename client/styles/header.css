@@ -63,6 +63,9 @@
   background-color: #579532;
   color: #e0eed8;
 }
+.main-header .button-new i {
+  box-shadow: #579532 0 2px 5px 0 inset;
+}
 .main-header .button-new:hover,
 .main-header .button-new:focus {
   color: white;
@@ -75,6 +78,10 @@
 .main-header .button-new:focus i {
   background-color: white;
   color: #579532;
+}
+.main-header .button-new:hover i,
+.main-header .button-new:focus i {
+  box-shadow: white 0 2px 5px 0 inset;
 }
 .main-header nav {
   position: absolute;
@@ -112,6 +119,9 @@
   background-color: white;
   color: #579532;
 }
+.main-header nav cc-nav-bar-link.current .button-new i {
+  box-shadow: white 0 2px 5px 0 inset;
+}
 .main-header nav cc-nav-bar-link.current .button-new:hover,
 .main-header nav cc-nav-bar-link.current .button-new:focus {
   color: white;
@@ -124,6 +134,10 @@
 .main-header nav cc-nav-bar-link.current .button-new:focus i {
   background-color: white;
   color: #579532;
+}
+.main-header nav cc-nav-bar-link.current .button-new:hover i,
+.main-header nav cc-nav-bar-link.current .button-new:focus i {
+  box-shadow: white 0 2px 5px 0 inset;
 }
 .main-header .logout {
   position: absolute;
@@ -213,6 +227,9 @@
   background-color: #444;
   color: #ddd;
 }
+.section-header .buttons .button-new i {
+  box-shadow: #444 0 2px 5px 0 inset;
+}
 .section-header .buttons .button-new:hover,
 .section-header .buttons .button-new:focus {
   color: #ff8f1d;
@@ -226,6 +243,10 @@
   background-color: #ff8f1d;
   color: #444;
 }
+.section-header .buttons .button-new:hover i,
+.section-header .buttons .button-new:focus i {
+  box-shadow: #ff8f1d 0 2px 5px 0 inset;
+}
 .section-header .buttons .button-new.selected {
   color: #ff8f1d;
 }
@@ -235,6 +256,9 @@
 .section-header .buttons .button-new.selected i {
   background-color: #ff8f1d;
   color: #444;
+}
+.section-header .buttons .button-new.selected i {
+  box-shadow: #ff8f1d 0 2px 5px 0 inset;
 }
 .section-header .buttons .button-new.selected:hover,
 .section-header .buttons .button-new.selected:focus {
@@ -248,6 +272,10 @@
 .section-header .buttons .button-new.selected:focus i {
   background-color: #ff8f1d;
   color: #444;
+}
+.section-header .buttons .button-new.selected:hover i,
+.section-header .buttons .button-new.selected:focus i {
+  box-shadow: #ff8f1d 0 2px 5px 0 inset;
 }
 @media only screen and (max-width: 790px) {
   .main-header nav {

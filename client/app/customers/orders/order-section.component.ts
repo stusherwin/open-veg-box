@@ -60,7 +60,9 @@ export class OrderSectionComponent implements OnInit {
 
   ngOnInit() {
     this.editableService.currentlyEditing.subscribe((key: any) => {
-      if(this.model.adding && key != this.key) {
+      if(!this.model.adding && key == this.key) {
+        this.startAdd();
+      } else if(this.model.adding && key != this.key) {
         this.cancelAdd();
       }
     })

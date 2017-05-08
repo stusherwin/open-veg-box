@@ -1,19 +1,18 @@
-import { Component, OnInit, Input, Output, Inject, forwardRef, ViewChildren, QueryList, EventEmitter, ViewChild, ElementRef, Renderer, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, Output, Inject, forwardRef, ViewChildren, QueryList, EventEmitter, ViewChild, ElementRef, Renderer, ChangeDetectorRef, HostListener } from '@angular/core';
 import { Control, Validators, FORM_DIRECTIVES, FormBuilder, ControlGroup } from '@angular/common'
 import { TextComponent } from './input.component'
 import { EditableEditButtonComponent } from './editable-edit-button.component'
 import { EditableButtonsComponent } from './editable-buttons.component'
 import { EditableService } from './editable.service'
-import { EditableStartOnClickDirective } from './editable-start-on-click.directive'
 
 @Component({
   selector: 'cc-editable-heading',
   template: `
-    <div class="editable editable-heading" [class.editable-display-clickable]="!editing" cc-editable-start-on-click [key]="key" [disabled]="editing">
+    <div class="editable editable-heading" [class.editable-display-clickable]="!editing" [class.hover]="focused" (click)="startEdit()">
       <span class="editable-display" [style.visibility]="editing? 'hidden' : 'visible'">
         <h3 class="editable-display-value" *ngIf="value">{{value}}</h3>
         <h3 class="editable-display-value muted" *ngIf="!value">None</h3>
-        <cc-editable-button [key]="key" icon="edit" *ngIf="!editing"></cc-editable-button>
+        <cc-editable-button #edit [key]="key" icon="edit" *ngIf="!editing" (click)="startEdit()" (focus)="focused = true" (blur)="focused = false"></cc-editable-button>
       </span>
       <form class="editable-background" [class.submitted]="submitted" *ngIf="editing">
         <cc-text #text
@@ -21,11 +20,11 @@ import { EditableStartOnClickDirective } from './editable-start-on-click.directi
                  [control]="control"
                  [messages]="messages">
         </cc-text>
-        <cc-editable-buttons [key]="key" [disabled]="submitted && !control.valid" (ok)="ok()"></cc-editable-buttons>
+        <cc-editable-buttons [key]="key" [disabled]="submitted && !control.valid" (ok)="ok()" (cancel)="cancel()"></cc-editable-buttons>
       </form>
     </div>
   `,
-  directives: [EditableEditButtonComponent, TextComponent, EditableButtonsComponent, EditableStartOnClickDirective]
+  directives: [EditableEditButtonComponent, TextComponent, EditableButtonsComponent]
 })
 export class EditableHeadingComponent implements OnInit {
   editing: boolean;
@@ -33,6 +32,8 @@ export class EditableHeadingComponent implements OnInit {
   control: Control;
   form: ControlGroup;
   submitted = false;
+  focused = false;
+  wasFocused = false;
   
   @Input()
   key: string
@@ -52,6 +53,9 @@ export class EditableHeadingComponent implements OnInit {
   @ViewChildren('text')
   text: QueryList<TextComponent>
 
+  @ViewChildren('edit')
+  edit: QueryList<EditableEditButtonComponent>
+
   constructor(private builder: FormBuilder,
     @Inject(forwardRef(() => EditableService))
     private service: EditableService) {
@@ -64,18 +68,26 @@ export class EditableHeadingComponent implements OnInit {
     })
 
     this.service.currentlyEditing.subscribe((key: string) => {
-      if(!this.editing && key == this.key) {
-        this.editing = true;
-        this.startEdit();
-      } else if(this.editing && key != this.key) {
-        setTimeout(() => this.editing = false)
+      if(this.editing && key != this.key) {
+        this.wasFocused = false;
+        this.cancel();
       }
     })
   }
 
   startEdit() {
+    if(this.editing) {
+      return;
+    }
+
+    this.wasFocused = this.focused;
+    this.focused = false;
+
+    this.service.startEdit(this.key);
+
     this.submitted = false;
     this.editingValue = this.value;
+    this.editing = true;
 
     let sub = this.text.changes.subscribe((l: QueryList<TextComponent>) => {
       if(l.length) {
@@ -91,7 +103,32 @@ export class EditableHeadingComponent implements OnInit {
       return;
     }
 
+    if(this.wasFocused) {
+      this.wasFocused = false;
+      let sub = this.edit.changes.subscribe((l: QueryList<EditableEditButtonComponent>) => {
+        if(l.length) {
+          l.first.takeFocus();
+          sub.unsubscribe();
+        }
+      })
+    }
+
     this.value = this.editingValue;
     this.valueChange.emit(this.value);
+    this.editing = false;
+  }
+
+  cancel() {
+    if(this.wasFocused) {
+      this.wasFocused = false;
+      let sub = this.edit.changes.subscribe((l: QueryList<EditableEditButtonComponent>) => {
+        if(l.length) {
+          l.first.takeFocus();
+          sub.unsubscribe();
+        }
+      })
+    }
+
+    this.editing = false;
   }
 }

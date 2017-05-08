@@ -1053,10 +1053,17 @@ input[type="text"].price {
   @textSize: 10px;
 
   .buttonNew(@outerSize; @outerPadding; @iconSize; @textSize);
-  .buttonNewColors(#999; #aaa; transparent; #aaa);
+  .buttonNewColors(#999; #fff; fade(#999, 30%); transparent);
+  .buttonShadow(fade(#777, 30%));
 
-  &:hover, &:focus, &.hover {
+  &:hover, &.hover {
+    .buttonNewColors(@boxProductHover; #fff; @boxProductHover; transparent);
+    .buttonShadow(@boxProductHover);
+  }
+
+  &:focus {
     .buttonNewColors(@boxProductHover; #fff; @boxProductHover; @boxProductHover);
+    .buttonShadow(@boxProductHover);
   }
 
   &.button-new-right {
@@ -1134,8 +1141,9 @@ button.button-new {
   height: 16px;
   padding: 3px 0px;
   color: white;
-  border: 1px solid rgba(187,187,187, 0.5);
+  //border: 1px solid rgba(187,187,187, 0.5);
   position: relative;
+  box-shadow: fade(#999, 50%) 0 2px 5px 0 inset;
 
   .buttonIconSize(@iconSize) {
     &::before {
@@ -1159,8 +1167,9 @@ button.button-new {
   }
 
   &:hover, &:focus {
-    border: 1px solid @boxProductHover;
+    //border: 1px solid @boxProductHover;
     background: @boxProductHover;
+    box-shadow: @boxProductHover 0 2px 5px 0 inset;
 
     i::before {
       color: white;
@@ -1169,7 +1178,7 @@ button.button-new {
 
   i.icon-edit {
     .buttonIconSize(10px);
-    .buttonIconNudge(1px; -1px);
+    .buttonIconNudge(1.5px; 0px);
   }
 
   i.icon-trash {
@@ -1181,7 +1190,11 @@ button.button-new {
   }
 
   i.icon-cancel {
-    .buttonIconNudge(0px; -0.5px);
+    .buttonIconNudge(0.5px; -0.5px);
+  }
+
+  i.icon-add {
+    .buttonIconNudge(0px; 0px);
   }
 }
 
@@ -1189,32 +1202,22 @@ button.button-new-small {
   cursor: pointer;
   top: -0.5px;
   padding-top: 3px;
+  border: none;
 
   &[disabled] {
     cursor: default;
     background: rgba(187,187,187, 0.2);
-    border: 1px solid rgba(187,187,187, 0.2);
+    // border: 1px solid rgba(187,187,187, 0.2);
     i:before {
       color: rgba(255, 255, 255, 0.5);
     }
 
     &:hover, &:focus {
       background: rgba(187,187,187, 0.2);
-      border: 1px solid rgba(187,187,187, 0.2);
+      // border: 1px solid rgba(187,187,187, 0.2);
       i:before {
         color: rgba(255, 255, 255, 0.5);
       }
-    }
-  }
-}
-
-.editable-value-display:hover, .hover, .editable-display-clickable:hover {
-  .button-new-small {
-    border: 1px solid @boxProductHover;
-    background: @boxProductHover;
-
-    i::before {
-      color: white;
     }
   }
 }
@@ -1320,18 +1323,75 @@ button.button-new-small {
   }
 }
 
-.editable {
-  position: relative;
+.editable-display-clickable {
+  &:hover, &.hover {
+    color: @boxProductHover;
+    cursor: pointer;
 
-  &.editable-display-clickable {
-    &:hover {
-      color: @boxProductHover;
-      cursor: pointer;
-      .muted {
-        color: @boxProductHover !important;
+    .muted {
+      color: @boxProductHover !important;
+    }
+
+    .button-new-small {
+      // border: 1px solid @boxProductHover;
+      background: @boxProductHover;
+      box-shadow: @boxProductHover 0 2px 5px 0 inset;
+
+      i::before {
+        color: white;
       }
     }
   }
+}
+
+.editable-background {
+  background: desaturate(darken(@itemHoverColor, 6%), 0%);
+  position: absolute;
+  padding: 3px;
+  padding-right: 5px;
+  vertical-align: middle;
+  top: -7px;
+  left: -7px;
+
+  .button-new-small {
+    margin: 0;
+    margin-top: 2px;
+  }
+}
+
+form {
+  display: inline-block;
+
+  input, select, textarea {
+    & ~ .icon-warning {
+      font-size: 80%;
+      padding: 0;
+      color: #E80000;
+      cursor: help;
+      display: none;
+      margin-left: -5px;
+      margin-right: -4px;
+      position: relative;
+      top: -1px;
+    }
+  }
+
+  &.submitted {
+    input.ng-invalid, select.ng-invalid, textarea.ng-invalid {
+      border: 1px solid lighten(#E80000, 20%);
+      box-shadow: lighten(#E80000, 35%) 0px 0px 3px 0px,
+                  lighten(#E80000, 35%) 0px 0px 3px 0px inset;
+      background: lighten(#E80000, 52%);
+
+      & ~ .icon-warning {
+        display: inline;
+      }
+    }
+  }
+}
+
+.editable {
+  position: relative;
 
   .editable-display {
     .editable-display-value {
@@ -1341,52 +1401,6 @@ button.button-new-small {
     .button-new-small {
       position: relative;
       top: -2px;
-    }
-  }
-
-  .editable-background {
-    background: desaturate(darken(@itemHoverColor, 6%), 0%);
-    position: absolute;
-    padding: 3px;
-    padding-right: 5px;
-    vertical-align: middle;
-    top: -7px;
-    left: -7px;
-
-    .button-new-small {
-      margin: 0;
-      margin-top: 5px;
-    }
-  }
-
-  form {
-    display: inline-block;
-
-    input, select, textarea {
-      & ~ .icon-warning {
-        font-size: 80%;
-        padding: 0;
-        color: #E80000;
-        cursor: help;
-        display: none;
-        margin-left: -5px;
-        margin-right: -4px;
-        position: relative;
-        top: -1px;
-      }
-    }
-
-    &.submitted {
-      input.ng-invalid, select.ng-invalid, textarea.ng-invalid {
-        border: 1px solid lighten(#E80000, 20%);
-        box-shadow: lighten(#E80000, 35%) 0px 0px 3px 0px,
-                    lighten(#E80000, 35%) 0px 0px 3px 0px inset;
-        background: lighten(#E80000, 52%);
-
-        & ~ .icon-warning {
-          display: inline;
-        }
-      }
     }
   }
 }
@@ -1428,7 +1442,7 @@ button.button-new-small {
     }
   } 
   
-  &:hover {
+  &:hover, &.hover {
     h3.editable-display-value {
       color: @boxProductHover;
     }
@@ -1468,10 +1482,10 @@ button.button-new-small {
     padding: 3px 5px;
     padding-top: 2px;
 
-    &.hover {
-      color: @boxProductHover;
-      cursor: pointer;
-    }
+    // &.hover {
+    //   color: @boxProductHover;
+    //   cursor: pointer;
+    // }
   }
 
   cc-tbody, tbody {

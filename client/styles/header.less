@@ -61,10 +61,13 @@
 
   .button-new {
     .buttonNewColors(@mainHeaderButtonBackground; @mainHeaderButtonBackground; @header; @mainHeaderButtonBackground);
+    .buttonShadow(@header);
+
     margin-right: 0;
 
     &:hover, &:focus {
       .buttonNewColors(white; @header; white; white);
+      .buttonShadow(white);
     }
   }
 
@@ -98,9 +101,11 @@
 
         .button-new {
           .buttonNewColors(white; @header; white; @header);
+          .buttonShadow(white);
 
           &:hover, &:focus {
            .buttonNewColors(white; @header; white; white);
+           .buttonShadow(white);
           }
         }
       }
@@ -194,6 +199,7 @@
 
     .button-new {
       .buttonNewColors(#ddd, #ddd, @sectionHeaderButtonBackground, #ddd);
+      .buttonShadow(@sectionHeaderButtonBackground);
 
       float: left;
       margin-top: 11px;
@@ -201,12 +207,16 @@
 
       &:hover, &:focus {
         .buttonNewColors(@carrot, @sectionHeaderButtonBackground, @carrot, @carrot);
+        .buttonShadow(@carrot);
       }
 
       &.selected {
         .buttonNewColors(@carrot, @sectionHeaderButtonBackground, @carrot, @sectionHeaderButtonBackground);
+        .buttonShadow(@carrot);
+        
         &:hover, &:focus {
           .buttonNewColors(@carrot, @sectionHeaderButtonBackground, @carrot, @carrot);
+          .buttonShadow(@carrot);
         }
       }
     }
