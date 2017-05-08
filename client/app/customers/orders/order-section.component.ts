@@ -90,10 +90,25 @@ export class OrderSectionComponent implements OnInit {
     });
   }
 
-  completeAdd() {
+  completeAdd(keydown: boolean) {
     this.submitted = true;
 
     if(this.quantity.valid) {
+      if(this.model.itemsAvailable.length > 1) {
+        let sub = this.addBtn.changes.subscribe((l: QueryList<EditableEditButtonComponent>) => {
+          if(l.length) {
+            l.first.takeFocus();
+            sub.unsubscribe();
+          }
+        });
+      } else {
+        let sub = this.itemCmpts.changes.subscribe((l: QueryList<OrderItemComponent>) => {
+          if(l.length) {
+            l.first.focusRemove();
+            sub.unsubscribe();
+          }
+        });
+      }
       this.model.completeAdd();
     }
   }
@@ -103,7 +118,6 @@ export class OrderSectionComponent implements OnInit {
   }
 
   itemRemoved(index: number, keydown: boolean) {
-    console.log('itemRemoved(' + index + ', ' + keydown + ')')
     if(keydown) {
       if(this.itemCmpts.length > 1) {
         let sub = this.itemCmpts.changes.subscribe((l: QueryList<OrderItemComponent>) => {

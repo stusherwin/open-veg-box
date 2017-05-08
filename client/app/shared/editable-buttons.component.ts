@@ -7,8 +7,8 @@ import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirec
       <button class="button-new-small"
         [disabled]="disabled"
         tabindex="1"
-        (click)="onOk(false)"
-        (keydown.Enter)="onOk(true)">
+        (click)="onOk()"
+        (keydown.Enter)="onOkEnter()">
         <i class="icon-ok"></i>
       </button>
       <a class="button-new-small"
@@ -35,10 +35,16 @@ export class EditableButtonsComponent {
   @Output()
   cancel = new EventEmitter<boolean>()
 
-  onOk(keydown: boolean) {
+  okEnter = false;
+  onOk() {
     if(!this.disabled) {
-      this.ok.emit(keydown)
-   }
+      this.ok.emit(this.okEnter)
+    }
+  }
+
+  onOkEnter() {
+    this.okEnter = true;
+    setTimeout(() => this.okEnter = false);
   }
 
   onCancel(keydown: boolean) {

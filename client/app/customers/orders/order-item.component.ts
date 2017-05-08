@@ -29,6 +29,7 @@ import { EditableService } from '../../shared/editable.service'
 export class OrderItemComponent implements OnInit {
   hover: boolean;
   focused: boolean;
+  wasFocused: boolean;
 
   @Input()
   key: string
@@ -44,6 +45,9 @@ export class OrderItemComponent implements OnInit {
 
   @ViewChild('removeBtn')
   removeBtn: ElementRef;
+
+  @ViewChildren('editBtn')
+  editBtn: QueryList<EditableEditButtonComponent>;
 
   @HostListener('mouseleave') 
   mouseleave() {
@@ -81,6 +85,8 @@ export class OrderItemComponent implements OnInit {
   }
 
   startEdit() {
+    this.wasFocused = this.focused;
+    this.focused = false;
     this.submitted = false;
     this.editableService.startEdit(this.editKey);
     this.model.startEdit();
@@ -96,11 +102,29 @@ export class OrderItemComponent implements OnInit {
     this.submitted = true;
     
     if(this.quantity.valid) {
+      if(this.wasFocused) {
+        this.wasFocused = false;
+        let sub = this.editBtn.changes.subscribe((l: QueryList<EditableEditButtonComponent>) => {
+          if(l.length) {
+            l.first.takeFocus();
+            sub.unsubscribe();
+          }
+        })
+      }
       this.model.completeEdit();
     }
   }
 
   cancelEdit() {
+    if(this.wasFocused) {
+      this.wasFocused = false;
+      let sub = this.editBtn.changes.subscribe((l: QueryList<EditableEditButtonComponent>) => {
+        if(l.length) {
+          l.first.takeFocus();
+          sub.unsubscribe();
+        }
+      })
+    }
     this.model.cancelEdit();
   }
 

@@ -43,6 +43,7 @@ export class OrderModel {
 
     this.boxesSection = new OrderSectionModel(order.boxes, allBoxes, {
       add(itemId: number, quantity: number): Observable<any> {
+        console.log('add box')
         return orderService.addBox(order.id, itemId, {quantity})
                            .map(o => {order.total = o.total; return o});
       },
@@ -128,7 +129,10 @@ export class OrderSectionModel {
   }
 
   completeAdd() {
+   console.log('completeAdd')
+
     this._service.add(this.addingItem.id, this.addingItemQuantity).subscribe(_ => {
+      console.log('completeAdd (back from server)')
       this.items.unshift(new OrderItemModel(this.addingItem.id, this.addingItem.name, this.addingItem.price, this.addingItemQuantity, this.addingItem.unitType, this));
       this.adding = false;
     });

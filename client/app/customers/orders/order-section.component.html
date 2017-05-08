@@ -38,7 +38,7 @@
     </cc-td>
     <cc-td class="action">
       <cc-editable-buttons [disabled]="submitted && !quantity.valid"
-                           (ok)="completeAdd()"
+                           (ok)="completeAdd($event)"
                            (cancel)="cancelAdd()">
       </cc-editable-buttons>
     </cc-td>

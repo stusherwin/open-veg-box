@@ -17,7 +17,7 @@
   </span>
 </cc-td>
 <cc-td class="action" [class.editable-background]="model.editing" (mouseenter)="hover = true" (mouseleave)="hover = false" [class.editable-display-clickable]="!model.editing" [class.hover]="focused || hover">
-  <cc-editable-button icon="edit"
+  <cc-editable-button icon="edit" #editBtn
                       *ngIf="!model.editing"
                       (click)="startEdit()" (focus)="focused = true" (blur)="focused = false">
   </cc-editable-button>
