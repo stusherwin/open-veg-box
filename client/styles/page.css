@@ -1115,6 +1115,99 @@ button.button-new-small[disabled]:focus i:before {
 .row-view-new.no-hover.focused > .row:nth-child(2n+1) {
   background: #f5f5f5;
 }
+.editable {
+  position: relative;
+}
+.editable.editable-display-clickable:hover {
+  color: #ffa011;
+  cursor: pointer;
+}
+.editable.editable-display-clickable:hover .muted {
+  color: #ffa011 !important;
+}
+.editable .editable-display .editable-display-value {
+  border: 1px solid transparent;
+}
+.editable .editable-display .button-new-small {
+  position: relative;
+  top: -2px;
+}
+.editable .editable-background {
+  background: #ffe5be;
+  position: absolute;
+  padding: 3px;
+  padding-right: 5px;
+  vertical-align: middle;
+  top: -7px;
+  left: -7px;
+}
+.editable .editable-background .button-new-small {
+  margin: 0;
+  margin-top: 5px;
+}
+.editable form {
+  display: inline-block;
+}
+.editable form input ~ .icon-warning,
+.editable form select ~ .icon-warning,
+.editable form textarea ~ .icon-warning {
+  font-size: 80%;
+  padding: 0;
+  color: #E80000;
+  cursor: help;
+  display: none;
+  margin-left: -5px;
+  margin-right: -4px;
+  position: relative;
+  top: -1px;
+}
+.editable form.submitted input.ng-invalid,
+.editable form.submitted select.ng-invalid,
+.editable form.submitted textarea.ng-invalid {
+  border: 1px solid #ff4f4f;
+  box-shadow: #ff9c9c 0px 0px 3px 0px, #ff9c9c 0px 0px 3px 0px inset;
+  background: #fff2f2;
+}
+.editable form.submitted input.ng-invalid ~ .icon-warning,
+.editable form.submitted select.ng-invalid ~ .icon-warning,
+.editable form.submitted textarea.ng-invalid ~ .icon-warning {
+  display: inline;
+}
+.editable-textarea .editable-display .editable-display-value {
+  display: inline-block;
+  min-height: 60px;
+  line-height: 1.2em;
+  margin-bottom: 5px;
+}
+.editable-textarea .editable-display .button-new-small {
+  vertical-align: bottom;
+  position: relative;
+  top: -9px;
+}
+.editable-textarea textarea {
+  line-height: 1.2em;
+}
+.editable-textarea .editable-background {
+  top: -5px;
+  padding-bottom: 3px;
+}
+.editable-textarea .editable-background .button-new-small {
+  vertical-align: top;
+}
+.editable-heading .editable-display h3.editable-display-value {
+  display: inline-block;
+}
+.editable-heading:hover h3.editable-display-value {
+  color: #ffa011;
+}
+.editable-heading input[type="text"] {
+  width: 200px;
+  font-size: 150%;
+  font-weight: 300;
+}
+.editable-heading .editable-background .button-new-small {
+  vertical-align: top;
+}
 .details cc-table,
 .details table {
   box-sizing: border-box;
@@ -1193,25 +1286,6 @@ button.button-new-small[disabled]:focus i:before {
   position: absolute;
   left: -10000px;
 }
-.details .editable {
-  position: relative;
-}
-.details .editable-display {
-  border: 1px solid transparent;
-}
-.details .editable-background {
-  background: #ffe5be;
-  position: absolute;
-  padding: 3px;
-  padding-right: 5px;
-  vertical-align: middle;
-  top: -7px;
-  left: -7px;
-}
-.details .editable-background .button-new-small {
-  margin: 0;
-  margin-top: 5px;
-}
 .details .button-new-small ~ .button-new-small {
   margin-left: -2px;
 }
@@ -1227,44 +1301,6 @@ button.button-new-small[disabled]:focus i:before {
   padding: 0 !important;
   position: relative;
   left: -4.5px;
-}
-.details .editable-display-clickable:hover {
-  color: #ffa011;
-  cursor: pointer;
-}
-.details .editable-display-clickable:hover .muted {
-  color: #ffa011 !important;
-}
-.details form {
-  display: inline-block;
-}
-.details form.cc-tr {
-  display: table-row;
-}
-.details form input ~ .icon-warning,
-.details form select ~ .icon-warning,
-.details form textarea ~ .icon-warning {
-  font-size: 80%;
-  padding: 0;
-  color: #E80000;
-  cursor: help;
-  display: none;
-  margin-left: -5px;
-  margin-right: -4px;
-  position: relative;
-  top: -1px;
-}
-.details form.submitted input.ng-invalid,
-.details form.submitted select.ng-invalid,
-.details form.submitted textarea.ng-invalid {
-  border: 1px solid #ff4f4f;
-  box-shadow: #ff9c9c 0px 0px 3px 0px, #ff9c9c 0px 0px 3px 0px inset;
-  background: #fff2f2;
-}
-.details form.submitted input.ng-invalid ~ .icon-warning,
-.details form.submitted select.ng-invalid ~ .icon-warning,
-.details form.submitted textarea.ng-invalid ~ .icon-warning {
-  display: inline;
 }
 .details .contact-details {
   float: left;
@@ -1291,13 +1327,6 @@ button.button-new-small[disabled]:focus i:before {
 .details .contact-details th:first-child {
   padding-left: 0;
 }
-.details .contact-details cc-td .button-new-small,
-.details .contact-details td .button-new-small,
-.details .contact-details cc-th .button-new-small,
-.details .contact-details th .button-new-small {
-  vertical-align: top;
-  margin-left: 2px;
-}
 .details .contact-details cc-th,
 .details .contact-details th {
   color: #aaa;
@@ -1313,27 +1342,13 @@ button.button-new-small[disabled]:focus i:before {
 .details .contact-details td ~ th {
   padding-left: 100px;
 }
-.details .contact-details .multiline-text {
-  display: inline-block;
-  min-height: 60px;
-  line-height: 1.2em;
-  margin-bottom: 5px;
+.cc-tr.editable-background {
+  position: relative;
+  top: 0;
+  left: 0;
 }
-.details .contact-details textarea {
-  line-height: 1.2em;
-}
-.details .contact-details cc-editable-textarea .editable-background {
-  top: -5px;
-  padding-bottom: 0;
-}
-.editable-heading h3 {
-  display: inline-block;
-}
-.editable-heading:hover h3 {
-  color: #ffa011;
-}
-.editable-heading input[type="text"] {
-  width: 200px;
-  font-size: 150%;
-  font-weight: 300;
+.details cc-td.editable-background {
+  position: relative;
+  top: 0;
+  left: 0;
 }

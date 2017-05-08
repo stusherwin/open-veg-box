@@ -1,12 +1,13 @@
 import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, ElementRef, OnInit, Renderer, ViewChildren, QueryList, Directive, HostListener, HostBinding, AfterViewInit, ContentChildren, ChangeDetectorRef } from '@angular/core';
 import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from './active-elements'
+import { EditableService } from './editable.service'
 
 @Component({
   template: `
-    <a *ngIf="visible" class="button-new-small"
+    <a *ngIf="visible" class="button-new-small editable-button"
       tabindex="1"
-      (click)="click.emit(null)"
-      (keydown.Enter)="click.emit(null)"><i class="icon-{{icon}}"></i>
+      (click)="onClick(false)"
+      (keydown.Enter)="onClick(true)"><i class="icon-{{icon}}"></i>
     </a>
   `,
   selector: 'cc-editable-button',
@@ -25,8 +26,18 @@ export class EditableEditButtonComponent implements OnInit {
   tabindex: number = 9999
   
   @Output()
-  click = new EventEmitter<any>()
+  click = new EventEmitter<boolean>()
+
+  constructor(
+    @Inject(forwardRef(() => EditableService))
+    private service: EditableService) {
+  }
 
   ngOnInit() {
+  }
+
+  private onClick(keydown: boolean) {
+    this.service.startEdit(this.key);
+    this.click.emit(keydown);
   }
 }

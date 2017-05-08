@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, ElementRef, OnInit, Renderer, ViewChildren, QueryList, Directive, HostListener, HostBinding, AfterViewInit, ContentChildren, ChangeDetectorRef } from '@angular/core';
 import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from './active-elements'
+import { EditableService } from './editable.service'
 
 @Component({
   template: `
@@ -7,20 +8,20 @@ import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirec
       <button class="button-new-small"
         [disabled]="disabled"
         tabindex="1"
-        (click)="onOk()"
-        (keydown.Enter)="onOk()">
+        (click)="onOk(false)"
+        (keydown.Enter)="onOk(true)">
         <i class="icon-ok"></i>
       </button>
       <a class="button-new-small"
         tabindex="1"
-        (click)="cancel.emit(null)"
-        (keydown.Enter)="cancel.emit(null)"><i class="icon-cancel"></i>
+        (click)="onCancel(false)"
+        (keydown.Enter)="onCancel(true)"><i class="icon-cancel"></i>
       </a>
     </span>
   `,
   selector: 'cc-editable-buttons'
 })
-export class EditableButtonsComponent implements OnInit {
+export class EditableButtonsComponent {
   visible: boolean = true
 
   @Input()
@@ -30,17 +31,25 @@ export class EditableButtonsComponent implements OnInit {
   disabled: boolean
 
   @Output()
-  ok = new EventEmitter<any>()
+  ok = new EventEmitter<boolean>()
 
   @Output()
-  cancel = new EventEmitter<any>()
+  cancel = new EventEmitter<boolean>()
 
-  ngOnInit() {
+  constructor(
+    @Inject(forwardRef(() => EditableService))
+    private service: EditableService) {
   }
 
-  onOk() {
+  onOk(keydown: boolean) {
     if(!this.disabled) {
-      this.ok.emit(null)
-    }
+      this.ok.emit(keydown)
+      this.service.endEdit(this.key);
+   }
+  }
+
+  onCancel(keydown: boolean) {
+    this.cancel.emit(keydown)
+    this.service.endEdit(this.key);
   }
 }

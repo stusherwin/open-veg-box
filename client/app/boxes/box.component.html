@@ -1,8 +1,9 @@
 <div class="row" [class.focused]="rowFocused" #active=cc-active cc-active (activate)="rowFocused = true" (deactivate)="rowFocused = false">
   <div class="details">
-    <cc-editable-heading [(value)]="box.name" (valueChange)="onUpdate()"
-                        [validators]="boxNameValidators"
-                        [messages]="{required: 'BoxProduct name is required'}">
+    <cc-editable-heading key="boxName-{{box.id}}" 
+                         [(value)]="box.name" (valueChange)="onUpdate()"
+                         [validators]="boxNameValidators"
+                         [messages]="{required: 'BoxProduct name is required'}">
     </cc-editable-heading>
     <div class="flex">
       <div class="price-detail">

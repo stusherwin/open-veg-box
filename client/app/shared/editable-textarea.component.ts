@@ -1,21 +1,22 @@
-import { Component, OnInit, Input, Output, Inject, forwardRef, ViewChildren, QueryList, EventEmitter, ViewChild, ElementRef, Renderer, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, Output, Inject, forwardRef, ViewChildren, QueryList, EventEmitter, ViewChild, ElementRef, Renderer, ChangeDetectorRef, HostListener } from '@angular/core';
 import { Control, Validators, FORM_DIRECTIVES, FormBuilder, ControlGroup } from '@angular/common'
 import { TextComponent, TextAreaComponent } from './input.component'
 import { EditableEditButtonComponent } from './editable-edit-button.component'
 import { EditableButtonsComponent } from './editable-buttons.component'
 import { PreserveLinesPipe } from './pipes'
 import { EditableService } from './editable.service'
+import { EditableStartOnClickDirective } from './editable-start-on-click.directive'
 
 @Component({
   selector: 'cc-editable-textarea',
   template: `
-    <div class="editable" [class.editable-display-clickable]="!editing" (click)="startEdit()">
+    <div class="editable editable-textarea" [class.editable-display-clickable]="!editing" cc-editable-start-on-click [key]="key" [disabled]="editing">
       <span class="editable-display" [style.visibility]="editing? 'hidden' : 'visible'">
-        <div class="multiline-text" #display>
+        <div class="editable-display-value" #display>
           <span *ngIf="value" innerHTML="{{value | preserveLines}}"></span>
           <span class="muted" *ngIf="!value">None</span>
         </div>
-        <cc-editable-button icon="edit" *ngIf="!editing" (click)="startEdit()"></cc-editable-button>
+        <cc-editable-button [key]="key" icon="edit" *ngIf="!editing"></cc-editable-button>
       </span>
       <form class="editable-background" [class.submitted]="submitted" *ngIf="editing">
         <cc-textarea #text
@@ -24,11 +25,11 @@ import { EditableService } from './editable.service'
                      [messages]="messages"
                      [height]="textAreaHeight">
         </cc-textarea>
-        <cc-editable-buttons [disabled]="submitted && !control.valid" (ok)="ok()" (cancel)="cancel()"></cc-editable-buttons>
+        <cc-editable-buttons [key]="key" [disabled]="submitted && !control.valid" (ok)="ok()"></cc-editable-buttons>
       </form>
     </div>
   `,
-  directives: [EditableEditButtonComponent, TextAreaComponent, EditableButtonsComponent],
+  directives: [EditableEditButtonComponent, TextAreaComponent, EditableButtonsComponent, EditableStartOnClickDirective],
   pipes: [PreserveLinesPipe]
 })
 export class EditableTextAreaComponent implements OnInit {
@@ -38,6 +39,9 @@ export class EditableTextAreaComponent implements OnInit {
   form: ControlGroup;
   submitted = false;
   textAreaHeight: number = 0;
+
+  @Input()
+  key: string
 
   @Input()
   value: string
@@ -58,8 +62,8 @@ export class EditableTextAreaComponent implements OnInit {
   display: ElementRef
 
   constructor(private builder: FormBuilder, private renderer: Renderer, private changeDetector: ChangeDetectorRef,
-      @Inject(forwardRef(() => EditableService))
-      private service: EditableService) {
+    @Inject(forwardRef(() => EditableService))
+    private service: EditableService) {
   }
 
   ngOnInit() {
@@ -68,24 +72,20 @@ export class EditableTextAreaComponent implements OnInit {
       control: this.control
     })
     
-    this.service.currentlyEditing.subscribe((e: any) => {
-      if(this.editing && e != this) {
-        this.cancel();
+    this.service.currentlyEditing.subscribe((key: string) => {
+      if(!this.editing && key == this.key) {
+        this.editing = true;
+        this.startEdit();
+      } else if(this.editing && key != this.key) {
+        setTimeout(() => this.editing = false);
       }
     })
   }
 
   startEdit() {
-    if(this.editing) {
-      return;
-    }
-
-    this.service.startEdit(this);
-
     this.textAreaHeight = this.display.nativeElement.getBoundingClientRect().height + 5;
     this.submitted = false;
     this.editingValue = this.value;
-    this.editing = true;
     this.changeDetector.detectChanges();
 
     let sub = this.text.changes.subscribe((l: QueryList<TextComponent>) => {
@@ -104,11 +104,5 @@ export class EditableTextAreaComponent implements OnInit {
 
     this.value = this.editingValue;
     this.valueChange.emit(this.value);
-
-    this.editing = false;
-  }
-
-  cancel() {
-    this.editing = false;
   }
 }

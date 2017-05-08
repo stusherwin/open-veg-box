@@ -145,3 +145,4 @@ Editable
 
 * Bug: if no properties whitelisted, get sql error
 * OnDestroy: unsubscribe to observables!
+* button-new: transparent background is preventing hover highlight

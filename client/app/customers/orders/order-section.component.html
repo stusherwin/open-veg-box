@@ -49,5 +49,5 @@
     <cc-td class="total" [innerHTML]="0 | money:true"></cc-td>
     <cc-td></cc-td>
   </cc-tr>
-  <cc-tr cc-order-item *ngFor="let item of model.items; let i = index; trackBy:getItemId" [model]="item">
+  <cc-tr cc-order-item key="{{key + '-' + item.id}}" *ngFor="let item of model.items; let i = index; trackBy:getItemId" [model]="item">
   </cc-tr>

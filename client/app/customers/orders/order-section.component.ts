@@ -44,6 +44,10 @@ export class OrderSectionComponent implements OnInit {
   form: ControlGroup;
   submitted = false;
 
+  get key() {
+    return this.heading + '-add';
+  }
+
   constructor(private renderer: Renderer, private builder: FormBuilder, 
   @Inject(forwardRef(() => EditableService))
   private editableService: EditableService
@@ -55,8 +59,8 @@ export class OrderSectionComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.editableService.currentlyEditing.subscribe((e: any) => {
-      if(this.model.adding && e != this) {
+    this.editableService.currentlyEditing.subscribe((key: any) => {
+      if(this.model.adding && key != this.key) {
         this.cancelAdd();
       }
     })
@@ -68,7 +72,7 @@ export class OrderSectionComponent implements OnInit {
 
   startAdd(){
     this.submitted = false;
-    this.editableService.startEdit(this);
+    this.editableService.startEdit(this.key);
     this.model.startAdd();
     let sub = this.select.changes.subscribe((l: QueryList<SelectComponent>) => {
       if(l.length) {

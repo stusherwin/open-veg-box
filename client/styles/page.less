@@ -1320,6 +1320,133 @@ button.button-new-small {
   }
 }
 
+.editable {
+  position: relative;
+
+  &.editable-display-clickable {
+    &:hover {
+      color: @boxProductHover;
+      cursor: pointer;
+      .muted {
+        color: @boxProductHover !important;
+      }
+    }
+  }
+
+  .editable-display {
+    .editable-display-value {
+      border: 1px solid transparent;
+    }
+    
+    .button-new-small {
+      position: relative;
+      top: -2px;
+    }
+  }
+
+  .editable-background {
+    background: desaturate(darken(@itemHoverColor, 6%), 0%);
+    position: absolute;
+    padding: 3px;
+    padding-right: 5px;
+    vertical-align: middle;
+    top: -7px;
+    left: -7px;
+
+    .button-new-small {
+      margin: 0;
+      margin-top: 5px;
+    }
+  }
+
+  form {
+    display: inline-block;
+
+    input, select, textarea {
+      & ~ .icon-warning {
+        font-size: 80%;
+        padding: 0;
+        color: #E80000;
+        cursor: help;
+        display: none;
+        margin-left: -5px;
+        margin-right: -4px;
+        position: relative;
+        top: -1px;
+      }
+    }
+
+    &.submitted {
+      input.ng-invalid, select.ng-invalid, textarea.ng-invalid {
+        border: 1px solid lighten(#E80000, 20%);
+        box-shadow: lighten(#E80000, 35%) 0px 0px 3px 0px,
+                    lighten(#E80000, 35%) 0px 0px 3px 0px inset;
+        background: lighten(#E80000, 52%);
+
+        & ~ .icon-warning {
+          display: inline;
+        }
+      }
+    }
+  }
+}
+
+.editable-textarea {
+  .editable-display {
+    .editable-display-value {
+      display: inline-block;
+      min-height: 60px;
+      line-height: 1.2em;
+      margin-bottom: 5px;
+    }
+    
+    .button-new-small {
+      vertical-align: bottom;
+      position: relative;
+      top: -9px;
+    }
+  }
+
+  textarea {
+    line-height: 1.2em;
+  }
+
+  .editable-background {
+    top: -5px;
+    padding-bottom: 3px;
+
+    .button-new-small {
+      vertical-align: top;
+    }
+  }
+}
+
+.editable-heading {
+  .editable-display {
+    h3.editable-display-value {
+      display: inline-block;
+    }
+  } 
+  
+  &:hover {
+    h3.editable-display-value {
+      color: @boxProductHover;
+    }
+  }
+
+  input[type="text"] {
+    width: 200px;
+    font-size: 150%;
+    font-weight: 300;
+  }
+
+  .editable-background {
+    .button-new-small {
+      vertical-align: top;
+    }
+  }
+}
+
 .details {
   cc-table, table {
     box-sizing: border-box;
@@ -1403,29 +1530,6 @@ button.button-new-small {
     left: -10000px;
   }
 
-  .editable {
-    position: relative;
-  }
-
-  .editable-display {
-    border: 1px solid transparent;
-  }
-
-  .editable-background {
-    background: desaturate(darken(@itemHoverColor, 6%), 0%);
-    position: absolute;
-    padding: 3px;
-    padding-right: 5px;
-    vertical-align: middle;
-    top: -7px;
-    left: -7px;
-
-    .button-new-small {
-      margin: 0;
-      margin-top: 5px;
-    }
-  }
-
   .button-new-small ~ .button-new-small {
     margin-left: -2px;
   }
@@ -1443,51 +1547,6 @@ button.button-new-small {
     padding: 0 !important;
     position: relative;
     left: -4.5px;
-  }
-
-  .editable-display-clickable {
-    &:hover {
-      color: @boxProductHover;
-      cursor: pointer;
-      .muted {
-        color: @boxProductHover !important;
-      }
-    }
-  }
-
-  form {
-    display: inline-block;
-
-    &.cc-tr {
-      display: table-row;
-    }
-
-    input, select, textarea {
-      & ~ .icon-warning {
-        font-size: 80%;
-        padding: 0;
-        color: #E80000;
-        cursor: help;
-        display: none;
-        margin-left: -5px;
-        margin-right: -4px;
-        position: relative;
-        top: -1px;
-      }
-    }
-
-    &.submitted {
-      input.ng-invalid, select.ng-invalid, textarea.ng-invalid {
-        border: 1px solid lighten(#E80000, 20%);
-        box-shadow: lighten(#E80000, 35%) 0px 0px 3px 0px,
-                    lighten(#E80000, 35%) 0px 0px 3px 0px inset;
-        background: lighten(#E80000, 52%);
-
-        & ~ .icon-warning {
-          display: inline;
-        }
-      }
-    }
   }
 
   .contact-details {
@@ -1512,10 +1571,10 @@ button.button-new-small {
       vertical-align: top;
       height: 25px;
 
-      .button-new-small {
-        vertical-align: top;
-        margin-left: 2px;
-      }
+      // .button-new-small {
+      //   vertical-align: top;
+      //   margin-left: 2px;
+      // }
     }
 
     cc-th, th {
@@ -1529,41 +1588,17 @@ button.button-new-small {
       }
       width: 250px;
     }
-
-    .multiline-text {
-      display: inline-block;
-      min-height: 60px;
-      line-height: 1.2em;
-      margin-bottom: 5px;
-    }
-
-    textarea {
-      line-height: 1.2em;
-    }
-
-    cc-editable-textarea {
-      .editable-background {
-        top: -5px;
-        padding-bottom: 0;
-      }
-    }
   }
 }
 
-.editable-heading {
-  h3 {
-    display: inline-block;  
-  }
+.cc-tr.editable-background {
+  position: relative;
+  top: 0;
+  left: 0;
+}
 
-  &:hover {
-    h3 {
-      color: @boxProductHover;
-    }
-  } 
-
-  input[type="text"] {
-    width: 200px;
-    font-size: 150%;
-    font-weight: 300;
-  }
+.details cc-td.editable-background {
+  position: relative;
+  top: 0;
+  left: 0;
 }

@@ -28,6 +28,9 @@ import { EditableService } from '../../shared/editable.service'
 })
 export class OrderItemComponent implements OnInit {
   hover: boolean;
+
+  @Input()
+  key: string
   
   @Input()
   model: OrderItemModel
@@ -38,6 +41,14 @@ export class OrderItemComponent implements OnInit {
   @HostListener('mouseleave') 
   mouseleave() {
     this.hover = false;
+  }
+
+  get editKey() {
+    return this.key + '-edit';
+  }
+
+  get removeKey() {
+    return this.key + '-remove';
   }
 
   quantity: Control;
@@ -55,8 +66,8 @@ export class OrderItemComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.editableService.currentlyEditing.subscribe((e: any) => {
-      if(this.model.editing && e != this) {
+    this.editableService.currentlyEditing.subscribe((key: string) => {
+      if(this.model.editing && key != this.editKey) {
         this.cancelEdit();
       }
     })
@@ -64,7 +75,7 @@ export class OrderItemComponent implements OnInit {
 
   startEdit() {
     this.submitted = false;
-    this.editableService.startEdit(this);
+    this.editableService.startEdit(this.editKey);
     this.model.startEdit();
     let sub = this.quantityComponent.changes.subscribe((l: QueryList<NumberComponent>) => {
       if(l.length) {
@@ -87,7 +98,7 @@ export class OrderItemComponent implements OnInit {
   }
 
   remove() {
-    this.editableService.endEdit();
+    this.editableService.startEdit(this.removeKey);
     this.model.remove();
   }
 }
