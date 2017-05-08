@@ -975,23 +975,24 @@ button.button-new[disabled]:focus i {
   height: 16px;
   padding: 3px 0px;
   color: white;
-  position: relative;
   box-shadow: rgba(153, 153, 153, 0.5) 0 2px 5px 0 inset;
 }
 .button-new-small i {
   display: inline-block;
-  padding: 0 2px;
+  width: 16px;
+  vertical-align: middle;
+  text-align: center;
+}
+.button-new-small i::before {
+  vertical-align: middle;
   position: relative;
-}
-.button-new-small i::before {
-  font-size: 11px;
-}
-.button-new-small i::before {
   display: inline-block;
   font-size: 11px;
+  width: 16px;
   color: white;
   padding: 0;
   margin: 0;
+  text-align: center;
 }
 .button-new-small:hover,
 .button-new-small:focus {
@@ -1003,31 +1004,29 @@ button.button-new[disabled]:focus i {
   color: white;
 }
 .button-new-small i.icon-edit::before {
-  font-size: 10px;
-}
-.button-new-small i.icon-edit::before {
-  margin-top: 0px;
-  margin-left: 1.5px;
+  top: -0.5px;
+  left: 0.5px;
 }
 .button-new-small i.icon-trash::before {
-  margin-top: -0.5px;
-  margin-left: 0px;
+  top: -0.5px;
+  left: 0px;
 }
 .button-new-small i.icon-ok::before {
-  margin-top: -0.5px;
-  margin-left: 0px;
+  top: -0.5px;
+  left: 0px;
 }
 .button-new-small i.icon-cancel::before {
-  margin-top: -0.5px;
-  margin-left: 0.5px;
+  top: -0.5px;
+  left: 0px;
 }
 .button-new-small i.icon-add::before {
-  margin-top: 0px;
-  margin-left: 0px;
+  top: 0px;
+  left: 0px;
 }
 button.button-new-small {
   cursor: pointer;
-  top: -0.5px;
+  position: relative;
+  top: -1.5px;
   padding-top: 3px;
   border: none;
 }
@@ -1048,7 +1047,8 @@ button.button-new-small[disabled]:focus i:before {
 }
 @-moz-document url-prefix() {
   button.button-new-small {
-    top: 0px;
+    position: relative;
+    top: -0.5px;
   }
 }
 .loading-indicator {
@@ -1246,6 +1246,7 @@ form.submitted textarea.ng-invalid ~ .icon-warning {
 .details cc-th,
 .details td,
 .details th {
+  height: 24px;
   box-sizing: border-box;
   display: table-cell;
   padding: 3px 5px;
@@ -1296,25 +1297,24 @@ form.submitted textarea.ng-invalid ~ .icon-warning {
 .details .action {
   text-align: right;
 }
+.details .action .button-new-small {
+  text-align: left;
+}
 .details .off-screen {
   position: absolute;
   left: -10000px;
-}
-.details .button-new-small ~ .button-new-small {
-  margin-left: -2px;
 }
 .details input.order-quantity {
   margin: 0;
   padding: 0 2px !important;
   width: 50px;
   position: relative;
-  left: -2.5px;
 }
 .details select.order-item {
   margin: 0;
   padding: 0 !important;
   position: relative;
-  left: -4.5px;
+  left: -2px;
 }
 .details .contact-details {
   float: left;
@@ -1333,7 +1333,6 @@ form.submitted textarea.ng-invalid ~ .icon-warning {
 .details .contact-details cc-th,
 .details .contact-details th {
   vertical-align: top;
-  height: 25px;
 }
 .details .contact-details cc-td:first-child,
 .details .contact-details td:first-child,
@@ -1365,4 +1364,7 @@ form.submitted textarea.ng-invalid ~ .icon-warning {
   position: relative;
   top: 0;
   left: 0;
+}
+.button-new-small ~ .button-new-small {
+  margin-left: -2px;
 }

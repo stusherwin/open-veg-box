@@ -1,8 +1,8 @@
   <cc-tr-header class="order-header">
     <cc-td>{{heading}}</cc-td>
-    <cc-td></cc-td>
-    <cc-td></cc-td>
-    <cc-td></cc-td>
+    <cc-td>&nbsp;</cc-td>
+    <cc-td>&nbsp;</cc-td>
+    <cc-td>&nbsp;</cc-td>
     <cc-td class="action">
       <cc-editable-button #addBtn
                           icon="add"
@@ -10,6 +10,7 @@
                           [tabindex]="1"
                           (click)="startAdd()">
       </cc-editable-button>
+      <span *ngIf="model.adding || !model.itemsAvailable.length">&nbsp;</span>
     </cc-td>
   </cc-tr-header>
   <form class="cc-tr add-row editable-background"
@@ -32,7 +33,7 @@
       </cc-number>
       <span *ngIf="model.addingItem.unitType == 'perKg'">Kg</span>
     </cc-td>
-    <cc-td></cc-td>
+    <cc-td>&nbsp;</cc-td>
     <cc-td class="total modified"
            [innerHTML]="model.addingItemTotal | money: true">
     </cc-td>
@@ -45,10 +46,10 @@
   </form>
   <cc-tr *ngIf="!model.adding && !model.items.length">
     <cc-td>No {{heading | lowercase}}</cc-td>
-    <cc-td></cc-td>
-    <cc-td></cc-td>
+    <cc-td>&nbsp;</cc-td>
+    <cc-td>&nbsp;</cc-td>
     <cc-td class="total" [innerHTML]="0 | money:true"></cc-td>
-    <cc-td></cc-td>
+    <cc-td>&nbsp;</cc-td>
   </cc-tr>
   <cc-tr cc-order-item #itemCmpt key="{{key + '-' + item.id}}" *ngFor="let item of model.items; let i = index; trackBy:getItemId" [model]="item" (remove)="itemRemoved(i, $event)">
   </cc-tr>

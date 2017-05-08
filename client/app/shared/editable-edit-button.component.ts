@@ -8,8 +8,7 @@ import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirec
       (click)="onClick(false)"
       (keydown.Enter)="onClick(true)"
       (focus)="focus.emit(null)"
-      (blur)="blur.emit(null)"><i class="icon-{{icon}}"></i>
-    </a>
+      (blur)="blur.emit(null)"><i class="icon-{{icon}}"></i></a>
   `,
   selector: 'cc-editable-button',
   directives: [ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective]

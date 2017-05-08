@@ -1142,7 +1142,7 @@ button.button-new {
   padding: 3px 0px;
   color: white;
   //border: 1px solid rgba(187,187,187, 0.5);
-  position: relative;
+  // position: relative;
   box-shadow: fade(#999, 50%) 0 2px 5px 0 inset;
 
   .buttonIconSize(@iconSize) {
@@ -1151,18 +1151,31 @@ button.button-new {
     }
   }
 
+  .buttonIconNudge(@nudgeLeft; @nudgeTop) {
+    &::before {
+      top: @nudgeTop;
+      left: @nudgeLeft;
+    }
+  }
+
   i {
     display: inline-block;
-    .buttonIconSize(11px);
-    padding: 0 2px;
-    position: relative;
+    width: 16px;
+    // background: red;
+    vertical-align: middle;
+    text-align: center;
 
     &::before {
+      vertical-align: middle;
+      position: relative;
       display: inline-block;
       font-size: 11px;
+      width: 16px;
+      // height: 11px;
       color: white;
       padding: 0;
       margin: 0;
+      text-align: center;
     }
   }
 
@@ -1177,8 +1190,8 @@ button.button-new {
   }
 
   i.icon-edit {
-    .buttonIconSize(10px);
-    .buttonIconNudge(1.5px; 0px);
+    // .buttonIconSize(10px);
+    .buttonIconNudge(0.5px; -0.5px);
   }
 
   i.icon-trash {
@@ -1190,7 +1203,7 @@ button.button-new {
   }
 
   i.icon-cancel {
-    .buttonIconNudge(0.5px; -0.5px);
+    .buttonIconNudge(0px; -0.5px);
   }
 
   i.icon-add {
@@ -1200,7 +1213,8 @@ button.button-new {
 
 button.button-new-small {
   cursor: pointer;
-  top: -0.5px;
+  position: relative;
+  top: -1.5px;
   padding-top: 3px;
   border: none;
 
@@ -1229,7 +1243,9 @@ button.button-new-small {
     // margin-top: -1px;
   }
   button.button-new-small {
-    top: 0px;
+    // top: -1px;
+    position: relative;
+    top: -0.5px;
   }
 }
 
@@ -1476,16 +1492,12 @@ form {
   cc-td, cc-th, td, th {
     // background: #faa;
     // border: 1px solid white;
+    height: 24px;
     
     box-sizing: border-box;
     display: table-cell;
     padding: 3px 5px;
     padding-top: 2px;
-
-    // &.hover {
-    //   color: @boxProductHover;
-    //   cursor: pointer;
-    // }
   }
 
   cc-tbody, tbody {
@@ -1528,7 +1540,7 @@ form {
 
   .total, .order-total {
     text-align: right;
-    // background: blue;
+
     &.modified {
       color: @boxProductHover;
     }
@@ -1536,7 +1548,9 @@ form {
 
   .action {
     text-align: right;
-    // width: 42px;
+    .button-new-small {
+      text-align: left;
+    }
   }
 
   .off-screen {
@@ -1544,23 +1558,18 @@ form {
     left: -10000px;
   }
 
-  .button-new-small ~ .button-new-small {
-    margin-left: -2px;
-  }
-
   input.order-quantity {
     margin: 0;
     padding: 0 2px !important;
     width: 50px;
     position: relative;
-    left: -2.5px;
   }
 
   select.order-item {
     margin: 0;
     padding: 0 !important;
     position: relative;
-    left: -4.5px;
+    left: -2px;
   }
 
   .contact-details {
@@ -1583,12 +1592,6 @@ form {
       }
 
       vertical-align: top;
-      height: 25px;
-
-      // .button-new-small {
-      //   vertical-align: top;
-      //   margin-left: 2px;
-      // }
     }
 
     cc-th, th {
@@ -1615,4 +1618,8 @@ form {
   position: relative;
   top: 0;
   left: 0;
+}
+
+.button-new-small ~ .button-new-small {
+  margin-left: -2px;
 }
