@@ -129,14 +129,7 @@ TODO (now)
 * Email edit font size wierdness
 * Make button-new-small structure same as button-new
 * Make button-new background white
-
-* Fix invalid style on editable-values (css for new input-wrapper.invalid)
-* Validation
-* Fix which buttons are focused after clicking/enter on buttons
-* Fix alignment on header row & when editing quantity & edit/ok/cancel buttons
 * Border around button-new-small on hover
-* button-new-small alignment between chrome/Firefox
-* edit button alignment wierd
 * Chrome border wierdness
 
 Editable
@@ -146,7 +139,3 @@ Editable
 * Bug: if no properties whitelisted, get sql error
 * OnDestroy: unsubscribe to observables!
 * button-new: transparent background is preventing hover highlight
-* Add box: tries to add twice? UQ violation (also any updates happen twice) (on keydown?)
-* Text ok/cancel buttons not responding to top margin
-* Add button alignment erratic
-* Update current order total in heading

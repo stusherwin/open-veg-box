@@ -85,6 +85,10 @@ export class OrderItemComponent implements OnInit {
   }
 
   startEdit() {
+    if(this.model.editing) {
+      return;
+    }
+
     this.wasFocused = this.focused;
     this.focused = false;
     this.submitted = false;

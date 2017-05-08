@@ -1,7 +1,7 @@
   <cc-tr-header class="order-header">
     <cc-td>{{heading}}</cc-td>
     <cc-td>&nbsp;</cc-td>
-    <cc-td>&nbsp;</cc-td>
+    <!--<cc-td>&nbsp;</cc-td>-->
     <cc-td>&nbsp;</cc-td>
     <cc-td class="action">
       <cc-editable-button #addBtn
@@ -33,7 +33,7 @@
       </cc-number>
       <span *ngIf="model.addingItem.unitType == 'perKg'">Kg</span>
     </cc-td>
-    <cc-td>&nbsp;</cc-td>
+    <!--<cc-td>&nbsp;</cc-td>-->
     <cc-td class="total modified"
            [innerHTML]="model.addingItemTotal | money: true">
     </cc-td>
@@ -47,7 +47,7 @@
   <cc-tr *ngIf="!model.adding && !model.items.length">
     <cc-td>No {{heading | lowercase}}</cc-td>
     <cc-td>&nbsp;</cc-td>
-    <cc-td>&nbsp;</cc-td>
+    <!--<cc-td>&nbsp;</cc-td>-->
     <cc-td class="total" [innerHTML]="0 | money:true"></cc-td>
     <cc-td>&nbsp;</cc-td>
   </cc-tr>
