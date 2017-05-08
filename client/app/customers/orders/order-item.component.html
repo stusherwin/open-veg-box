@@ -1,12 +1,12 @@
 <cc-td>{{model.name}}</cc-td>
-<cc-td [class.editable-background]="model.editing" (mouseenter)="hover = true" (mouseleave)="hover = false" (click)="startEdit()" [class.editable-display-clickable]="!model.editing" [class.hover]="hover">
+<cc-td [class.editable-background]="model.editing" (mouseenter)="hover = true" (mouseleave)="hover = false" (click)="startEdit()" [class.editable-display-clickable]="!model.editing" [class.hover]="focused || hover">
   <span *ngIf="!model.editing">
     <cc-product-quantity [quantity]="model.quantity" [unitType]="model.unitType"></cc-product-quantity>
   </span>
   <span *ngIf="model.editing">
     <span *ngIf="model.unitType == 'each'">x</span>
     <form [class.submitted]="submitted">
-      <cc-number cssClass="order-quantity" #qty
+      <cc-number cssClass="order-quantity" #quantityCmpt
                 [decimalPrecision]="0"
                 [(value)]="model.editingQuantity"
                 [control]="quantity"
@@ -16,10 +16,10 @@
     <span *ngIf="model.unitType == 'perKg'">Kg</span>
   </span>
 </cc-td>
-<cc-td class="action" [class.editable-background]="model.editing" (mouseenter)="hover = true" (mouseleave)="hover = false" [class.editable-display-clickable]="!model.editing" [class.hover]="hover">
+<cc-td class="action" [class.editable-background]="model.editing" (mouseenter)="hover = true" (mouseleave)="hover = false" [class.editable-display-clickable]="!model.editing" [class.hover]="focused || hover">
   <cc-editable-button icon="edit"
                       *ngIf="!model.editing"
-                      (click)="startEdit()" (focus)="hover = true" (blur)="hover = false">
+                      (click)="startEdit()" (focus)="focused = true" (blur)="focused = false">
   </cc-editable-button>
   <cc-editable-buttons *ngIf="model.editing"
                         [disabled]="submitted && !quantity.valid"
@@ -32,10 +32,10 @@
         [class.modified]="model.editingTotal != model.total">
 </cc-td>
 <cc-td class="action">
-  <a class="button-new-small show-on-edit"
+  <a #removeBtn class="button-new-small show-on-edit"
       tabindex="1"
-      (click)="remove()"
-      (keydown.Enter)="remove()">
+      (click)="removeItem(false)"
+      (keydown.Enter)="removeItem(true)">
     <i class="icon-trash"></i>
   </a>
 </cc-td>

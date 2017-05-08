@@ -43,25 +43,31 @@ export class OrderModel {
 
     this.boxesSection = new OrderSectionModel(order.boxes, allBoxes, {
       add(itemId: number, quantity: number): Observable<any> {
-        return orderService.addBox(order.id, itemId, {quantity});
+        return orderService.addBox(order.id, itemId, {quantity})
+                           .map(o => {order.total = o.total; return o});
       },
       update(itemId: number, quantity: number): Observable<any> {
-        return orderService.updateBox(order.id, itemId, {quantity});
+        return orderService.updateBox(order.id, itemId, {quantity})
+                           .map(o => {order.total = o.total; return o});
       },
       remove(itemId: number): Observable<any> {
-        return orderService.removeBox(order.id, itemId);
+        return orderService.removeBox(order.id, itemId)
+                           .map(o => {order.total = o.total; return o});
       }
     }, this);
 
     this.productsSection = new OrderSectionModel(order.extraProducts, products, {
       add(itemId: number, quantity: number): Observable<any> {
-        return orderService.addProduct(order.id, itemId, {quantity});
+        return orderService.addProduct(order.id, itemId, {quantity})
+                           .map(o => {order.total = o.total; return o});
       },
       update(itemId: number, quantity: number): Observable<any> {
-        return orderService.updateProduct(order.id, itemId, {quantity});
+        return orderService.updateProduct(order.id, itemId, {quantity})
+                           .map(o => {order.total = o.total; return o});
       },
       remove(itemId: number): Observable<any> {
-        return orderService.removeProduct(order.id, itemId);
+        return orderService.removeProduct(order.id, itemId)
+                           .map(o => {order.total = o.total; return o});
       }
     }, this);
   }

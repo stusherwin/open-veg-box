@@ -4,7 +4,8 @@
     <cc-td></cc-td>
     <cc-td></cc-td>
     <cc-td class="action">
-      <cc-editable-button icon="add"
+      <cc-editable-button #addBtn
+                          icon="add"
                           *ngIf="!model.adding && model.itemsAvailable.length"
                           [tabindex]="1"
                           (click)="startAdd()">
@@ -49,5 +50,5 @@
     <cc-td class="total" [innerHTML]="0 | money:true"></cc-td>
     <cc-td></cc-td>
   </cc-tr>
-  <cc-tr cc-order-item key="{{key + '-' + item.id}}" *ngFor="let item of model.items; let i = index; trackBy:getItemId" [model]="item">
+  <cc-tr cc-order-item #itemCmpt key="{{key + '-' + item.id}}" *ngFor="let item of model.items; let i = index; trackBy:getItemId" [model]="item" (remove)="itemRemoved(i, $event)">
   </cc-tr>

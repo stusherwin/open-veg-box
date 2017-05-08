@@ -28,6 +28,7 @@ import { EditableService } from '../../shared/editable.service'
 })
 export class OrderItemComponent implements OnInit {
   hover: boolean;
+  focused: boolean;
 
   @Input()
   key: string
@@ -35,8 +36,14 @@ export class OrderItemComponent implements OnInit {
   @Input()
   model: OrderItemModel
 
-  @ViewChildren('qty')
-  quantityComponent: QueryList<NumberComponent>
+  @Output()
+  remove = new EventEmitter<boolean>()
+
+  @ViewChildren('quantityCmpt')
+  quantityCmpt: QueryList<NumberComponent>
+
+  @ViewChild('removeBtn')
+  removeBtn: ElementRef;
 
   @HostListener('mouseleave') 
   mouseleave() {
@@ -77,7 +84,7 @@ export class OrderItemComponent implements OnInit {
     this.submitted = false;
     this.editableService.startEdit(this.editKey);
     this.model.startEdit();
-    let sub = this.quantityComponent.changes.subscribe((l: QueryList<NumberComponent>) => {
+    let sub = this.quantityCmpt.changes.subscribe((l: QueryList<NumberComponent>) => {
       if(l.length) {
         l.first.focus();
         sub.unsubscribe();
@@ -97,8 +104,13 @@ export class OrderItemComponent implements OnInit {
     this.model.cancelEdit();
   }
 
-  remove() {
+  removeItem(keydown: boolean) {
     this.editableService.startEdit(this.removeKey);
     this.model.remove();
+    this.remove.emit(keydown);
+  }
+
+  focusRemove() {
+    this.renderer.invokeElementMethod(this.removeBtn.nativeElement, 'focus', []);
   }
 }

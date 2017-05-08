@@ -146,5 +146,7 @@ Editable
 * Bug: if no properties whitelisted, get sql error
 * OnDestroy: unsubscribe to observables!
 * button-new: transparent background is preventing hover highlight
-* Add box: tries to add twice? UQ violation (also any updates happen twice)
+* Add box: tries to add twice? UQ violation (also any updates happen twice) (on keydown?)
 * Text ok/cancel buttons not responding to top margin
+* Add button alignment erratic
+* Update current order total in heading

@@ -40,6 +40,12 @@ export class OrderSectionComponent implements OnInit {
   @ViewChildren('select')
   select: QueryList<SelectComponent>;
 
+  @ViewChildren('itemCmpt')
+  itemCmpts: QueryList<OrderItemComponent>;
+
+  @ViewChildren('addBtn')
+  addBtn: QueryList<EditableEditButtonComponent>;
+
   quantity: Control;
   form: ControlGroup;
   submitted = false;
@@ -94,5 +100,23 @@ export class OrderSectionComponent implements OnInit {
 
   cancelAdd() {
     this.model.cancelAdd();
+  }
+
+  itemRemoved(index: number, keydown: boolean) {
+    console.log('itemRemoved(' + index + ', ' + keydown + ')')
+    if(keydown) {
+      if(this.itemCmpts.length > 1) {
+        let sub = this.itemCmpts.changes.subscribe((l: QueryList<OrderItemComponent>) => {
+          if(l.length) {
+            l.toArray()[Math.min(index, l.length - 1)].focusRemove();
+            sub.unsubscribe();
+          }
+        });
+      } else {
+        if(this.addBtn.length) {
+          this.addBtn.first.takeFocus();
+        }
+      }
+    }
   }
 }
