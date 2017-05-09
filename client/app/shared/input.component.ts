@@ -20,7 +20,6 @@ interface ValidationResult{
           (ngModelChange)="valueChange.emit($event)"
           [ngFormControl]="control"
           tabindex="1" />
-    <i class="icon-warning" [title]="message"></i>
   `,
   selector: 'cc-text',
   directives: [FORM_DIRECTIVES]
@@ -53,18 +52,6 @@ export class TextComponent extends InputComponent implements OnInit {
   ngOnInit() {
   }
 
-  get message(): string {
-    if(!this.control || this.control.valid) {
-      return '';
-    }
-
-    for(let m in this.messages) {
-      if(this.control.errors[m]) {
-        return this.messages[m];
-      }
-    }
-  }
-
   focus() {
     this.renderer.invokeElementMethod(this.input.nativeElement, 'focus', []);
   }
@@ -77,7 +64,6 @@ export class TextComponent extends InputComponent implements OnInit {
           (ngModelChange)="updateValue($event)"
           [ngFormControl]="control"
           tabindex="1" />
-    <i class="icon-warning" [title]="message"></i>
   `,
   selector: 'cc-number',
   directives: [FORM_DIRECTIVES]
@@ -101,9 +87,6 @@ export class NumberComponent extends InputComponent implements OnInit {
   @Input()
   control: Control
 
-  @Input()
-  messages: any;
-
   @Output()
   valueChange = new EventEmitter<number>()
 
@@ -116,18 +99,6 @@ export class NumberComponent extends InputComponent implements OnInit {
 
   ngOnInit() {
     this.stringValue = this.toStringValue(this.value);
-  }
-
-  get message(): string {
-    if(!this.control || this.control.valid) {
-      return '';
-    }
-
-    for(let m in this.messages) {
-      if(this.control.errors[m]) {
-        return this.messages[m];
-      }
-    }
   }
 
   updateValue(stringValue: string) {
@@ -187,7 +158,6 @@ export class NumberComponent extends InputComponent implements OnInit {
           tabindex="1"
           [style.height.px]="height">
     </textarea>
-    <i class="icon-warning" [title]="message"></i>
   `,
   selector: 'cc-textarea',
   directives: [FORM_DIRECTIVES]
@@ -205,9 +175,6 @@ export class TextAreaComponent extends InputComponent implements OnInit {
   control: Control
 
   @Input()
-  messages: any;
-
-  @Input()
   height: number = 76;
 
   @Output()
@@ -221,18 +188,6 @@ export class TextAreaComponent extends InputComponent implements OnInit {
   }
 
   ngOnInit() {
-  }
-
-  get message(): string {
-    if(!this.control || this.control.valid) {
-      return '';
-    }
-
-    for(let m in this.messages) {
-      if(this.control.errors[m]) {
-        return this.messages[m];
-      }
-    }
   }
 
   focus() {

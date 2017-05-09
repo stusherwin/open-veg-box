@@ -14,13 +14,21 @@ import { EditableService } from './editable.service'
         <h3 class="editable-display-value muted" *ngIf="!value">None</h3>
         <cc-editable-button #edit [key]="key" icon="edit" *ngIf="!editing" (click)="startEdit()" (focus)="focused = true" (blur)="focused = false"></cc-editable-button>
       </span>
-      <form class="editable-background" [class.submitted]="submitted" *ngIf="editing">
+      <form class="editable-background" [class.submitted]="submitted" [class.invalid]="submitted && !control.valid" *ngIf="editing">
         <cc-text #text
                  [(value)]="editingValue"
-                 [control]="control"
-                 [messages]="messages">
+                 (valueChange)="setValidationMessage()"
+                 [control]="control">
         </cc-text>
-        <cc-editable-buttons [key]="key" [disabled]="submitted && !control.valid" (ok)="ok()" (cancel)="cancel()"></cc-editable-buttons>
+        <span class="validation-warning"
+              *ngIf="submitted && !control.valid"
+              [title]="validationMessage">
+          <i class="icon-warning"></i>
+        </span>
+        <cc-editable-buttons [invalid]="submitted && !control.valid"
+                             (ok)="ok()"
+                             (cancel)="cancel()">
+        </cc-editable-buttons>
       </form>
     </div>
   `,
@@ -34,6 +42,7 @@ export class EditableHeadingComponent implements OnInit {
   submitted = false;
   focused = false;
   wasFocused = false;
+  validationMessage: string;
   
   @Input()
   key: string
@@ -100,6 +109,7 @@ export class EditableHeadingComponent implements OnInit {
   ok() {
     this.submitted = true;
     if(!this.control.valid) {
+      this.setValidationMessage();
       return;
     }
 
@@ -130,5 +140,17 @@ export class EditableHeadingComponent implements OnInit {
     }
 
     this.editing = false;
+  }
+
+  setValidationMessage() {
+    if(!this.submitted || this.control.valid) {
+      this.validationMessage = '';
+      return;
+    }
+
+    for(let e in this.control.errors) {
+      this.validationMessage = this.messages[e] ? this.messages[e] : e;
+      return;
+    }
   }
 }

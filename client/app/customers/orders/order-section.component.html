@@ -15,7 +15,8 @@
   </cc-tr-header>
   <form class="cc-tr add-row editable-background"
          *ngIf="model.adding && model.itemsAvailable.length"
-         [class.submitted]="submitted">
+         [class.submitted]="submitted"
+         [class.invalid]="submitted && !quantity.valid">
     <cc-td>
       <cc-select cssClass="order-item" #select
         [(value)]="model.addingItem"
@@ -28,8 +29,8 @@
       <cc-number cssClass="order-quantity"
             [decimalPrecision]="0"
             [(value)]="model.addingItemQuantity"
-            [control]="quantity" 
-            [messages]="{notGreaterThanZero: 'Quantity must be greater than zero.', notNumeric: 'Quantity must be a number.'}">
+            (valueChange)="setValidationMessage()"
+            [control]="quantity">
       </cc-number>
       <span *ngIf="model.addingItem.unitType == 'perKg'">Kg</span>
     </cc-td>
@@ -38,7 +39,12 @@
            [innerHTML]="model.addingItemTotal | money: true">
     </cc-td>
     <cc-td class="action">
-      <cc-editable-buttons [disabled]="submitted && !quantity.valid"
+      <span class="validation-warning"
+            *ngIf="submitted && !quantity.valid"
+            [title]="quantityValidationMessage">
+        <i class="icon-warning"></i>
+      </span>
+      <cc-editable-buttons [invalid]="submitted && !quantity.valid"
                            (ok)="completeAdd($event)"
                            (cancel)="cancelAdd()">
       </cc-editable-buttons>

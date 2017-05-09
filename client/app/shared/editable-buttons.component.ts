@@ -3,31 +3,27 @@ import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirec
 
 @Component({
   template: `
-    <span *ngIf="visible">
-      <button class="button-new-small"
-        [disabled]="disabled"
-        tabindex="1"
-        (click)="onOk()"
-        (keydown.Enter)="onOkEnter()">
-        <i class="icon-ok"></i>
-      </button>
-      <a class="button-new-small"
-        tabindex="1"
-        (click)="onCancel(false)"
-        (keydown.Enter)="onCancel(true)"><i class="icon-cancel"></i>
-      </a>
-    </span>
+    <a class="button-new-small"
+      *ngIf="!invalid"
+      tabindex="1"
+      (click)="onOk(false)"
+      (keydown.Enter)="onOk(true)">
+      <i class="icon-ok"></i>
+    </a>
+    <a class="button-new-small"
+      tabindex="1"
+      (click)="onCancel(false)"
+      (keydown.Enter)="onCancel(true)"><i class="icon-cancel"></i>
+    </a>
   `,
   selector: 'cc-editable-buttons'
 })
 export class EditableButtonsComponent {
-  visible: boolean = true
-
-  @Input()
-  key: string
-
   @Input()
   disabled: boolean
+
+  @Input()
+  invalid: boolean
 
   @Output()
   ok = new EventEmitter<boolean>()
@@ -35,16 +31,10 @@ export class EditableButtonsComponent {
   @Output()
   cancel = new EventEmitter<boolean>()
 
-  okEnter = false;
-  onOk() {
+  onOk(keydown: boolean) {
     if(!this.disabled) {
-      this.ok.emit(this.okEnter)
+      this.ok.emit(keydown)
     }
-  }
-
-  onOkEnter() {
-    this.okEnter = true;
-    setTimeout(() => this.okEnter = false);
   }
 
   onCancel(keydown: boolean) {

@@ -17,14 +17,22 @@ import { EditableService } from './editable.service'
         </div>
         <cc-editable-button #edit [key]="key" icon="edit" *ngIf="!editing" (click)="startEdit()" (focus)="focused = true" (blur)="focused = false"></cc-editable-button>
       </span>
-      <form class="editable-background" [class.submitted]="submitted" *ngIf="editing">
+      <form class="editable-background" [class.submitted]="submitted" [class.invalid]="submitted && !control.valid" *ngIf="editing">
         <cc-textarea #text
                      [(value)]="editingValue"
+                     (valueChange)="setValidationMessage()"
                      [control]="control"
-                     [messages]="messages"
                      [height]="textAreaHeight">
         </cc-textarea>
-        <cc-editable-buttons [key]="key" [disabled]="submitted && !control.valid" (ok)="ok()" (cancel)="cancel()"></cc-editable-buttons>
+        <span class="validation-warning"
+              *ngIf="submitted && !control.valid"
+              [title]="validationMessage">
+          <i class="icon-warning"></i>
+        </span>
+        <cc-editable-buttons [invalid]="submitted && !control.valid"
+                             (ok)="ok()"
+                             (cancel)="cancel()">
+        </cc-editable-buttons>
       </form>
     </div>
   `,
@@ -39,6 +47,7 @@ export class EditableTextAreaComponent implements OnInit {
   submitted = false;
   focused = false;
   wasFocused = false;
+  validationMessage: string;
 
   textAreaHeight: number = 0;
 
@@ -112,6 +121,7 @@ export class EditableTextAreaComponent implements OnInit {
   ok() {
     this.submitted = true;
     if(!this.control.valid) {
+      this.setValidationMessage();
       return;
     }
 
@@ -142,5 +152,17 @@ export class EditableTextAreaComponent implements OnInit {
     }
     
     this.editing = false;
+  }
+
+  setValidationMessage() {
+    if(!this.submitted || this.control.valid) {
+      this.validationMessage = '';
+      return;
+    }
+
+    for(let e in this.control.errors) {
+      this.validationMessage = this.messages[e] ? this.messages[e] : e;
+      return;
+    }
   }
 }

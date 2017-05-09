@@ -65,7 +65,9 @@ export class OrderItemComponent implements OnInit {
   quantity: Control;
   form: ControlGroup;
   submitted = false;
-  
+  quantityMessages = {required: 'Quantity is required.', notGreaterThanZero: 'Quantity must be greater than zero.', notNumeric: 'Quantity must be a number.'}
+  quantityValidationMessage: string;
+
   constructor(private renderer: Renderer, private builder: FormBuilder, 
   @Inject(forwardRef(() => EditableService))
   private editableService: EditableService
@@ -105,7 +107,9 @@ export class OrderItemComponent implements OnInit {
   completeEdit() {
     this.submitted = true;
     
-    if(this.quantity.valid) {
+    if(!this.quantity.valid) {
+      this.setValidationMessage();
+    } else {
       if(this.wasFocused) {
         this.wasFocused = false;
         let sub = this.editBtn.changes.subscribe((l: QueryList<EditableEditButtonComponent>) => {
@@ -140,5 +144,17 @@ export class OrderItemComponent implements OnInit {
 
   focusRemove() {
     this.renderer.invokeElementMethod(this.removeBtn.nativeElement, 'focus', []);
+  }
+
+  setValidationMessage() {
+    if(!this.submitted || this.quantity.valid) {
+      this.quantityValidationMessage = '';
+      return;
+    }
+
+    for(let e in this.quantity.errors) {
+      this.quantityValidationMessage = this.quantityMessages[e] ? this.quantityMessages[e] : e;
+      return;
+    }
   }
 }

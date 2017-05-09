@@ -18,9 +18,10 @@ import { UnitPrice, UnitType, unitTypes } from '../products/product';
         <span class="muted">{{ unitTypeName(value.unitType) }}</span>
         <cc-editable-button #edit [key]="key" icon="edit" *ngIf="!editing" (click)="startEdit()" (focus)="focused = true" (blur)="focused = false"></cc-editable-button>
       </span>
-      <form class="editable-background" [class.submitted]="submitted" *ngIf="editing">
+      <form class="editable-background" [class.submitted]="submitted" [class.invalid]="submitted && !control.valid" *ngIf="editing">
         &pound;<cc-number #number
                  [(value)]="editingValue.price"
+                 (valueChange)="setValidationMessage()"
                  [fixedDecimals]="true"
                  [decimalPrecision]="2"
                  [control]="control"
@@ -32,7 +33,15 @@ import { UnitPrice, UnitType, unitTypes } from '../products/product';
                    textProperty="name"
                    valueProperty="value">
         </cc-select>
-        <cc-editable-buttons [key]="key" [disabled]="submitted && !control.valid" (ok)="ok()" (cancel)="cancel()"></cc-editable-buttons>
+        <span class="validation-warning"
+              *ngIf="submitted && !control.valid"
+              [title]="validationMessage">
+          <i class="icon-warning"></i>
+        </span>
+        <cc-editable-buttons [invalid]="submitted && !control.valid"
+                             (ok)="ok()"
+                             (cancel)="cancel()">
+        </cc-editable-buttons>
       </form>
     </div>
   `,
@@ -48,6 +57,7 @@ export class EditableUnitPriceComponent implements OnInit {
   focused = false;
   wasFocused = false;
   unitTypes: UnitType[];
+  validationMessage: string;
 
   @Input()
   key: string
@@ -72,7 +82,8 @@ export class EditableUnitPriceComponent implements OnInit {
 
   constructor(private builder: FormBuilder,
     @Inject(forwardRef(() => EditableService))
-    private service: EditableService) {
+    private service: EditableService, 
+    private changeDetector: ChangeDetectorRef) {
     this.unitTypes = unitTypes;
   }
 
@@ -122,12 +133,13 @@ export class EditableUnitPriceComponent implements OnInit {
   }
 
   unitTypeChanged(unitType: string) {
-    
+
   }
 
   ok() {
     this.submitted = true;
     if(!this.control.valid) {
+      this.setValidationMessage();
       return;
     }
 
@@ -158,5 +170,17 @@ export class EditableUnitPriceComponent implements OnInit {
     }
 
     this.editing = false;
+  }
+
+  setValidationMessage() {
+    if(!this.submitted || this.control.valid) {
+      this.validationMessage = '';
+      return;
+    }
+
+    for(let e in this.control.errors) {
+      this.validationMessage = this.messages[e] ? this.messages[e] : e;
+      return;
+    }
   }
 }

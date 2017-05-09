@@ -1,5 +1,5 @@
 <cc-td>{{model.name}}</cc-td>
-<cc-td [class.editable-background]="model.editing" (mouseenter)="hover = true" (mouseleave)="hover = false" (click)="startEdit()" [class.editable-display-clickable]="!model.editing" [class.hover]="focused || hover">
+<cc-td [class.editable-background]="model.editing" [class.invalid]="submitted && !quantity.valid" (mouseenter)="hover = true" (mouseleave)="hover = false" (click)="startEdit()" [class.editable-display-clickable]="!model.editing" [class.hover]="focused || hover">
   <span *ngIf="!model.editing">
     <cc-product-quantity [quantity]="model.quantity" [unitType]="model.unitType"></cc-product-quantity>
   </span>
@@ -9,8 +9,8 @@
       <cc-number cssClass="order-quantity" #quantityCmpt
                 [decimalPrecision]="0"
                 [(value)]="model.editingQuantity"
-                [control]="quantity"
-                [messages]="{notGreaterThanZero: 'Quantity must be greater than zero.', notNumeric: 'Quantity must be a number.'}">
+                (valueChange)="setValidationMessage()"
+                [control]="quantity">
       </cc-number>
     </form>
     <span *ngIf="model.unitType == 'perKg'">Kg</span>
@@ -21,8 +21,13 @@
                       *ngIf="!model.editing"
                       (click)="startEdit()" (focus)="focused = true" (blur)="focused = false">
   </cc-editable-button>
+  <span class="validation-warning"
+        *ngIf="model.editing && submitted && !quantity.valid"
+        [title]="quantityValidationMessage">
+    <i class="icon-warning"></i>
+  </span>
   <cc-editable-buttons *ngIf="model.editing"
-                        [disabled]="submitted && !quantity.valid"
+                        [invalid]="submitted && !quantity.valid"
                         (ok)="completeEdit()"
                         (cancel)="cancelEdit()">
   </cc-editable-buttons>

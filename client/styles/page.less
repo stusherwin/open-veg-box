@@ -1177,7 +1177,7 @@ button.button-new {
       display: inline-block;
       font-size: 11px;
       width: 16px;
-      // height: 11px;
+      height: 11px;
       color: white;
       padding: 0;
       margin: 0;
@@ -1214,6 +1214,11 @@ button.button-new {
 
   i.icon-add {
     .buttonIconNudge(0px; 0px);
+  }
+
+  i.icon-warning {
+    .buttonIconSize(9px);
+    .buttonIconNudge(0px; 1px);
   }
 }
 
@@ -1387,6 +1392,54 @@ button.button-new-small {
     margin: 0;
     margin-top: 2px;
   }
+
+  &.invalid {
+    background: lighten(#E80000, 40%);
+    color: darken(#E80000, 10%);
+
+    .button-new-small {
+      background: lighten(#E80000, 30%);
+      box-shadow: lighten(#E80000, 30%) 0 2px 5px 0 inset;
+
+      &:hover, &:focus {
+        background: lighten(#E80000, 20%);
+        box-shadow: lighten(#E80000, 20%) 0 2px 5px 0 inset;
+      }
+    }
+    
+    .validation-warning {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      font-size: 16px;
+      border-radius: 16px;
+      color: #fff;
+      background: #E80000;
+      box-shadow: #E80000 0 2px 5px 0 inset;
+      cursor: help;
+      padding: 3px 0;
+
+      i {
+        display: inline-block;
+        vertical-align: middle;
+        text-align: center;
+        
+        &::before {
+          vertical-align: middle;
+          position: relative;
+          display: inline-block;
+          font-size: 9px;
+          width: 16px;
+          height: 11px;
+          color: white;
+          padding: 0;
+          margin: 0;
+          text-align: center;
+          top: 1px;
+        }
+      }
+    }
+  }
 }
 
 form {
@@ -1444,10 +1497,11 @@ form {
       margin-bottom: 5px;
     }
     
-    .button-new-small {
-      vertical-align: bottom;
-      position: relative;
-      top: -9px;
+    .button-new-small, .validation-warning {
+      vertical-align: top;
+      margin-top: 4px;
+      // position: relative;
+      // top: px;
     }
   }
 
@@ -1485,8 +1539,9 @@ form {
   }
 
   .editable-background {
-    .button-new-small {
+    .button-new-small, .validation-warning {
       vertical-align: top;
+      margin-top: 10px;
     }
   }
 }
@@ -1557,6 +1612,14 @@ form {
 
     &.modified {
       color: @boxProductHover;
+    }
+  }
+
+  .editable-background.invalid {
+    .total, .order-total {
+      &.modified {
+        color: #E80000;
+      }
     }
   }
 

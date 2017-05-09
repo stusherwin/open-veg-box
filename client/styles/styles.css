@@ -1607,6 +1607,7 @@ button.button-new[disabled]:focus i {
   display: inline-block;
   font-size: 11px;
   width: 16px;
+  height: 11px;
   color: white;
   padding: 0;
   margin: 0;
@@ -1639,6 +1640,13 @@ button.button-new[disabled]:focus i {
 }
 .button-new-small i.icon-add::before {
   top: 0px;
+  left: 0px;
+}
+.button-new-small i.icon-warning::before {
+  font-size: 9px;
+}
+.button-new-small i.icon-warning::before {
+  top: 1px;
   left: 0px;
 }
 button.button-new-small {
@@ -1779,6 +1787,49 @@ button.button-new-small[disabled]:focus i:before {
   margin: 0;
   margin-top: 2px;
 }
+.editable-background.invalid {
+  background: #ffb5b5;
+  color: #b50000;
+}
+.editable-background.invalid .button-new-small {
+  background: #ff8282;
+  box-shadow: #ff8282 0 2px 5px 0 inset;
+}
+.editable-background.invalid .button-new-small:hover,
+.editable-background.invalid .button-new-small:focus {
+  background: #ff4f4f;
+  box-shadow: #ff4f4f 0 2px 5px 0 inset;
+}
+.editable-background.invalid .validation-warning {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  font-size: 16px;
+  border-radius: 16px;
+  color: #fff;
+  background: #E80000;
+  box-shadow: #E80000 0 2px 5px 0 inset;
+  cursor: help;
+  padding: 3px 0;
+}
+.editable-background.invalid .validation-warning i {
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+}
+.editable-background.invalid .validation-warning i::before {
+  vertical-align: middle;
+  position: relative;
+  display: inline-block;
+  font-size: 9px;
+  width: 16px;
+  height: 11px;
+  color: white;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  top: 1px;
+}
 form {
   display: inline-block;
 }
@@ -1823,10 +1874,10 @@ form.submitted textarea.ng-invalid ~ .icon-warning {
   line-height: 1.2em;
   margin-bottom: 5px;
 }
-.editable-textarea .editable-display .button-new-small {
-  vertical-align: bottom;
-  position: relative;
-  top: -9px;
+.editable-textarea .editable-display .button-new-small,
+.editable-textarea .editable-display .validation-warning {
+  vertical-align: top;
+  margin-top: 4px;
 }
 .editable-textarea textarea {
   line-height: 1.2em;
@@ -1850,8 +1901,10 @@ form.submitted textarea.ng-invalid ~ .icon-warning {
   font-size: 150%;
   font-weight: 300;
 }
-.editable-heading .editable-background .button-new-small {
+.editable-heading .editable-background .button-new-small,
+.editable-heading .editable-background .validation-warning {
   vertical-align: top;
+  margin-top: 10px;
 }
 .details cc-table,
 .details table {
@@ -1917,6 +1970,10 @@ form.submitted textarea.ng-invalid ~ .icon-warning {
 .details .total.modified,
 .details .order-total.modified {
   color: #ffa011;
+}
+.details .editable-background.invalid .total.modified,
+.details .editable-background.invalid .order-total.modified {
+  color: #E80000;
 }
 .details .action {
   text-align: right;
