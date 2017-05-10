@@ -3,14 +3,13 @@ import { Round, RoundCustomer } from '../round';
 import { HeadingComponent } from '../../shared/heading.component';
 import { RoundCustomersComponent } from './round-customers.component';
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
-import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../../shared/active-elements'
 import { EditableHeadingComponent } from '../../shared/editable-heading.component'
 import { Validators } from '@angular/common'
 
 @Component({
   selector: 'cc-list-page-round',
   templateUrl: 'app/rounds/list-page/list-page-round.component.html',
-  directives: [HeadingComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, RoundCustomersComponent, ROUTER_DIRECTIVES, EditableHeadingComponent]
+  directives: [HeadingComponent, RoundCustomersComponent, ROUTER_DIRECTIVES, EditableHeadingComponent]
 })
 export class ListPageRoundComponent {
   rowFocused: boolean;
@@ -18,9 +17,6 @@ export class ListPageRoundComponent {
 
   constructor(private renderer: Renderer) {
   }
-
-  @ViewChild('active')
-  active: ActiveElementDirective;
 
   @Input()
   round: Round;
@@ -46,7 +42,6 @@ export class ListPageRoundComponent {
 
   onDelete() {
     this.delete.emit(this.round);
-    this.active.makeInactive();
   }
 
   clickEmail(event:any) {

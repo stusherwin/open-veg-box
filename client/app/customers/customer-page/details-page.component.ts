@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, Inject, forwardRef, ViewChildren, QueryList, EventEmitter, ViewChild, ElementRef, Renderer, ChangeDetectorRef } from '@angular/core';
-import { ActiveElementDirective } from '../../shared/active-elements'
 import { CustomerModel } from './customer.model'
 import { OrderComponent } from '../orders/order.component'
 import { PreserveLinesPipe, MoneyPipe } from '../../shared/pipes'
@@ -16,7 +15,7 @@ import { EditableTextAreaComponent } from '../../shared/editable-textarea.compon
 @Component({
   selector: 'cc-details-page',
   templateUrl: 'app/customers/customer-page/details-page.component.html',
-  directives: [OrderComponent, ActiveElementDirective, EditableEditButtonComponent, TextComponent, EditableButtonsComponent, EditableTextComponent, EditableTextAreaComponent],
+  directives: [OrderComponent, EditableEditButtonComponent, TextComponent, EditableButtonsComponent, EditableTextComponent, EditableTextAreaComponent],
   pipes: [PreserveLinesPipe, MoneyPipe]
 })
 export class DetailsPageComponent implements OnInit {

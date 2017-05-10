@@ -5,7 +5,6 @@ import { WeightPipe, MoneyPipe } from '../shared/pipes';
 import { HeadingComponent } from '../shared/heading.component';
 import { BoxPriceComponent } from './box-price.component';
 import { BoxProductsComponent } from './box-products-new.component';
-import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
 import { EditableHeadingComponent } from '../shared/editable-heading.component'
 import { EditablePriceComponent } from '../shared/editable-price.component'
 import { Validators } from '@angular/common'
@@ -18,7 +17,7 @@ export interface BoxProductEvent {
 @Component({
   selector: 'cc-box',
   templateUrl: 'app/boxes/box.component.html',
-  directives: [HeadingComponent, BoxPriceComponent, BoxProductsComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, EditableHeadingComponent, EditablePriceComponent]
+  directives: [HeadingComponent, BoxPriceComponent, BoxProductsComponent, EditableHeadingComponent, EditablePriceComponent]
 })
 export class BoxComponent {
   boxNameValidators = [Validators.required];
@@ -32,9 +31,6 @@ export class BoxComponent {
 
   @Input()
   products: Product[];
-
-  @ViewChild('active')
-  active: ActiveElementDirective;
 
   @Output()
   delete = new EventEmitter<Box>();
@@ -53,7 +49,6 @@ export class BoxComponent {
 
   onDelete() {
     this.delete.emit(this.box);
-    this.active.makeInactive();
   }
 
   onUpdate() {

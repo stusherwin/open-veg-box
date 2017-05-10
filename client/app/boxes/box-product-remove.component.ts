@@ -1,11 +1,10 @@
 import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, ViewChildren, QueryList, AfterViewInit, ChangeDetectorRef, AfterViewChecked, OnChanges, Inject, forwardRef, OnInit, OnDestroy, Renderer } from '@angular/core';
-import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements';
 import { BoxProductsService } from './box-products.service'
 
 @Component({
   selector: 'cc-box-product-remove',
   templateUrl: 'app/boxes/box-product-remove.component.html',
-  directives: [ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective]
+  directives: []
 })
 export class BoxProductRemoveComponent implements AfterViewInit {
   @Input()

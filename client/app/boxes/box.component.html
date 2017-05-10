@@ -1,4 +1,4 @@
-<div class="row" [class.focused]="rowFocused" #active=cc-active cc-active (activate)="rowFocused = true" (deactivate)="rowFocused = false">
+<div class="row">
   <div class="details">
     <cc-editable-heading key="boxName-{{box.id}}" 
                          [(value)]="box.name" (valueChange)="onUpdate()"

@@ -6,7 +6,6 @@ import { Observable } from 'rxjs/Observable';
 import { Arrays } from '../../shared/arrays'
 import { RoundCustomerAddComponent } from './round-customer-add.component' 
 import { RoundCustomerRemoveComponent } from './round-customer-remove.component' 
-import { ActiveElementDirective } from '../../shared/active-elements';
 import { RoundCustomersService } from './round-customers.service'
 import { DefaultToPipe } from '../../shared/pipes'
 
@@ -15,7 +14,7 @@ const CUSTOMER_ADDRESS_PADDING = 20;
 
 @Component({
   selector: 'cc-round-customers',
-  directives: [RoundCustomerAddComponent, RoundCustomerRemoveComponent, ActiveElementDirective],
+  directives: [RoundCustomerAddComponent, RoundCustomerRemoveComponent],
   pipes: [DefaultToPipe],
   templateUrl: 'app/rounds/list-page/round-customers.component.html'
 })

@@ -17,7 +17,6 @@
       <input type="text" #input
         class="inputx pricex"
         cc-numeric maxDecimals="3" [(value)]="editable.editingValue" (valueChange)="onEditingValueChange($event)"
-        cc-active cc-activate-on-focus
         tabindex="1"
         (focus)="editable.startEdit()" />
     </cc-validatable>

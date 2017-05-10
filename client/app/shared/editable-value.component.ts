@@ -1,14 +1,12 @@
 import { Component, Input, ViewChild, Output, EventEmitter, ContentChildren, AfterViewInit, QueryList } from '@angular/core';
-import { ActiveElementDirective, ActivateOnFocusDirective } from './active-elements'
 import { ValidatableComponent } from './validatable.component';
 
 @Component({
   selector: 'cc-editable-value',
-  directives: [ActiveElementDirective],
   template: `
     <div class="{{className}} editable-value"
       [class.editing]="editing"
-      (keydown)="onKeyDown($event)" #active=cc-active cc-active (activate)="onActivate()" (deactivate)="onDeactivate()">
+      (keydown)="onKeyDown($event)">
       <div class="editable-value-display" (click)="startEdit()">
         <ng-content select="display"></ng-content>
       </div>
@@ -39,9 +37,6 @@ export class EditableValueComponent implements AfterViewInit {
   @Input()
   editing = false;
   
-  @ViewChild('active')
-  active: ActiveElementDirective
-
   @ContentChildren(ValidatableComponent)
   validatables: QueryList<ValidatableComponent>
 
@@ -97,7 +92,6 @@ export class EditableValueComponent implements AfterViewInit {
     this.validated = false;
     this.editing = false;
     this.tabbedAway = false;
-    this.active.makeInactive()
   }
 
   tabbedAway = false;

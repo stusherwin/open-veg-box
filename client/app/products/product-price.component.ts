@@ -1,14 +1,13 @@
 import { Component, Input, ViewChild, ElementRef, Output, EventEmitter, OnInit, Renderer } from '@angular/core';
 import { UnitType, unitTypes } from './product';
 import { MoneyPipe } from '../shared/pipes';
-import { ActiveElementDirective, ActivateOnFocusDirective } from '../shared/active-elements'
 import { EditableValueComponent } from '../shared/editable-value.component'
 import { ValidatableComponent } from '../shared/validatable.component'
 import { NumericDirective } from '../shared/numeric.directive'
 
 @Component({
   selector: 'cc-product-price',
-  directives: [EditableValueComponent, ActiveElementDirective, ActivateOnFocusDirective, ValidatableComponent, NumericDirective],
+  directives: [EditableValueComponent, ValidatableComponent, NumericDirective],
   pipes: [MoneyPipe],
   template: `
     <cc-editable-value #editable className="product-price" [valid]="valid" (start)="onStart()" (ok)="onOk()" (cancel)="onCancel()">
@@ -19,9 +18,9 @@ import { NumericDirective } from '../shared/numeric.directive'
       <edit>
         &pound;
         <cc-validatable [valid]="valid" message="Price should be a number greater than 0">
-          <input type="text" #input class="input price" cc-numeric fixedDecimals="2" [(value)]="editingPrice" tabindex="1" (focus)="startEdit()" cc-active cc-activate-on-focus />
+          <input type="text" #input class="input price" cc-numeric fixedDecimals="2" [(value)]="editingPrice" tabindex="1" (focus)="startEdit()" />
         </cc-validatable>
-        <select class="input" cc-active cc-activate-on-focus (focus)="startEdit()" [(ngModel)]="unitType" tabindex="1" (ngModelChange)="unitTypeChanged($event)">
+        <select class="input" (focus)="startEdit()" [(ngModel)]="unitType" tabindex="1" (ngModelChange)="unitTypeChanged($event)">
           <option *ngFor="let ut of unitTypes" [ngValue]="ut.value">{{ ut.name }}</option>
         </select>
       </edit>

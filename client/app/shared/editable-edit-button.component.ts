@@ -1,5 +1,4 @@
 import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, ElementRef, OnInit, Renderer, ViewChildren, QueryList, Directive, HostListener, HostBinding, AfterViewInit, ContentChildren, ChangeDetectorRef } from '@angular/core';
-import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from './active-elements'
 
 @Component({
   template: `
@@ -10,8 +9,7 @@ import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirec
       (focus)="focus.emit(null)"
       (blur)="blur.emit(null)"><i class="icon-{{icon}}"></i></a>
   `,
-  selector: 'cc-editable-button',
-  directives: [ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective]
+  selector: 'cc-editable-button'
 })
 export class EditableEditButtonComponent implements OnInit {
   @Input()

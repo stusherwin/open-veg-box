@@ -1334,26 +1334,28 @@ button.button-new-small {
     }
   }
 
-  &.focused {
-    .row, & > *:nth-child(2n+1) > .row {
-      &:hover {
-        background: @unfocusedRowHover;
-      }
-      &.focused, &.focused:hover {
-        background: @rowHover;
-      }
-    }
-  }
+  // &.focused {
+  //   .row, & > *:nth-child(2n+1) > .row {
+  //     &:hover {
+  //       background: @unfocusedRowHover;
+  //     }
+  //     &.focused, &.focused:hover {
+  //       background: @rowHover;
+  //     }
+  //   }
+  // }
 
   &.no-hover {
-    &:hover, &.focused {
+    &:hover /*, &.focused*/ {
       .row {
         background: @row;
       }
       & > *:nth-child(2n+1) > .row, & > .row:nth-child(2n+1) {
         background: @rowOdd;
       }
-
+      .row.focused {
+        background: @rowHover;
+      }
     }
   }
 }

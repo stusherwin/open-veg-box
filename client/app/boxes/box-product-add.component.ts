@@ -3,7 +3,6 @@ import { Product, ProductQuantity } from '../products/product'
 import { Subscription } from 'rxjs/Subscription'
 import { Observable } from 'rxjs/Observable';
 import { BoxProductsService } from './box-products.service'
-import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements';
 import { ValidatableComponent } from '../shared/validatable.component';
 import { EditableValueComponent } from '../shared/editable-value.component'
 import { NumericDirective } from '../shared/numeric.directive'
@@ -11,7 +10,7 @@ import { NumericDirective } from '../shared/numeric.directive'
 @Component({
   selector: 'cc-box-product-add',
   templateUrl: 'app/boxes/box-product-add.component.html',
-  directives: [ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, ValidatableComponent, EditableValueComponent, NumericDirective]
+  directives: [ValidatableComponent, EditableValueComponent, NumericDirective]
 })
 export class BoxProductAddComponent implements OnInit, AfterViewInit, OnChanges {
   adding: boolean;
@@ -38,9 +37,6 @@ export class BoxProductAddComponent implements OnInit, AfterViewInit, OnChanges 
 
   @ViewChild('add')
   addBtn: ElementRef
-
-  @ViewChild('active')
-  active: ActiveElementDirective
 
   @ViewChild('editable')
   editable: EditableValueComponent  

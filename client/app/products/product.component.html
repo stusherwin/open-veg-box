@@ -1,4 +1,4 @@
-<div class="row" #active=cc-active cc-active [class.focused]="rowFocused" (activate)="rowFocused = true" (deactivate)="rowFocused = false">
+<div class="row">
   <div class="details">
     <cc-editable-heading key="productName-{{product.id}}"
                          [(value)]="product.name" (valueChange)="onUpdate()"
@@ -18,7 +18,7 @@
     </div>
   </div>
   <div class="actions">
-    <button class="button-new button-new-right" cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="onDelete()" tabindex="1">
+    <button class="button-new button-new-right" (click)="onDelete()" tabindex="1">
       <i class="icon-trash"></i>Delete
     </button>
   </div>

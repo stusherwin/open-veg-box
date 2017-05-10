@@ -3,13 +3,12 @@ import { Round, RoundCustomer } from '../round';
 import { HeadingComponent } from '../../shared/heading.component';
 import { RoundCustomersComponent } from './round-customers.component';
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
-import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../../shared/active-elements'
 import { ValidatableComponent } from '../../shared/validatable.component';
 
 @Component({
   selector: 'cc-list-page-add',
   templateUrl: 'app/rounds/list-page/list-page-add.component.html',
-  directives: [HeadingComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, RoundCustomersComponent, ROUTER_DIRECTIVES, ValidatableComponent]
+  directives: [HeadingComponent, RoundCustomersComponent, ROUTER_DIRECTIVES, ValidatableComponent]
 })
 export class ListPageAddComponent {
   round = new Round(0, '', []);
@@ -24,9 +23,6 @@ export class ListPageAddComponent {
 
   @ViewChild('add')
   addButton: ElementRef;
-
-  @ViewChild('active')
-  active: ActiveElementDirective;
 
   @Output()
   add = new EventEmitter<Round>();
@@ -59,7 +55,6 @@ export class ListPageAddComponent {
     if(this.valid) {
     this.add.emit(this.round);
     this.adding = false;
-    this.active.makeInactive();
       this.validated = false;
     } else {
       setTimeout(() => this.renderer.invokeElementMethod(this.roundName.nativeElement, 'focus', []));
@@ -68,7 +63,6 @@ export class ListPageAddComponent {
 
   cancelAdd() {
     this.adding = false;
-    this.active.makeInactive();
     this.validated = false;
   } 
 

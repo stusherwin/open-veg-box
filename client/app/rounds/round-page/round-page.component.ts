@@ -10,7 +10,6 @@ import { OrderListPageComponent } from './order-list-page.component'
 import { RouteParams } from '@angular/router-deprecated';
 import { RouteConfig, ROUTER_DIRECTIVES, Router } from '@angular/router-deprecated';
 import { SectionHeaderComponent } from '../../structure/section-header.component'
-import { ActiveService } from '../../shared/active-elements'
 
 export class RoundPageService {
   round: Round;
@@ -21,7 +20,7 @@ export class RoundPageService {
   selector: 'cc-round-page',
   templateUrl: 'app/rounds/round-page/round-page.component.html',
   directives: [ROUTER_DIRECTIVES, SectionHeaderComponent],
-  providers: [RoundPageService, RoundCustomersService, ActiveService]
+  providers: [RoundPageService, RoundCustomersService]
 })
 
 @RouteConfig([

@@ -7,7 +7,6 @@ import { ListPageAddComponent } from './list-page-add.component'
 import { Observable } from 'rxjs/Observable';
 import { RouteParams } from '@angular/router-deprecated';
 import { RouteConfig, Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
-import { ActiveService, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../../shared/active-elements'
 import { RoundCustomersService } from './round-customers.service'
 import 'rxjs/add/observable/concat';
 import 'rxjs/add/operator/last';
@@ -18,8 +17,8 @@ import { SectionHeaderComponent } from '../../structure/section-header.component
 @Component({
   selector: 'cc-list-page',
   templateUrl: 'app/rounds/list-page/list-page.component.html',
-  directives: [ListPageRoundComponent, ActiveElementDirective, ListPageAddComponent, ActivateOnFocusDirective, DeactivateOnBlurDirective, SectionHeaderComponent],
-  providers: [RoundService, CustomerService, ActiveService, RoundCustomersService]
+  directives: [ListPageRoundComponent, ListPageAddComponent, SectionHeaderComponent],
+  providers: [RoundService, CustomerService, RoundCustomersService]
 })
 export class ListPageComponent implements OnInit {
   queryParams: {[key: string]: string};

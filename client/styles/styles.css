@@ -1736,25 +1736,15 @@ button.button-new-small[disabled]:focus i:before {
 .row-view-new > .row:nth-child(2n+1):hover {
   background: #fff1dd;
 }
-.row-view-new.focused .row:hover,
-.row-view-new.focused > *:nth-child(2n+1) > .row:hover {
-  background: #fff8ec;
-}
-.row-view-new.focused .row.focused,
-.row-view-new.focused > *:nth-child(2n+1) > .row.focused,
-.row-view-new.focused .row.focused:hover,
-.row-view-new.focused > *:nth-child(2n+1) > .row.focused:hover {
-  background: #fff1dd;
-}
-.row-view-new.no-hover:hover .row,
-.row-view-new.no-hover.focused .row {
+.row-view-new.no-hover:hover .row {
   background: #fafafa;
 }
 .row-view-new.no-hover:hover > *:nth-child(2n+1) > .row,
-.row-view-new.no-hover.focused > *:nth-child(2n+1) > .row,
-.row-view-new.no-hover:hover > .row:nth-child(2n+1),
-.row-view-new.no-hover.focused > .row:nth-child(2n+1) {
+.row-view-new.no-hover:hover > .row:nth-child(2n+1) {
   background: #f5f5f5;
+}
+.row-view-new.no-hover:hover .row.focused {
+  background: #fff1dd;
 }
 .editable-display-clickable:hover,
 .editable-display-clickable.hover {

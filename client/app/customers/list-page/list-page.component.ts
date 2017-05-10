@@ -10,7 +10,6 @@ import { ListPageCustomerComponent } from './list-page-customer.component'
 import { ListPageAddComponent } from './list-page-add.component'
 import { Observable } from 'rxjs/Observable';
 import { RouteParams } from '@angular/router-deprecated';
-import { ActiveService, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../../shared/active-elements'
 import { DistributeWidthService } from '../../shared/distribute-width.directive'
 import { Arrays } from '../../shared/arrays';
 import { Objects } from '../../shared/objects';
@@ -22,8 +21,8 @@ import 'rxjs/add/operator/last';
 @Component({
   selector: 'cc-list-page',
   templateUrl: 'app/customers/list-page/list-page.component.html',
-  directives: [ListPageCustomerComponent, ListPageAddComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, SectionHeaderComponent],
-  providers: [CustomerService, BoxService, ProductService, ActiveService, DistributeWidthService]
+  directives: [ListPageCustomerComponent, ListPageAddComponent, SectionHeaderComponent],
+  providers: [CustomerService, BoxService, ProductService, DistributeWidthService]
 })
 export class ListPageComponent implements OnInit {
   constructor(private customerService: CustomerService, private boxService: BoxService, private productService: ProductService, routeParams: RouteParams, private renderer: Renderer) {

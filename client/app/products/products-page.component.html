@@ -1,12 +1,11 @@
 <cc-section-header headerIcon="carrot" headerTitle="Products">
   <a class="button-new" tabindex="1"
-    cc-active cc-activate-on-focus
     (click)="add.startAdd()"
     (keydown.Enter)="add.startAdd()"><i class="icon-add"></i>New product</a>
 </cc-section-header>
 <div class="loading-indicator" *ngIf="!loaded"><i class="icon-spin3 animate-spin"></i></div>
 <p *ngIf="loaded && !products.length">There are no products yet.</p>
-<div id="row-view" class="row-view-new no-hover" cc-active (activate)="focused = true" (deactivate)="focused = false" [class.focused]="focused">
+<div id="row-view" class="row-view-new no-hover">
   <cc-product-add #add [showAddMessage]="!products.length" [loaded]="loaded" (add)="onAdd($event)"></cc-product-add>
   <cc-product *ngFor="let p of products; let i = index" [product]="p" (delete)="onDelete($event)" (update)="onUpdate($event)"></cc-product>
 </div>

@@ -2,7 +2,6 @@ import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitte
 import { ProductQuantity } from '../products/product'
 import { WeightPipe } from '../shared/pipes'
 import { Arrays } from '../shared/arrays'
-import { ActiveElementDirective, ActivateOnFocusDirective } from '../shared/active-elements';
 import { ValidatableComponent } from '../shared/validatable.component';
 import { Subscription } from 'rxjs/Subscription'
 import { EditableValueComponent } from '../shared/editable-value.component'
@@ -11,7 +10,7 @@ import { ProductQuantityComponent } from '../products/product-quantity.component
 
 @Component({
   selector: 'cc-box-product-quantity',
-  directives: [ActiveElementDirective, ActivateOnFocusDirective, ValidatableComponent, EditableValueComponent, NumericDirective, ProductQuantityComponent],
+  directives: [ValidatableComponent, EditableValueComponent, NumericDirective, ProductQuantityComponent],
   pipes: [WeightPipe],
   templateUrl: 'app/boxes/box-product-quantity.component.html'
 })
@@ -29,9 +28,6 @@ export class BoxProductQuantityComponent implements OnInit {
 
   @ViewChild('input')
   input: ElementRef
-
-  @ViewChild('active')
-  active: ActiveElementDirective
 
   @ViewChild('editable')
   editable: EditableValueComponent

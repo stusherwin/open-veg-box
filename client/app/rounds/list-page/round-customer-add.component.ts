@@ -3,7 +3,6 @@ import { RoundCustomer } from '../round'
 import { Customer } from '../../customers/customer'
 import { Subscription } from 'rxjs/Subscription'
 import { Observable } from 'rxjs/Observable';
-import { ActiveElementDirective, ActiveService, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../../shared/active-elements';
 import { EditableValueComponent } from '../../shared/editable-value.component'
 import { Arrays } from '../../shared/arrays'
 import { DefaultToPipe } from '../../shared/pipes'
@@ -11,7 +10,7 @@ import { DefaultToPipe } from '../../shared/pipes'
 @Component({
   selector: 'cc-round-customer-add',
   templateUrl: 'app/rounds/list-page/round-customer-add.component.html',
-  directives: [ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, EditableValueComponent],
+  directives: [EditableValueComponent],
   pipes: [DefaultToPipe]
 })
 export class RoundCustomerAddComponent implements OnInit, OnChanges {

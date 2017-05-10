@@ -1,12 +1,11 @@
 import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, Renderer, OnInit } from '@angular/core';
-import { ActiveElementDirective, ActivateOnFocusDirective } from '../../shared/active-elements'
 import { EditableValueComponent } from '../../shared/editable-value.component'
 import { ValidatableComponent } from '../../shared/validatable.component';
 import { DefaultToPipe } from '../../shared/pipes'
 
 @Component({
   selector: 'cc-customer-email',
-  directives: [EditableValueComponent, ActiveElementDirective, ActivateOnFocusDirective, ValidatableComponent],
+  directives: [EditableValueComponent, ValidatableComponent],
   pipes: [DefaultToPipe],
   host: {'class': 'customer-detail email'},
   template: `
@@ -22,7 +21,7 @@ import { DefaultToPipe } from '../../shared/pipes'
         <div class="detail-marker"><i class="icon-mail"></i></div>
         <div class="detail-edit">
           <cc-validatable [valid]="valid" message="Email should be a valid email address">
-            <input type="text" #input [(ngModel)]="editingValue" cc-active cc-activate-on-focus tabindex="1" (focus)="startEdit()" />
+            <input type="text" #input [(ngModel)]="editingValue" tabindex="1" (focus)="startEdit()" />
           </cc-validatable>
         </div>
       </edit>

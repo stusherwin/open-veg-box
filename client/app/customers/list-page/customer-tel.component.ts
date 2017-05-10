@@ -1,12 +1,11 @@
 import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, Renderer, OnInit } from '@angular/core';
-import { ActiveElementDirective, ActivateOnFocusDirective } from '../../shared/active-elements'
 import { EditableValueComponent } from '../../shared/editable-value.component'
 import { ValidatableComponent } from '../../shared/validatable.component';
 import { DefaultToPipe } from '../../shared/pipes'
 
 @Component({
   selector: 'cc-customer-tel',
-  directives: [EditableValueComponent, ActiveElementDirective, ActivateOnFocusDirective, ValidatableComponent],
+  directives: [EditableValueComponent, ValidatableComponent],
   pipes: [DefaultToPipe],
   host: {'class': 'customer-detail tel'},
   template: `
@@ -21,7 +20,7 @@ import { DefaultToPipe } from '../../shared/pipes'
       <edit>
         <div class="detail-marker"><i class="icon-phone"></i></div>
         <div class="detail-edit">
-          <input type="text" #input [(ngModel)]="editingValue" cc-active cc-activate-on-focus tabindex="1" (focus)="startEdit()" />
+          <input type="text" #input [(ngModel)]="editingValue" tabindex="1" (focus)="startEdit()" />
         </div>
       </edit>
     </cc-editable-value>

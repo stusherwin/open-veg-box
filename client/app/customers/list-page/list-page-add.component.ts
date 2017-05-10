@@ -5,14 +5,13 @@ import { CustomerAddressComponent } from './customer-address.component'
 import { CustomerEmailComponent } from './customer-email.component'
 import { CustomerTelComponent } from './customer-tel.component'
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
-import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../../shared/active-elements'
 import { ValidatableComponent } from '../../shared/validatable.component';
 import { AddCustomerModel } from './customer.model'
 
 @Component({
   selector: 'cc-list-page-add',
   templateUrl: 'app/customers/list-page/list-page-add.component.html',
-  directives: [HeadingComponent, CustomerAddressComponent, CustomerEmailComponent, CustomerTelComponent, ROUTER_DIRECTIVES, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, ValidatableComponent],
+  directives: [HeadingComponent, CustomerAddressComponent, CustomerEmailComponent, CustomerTelComponent, ROUTER_DIRECTIVES, ValidatableComponent],
 })
 export class ListPageAddComponent implements OnInit {
   customer = new Customer(0, '', '', '', '', '', '');
@@ -33,9 +32,6 @@ export class ListPageAddComponent implements OnInit {
 
   @Input()
   model: AddCustomerModel;
-
-  @ViewChild('active')
-  active: ActiveElementDirective;
 
   @ViewChildren(ValidatableComponent)
   validatables: QueryList<ValidatableComponent>
@@ -74,7 +70,6 @@ export class ListPageAddComponent implements OnInit {
     if(this.valid) {
       this.model.add(this.customer);
       this.adding = false;
-      this.active.makeInactive();
       this.validated = false;
     } else {
       setTimeout(() => this.renderer.invokeElementMethod(this.customerName.nativeElement, 'focus', []));
@@ -83,7 +78,6 @@ export class ListPageAddComponent implements OnInit {
 
   cancelAdd() {
     this.adding = false;
-    this.active.makeInactive();
     this.validated = false;
   } 
 
@@ -99,7 +93,9 @@ export class ListPageAddComponent implements OnInit {
   }
 
   resetCustomer() {
-    this.customer.name = '';
+    // this.customer.name = '';
+    this.customer.firstName = '';
+    this.customer.surname = '';
     this.customer.address = '';
     this.customer.email = '';
     this.customer.tel1 = '';

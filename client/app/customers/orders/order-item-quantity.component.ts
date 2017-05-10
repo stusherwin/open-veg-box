@@ -1,7 +1,6 @@
 import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, ViewChildren, QueryList, AfterViewInit, ChangeDetectorRef, AfterViewChecked, OnChanges, Inject, forwardRef, OnInit, OnDestroy, Renderer } from '@angular/core';
 import { WeightPipe } from '../../shared/pipes'
 import { Arrays } from '../../shared/arrays'
-import { ActiveElementDirective, ActivateOnFocusDirective } from '../../shared/active-elements';
 import { ValidatableComponent } from '../../shared/validatable.component';
 import { Subscription } from 'rxjs/Subscription'
 import { EditableValueComponent } from '../../shared/editable-value-new.component'
@@ -10,7 +9,7 @@ import { ProductQuantityComponent } from '../../products/product-quantity.compon
 
 @Component({
   selector: 'cc-order-item-quantity',
-  directives: [ActiveElementDirective, ActivateOnFocusDirective, ValidatableComponent, EditableValueComponent, NumericDirective, ProductQuantityComponent],
+  directives: [ValidatableComponent, EditableValueComponent, NumericDirective, ProductQuantityComponent],
   pipes: [WeightPipe],
   templateUrl: 'app/customers/orders/order-item-quantity.component.html'
 })

@@ -3,7 +3,6 @@ import { Product, UnitType, unitTypes } from './product';
 import { WeightPipe, MoneyPipe } from '../shared/pipes';
 import { HeadingComponent } from '../shared/heading.component';
 import { ProductPriceComponent } from './product-price.component';
-import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
 import { Validators } from '@angular/common'
 import { EditableHeadingComponent } from '../shared/editable-heading.component'
 import { EditableUnitPriceComponent } from '../shared/editable-unit-price.component'
@@ -12,7 +11,7 @@ import { EditableUnitPriceComponent } from '../shared/editable-unit-price.compon
   selector: 'cc-product',
   templateUrl: 'app/products/product.component.html',
   pipes: [WeightPipe, MoneyPipe],
-  directives: [HeadingComponent, ProductPriceComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, EditableHeadingComponent, EditableUnitPriceComponent]
+  directives: [HeadingComponent, ProductPriceComponent, EditableHeadingComponent, EditableUnitPriceComponent]
 })
 export class ProductComponent {
   unitTypes: {[key: string]: string } = {};
@@ -21,9 +20,6 @@ export class ProductComponent {
 
   @Input()
   product: Product;
-
-  @ViewChild('active')
-  active: ActiveElementDirective;
 
   @Output()
   delete = new EventEmitter<Product>();
@@ -39,7 +35,6 @@ export class ProductComponent {
 
   onDelete() {
     this.delete.emit(this.product);
-    this.active.makeInactive();
   }
 
   onUpdate() {

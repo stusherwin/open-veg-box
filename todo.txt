@@ -139,3 +139,6 @@ Editable
 * OnDestroy: unsubscribe to observables!
 * button-new: transparent background is preventing hover highlight
 * send-emails - cancel button out of alignment
+
+
+* Add customer doesn't work now (needs firstname/surname)

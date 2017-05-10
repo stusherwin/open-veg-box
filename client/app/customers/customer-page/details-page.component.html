@@ -1,7 +1,7 @@
-<div class="row-view-new no-hover" cc-active (activate)="rowViewFocused = true" (deactivate)="rowViewFocused = false" [class.focused]="rowViewFocused">
+<div class="row-view-new no-hover">
   <div class="row" style="height: 0;padding: 0">
   </div>
-  <div class="row" cc-active (activate)="contactFocused = true" (deactivate)="contactFocused = false" [class.focused]="contactFocused">
+  <div class="row">
     <div class="details">
       <h3>Contact details</h3>
       <table class="contact-details">
@@ -76,7 +76,7 @@
       </table>      
     </div>
   </div>
-  <div class="row" cc-active (activate)="orderFocused = true" (deactivate)="orderFocused = false" [class.focused]="orderFocused">
+  <div class="row">
     <div class="details">
       <h3>Current order: <span innerHTML="{{page.customer.order.total | money:true}}"></span></h3>
       <cc-order [order]="page.customer.order" [boxes]="page.boxes" [products]="page.products">

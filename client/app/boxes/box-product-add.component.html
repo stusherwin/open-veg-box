@@ -3,7 +3,6 @@
     <div class="box-product-add-display show-on-edit" [class.hover]="addHover">
       <div style="display: inline-block" [style.width.px]="productNameWidth + productQuantityWidth">{{text}}</div>
       <div style="display: inline-block"><a #add *ngIf="!adding"
-          cc-active cc-activate-on-focus cc-deactivate-on-blur
           tabindex="1"
           (keydown.Enter)="onAdd()"
           (focus)="addHover = true"
@@ -16,7 +15,6 @@
     <div>
       <div class="box-product-name" style="display: inline-block" [style.width.px]="productNameWidth">
         <select *ngIf="adding" #select
-          cc-active cc-activate-on-focus
           (change)="onProductChange($event)"
           tabindex="1">
           <option *ngFor="let p of products; let i = index" [value]="i">{{p.name}}</option>
@@ -27,7 +25,6 @@
         <cc-validatable [valid]="quantityEditingValue > 0" message="Quantity should be a number greater than 0">
           <input *ngIf="adding" type="text" class="input"
             cc-numeric maxDecimals="3" [(value)]="quantityEditingValue"
-            cc-active cc-activate-on-focus
             tabindex="1" />
         </cc-validatable>
         <span class="box-product-quantity-perkg" *ngIf="product.unitType == 'perKg'">Kg</span>

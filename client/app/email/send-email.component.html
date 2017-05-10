@@ -1,4 +1,4 @@
-<div class="email-edit focused" cc-active [class.invalid]="!valid">
+<div class="email-edit focused" [class.invalid]="!valid">
   <div class="form-row">
     <label>To:</label>
     <ul class="field recipients">
@@ -8,17 +8,17 @@
   <div class="form-row subject">
     <label>Subject:</label>
     <cc-validatable [valid]="!!subject.length" message="Subject should not be empty">
-      <input type="text" class="field" #input cc-active cc-activate-on-focus cc-deactivate-on-blur tabindex="1" [(ngModel)]="subject" />
+      <input type="text" class="field" #input tabindex="1" [(ngModel)]="subject" />
     </cc-validatable>
   </div>
   <div class="form-row message">
     <label>Message:</label>
     <cc-validatable [valid]="!!body.length" message="Message should not be empty">
-      <textarea class="field" cc-active cc-activate-on-focus cc-deactivate-on-blur tabindex="1" [(ngModel)]="body"></textarea>
+      <textarea class="field" tabindex="1" [(ngModel)]="body"></textarea>
     </cc-validatable>
   </div>
   <div class="actions">
-    <button class="button-new button-new-right" [disabled]="noRecipients" cc-active cc-activate-on-focus tabindex="1" (click)="send()"><i class="icon-mail-dark"></i>Send</button>
-    <a class="button-new button-new-right" cc-active cc-activate-on-focus tabindex="1" [routerLink]="cancelLinkParams"><i class="icon-cancel"></i>Cancel</a>
+    <button class="button-new button-new-right" [disabled]="noRecipients" tabindex="1" (click)="send()"><i class="icon-mail-dark"></i>Send</button>
+    <a class="button-new button-new-right" tabindex="1" [routerLink]="cancelLinkParams"><i class="icon-cancel"></i>Cancel</a>
   </div>  
 </div>

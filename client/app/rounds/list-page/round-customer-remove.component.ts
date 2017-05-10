@@ -1,10 +1,8 @@
 import { Component, Directive, Input, ViewChild, ElementRef, Output, EventEmitter, ViewChildren, QueryList, AfterViewInit, ChangeDetectorRef, AfterViewChecked, OnChanges, Inject, forwardRef, OnInit, OnDestroy, Renderer } from '@angular/core';
-import { ActiveElementDirective, ActiveService, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../../shared/active-elements';
 
 @Component({
   selector: 'cc-round-customer-remove',
-  templateUrl: 'app/rounds/list-page/round-customer-remove.component.html',
-  directives: [ActivateOnFocusDirective, ActiveElementDirective, DeactivateOnBlurDirective]
+  templateUrl: 'app/rounds/list-page/round-customer-remove.component.html'
 })
 export class RoundCustomerRemoveComponent {
   @ViewChild('remove')

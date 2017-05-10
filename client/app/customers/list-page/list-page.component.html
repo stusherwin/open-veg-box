@@ -1,12 +1,11 @@
 <cc-section-header headerIcon="person" headerTitle="Customers">
   <a class="button-new" tabindex="1"
-     cc-active cc-activate-on-focus
      (click)="add.startAdd()"
      (keydown.Enter)="add.startAdd()"><i class="icon-add"></i>New customer</a>
 </cc-section-header>
 <div class="loading-indicator" *ngIf="!loaded"><i class="icon-spin3 animate-spin"></i></div>
 <p *ngIf="loaded && !customers.length">There are no customers yet.</p>
-<div class="row-view-new no-hover" cc-active (activate)="focused = true" (deactivate)="focused = false" [class.focused]="focused">
+<div class="row-view-new no-hover">
   <cc-list-page-add #add [model]="addModel">
   </cc-list-page-add>
   <cc-list-page-customer *ngFor="let c of customers; let i = index" [model]="c">

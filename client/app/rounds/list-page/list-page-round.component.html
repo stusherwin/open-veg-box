@@ -1,4 +1,4 @@
-<div class="row" #active=cc-active cc-active [class.focused]="rowFocused" (activate)="rowFocused = true" (deactivate)="rowFocused = false">
+<div class="row">
   <div class="details">
     <cc-editable-heading key="roundName-{{round.id}}"
                          [(value)]="round.name" (valueChange)="onUpdate()"
@@ -8,8 +8,8 @@
     <p style="font-size: 95%">{{round.customers.length}} customers</p>
   </div>
   <div class="actions">
-    <a class="button-new button-new-right" cc-active cc-activate-on-focus tabindex="1" [routerLink]="['../Round', {roundId: round.id}, 'Details']"><i class="icon-doc-text"></i>Details</a>
-    <button class="button-new button-new-right" [disabled]="!canEmail" cc-active cc-activate-on-focus tabindex="1" [routerLink]="['../Round', {roundId: round.id}, 'Email']"><i class="icon-mail-dark"></i>Email</button>
-    <a class="button-new button-new-right" cc-active cc-activate-on-focus tabindex="1" (click)="onDelete()"><i class="icon-trash"></i>Delete</a>
+    <a class="button-new button-new-right" tabindex="1" [routerLink]="['../Round', {roundId: round.id}, 'Details']"><i class="icon-doc-text"></i>Details</a>
+    <button class="button-new button-new-right" [disabled]="!canEmail" tabindex="1" [routerLink]="['../Round', {roundId: round.id}, 'Email']"><i class="icon-mail-dark"></i>Email</button>
+    <a class="button-new button-new-right" tabindex="1" (click)="onDelete()"><i class="icon-trash"></i>Delete</a>
   </div>
 </div>

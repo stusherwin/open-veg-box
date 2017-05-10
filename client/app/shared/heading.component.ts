@@ -1,11 +1,10 @@
 import { Component, Input, ViewChild, ElementRef, Output, EventEmitter, OnInit, AfterViewInit, Renderer } from '@angular/core';
-import { ActiveElementDirective, ActivateOnFocusDirective } from './active-elements'
 import { ValidatableComponent } from '../shared/validatable.component';
 import { EditableValueComponent } from '../shared/editable-value.component'
 
 @Component({
   selector: 'cc-heading',
-  directives: [ActiveElementDirective, ActivateOnFocusDirective, ValidatableComponent, EditableValueComponent],
+  directives: [ValidatableComponent, EditableValueComponent],
   template: `
     <cc-editable-value #editable className="heading" (start)="onStart()" (ok)="onOk()" (cancel)="onCancel()">
       <display>
@@ -14,7 +13,7 @@ import { EditableValueComponent } from '../shared/editable-value.component'
       </display>
       <edit>
         <cc-validatable [valid]="valid" message="Heading should not be empty">
-          <input type="text" #input [(ngModel)]="editingValue" tabindex="1" (focus)="startEdit()" cc-active cc-activate-on-focus />
+          <input type="text" #input [(ngModel)]="editingValue" tabindex="1" (focus)="startEdit()" />
         </cc-validatable>
       </edit>
     </cc-editable-value>

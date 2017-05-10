@@ -3,7 +3,6 @@
     <div class="round-customer-add-display show-on-edit" [class.hover]="addHover">
       <div [style.width.px]="customerNameWidth + customerAddressWidth">{{text}}</div>
       <div><a #add *ngIf="!adding"
-          cc-active cc-activate-on-focus cc-deactivate-on-blur
           tabindex="1"
           (keydown.Enter)="onAdd()"
           (focus)="addHover = true"
@@ -15,7 +14,6 @@
     <div>
       <div class="round-customer-name" [style.width.px]="customerNameWidth">
         <select *ngIf="adding" #select
-          cc-active cc-activate-on-focus
           tabindex="1"
           (change)="onCustomerChange($event)">
           <option *ngFor="let c of customers; let i = index" [value]="i">{{c.name}}</option>

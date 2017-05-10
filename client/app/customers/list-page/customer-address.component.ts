@@ -1,12 +1,11 @@
 import { Component, Input, ViewChild, ElementRef, Output, EventEmitter, OnInit, AfterViewInit, Renderer } from '@angular/core';
-import { ActiveElementDirective, ActivateOnFocusDirective } from '../../shared/active-elements'
 import { EditableValueComponent } from '../../shared/editable-value.component'
 import { ValidatableComponent } from '../../shared/validatable.component';
 import { SingleLinePipe, PreserveLinesPipe, DefaultToPipe } from '../../shared/pipes'
 
 @Component({
   selector: 'cc-customer-address',
-  directives: [ActiveElementDirective, ActivateOnFocusDirective, EditableValueComponent, ValidatableComponent],
+  directives: [EditableValueComponent, ValidatableComponent],
   pipes: [SingleLinePipe, PreserveLinesPipe, DefaultToPipe],
   host: {'class': 'customer-detail address'},
   template: `
@@ -21,7 +20,7 @@ import { SingleLinePipe, PreserveLinesPipe, DefaultToPipe } from '../../shared/p
       <edit>
         <div class="detail-marker"><i class="icon-home"></i></div>
         <div class="detail-edit">
-          <textarea #textarea [(ngModel)]="editingValue" cc-active cc-activate-on-focus tabindex="1" (focus)="startEdit()"></textarea>
+          <textarea #textarea [(ngModel)]="editingValue" tabindex="1" (focus)="startEdit()"></textarea>
         </div>
       </edit>
     </cc-editable-value>

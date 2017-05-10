@@ -2,14 +2,13 @@ import { Component, Input, AfterViewInit, ViewChild, ViewChildren, QueryList, El
 import { ROUTER_DIRECTIVES, Router } from '@angular/router-deprecated';
 import { EmailService, EmailMessage, EmailRecipient } from '../email/email.service';
 import { ValidatableComponent } from '../shared/validatable.component';
-import { ActiveService, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
 import { DefaultToPipe } from '../shared/pipes'
 
 @Component({
   selector: 'cc-send-email',
   templateUrl: 'app/email/send-email.component.html',
-  providers: [EmailService, ActiveService],
-  directives: [ROUTER_DIRECTIVES, ValidatableComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective],
+  providers: [EmailService],
+  directives: [ROUTER_DIRECTIVES, ValidatableComponent],
   pipes: [DefaultToPipe]
 })
 export class SendEmailComponent implements AfterViewInit {

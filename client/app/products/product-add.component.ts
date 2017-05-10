@@ -2,14 +2,13 @@ import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, 
 import { Product, UnitPrice, UnitType, unitTypes } from './product';
 import { HeadingComponent } from '../shared/heading.component';
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
-import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
 import { ValidatableComponent } from '../shared/validatable.component';
 import { NumericDirective } from '../shared/numeric.directive'
 
 @Component({
   selector: 'cc-product-add',
   templateUrl: 'app/products/product-add.component.html',
-  directives: [HeadingComponent, ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective, ROUTER_DIRECTIVES, ValidatableComponent, NumericDirective]
+  directives: [HeadingComponent, ROUTER_DIRECTIVES, ValidatableComponent, NumericDirective]
 })
 export class ProductAddComponent {
   unitTypes: UnitType[] = unitTypes;
@@ -25,9 +24,6 @@ export class ProductAddComponent {
 
   @ViewChild('add')
   addButton: ElementRef;
-
-  @ViewChild('active')
-  active: ActiveElementDirective;
 
   @Output()
   add = new EventEmitter<Product>();
@@ -61,7 +57,6 @@ export class ProductAddComponent {
     if(this.valid) {
     this.add.emit(this.product);
     this.adding = false;
-    this.active.makeInactive();
       this.validated = false;
     } else {
       setTimeout(() => this.renderer.invokeElementMethod(this.productName.nativeElement, 'focus', []));
@@ -70,7 +65,6 @@ export class ProductAddComponent {
 
   cancelAdd() {
     this.adding = false;
-    this.active.makeInactive();
     this.validated = false;
   } 
 

@@ -5,7 +5,7 @@
 </cc-section-header>
 <div class="loading-indicator" *ngIf="!loaded"><i class="icon-spin3 animate-spin"></i></div>
 <p *ngIf="loaded && !rounds.length">There are no rounds yet.</p>
-<div class="row-view-new no-hover" cc-active [class.focused]="focused" (activate)="focused = true" (deactivate)="focused = false">
+<div class="row-view-new no-hover">
   <cc-list-page-add #add
     (add)="onAdd($event)">
   </cc-list-page-add>
