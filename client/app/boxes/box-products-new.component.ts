@@ -1,42 +1,48 @@
 import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, ElementRef, OnInit, Renderer, ViewChildren, QueryList, Directive, HostListener, HostBinding, AfterViewInit, ContentChildren, ChangeDetectorRef } from '@angular/core';
-import { Arrays } from '../../shared/arrays'
-import { MoneyPipe } from '../../shared/pipes'
-import { OrderModel } from './order.model'
-import { OrderSectionModel } from './order.model'
-import { OrderItemModel } from './order.model'
-import { ProductQuantityComponent } from '../../products/product-quantity.component'
+import { Arrays } from '../shared/arrays'
+import { MoneyPipe } from '../shared/pipes'
+import { BoxProductsModel } from './box-products.model'
+import { BoxProductModel } from './box-products.model'
+import { ProductQuantityComponent } from '../products/product-quantity.component'
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import { Subject } from 'rxjs/Subject'
 import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/operator/distinct'
 import { Control, Validators, FORM_DIRECTIVES, FormBuilder, ControlGroup } from '@angular/common'
-import { NumberComponent, SelectComponent, ValidationResult } from '../../shared/input.component'
-import { EditableEditButtonComponent } from '../../shared/editable-edit-button.component'
-import { EditableButtonsComponent } from '../../shared/editable-buttons.component'
-import { OrderItemComponent } from './order-item.component' 
-import { EditableService } from '../../shared/editable.service'
+import { NumberComponent, SelectComponent, ValidationResult } from '../shared/input.component'
+import { EditableEditButtonComponent } from '../shared/editable-edit-button.component'
+import { EditableButtonsComponent } from '../shared/editable-buttons.component'
+import { BoxProductComponent } from './box-product-new.component' 
+import { EditableService } from '../shared/editable.service'
+import { Product } from '../products/product'
+import { BoxWithProducts } from '../boxes/box'
+import { BoxService } from './box.service'
+import { DistributeWidthMasterDirective } from '../shared/distribute-width.directive'
+
 
 @Component({
-  selector: '[cc-order-section]',
-  templateUrl: 'app/customers/orders/order-section.component.html',
-  directives: [ProductQuantityComponent, EditableEditButtonComponent, EditableButtonsComponent, NumberComponent, SelectComponent, FORM_DIRECTIVES, OrderItemComponent],
+  selector: 'cc-box-products',
+  templateUrl: 'app/boxes/box-products-new.component.html',
+  directives: [ProductQuantityComponent, EditableEditButtonComponent, EditableButtonsComponent, NumberComponent, SelectComponent, FORM_DIRECTIVES, BoxProductComponent, DistributeWidthMasterDirective],
   pipes: [MoneyPipe]
 })
-export class OrderSectionComponent implements OnInit {
-  @Input()
-  model: OrderSectionModel
+export class BoxProductsComponent implements OnInit {
+  model: BoxProductsModel
 
   @Input()
-  heading: string;
+  key: string
 
   @Input()
-  itemName: string;
+  box: BoxWithProducts
+
+  @Input()
+  products: Product[]
 
   @ViewChildren('select')
   select: QueryList<SelectComponent>;
 
   @ViewChildren('itemCmpt')
-  itemCmpts: QueryList<OrderItemComponent>;
+  itemCmpts: QueryList<BoxProductComponent>;
 
   @ViewChildren('addBtn')
   addBtn: QueryList<EditableEditButtonComponent>;
@@ -48,25 +54,25 @@ export class OrderSectionComponent implements OnInit {
     required: 'Quantity is required.',
     notGreaterThanZero: 'Quantity must be greater than zero.',
     notNumeric: 'Quantity must be a number.',
-    eachMustBeWholeNumber: this.itemName == 'box'
-      ? 'Boxes must have a whole number quantity.'
-      : 'Products sold \'per each\' must have a whole number quantity.'
+    eachMustBeWholeNumber: 'Products sold \'per each\' must have a whole number quantity.'
   }
   quantityValidationMessage: string;
 
-  get key() {
-    return this.heading + '-add';
-  }
-
   constructor(private renderer: Renderer, private builder: FormBuilder, 
   @Inject(forwardRef(() => EditableService))
-  private editableService: EditableService
+  private editableService: EditableService,
+  private boxService: BoxService
   ) {
   }
 
   ngOnInit() {
+    this.model = new BoxProductsModel(
+      this.box,
+      this.products,
+      this.boxService)
+
     let validateQuantity: (c: Control) => ValidationResult = control => { 
-      if (this.model.addingItem && this.model.addingItem.unitType == 'each' && ''+parseFloat(control.value) != ''+parseInt(control.value)) {
+      if (this.model.addingProduct && this.model.addingProduct.unitType == 'each' && ''+parseFloat(control.value) != ''+parseInt(control.value)) {
         return { "eachMustBeWholeNumber": true };
       }
   
@@ -87,8 +93,8 @@ export class OrderSectionComponent implements OnInit {
     })
   }
 
-  getItemId(item: OrderItemModel) {
-    return item.id;
+  getProductId(product: BoxProductModel) {
+    return product.id;
   }
 
   startAdd(){
@@ -109,7 +115,7 @@ export class OrderSectionComponent implements OnInit {
     if(!this.quantity.valid) {
       this.setValidationMessage();
     } else {
-      if(this.model.itemsAvailable.length > 1) {
+      if(this.model.productsAvailable.length > 1) {
         let sub = this.addBtn.changes.subscribe((l: QueryList<EditableEditButtonComponent>) => {
           if(l.length) {
             l.first.takeFocus();
@@ -117,7 +123,7 @@ export class OrderSectionComponent implements OnInit {
           }
         });
       } else {
-        let sub = this.itemCmpts.changes.subscribe((l: QueryList<OrderItemComponent>) => {
+        let sub = this.itemCmpts.changes.subscribe((l: QueryList<BoxProductComponent>) => {
           if(l.length) {
             l.first.focusRemove();
             sub.unsubscribe();
@@ -132,10 +138,10 @@ export class OrderSectionComponent implements OnInit {
     this.model.cancelAdd();
   }
 
-  itemRemoved(index: number, keydown: boolean) {
+  productRemoved(index: number, keydown: boolean) {
     if(keydown) {
       if(this.itemCmpts.length > 1) {
-        let sub = this.itemCmpts.changes.subscribe((l: QueryList<OrderItemComponent>) => {
+        let sub = this.itemCmpts.changes.subscribe((l: QueryList<BoxProductComponent>) => {
           if(l.length) {
             l.toArray()[Math.min(index, l.length - 1)].focusRemove();
             sub.unsubscribe();

@@ -5,28 +5,19 @@
                          [validators]="boxNameValidators"
                          [messages]="{required: 'Box name is required.'}">
     </cc-editable-heading>
-    <div class="flex">
-      <div class="price-detail">
-        <cc-editable-price key="boxPrice-{{box.id}}"
-                           [(value)]="box.price"
-                           (valueChange)="onUpdate()"
-                           [validators]="boxNameValidators"
-                           [messages]="{required: 'Box price is required.', notGreaterThanZero: 'Box price must be greater than zero.', notNumeric: 'Box price must be a number.'}">
-        </cc-editable-price>
-      </div>
-      <div></div>
-    </div>
-    <cc-box-products
-      editId="bp{{box.id}}"
-      [value]="box.products"
-      [products]="products"
-      (add)="onProductAdd($event)"
-      (update)="onProductUpdate($event)"
-      (remove)="onProductRemove($event)">
+    <cc-editable-price key="boxPrice-{{box.id}}"
+                        [(value)]="box.price"
+                        (valueChange)="onUpdate()"
+                        [validators]="boxNameValidators"
+                        [messages]="{required: 'Box price is required.', notGreaterThanZero: 'Box price must be greater than zero.', notNumeric: 'Box price must be a number.'}">
+    </cc-editable-price>
+    <cc-box-products key="boxProducts-{{box.id}}"
+                     [box]="box"
+                     [products]="products">
     </cc-box-products>
   </div>
   <div class="actions">
-    <button class="button-new button-new-right" cc-active cc-activate-on-focus cc-deactivate-on-blur (click)="onDelete()" tabindex="1">
+    <button class="button-new button-new-right" (click)="onDelete()" tabindex="1">
       <i class="icon-trash"></i>Delete
     </button>
   </div>

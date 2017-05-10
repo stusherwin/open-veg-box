@@ -134,9 +134,8 @@ TODO (now)
 
 Editable
 ========
-* Esc - to exit editable
-
+* Enter/Esc - to exit editable
 * Bug: if no properties whitelisted, get sql error
 * OnDestroy: unsubscribe to observables!
 * button-new: transparent background is preventing hover highlight
-* Replace ok button with warning icon if invalid (set editable-background to red)
+* send-emails - cancel button out of alignment

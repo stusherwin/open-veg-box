@@ -4,7 +4,7 @@ import { Product, ProductQuantity } from '../products/product'
 import { WeightPipe, MoneyPipe } from '../shared/pipes';
 import { HeadingComponent } from '../shared/heading.component';
 import { BoxPriceComponent } from './box-price.component';
-import { BoxProductsComponent } from './box-products.component';
+import { BoxProductsComponent } from './box-products-new.component';
 import { ActiveElementDirective, ActivateOnFocusDirective, DeactivateOnBlurDirective } from '../shared/active-elements'
 import { EditableHeadingComponent } from '../shared/editable-heading.component'
 import { EditablePriceComponent } from '../shared/editable-price.component'

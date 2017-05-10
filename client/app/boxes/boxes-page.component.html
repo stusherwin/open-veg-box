@@ -1,12 +1,24 @@
 <cc-section-header headerIcon="box" headerTitle="Boxes">
   <a class="button-new" tabindex="1"
-     cc-active cc-activate-on-focus
      (click)="add.startAdd()"
      (keydown.Enter)="add.startAdd()"><i class="icon-add"></i>New box</a>
 </cc-section-header>
 <div class="loading-indicator" *ngIf="!loaded"><i class="icon-spin3 animate-spin"></i></div>
 <p *ngIf="loaded && !boxes.length">There are no boxes yet.</p>
-<div class="row-view-new no-hover" cc-active [class.focused]="focused" (activate)="focused = true" (deactivate)="focused = false">
+
+<!--<span cc-distribute-width="a" style="display: inline-block;background: #faa; margin: 10px;">
+  <span *ngIf="!editing1" (click)="editing1 = true">{{value1 || 'blank'}}</span>
+  <input *ngIf="editing1" type="text" [(ngModel)]="value1" (keydown.Enter)="editing1 = false" />
+</span><br/>
+<span cc-distribute-width="a" style="display: inline-block;background: #faa; margin: 10px;">
+  <span *ngIf="!editing2" (click)="editing2 = true">{{value2 || 'blank'}}</span>
+  <input *ngIf="editing2" type="text" [(ngModel)]="value2" (keydown.Enter)="editing2 = false" />
+</span><br />
+<span cc-distribute-width="a" style="display: inline-block;background: #faa; margin: 10px;">
+  <span *ngIf="!editing3" (click)="editing3 = true">{{value3 || 'blank'}}</span>
+  <input *ngIf="editing3" type="text" [(ngModel)]="value3" (keydown.Enter)="editing3 = false" />
+</span>-->
+<div class="row-view-new no-hover">
   <cc-box-add #add (add)="onAdd($event)"></cc-box-add>
   <cc-box *ngFor="let b of boxes; let i = index"
     [box]="b"

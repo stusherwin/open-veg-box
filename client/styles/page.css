@@ -1024,8 +1024,8 @@ button.button-new[disabled]:focus i {
   left: 0px;
 }
 .button-new-small i.icon-cancel::before {
-  top: -0.5px;
-  left: 0px;
+  top: 0px;
+  left: 0.5px;
 }
 .button-new-small i.icon-add::before {
   top: 0px;
@@ -1434,6 +1434,7 @@ form.submitted textarea.ng-invalid ~ .icon-warning {
   position: relative;
   top: 0;
   left: 0;
+  padding-bottom: 2px;
 }
 .button-new-small ~ .button-new-small {
   margin-left: -2px;
@@ -1470,4 +1471,8 @@ form.submitted textarea.ng-invalid ~ .icon-warning {
   padding-left: 2px;
   padding-right: 2px;
   width: 66px;
+}
+.box-products-new {
+  margin-top: 20px;
+  margin-left: -5px;
 }

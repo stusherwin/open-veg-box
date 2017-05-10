@@ -1,0 +1,73 @@
+<cc-table class="box-products-new" style="position: absolute;left: -9999px">
+  <cc-tbody>
+    <cc-tr *ngFor="let p of model.products">
+      <cc-td cc-distribute-width-master="name" style="padding-right: 20px">
+        {{p.name}}
+      </cc-td>
+      <cc-td cc-distribute-width-master="quantity" style="padding-right: 20px">
+        <cc-product-quantity [quantity]="p.quantity" [unitType]="p.unitType"></cc-product-quantity>
+      </cc-td>
+    </cc-tr>
+  </cc-tbody>
+</cc-table>
+
+<cc-table class="box-products-new">
+  <cc-tbody>
+    <cc-tr-header class="order-header">
+      <cc-td cc-distribute-width="name">Products</cc-td>
+      <cc-td cc-distribute-width="quantity">&nbsp;</cc-td>
+      <!--<cc-td>&nbsp;</cc-td>-->
+      <cc-td class="action">
+        <cc-editable-button #addBtn
+                            icon="add"
+                            *ngIf="!model.adding && model.productsAvailable.length"
+                            [tabindex]="1"
+                            (click)="startAdd()">
+        </cc-editable-button>
+        <span *ngIf="model.adding || !model.productsAvailable.length">&nbsp;</span>
+      </cc-td>
+    </cc-tr-header>
+    <form class="cc-tr add-row editable-background"
+          *ngIf="model.adding && model.productsAvailable.length"
+          [class.submitted]="submitted"
+          [class.invalid]="submitted && !quantity.valid">
+      <cc-td>
+        <cc-select cssClass="order-item" #select
+          [(value)]="model.addingProduct"
+          [options]="model.productsAvailable"
+          textProperty="name">
+        </cc-select>
+      </cc-td>
+      <cc-td>
+        <span *ngIf="model.addingProduct.unitType == 'each'">x</span>
+        <cc-number cssClass="order-quantity"
+              [decimalPrecision]="0"
+              [(value)]="model.addingProductQuantity"
+              (valueChange)="setValidationMessage()"
+              [control]="quantity">
+        </cc-number>
+        <span *ngIf="model.addingProduct.unitType == 'perKg'">Kg</span>
+      </cc-td>
+      <!--<cc-td>&nbsp;</cc-td>-->
+      <cc-td class="action">
+        <span class="validation-warning"
+              *ngIf="submitted && !quantity.valid"
+              [title]="quantityValidationMessage">
+          <i class="icon-warning"></i>
+        </span>
+        <cc-editable-buttons [invalid]="submitted && !quantity.valid"
+                            (ok)="completeAdd($event)"
+                            (cancel)="cancelAdd()">
+        </cc-editable-buttons>
+      </cc-td>
+    </form>
+    <cc-tr *ngIf="!model.adding && !model.products.length">
+      <cc-td>No products</cc-td>
+      <cc-td>&nbsp;</cc-td>
+      <!--<cc-td>&nbsp;</cc-td>-->
+      <cc-td>&nbsp;</cc-td>
+    </cc-tr>
+    <cc-tr cc-box-product #itemCmpt key="{{key + '-' + product.id}}" *ngFor="let product of model.products; let i = index; trackBy:getProductId" [model]="product" (remove)="productRemoved(i, $event)">
+    </cc-tr>
+  </cc-tbody>
+<cc-table>

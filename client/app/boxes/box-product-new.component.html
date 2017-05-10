@@ -7,7 +7,7 @@
     <span *ngIf="model.unitType == 'each'">x</span>
     <form [class.submitted]="submitted">
       <cc-number cssClass="order-quantity" #quantityCmpt
-                [decimalPrecision]="model.unitType == 'each'? 0 : 3"
+                [decimalPrecision]="2"
                 [(value)]="model.editingQuantity"
                 (valueChange)="setValidationMessage()"
                 [control]="quantity">
@@ -32,13 +32,9 @@
                         (cancel)="cancelEdit()">
   </cc-editable-buttons>
 </cc-td>
-<cc-td class="total"
-        [innerHTML]="model.editingTotal | money:true"
-        [class.modified]="model.editingTotal != model.total">
-</cc-td>
 <cc-td class="action">
   <a #removeBtn class="button-new-small show-on-edit"
       tabindex="1"
-      (click)="removeItem(false)"
-      (keydown.Enter)="removeItem(true)"><i class="icon-trash"></i></a>
+      (click)="removeProduct(false)"
+      (keydown.Enter)="removeProduct(true)"><i class="icon-trash"></i></a>
 </cc-td>

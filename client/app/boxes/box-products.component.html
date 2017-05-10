@@ -1,4 +1,4 @@
-<div #root class="box-products" [class.editing]="editing" cc-active (activate)="editing = true" (deactivate)="editing = false">
+<div #root class="box-products editing" cc-active>
   <table *ngFor="let c of columns; let i = index" [style.margin-left.px]="i && columnPadding">
     <tr>
       <th [style.width.px]="productNameWidth + productNamePadding">&nbsp;</th>
