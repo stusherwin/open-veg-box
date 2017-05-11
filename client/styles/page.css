@@ -103,6 +103,9 @@ select {
   float: right;
   margin-left: 20px;
 }
+.email-edit .actions button.button-new {
+  margin-top: -5px;
+}
 .email-edit.invalid .input-wrapper.invalid .icon-warning {
   top: -3px;
 }
@@ -544,8 +547,10 @@ input[type="text"].price {
   table-layout: fixed;
   overflow: hidden;
 }
+.customer-add .customer-name {
+  display: inline-block;
+}
 .customer-add .customer-name input {
-  width: 100%;
   font-size: 150%;
   font-weight: 300;
   margin-bottom: 5px;
@@ -948,11 +953,6 @@ button.button-new {
   background: none;
   border: none;
   cursor: pointer;
-}
-button.button-new[disabled] {
-  cursor: inherit;
-}
-button.button-new {
   height: 20px;
 }
 button.button-new[disabled] {
@@ -961,18 +961,23 @@ button.button-new[disabled] {
 button.button-new[disabled],
 button.button-new[disabled]:hover,
 button.button-new[disabled]:focus {
-  color: #aaa;
+  color: #ccc;
 }
 button.button-new[disabled]::before,
 button.button-new[disabled]:hover::before,
 button.button-new[disabled]:focus::before {
-  border-color: #bbb;
+  border-color: transparent;
 }
 button.button-new[disabled] i,
 button.button-new[disabled]:hover i,
 button.button-new[disabled]:focus i {
-  background-color: transparent;
-  color: #bbb;
+  background-color: #eaeaea;
+  color: #fff;
+}
+button.button-new[disabled] i,
+button.button-new[disabled]:hover i,
+button.button-new[disabled]:focus i {
+  box-shadow: #eaeaea 0 2px 5px 0 inset;
 }
 .button-new-small {
   display: inline-block;
@@ -1465,4 +1470,10 @@ form.submitted textarea.ng-invalid ~ .icon-warning {
 .box-products-new {
   margin-top: 20px;
   margin-left: -5px;
+}
+.row-view-new .row.add-mode {
+  padding-top: 8px;
+}
+.row-view-new .row.add-mode .details {
+  padding-top: 10px;
 }

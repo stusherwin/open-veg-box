@@ -126,6 +126,10 @@ select {
       float:right;
       margin-left: 20px
     }
+
+    button.button-new {
+      margin-top: -5px;
+    }
   }
 
   &.invalid {
@@ -750,8 +754,9 @@ input[type="text"].price {
 
 .customer-add {
   .customer-name {
+    display: inline-block;
     input {
-      width: 100%;
+      // width: 40%;
       font-size: 150%;
       font-weight: 300;
       margin-bottom: 5px;
@@ -1122,19 +1127,15 @@ button.button-new {
   background: none;
   border: none;
   cursor: pointer;
-
-  &[disabled] {
-    cursor: inherit;
-  }
-}
-
-button.button-new {
   height: 20px;
 
   &[disabled] {
     cursor: inherit;
     &, &:hover, &:focus {
-     .buttonNewColors(#aaa; #bbb; transparent; #bbb);
+     // background: rgba(187,187,187, 0.2);
+     //.buttonNewColors(#aaa; #bbb; transparent; #bbb);
+     .buttonNewColors(#ccc; #fff; #eaeaea; transparent);
+     .buttonShadow(#eaeaea);
     }
   }
 }
@@ -1750,4 +1751,11 @@ form {
 .box-products-new {
   margin-top: 20px;
   margin-left: -5px;
+}
+
+.row-view-new .row.add-mode {
+  padding-top: 8px;
+  .details {
+    padding-top: 10px;
+  }
 }

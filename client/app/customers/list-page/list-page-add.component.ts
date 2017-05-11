@@ -7,16 +7,21 @@ import { CustomerTelComponent } from './customer-tel.component'
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { ValidatableComponent } from '../../shared/validatable.component';
 import { AddCustomerModel } from './customer.model'
+import { TextComponent } from '../../shared/input.component'
+import { Control, Validators, FORM_DIRECTIVES, FormBuilder, ControlGroup } from '@angular/common'
 
 @Component({
   selector: 'cc-list-page-add',
   templateUrl: 'app/customers/list-page/list-page-add.component.html',
-  directives: [HeadingComponent, CustomerAddressComponent, CustomerEmailComponent, CustomerTelComponent, ROUTER_DIRECTIVES, ValidatableComponent],
+  directives: [HeadingComponent, CustomerAddressComponent, CustomerEmailComponent, CustomerTelComponent, ROUTER_DIRECTIVES, ValidatableComponent, TextComponent],
 })
 export class ListPageAddComponent implements OnInit {
   customer = new Customer(0, '', '', '', '', '', '');
   adding: boolean;
   rowFocused: boolean;
+
+  // @ViewChild('customerName')
+  // customerName: TextComponent;
 
   @ViewChild('customerName')
   customerName: ElementRef;
@@ -36,10 +41,20 @@ export class ListPageAddComponent implements OnInit {
   @ViewChildren(ValidatableComponent)
   validatables: QueryList<ValidatableComponent>
 
-  constructor(private renderer: Renderer) {
+  constructor(private renderer: Renderer, private builder: FormBuilder) {
   }
-   
+
+  firstName: Control;
+  surname: Control;
+  form: ControlGroup;
+
   ngOnInit() {
+    this.firstName = new Control('', Validators.compose([Validators.required]))
+    this.surname = new Control('', Validators.compose([Validators.required]))
+    this.form = this.builder.group({
+      firstName: this.firstName,
+      surname: this.surname
+    })
   }
 
   validated = false;
@@ -60,6 +75,7 @@ export class ListPageAddComponent implements OnInit {
     this.resetCustomer();
     setTimeout(() => {
       this.renderer.invokeElementMethod(window, 'scrollTo', [0, 0])
+      // this.customerName.focus();
       this.renderer.invokeElementMethod(this.customerName.nativeElement, 'focus', [])
     });
   }
@@ -72,6 +88,7 @@ export class ListPageAddComponent implements OnInit {
       this.adding = false;
       this.validated = false;
     } else {
+      // setTimeout(() => this.customerName.focus());
       setTimeout(() => this.renderer.invokeElementMethod(this.customerName.nativeElement, 'focus', []));
     }
   }

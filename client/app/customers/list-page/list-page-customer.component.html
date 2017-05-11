@@ -9,7 +9,7 @@
     <button class="button-new button-new-right" [routerLink]="['../Customer', {customerId: model.id}, 'Email']" tabindex="1" [disabled]="!model.canEmail">
       <i class="icon-mail-dark"></i>Email
     </button>
-    <button class="button-new button-new-right" (click)="model.delete();active.makeInactive()" tabindex="1">
+    <button class="button-new button-new-right" (click)="model.delete()" tabindex="1">
       <i class="icon-trash"></i>Delete
     </button>
   </div>
