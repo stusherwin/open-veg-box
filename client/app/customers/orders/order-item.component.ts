@@ -32,6 +32,9 @@ export class OrderItemComponent implements OnInit {
   @Input()
   model: OrderItemModel
 
+  @Input()
+  itemName: string
+
   @Output()
   remove = new EventEmitter<boolean>()
 
@@ -60,12 +63,7 @@ export class OrderItemComponent implements OnInit {
   quantity: Control;
   form: ControlGroup;
   submitted = false;
-  quantityMessages = {
-    required: 'Quantity is required.',
-    notGreaterThanZero: 'Quantity must be greater than zero.',
-    notNumeric: 'Quantity must be a number.',
-    eachMustBeWholeNumber: 'Products sold \'per each\' must have a whole number quantity.'
-  }
+  quantityMessages: any
   quantityValidationMessage: string;
 
   constructor(private renderer: Renderer, private builder: FormBuilder, 
@@ -75,6 +73,15 @@ export class OrderItemComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.quantityMessages = {
+      required: 'Quantity is required.',
+      notGreaterThanZero: 'Quantity must be greater than zero.',
+      notNumeric: 'Quantity must be a number.',
+      eachMustBeWholeNumber: this.itemName == 'box'
+        ? 'Boxes must have a whole number quantity.'
+        : 'Products sold \'per each\' must have a whole number quantity.'
+    };
+    
     let validateQuantity: (c: Control) => ValidationResult = control => { 
       if (this.model.unitType == 'each' && ''+parseFloat(control.value) != ''+parseInt(control.value)) {
         return { "eachMustBeWholeNumber": true };

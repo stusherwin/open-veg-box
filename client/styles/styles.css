@@ -2088,6 +2088,9 @@ form.submitted textarea.ng-invalid ~ .icon-warning {
 .row-view-new .row.add-mode .details {
   padding-top: 10px;
 }
+.order {
+  margin-left: -5px;
+}
 .home {
   background: #579532;
   padding-top: 120px;

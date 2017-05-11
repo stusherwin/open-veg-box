@@ -7,7 +7,7 @@
     <span *ngIf="model.unitType == 'each'">x</span>
     <form [class.submitted]="submitted">
       <cc-number cssClass="order-quantity" #quantityCmpt
-                [decimalPrecision]="2"
+                [decimalPrecision]="model.unitType == 'each'? 0 : 3"
                 [(value)]="model.editingQuantity"
                 (valueChange)="setValidationMessage()"
                 [control]="quantity">

@@ -41,7 +41,7 @@
       <cc-td>
         <span *ngIf="model.addingProduct.unitType == 'each'">x</span>
         <cc-number cssClass="order-quantity"
-              [decimalPrecision]="0"
+              [decimalPrecision]="model.addingProduct.unitType == 'each'? 0 : 3"
               [(value)]="model.addingProductQuantity"
               (valueChange)="setValidationMessage()"
               [control]="quantity">

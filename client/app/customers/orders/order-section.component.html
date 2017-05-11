@@ -27,7 +27,7 @@
     <cc-td>
       <span *ngIf="model.addingItem.unitType == 'each'">x</span>
       <cc-number cssClass="order-quantity"
-            [decimalPrecision]="0"
+            [decimalPrecision]="model.addingItem.unitType == 'each'? 0 : 3"
             [(value)]="model.addingItemQuantity"
             (valueChange)="setValidationMessage()"
             [control]="quantity">
@@ -57,5 +57,5 @@
     <cc-td class="total" [innerHTML]="0 | money:true"></cc-td>
     <cc-td>&nbsp;</cc-td>
   </cc-tr>
-  <cc-tr cc-order-item #itemCmpt key="{{key + '-' + item.id}}" *ngFor="let item of model.items; let i = index; trackBy:getItemId" [model]="item" (remove)="itemRemoved(i, $event)">
+  <cc-tr cc-order-item #itemCmpt key="{{key + '-' + item.id}}" [itemName]="itemName" *ngFor="let item of model.items; let i = index; trackBy:getItemId" [model]="item" (remove)="itemRemoved(i, $event)">
   </cc-tr>
