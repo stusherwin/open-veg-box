@@ -10,23 +10,14 @@
       <tr *ngFor="let b of o.boxes">
         <td>{{b.name}}</td>
         <td><cc-product-quantity [quantity]="b.quantity" [unitType]="b.unitType"></cc-product-quantity></td>
-        <td>@</td>
-        <td class="money" [innerHTML]="b.price | money: true"></td>
-        <td>=</td>
         <td class="money" [innerHTML]="b.totalCost | money:true"></td>
       </tr>
       <tr *ngFor="let p of o.extraProducts">
         <td>{{p.name}}</td>
         <td><cc-product-quantity [quantity]="p.quantity" [unitType]="p.unitType"></cc-product-quantity></td>
-        <td>@</td>
-        <td class="money" [innerHTML]="p.price | money: true"></td>
-        <td>=</td>
         <td class="money" [innerHTML]="p.totalCost | money:true">
       </tr>
       <tr>
-        <td></td>
-        <td></td>
-        <td></td>
         <td></td>
         <td></td>
         <td [innerHTML]="o.totalCost | money:true" class="money order-total"></td>

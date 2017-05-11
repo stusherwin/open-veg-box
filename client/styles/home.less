@@ -13,9 +13,11 @@
 
   .button-new {
     .buttonNewColors(@col; @col; @header; @col);
+    .buttonShadow(@header);
 
     &:hover, &:focus {
       .buttonNewColors(white; @header; white; white);
+      .buttonShadow(white);
     }
   }
 

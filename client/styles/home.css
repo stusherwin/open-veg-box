@@ -15,6 +15,9 @@
   background-color: #579532;
   color: #e0eed8;
 }
+.home .button-new i {
+  box-shadow: #579532 0 2px 5px 0 inset;
+}
 .home .button-new:hover,
 .home .button-new:focus {
   color: white;
@@ -27,6 +30,10 @@
 .home .button-new:focus i {
   background-color: white;
   color: #579532;
+}
+.home .button-new:hover i,
+.home .button-new:focus i {
+  box-shadow: white 0 2px 5px 0 inset;
 }
 .home a.heading {
   display: block;

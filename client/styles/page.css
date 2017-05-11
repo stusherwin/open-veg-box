@@ -101,7 +101,7 @@ select {
 }
 .email-edit .actions .button-new {
   float: right;
-  margin-left: 20px;
+  margin-left: 10px;
 }
 .email-edit .actions button.button-new {
   margin-top: -5px;

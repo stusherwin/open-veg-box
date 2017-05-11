@@ -2,7 +2,7 @@
   <div class="details product-add" [class.invalid]="!valid">
     <div class="product-name">
       <cc-validatable [valid]="!!product.name.length" message="Name should not be empty">
-        <input #productName placeholder="New Product" type="text" [(ngModel)]="product.name" tabindex="1" />
+        <input #productName placeholder="Product name" type="text" [(ngModel)]="product.name" tabindex="1" />
       </cc-validatable>
     </div>
     <div style="margin: 5px 0">

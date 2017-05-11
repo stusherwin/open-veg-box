@@ -2,7 +2,7 @@
   <div class="details" [class.invalid]="!valid">
     <div class="round-name">
       <cc-validatable [valid]="!!round.name.length" message="Name should not be empty">
-        <input #roundName placeholder="New Round" type="text" [(ngModel)]="round.name" tabindex="1" />
+        <input #roundName placeholder="Round name" type="text" [(ngModel)]="round.name" tabindex="1" />
       </cc-validatable>
     </div>
   </div>

@@ -2,7 +2,7 @@
   <div class="details box-add" [class.invalid]="!valid">
     <div class="box-name">
       <cc-validatable [valid]="!!box.name.length" message="Name should not be empty">
-        <input #boxName placeholder="New Box" type="text" [(ngModel)]="box.name" tabindex="1" />
+        <input #boxName placeholder="Box name" type="text" [(ngModel)]="box.name" tabindex="1" />
       </cc-validatable>
     </div>
     <div style="margin: 5px 0">
