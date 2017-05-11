@@ -141,3 +141,5 @@ Editable
 * send-emails - cancel button out of alignment
 
 * Add row validation
+
+* Section title descenders being cut off (see round Chompton & Digby)

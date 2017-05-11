@@ -1,0 +1,46 @@
+<cc-table class="box-products-new">
+  <cc-tbody>
+    <cc-tr-header class="order-header">
+      <cc-td>Customers</cc-td>
+      <cc-td>&nbsp;</cc-td>
+      <!--<cc-td>&nbsp;</cc-td>-->
+      <cc-td class="action">
+        <cc-editable-button #addBtn
+                            icon="add"
+                            *ngIf="!model.adding && model.customersAvailable.length"
+                            [tabindex]="1"
+                            (click)="startAdd()">
+        </cc-editable-button>
+        <span *ngIf="model.adding || !model.customersAvailable.length">&nbsp;</span>
+      </cc-td>
+    </cc-tr-header>
+    <form class="cc-tr add-row editable-background"
+          *ngIf="model.adding && model.customersAvailable.length">
+      <cc-td>
+        <cc-select cssClass="order-item" #select
+          [(value)]="model.addingCustomer"
+          [options]="model.customersAvailable"
+          textProperty="name">
+        </cc-select>
+      </cc-td>
+      <cc-td>
+        <span *ngIf="model.addingCustomer.address && model.addingCustomer.address.length">{{model.addingCustomer.address}}</span>
+        <span *ngIf="!model.addingCustomer.address || !model.addingCustomer.address.length" class="muted">No address</span>
+      </cc-td>
+      <!--<cc-td>&nbsp;</cc-td>-->
+      <cc-td class="action">
+        <cc-editable-buttons (ok)="completeAdd($event)"
+                             (cancel)="cancelAdd()">
+        </cc-editable-buttons>
+      </cc-td>
+    </form>
+    <cc-tr *ngIf="!model.adding && !model.customers.length">
+      <cc-td>No customers</cc-td>
+      <cc-td>&nbsp;</cc-td>
+      <!--<cc-td>&nbsp;</cc-td>-->
+      <cc-td>&nbsp;</cc-td>
+    </cc-tr>
+    <cc-tr cc-round-customer #itemCmpt key="{{key + '-' + customer.id}}" *ngFor="let customer of model.customers; let i = index; trackBy:getCustomerId" [model]="customer" (remove)="customerRemoved(i, $event)">
+    </cc-tr>
+  </cc-tbody>
+<cc-table>

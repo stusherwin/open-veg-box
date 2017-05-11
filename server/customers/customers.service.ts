@@ -83,13 +83,9 @@ export class CustomersService {
   }
 
   get(id: number, queryParams: any, db: Db): Observable<Customer> {
-    console.log(queryParams);
     if(queryParams.orders) {
-      console.log('orders')
       return this.allWithOrders(queryParams, {id}, db, 'where c.id = @id').map(cs => cs.length? cs[0] : null);
     } else {
-      console.log('no orders')
-      
       return db.single<Customer>(
       ' select c.id, c.firstname, c.surname, c.address, c.tel1, c.tel2, c.email from customer c'
     + ' where c.id = @id',

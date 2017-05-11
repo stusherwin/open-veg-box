@@ -5,13 +5,14 @@ import { RouteParams } from '@angular/router-deprecated';
 import { RouteConfig, Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { ErrorNotifyComponent } from '../shared/error-notify.component'
 import { RoundService } from './round.service'
+import { CustomerService } from '../customers/customer.service'
 import { EditableService } from '../shared/editable.service'
 
 @Component({
   selector: 'cc-rounds-section',
   templateUrl: 'app/rounds/rounds-section.component.html',
   directives: [ROUTER_DIRECTIVES, ErrorNotifyComponent],
-  providers: [RoundService, EditableService]
+  providers: [RoundService, EditableService, CustomerService]
 })
 
 @RouteConfig([

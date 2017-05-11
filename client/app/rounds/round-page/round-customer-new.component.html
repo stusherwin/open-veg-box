@@ -1,0 +1,11 @@
+<cc-td>{{model.name}}</cc-td>
+<cc-td>
+  <span *ngIf="model.address && model.address.length">{{model.address}}</span>
+  <span *ngIf="!model.address || !model.address.length" class="muted">No address</span>
+</cc-td>
+<cc-td class="action">
+  <a #removeBtn class="button-new-small show-on-edit"
+      tabindex="1"
+      (click)="removeCustomer(false)"
+      (keydown.Enter)="removeCustomer(true)"><i class="icon-trash"></i></a>
+</cc-td>

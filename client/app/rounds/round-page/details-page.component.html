@@ -4,9 +4,7 @@
   <div class="row">
     <div class="details">
       <h3>Customers</h3>
-      <cc-round-customers
-        [(value)]="page.round.customers"
-        [unusedCustomers]="page.unusedCustomers">
+      <cc-round-customers [round]="page.round" [customers]="page.unusedCustomers">
       </cc-round-customers>
       <!--
         (add)="onCustomerAdd($event)" 
