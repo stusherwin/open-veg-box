@@ -4,7 +4,8 @@ import { Customer } from '../../customers/customer'
 import { RoundService } from '../round.service'
 import { CustomerService } from '../../customers/customer.service'
 import { RoundCustomersService } from '../list-page/round-customers.service'
-import { RoundDetailsPageComponent } from './details-page.component'
+import { RoundCustomersPageComponent } from './customers-page.component'
+import { RoundDeliveriesPageComponent } from './deliveries-page.component'
 import { EmailPageComponent } from './email-page.component'
 import { ProductListPageComponent } from './product-list-page.component'
 import { OrderListPageComponent } from './order-list-page.component'
@@ -29,8 +30,13 @@ export class RoundPageService {
 @RouteConfig([
   {
     path: '',
-    name: 'Details',
-    component: RoundDetailsPageComponent
+    name: 'Customers',
+    component: RoundCustomersPageComponent
+  },
+  {
+    path: 'deliveries',
+    name: 'Deliveries',
+    component: RoundDeliveriesPageComponent
   },
   {
     path: 'email',

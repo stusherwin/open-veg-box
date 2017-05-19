@@ -8,8 +8,9 @@
     <p style="font-size: 95%">{{round.customers.length}} customers</p>
   </div>
   <div class="actions">
-    <a class="button-new button-new-right" tabindex="1" [routerLink]="['../Round', {roundId: round.id}, 'Details']"><i class="icon-doc-text"></i>Details</a>
     <button class="button-new button-new-right" [disabled]="!canEmail" tabindex="1" [routerLink]="['../Round', {roundId: round.id}, 'Email']"><i class="icon-mail-dark"></i>Email</button>
+    <a class="button-new button-new-right" tabindex="1" [routerLink]="['../Round', {roundId: round.id}, 'Customers']"><i class="icon-person"></i>Customers</a>
+    <a class="button-new button-new-right" tabindex="1" [routerLink]="['../Round', {roundId: round.id}, 'Deliveries']"><i class="icon-truck"></i>Deliveries</a>
     <a class="button-new button-new-right" tabindex="1" (click)="onDelete()"><i class="icon-trash"></i>Delete</a>
   </div>
 </div>

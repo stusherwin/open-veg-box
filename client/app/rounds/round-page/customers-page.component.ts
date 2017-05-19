@@ -4,12 +4,12 @@ import { RoundPageService } from './round-page.component'
 import { EditableService } from '../../shared/editable.service'
 
 @Component({
-  selector: 'cc-details-page',
-  templateUrl: 'app/rounds/round-page/details-page.component.html',
+  selector: 'cc-customers-page',
+  templateUrl: 'app/rounds/round-page/customers-page.component.html',
   directives: [RoundCustomersComponent],
   providers: [EditableService]
 })
-export class RoundDetailsPageComponent {
+export class RoundCustomersPageComponent {
   constructor(
     @Inject(forwardRef(() => RoundPageService))
     private page: RoundPageService) {

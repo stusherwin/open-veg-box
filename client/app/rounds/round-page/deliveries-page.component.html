@@ -1,0 +1,72 @@
+<div class="row-view-new no-hover">
+  <div class="row" style="height: 0;padding: 0">
+  </div>
+  <div class="row">
+    <div class="details">
+      <table class="contact-details" style="width: auto">
+        <tr>
+          <th style="width: 90px">Delivery day:</th>
+          <td style="width: 400px">
+            <cc-editable-select key="deliveryWeekday"
+                              [(value)]="model.deliveryWeekday"
+                              (valueChange)="model.updateDeliveryWeekday($event)"
+                              [options]="model.weekdays"
+                              textProperty="name"
+                              valueProperty="index">
+            </cc-editable-select>
+          </td>
+        </tr>
+        <tr *ngIf="model.canCreateNewDelivery">
+          <th>Next delivery:</th>
+          <td>
+            {{model.nextDeliveryDate | date:'yMMMEEEEd'}}
+            <a class="button-new-small" tabindex="1"
+               (click)="model.decNextDeliveryDate()"
+               *ngIf="model.canDecNextDeliveryDate">
+               <i class="icon-down-open"></i>
+            </a>
+            <a class="button-new-small" tabindex="1"
+               (click)="model.incNextDeliveryDate()">
+                <i class="icon-up-open"></i>
+            </a>
+            <a class="button-new" tabindex="1"
+               (click)="model.newDelivery()" style="display: inline-block; margin-left: 10px">
+                 <i class="icon-clipboard"></i>Prepare
+            </a>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="row" *ngFor="let delivery of model.deliveries">
+    <div class="details">
+      <h3 style="display: inline-block">{{delivery.date | date:'yMMMEEEEd'}}</h3>
+      <a class="button-new-small" tabindex="1"
+          (click)="delivery.decDeliveryDate()"
+          *ngIf="delivery.canDecDeliveryDate">
+          <i class="icon-down-open"></i>
+      </a>
+      <a class="button-new-small" tabindex="1"
+          (click)="delivery.incDeliveryDate()"
+          *ngIf="delivery.canIncDeliveryDate">
+          <i class="icon-up-open"></i>
+      </a>
+      <div style="margin-left: -5px" *ngIf="delivery.isComplete"><i class="icon-ok"></i>Complete</div>
+      <div style="margin-left: -5px" *ngIf="!delivery.isComplete"><i class="icon-clipboard"></i>Preparing</div>
+    </div>
+    <div class="actions">
+      <a class="button-new button-new-right" tabindex="1"
+         (click)="delivery.complete()"
+         *ngIf="delivery.canComplete">
+           <i class="icon-ok"></i>Complete
+      </a>
+      <a class="button-new button-new-right" tabindex="1"
+         (click)="delivery.uncomplete()"
+         *ngIf="delivery.canUncomplete">
+           <i class="icon-clipboard"></i>Prepare
+      </a>
+      <a class="button-new button-new-right" tabindex="1"><i class="icon-basket"></i>Order list</a>
+      <a class="button-new button-new-right" tabindex="1"><i class="icon-carrot"></i>Product list</a>
+    </div>
+  </div>
+</div>

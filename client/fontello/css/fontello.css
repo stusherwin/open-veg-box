@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'fontello';
-  src: url('../font/fontello.eot?23333700');
-  src: url('../font/fontello.eot?23333700#iefix') format('embedded-opentype'),
-       url('../font/fontello.woff2?23333700') format('woff2'),
-       url('../font/fontello.woff?23333700') format('woff'),
-       url('../font/fontello.ttf?23333700') format('truetype'),
-       url('../font/fontello.svg?23333700#fontello') format('svg');
+  src: url('../font/fontello.eot?84638474');
+  src: url('../font/fontello.eot?84638474#iefix') format('embedded-opentype'),
+       url('../font/fontello.woff2?84638474') format('woff2'),
+       url('../font/fontello.woff?84638474') format('woff'),
+       url('../font/fontello.ttf?84638474') format('truetype'),
+       url('../font/fontello.svg?84638474#fontello') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'fontello';
-    src: url('../font/fontello.svg?23333700#fontello') format('svg');
+    src: url('../font/fontello.svg?84638474#fontello') format('svg');
   }
 }
 */
@@ -82,12 +82,21 @@
 .icon-phone:before { content: '\e818'; } /* '' */
 .icon-mail-1:before { content: '\e819'; } /* '' */
 .icon-trash:before { content: '\e81a'; } /* '' */
-.icon-send-mail:before { content: '\e81b'; } /* '' */
+.icon-right-open:before { content: '\e81b'; } /* '' */
 .icon-list-alt:before { content: '\e81c'; } /* '' */
 .icon-edit-1:before { content: '\e81d'; } /* '' */
+.icon-left-open:before { content: '\e81e'; } /* '' */
+.icon-clock:before { content: '\e81f'; } /* '' */
+.icon-gift:before { content: '\e820'; } /* '' */
+.icon-up-open:before { content: '\e821'; } /* '' */
+.icon-down-open:before { content: '\e822'; } /* '' */
+.icon-clipboard:before { content: '\e823'; } /* '' */
 .icon-spin3:before { content: '\e832'; } /* '' */
 .icon-mail-dark:before { content: '\f0e0'; } /* '' */
 .icon-doc-text:before { content: '\f0f6'; } /* '' */
+.icon-cubes:before { content: '\f1b3'; } /* '' */
 .icon-history:before { content: '\f1da'; } /* '' */
+.icon-hourglass-2:before { content: '\f252'; } /* '' */
 .icon-map-signs:before { content: '\f277'; } /* '' */
 .icon-map-o:before { content: '\f278'; } /* '' */
+.icon-shopping-basket:before { content: '\f291'; } /* '' */

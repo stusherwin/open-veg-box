@@ -143,3 +143,8 @@ Editable
 * Add row validation
 
 * Section title descenders being cut off (see round Chompton & Digby)
+* Fix editable-select and cc-select (getText and getValue consistency)
+* Upgrade sql scripts
+* Add deliveryWeekday to Round
+* Deliveries server-side (copy orders)
+* Prompt when re-preparing a delivery when orders have changed.

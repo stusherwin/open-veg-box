@@ -1368,6 +1368,7 @@ input[type="text"].price {
   font-size: 10px;
   line-height: 10px;
   color: #000;
+  white-space: nowrap;
   color: #999;
 }
 .button-new::before {
@@ -1558,6 +1559,25 @@ input[type="text"].price {
   margin-top: -0.5px;
   margin-left: 0.5px;
 }
+.button-new i.icon-truck {
+  font-size: 13px;
+}
+.button-new i.icon-truck::before {
+  display: block;
+  border-radius: 13px;
+  height: 13px;
+  width: 13px;
+  left: calc(50% -  6.5px);
+  top: calc(50% -  6.5px);
+}
+.button-new i.icon-truck::before {
+  margin-top: 0px;
+  margin-left: -1px;
+}
+.button-new i.icon-clipboard::before {
+  margin-top: -0.5px;
+  margin-left: 0px;
+}
 button.button-new {
   padding-top: 0;
   padding-bottom: 0;
@@ -1654,6 +1674,22 @@ button.button-new[disabled]:focus i {
   top: 1px;
   left: 0px;
 }
+.button-new-small i.icon-left-open::before {
+  top: 0.5px;
+  left: -1px;
+}
+.button-new-small i.icon-right-open::before {
+  top: 0.5px;
+  left: 1px;
+}
+.button-new-small i.icon-up-open::before {
+  top: -1.5px;
+  left: 0px;
+}
+.button-new-small i.icon-down-open::before {
+  top: -0.5px;
+  left: 0px;
+}
 button.button-new-small {
   cursor: pointer;
   position: relative;
@@ -1713,6 +1749,42 @@ button.button-new-small[disabled]:focus i:before {
 }
 .row-view-new .row .details h3 {
   margin-bottom: 30px;
+}
+.row-view-new .row .details h3 i {
+  margin-right: 5px;
+  position: relative;
+  top: -4px;
+  left: -5px;
+  border-radius: 32px;
+  height: 32px;
+  width: 32px;
+  display: inline-block;
+  border: 1px solid #999;
+  vertical-align: top;
+  color: #999;
+}
+.row-view-new .row .details h3 i::before {
+  font-weight: 100;
+  margin: 0;
+  font-size: 20px;
+  line-height: 20px;
+  display: block;
+  margin-top: 6px;
+  margin-left: 5px;
+}
+.row-view-new .row .details h3 i.icon-ok::before {
+  margin-top: 5px;
+  margin-left: 6px;
+}
+.row-view-new .row .details h3 i.icon-hourglass-2::before {
+  font-size: 17px;
+  margin-top: 5px;
+  margin-left: 7px;
+}
+.row-view-new .row .details h3 i.icon-clipboard::before {
+  font-size: 16px;
+  margin-top: 5px;
+  margin-left: 7px;
 }
 .row-view-new .row .actions {
   display: table-cell;

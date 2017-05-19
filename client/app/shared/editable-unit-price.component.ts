@@ -28,7 +28,6 @@ import { UnitPrice, UnitType, unitTypes } from '../products/product';
                  [messages]="messages">
         </cc-number>
         <cc-select [(value)]="editingValue.unitType"
-                   (valueChange)="unitTypeChanged($event)"
                    [options]="unitTypes"
                    textProperty="name"
                    valueProperty="value">
@@ -130,10 +129,6 @@ export class EditableUnitPriceComponent implements OnInit {
         sub.unsubscribe();
       }
     })
-  }
-
-  unitTypeChanged(unitType: string) {
-
   }
 
   ok() {

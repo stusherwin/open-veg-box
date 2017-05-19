@@ -200,9 +200,9 @@ export class TextAreaComponent extends InputComponent implements OnInit {
 @Component({
   template: `
     <select #select class="{{cssClass}}"
-        tabindex="1"
-        [(ngModel)]="value"
-        (ngModelChange)="valueChange.emit($event)">
+            tabindex="1"
+            [ngModel]="value"
+            (ngModelChange)="valueChange.emit($event)">
       <option *ngFor="let o of options" [ngValue]="getValue(o)">{{getText(o)}}</option>
     </select>
   `,
@@ -213,7 +213,7 @@ export class SelectComponent extends InputComponent implements OnInit {
   cssClass: string;
 
   @Input()
-  value: string;
+  value: any;
 
   @Input()
   textProperty: string
@@ -243,6 +243,9 @@ export class SelectComponent extends InputComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.value);
+    console.log(this.valueProperty);
+    console.log(this.getValue(this.value));
   }
 
   focus() {
