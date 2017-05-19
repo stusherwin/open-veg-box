@@ -12,7 +12,7 @@ export class SqliteDb implements Db {
   db: any;
 
   constructor(dbName: string) {
-    let db = new sqlite.Database(path.resolve(__dirname, '../' + dbName + '.sqlite'));
+    let db = new sqlite.Database(path.resolve(__dirname, '../database/' + dbName + '.sqlite'));
     
     db.run('PRAGMA foreign_keys=on');
     //this.db = new DbWrapper(db);
