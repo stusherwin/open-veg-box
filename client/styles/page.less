@@ -1059,16 +1059,13 @@ input[type="text"].price {
 
   .buttonNew(@outerSize; @outerPadding; @iconSize; @textSize);
   .buttonNewColors(#999; #fff; fade(#999, 30%); transparent);
-  .buttonShadow(fade(#777, 30%));
 
   &:hover, &.hover {
     .buttonNewColors(@boxProductHover; #fff; @boxProductHover; transparent);
-    .buttonShadow(@boxProductHover);
   }
 
   &:focus {
-    .buttonNewColors(@boxProductHover; #fff; @boxProductHover; @boxProductHover);
-    .buttonShadow(@boxProductHover);
+    .buttonNewColors(@boxProductHover; #fff; @boxProductHover; transparent);
   }
 
   &.button-new-right {
@@ -1199,7 +1196,8 @@ button.button-new {
   &:hover, &:focus {
     //border: 1px solid @boxProductHover;
     background: @boxProductHover;
-    box-shadow: @boxProductHover 0 2px 5px 0 inset;
+    box-shadow: darken(@boxProductHover, 5%) 0 -2px 5px 0 inset,
+                lighten(@boxProductHover, 20%) 0 2px 5px 0 inset;
 
     i::before {
       color: white;
@@ -1381,9 +1379,30 @@ button.button-new-small {
         float: right;
         clear: right;
         margin-top: 20px;
+        .buttonNewColors(#999; #fff;#ddd; #ddd; #fff);
+        .buttonShadow(#bbb);
+        
+        &:hover, &.hover {
+          .buttonNewColors(@boxProductHover; #fff; @boxProductHover; lighten(@boxProductHover, 20%); #fff);
+          .buttonShadow(lighten(@boxProductHover, 10%); darken(@boxProductHover, 5%));
+        }
+
+        &:focus {
+          .buttonNewColors(@boxProductHover; #fff; @boxProductHover; lighten(@boxProductHover, 20%); #fff);
+          .buttonShadow(lighten(@boxProductHover, 10%); darken(@boxProductHover, 5%));
+        }
 
         &:first-child {
           margin-top: 0px;
+        }
+      }
+      
+      button.button-new {
+        &[disabled] {
+          &, &:hover, &:focus {
+          .buttonNewColors(#ccc; #fff; #eaeaea; #eaeaea; #fff);
+          .buttonShadow(#eaeaea);
+          }
         }
       }
 
@@ -1441,6 +1460,8 @@ button.button-new-small {
       // border: 1px solid @boxProductHover;
       background: @boxProductHover;
       box-shadow: @boxProductHover 0 2px 5px 0 inset;
+      box-shadow: darken(@boxProductHover, 5%) 0 -2px 5px 0 inset,
+                  lighten(@boxProductHover, 15%) 0 2px 5px 0 inset;
 
       i::before {
         color: white;

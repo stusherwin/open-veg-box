@@ -1412,9 +1412,6 @@ input[type="text"].price {
   background-color: rgba(153, 153, 153, 0.3);
   color: #fff;
 }
-.button-new i {
-  box-shadow: rgba(119, 119, 119, 0.3) 0 2px 5px 0 inset;
-}
 .button-new:hover,
 .button-new.hover {
   color: #ffa011;
@@ -1428,22 +1425,15 @@ input[type="text"].price {
   background-color: #ffa011;
   color: #fff;
 }
-.button-new:hover i,
-.button-new.hover i {
-  box-shadow: #ffa011 0 2px 5px 0 inset;
-}
 .button-new:focus {
   color: #ffa011;
 }
 .button-new:focus::before {
-  border-color: #ffa011;
+  border-color: transparent;
 }
 .button-new:focus i {
   background-color: #ffa011;
   color: #fff;
-}
-.button-new:focus i {
-  box-shadow: #ffa011 0 2px 5px 0 inset;
 }
 .button-new.button-new-right {
   padding-left: 0;
@@ -1641,7 +1631,7 @@ button.button-new[disabled]:focus i {
 .button-new-small:hover,
 .button-new-small:focus {
   background: #ffa011;
-  box-shadow: #ffa011 0 2px 5px 0 inset;
+  box-shadow: #f69400 0 -2px 5px 0 inset, #ffc977 0 2px 5px 0 inset;
 }
 .button-new-small:hover i::before,
 .button-new-small:focus i::before {
@@ -1795,9 +1785,86 @@ button.button-new-small[disabled]:focus i:before {
   float: right;
   clear: right;
   margin-top: 20px;
+  color: #999;
+}
+.row-view-new .row .actions .button-new::before {
+  border-color: #ddd;
+}
+.row-view-new .row .actions .button-new i {
+  background-color: #ddd;
+  color: #fff;
+}
+.row-view-new .row .actions .button-new::before {
+  background: #fff;
+}
+.row-view-new .row .actions .button-new i {
+  box-shadow: #bbb 0 2px 5px 0 inset;
+}
+.row-view-new .row .actions .button-new:hover,
+.row-view-new .row .actions .button-new.hover {
+  color: #ffa011;
+}
+.row-view-new .row .actions .button-new:hover::before,
+.row-view-new .row .actions .button-new.hover::before {
+  border-color: #ffc977;
+}
+.row-view-new .row .actions .button-new:hover i,
+.row-view-new .row .actions .button-new.hover i {
+  background-color: #ffa011;
+  color: #fff;
+}
+.row-view-new .row .actions .button-new:hover::before,
+.row-view-new .row .actions .button-new.hover::before {
+  background: #fff;
+}
+.row-view-new .row .actions .button-new:hover i,
+.row-view-new .row .actions .button-new.hover i {
+  box-shadow: #ffb444 0 2px 5px 0 inset, #f69400 0 -2px 5px 0 inset;
+}
+.row-view-new .row .actions .button-new:focus {
+  color: #ffa011;
+}
+.row-view-new .row .actions .button-new:focus::before {
+  border-color: #ffc977;
+}
+.row-view-new .row .actions .button-new:focus i {
+  background-color: #ffa011;
+  color: #fff;
+}
+.row-view-new .row .actions .button-new:focus::before {
+  background: #fff;
+}
+.row-view-new .row .actions .button-new:focus i {
+  box-shadow: #ffb444 0 2px 5px 0 inset, #f69400 0 -2px 5px 0 inset;
 }
 .row-view-new .row .actions .button-new:first-child {
   margin-top: 0px;
+}
+.row-view-new .row .actions button.button-new[disabled],
+.row-view-new .row .actions button.button-new[disabled]:hover,
+.row-view-new .row .actions button.button-new[disabled]:focus {
+  color: #ccc;
+}
+.row-view-new .row .actions button.button-new[disabled]::before,
+.row-view-new .row .actions button.button-new[disabled]:hover::before,
+.row-view-new .row .actions button.button-new[disabled]:focus::before {
+  border-color: #eaeaea;
+}
+.row-view-new .row .actions button.button-new[disabled] i,
+.row-view-new .row .actions button.button-new[disabled]:hover i,
+.row-view-new .row .actions button.button-new[disabled]:focus i {
+  background-color: #eaeaea;
+  color: #fff;
+}
+.row-view-new .row .actions button.button-new[disabled]::before,
+.row-view-new .row .actions button.button-new[disabled]:hover::before,
+.row-view-new .row .actions button.button-new[disabled]:focus::before {
+  background: #fff;
+}
+.row-view-new .row .actions button.button-new[disabled] i,
+.row-view-new .row .actions button.button-new[disabled]:hover i,
+.row-view-new .row .actions button.button-new[disabled]:focus i {
+  box-shadow: #eaeaea 0 2px 5px 0 inset;
 }
 .row-view-new .row .actions button.button-new {
   margin-top: 15px;
@@ -1836,6 +1903,7 @@ button.button-new-small[disabled]:focus i:before {
 .editable-display-clickable.hover .button-new-small {
   background: #ffa011;
   box-shadow: #ffa011 0 2px 5px 0 inset;
+  box-shadow: #f69400 0 -2px 5px 0 inset, #ffbe5d 0 2px 5px 0 inset;
 }
 .editable-display-clickable:hover .button-new-small i::before,
 .editable-display-clickable.hover .button-new-small i::before {

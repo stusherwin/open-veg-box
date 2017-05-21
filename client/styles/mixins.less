@@ -459,6 +459,13 @@
   } 
 }
 
+.buttonShadow(@color; @color2) {
+  i {
+    box-shadow: @color 0 2px 5px 0 inset,
+                @color2 0 -2px 5px 0 inset;    
+  } 
+}
+
 .boxProductClearFix() {
   &::after {
     display: block;
