@@ -39,7 +39,7 @@ export class SqliteDb implements Db {
       .map(create);
   }
 
-  update(table: string, fields: string[], id: number, params: {}) {
+  update(table: string, fields: string[], id: number, params: {}): Observable<void> {
     let whiteListed = Objects.whiteList(params, fields);
     let columns = Object.getOwnPropertyNames(whiteListed);
 
@@ -52,7 +52,7 @@ export class SqliteDb implements Db {
       Objects.extend(whiteListed, {id}));
   }
 
-  insert(table: string, fields: string[], params: {}) {
+  insert(table: string, fields: string[], params: {}): Observable<number> {
     let whiteListed = Objects.whiteList(params, fields);
     let columns = Object.getOwnPropertyNames(whiteListed);
 
@@ -64,10 +64,11 @@ export class SqliteDb implements Db {
       + ') values ('
       + columns.map((f:string) => '@' + f).join(', ')
       + ')',
-      whiteListed);
+      whiteListed)
+      .mergeMap(() => this.getObs('select last_insert_rowid() id', {}).map(r => r? r.id : null));
   }
 
-  delete(table: string, id: number) {
+  delete(table: string, id: number): Observable<void> {
     return this.runObs(
       'delete from '
       + table 

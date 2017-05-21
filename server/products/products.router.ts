@@ -13,22 +13,22 @@ export let getProducts = function(authorize: (req: any, res: any, next:() => voi
 
   products.get('/', function(req: any, res: any, next: any) {
     productsService.getAll(req.query, req.db)
-                  .subscribe(products => res.json(products), next);
+                   .subscribe(products => res.json(products), next);
   });
 
   products.post('/:id', function(req: any, res: any, next: any) {
-    productsService.update(req.params.id, req.body, req.query, req.db)
-                  .subscribe(products => res.json(products), next);
+    productsService.update(req.params.id, req.body, req.db)
+                   .subscribe(() => res.sendStatus(200), next);
   });
 
   products.put('/', function(req: any, res: any, next: any) {
-    productsService.add(req.body, req.query, req.db)
-                  .subscribe(products => res.json(products), next);
+    productsService.add(req.body, req.db)
+                   .subscribe(id => res.json({id}), next);
   });
 
   products.delete('/:id', function(req: any, res: any, next: any) {
-    productsService.delete(req.params.id, req.query, req.db)
-                  .subscribe(products => res.json(products), next);
+    productsService.delete(req.params.id, req.db)
+                   .subscribe(() => res.sendStatus(200), next);
   });
 
   return products;

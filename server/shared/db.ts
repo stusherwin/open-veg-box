@@ -8,6 +8,6 @@ export interface Db {
   execute(sql: string, params: any): Observable<void>;
 
   update(table: string, fields: string[], id: number, params: any): Observable<void>;
-  insert(table: string, fields: string[], params: any): Observable<void>;
+  insert(table: string, fields: string[], params: any): Observable<number>;
   delete(table: string, id: number): Observable<void>;
 }

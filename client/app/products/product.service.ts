@@ -35,28 +35,25 @@ export class ProductService {
                        .map(ps => ps.map(this.hydrate));
   }
 
-  add(params: any, queryParams: {[key: string]: string}): Observable<Product[]> {
+  add(params: any): Observable<number> {
     let options = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' }) });
 
-    return this.http.put('api/products?' + this.toQueryString(queryParams), JSON.stringify(params), options)
-                    .map(res => res.json())
-                    .map(ps => ps.map(this.hydrate));
+    return this.http.put('api/products', JSON.stringify(params), options)
+                    .map(res => res.json().id);
   }
 
-  update(id: number, params: any, queryParams: {[key: string]: string}): Observable<Product[]> {
+  update(id: number, params: any): Observable<void> {
     let options = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' }) });
 
-    return this.http.post('api/products/' + id + '?' + this.toQueryString(queryParams), JSON.stringify(params), options)
-                    .map(res => res.json())
-                    .map(ps => ps.map(this.hydrate));
+    return this.http.post('api/products/' + id, JSON.stringify(params), options)
+                    .map(res => {});
   }
 
-  delete(id: number, queryParams: {[key: string]: string}): Observable<Product[]> {
+  delete(id: number): Observable<void> {
     let options = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' }) });
 
-    return this.http.delete('api/products/' + id + '?' + this.toQueryString(queryParams), options)
-                    .map(res => res.json())
-                    .map(ps => ps.map(this.hydrate));
+    return this.http.delete('api/products/' + id, options)
+                    .map(res => {});
   }
 
   private hydrate(p: any) {

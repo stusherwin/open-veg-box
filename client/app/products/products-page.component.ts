@@ -8,6 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import { RouteParams } from '@angular/router-deprecated';
 import { SectionHeaderComponent } from '../structure/section-header.component'
 import { EditableService } from '../shared/editable.service'
+import { Arrays } from '../shared/arrays'
 
 @Component({
   selector: 'cc-products-page',
@@ -35,19 +36,19 @@ export class ProductsPageComponent implements OnInit {
   }
 
   onAdd(product: Product) {
-    this.productService.add({name: product.name, price: product.unitPrice.price, unitType: product.unitPrice.unitType, unitQuantity: 1}, this.queryParams).subscribe(products => {
-      this.products = products;
-      setTimeout(() => this.renderer.invokeElementMethod(window, 'scrollTo', [0, document.body.scrollHeight]));
+    this.productService.add({name: product.name, price: product.unitPrice.price, unitType: product.unitPrice.unitType, unitQuantity: 1}).subscribe(id => {
+      product.id = id;
+      this.products.unshift(product);
     });
   }
 
   onDelete(product: Product) {
-    this.productService.delete(product.id, this.queryParams).subscribe(products => {
-      this.products = products;
+    this.productService.delete(product.id).subscribe(() => {
+      Arrays.remove(this.products, product);
     });
   }
 
   onUpdate(product: Product) {
-    this.productService.update(product.id, {price: product.unitPrice.price, unitType: product.unitPrice.unitType}, this.queryParams).subscribe(products => {});
+    this.productService.update(product.id, {name: product.name, price: product.unitPrice.price, unitType: product.unitPrice.unitType}).subscribe(() => {});
   }
 }

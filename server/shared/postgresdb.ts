@@ -47,22 +47,23 @@ export class PostgresDb implements Db {
       Objects.extend(whiteListed, {id}));
   }
 
-  insert(table: string, fields: string[], params: any) {
+  insert(table: string, fields: string[], params: any): Observable<number> {
     let whiteListed = Objects.whiteList(params, fields);
     let columns = Object.getOwnPropertyNames(whiteListed);
 
-    return this.noneObs(
+    return this.oneObs(
       'insert into '
       + table 
       + ' ('
       + columns.join(', ')
       + ') values ('
       + columns.map((f:string) => '@' + f).join(', ')
-      + ')',
-      whiteListed);
+      + ') returning id',
+      whiteListed)
+      .map(r => r? r.id : null);
   }
 
-  delete(table: string, id: number) {
+  delete(table: string, id: number): Observable<void> {
     return this.noneObs(
       'delete from '
       + table 
@@ -70,7 +71,7 @@ export class PostgresDb implements Db {
       {id: id});
   }
 
-  execute(sql: string, params: any) {
+  execute(sql: string, params: any): Observable<void> {
     return this.noneObs(sql, params);
   }
 

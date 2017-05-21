@@ -10,22 +10,19 @@ export class ProductsService {
     return db.all<Product>(
       ' select p.id, p.name, p.price, p.unitType, p.unitQuantity'
     + ' from product p'
-    + ' order by p.id',
+    + ' order by p.name',
       {}, queryParams, r => new Product(r.id, r.name, r.price, r.unittype, r.unitquantity));
   }
 
-  add(params: any, queryParams: any, db: Db): Observable<Product[]> {
-    return db.insert('product', this.fields, params)
-      .mergeMap(() => this.getAll(queryParams, db));
+  add(params: any, db: Db): Observable<number> {
+    return db.insert('product', this.fields, params);
   }
 
-  update(id: number, params: any, queryParams: any, db: Db): Observable<Product[]> {
-    return db.update('product', this.fields, id, params)
-      .mergeMap(() => this.getAll(queryParams, db));
+  update(id: number, params: any, db: Db): Observable<void> {
+    return db.update('product', this.fields, id, params);
   }
 
-  delete(id: number, queryParams: any, db: Db): Observable<Product[]> {
-    return db.delete('product', id)
-      .mergeMap(() => this.getAll(queryParams, db));
+  delete(id: number, db: Db): Observable<void> {
+    return db.delete('product', id);
   }
 }
