@@ -12,6 +12,7 @@ import { RouteParams } from '@angular/router-deprecated';
 import { BoxProductsService } from './box-products.service';
 import { SectionHeaderComponent } from '../structure/section-header.component'
 import { EditableService } from '../shared/editable.service'
+import { Arrays } from '../shared/arrays'
 import 'rxjs/add/operator/combineLatest';
 import 'rxjs/add/observable/combineLatest';
 
@@ -42,34 +43,30 @@ export class BoxesPageComponent implements OnInit {
   }
 
   onAdd(box: Box) {
-    this.boxService.add(box, this.queryParams).subscribe(boxes => {
-      this.boxes = boxes;
-      setTimeout(() => this.renderer.invokeElementMethod(window, 'scrollTo', [0, document.body.scrollHeight]));
-    });
+    this.boxService.add(box).subscribe(id => {
+      this.boxes.unshift(new BoxWithProducts(id, box.name, box.price, []));
+    }); 
   }
 
   onDelete(box: Box) {
-    this.boxService.delete(box.id, this.queryParams).subscribe(boxes => {
-      this.boxes = boxes;
+    this.boxService.delete(box.id).subscribe(() => {
+      Arrays.remove(this.boxes, box);
     });
   }
 
   onUpdate(box: Box) {
-    this.boxService.update(box.id, box, this.queryParams).subscribe(boxes => {});
+    this.boxService.update(box.id, box).subscribe(() => {});
   }
 
   onProductAdd(event: BoxProductEvent) {
-    this.boxService.addProduct(event.boxId, event.product.id, event.product, this.queryParams).subscribe(boxes => {
-    });
+    this.boxService.addProduct(event.boxId, event.product.id, event.product).subscribe(() => {});
   }
 
   onProductUpdate(event: BoxProductEvent) {
-    this.boxService.updateProduct(event.boxId, event.product.id, event.product, this.queryParams).subscribe(boxes => {
-    });
+    this.boxService.updateProduct(event.boxId, event.product.id, event.product).subscribe(() => {});
   }
 
   onProductRemove(event: BoxProductEvent) {
-    this.boxService.removeProduct(event.boxId, event.product.id, this.queryParams).subscribe(boxes => {
-    });
+    this.boxService.removeProduct(event.boxId, event.product.id).subscribe(() => {});
   }
 }

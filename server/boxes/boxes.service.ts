@@ -31,55 +31,49 @@ export class BoxesService {
       ' select b.id, b.name, b.price, p.id productId, p.name productName, bp.quantity productQuantity, p.unitType productUnitType from box b' 
     + ' left join box_product bp on bp.boxId = b.id'
     + ' left join product p on p.id = bp.productId'
-    + ' order by b.id, p.name',
+    + ' order by b.name, p.name',
       {},
       queryParams,
       rows => {
-        let boxes: { [id: number]: BoxWithProducts; } = {};
+        let result: BoxWithProducts[] = [];
         for(let r of rows) {
-          if(!boxes[r.id]) {
-            boxes[r.id] = new BoxWithProducts(r.id, r.name, r.price, []);
+          let box = result.find(b => b.id == r.id);
+          if(!box) {
+            box = new BoxWithProducts(r.id, r.name, r.price, []);
+            result.push(box);
           }
           if(r.productid) {
-            boxes[r.id].products.push(new ProductQuantity(r.productid, r.productname, r.productquantity, r.productunittype));
+            box.products.push(new ProductQuantity(r.productid, r.productname, r.productquantity, r.productunittype));
           }
-        }
-        let result: BoxWithProducts[] = [];
-        for(let id in boxes) {
-          result.push(boxes[id]);
         }
         return result;
       });
   }
 
-  add(params: any, queryParams: any, db: Db): Observable<BoxWithProducts[]> {
-    return db.insert('box', this.boxFields, params)
-      .mergeMap(() => this.getAll(queryParams, db));
+  add(params: any, db: Db): Observable<number> {
+    return db.insert('box', this.boxFields, params);
   }
 
-  update(id: number, params: any, queryParams: any, db: Db): Observable<BoxWithProducts[]> {
-    return db.update('box', this.boxFields, id, params)
-      .mergeMap(() => this.getAll(queryParams, db));
+  update(id: number, params: any, db: Db): Observable<void> {
+    return db.update('box', this.boxFields, id, params);
   }
 
-  delete(id: number, queryParams: any, db: Db): Observable<BoxWithProducts[]> {
+  delete(id: number, db: Db): Observable<void> {
     return db.execute('delete from box_product where boxId = @id', {id})
-      .mergeMap(() => db.delete('box', id))
-      .mergeMap(() => this.getAll(queryParams, db));
+      .mergeMap(() => db.delete('box', id));
   }
 
-  addProduct(id: number, productId: number, params: any, queryParams: any, db: Db): Observable<BoxWithProducts[]> {
+  addProduct(id: number, productId: number, params: any, db: Db): Observable<void> {
     let whiteListed = Objects.whiteList(params, this.boxProductFields);
     let columns = Object.getOwnPropertyNames(whiteListed);
 
     return db.execute(
         'insert into box_product (boxId, productId, ' + columns.join(', ') + ')'
         + ' values (@id, @productId, ' + columns.map(c => '@' + c).join(', ') + ')',
-        Objects.extend(whiteListed, {id, productId}))
-      .mergeMap(() => this.getAll(queryParams, db));
+        Objects.extend(whiteListed, {id, productId}));
   }
 
-  updateProduct(id: number, productId: number, params: any, queryParams: any, db: Db): Observable<BoxWithProducts[]> {
+  updateProduct(id: number, productId: number, params: any, db: Db): Observable<void> {
     let whiteListed = Objects.whiteList(params, this.boxProductFields);
     let columns = Object.getOwnPropertyNames(whiteListed);
 
@@ -87,15 +81,13 @@ export class BoxesService {
         'update box_product set '
         + columns.map((f:string) => f + ' = @' + f).join(', ')
         + ' where boxId = @id and productId = @productId',
-        Objects.extend(whiteListed, {id, productId}))
-      .mergeMap(() => this.getAll(queryParams, db));
+        Objects.extend(whiteListed, {id, productId}));
   }
   
-  removeProduct(id: number, productId: number, queryParams: any, db: Db): Observable<BoxWithProducts[]> {
+  removeProduct(id: number, productId: number, db: Db): Observable<void> {
     return db.execute(
         'delete from box_product'
         + ' where boxId = @id and productId = @productId',
-        {id, productId})
-      .mergeMap(() => this.getAll(queryParams, db));
+        {id, productId});
   }
 }

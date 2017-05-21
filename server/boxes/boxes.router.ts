@@ -17,33 +17,33 @@ export let getBoxes = function(authorize: (req: any, res: any, next:() => void) 
   });
 
   boxes.post('/:id', function(req: any, res: any, next: any) {
-    boxesService.update(req.params.id, req.body, req.query, req.db)
-                .subscribe(boxes => res.json(boxes), next);
+    boxesService.update(req.params.id, req.body, req.db)
+                .subscribe(() => res.sendStatus(200), next);
   });
 
   boxes.put('/', function(req: any, res: any, next: any) {
-    boxesService.add(req.body, req.query, req.db)
-                .subscribe(boxes => res.json(boxes), next);
+    boxesService.add(req.body, req.db)
+                .subscribe(id => res.json({id}), next);
     });
 
   boxes.delete('/:id', function(req: any, res: any, next: any) {
-    boxesService.delete(req.params.id, req.query, req.db)
-                .subscribe(boxes => res.json(boxes), next);
+    boxesService.delete(req.params.id, req.db)
+                .subscribe(() => res.sendStatus(200), next);
   });
 
   boxes.put('/:id/products/:productId', function(req: any, res: any, next: any) {
-    boxesService.addProduct(req.params.id, req.params.productId, req.body, req.query, req.db)
-                .subscribe(boxes => res.json(boxes), next);
+    boxesService.addProduct(req.params.id, req.params.productId, req.body, req.db)
+                .subscribe(() => res.sendStatus(200), next);
   });
 
   boxes.post('/:id/products/:productId', function(req: any, res: any, next: any) {
-    boxesService.updateProduct(req.params.id, req.params.productId, req.body, req.query, req.db)
-                .subscribe(boxes => res.json(boxes), next);
+    boxesService.updateProduct(req.params.id, req.params.productId, req.body, req.db)
+                .subscribe(() => res.sendStatus(200), next);
   });
 
   boxes.delete('/:id/products/:productId', function(req: any, res: any, next: any) {
-    boxesService.removeProduct(req.params.id, req.params.productId, req.query, req.db)
-                .subscribe(boxes => res.json(boxes), next);
+    boxesService.removeProduct(req.params.id, req.params.productId, req.db)
+                .subscribe(() => res.sendStatus(200), next);
   });
 
   return boxes; 

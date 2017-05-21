@@ -42,55 +42,49 @@ export class BoxService {
                        .map(ps => ps.map(this.hydrate));
   }
 
-  add(params: any, queryParams: {[key: string]: string}): Observable<BoxWithProducts[]> {
+  add(params: any): Observable<number> {
     let options = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' }) });
 
-    return this.http.put('api/boxes?products=true&' + this.toQueryString(queryParams), JSON.stringify(params), options)
-                    .map(res => res.json())
-                    .map(ps => ps.map(this.hydrate));
+    return this.http.put('api/boxes', JSON.stringify(params), options)
+                    .map(res => res.json().id);
   }
 
-  update(id: number, params: any, queryParams: {[key: string]: string}): Observable<BoxWithProducts[]> {
+  update(id: number, params: any): Observable<void> {
     let options = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' }) });
 
-    return this.http.post('api/boxes/' + id + '?products=true&' + this.toQueryString(queryParams), JSON.stringify(params), options)
-                    .map(res => res.json())
-                    .map(ps => ps.map(this.hydrate));
+    return this.http.post('api/boxes/' + id, JSON.stringify(params), options)
+                    .map(res => {});
   }
 
-  delete(id: number, queryParams: {[key: string]: string}): Observable<BoxWithProducts[]> {
+  delete(id: number): Observable<void> {
     let options = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' }) });
 
-    return this.http.delete('api/boxes/' + id + '?products=true&' + this.toQueryString(queryParams), options)
-                    .map(res => res.json())
-                    .map(ps => ps.map(this.hydrate));
+    return this.http.delete('api/boxes/' + id, options)
+                    .map(res => {});
   }
 
-  addProduct(id: number, productId: number, params: any, queryParams: {[key: string]: string}): Observable<BoxWithProducts[]> {
+  addProduct(id: number, productId: number, params: any): Observable<void> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.put('api/boxes/' + id + '/products/' + productId + '?products=true&' + this.toQueryString(queryParams), JSON.stringify(params), options)
-                    .map(res => res.json())
-                    .map(rs => rs.map(this.hydrate));
+    return this.http.put('api/boxes/' + id + '/products/' + productId, JSON.stringify(params), options)
+                    .map(res => {});
   }
 
-  updateProduct(id: number, productId: number, params: any, queryParams: {[key: string]: string}): Observable<BoxWithProducts[]> {
+  updateProduct(id: number, productId: number, params: any): Observable<void> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.post('api/boxes/' + id + '/products/' + productId + '?products=true&' + this.toQueryString(queryParams), JSON.stringify(params), options)
-                    .map(res => res.json())
-                    .map(rs => rs.map(this.hydrate));
+    return this.http.post('api/boxes/' + id + '/products/' + productId, JSON.stringify(params), options)
+                    .map(res => {});
   }
 
-  removeProduct(id: number, productId: number, queryParams: {[key: string]: string}): Observable<BoxWithProducts[]> {
+  removeProduct(id: number, productId: number): Observable<void> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.delete('api/boxes/' + id + '/products/' + productId + '?products=true&' + this.toQueryString(queryParams), options)
-                    .map(res => res.json())
-                    .map(rs => rs.map(this.hydrate));
+    return this.http.delete('api/boxes/' + id + '/products/' + productId, options)
+                    .map(res => {});
   }
 
   private hydrate(b: any) : Box {

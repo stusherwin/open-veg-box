@@ -41,7 +41,7 @@ export class BoxProductsModel {
   }
 
   completeAdd() {
-    this._service.addProduct(this._box.id, this.addingProduct.id, {quantity: this.addingProductQuantity}, {}).subscribe(_ => {
+    this._service.addProduct(this._box.id, this.addingProduct.id, {quantity: this.addingProductQuantity}).subscribe(() => {
       console.log('completeAdd (back from server)')
       this.products.unshift(new BoxProductModel(this.addingProduct.id, this.addingProduct.name, this.addingProduct.unitType, this.addingProductQuantity, this));
       this.adding = false;
@@ -53,13 +53,13 @@ export class BoxProductsModel {
   }
 
   removeProduct(product: BoxProductModel) {
-    this._service.removeProduct(this._box.id, product.id, {}).subscribe(_ => {
+    this._service.removeProduct(this._box.id, product.id).subscribe(() => {
       Arrays.remove(this.products, product);
     })
   }
 
-  updateProduct(productId: number, quantity: number): Observable<any> {
-    return this._service.updateProduct(this._box.id, productId, {quantity}, {});
+  updateProduct(productId: number, quantity: number): Observable<void> {
+    return this._service.updateProduct(this._box.id, productId, {quantity});
   }
 }
 
