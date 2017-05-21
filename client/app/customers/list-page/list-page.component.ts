@@ -32,7 +32,6 @@ export class ListPageComponent implements OnInit {
       add: (properties: {[property: string]: any}) => {
         this.customerService.add(properties).subscribe(id => {
           this.customers.unshift(new CustomerModel(id, properties['firstName'] + ' ' + properties['surname'], '', '', 0, this));
-          // setTimeout(() => this.renderer.invokeElementMethod(window, 'scrollTo', [0, document.body.scrollHeight]));
         });
       }
     }
@@ -41,7 +40,6 @@ export class ListPageComponent implements OnInit {
   addModel: AddCustomerModel;
   customers: CustomerModel[] = [];
   loaded: boolean;
-
   queryParams: {[key: string]: string};
 
   ngOnInit() {

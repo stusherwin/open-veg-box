@@ -13,6 +13,7 @@ import 'rxjs/add/operator/last';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/combineLatest';
 import { SectionHeaderComponent } from '../../structure/section-header.component'
+import { Arrays } from '../../shared/Arrays'
 
 @Component({
   selector: 'cc-list-page',
@@ -47,24 +48,24 @@ export class ListPageComponent implements OnInit {
   }
 
   onAdd(round: Round) {
-    this.roundService.add(round, this.queryParams).subscribe(rounds => {
-      this.rounds = rounds;
-      setTimeout(() => this.renderer.invokeElementMethod(window, 'scrollTo', [0, document.body.scrollHeight]));
+    this.roundService.add(round).subscribe(id => {
+      round.id = id;
+      this.rounds.unshift(round);
     });
   }
 
   onDelete(round: Round) {
-    this.roundService.delete(round.id, this.queryParams).subscribe(rounds => {
-      this.rounds = rounds;
+    this.roundService.delete(round.id).subscribe(() => {
+      Arrays.remove(this.rounds, round);
     });
   }
 
   onUpdate(round: Round) {
-    this.roundService.update(round.id, round, this.queryParams).subscribe(rounds => {});
+    this.roundService.update(round.id, round).subscribe(() => {});
   }
 
   onCustomerAdd(event: any) {
-    this.roundService.addCustomer(event.roundId, event.customerId, this.queryParams)
+    this.roundService.addCustomer(event.roundId, event.customerId)
       .mergeMap(_ => this.customerService.getAllWithNoRound(this.queryParams))
       .subscribe(unusedCustomers => {
         this.unusedCustomers = unusedCustomers.map(c => new RoundCustomer(c.id, c.name, c.address, c.email));
@@ -72,7 +73,7 @@ export class ListPageComponent implements OnInit {
   }
 
   onCustomerRemove(event: any) {
-    this.roundService.removeCustomer(event.roundId, event.customerId, this.queryParams)
+    this.roundService.removeCustomer(event.roundId, event.customerId)
       .mergeMap(_ => this.customerService.getAllWithNoRound(this.queryParams))
       .subscribe(unusedCustomers => {
         this.unusedCustomers = unusedCustomers.map(c => new RoundCustomer(c.id, c.name, c.address, c.email));

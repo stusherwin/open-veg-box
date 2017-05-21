@@ -120,7 +120,7 @@ export class DeliveriesModel {
   }
 
   updateDeliveryWeekday(weekday: DeliveryWeekday) {
-    this.service.update(this.round.id, {deliveryWeekday: weekday.index}, {}).subscribe(_ => {
+    this.service.update(this.round.id, {deliveryWeekday: weekday.index}).subscribe(() => {
       this.deliveryWeekday = weekday;
       this.round.deliveryWeekday = weekday.index;
 

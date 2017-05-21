@@ -47,49 +47,44 @@ export class RoundService {
                     .map(res => res.json());
   }
 
-  add(params: any, queryParams: {[key: string]: string}): Observable<Round[]> {
+  add(params: any): Observable<number> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.put('api/rounds?' + this.toQueryString(queryParams), JSON.stringify(params), options)
-                    .map(res => res.json())
-                    .map(rs => rs.map(this.hydrate));
+    return this.http.put('api/rounds', JSON.stringify(params), options)
+                    .map(res => res.json().id);
   }
 
-  update(id: number, params: any, queryParams: {[key: string]: string}): Observable<Round[]> {
+  update(id: number, params: any): Observable<void> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.post('api/rounds/' + id + '?' + this.toQueryString(queryParams), JSON.stringify(params), options)
-                    .map(res => res.json())
-                    .map(rs => rs.map(this.hydrate));
+    return this.http.post('api/rounds/' + id, JSON.stringify(params), options)
+                    .map(res => {});
   }
 
-  delete(id: number, queryParams: {[key: string]: string}): Observable<Round[]> {
+  delete(id: number): Observable<void> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.delete('api/rounds/' + id + '?' + this.toQueryString(queryParams), options)
-                    .map(res => res.json())
-                    .map(rs => rs.map(this.hydrate));
+    return this.http.delete('api/rounds/' + id, options)
+                    .map(res => {});
   }
 
-  addCustomer(id: number, customerId: number, queryParams: {[key: string]: string}): Observable<Round[]> {
+  addCustomer(id: number, customerId: number): Observable<void> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.put('api/rounds/' + id + '/customers/' + customerId + '?' + this.toQueryString(queryParams), '', options)
-                    .map(res => res.json())
-                    .map(rs => rs.map(this.hydrate));
+    return this.http.put('api/rounds/' + id + '/customers/' + customerId, '', options)
+                    .map(res => {});
   }
 
-  removeCustomer(id: number, customerId: number, queryParams: {[key: string]: string}): Observable<Round[]> {
+  removeCustomer(id: number, customerId: number): Observable<void> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.delete('api/rounds/' + id + '/customers/' + customerId + '?' + this.toQueryString(queryParams), options)
-                    .map(res => res.json())
-                    .map(rs => rs.map(this.hydrate));
+    return this.http.delete('api/rounds/' + id + '/customers/' + customerId, options)
+                    .map(res => {});
   }
 
   private hydrate(r: any) {

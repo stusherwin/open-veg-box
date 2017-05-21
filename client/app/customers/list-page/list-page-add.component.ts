@@ -88,7 +88,6 @@ export class ListPageAddComponent implements OnInit {
       this.adding = false;
       this.validated = false;
     } else {
-      // setTimeout(() => this.customerName.focus());
       setTimeout(() => this.renderer.invokeElementMethod(this.customerName.nativeElement, 'focus', []));
     }
   }

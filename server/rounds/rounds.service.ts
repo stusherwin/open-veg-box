@@ -11,24 +11,23 @@ export class RoundsService {
       ' select r.id, r.name, r.deliveryWeekday, c.id customerId, (c.firstName || \' \' || c.surname) customerName, c.address customerAddress, c.email customerEmail from round r' 
     + ' left join round_customer rc on rc.roundId = r.id'
     + ' left join customer c on c.id = rc.customerId'
-    + ' order by r.id, c.surname, c.firstname',
+    + ' order by r.name, c.surname, c.firstname',
       {},
       queryParams,
       rows => {
-        let rounds: { [id: number]: Round; } = {};
+        let rounds: Round[] = [];
         for(let r of rows) {
-          if(!rounds[r.id]) {
-            rounds[r.id] = new Round(r.id, r.name, r.deliveryweekday, []);
+          let round = rounds.find(rnd => rnd.id == r.id);
+          if(!round) {
+            round = new Round(r.id, r.name, r.deliveryweekday, []);
+            rounds.push(round);
           }
           if(r.customerid) {
-            rounds[r.id].customers.push(new RoundCustomer(r.customerid, r.customername, r.customeraddress, r.customeremail));
+            round.customers.push(new RoundCustomer(r.customerid, r.customername, r.customeraddress, r.customeremail));
           }
         }
-        let result: Round[] = [];
-        for(let id in rounds) {
-          result.push(rounds[id]);
-        }
-        return result;
+
+        return rounds;
       });
   }
 
@@ -180,32 +179,27 @@ export class RoundsService {
     });
   }
 
-  add(params: any, queryParams: any, db: Db): Observable<Round[]> {
-    return db.insert('round', ['name', 'deliveryWeekday'], params)
-      .mergeMap(() => this.getAll(queryParams, db));
+  add(params: any, db: Db): Observable<number> {
+    return db.insert('round', ['name', 'deliveryWeekday'], params);
   }
 
-  update(id: number, params: any, queryParams: any, db: Db): Observable<Round[]> {
-    return db.update('round', ['name', 'deliveryWeekday'], id, params)
-      .mergeMap(() => this.getAll(queryParams, db));
+  update(id: number, params: any, db: Db): Observable<void> {
+    return db.update('round', ['name', 'deliveryWeekday'], id, params);
   }
 
-  delete(id: number, queryParams: any, db: Db): Observable<Round[]> {
+  delete(id: number, db: Db): Observable<void> {
     return db.execute('delete from round_customer where roundId = @id', {id})
-      .mergeMap(() => db.delete('round', id))
-      .mergeMap(() => this.getAll(queryParams, db));
+      .mergeMap(() => db.delete('round', id));
   }
 
-  addCustomer(id: number, customerId: number, queryParams: any, db: Db): Observable<Round[]> {
+  addCustomer(id: number, customerId: number, db: Db): Observable<void> {
     return db.execute('insert into round_customer (roundId, customerId) values (@id, @customerId)',
-        {id, customerId})
-      .mergeMap(() => this.getAll(queryParams, db));
+        {id, customerId});
   }
   
-  removeCustomer(id: number, customerId: number, queryParams: any, db: Db): Observable<Round[]> {
+  removeCustomer(id: number, customerId: number, db: Db): Observable<void> {
     return db.execute('delete from round_customer where roundId = @id and customerId = @customerId',
-        {id, customerId})
-      .mergeMap(() => this.getAll(queryParams, db));
+        {id, customerId});
   }
 }
 

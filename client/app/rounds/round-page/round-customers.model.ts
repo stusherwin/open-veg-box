@@ -41,7 +41,7 @@ export class RoundCustomersModel {
 
   completeAdd() {
     //TODO: Do this more idiomatically in rxjs
-    this._service.addCustomer(this._round.id, this.addingCustomer.id, {}).subscribe(_ => {
+    this._service.addCustomer(this._round.id, this.addingCustomer.id).subscribe(() => {
       this._customerService.getAllWithNoRound({}).subscribe(customers => {
         console.log('completeAdd (back from server)')
         this.customers.unshift(new RoundCustomerModel(this.addingCustomer.id, this.addingCustomer.name, this.addingCustomer.address, this));
@@ -56,7 +56,7 @@ export class RoundCustomersModel {
   }
 
   removeCustomer(customer: RoundCustomerModel) {
-    this._service.removeCustomer(this._round.id, customer.id, {}).subscribe(_ => {
+    this._service.removeCustomer(this._round.id, customer.id).subscribe(() => {
       this._customerService.getAllWithNoRound({}).subscribe(customers => {
         Arrays.remove(this.customers, customer);
         this._allCustomers = customers;
