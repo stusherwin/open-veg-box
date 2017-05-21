@@ -27,18 +27,18 @@ export let getCustomers = function(authorize: (req: any, res: any, next:() => vo
   });
 
   customers.post('/:id', function(req: any, res: any, next: any) {
-    customersService.update(req.params.id, req.body, req.query, req.db)
-                    .subscribe(customers => res.json(customers), next);
+    customersService.update(req.params.id, req.body, req.db)
+                    .subscribe(() => res.sendStatus(200), next);
   });
 
   customers.put('/', function(req: any, res: any, next: any) {
-    customersService.add(req.body, req.query, req.db)
-                    .subscribe(customers => res.json(customers), next);
+    customersService.add(req.body, req.db)
+                    .subscribe(id => res.json({id}), next);
   });
 
   customers.delete('/:id', function(req: any, res: any, next: any) {
-    customersService.delete(req.params.id, req.query, req.db)
-                    .subscribe(customers => res.json(customers), next);
+    customersService.delete(req.params.id, req.db)
+                    .subscribe(() => res.sendStatus(200), next);
   });
 
   return customers;

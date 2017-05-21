@@ -31,37 +31,40 @@ export class CustomersService {
     + ' left join order_product op on op.orderId = o.id'
     + ' left join product p on p.id = op.productId'
     + ' ' + whereClause
-    + ' order by o.id, b.name, p.name',
+    + ' order by c.surname, c.firstname, b.name, p.name',
       params,
       queryParams,
       rows => {
-        let customers: { [id: number]: CustomerWithOrder; } = {};
+        let customers: CustomerWithOrder[] = [];
         for(let r of rows) {
-          if(!customers[r.id]) {
+          let customer = customers.find(c => c.id == r.id);
+
+          if(!customer) {
             let order = new Order(r.orderid, r.id, [], [], 0);
-            customers[r.id] = new CustomerWithOrder(r.id, r.firstname, r.surname, r.address, r.tel1, r.tel2, r.email, order);
+            customer = new CustomerWithOrder(r.id, r.firstname, r.surname, r.address, r.tel1, r.tel2, r.email, order);
+            customers.push(customer);
           }
 
           if(r.boxid) {
-            if(customers[r.id].order.boxes.findIndex(b => b.id == r.boxid) == -1) {
-              customers[r.id].order.boxes.push(new OrderItem(r.boxid, r.boxname, r.boxprice, r.boxquantity, 'each', r.boxprice * r.boxquantity));
+            if(customer.order.boxes.findIndex(b => b.id == r.boxid) == -1) {
+              customer.order.boxes.push(new OrderItem(r.boxid, r.boxname, r.boxprice, r.boxquantity, 'each', r.boxprice * r.boxquantity));
             }
           }
           
           if(r.productid) {
-            if(customers[r.id].order.extraProducts.findIndex(p => p.id == r.productid) == -1) {
-              customers[r.id].order.extraProducts.push(new OrderItem(r.productid, r.productname, r.productprice, r.productquantity, r.productunittype, r.productprice * r.productquantity));
+            if(customer.order.extraProducts.findIndex(p => p.id == r.productid) == -1) {
+              customer.order.extraProducts.push(new OrderItem(r.productid, r.productname, r.productprice, r.productquantity, r.productunittype, r.productprice * r.productquantity));
             }
           }
         }
-        let result: CustomerWithOrder[] = [];
-        for(let id in customers) {
-          customers[id].order.total =
-            customers[id].order.boxes.reduce((total, b) => total + b.total, 0)
-            + customers[id].order.extraProducts.reduce((total, p) => total + p.total, 0);
-          result.push(customers[id]);
+
+        for(let customer of customers) {
+          customer.order.total =
+            customer.order.boxes.reduce((total, b) => total + b.total, 0)
+            + customer.order.extraProducts.reduce((total, p) => total + p.total, 0);
         }
-        return result;
+
+        return customers;
       });
   }
   
@@ -93,18 +96,15 @@ export class CustomersService {
     }
   }
   
-  add(params: any, queryParams: any, db: Db): Observable<CustomerWithOrder[]> {
-    return db.insert('customer', this.fields, params)
-      .mergeMap(() => this.getAll(queryParams, db));
+  add(params: any, db: Db): Observable<number> {
+    return db.insert('customer', this.fields, params);
   }
 
-  update(id: number, params: any, queryParams: any, db: Db): Observable<CustomerWithOrder[]> {
-    return db.update('customer', this.fields, id, params)
-      .mergeMap(() => this.getAll(queryParams, db));
+  update(id: number, params: any, db: Db): Observable<void> {
+    return db.update('customer', this.fields, id, params);
   }
 
-  delete(id: number, queryParams: any, db: Db): Observable<CustomerWithOrder[]> {
-    return db.delete('customer', id)
-      .mergeMap(() => this.getAll(queryParams, db));
+  delete(id: number, db: Db): Observable<void> {
+    return db.delete('customer', id);
   }
 }

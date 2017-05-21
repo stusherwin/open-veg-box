@@ -30,9 +30,9 @@ export class ListPageComponent implements OnInit {
 
     this.addModel = {
       add: (properties: {[property: string]: any}) => {
-        this.customerService.add(properties, Objects.extend(this.queryParams, {o: true})).subscribe(customers => {
-          this.customers = customers.map(c => this.createModel(c));
-          setTimeout(() => this.renderer.invokeElementMethod(window, 'scrollTo', [0, document.body.scrollHeight]));
+        this.customerService.add(properties).subscribe(id => {
+          this.customers.unshift(new CustomerModel(id, properties['firstName'] + ' ' + properties['surname'], '', '', 0, this));
+          // setTimeout(() => this.renderer.invokeElementMethod(window, 'scrollTo', [0, document.body.scrollHeight]));
         });
       }
     }
@@ -48,27 +48,13 @@ export class ListPageComponent implements OnInit {
     this.customerService.getAllWithOrders(this.queryParams)
       .subscribe(customers => {
         this.loaded = true;
-        this.customers = customers.map(c => this.createModel(c));
+        this.customers = customers.map(c => new CustomerModel(c.id, c.name, c.address, c.email, c.order.total, this));
       });
   }
 
-  createModel(customer: CustomerWithOrder): CustomerModel {
-    return {
-      id: customer.id,
-      name: customer.name,
-      address: customer.address,
-      tel: customer.tel1,
-      canEmail: customer.email && !!customer.email.length,
-      orderTotal: customer.order.total,
-      update: (params: any) => {
-        this.customerService.update(customer.id, params, this.queryParams).subscribe(customers => {
-        });
-      },
-      delete: () => {
-        this.customerService.delete(customer.id, this.queryParams).subscribe(customers => {
-          this.customers = customers.map(c => this.createModel(c));
-        });
-      }
-    }
+  delete(customer: CustomerModel) {
+    this.customerService.delete(customer.id).subscribe(() => {
+      Arrays.remove(this.customers, customer);
+    });
   }
 }

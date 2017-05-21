@@ -40,7 +40,8 @@ export class CustomerService {
     return this.http.get('/api/customers/' + id + '/?orders=true')
                     .map(res => res.json())
                     .map(this.hydrate);
-  }
+ 
+ }
 
   getAllWithNoRound(queryParams: {[key: string]: string}): Observable<Customer[]> {
     return this.http.get('/api/customers/no_round?' + this.toQueryString(queryParams))
@@ -48,31 +49,28 @@ export class CustomerService {
                     .map(ps => ps.map(this.hydrate));
   }
 
-  add(params: any, queryParams: {[key: string]: string}): Observable<CustomerWithOrder[]> {
+  add(params: any): Observable<number> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.put('api/customers?orders=true&' + this.toQueryString(queryParams), JSON.stringify(params), options)
-                    .map(res => res.json())
-                    .map(ps => ps.map(this.hydrate));
+    return this.http.put('api/customers', JSON.stringify(params), options)
+                    .map(res => res.json().id);
   }
 
-  update(id: number, params: any, queryParams: {[key: string]: string}): Observable<CustomerWithOrder[]> {
+  update(id: number, params: any): Observable<void> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.post('api/customers/' + id + '?orders=true&' + this.toQueryString(queryParams), JSON.stringify(params), options)
-                    .map(res => res.json())
-                    .map(ps => ps.map(this.hydrate));
+    return this.http.post('api/customers/' + id, JSON.stringify(params), options)
+                    .map(res => {});
   }
 
-  delete(id: number, queryParams: {[key: string]: string}): Observable<CustomerWithOrder[]> {
+  delete(id: number): Observable<void> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.delete('api/customers/' + id + '?orders=true&' + this.toQueryString(queryParams), options)
-                    .map(res => res.json())
-                    .map(ps => ps.map(this.hydrate));
+    return this.http.delete('api/customers/' + id, options)
+                    .map(res => {});
   }
 
   private hydrate(c: any) {
