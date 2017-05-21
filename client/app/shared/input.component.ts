@@ -243,9 +243,6 @@ export class SelectComponent extends InputComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.value);
-    console.log(this.valueProperty);
-    console.log(this.getValue(this.value));
   }
 
   focus() {

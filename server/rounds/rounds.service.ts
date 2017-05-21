@@ -8,7 +8,7 @@ let _ = require('lodash');
 export class RoundsService {
   getAll(queryParams: any, db: Db): Observable<Round[]> {
     return db.allWithReduce<Round>(
-      ' select r.id, r.name, c.id customerId, (c.firstName || \' \' || c.surname) customerName, c.address customerAddress, c.email customerEmail from round r' 
+      ' select r.id, r.name, r.deliveryWeekday, c.id customerId, (c.firstName || \' \' || c.surname) customerName, c.address customerAddress, c.email customerEmail from round r' 
     + ' left join round_customer rc on rc.roundId = r.id'
     + ' left join customer c on c.id = rc.customerId'
     + ' order by r.id, c.surname, c.firstname',
@@ -18,7 +18,7 @@ export class RoundsService {
         let rounds: { [id: number]: Round; } = {};
         for(let r of rows) {
           if(!rounds[r.id]) {
-            rounds[r.id] = new Round(r.id, r.name, []);
+            rounds[r.id] = new Round(r.id, r.name, r.deliveryweekday, []);
           }
           if(r.customerid) {
             rounds[r.id].customers.push(new RoundCustomer(r.customerid, r.customername, r.customeraddress, r.customeremail));
@@ -34,7 +34,7 @@ export class RoundsService {
 
   get(id: number, db: Db): Observable<Round> {
     return db.singleWithReduce<Round>(
-      ' select r.id, r.name, c.id customerId, c.firstName || \' \' || c.surname customerName, c.address customerAddress, c.email customerEmail from round r' 
+      ' select r.id, r.name, r.deliveryWeekday, c.id customerId, c.firstName || \' \' || c.surname customerName, c.address customerAddress, c.email customerEmail from round r' 
     + ' left join round_customer rc on rc.roundId = r.id'
     + ' left join customer c on c.id = rc.customerId'
     + ' where r.id = @id'
@@ -44,7 +44,7 @@ export class RoundsService {
         let round: Round = null;
         for(let r of rows) {
           if(!round) {
-            round = new Round(r.id, r.name, []);
+            round = new Round(r.id, r.name, r.deliveryweekday, []);
           }
           if(r.customerid) {
             round.customers.push(new RoundCustomer(r.customerid, r.customername, r.customeraddress, r.customeremail));
@@ -181,12 +181,12 @@ export class RoundsService {
   }
 
   add(params: any, queryParams: any, db: Db): Observable<Round[]> {
-    return db.insert('round', ['name'], params)
+    return db.insert('round', ['name', 'deliveryWeekday'], params)
       .mergeMap(() => this.getAll(queryParams, db));
   }
 
   update(id: number, params: any, queryParams: any, db: Db): Observable<Round[]> {
-    return db.update('round', ['name'], id, params)
+    return db.update('round', ['name', 'deliveryWeekday'], id, params)
       .mergeMap(() => this.getAll(queryParams, db));
   }
 

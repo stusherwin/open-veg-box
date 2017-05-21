@@ -97,7 +97,7 @@ export class RoundService {
       return null;
     }
 
-    return new Round(r.id, r.name, r.customers.map((c:any) => new RoundCustomer(c.id, c.name, c.address, c.email)));
+    return new Round(r.id, r.name, r.deliveryWeekday, r.customers.map((c:any) => new RoundCustomer(c.id, c.name, c.address, c.email)));
   }
 }
 

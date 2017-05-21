@@ -3,6 +3,8 @@ import { RoundPageService } from './round-page.component'
 import { EditableService } from '../../shared/editable.service'
 import { Validators } from '@angular/common'
 import { EditableSelectComponent } from '../../shared/editable-select.component'
+import { Round } from '../round'
+import { RoundService } from '../round.service'
 
 export class Dates {
   static addDays(date: Date, days: number) {
@@ -58,11 +60,12 @@ export class DeliveriesModel {
   nextDeliveryDate: Date
 
   constructor(
-    deliveryWeekday: number,
-    deliveries: Delivery[]
+    private round: Round,
+    deliveries: Delivery[],
+    private service: RoundService
   ) {
     this.deliveries = deliveries.map(d => new DeliveryModel(d.date, d.isComplete, this));
-    this.deliveryWeekday = this.weekdays[deliveryWeekday];
+    this.deliveryWeekday = this.weekdays[round.deliveryWeekday];
     
     let startDate = this.deliveries.length
       ? this.deliveries[0].date
@@ -117,10 +120,13 @@ export class DeliveriesModel {
   }
 
   updateDeliveryWeekday(weekday: DeliveryWeekday) {
-    this.deliveryWeekday = weekday;
+    this.service.update(this.round.id, {deliveryWeekday: weekday.index}, {}).subscribe(_ => {
+      this.deliveryWeekday = weekday;
+      this.round.deliveryWeekday = weekday.index;
 
-    let startDate = this.ensureAtLeast(this.deliveries[0], Dates.addDays(this.nextDeliveryDate, -7));
-    this.nextDeliveryDate = this.getNextDeliveryDateAfter(startDate);
+      let startDate = this.ensureAtLeast(this.deliveries[0], Dates.addDays(this.nextDeliveryDate, -7));
+      this.nextDeliveryDate = this.getNextDeliveryDateAfter(startDate);
+    });
   }
 
   canDecDeliveryDate(delivery: DeliveryModel) {
@@ -211,7 +217,8 @@ export class RoundDeliveriesPageComponent {
 
   constructor(
     @Inject(forwardRef(() => RoundPageService))
-    private page: RoundPageService) {
+    private page: RoundPageService,
+    private service: RoundService) {
       let date = new Date();
       let deliveries: Delivery[] = [];
       for(let i = 0; i < 10; i++) {
@@ -219,10 +226,6 @@ export class RoundDeliveriesPageComponent {
         deliveries.push(new Delivery(new Date(date.valueOf()), i != 0))
       }
 
-      this.model = new DeliveriesModel(1, deliveries)
-  }
-  
-  x(v: any) {
-    console.log(v)
+      this.model = new DeliveriesModel(page.round, deliveries, service)
   }
 }

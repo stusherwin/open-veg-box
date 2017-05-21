@@ -11,7 +11,7 @@ import { ValidatableComponent } from '../../shared/validatable.component';
   directives: [HeadingComponent, RoundCustomersComponent, ROUTER_DIRECTIVES, ValidatableComponent]
 })
 export class ListPageAddComponent {
-  round = new Round(0, '', []);
+  round = new Round(0, '', 5, []);
   adding: boolean;
   rowFocused: boolean;
 
