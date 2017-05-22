@@ -1,6 +1,5 @@
 import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, ElementRef, Renderer, ViewChildren, QueryList } from '@angular/core';
 import { Product, UnitPrice, UnitType, unitTypes } from './product';
-import { HeadingComponent } from '../shared/heading.component';
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { ValidatableComponent } from '../shared/validatable.component';
 import { NumericDirective } from '../shared/numeric.directive'
@@ -9,7 +8,7 @@ import { ButtonComponent } from '../shared/button.component'
 @Component({
   selector: 'cc-product-add',
   templateUrl: 'app/products/product-add.component.html',
-  directives: [HeadingComponent, ROUTER_DIRECTIVES, ValidatableComponent, NumericDirective, ButtonComponent]
+  directives: [ROUTER_DIRECTIVES, ValidatableComponent, NumericDirective, ButtonComponent]
 })
 export class ProductAddComponent {
   unitTypes: UnitType[] = unitTypes;

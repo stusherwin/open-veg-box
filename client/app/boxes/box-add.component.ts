@@ -2,7 +2,6 @@ import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, 
 import { Box } from './box';
 import { Product, ProductQuantity } from '../products/product'
 import { WeightPipe, MoneyPipe } from '../shared/pipes';
-import { HeadingComponent } from '../shared/heading.component';
 import { ValidatableComponent } from '../shared/validatable.component';
 import { NumericDirective } from '../shared/numeric.directive'
 import { ButtonComponent } from '../shared/button.component'
@@ -10,7 +9,7 @@ import { ButtonComponent } from '../shared/button.component'
 @Component({
   selector: 'cc-box-add',
   templateUrl: 'app/boxes/box-add.component.html',
-  directives: [HeadingComponent, ValidatableComponent, NumericDirective, ButtonComponent]
+  directives: [ValidatableComponent, NumericDirective, ButtonComponent]
 })
 export class BoxAddComponent {
   box = new Box(0, '', 10.0);

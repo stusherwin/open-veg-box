@@ -2,7 +2,6 @@ import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, 
 import { Box, BoxWithProducts } from './box';
 import { Product, ProductQuantity } from '../products/product'
 import { WeightPipe, MoneyPipe } from '../shared/pipes';
-import { HeadingComponent } from '../shared/heading.component';
 import { BoxProductsComponent } from './box-products-new.component';
 import { EditableHeadingComponent } from '../shared/editable-heading.component'
 import { EditablePriceComponent } from '../shared/editable-price.component'
@@ -17,7 +16,7 @@ export interface BoxProductEvent {
 @Component({
   selector: 'cc-box',
   templateUrl: 'app/boxes/box.component.html',
-  directives: [HeadingComponent, BoxProductsComponent, EditableHeadingComponent, EditablePriceComponent, ButtonComponent]
+  directives: [BoxProductsComponent, EditableHeadingComponent, EditablePriceComponent, ButtonComponent]
 })
 export class BoxComponent {
   boxNameValidators = [Validators.required];
