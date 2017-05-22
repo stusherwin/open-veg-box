@@ -20,19 +20,13 @@
           <th>Next delivery:</th>
           <td>
             {{model.nextDeliveryDate | date:'yMMMEEEEd'}}
-            <a class="button-new-small" tabindex="1"
+            <a cc-button small icon="down-open"
                (click)="model.decNextDeliveryDate()"
-               *ngIf="model.canDecNextDeliveryDate">
-               <i class="icon-down-open"></i>
-            </a>
-            <a class="button-new-small" tabindex="1"
-               (click)="model.incNextDeliveryDate()">
-                <i class="icon-up-open"></i>
-            </a>
-            <a class="button-new" tabindex="1"
-               (click)="model.newDelivery()" style="display: inline-block; margin-left: 10px">
-                 <i class="icon-clipboard"></i>Prepare
-            </a>
+               *ngIf="model.canDecNextDeliveryDate"></a>
+            <a cc-button small icon="up-open"
+               (click)="model.incNextDeliveryDate()"></a>
+            <a cc-button icon="clipboard" text="Prepare"
+               (click)="model.newDelivery()" style="display: inline-block; margin-left: 10px"></a>
           </td>
         </tr>
       </table>
@@ -41,32 +35,24 @@
   <div class="row" *ngFor="let delivery of model.deliveries">
     <div class="details">
       <h3 style="display: inline-block">{{delivery.date | date:'yMMMEEEEd'}}</h3>
-      <a class="button-new-small" tabindex="1"
+      <a cc-button small icon="down-open"
           (click)="delivery.decDeliveryDate()"
-          *ngIf="delivery.canDecDeliveryDate">
-          <i class="icon-down-open"></i>
-      </a>
-      <a class="button-new-small" tabindex="1"
+          *ngIf="delivery.canDecDeliveryDate"></a>
+      <a cc-button small icon="up-open"
           (click)="delivery.incDeliveryDate()"
-          *ngIf="delivery.canIncDeliveryDate">
-          <i class="icon-up-open"></i>
-      </a>
+          *ngIf="delivery.canIncDeliveryDate"></a>
       <div style="margin-left: -5px" *ngIf="delivery.isComplete"><i class="icon-ok"></i>Complete</div>
       <div style="margin-left: -5px" *ngIf="!delivery.isComplete"><i class="icon-clipboard"></i>Preparing</div>
     </div>
     <div class="actions">
-      <a class="button-new button-new-right" tabindex="1"
+      <a cc-button right icon="ok" text="Complete"
          (click)="delivery.complete()"
-         *ngIf="delivery.canComplete">
-           <i class="icon-ok"></i>Complete
-      </a>
-      <a class="button-new button-new-right" tabindex="1"
+         *ngIf="delivery.canComplete"></a>
+      <a cc-button right icon="clipboard" text="Prepare"
          (click)="delivery.uncomplete()"
-         *ngIf="delivery.canUncomplete">
-           <i class="icon-clipboard"></i>Prepare
-      </a>
-      <a class="button-new button-new-right" tabindex="1"><i class="icon-basket"></i>Order list</a>
-      <a class="button-new button-new-right" tabindex="1"><i class="icon-carrot"></i>Product list</a>
+         *ngIf="delivery.canUncomplete"></a>
+      <a cc-button right icon="basket" text="Order list"></a>
+      <a cc-button right icon="carrot" text="Product list"></a>
     </div>
   </div>
 </div>
