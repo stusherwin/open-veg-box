@@ -2,7 +2,6 @@ import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, 
 import { Product, UnitType, unitTypes } from './product';
 import { WeightPipe, MoneyPipe } from '../shared/pipes';
 import { HeadingComponent } from '../shared/heading.component';
-import { ProductPriceComponent } from './product-price.component';
 import { Validators } from '@angular/common'
 import { EditableHeadingComponent } from '../shared/editable-heading.component'
 import { EditableUnitPriceComponent } from '../shared/editable-unit-price.component'
@@ -12,7 +11,7 @@ import { ButtonComponent } from '../shared/button.component'
   selector: 'cc-product',
   templateUrl: 'app/products/product.component.html',
   pipes: [WeightPipe, MoneyPipe],
-  directives: [HeadingComponent, ProductPriceComponent, EditableHeadingComponent, EditableUnitPriceComponent, ButtonComponent]
+  directives: [HeadingComponent, EditableHeadingComponent, EditableUnitPriceComponent, ButtonComponent]
 })
 export class ProductComponent {
   unitTypes: {[key: string]: string } = {};
