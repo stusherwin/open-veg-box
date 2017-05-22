@@ -1,9 +1,6 @@
 import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, ElementRef, Renderer, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { Customer } from '../customer'
 import { HeadingComponent } from '../../shared/heading.component'
-import { CustomerAddressComponent } from './customer-address.component'
-import { CustomerEmailComponent } from './customer-email.component'
-import { CustomerTelComponent } from './customer-tel.component'
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { ValidatableComponent } from '../../shared/validatable.component';
 import { AddCustomerModel } from './customer.model'
@@ -14,7 +11,7 @@ import { ButtonComponent } from '../../shared/button.component'
 @Component({
   selector: 'cc-list-page-add',
   templateUrl: 'app/customers/list-page/list-page-add.component.html',
-  directives: [HeadingComponent, CustomerAddressComponent, CustomerEmailComponent, CustomerTelComponent, ROUTER_DIRECTIVES, ValidatableComponent, TextComponent, ButtonComponent],
+  directives: [HeadingComponent, ROUTER_DIRECTIVES, ValidatableComponent, TextComponent, ButtonComponent],
 })
 export class ListPageAddComponent implements OnInit {
   customer = new Customer(0, '', '', '', '', '', '');

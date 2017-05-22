@@ -1,8 +1,5 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { HeadingComponent } from '../../shared/heading.component'
-import { CustomerAddressComponent } from './customer-address.component'
-import { CustomerEmailComponent } from './customer-email.component'
-import { CustomerTelComponent } from './customer-tel.component'
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { CustomerModel } from './customer.model'
 import { OrderComponent } from '../orders/order.component'
@@ -12,7 +9,7 @@ import { ButtonComponent } from '../../shared/button.component'
 @Component({
   selector: 'cc-list-page-customer',
   templateUrl: 'app/customers/list-page/list-page-customer.component.html',
-  directives: [HeadingComponent, CustomerAddressComponent, CustomerEmailComponent, CustomerTelComponent, ROUTER_DIRECTIVES, OrderComponent, ButtonComponent],
+  directives: [HeadingComponent, ROUTER_DIRECTIVES, OrderComponent, ButtonComponent],
   pipes: [MoneyPipe]
 })
 export class ListPageCustomerComponent {
