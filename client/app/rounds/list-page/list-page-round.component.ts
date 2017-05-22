@@ -1,7 +1,6 @@
 import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, ElementRef, Renderer } from '@angular/core';
 import { Round, RoundCustomer } from '../round';
 import { HeadingComponent } from '../../shared/heading.component';
-import { RoundCustomersComponent } from './round-customers.component';
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { EditableHeadingComponent } from '../../shared/editable-heading.component'
 import { Validators } from '@angular/common'
@@ -10,7 +9,7 @@ import { ButtonComponent } from '../../shared/button.component'
 @Component({
   selector: 'cc-list-page-round',
   templateUrl: 'app/rounds/list-page/list-page-round.component.html',
-  directives: [HeadingComponent, RoundCustomersComponent, ROUTER_DIRECTIVES, EditableHeadingComponent, ButtonComponent]
+  directives: [HeadingComponent, ROUTER_DIRECTIVES, EditableHeadingComponent, ButtonComponent]
 })
 export class ListPageRoundComponent {
   rowFocused: boolean;

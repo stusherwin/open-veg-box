@@ -3,7 +3,6 @@ import { Round } from '../round'
 import { Customer } from '../../customers/customer'
 import { RoundService } from '../round.service'
 import { CustomerService } from '../../customers/customer.service'
-import { RoundCustomersService } from '../list-page/round-customers.service'
 import { RoundCustomersPageComponent } from './customers-page.component'
 import { RoundDeliveriesPageComponent } from './deliveries-page.component'
 import { EmailPageComponent } from './email-page.component'
@@ -25,7 +24,7 @@ export class RoundPageService {
   selector: 'cc-round-page',
   templateUrl: 'app/rounds/round-page/round-page.component.html',
   directives: [ROUTER_DIRECTIVES, SectionHeaderComponent, ButtonComponent],
-  providers: [RoundPageService, RoundCustomersService]
+  providers: [RoundPageService]
 })
 
 @RouteConfig([
