@@ -1,6 +1,5 @@
 import { Customer } from '../../customers/customer'
-import { Round, RoundCustomer } from '../round'
-import { RoundService } from '../round.service'
+import { Round, RoundCustomer, RoundService } from '../round.service'
 import { Arrays } from '../../shared/arrays';
 import { CustomerService } from '../../customers/customer.service'
 import { Observable } from 'rxjs/Observable'

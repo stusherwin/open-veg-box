@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Renderer } from '@angular/core';
-import { Round, RoundCustomer } from '../round'
-import { RoundService } from '../round.service'
+import { Round, RoundCustomer, RoundService } from '../round.service'
 import { CustomerService } from '../../customers/customer.service'
 import { ListPageRoundComponent } from './list-page-round.component'
 import { ListPageAddComponent } from './list-page-add.component'

@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, ElementRef, Renderer } from '@angular/core';
-import { Round, RoundCustomer } from '../round';
+import { Round, RoundCustomer } from '../round.service';
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { EditableHeadingComponent } from '../../shared/editable-heading.component'
 import { Validators } from '@angular/common'

@@ -1,4 +1,4 @@
-import {Round, RoundCustomer} from './round'
+import {Round, RoundCustomer, Delivery} from './round'
 import {ProductQuantity} from '../products/product'
 import {Observable} from 'rxjs/Observable';
 import {Db} from '../shared/db';
@@ -19,7 +19,7 @@ export class RoundsService {
         for(let r of rows) {
           let round = rounds.find(rnd => rnd.id == r.id);
           if(!round) {
-            round = new Round(r.id, r.name, r.deliveryweekday, []);
+            round = new Round(r.id, r.name, r.deliveryweekday, [], []);
             rounds.push(round);
           }
           if(r.customerid) {
@@ -33,22 +33,37 @@ export class RoundsService {
 
   get(id: number, db: Db): Observable<Round> {
     return db.singleWithReduce<Round>(
-      ' select r.id, r.name, r.deliveryWeekday, c.id customerId, c.firstName || \' \' || c.surname customerName, c.address customerAddress, c.email customerEmail from round r' 
+      ' select'
+    + ' r.id, r.name, r.deliveryWeekday,'
+    + ' c.id customerId, c.firstName || \' \' || c.surname customerName, c.address customerAddress, c.email customerEmail,'
+    + ' d.id deliveryId, d.date deliveryDate, d.isComplete deliveryIsComplete'
+    + ' from round r' 
     + ' left join round_customer rc on rc.roundId = r.id'
     + ' left join customer c on c.id = rc.customerId'
+    + ' left join delivery d on d.roundId = r.id'
     + ' where r.id = @id'
-    + ' order by r.id, c.surname, c.firstname',
+    + ' order by r.id, c.surname, c.firstname, d.date desc',
       {id: id},
       rows => {
         let round: Round = null;
         for(let r of rows) {
           if(!round) {
-            round = new Round(r.id, r.name, r.deliveryweekday, []);
+            round = new Round(r.id, r.name, r.deliveryweekday, [], []);
           }
-          if(r.customerid) {
+          if(r.customerid && !round.customers.find(c => c.id == r.customerid)) {
             round.customers.push(new RoundCustomer(r.customerid, r.customername, r.customeraddress, r.customeremail));
           }
+          if(r.deliveryid && !round.deliveries.find(d => d.id == r.deliveryid)) {
+            round.deliveries.push(new Delivery(r.deliveryid, r.deliverydate, r.deliveryiscomplete));
+          }
         }
+
+        // let date = new Date();
+        // for(let i = 0; i < 10; i++) {
+        //   date.setDate(date.getDate() - 7)
+        //   round.deliveries.push(new Delivery(new Date(date.valueOf()), i != 0))
+        // }
+
         return round;
       });
   }

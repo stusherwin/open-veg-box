@@ -3,45 +3,9 @@ import { RoundPageService } from './round-page.component'
 import { EditableService } from '../../shared/editable.service'
 import { Validators } from '@angular/common'
 import { EditableSelectComponent } from '../../shared/editable-select.component'
-import { Round } from '../round'
-import { RoundService } from '../round.service'
+import { Round, Delivery, RoundService } from '../round.service'
 import { ButtonComponent } from '../../shared/button.component'
-
-export class Dates {
-  static addDays(date: Date, days: number) {
-    let newDate = new Date(date.valueOf());
-    newDate.setDate(date.getDate() + days);
-    return newDate;
-  }
-
-  static getDatePart(date: Date) {
-    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
-  }
-
-  static max(a: Date, b: Date) {
-    return Dates.getDatePart(a) > Dates.getDatePart(b) ? a : b;
-  }
-
-  static getNextDayOfWeekAfter(startDateExclusive: Date, dayOfWeek: number) {
-    let nextDate = Dates.addDays(startDateExclusive, 1);
-
-    if(nextDate.getDay() == dayOfWeek) {
-      return nextDate;
-    }
-
-    let daysToAdd = dayOfWeek - nextDate.getDay();
-    if(daysToAdd < 0) {
-      daysToAdd += 7;
-    }
-
-    return Dates.addDays(nextDate, daysToAdd);    
-  }
-}
-
-export class Delivery {
-  constructor(public date: Date, public isComplete: boolean) {
-  }
-}
+import { Dates } from '../../shared/dates'
 
 export class DeliveryWeekday { index: number; name: string }
 
@@ -62,10 +26,9 @@ export class DeliveriesModel {
 
   constructor(
     private round: Round,
-    deliveries: Delivery[],
     private service: RoundService
   ) {
-    this.deliveries = deliveries.map(d => new DeliveryModel(d.date, d.isComplete, this));
+    this.deliveries = round.deliveries.map(d => new DeliveryModel(d.date, d.isComplete, this));
     this.deliveryWeekday = this.weekdays[round.deliveryWeekday];
     
     let startDate = this.deliveries.length
@@ -220,13 +183,6 @@ export class RoundDeliveriesPageComponent {
     @Inject(forwardRef(() => RoundPageService))
     private page: RoundPageService,
     private service: RoundService) {
-      let date = new Date();
-      let deliveries: Delivery[] = [];
-      for(let i = 0; i < 10; i++) {
-        date.setDate(date.getDate() - 7)
-        deliveries.push(new Delivery(new Date(date.valueOf()), i != 0))
-      }
-
-      this.model = new DeliveriesModel(page.round, deliveries, service)
+      this.model = new DeliveriesModel(page.round, service)
   }
 }

@@ -13,8 +13,7 @@ import { EditableButtonsComponent } from '../../shared/editable-buttons.componen
 import { RoundCustomerComponent } from './round-customer-new.component' 
 import { EditableService } from '../../shared/editable.service'
 import { Customer } from '../../customers/customer'
-import { Round, RoundCustomer } from '../round'
-import { RoundService } from '../round.service'
+import { Round, RoundCustomer, RoundService } from '../round.service'
 import { CustomerService } from '../../customers/customer.service'
 
 @Component({

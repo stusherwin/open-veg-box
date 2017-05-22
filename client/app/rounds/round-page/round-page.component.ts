@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Inject, forwardRef } from '@angular/core';
-import { Round } from '../round'
+import { Round, RoundService } from '../round.service'
 import { Customer } from '../../customers/customer'
-import { RoundService } from '../round.service'
 import { CustomerService } from '../../customers/customer.service'
 import { RoundCustomersPageComponent } from './customers-page.component'
 import { RoundDeliveriesPageComponent } from './deliveries-page.component'

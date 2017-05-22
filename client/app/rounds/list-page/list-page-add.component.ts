@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, ElementRef, Renderer, ViewChildren, QueryList } from '@angular/core';
-import { Round, RoundCustomer } from '../round';
+import { Round } from '../round.service';
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { ValidatableComponent } from '../../shared/validatable.component';
 import { ButtonComponent } from '../../shared/button.component'
@@ -10,7 +10,7 @@ import { ButtonComponent } from '../../shared/button.component'
   directives: [ROUTER_DIRECTIVES, ValidatableComponent, ButtonComponent]
 })
 export class ListPageAddComponent {
-  round = new Round(0, '', 5, []);
+  round = new Round(0, '', 5, [], []);
   adding: boolean;
   rowFocused: boolean;
 
@@ -64,15 +64,4 @@ export class ListPageAddComponent {
     this.adding = false;
     this.validated = false;
   } 
-
-  onActivate() {
-    this.rowFocused = true;
-  }
-
-  onDeactivate() {
-    if(this.adding) {
-      this.adding = false;
-    }
-    this.rowFocused = false;
-  }
 }

@@ -1,4 +1,3 @@
-import { Round, RoundCustomer } from './round'
 import { ProductQuantity } from '../products/product'
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
@@ -27,14 +26,17 @@ export class RoundService {
 
   getAll(queryParams: {[key: string]: string}): Observable<Round[]> {
     return this.http.get('/api/rounds?' + this.toQueryString(queryParams))
-                    .map(res => res.json())
-                    .map(rs => rs.map(this.hydrate));
+                    .map(res => res.json());
   }
 
   get(id: number): Observable<Round> {
     return this.http.get('/api/rounds/' + id)
-                    .map(res => res.json())
-                    .map(this.hydrate);
+                    .map(res => {
+                      let json = res.json();
+                      let round = new Round(json.id, json.name, json.deliveryWeekday, json.customers, json.deliveries.map((d: any) => new Delivery(d.id, new Date(d.date), d.isComplete)))
+                      console.log(round);
+                      return round;
+                    });
   }
 
   getProductList(id: number): Observable<ProductList> {
@@ -86,13 +88,24 @@ export class RoundService {
     return this.http.delete('api/rounds/' + id + '/customers/' + customerId, options)
                     .map(res => {});
   }
+}
 
-  private hydrate(r: any) {
-    if(!r) {
-      return null;
-    }
+export class Round {
+  constructor(
+    public id: number,
+    public name:string,
+    public deliveryWeekday: number,
+    public customers: RoundCustomer[],
+    public deliveries: Delivery[]) {
+  }
+}
 
-    return new Round(r.id, r.name, r.deliveryWeekday, r.customers.map((c:any) => new RoundCustomer(c.id, c.name, c.address, c.email)));
+export class RoundCustomer {
+  constructor(
+    public id: number,
+    public name:string,
+    public address: string,
+    public email: string) {
   }
 }
 
@@ -129,4 +142,13 @@ export class CustomerOrderItem {
   quantity: number;
   unitType: string;
   totalCost: number;
+}
+
+export class Delivery {
+  constructor(
+    public id: number,
+    public date: Date,
+    public isComplete: boolean
+  ) {
+  }
 }
