@@ -7,7 +7,7 @@ import { EditableService } from '../../shared/editable.service'
   selector: 'cc-customers-page',
   templateUrl: 'app/rounds/round-page/customers-page.component.html',
   directives: [RoundCustomersComponent],
-  providers: [EditableService]
+  providers: [/*EditableService*/]
 })
 export class RoundCustomersPageComponent {
   constructor(

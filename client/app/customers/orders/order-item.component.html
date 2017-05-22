@@ -37,8 +37,7 @@
         [class.modified]="model.editingTotal != model.total">
 </cc-td>
 <cc-td class="action">
-  <a #removeBtn class="button-new-small show-on-edit"
-      tabindex="1"
-      (click)="removeItem(false)"
-      (keydown.Enter)="removeItem(true)"><i class="icon-trash"></i></a>
+  <a cc-button small icon="trash" #removeBtn
+     (click)="removeItem(false)"
+     (keydown.Enter)="removeItem(true)"></a>
 </cc-td>

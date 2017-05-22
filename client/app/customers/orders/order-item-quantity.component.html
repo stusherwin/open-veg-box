@@ -7,7 +7,7 @@
     (cancel)="editingValueChange.emit(value);">
   <display>
     <cc-product-quantity [quantity]="editable.value" [unitType]="unitType"></cc-product-quantity>
-    <a class="button-new-small"><i class="icon-edit"></i></a>
+    <a cc-button small icon="edit"></a>
   </display>
   <edit>
     <span class="box-product-quantity-each" [style.visibility]="unitType == 'each' ? 'visible' : 'hidden'">x</span>

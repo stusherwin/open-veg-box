@@ -15,12 +15,13 @@ import { EditableService } from '../shared/editable.service'
 import { Arrays } from '../shared/arrays'
 import 'rxjs/add/operator/combineLatest';
 import 'rxjs/add/observable/combineLatest';
+import { ButtonComponent } from '../shared/button.component'
 
 @Component({
   selector: 'cc-boxes-page',
   templateUrl: 'app/boxes/boxes-page.component.html',
-  directives: [BoxComponent, BoxAddComponent, SectionHeaderComponent],
-  providers: [BoxService, ProductService, UsersService, BoxProductsService, EditableService, DistributeWidthService]
+  directives: [BoxComponent, BoxAddComponent, SectionHeaderComponent, ButtonComponent],
+  providers: [BoxService, ProductService, UsersService, BoxProductsService /*, EditableService */, DistributeWidthService]
 })
 export class BoxesPageComponent implements OnInit {
   constructor(private boxService: BoxService, private productService: ProductService, private routeParams: RouteParams, private changeDetector: ChangeDetectorRef, private renderer: Renderer) {

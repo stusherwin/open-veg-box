@@ -18,7 +18,7 @@
     </cc-validatable>
   </div>
   <div class="actions">
-    <button class="button-new button-new-right" [disabled]="noRecipients" tabindex="1" (click)="send()"><i class="icon-mail-dark"></i>Send</button>
-    <a class="button-new button-new-right" tabindex="1" [routerLink]="cancelLinkParams"><i class="icon-cancel"></i>Cancel</a>
+    <button cc-button right icon="mail dark" text="Send" [disabled]="noRecipients" (click)="send()"></button>
+    <a cc-button right icon="cancel" text="Cancel" [routerLink]="cancelLinkParams"></a>
   </div>  
 </div>

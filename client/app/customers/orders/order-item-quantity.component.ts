@@ -6,10 +6,11 @@ import { Subscription } from 'rxjs/Subscription'
 import { EditableValueComponent } from '../../shared/editable-value-new.component'
 import { NumericDirective } from '../../shared/numeric.directive'
 import { ProductQuantityComponent } from '../../products/product-quantity.component'
+import { ButtonComponent } from '../../shared/button.component'
 
 @Component({
   selector: 'cc-order-item-quantity',
-  directives: [ValidatableComponent, EditableValueComponent, NumericDirective, ProductQuantityComponent],
+  directives: [ValidatableComponent, EditableValueComponent, NumericDirective, ProductQuantityComponent, ButtonComponent],
   pipes: [WeightPipe],
   templateUrl: 'app/customers/orders/order-item-quantity.component.html'
 })

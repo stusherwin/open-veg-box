@@ -3,12 +3,13 @@ import { ROUTER_DIRECTIVES, Router } from '@angular/router-deprecated';
 import { EmailService, EmailMessage, EmailRecipient } from '../email/email.service';
 import { ValidatableComponent } from '../shared/validatable.component';
 import { DefaultToPipe } from '../shared/pipes'
+import { ButtonComponent } from '../shared/button.component'
 
 @Component({
   selector: 'cc-send-email',
   templateUrl: 'app/email/send-email.component.html',
   providers: [EmailService],
-  directives: [ROUTER_DIRECTIVES, ValidatableComponent],
+  directives: [ROUTER_DIRECTIVES, ValidatableComponent, ButtonComponent],
   pipes: [DefaultToPipe]
 })
 export class SendEmailComponent implements AfterViewInit {

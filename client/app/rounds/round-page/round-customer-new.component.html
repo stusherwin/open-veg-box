@@ -4,8 +4,8 @@
   <span *ngIf="!model.address || !model.address.length" class="muted">No address</span>
 </cc-td>
 <cc-td class="action">
-  <a #removeBtn class="button-new-small show-on-edit"
-      tabindex="1"
-      (click)="removeCustomer(false)"
-      (keydown.Enter)="removeCustomer(true)"><i class="icon-trash"></i></a>
+  <a cc-button small icon="trash"
+     #removeBtn
+     (click)="removeCustomer(false)"
+     (keydown.Enter)="removeCustomer(true)"></a>
 </cc-td>

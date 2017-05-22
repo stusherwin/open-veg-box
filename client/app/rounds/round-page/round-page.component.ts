@@ -14,6 +14,7 @@ import { RouteConfig, ROUTER_DIRECTIVES, Router } from '@angular/router-deprecat
 import { SectionHeaderComponent } from '../../structure/section-header.component'
 import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/observable/combineLatest'
+import { ButtonComponent } from '../../shared/button.component'
 
 export class RoundPageService {
   round: Round;
@@ -23,7 +24,7 @@ export class RoundPageService {
 @Component({
   selector: 'cc-round-page',
   templateUrl: 'app/rounds/round-page/round-page.component.html',
-  directives: [ROUTER_DIRECTIVES, SectionHeaderComponent],
+  directives: [ROUTER_DIRECTIVES, SectionHeaderComponent, ButtonComponent],
   providers: [RoundPageService, RoundCustomersService]
 })
 

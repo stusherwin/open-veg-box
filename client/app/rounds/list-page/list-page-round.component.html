@@ -8,9 +8,9 @@
     <p style="font-size: 95%">{{round.customers.length? ('' + round.customers.length) : 'No'}} customer{{round.customers.length == 1? '' : 's'}}</p>
   </div>
   <div class="actions">
-    <button class="button-new button-new-right" [disabled]="!canEmail" tabindex="1" [routerLink]="['../Round', {roundId: round.id}, 'Email']"><i class="icon-mail-dark"></i>Email</button>
-    <a class="button-new button-new-right" tabindex="1" [routerLink]="['../Round', {roundId: round.id}, 'Customers']"><i class="icon-person"></i>Customers</a>
-    <a class="button-new button-new-right" tabindex="1" [routerLink]="['../Round', {roundId: round.id}, 'Deliveries']"><i class="icon-truck"></i>Deliveries</a>
-    <a class="button-new button-new-right" tabindex="1" (click)="onDelete()"><i class="icon-trash"></i>Delete</a>
+    <button cc-button right icon="mail-dark" text="Email" [disabled]="!canEmail" [routerLink]="['../Round', {roundId: round.id}, 'Email']"></button>
+    <a cc-button right icon="person" text="Customers" [routerLink]="['../Round', {roundId: round.id}, 'Customers']"></a>
+    <a cc-button right icon="truck" text="Deliveries" [routerLink]="['../Round', {roundId: round.id}, 'Deliveries']"></a>
+    <a cc-button right icon="trash" text="Delete" (click)="onDelete()"></a>
   </div>
 </div>

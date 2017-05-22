@@ -13,11 +13,12 @@ import { NumberComponent, SelectComponent, ValidationResult } from '../shared/in
 import { EditableEditButtonComponent } from '../shared/editable-edit-button.component'
 import { EditableButtonsComponent } from '../shared/editable-buttons.component'
 import { EditableService } from '../shared/editable.service'
- 
+import { ButtonComponent} from '../shared/button.component' 
+
 @Component({
   selector: '[cc-box-product]',
   templateUrl: 'app/boxes/box-product-new.component.html',
-  directives: [ProductQuantityComponent, EditableEditButtonComponent, EditableButtonsComponent, NumberComponent, SelectComponent, FORM_DIRECTIVES],
+  directives: [ProductQuantityComponent, EditableEditButtonComponent, EditableButtonsComponent, NumberComponent, SelectComponent, FORM_DIRECTIVES, ButtonComponent],
   pipes: [MoneyPipe]
 })
 export class BoxProductComponent implements OnInit {
@@ -50,10 +51,6 @@ export class BoxProductComponent implements OnInit {
 
   get editKey() {
     return this.key + '-edit';
-  }
-
-  get removeKey() {
-    return this.key + '-remove';
   }
 
   quantity: Control;
@@ -145,7 +142,6 @@ export class BoxProductComponent implements OnInit {
   }
 
   removeProduct(keydown: boolean) {
-    this.editableService.startEdit(this.removeKey);
     this.model.remove();
     this.remove.emit(keydown);
   }

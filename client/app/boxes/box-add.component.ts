@@ -7,11 +7,12 @@ import { BoxPriceComponent } from './box-price.component';
 import { BoxProductsComponent } from './box-products.component';
 import { ValidatableComponent } from '../shared/validatable.component';
 import { NumericDirective } from '../shared/numeric.directive'
+import { ButtonComponent } from '../shared/button.component'
 
 @Component({
   selector: 'cc-box-add',
   templateUrl: 'app/boxes/box-add.component.html',
-  directives: [HeadingComponent, BoxPriceComponent, BoxProductsComponent, ValidatableComponent, NumericDirective]
+  directives: [HeadingComponent, BoxPriceComponent, BoxProductsComponent, ValidatableComponent, NumericDirective, ButtonComponent]
 })
 export class BoxAddComponent {
   box = new Box(0, '', 10.0);

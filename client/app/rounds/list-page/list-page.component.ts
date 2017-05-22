@@ -14,11 +14,12 @@ import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/combineLatest';
 import { SectionHeaderComponent } from '../../structure/section-header.component'
 import { Arrays } from '../../shared/Arrays'
+import { ButtonComponent } from '../../shared/button.component'
 
 @Component({
   selector: 'cc-list-page',
   templateUrl: 'app/rounds/list-page/list-page.component.html',
-  directives: [ListPageRoundComponent, ListPageAddComponent, SectionHeaderComponent],
+  directives: [ListPageRoundComponent, ListPageAddComponent, SectionHeaderComponent, ButtonComponent],
   providers: [RoundService, CustomerService, RoundCustomersService]
 })
 export class ListPageComponent implements OnInit {

@@ -4,11 +4,12 @@ import { HeadingComponent } from '../../shared/heading.component';
 import { RoundCustomersComponent } from './round-customers.component';
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { ValidatableComponent } from '../../shared/validatable.component';
+import { ButtonComponent } from '../../shared/button.component'
 
 @Component({
   selector: 'cc-list-page-add',
   templateUrl: 'app/rounds/list-page/list-page-add.component.html',
-  directives: [HeadingComponent, RoundCustomersComponent, ROUTER_DIRECTIVES, ValidatableComponent]
+  directives: [HeadingComponent, RoundCustomersComponent, ROUTER_DIRECTIVES, ValidatableComponent, ButtonComponent]
 })
 export class ListPageAddComponent {
   round = new Round(0, '', 5, []);

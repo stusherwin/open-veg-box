@@ -17,11 +17,12 @@ import { CustomerModel, AddCustomerModel } from './customer.model';
 import { SectionHeaderComponent } from '../../structure/section-header.component'
 import 'rxjs/add/observable/concat';
 import 'rxjs/add/operator/last';
+import { ButtonComponent } from '../../shared/button.component'
 
 @Component({
   selector: 'cc-list-page',
   templateUrl: 'app/customers/list-page/list-page.component.html',
-  directives: [ListPageCustomerComponent, ListPageAddComponent, SectionHeaderComponent],
+  directives: [ListPageCustomerComponent, ListPageAddComponent, SectionHeaderComponent, ButtonComponent],
   providers: [CustomerService, BoxService, ProductService, DistributeWidthService]
 })
 export class ListPageComponent implements OnInit {

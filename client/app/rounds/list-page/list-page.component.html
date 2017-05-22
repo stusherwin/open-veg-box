@@ -1,7 +1,7 @@
 <cc-section-header headerIcon="map-signs" headerTitle="Rounds">
-  <a class="button-new" tabindex="1"
+  <a cc-button icon="add" text="New round"
      (click)="add.startAdd()"
-     (keydown.Enter)="add.startAdd()"><i class="icon-add"></i>New round</a>
+     (keydown.Enter)="add.startAdd()"></a>
 </cc-section-header>
 <div class="loading-indicator" *ngIf="!loaded"><i class="icon-spin3 animate-spin"></i></div>
 <p *ngIf="loaded && !rounds.length">There are no rounds yet.</p>

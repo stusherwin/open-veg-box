@@ -6,11 +6,13 @@ import { RouteConfig, Router, ROUTER_DIRECTIVES, Instruction } from '@angular/ro
 import { LoggedInRouterOutlet } from './auth/logged-in-router-outlet';
 import { SectionComponent } from './structure/section.component';
 import { NotFoundPageComponent } from './not-found-page.component';
+import { EditableService } from './shared/editable.service'
 
 @Component({
   selector: 'body',
   templateUrl: 'app/app.component.html',
-  directives: [LoggedInRouterOutlet, HeaderComponent]
+  directives: [LoggedInRouterOutlet, HeaderComponent],
+  providers: [EditableService]
 })
 
 @RouteConfig([

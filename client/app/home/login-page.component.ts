@@ -4,11 +4,12 @@ import { UsersService } from '../users/users.service'
 import { User } from '../users/user'
 import { ErrorNotifyComponent } from '../shared/error-notify.component'
 import { HeaderComponent } from '../structure/main-header.component';
+import { ButtonComponent } from '../shared/button.component'
 
 @Component({
   selector: 'cc-login-page',
   templateUrl: 'app/home/login-page.component.html',
-  directives: [ROUTER_DIRECTIVES, ErrorNotifyComponent, HeaderComponent],
+  directives: [ROUTER_DIRECTIVES, ErrorNotifyComponent, HeaderComponent, ButtonComponent],
   providers: [UsersService]
 })
 

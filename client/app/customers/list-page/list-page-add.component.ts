@@ -9,11 +9,12 @@ import { ValidatableComponent } from '../../shared/validatable.component';
 import { AddCustomerModel } from './customer.model'
 import { TextComponent } from '../../shared/input.component'
 import { Control, Validators, FORM_DIRECTIVES, FormBuilder, ControlGroup } from '@angular/common'
+import { ButtonComponent } from '../../shared/button.component'
 
 @Component({
   selector: 'cc-list-page-add',
   templateUrl: 'app/customers/list-page/list-page-add.component.html',
-  directives: [HeadingComponent, CustomerAddressComponent, CustomerEmailComponent, CustomerTelComponent, ROUTER_DIRECTIVES, ValidatableComponent, TextComponent],
+  directives: [HeadingComponent, CustomerAddressComponent, CustomerEmailComponent, CustomerTelComponent, ROUTER_DIRECTIVES, ValidatableComponent, TextComponent, ButtonComponent],
 })
 export class ListPageAddComponent implements OnInit {
   customer = new Customer(0, '', '', '', '', '', '');

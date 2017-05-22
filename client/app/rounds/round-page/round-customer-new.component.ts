@@ -12,11 +12,12 @@ import { NumberComponent, SelectComponent, ValidationResult } from '../../shared
 import { EditableEditButtonComponent } from '../../shared/editable-edit-button.component'
 import { EditableButtonsComponent } from '../../shared/editable-buttons.component'
 import { EditableService } from '../../shared/editable.service'
- 
+import { ButtonComponent } from '../../shared/button.component'
+
 @Component({
   selector: '[cc-round-customer]',
   templateUrl: 'app/rounds/round-page/round-customer-new.component.html',
-  directives: [EditableEditButtonComponent, EditableButtonsComponent, NumberComponent, SelectComponent, FORM_DIRECTIVES],
+  directives: [EditableEditButtonComponent, EditableButtonsComponent, NumberComponent, SelectComponent, FORM_DIRECTIVES, ButtonComponent],
   pipes: [MoneyPipe]
 })
 export class RoundCustomerComponent implements OnInit {

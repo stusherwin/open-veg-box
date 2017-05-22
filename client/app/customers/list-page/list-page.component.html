@@ -1,7 +1,7 @@
 <cc-section-header headerIcon="person" headerTitle="Customers">
-  <a class="button-new" tabindex="1"
+  <a cc-button icon="add" text="New customer"
      (click)="add.startAdd()"
-     (keydown.Enter)="add.startAdd()"><i class="icon-add"></i>New customer</a>
+     (keydown.Enter)="add.startAdd()"></a>
 </cc-section-header>
 <div class="loading-indicator" *ngIf="!loaded"><i class="icon-spin3 animate-spin"></i></div>
 <p *ngIf="loaded && !customers.length">There are no customers yet.</p>

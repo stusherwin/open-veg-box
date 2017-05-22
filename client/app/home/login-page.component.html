@@ -9,14 +9,10 @@
   <div class="form-row">
     <label>Password:</label> <input #password type="password" />
   </div>
-  <button class="button-new login" (click)="login(username.value, password.value)">
-    <div class="icon"><i class="icon-login"></i></div>
-    <span>Log in</span>
-  </button>
+  <button cc-button icon="login" text="Log in" class="login"
+          (click)="login(username.value, password.value)"></button>
   <h2 class="no-account">Don't have an account?</h2>
   <p>Log in as a guest and have a play around.</p>
-  <button class="button-new play" (click)="login('guest', '')">
-    <div class="icon"><i class="icon-swing"></i></div>
-    <span>Have fun!</span>
-  </button>
+  <button cc-button icon="swing" text="Have fun!" class="play"
+          (click)="login('guest', '')"></button>
 </form>

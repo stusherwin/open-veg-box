@@ -2,11 +2,13 @@ import { Component } from '@angular/core';
 import { Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { UsersService } from '../users/users.service'
 import { User } from '../users/user'
+import { ButtonComponent } from '../shared/button.component'
 
 @Component({
   selector: 'cc-logout',
-  template: `<a class="button-new button-new-right logout" tabindex="1" (click)="logout()"><i class="icon-logout"></i>Log out</a>`,
-  providers: [UsersService]
+  template: `<a cc-button right class="logout" icon="logout" text="Log out" (click)="logout()"></a>`,
+  providers: [UsersService],
+  directives: [ButtonComponent]
 })
 
 export class LogoutComponent { 

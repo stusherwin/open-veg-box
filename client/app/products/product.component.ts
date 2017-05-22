@@ -6,12 +6,13 @@ import { ProductPriceComponent } from './product-price.component';
 import { Validators } from '@angular/common'
 import { EditableHeadingComponent } from '../shared/editable-heading.component'
 import { EditableUnitPriceComponent } from '../shared/editable-unit-price.component'
+import { ButtonComponent } from '../shared/button.component'
 
 @Component({
   selector: 'cc-product',
   templateUrl: 'app/products/product.component.html',
   pipes: [WeightPipe, MoneyPipe],
-  directives: [HeadingComponent, ProductPriceComponent, EditableHeadingComponent, EditableUnitPriceComponent]
+  directives: [HeadingComponent, ProductPriceComponent, EditableHeadingComponent, EditableUnitPriceComponent, ButtonComponent]
 })
 export class ProductComponent {
   unitTypes: {[key: string]: string } = {};

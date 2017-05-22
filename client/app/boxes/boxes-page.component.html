@@ -1,7 +1,7 @@
 <cc-section-header headerIcon="box" headerTitle="Boxes">
-  <a class="button-new" tabindex="1"
+  <a cc-button icon="add" text="New box"
      (click)="add.startAdd()"
-     (keydown.Enter)="add.startAdd()"><i class="icon-add"></i>New box</a>
+     (keydown.Enter)="add.startAdd()"></a>
 </cc-section-header>
 <div class="loading-indicator" *ngIf="!loaded"><i class="icon-spin3 animate-spin"></i></div>
 <p *ngIf="loaded && !boxes.length">There are no boxes yet.</p>

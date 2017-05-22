@@ -9,12 +9,13 @@ import { RouteParams } from '@angular/router-deprecated';
 import { SectionHeaderComponent } from '../structure/section-header.component'
 import { EditableService } from '../shared/editable.service'
 import { Arrays } from '../shared/arrays'
+import { ButtonComponent } from '../shared/button.component'
 
 @Component({
   selector: 'cc-products-page',
   templateUrl: 'app/products/products-page.component.html',
-  directives: [ProductComponent, ProductAddComponent, SectionHeaderComponent],
-  providers: [ProductService, UsersService, EditableService]
+  directives: [ProductComponent, ProductAddComponent, SectionHeaderComponent, ButtonComponent],
+  providers: [ProductService, UsersService /*, EditableService*/]
 })
 export class ProductsPageComponent implements OnInit {
   constructor(productService: ProductService, routeParams: RouteParams, private renderer: Renderer) {

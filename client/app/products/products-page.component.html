@@ -1,7 +1,7 @@
 <cc-section-header headerIcon="carrot" headerTitle="Products">
-  <a class="button-new" tabindex="1"
+  <a cc-button icon="add" text="New product"
     (click)="add.startAdd()"
-    (keydown.Enter)="add.startAdd()"><i class="icon-add"></i>New product</a>
+    (keydown.Enter)="add.startAdd()"></a>
 </cc-section-header>
 <div class="loading-indicator" *ngIf="!loaded"><i class="icon-spin3 animate-spin"></i></div>
 <p *ngIf="loaded && !products.length">There are no products yet.</p>

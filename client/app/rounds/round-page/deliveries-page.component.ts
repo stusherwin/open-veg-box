@@ -211,7 +211,7 @@ export class DeliveryModel {
   selector: 'cc-deliveries-page',
   templateUrl: 'app/rounds/round-page/deliveries-page.component.html',
   directives: [EditableSelectComponent, ButtonComponent],
-  providers: [EditableService]
+  providers: [/*EditableService*/]
 })
 export class RoundDeliveriesPageComponent {
   model: DeliveriesModel

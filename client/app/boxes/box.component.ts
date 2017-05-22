@@ -8,6 +8,7 @@ import { BoxProductsComponent } from './box-products-new.component';
 import { EditableHeadingComponent } from '../shared/editable-heading.component'
 import { EditablePriceComponent } from '../shared/editable-price.component'
 import { Validators } from '@angular/common'
+import { ButtonComponent } from '../shared/button.component'
 
 export interface BoxProductEvent {
   boxId: number;
@@ -17,7 +18,7 @@ export interface BoxProductEvent {
 @Component({
   selector: 'cc-box',
   templateUrl: 'app/boxes/box.component.html',
-  directives: [HeadingComponent, BoxPriceComponent, BoxProductsComponent, EditableHeadingComponent, EditablePriceComponent]
+  directives: [HeadingComponent, BoxPriceComponent, BoxProductsComponent, EditableHeadingComponent, EditablePriceComponent, ButtonComponent]
 })
 export class BoxComponent {
   boxNameValidators = [Validators.required];

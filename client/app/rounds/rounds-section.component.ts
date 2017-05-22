@@ -12,7 +12,7 @@ import { EditableService } from '../shared/editable.service'
   selector: 'cc-rounds-section',
   templateUrl: 'app/rounds/rounds-section.component.html',
   directives: [ROUTER_DIRECTIVES, ErrorNotifyComponent],
-  providers: [RoundService, EditableService, CustomerService]
+  providers: [RoundService /*, EditableService*/, CustomerService]
 })
 
 @RouteConfig([
