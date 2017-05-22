@@ -9,7 +9,6 @@ import { BoxComponent, BoxProductEvent } from './box.component'
 import { BoxAddComponent } from './box-add.component'
 import { Observable } from 'rxjs/Observable';
 import { RouteParams } from '@angular/router-deprecated';
-import { BoxProductsService } from './box-products.service';
 import { SectionHeaderComponent } from '../structure/section-header.component'
 import { EditableService } from '../shared/editable.service'
 import { Arrays } from '../shared/arrays'
@@ -21,7 +20,7 @@ import { ButtonComponent } from '../shared/button.component'
   selector: 'cc-boxes-page',
   templateUrl: 'app/boxes/boxes-page.component.html',
   directives: [BoxComponent, BoxAddComponent, SectionHeaderComponent, ButtonComponent],
-  providers: [BoxService, ProductService, UsersService, BoxProductsService /*, EditableService */, DistributeWidthService]
+  providers: [BoxService, ProductService, UsersService/*, EditableService */, DistributeWidthService]
 })
 export class BoxesPageComponent implements OnInit {
   constructor(private boxService: BoxService, private productService: ProductService, private routeParams: RouteParams, private changeDetector: ChangeDetectorRef, private renderer: Renderer) {
