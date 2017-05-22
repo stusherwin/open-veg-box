@@ -20,6 +20,7 @@ export class RoundCustomer {
 export class Delivery {
   constructor(
     public id: number,
+    public roundId: number,
     public date: Date,
     public isComplete: boolean
   ) {

@@ -54,17 +54,30 @@ export class RoundsService {
             round.customers.push(new RoundCustomer(r.customerid, r.customername, r.customeraddress, r.customeremail));
           }
           if(r.deliveryid && !round.deliveries.find(d => d.id == r.deliveryid)) {
-            round.deliveries.push(new Delivery(r.deliveryid, r.deliverydate, r.deliveryiscomplete));
+            round.deliveries.push(new Delivery(r.deliveryid, r.id, r.deliverydate, r.deliveryiscomplete));
           }
         }
 
-        // let date = new Date();
-        // for(let i = 0; i < 10; i++) {
-        //   date.setDate(date.getDate() - 7)
-        //   round.deliveries.push(new Delivery(new Date(date.valueOf()), i != 0))
-        // }
-
         return round;
+      });
+  }
+
+  getDelivery(roundId: number, deliveryId: number, db: Db): Observable<Delivery> {
+    return db.singleWithReduce<Delivery>(
+      ' select'
+    + ' d.id, d.roundId, d.date, d.isComplete'
+    + ' from delivery d'
+    + ' where d.roundId = @roundId and d.id = @deliveryId',
+      {roundId, deliveryId},
+      rows => {
+        let delivery: Delivery = null;
+        for(let r of rows) {
+          if(!delivery) {
+            delivery = new Delivery(r.id, r.roundid, r.date, r.iscomplete);
+          }
+        }
+
+        return delivery;
       });
   }
 

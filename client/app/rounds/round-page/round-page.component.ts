@@ -5,14 +5,13 @@ import { CustomerService } from '../../customers/customer.service'
 import { RoundCustomersPageComponent } from './customers-page.component'
 import { RoundDeliveriesPageComponent } from './deliveries-page.component'
 import { EmailPageComponent } from './email-page.component'
-import { ProductListPageComponent } from './product-list-page.component'
-import { OrderListPageComponent } from './order-list-page.component'
 import { RouteParams } from '@angular/router-deprecated';
 import { RouteConfig, ROUTER_DIRECTIVES, Router } from '@angular/router-deprecated';
 import { SectionHeaderComponent } from '../../structure/section-header.component'
 import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/observable/combineLatest'
 import { ButtonComponent } from '../../shared/button.component'
+import { DeliveriesSectionComponent } from './deliveries-section.component'
 
 export class RoundPageService {
   round: Round;
@@ -32,25 +31,20 @@ export class RoundPageService {
     name: 'Customers',
     component: RoundCustomersPageComponent
   },
-  {
-    path: 'deliveries',
-    name: 'Deliveries',
-    component: RoundDeliveriesPageComponent
-  },
+  // {
+  //   path: 'deliveries',
+  //   name: 'Deliveries',
+  //   component: RoundDeliveriesPageComponent
+  // },
   {
     path: 'email',
     name: 'Email',
     component: EmailPageComponent
   },
   {
-    path: 'product-list',
-    name: 'ProductList',
-    component: ProductListPageComponent
-  },
-  {
-    path: 'order-list',
-    name: 'OrderList',
-    component: OrderListPageComponent
+    path: 'deliveries/...',
+    name: 'Deliveries',
+    component: DeliveriesSectionComponent
   }
 ])
 export class RoundPageComponent implements OnInit {
@@ -77,6 +71,8 @@ export class RoundPageComponent implements OnInit {
       this.round = round;
       this.page.unusedCustomers = customers;
     });
+
+    console.log('here')
   }
 
   isCurrent(linkParams: any[]): boolean {

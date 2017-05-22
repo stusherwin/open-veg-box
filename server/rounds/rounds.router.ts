@@ -21,6 +21,11 @@ export let getRounds = function(authorize: (req: any, res: any, next:() => void)
                  .subscribe(round => res.json(round), next);
   });
 
+  rounds.get('/:id/deliveries/:deliveryId', function(req: any, res: any, next: any) {
+    roundsService.getDelivery(req.params.id, req.params.deliveryId, req.db)
+                 .subscribe(delivery => res.json(delivery), next);
+  });
+
   rounds.get('/:id/product_list', function(req: any, res: any, next: any) {
     roundsService.getProductList(req.params.id, req.db)
                  .subscribe(products => res.json(products), next);

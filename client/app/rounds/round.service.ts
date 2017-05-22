@@ -39,6 +39,16 @@ export class RoundService {
                     });
   }
 
+  getDelivery(id: number, deliveryId: number): Observable<Delivery> {
+    return this.http.get('/api/rounds/' + id + '/deliveries/' + deliveryId)
+                    .map(res => {
+                      let json = res.json();
+                      let delivery = new Delivery(json.id, new Date(json.date), json.isComplete);
+                      console.log(delivery);
+                      return delivery;
+                    });
+  }
+
   getProductList(id: number): Observable<ProductList> {
     return this.http.get('/api/rounds/' + id + '/product_list/')
                     .map(res => res.json());

@@ -1,0 +1,8 @@
+<!--<h3>{{loading ? '' : (delivery?.date | date:'yMMMEEEEd' || 'Delivery not found')}}</h3>-->
+<cc-section-header headerIcon="truck" [headerTitle]="loading ? '' : (delivery?.date | date:'yMMMEEEEd' || 'Delivery not found')">
+  <a cc-button icon="carrot" text="Product list" *ngIf="delivery" [class.selected]="isCurrent(['./ProductList'])" [routerLink]="['./ProductList']"></a>
+  <a cc-button icon="basket" text="Order list" *ngIf="delivery" [class.selected]="isCurrent(['./OrderList'])" [routerLink]="['./OrderList']"></a>
+</cc-section-header>
+<div class="loading-indicator" *ngIf="loading"><i class="icon-spin3 animate-spin"></i></div>
+<router-outlet *ngIf="delivery"></router-outlet>
+<p *ngIf="!loading && !delivery" style="margin-left: 10px; margin-top: 20px;">Sorry, couldn't find any Delivery with ID '{{routeParams.params['deliveryId']}}'.</p>

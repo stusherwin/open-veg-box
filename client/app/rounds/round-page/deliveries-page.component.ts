@@ -183,6 +183,7 @@ export class RoundDeliveriesPageComponent {
     @Inject(forwardRef(() => RoundPageService))
     private page: RoundPageService,
     private service: RoundService) {
+      console.log('here');
       this.model = new DeliveriesModel(page.round, service)
   }
 }
