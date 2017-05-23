@@ -7,6 +7,10 @@ begin
   then
     alter table round add nextDeliveryDate date null;
     
+    alter table round_customer add excludedFromNextDelivery integer null;
+    update round_customer set excludedFromNextDelivery = 0;
+    alter table round_customer alter excludedFromNextDelivery set not null;
+
     create table historicOrder(
       id serial primary key not null, 
       customerId integer not null references customer(id),

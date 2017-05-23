@@ -1103,3 +1103,8 @@ form.submitted textarea.ng-invalid ~ .icon-warning {
 .deliveries h4.row-header i:before {
   color: #999;
 }
+.order-list .excluded h3,
+.order-list .excluded p {
+  color: #aaa !important;
+  text-decoration: line-through;
+}

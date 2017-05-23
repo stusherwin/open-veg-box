@@ -14,7 +14,8 @@ export class RoundCustomer {
     public id: number,
     public name:string,
     public address: string,
-    public email: string) {
+    public email: string,
+    public excludedFromNextDelivery: boolean) {
   }
 }
 
@@ -22,8 +23,7 @@ export class Delivery {
   constructor(
     public id: number,
     public roundId: number,
-    public date: Date,
-    public isComplete: boolean
+    public date: Date
   ) {
   }
 }

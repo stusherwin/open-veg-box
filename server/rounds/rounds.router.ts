@@ -71,5 +71,15 @@ export let getRounds = function(authorize: (req: any, res: any, next:() => void)
                 .subscribe(() => res.sendStatus(200), next);
   });
 
+  rounds.post('/:id/customers/:customerId/excludeFromNextDelivery', function(req: any, res: any, next: any) {
+    roundsService.excludeCustomerFromNextDelivery(req.params.id, req.params.customerId, req.db)
+                .subscribe(() => res.sendStatus(200), next);
+  });
+
+  rounds.post('/:id/customers/:customerId/includeInNextDelivery', function(req: any, res: any, next: any) {
+    roundsService.includeCustomerInNextDelivery(req.params.id, req.params.customerId, req.db)
+                .subscribe(() => res.sendStatus(200), next);
+  });
+
   return rounds;
 };

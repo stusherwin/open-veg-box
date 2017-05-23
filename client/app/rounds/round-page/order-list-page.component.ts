@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Inject, forwardRef } from '@angular/core';
-import { Round, RoundService, CustomerOrderList } from '../round.service'
+import { Round, RoundService, CustomerOrderList, CustomerOrder } from '../round.service'
 import { ProductQuantity } from '../../products/product'
 import { MoneyPipe } from '../../shared/pipes'; 
 import { ProductQuantityComponent } from '../../products/product-quantity.component'
@@ -27,7 +27,7 @@ export class OrderListPageComponent implements OnInit {
 
   ngOnInit() {
     this.roundService.getOrderList(this.roundPage.round.id)
-                     .subscribe(o => this.orderList = o);
+                     .subscribe(o => { this.orderList = o; console.log(o); });
 
     let startDate = this.roundPage.round.deliveries.length
       ? this.roundPage.round.deliveries[0].date
@@ -38,5 +38,19 @@ export class OrderListPageComponent implements OnInit {
 
   getNextDeliveryDateAfter(startDateExclusive: Date) {
     return Dates.getNextDayOfWeekAfter(startDateExclusive, this.roundPage.round.deliveryWeekday);
+  }
+
+  exclude(o: CustomerOrder) {
+    this.roundService.excludeCustomerFromNextDelivery(this.roundPage.round.id, o.id).subscribe(() => {
+      o.excluded = true;
+      this.orderList.totalCost = this.orderList.orders.reduce((s, o) => s + (o.excluded ? 0 : o.totalCost), 0);
+    })
+  }
+
+  include(o: CustomerOrder) {
+    this.roundService.includeCustomerInNextDelivery(this.roundPage.round.id, o.id).subscribe(() => {
+      o.excluded = false;
+      this.orderList.totalCost = this.orderList.orders.reduce((s, o) => s + (o.excluded ? 0 : o.totalCost), 0);
+    })
   }
 }

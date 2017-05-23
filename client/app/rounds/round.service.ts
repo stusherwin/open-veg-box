@@ -108,6 +108,22 @@ export class RoundService {
     return this.http.delete('api/rounds/' + id + '/customers/' + customerId, options)
                     .map(res => {});
   }
+
+  excludeCustomerFromNextDelivery(id: number, customerId: number): Observable<void> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post('api/rounds/' + id + '/customers/' + customerId + '/excludeFromNextDelivery', '', options)
+                    .map(res => {});
+  }
+
+  includeCustomerInNextDelivery(id: number, customerId: number): Observable<void> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post('api/rounds/' + id + '/customers/' + customerId + '/includeInNextDelivery', '', options)
+                    .map(res => {});
+  }
 }
 
 export class Round {
@@ -154,6 +170,7 @@ export class CustomerOrder {
   totalCost: number;
   boxes: CustomerOrderItem[];
   extraProducts: CustomerOrderItem[];
+  excluded: boolean;
 }
 
 export class CustomerOrderItem {

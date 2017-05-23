@@ -1,6 +1,12 @@
 PRAGMA foreign_keys=on;
 
-ALTER TABLE round ADD nextDeliveryDate date NULL;
+ALTER TABLE round ADD nextDeliveryDate text NULL;
+ALTER TABLE round_customer ADD excludedFromNextDelivery integer NULL; --TODO: should be not null
+
+update round_customer set excludedFromNextDelivery = 0;
+-- pragma writable_schema = 1;
+-- update sqlite_master set sql = 'CREATE TABLE round_customer(roundId integer NOT NULL, customerId integer NOT NULL, excludedFromNextDelivery integer NOT NULL, PRIMARY KEY(roundId, customerId), FOREIGN KEY(roundId) REFERENCES round(id), FOREIGN KEY(customerId) REFERENCES customer(id))' where name = 'round_customer';
+-- pragma writable_schema = 0;
 
 CREATE TABLE historicOrder(
   id integer primary key NOT NULL, 

@@ -42,6 +42,11 @@
   <div class="row-view-new no-hover">
     <div class="row" style="height: 0;padding: 0">
     </div>
+    <div class="row" *ngIf="!model.deliveries.length">
+      <div class="details">
+        No completed deliveries.
+      </div>
+    </div>
     <div class="row" *ngFor="let delivery of model.deliveries">
       <div class="details">
         <h4 style="display: inline-block">{{delivery.date | date:'yMMMEEEEd'}}</h4>

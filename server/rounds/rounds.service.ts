@@ -8,7 +8,9 @@ let _ = require('lodash');
 export class RoundsService {
   getAll(queryParams: any, db: Db): Observable<Round[]> {
     return db.allWithReduce<Round>(
-      ' select r.id, r.name, r.deliveryWeekday, r.nextDeliveryDate, c.id customerId, (c.firstName || \' \' || c.surname) customerName, c.address customerAddress, c.email customerEmail from round r' 
+      ' select r.id, r.name, r.deliveryWeekday, r.nextDeliveryDate, c.id customerId, (c.firstName || \' \' || c.surname) customerName, c.address customerAddress, c.email customerEmail,'
+    + ' rc.excludedFromNextDelivery'  
+    + ' from round r' 
     + ' left join round_customer rc on rc.roundId = r.id'
     + ' left join customer c on c.id = rc.customerId'
     + ' order by r.name, c.surname, c.firstname',
@@ -23,7 +25,7 @@ export class RoundsService {
             rounds.push(round);
           }
           if(r.customerid) {
-            round.customers.push(new RoundCustomer(r.customerid, r.customername, r.customeraddress, r.customeremail));
+            round.customers.push(new RoundCustomer(r.customerid, r.customername, r.customeraddress, r.customeremail, r.excludedfromnextdelivery));
           }
         }
 
@@ -36,7 +38,8 @@ export class RoundsService {
       ' select'
     + ' r.id, r.name, r.deliveryWeekday, r.nextDeliveryDate,'
     + ' c.id customerId, c.firstName || \' \' || c.surname customerName, c.address customerAddress, c.email customerEmail,'
-    + ' d.id deliveryId, d.date deliveryDate, d.isComplete deliveryIsComplete'
+    + ' d.id deliveryId, d.date deliveryDate,'
+    + ' rc.excludedFromNextDelivery'
     + ' from round r' 
     + ' left join round_customer rc on rc.roundId = r.id'
     + ' left join customer c on c.id = rc.customerId'
@@ -51,10 +54,10 @@ export class RoundsService {
             round = new Round(r.id, r.name, r.deliveryweekday, r.nextdeliverydate, [], []);
           }
           if(r.customerid && !round.customers.find(c => c.id == r.customerid)) {
-            round.customers.push(new RoundCustomer(r.customerid, r.customername, r.customeraddress, r.customeremail));
+            round.customers.push(new RoundCustomer(r.customerid, r.customername, r.customeraddress, r.customeremail, r.excludedfromnextdelivery));
           }
           if(r.deliveryid && !round.deliveries.find(d => d.id == r.deliveryid)) {
-            round.deliveries.push(new Delivery(r.deliveryid, r.id, r.deliverydate, r.deliveryiscomplete));
+            round.deliveries.push(new Delivery(r.deliveryid, r.id, r.deliverydate));
           }
         }
 
@@ -124,8 +127,9 @@ export class RoundsService {
 
   getOrderList(id: number, db: Db): Observable<CustomerOrderList> {
     return db.singleWithReduce<CustomerOrderList>(
-      ' select customerId, customerName, address, itemType, itemId, itemName, price, quantity, unittype, totalCost from'
-    + ' (select c.id customerId, c.firstName || \' \' || c.surname customerName, c.address, \'product\' itemType, p.id itemId, p.name itemName, p.price, p.unitType, op.quantity, p.price * op.quantity totalCost'
+      ' select customerId, customerName, address, itemType, itemId, itemName, price, quantity, unittype, totalCost, excluded from'
+    + ' (select c.id customerId, c.firstName || \' \' || c.surname customerName, c.address, \'product\' itemType, p.id itemId, p.name itemName, p.price, p.unitType, op.quantity, p.price * op.quantity totalCost,'
+    + ' rc.excludedFromNextDelivery excluded'
     + ' from round r'
     + ' inner join round_customer rc on rc.roundId = r.id'
     + ' inner join customer c on c.id = rc.customerId'
@@ -134,7 +138,8 @@ export class RoundsService {
     + ' inner join product p on p.id = op.productId'
     + ' where r.id = @id'
     + ' union'
-    + ' select c.id customerId, c.firstName || \' \' || c.surname customerName, c.address, \'box\' itemType, b.id itemId, b.name itemName, b.price, \'each\' unitType, ob.quantity, b.price * ob.quantity totalCost'
+    + ' select c.id customerId, c.firstName || \' \' || c.surname customerName, c.address, \'box\' itemType, b.id itemId, b.name itemName, b.price, \'each\' unitType, ob.quantity, b.price * ob.quantity totalCost,'
+    + ' rc.excludedFromNextDelivery excluded'
     + ' from round r'
     + ' inner join round_customer rc on rc.roundId = r.id'
     + ' inner join customer c on c.id = rc.customerId'
@@ -152,7 +157,8 @@ export class RoundsService {
               name: r.customername,
               address: r.address,
               boxes: [],
-              extraProducts: []
+              extraProducts: [],
+              excluded: r.excluded
             }
           }
 
@@ -171,7 +177,7 @@ export class RoundsService {
           }
         }
 
-        let orders =
+        let orders: CustomerOrder[] =
          _.chain(customers)
           .values()
           .forEach((c: CustomerOrder) => {
@@ -182,7 +188,7 @@ export class RoundsService {
           .sortBy('name')
           .value();
 
-        let totalCost = _.sumBy(orders, 'totalCost');
+        let totalCost = orders.reduce((s, o) => s + (o.excluded? 0 : o.totalCost), 0);
 
         return ({ orders, totalCost });
     });
@@ -191,7 +197,7 @@ export class RoundsService {
   getDelivery(roundId: number, deliveryId: number, db: Db): Observable<Delivery> {
     return db.singleWithReduce<Delivery>(
       ' select'
-    + ' d.id, d.roundId, d.date, d.isComplete'
+    + ' d.id, d.roundId, d.date'
     + ' from delivery d'
     + ' where d.roundId = @roundId and d.id = @deliveryId',
       {roundId, deliveryId},
@@ -199,7 +205,7 @@ export class RoundsService {
         let delivery: Delivery = null;
         for(let r of rows) {
           if(!delivery) {
-            delivery = new Delivery(r.id, r.roundid, r.date, r.iscomplete);
+            delivery = new Delivery(r.id, r.roundid, r.date);
           }
         }
 
@@ -348,6 +354,16 @@ export class RoundsService {
     return db.execute('delete from round_customer where roundId = @id and customerId = @customerId',
         {id, customerId});
   }
+
+  excludeCustomerFromNextDelivery(id: number, customerId: number, db: Db): Observable<void> {
+    return db.execute('update round_customer set excludedFromNextDelivery = 1 where roundId = @id and customerId = @customerId',
+        {id, customerId});
+  }
+  
+  includeCustomerInNextDelivery(id: number, customerId: number, db: Db): Observable<void> {
+    return db.execute('update round_customer set excludedFromNextDelivery = 0 where roundId = @id and customerId = @customerId',
+        {id, customerId});
+  }
 }
 
 export class ProductList {
@@ -374,6 +390,7 @@ export class CustomerOrder {
   totalCost: number;
   boxes: CustomerOrderItem[];
   extraProducts: CustomerOrderItem[];
+  excluded: boolean;
 }
 
 export class CustomerOrderItem {

@@ -1,6 +1,4 @@
 do $$
-declare orderId1 integer;
-declare orderId2 integer;
 
 begin
   if exists (select * from upgrade where scriptname = '0003') 
@@ -9,6 +7,9 @@ begin
     drop table if exists historicOrderedBox;
     drop table if exists historicOrderedProduct;
     drop table if exists historicOrder;
+
+    alter table round drop nextDeliveryDate;
+    alter table round_customer drop excludedFromNextDelivery;
 
     delete from upgrade where scriptname = '0003';
     
