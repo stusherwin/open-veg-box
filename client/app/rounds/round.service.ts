@@ -33,7 +33,7 @@ export class RoundService {
     return this.http.get('/api/rounds/' + id)
                     .map(res => {
                       let json = res.json();
-                      let round = new Round(json.id, json.name, json.deliveryWeekday, json.customers, json.deliveries.map((d: any) => new Delivery(d.id, new Date(d.date), d.isComplete)))
+                      let round = new Round(json.id, json.name, json.deliveryWeekday, json.customers, json.deliveries.map((d: any) => new Delivery(d.id, new Date(d.date))))
                       console.log(round);
                       return round;
                     });
@@ -43,7 +43,7 @@ export class RoundService {
     return this.http.get('/api/rounds/' + id + '/deliveries/' + deliveryId)
                     .map(res => {
                       let json = res.json();
-                      let delivery = new Delivery(json.id, new Date(json.date), json.isComplete);
+                      let delivery = new Delivery(json.id, new Date(json.date));
                       console.log(delivery);
                       return delivery;
                     });
@@ -157,8 +157,7 @@ export class CustomerOrderItem {
 export class Delivery {
   constructor(
     public id: number,
-    public date: Date,
-    public isComplete: boolean
+    public date: Date
   ) {
   }
 }

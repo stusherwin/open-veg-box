@@ -578,7 +578,7 @@ button.button-new-small[disabled]:focus i:before {
   display: table;
   width: 100%;
   padding: 15px 10px;
-  border-bottom: 1px solid #e6e6e6;
+  border-top: 1px solid #e6e6e6;
   background: #fafafa;
 }
 .row-view-new .row.focused,
@@ -735,6 +735,10 @@ button.button-new-small[disabled]:focus i:before {
 .row-view-new > *:nth-child(2n+1) > .row:hover,
 .row-view-new > .row:nth-child(2n+1):hover {
   background: #fff1dd;
+}
+.row-view-new > *:last-child > .row,
+.row-view-new > .row ~ .row:last-child {
+  border-bottom: 1px solid #e6e6e6;
 }
 .row-view-new.no-hover:hover .row {
   background: #fafafa;
@@ -1086,4 +1090,16 @@ form.submitted textarea.ng-invalid ~ .icon-warning {
 }
 .order {
   margin-left: -5px;
+}
+.deliveries h4 {
+  display: inline-block;
+  margin-left: -5px;
+  margin-bottom: 10px;
+}
+.deliveries h4.row-header {
+  margin-top: 10px;
+  margin-left: 5px;
+}
+.deliveries h4.row-header i:before {
+  color: #999;
 }

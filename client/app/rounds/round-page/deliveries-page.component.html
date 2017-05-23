@@ -1,58 +1,58 @@
-<div class="row-view-new no-hover">
-  <div class="row" style="height: 0;padding: 0">
-  </div>
-  <div class="row">
-    <div class="details">
-      <table class="contact-details" style="width: auto">
-        <tr>
-          <th style="width: 90px">Delivery day:</th>
-          <td style="width: 400px">
-            <cc-editable-select key="deliveryWeekday"
-                                [(value)]="model.deliveryWeekday"
-                                (valueChange)="model.updateDeliveryWeekday($event)"
-                                [options]="model.weekdays"
-                                textProperty="name"
-                                valueProperty="index">
-            </cc-editable-select>
-          </td>
-        </tr>
-        <tr *ngIf="model.canCreateNewDelivery">
-          <th>Next delivery:</th>
-          <td>
-            {{model.nextDeliveryDate | date:'yMMMEEEEd'}}
-            <a cc-button small icon="down-open"
-               (click)="model.decNextDeliveryDate()"
-               *ngIf="model.canDecNextDeliveryDate"></a>
-            <a cc-button small icon="up-open"
-               (click)="model.incNextDeliveryDate()"></a>
-            <a cc-button icon="clipboard" text="Prepare"
-               (click)="model.newDelivery()" style="display: inline-block; margin-left: 10px"></a>
-          </td>
-        </tr>
-      </table>
+<div class="deliveries">
+  <h4 class="row-header"><i class="icon-clipboard"></i>Preparing</h4>
+  <div class="row-view-new no-hover">
+    <div class="row" style="height: 0;padding: 0">
+    </div>
+    <div class="row">
+      <div class="details">
+        <table class="contact-details" style="width: auto; margin-left: -5px">
+          <tr>
+            <th style="width: 90px">Next delivery:</th>
+            <td style="width: 400px">
+                {{model.nextDeliveryDate | date:'yMMMEEEEd'}}
+              <a cc-button small icon="down-open"
+                  (click)="model.decNextDeliveryDate()"
+                  *ngIf="model.canDecNextDeliveryDate"></a>
+              <a cc-button small icon="up-open"
+                  (click)="model.incNextDeliveryDate()"></a>
+            </td>
+          </tr>
+          <tr>
+            <th style="width: 90px">Delivery day:</th>
+            <td style="width: 400px">
+              <cc-editable-select key="deliveryWeekday"
+                                  [(value)]="model.deliveryWeekday"
+                                  (valueChange)="model.updateDeliveryWeekday($event)"
+                                  [options]="model.weekdays"
+                                  textProperty="name"
+                                  valueProperty="index">
+              </cc-editable-select>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="actions">
+        <a cc-button right icon="basket" text="Order list"></a><!-- [routerLink]="['../Delivery', {deliveryId: delivery.id}, 'OrderList']"></a>-->
+        <a cc-button right icon="carrot" text="Product list"></a><!-- [routerLink]="['../Delivery', {deliveryId: delivery.id}, 'ProductList']"></a>-->
+        <a cc-button right icon="ok" text="Complete" (click)="model.newDelivery()"></a>
+      </div>
     </div>
   </div>
-  <div class="row" *ngFor="let delivery of model.deliveries">
-    <div class="details">
-      <h3 style="display: inline-block">{{delivery.date | date:'yMMMEEEEd'}}</h3>
-      <a cc-button small icon="down-open"
-          (click)="delivery.decDeliveryDate()"
-          *ngIf="delivery.canDecDeliveryDate"></a>
-      <a cc-button small icon="up-open"
-          (click)="delivery.incDeliveryDate()"
-          *ngIf="delivery.canIncDeliveryDate"></a>
-      <div style="margin-left: -5px" *ngIf="delivery.isComplete"><i class="icon-ok"></i>Complete</div>
-      <div style="margin-left: -5px" *ngIf="!delivery.isComplete"><i class="icon-clipboard"></i>Preparing</div>
+  <h4 class="row-header"><i class="icon-ok"></i>Complete</h4>
+  <div class="row-view-new no-hover">
+    <div class="row" style="height: 0;padding: 0">
     </div>
-    <div class="actions">
-      <a cc-button right icon="ok" text="Complete"
-         (click)="delivery.complete()"
-         *ngIf="delivery.canComplete"></a>
-      <a cc-button right icon="clipboard" text="Prepare"
-         (click)="delivery.uncomplete()"
-         *ngIf="delivery.canUncomplete"></a>
-      <a cc-button right icon="basket" text="Order list" [routerLink]="['../Delivery', {deliveryId: delivery.id}, 'OrderList']"></a>
-      <a cc-button right icon="carrot" text="Product list" [routerLink]="['../Delivery', {deliveryId: delivery.id}, 'ProductList']"></a>
+    <div class="row" *ngFor="let delivery of model.deliveries">
+      <div class="details">
+        <h4 style="display: inline-block">{{delivery.date | date:'yMMMEEEEd'}}</h4>
+      </div>
+      <div class="actions">
+        <a cc-button right icon="basket" text="Order list" [routerLink]="['../Delivery', {deliveryId: delivery.id}, 'OrderList']"></a>
+        <a cc-button right icon="carrot" text="Product list" [routerLink]="['../Delivery', {deliveryId: delivery.id}, 'ProductList']"></a>
+        <a cc-button right icon="cancel" text="Cancel"
+          (click)="delivery.uncomplete()"
+          *ngIf="delivery.canUncomplete"></a>
+      </div>
     </div>
   </div>
 </div>

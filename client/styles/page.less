@@ -568,7 +568,7 @@ button.button-new-small {
     display: table;
     width: 100%;
     padding: 15px 10px;
-    border-bottom: 1px solid lighten(@itemBorderColor, 10%);
+    border-top: 1px solid lighten(@itemBorderColor, 10%);
     background: @row;
 
     &.focused, &:hover {
@@ -679,6 +679,10 @@ button.button-new-small {
     &.focused, &:hover {
       background: @rowHover;
     }
+  }
+
+  & > *:last-child > .row, & > .row ~ .row:last-child {
+    border-bottom: 1px solid lighten(@itemBorderColor, 10%);
   }
 
   // &.focused {
@@ -1149,3 +1153,22 @@ form {
 //     }
 //   }
 // }
+
+.deliveries {
+  h4 {
+    display: inline-block;
+    margin-left: -5px;
+    margin-bottom: 10px;
+  }
+  
+  h4.row-header {
+    margin-top: 10px;
+    margin-left: 5px;
+
+    i {
+      &:before {
+        color: #999;
+      }
+    }
+  }
+}

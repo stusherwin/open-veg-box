@@ -7,6 +7,7 @@ import { Round, Delivery, RoundService } from '../round.service'
 import { ButtonComponent } from '../../shared/button.component'
 import { Dates } from '../../shared/dates'
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
+import { Arrays } from '../../shared/arrays'
 
 export class DeliveryWeekday { index: number; name: string }
 
@@ -29,7 +30,7 @@ export class DeliveriesModel {
     private round: Round,
     private service: RoundService
   ) {
-    this.deliveries = round.deliveries.map(d => new DeliveryModel(d.id, d.date, d.isComplete, this));
+    this.deliveries = round.deliveries.map(d => new DeliveryModel(d.id, d.date, this));
     this.deliveryWeekday = this.weekdays[round.deliveryWeekday];
     
     let startDate = this.deliveries.length
@@ -38,33 +39,21 @@ export class DeliveriesModel {
     this.nextDeliveryDate = this.getNextDeliveryDateAfter(startDate)
   }
 
-  get canCreateNewDelivery() {
-    return !this.deliveries.length || this.deliveries[0].isComplete;
-  }
-
   newDelivery() {
-    this.deliveries.unshift(new DeliveryModel(0, this.nextDeliveryDate, false, this));
+    this.deliveries.unshift(new DeliveryModel(0, this.nextDeliveryDate, this));
     this.nextDeliveryDate = this.getNextDeliveryDateAfter(this.nextDeliveryDate)
   }
 
-  canComplete(delivery: DeliveryModel) {
-    return !delivery.isComplete;
-  }
-
   canUncomplete(delivery: DeliveryModel) {
-    return delivery.isComplete && delivery == this.deliveries[0];
+    return delivery == this.deliveries[0];
   }
 
-  complete(delivery: DeliveryModel) {
-    delivery.isComplete = true;
+  uncomplete(delivery: DeliveryModel) {
+    Arrays.remove(this.deliveries, delivery);
     let startDate = this.deliveries.length
       ? this.deliveries[0].date
       : Dates.addDays(new Date(), -1);
     this.nextDeliveryDate = this.getNextDeliveryDateAfter(startDate)
-  }
-
-  uncomplete(delivery: DeliveryModel) {
-    delivery.isComplete = false;
   }
 
   get canDecNextDeliveryDate() {
@@ -94,34 +83,6 @@ export class DeliveriesModel {
     });
   }
 
-  canDecDeliveryDate(delivery: DeliveryModel) {
-    if(delivery != this.deliveries[0] || delivery.isComplete) {
-      return false;
-    }
-
-    let dec = this.getNextDeliveryDateAfter(Dates.addDays(delivery.date, -8))
-    return this.deliveries.length == 1 || Dates.getDatePart(dec) > Dates.getDatePart(this.deliveries[1].date);
-  }
-
-  canIncDeliveryDate(delivery: DeliveryModel) {
-    return delivery == this.deliveries[0] && !delivery.isComplete;
-  }
-
-  decDeliveryDate(delivery: DeliveryModel) {
-    let startDate = this.ensureAtLeast(this.deliveries[1], Dates.addDays(delivery.date, -8));
-    delivery.date = this.getNextDeliveryDateAfter(startDate);
-
-    startDate = this.ensureAtLeast(this.deliveries[0], Dates.addDays(this.nextDeliveryDate, -7));
-    this.nextDeliveryDate = this.getNextDeliveryDateAfter(startDate);
-  }
-
-  incDeliveryDate(delivery: DeliveryModel) {
-    delivery.date = this.getNextDeliveryDateAfter(delivery.date);
-
-    let startDate = this.ensureAtLeast(this.deliveries[0], Dates.addDays(this.nextDeliveryDate, -7));
-    this.nextDeliveryDate = this.getNextDeliveryDateAfter(startDate);
-  }
-
   private ensureAtLeast(delivery: DeliveryModel, date: Date) {
     if(!delivery) {
       return date;
@@ -135,40 +96,15 @@ export class DeliveryModel {
   constructor(
     public id: number,
     public date: Date,
-    public isComplete: boolean,
     private deliveries: DeliveriesModel) {
-  }
-
-  get canComplete() {
-    return this.deliveries.canComplete(this);
   }
 
   get canUncomplete() {
     return this.deliveries.canUncomplete(this);
   }
 
-  complete() {
-    this.deliveries.complete(this);
-  }
-
   uncomplete() {
     this.deliveries.uncomplete(this);
-  }
-
-  get canDecDeliveryDate() {
-    return this.deliveries.canDecDeliveryDate(this);
-  }
-
-  get canIncDeliveryDate() {
-    return this.deliveries.canIncDeliveryDate(this);
-  }
-
-  decDeliveryDate() {
-    this.deliveries.decDeliveryDate(this);
-  }
-
-  incDeliveryDate() {
-    this.deliveries.incDeliveryDate(this);
   }
 }
 
