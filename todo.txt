@@ -149,3 +149,4 @@ Editable
 * Deliveries server-side (copy orders)
 * Prompt when re-preparing a delivery when orders have changed.
 * Disable email button in section header if customer has no email address
+* Delivery page blows up if delivery not found

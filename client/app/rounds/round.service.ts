@@ -53,6 +53,9 @@ export class RoundService {
     return this.http.get('/api/rounds/' + id + '/deliveries/' + deliveryId)
                     .map(res => {
                       let json = res.json();
+                      if(!json) {
+                        return null;
+                      }
                       let delivery = new Delivery(json.id, new Date(json.date));
                       console.log(delivery);
                       return delivery;

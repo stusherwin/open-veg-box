@@ -32,6 +32,7 @@ export let getRounds = function(authorize: (req: any, res: any, next:() => void)
   });
 
   rounds.get('/:id/deliveries/:deliveryId', function(req: any, res: any, next: any) {
+    // res.sendStatus(404);
     roundsService.getDelivery(req.params.id, req.params.deliveryId, req.db)
                  .subscribe(delivery => res.json(delivery), next);
   });
