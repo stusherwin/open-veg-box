@@ -51,8 +51,8 @@
       <a cc-button right icon="clipboard" text="Prepare"
          (click)="delivery.uncomplete()"
          *ngIf="delivery.canUncomplete"></a>
-      <a cc-button right icon="basket" text="Order list"></a>
-      <a cc-button right icon="carrot" text="Product list"></a>
+      <a cc-button right icon="basket" text="Order list" [routerLink]="['../Delivery', {deliveryId: delivery.id}, 'OrderList']"></a>
+      <a cc-button right icon="carrot" text="Product list" [routerLink]="['../Delivery', {deliveryId: delivery.id}, 'ProductList']"></a>
     </div>
   </div>
 </div>

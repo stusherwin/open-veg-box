@@ -81,6 +81,9 @@ export class RoundPageComponent implements OnInit {
     let cleanUp = (s:string) => s.replace(/;[^\/]+\/?$/, '');
     let pathname = cleanUp(this.router.generate(linkParams).toLinkUrl());
     let currentPathname = cleanUp(window.location.pathname);
-    return currentPathname == pathname;
+    
+    return currentPathname == pathname
+      //HACK for deliveries page :S
+      || (pathname.includes('deliveries') && currentPathname.startsWith(pathname + '/'));
   }
 }

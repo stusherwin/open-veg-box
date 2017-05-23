@@ -5,9 +5,10 @@ declare orderId2 integer;
 begin
   if exists (select * from upgrade where scriptname = '0003') 
   then
-    drop table historicOrder;
-    drop table historicOrderedBox;
-    drop table historicOrderedProduct;
+    drop table if exists historicOrder;
+    drop table if exists historicOrderedBoxProduct;
+    drop table if exists historicOrderedBox;
+    drop table if exists historicOrderedProduct;
 
     delete from upgrade where scriptname = '0003';
     

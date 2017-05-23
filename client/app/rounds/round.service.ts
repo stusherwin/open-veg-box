@@ -49,13 +49,13 @@ export class RoundService {
                     });
   }
 
-  getProductList(id: number): Observable<ProductList> {
-    return this.http.get('/api/rounds/' + id + '/product_list/')
-                    .map(res => res.json());
+  getProductList(id: number, deliveryId: number): Observable<ProductList> {
+    return this.http.get('/api/rounds/' + id + '/deliveries/' + deliveryId + '/product_list/')
+                    .map(res => { console.log(res.json()); return res.json(); });
   }
 
-  getOrderList(id: number): Observable<CustomerOrderList> {
-    return this.http.get('/api/rounds/' + id + '/order_list/')
+  getOrderList(id: number, deliveryId: number): Observable<CustomerOrderList> {
+    return this.http.get('/api/rounds/' + id + '/deliveries/' + deliveryId + '/order_list/')
                     .map(res => res.json());
   }
 

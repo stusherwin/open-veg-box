@@ -223,6 +223,63 @@
   }
 }
 
+.sub-section-header {
+  padding: 10px 15px 10px 10px;
+  margin-bottom: -10px;
+  background: #fafafa;
+
+  h3 {
+    margin-bottom: 0;
+
+    i {
+      margin-right: 10px;
+      border-radius: 32px;
+      height: 32px;
+      width: 32px;
+      display: inline-block;
+      border: 1px solid #777;
+      vertical-align: top;
+      position: relative;
+      top: -5px;
+
+      &::before {
+        color: #777;
+        margin: 0;
+        font-size: 20px;
+        line-height: 20px;
+        display: block;
+        margin-top: 6px;
+        margin-left: 5px;
+      }
+
+      &.icon-truck::before {
+        // font-size: 18px;
+        margin-top: 5px;
+        margin-left: 4px;
+      }
+    }
+  }
+
+  .buttons {
+    position: absolute;
+    right: 0;
+    margin-top: 5px;
+
+    .button-new {
+      float: left;
+      margin-right: 10px;
+
+      &.selected {
+        .buttonNewColors(@carrot; #fff; @carrot; transparent);
+      }
+
+      &:hover, &:focus {
+        .buttonNewColors(@carrot, #fff, @carrot, @carrot);
+      }
+    }
+  }
+}
+
 @media only screen and (max-width : 790px) {
   .main-header {
     nav {

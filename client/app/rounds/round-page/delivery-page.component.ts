@@ -23,7 +23,7 @@ export class DeliveryPageService {
 
 @RouteConfig([
   {
-    path: '',
+    path: 'order-list',
     name: 'OrderList',
     component: OrderListPageComponent
   },

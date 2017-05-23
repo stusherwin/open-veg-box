@@ -8,37 +8,63 @@ CREATE TABLE historicOrder(
 
 CREATE TABLE historicOrderedBox(
   id integer primary key NOT NULL,       
-  historicOrderId integer NOT NULL REFERENCES historicOrder(id),
-  historicBoxId integer NOT NULL,
-  historicBoxName text NOT NULL,
-  historicBoxPrice real NOT NULL,
+  orderId integer NOT NULL REFERENCES historicOrder(id),
+  boxId integer NOT NULL,
+  name text NOT NULL,
+  price real NOT NULL,
   quantity integer NOT NULL
+);
+
+CREATE TABLE historicOrderedBoxProduct(
+  id integer primary key NOT NULL,       
+  orderedBoxId integer NOT NULL REFERENCES historicOrderedBox(id),
+  productId integer NOT NULL,
+  name text NOT NULL,
+  unitType text NOT NULL,
+  price real NOT NULL,
+  quantity real NOT NULL
 );
 
 CREATE TABLE historicOrderedProduct(
   id integer primary key NOT NULL,       
-  historicOrderId integer NOT NULL REFERENCES historicOrder(id),
-  historicProductId integer NOT NULL,
-  historicProductName text NOT NULL,
-  historicProductPrice real NOT NULL,
+  orderId integer NOT NULL REFERENCES historicOrder(id),
+  productId integer NOT NULL,
+  name text NOT NULL,
+  unitType text NOT NULL,
+  price real NOT NULL,
   quantity real NOT NULL
 );
 
 insert into historicOrder(id, customerId, deliveryId) values(1, 1, 1);
 
-insert into historicOrderedBox(historicOrderId, historicBoxId, historicBoxName, historicBoxPrice, quantity)
-values(1, 1, 'Box box (old)', 21.0, 2);
+insert into historicOrderedBox(id, orderId, boxId, name, price, quantity)
+values(1, 1, 1, 'Box box (old)', 21.0, 2);
 
-insert into historicOrderedProduct(historicOrderId, historicProductId, historicProductName, historicProductPrice, quantity)
-values(1, 1, 'Potatoes (old)', 1, 3);
+insert into historicOrderedBoxProduct(orderedBoxId, productId, name, unitType, price, quantity)
+values(1, 1, 'Potatoes (old)', 'perKg', 1, 3);
+
+insert into historicOrderedBoxProduct(orderedBoxId, productId, name, unitType, price, quantity)
+values(1, 5, 'Bananas (old)', 'perKg', 1.5, 3);
+
+insert into historicOrderedBoxProduct(orderedBoxId, productId, name, unitType, price, quantity)
+values(1, 6, 'Apples (old)', 'perKg', 1.2, 3);
+
+insert into historicOrderedProduct(orderId, productId, name, unitType, price, quantity)
+values(1, 1, 'Potatoes (old)', 'perKg', 1, 3);
 
 insert into historicOrder(id, customerId, deliveryId) values(2, 2, 1);
 
-insert into historicOrderedBox(historicOrderId, historicBoxId, historicBoxName, historicBoxPrice, quantity)
-values(2, 1, 'Box box (old)', 21.0, 1);
+insert into historicOrderedBox(id, orderId, boxId, name, price, quantity)
+values(2, 2, 1, 'Box box (old)', 21.0, 1);
 
-insert into historicOrderedBox(historicOrderId, historicBoxId, historicBoxName, historicBoxPrice, quantity)
-values(2, 2, 'Medium box (old)', 15.5, 1);
+insert into historicOrderedBoxProduct(orderedBoxId, productId, name, unitType, price, quantity)
+values(2, 6, 'Apples (old)', 'perKg', 1.2, 3);
 
-insert into historicOrderedProduct(historicOrderId, historicProductId, historicProductName, historicProductPrice, quantity)
-values(2, 3, 'Carrots (old)', 1.1, 3);
+insert into historicOrderedBox(id, orderId, boxId, name, price, quantity)
+values(3, 2, 2, 'Medium box (old)', 15.5, 1);
+
+insert into historicOrderedBoxProduct(orderedBoxId, productId, name, unitType, price, quantity)
+values(3, 6, 'Apples (old)', 'perKg', 1.2, 1);
+
+insert into historicOrderedProduct(orderId, productId, name, unitType, price, quantity)
+values(2, 3, 'Carrots (old)', 'perKg', 1.1, 3);

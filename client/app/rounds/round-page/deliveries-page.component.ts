@@ -6,6 +6,7 @@ import { EditableSelectComponent } from '../../shared/editable-select.component'
 import { Round, Delivery, RoundService } from '../round.service'
 import { ButtonComponent } from '../../shared/button.component'
 import { Dates } from '../../shared/dates'
+import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 
 export class DeliveryWeekday { index: number; name: string }
 
@@ -28,7 +29,7 @@ export class DeliveriesModel {
     private round: Round,
     private service: RoundService
   ) {
-    this.deliveries = round.deliveries.map(d => new DeliveryModel(d.date, d.isComplete, this));
+    this.deliveries = round.deliveries.map(d => new DeliveryModel(d.id, d.date, d.isComplete, this));
     this.deliveryWeekday = this.weekdays[round.deliveryWeekday];
     
     let startDate = this.deliveries.length
@@ -42,7 +43,7 @@ export class DeliveriesModel {
   }
 
   newDelivery() {
-    this.deliveries.unshift(new DeliveryModel(this.nextDeliveryDate, false, this));
+    this.deliveries.unshift(new DeliveryModel(0, this.nextDeliveryDate, false, this));
     this.nextDeliveryDate = this.getNextDeliveryDateAfter(this.nextDeliveryDate)
   }
 
@@ -132,6 +133,7 @@ export class DeliveriesModel {
 
 export class DeliveryModel {
   constructor(
+    public id: number,
     public date: Date,
     public isComplete: boolean,
     private deliveries: DeliveriesModel) {
@@ -173,7 +175,7 @@ export class DeliveryModel {
 @Component({
   selector: 'cc-deliveries-page',
   templateUrl: 'app/rounds/round-page/deliveries-page.component.html',
-  directives: [EditableSelectComponent, ButtonComponent],
+  directives: [EditableSelectComponent, ButtonComponent, ROUTER_DIRECTIVES],
   providers: [/*EditableService*/]
 })
 export class RoundDeliveriesPageComponent {

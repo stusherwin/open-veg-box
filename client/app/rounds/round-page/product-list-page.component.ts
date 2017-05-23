@@ -3,6 +3,7 @@ import { Round, RoundService, ProductList } from '../round.service'
 import { ProductQuantity } from '../../products/product'
 import { ProductQuantityComponent } from '../../products/product-quantity.component'
 import { RoundPageService } from './round-page.component'
+import { DeliveryPageService } from './delivery-page.component'
 
 @Component({
   selector: 'cc-product-list-page',
@@ -13,13 +14,15 @@ import { RoundPageService } from './round-page.component'
 export class ProductListPageComponent implements OnInit {
   constructor(private roundService: RoundService,
   @Inject(forwardRef(() => RoundPageService))
-  private page: RoundPageService) {
+  private roundPage: RoundPageService,
+  @Inject(forwardRef(() => DeliveryPageService))
+  private page: DeliveryPageService) {
   }
 
   productList: ProductList
 
   ngOnInit() {
-    this.roundService.getProductList(this.page.round.id)
+    this.roundService.getProductList(this.roundPage.round.id, this.page.delivery.id)
                      .subscribe(p => this.productList = p);
   }
 }

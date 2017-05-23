@@ -81,31 +81,26 @@ export class RoundsService {
       });
   }
 
-  getProductList(id: number, db: Db): Observable<ProductList> {
+  getProductList(deliveryId: number, db: Db): Observable<ProductList> {
     return db.singleWithReduce<ProductList>(
       ' select customerId, customerName, address, productId, productName, unittype, sum(quantity) quantity from'
-    + ' (select c.id customerId, c.firstName || \' \' || c.surname customerName, c.address, p.id productId, p.name productName, p.unitType, op.quantity'
-    + ' from round r'
-    + ' inner join round_customer rc on rc.roundId = r.id'
-    + ' inner join customer c on c.id = rc.customerId'
-    + ' inner join [order] o on o.customerId = c.id'
-    + ' inner join order_product op on op.orderId = o.id'
-    + ' inner join product p on p.id = op.productId'
-    + ' where r.id = @id'
+    + ' (select \'boxProduct\' type, c.id customerId, c.firstName || \' \' || c.surname customerName, c.address,'
+    + ' hop.productId, hop.name productName, hop.unitType, hop.quantity'
+    + ' from historicOrder ho'
+    + ' inner join customer c on c.id = ho.customerId'
+    + ' inner join historicOrderedProduct hop on hop.orderId = ho.id'
+    + ' where ho.deliveryId = @deliveryId'
     + ' union'
-    + ' select c.id customerId, c.firstName || \' \' || c.surname customerName, c.address, p.id productId, p.name productName, p.unitType, bp.quantity'
-    + ' from round r'
-    + ' inner join round_customer rc on rc.roundId = r.id'
-    + ' inner join customer c on c.id = rc.customerId'
-    + ' inner join [order] o on o.customerId = c.id'
-    + ' inner join order_box ob on ob.orderId = o.id'
-    + ' inner join box b on b.id = ob.boxId'
-    + ' inner join box_product bp on bp.boxId = b.id'
-    + ' inner join product p on p.id = bp.productId'
-    + ' where r.id = @id) x'
+    + ' select \'product\' type, c.id customerId, c.firstName || \' \' || c.surname customerName, c.address,'
+    + ' hobp.productId, hobp.name productName, hobp.unitType, hobp.quantity'
+    + ' from historicOrder ho'
+    + ' inner join customer c on c.id = ho.customerId'
+    + ' inner join historicOrderedBox hob on hob.orderId = ho.id'
+    + ' inner join historicOrderedBoxProduct hobp on hobp.orderedBoxId = hob.id'
+    + ' where ho.deliveryId = @deliveryId) x'
     + ' group by customerId, customerName, address, productId, productName, unitType'
     + ' order by customerName, productName',
-      {id}, rows => {
+      {deliveryId}, rows => {
         let customers = {};
         let products = {};
         for(let r of rows) {
@@ -141,28 +136,26 @@ export class RoundsService {
       });
   }
 
-  getOrderList(id: number, db: Db): Observable<CustomerOrderList> {
+  getOrderList(deliveryId: number, db: Db): Observable<CustomerOrderList> {
     return db.singleWithReduce<CustomerOrderList>(
       ' select customerId, customerName, address, itemType, itemId, itemName, price, quantity, unittype, totalCost from'
-    + ' (select c.id customerId, c.firstName || \' \' || c.surname customerName, c.address, \'product\' itemType, p.id itemId, p.name itemName, p.price, p.unitType, op.quantity, p.price * op.quantity totalCost'
-    + ' from round r'
-    + ' inner join round_customer rc on rc.roundId = r.id'
-    + ' inner join customer c on c.id = rc.customerId'
-    + ' inner join [order] o on o.customerId = c.id'
-    + ' inner join order_product op on op.orderId = o.id'
-    + ' inner join product p on p.id = op.productId'
-    + ' where r.id = @id'
+    + ' (select c.id customerId, c.firstName || \' \' || c.surname customerName, c.address,'
+    + ' \'product\' itemType, hop.productId itemId, hop.name itemName, hop.price, hop.unitType,'
+    + ' hop.quantity, hop.price * hop.quantity totalCost'
+    + ' from historicOrder ho'
+    + ' inner join customer c on c.id = ho.customerId'
+    + ' inner join historicOrderedProduct hop on hop.orderId = ho.id'
+    + ' where ho.deliveryId = @deliveryId'
     + ' union'
-    + ' select c.id customerId, c.firstName || \' \' || c.surname customerName, c.address, \'box\' itemType, b.id itemId, b.name itemName, b.price, \'each\' unitType, ob.quantity, b.price * ob.quantity totalCost'
-    + ' from round r'
-    + ' inner join round_customer rc on rc.roundId = r.id'
-    + ' inner join customer c on c.id = rc.customerId'
-    + ' inner join [order] o on o.customerId = c.id'
-    + ' inner join order_box ob on ob.orderId = o.id'
-    + ' inner join box b on b.id = ob.boxId'
-    + ' where r.id = @id) x'
+    + ' select c.id customerId, c.firstName || \' \' || c.surname customerName, c.address,'
+    + ' \'box\' itemType, hob.boxId itemId, hob.name itemName, hob.price, \'each\' unitType,'
+    + ' hob.quantity, hob.price * hob.quantity totalCost'
+    + ' from historicOrder ho'
+    + ' inner join customer c on c.id = ho.customerId'
+    + ' inner join historicOrderedBox hob on hob.orderId = ho.id'
+    + ' where ho.deliveryId = @deliveryId) x'
     + ' order by customerName, itemType, itemName',
-      {id}, rows => {
+      {deliveryId}, rows => {
         let customers = {};
         for(let r of rows) {
           if(!customers[r.customerid]) {
