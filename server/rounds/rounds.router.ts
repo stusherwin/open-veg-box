@@ -21,18 +21,28 @@ export let getRounds = function(authorize: (req: any, res: any, next:() => void)
                  .subscribe(round => res.json(round), next);
   });
 
+  rounds.get('/:id/product_list', function(req: any, res: any, next: any) {
+    roundsService.getProductList(req.params.id, req.db)
+                 .subscribe(products => res.json(products), next);
+  });
+
+  rounds.get('/:id/order_list', function(req: any, res: any, next: any) {
+    roundsService.getOrderList(req.params.id, req.db)
+                 .subscribe(products => res.json(products), next);
+  });
+
   rounds.get('/:id/deliveries/:deliveryId', function(req: any, res: any, next: any) {
     roundsService.getDelivery(req.params.id, req.params.deliveryId, req.db)
                  .subscribe(delivery => res.json(delivery), next);
   });
 
   rounds.get('/:id/deliveries/:deliveryId/product_list', function(req: any, res: any, next: any) {
-    roundsService.getProductList(req.params.deliveryId, req.db)
+    roundsService.getDeliveryProductList(req.params.deliveryId, req.db)
                  .subscribe(products => res.json(products), next);
   });
 
   rounds.get('/:id/deliveries/:deliveryId/order_list', function(req: any, res: any, next: any) {
-    roundsService.getOrderList(req.params.deliveryId, req.db)
+    roundsService.getDeliveryOrderList(req.params.deliveryId, req.db)
                  .subscribe(orders => res.json(orders), next);
   });
 

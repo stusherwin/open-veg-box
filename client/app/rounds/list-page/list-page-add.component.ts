@@ -10,7 +10,7 @@ import { ButtonComponent } from '../../shared/button.component'
   directives: [ROUTER_DIRECTIVES, ValidatableComponent, ButtonComponent]
 })
 export class ListPageAddComponent {
-  round = new Round(0, '', 5, [], []);
+  round = new Round(0, '', 5, null, [], []);
   adding: boolean;
   rowFocused: boolean;
 

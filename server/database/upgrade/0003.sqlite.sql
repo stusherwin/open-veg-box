@@ -1,5 +1,7 @@
 PRAGMA foreign_keys=on;
 
+ALTER TABLE round ADD nextDeliveryDate date NULL;
+
 CREATE TABLE historicOrder(
   id integer primary key NOT NULL, 
   customerId integer NOT NULL REFERENCES customer(id),

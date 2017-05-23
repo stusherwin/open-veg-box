@@ -5,6 +5,8 @@ declare orderId2 integer;
 begin
   if not exists (select * from upgrade where scriptname = '0003') 
   then
+    alter table round add nextDeliveryDate date null;
+    
     create table historicOrder(
       id serial primary key not null, 
       customerId integer not null references customer(id),

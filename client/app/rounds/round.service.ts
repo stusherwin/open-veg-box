@@ -33,10 +33,20 @@ export class RoundService {
     return this.http.get('/api/rounds/' + id)
                     .map(res => {
                       let json = res.json();
-                      let round = new Round(json.id, json.name, json.deliveryWeekday, json.customers, json.deliveries.map((d: any) => new Delivery(d.id, new Date(d.date))))
+                      let round = new Round(json.id, json.name, json.deliveryWeekday, new Date(json.nextDeliveryDate), json.customers, json.deliveries.map((d: any) => new Delivery(d.id, new Date(d.date))))
                       console.log(round);
                       return round;
                     });
+  }
+
+  getProductList(id: number): Observable<ProductList> {
+    return this.http.get('/api/rounds/' + id + '/product_list/')
+                    .map(res => { console.log(res.json()); return res.json(); });
+  }
+
+  getOrderList(id: number): Observable<CustomerOrderList> {
+    return this.http.get('/api/rounds/' + id + '/order_list/')
+                    .map(res => res.json());
   }
 
   getDelivery(id: number, deliveryId: number): Observable<Delivery> {
@@ -49,12 +59,12 @@ export class RoundService {
                     });
   }
 
-  getProductList(id: number, deliveryId: number): Observable<ProductList> {
+  getDeliveryProductList(id: number, deliveryId: number): Observable<ProductList> {
     return this.http.get('/api/rounds/' + id + '/deliveries/' + deliveryId + '/product_list/')
-                    .map(res => { console.log(res.json()); return res.json(); });
+                    .map(res => res.json());
   }
 
-  getOrderList(id: number, deliveryId: number): Observable<CustomerOrderList> {
+  getDeliveryOrderList(id: number, deliveryId: number): Observable<CustomerOrderList> {
     return this.http.get('/api/rounds/' + id + '/deliveries/' + deliveryId + '/order_list/')
                     .map(res => res.json());
   }
@@ -105,6 +115,7 @@ export class Round {
     public id: number,
     public name:string,
     public deliveryWeekday: number,
+    public nextDeliveryDate: Date,
     public customers: RoundCustomer[],
     public deliveries: Delivery[]) {
   }

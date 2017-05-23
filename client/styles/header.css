@@ -308,6 +308,10 @@
   margin-top: 5px;
   margin-left: 4px;
 }
+.sub-section-header h3 i.icon-clipboard::before {
+  margin-top: 5px;
+  margin-left: 6px;
+}
 .sub-section-header .buttons {
   position: absolute;
   right: 0;

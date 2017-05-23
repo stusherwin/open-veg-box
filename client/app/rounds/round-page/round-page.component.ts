@@ -31,11 +31,6 @@ export class RoundPageService {
     name: 'Customers',
     component: RoundCustomersPageComponent
   },
-  // {
-  //   path: 'deliveries',
-  //   name: 'Deliveries',
-  //   component: RoundDeliveriesPageComponent
-  // },
   {
     path: 'email',
     name: 'Email',
@@ -71,8 +66,6 @@ export class RoundPageComponent implements OnInit {
       this.round = round;
       this.page.unusedCustomers = customers;
     });
-
-    console.log('here')
   }
 
   isCurrent(linkParams: any[]): boolean {

@@ -3,14 +3,8 @@ import { RoundDeliveriesPageComponent } from './deliveries-page.component'
 import { DeliveryPageComponent } from './delivery-page.component'
 import { RouteParams } from '@angular/router-deprecated';
 import { RouteConfig, Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
-
-@Component({
-  selector: 'cc-test-page',
-  template: '<h1>Hi there.</h1>'  
-})
-export class TestPageComponent {
-
-}
+import { ProductListPageComponent } from './product-list-page.component'
+import { OrderListPageComponent } from './order-list-page.component'
 
 @Component({
   selector: 'cc-deliveries-section',
@@ -28,6 +22,16 @@ export class TestPageComponent {
     path: ':deliveryId/...',
     name: 'Delivery',
     component: DeliveryPageComponent
+  },
+  {
+    path: 'order-list',
+    name: 'OrderList',
+    component: OrderListPageComponent
+  },
+  {
+    path: 'product-list',
+    name: 'ProductList',
+    component: ProductListPageComponent
   }
 ])
 export class DeliveriesSectionComponent {

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Inject, forwardRef } from '@angular/core';
 import { Delivery, RoundService } from '../round.service'
-import { ProductListPageComponent } from './product-list-page.component'
-import { OrderListPageComponent } from './order-list-page.component'
+import { DeliveryProductListPageComponent } from './delivery-product-list-page.component'
+import { DeliveryOrderListPageComponent } from './delivery-order-list-page.component'
 import { RouteParams } from '@angular/router-deprecated';
 import { RouteConfig, ROUTER_DIRECTIVES, Router } from '@angular/router-deprecated';
 import { SectionHeaderComponent } from '../../structure/section-header.component'
@@ -25,12 +25,12 @@ export class DeliveryPageService {
   {
     path: 'order-list',
     name: 'OrderList',
-    component: OrderListPageComponent
+    component: DeliveryOrderListPageComponent
   },
   {
     path: 'product-list',
     name: 'ProductList',
-    component: ProductListPageComponent
+    component: DeliveryProductListPageComponent
   }
 ])
 export class DeliveryPageComponent implements OnInit {

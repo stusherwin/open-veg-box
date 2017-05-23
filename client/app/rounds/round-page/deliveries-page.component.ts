@@ -36,12 +36,13 @@ export class DeliveriesModel {
     let startDate = this.deliveries.length
       ? this.deliveries[0].date
       : Dates.addDays(new Date(), -1);
-    this.nextDeliveryDate = this.getNextDeliveryDateAfter(startDate)
+    this.nextDeliveryDate = round.nextDeliveryDate && round.nextDeliveryDate >= new Date() ? round.nextDeliveryDate : this.getNextDeliveryDateAfter(startDate);
   }
 
   newDelivery() {
     this.deliveries.unshift(new DeliveryModel(0, this.nextDeliveryDate, this));
-    this.nextDeliveryDate = this.getNextDeliveryDateAfter(this.nextDeliveryDate)
+    let nextDeliveryDate = this.getNextDeliveryDateAfter(this.nextDeliveryDate);
+    this.updateNextDeliveryDate(nextDeliveryDate);
   }
 
   canUncomplete(delivery: DeliveryModel) {
@@ -53,7 +54,8 @@ export class DeliveriesModel {
     let startDate = this.deliveries.length
       ? this.deliveries[0].date
       : Dates.addDays(new Date(), -1);
-    this.nextDeliveryDate = this.getNextDeliveryDateAfter(startDate)
+    let nextDeliveryDate = this.getNextDeliveryDateAfter(startDate);
+    this.updateNextDeliveryDate(nextDeliveryDate);
   }
 
   get canDecNextDeliveryDate() {
@@ -62,11 +64,13 @@ export class DeliveriesModel {
   }
 
   decNextDeliveryDate() {
-    this.nextDeliveryDate = this.getNextDeliveryDateAfter(Dates.addDays(this.nextDeliveryDate, -8));
+    let nextDeliveryDate = this.getNextDeliveryDateAfter(Dates.addDays(this.nextDeliveryDate, -8));
+    this.updateNextDeliveryDate(nextDeliveryDate);    
   }
 
   incNextDeliveryDate() {
-    this.nextDeliveryDate = this.getNextDeliveryDateAfter(this.nextDeliveryDate);
+    let nextDeliveryDate = this.getNextDeliveryDateAfter(this.nextDeliveryDate);
+    this.updateNextDeliveryDate(nextDeliveryDate);
   }
 
   getNextDeliveryDateAfter(startDateExclusive: Date) {
@@ -79,7 +83,14 @@ export class DeliveriesModel {
       this.round.deliveryWeekday = weekday.index;
 
       let startDate = this.ensureAtLeast(this.deliveries[0], Dates.addDays(this.nextDeliveryDate, -7));
-      this.nextDeliveryDate = this.getNextDeliveryDateAfter(startDate);
+      let nextDeliveryDate = this.getNextDeliveryDateAfter(startDate);
+      this.updateNextDeliveryDate(nextDeliveryDate);
+    });
+  }
+
+  updateNextDeliveryDate(date: Date) {
+    this.service.update(this.round.id, {nextDeliveryDate: date}).subscribe(() => {
+      this.nextDeliveryDate = date;
     });
   }
 
@@ -121,7 +132,6 @@ export class RoundDeliveriesPageComponent {
     @Inject(forwardRef(() => RoundPageService))
     private page: RoundPageService,
     private service: RoundService) {
-      console.log('here');
       this.model = new DeliveriesModel(page.round, service)
   }
 }

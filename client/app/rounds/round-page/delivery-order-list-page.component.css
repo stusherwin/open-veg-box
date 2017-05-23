@@ -1,0 +1,28 @@
+.totals {
+  padding: 15px;
+}
+.totals h3 {
+  margin-bottom: 0;
+}
+.customer {
+  padding: 15px;
+}
+.customer p {
+  margin: 0;
+  font-size: 90%;
+  margin-bottom: 20px;
+}
+table {
+  border-collapse: collapse;
+}
+table td {
+  padding: 5px 0;
+  padding-right: 10px;
+}
+table td.order-total {
+  border-top: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;
+}
+.money {
+  text-align: right;
+}
