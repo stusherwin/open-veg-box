@@ -29,6 +29,12 @@
               </cc-editable-select>
             </td>
           </tr>
+          <tr>
+            <th style="width: 90px">Order total:</th>
+            <td style="width: 400px">
+              <span [innerHTML]="model.orderTotal | money:true"></span> ({{model.orderCount}} order{{model.orderCount == 1? '' : 's'}})
+            </td>
+          </tr>
         </table>
       </div>
       <div class="actions">
@@ -50,6 +56,14 @@
     <div class="row" *ngFor="let delivery of model.deliveries">
       <div class="details">
         <h4 style="display: inline-block">{{delivery.date | date:'yMMMEEEEd'}}</h4>
+        <table class="contact-details" style="width: auto; margin-left: -5px">
+          <tr>
+            <th style="width: 90px">Order total:</th>
+            <td style="width: 400px">
+              <span [innerHTML]="delivery.orderTotal | money:true"></span> ({{delivery.orderCount}} order{{delivery.orderCount == 1? '' : 's'}})
+            </td>
+          </tr>
+        </table>
       </div>
       <div class="actions">
         <a cc-button right icon="basket" text="Order list" [routerLink]="['../Delivery', {deliveryId: delivery.id}, 'OrderList']"></a>

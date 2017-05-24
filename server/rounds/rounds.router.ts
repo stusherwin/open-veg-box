@@ -84,7 +84,7 @@ export let getRounds = function(authorize: (req: any, res: any, next:() => void)
 
   rounds.put('/:id/deliveries', function(req: any, res: any, next: any) {
     roundsService.createDelivery(req.params.id, req.db)
-                 .subscribe(id => res.json({id}), next);
+                 .subscribe(result => res.json(result), next);
   });
 
   rounds.delete('/:id/deliveries/:deliveryId', function(req: any, res: any, next: any) {

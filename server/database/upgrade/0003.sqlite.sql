@@ -11,7 +11,8 @@ update round_customer set excludedFromNextDelivery = 0;
 CREATE TABLE historicOrder(
   id integer primary key NOT NULL, 
   customerId integer NOT NULL REFERENCES customer(id),
-  deliveryId integer NOT NULL REFERENCES delivery(id)
+  deliveryId integer NOT NULL REFERENCES delivery(id),
+  total: number
 );
 
 CREATE TABLE historicOrderedBox(

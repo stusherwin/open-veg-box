@@ -33,7 +33,7 @@ export class RoundService {
     return this.http.get('/api/rounds/' + id)
                     .map(res => {
                       let json = res.json();
-                      let round = new Round(json.id, json.name, json.deliveryWeekday, new Date(json.nextDeliveryDate), json.customers, json.deliveries.map((d: any) => new Delivery(d.id, new Date(d.date))))
+                      let round = new Round(json.id, json.name, json.deliveryWeekday, new Date(json.nextDeliveryDate), json.customers, json.deliveries.map((d: any) => new Delivery(d.id, new Date(d.date), d.orderCount, d.orderTotal)))
                       console.log(round);
                       return round;
                     });
@@ -56,7 +56,7 @@ export class RoundService {
                       if(!json) {
                         return null;
                       }
-                      let delivery = new Delivery(json.id, new Date(json.date));
+                      let delivery = new Delivery(json.id, new Date(json.date), json.orderCount, json.orderTotal);
                       console.log(delivery);
                       return delivery;
                     });
@@ -128,12 +128,12 @@ export class RoundService {
                     .map(res => {});
   }
 
-  createDelivery(id: number): Observable<number> {
+  createDelivery(id: number): Observable<DeliveryCreateResult> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
     return this.http.put('api/rounds/' + id + '/deliveries', '', options)
-                    .map(res => res.json().id);
+                    .map(res => res.json());
   }
 
   cancelDelivery(id: number, deliveryId: number): Observable<void> {
@@ -204,7 +204,15 @@ export class CustomerOrderItem {
 export class Delivery {
   constructor(
     public id: number,
-    public date: Date
+    public date: Date,
+    public orderCount: number,
+    public orderTotal: number
   ) {
   }
+}
+
+export class DeliveryCreateResult {
+  id: number;
+  orderCount: number;
+  orderTotal: number;
 }

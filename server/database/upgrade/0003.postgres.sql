@@ -14,7 +14,8 @@ begin
     create table historicOrder(
       id serial primary key not null, 
       customerId integer not null references customer(id),
-      deliveryId integer not null references delivery(id)
+      deliveryId integer not null references delivery(id),
+      total real not null
     );
 
     create table historicOrderedBox(

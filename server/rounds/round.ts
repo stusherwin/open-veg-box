@@ -23,7 +23,9 @@ export class Delivery {
   constructor(
     public id: number,
     public roundId: number,
-    public date: Date
+    public date: Date,
+    public orderCount: number,
+    public orderTotal: number
   ) {
   }
 }
