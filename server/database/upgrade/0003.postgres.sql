@@ -26,6 +26,16 @@ begin
       quantity integer not null
     );
 
+    create table historicOrderedBoxProduct(
+      id serial primary key not null,       
+      orderedBoxId integer not null references historicOrderedBox(id),
+      productId integer not null,
+      name text not null,
+      unitType text not null,
+      price real not null,
+      quantity real not null
+    );
+
     create table historicOrderedProduct(
       id serial primary key not null,       
       orderId integer not null references historicOrder(id),

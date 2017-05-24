@@ -2,6 +2,8 @@ import {Round, RoundCustomer, Delivery} from './round'
 import {ProductQuantity} from '../products/product'
 import {Observable} from 'rxjs/Observable';
 import {Db} from '../shared/db';
+import {Box, BoxWithProducts} from '../boxes/box'
+import {Product} from '../products/product'
 import 'rxjs/add/operator/mergeMap';
 let _ = require('lodash');
 
@@ -216,14 +218,14 @@ export class RoundsService {
   getDeliveryProductList(deliveryId: number, db: Db): Observable<ProductList> {
     return db.singleWithReduce<ProductList>(
       ' select customerId, customerName, address, productId, productName, unittype, sum(quantity) quantity from'
-    + ' (select \'boxProduct\' type, c.id customerId, c.firstName || \' \' || c.surname customerName, c.address,'
+    + ' (select \'boxProduct\' itemType, c.id customerId, c.firstName || \' \' || c.surname customerName, c.address,'
     + ' hop.productId, hop.name productName, hop.unitType, hop.quantity'
     + ' from historicOrder ho'
     + ' inner join customer c on c.id = ho.customerId'
     + ' inner join historicOrderedProduct hop on hop.orderId = ho.id'
     + ' where ho.deliveryId = @deliveryId'
     + ' union'
-    + ' select \'product\' type, c.id customerId, c.firstName || \' \' || c.surname customerName, c.address,'
+    + ' select \'product\' itemType, c.id customerId, c.firstName || \' \' || c.surname customerName, c.address,'
     + ' hobp.productId, hobp.name productName, hobp.unitType, hobp.quantity'
     + ' from historicOrder ho'
     + ' inner join customer c on c.id = ho.customerId'
@@ -363,6 +365,79 @@ export class RoundsService {
   includeCustomerInNextDelivery(id: number, customerId: number, db: Db): Observable<void> {
     return db.execute('update round_customer set excludedFromNextDelivery = 0 where roundId = @id and customerId = @customerId',
         {id, customerId});
+  }
+  
+  createDelivery(id: number, db: Db): Observable<number> {
+    return this.get(id, db)
+      .mergeMap(r => db.insert('delivery', ['roundId', 'date'], {roundId: r.id, date: r.nextDeliveryDate }))
+      .mergeMap(deliveryId => {
+        this.getOrderList(id, db).subscribe(orderList => {
+          this.getBoxesWithProducts({}, db).subscribe(boxes => {
+            this.getAllProducts({}, db).subscribe(products => {
+              for(let o of orderList.orders) {
+                if(!o.excluded) {
+                  db.insert('historicOrder', ['customerId', 'deliveryId'], {customerId: o.id, deliveryId}).subscribe(orderId => {
+                    for(let b of o.boxes) {
+                      db.insert('historicOrderedBox', ['orderId', 'boxId', 'name', 'price', 'quantity'], {orderId, boxId: b.id, name: b.name, price: b.price, quantity: b.quantity}).subscribe(orderedBoxId => {
+                      let box = boxes.find(x => x.id == b.id);
+                        for(let p of box.products) {
+                          let product = products.find(x => x.id == p.id);
+                          db.insert('historicOrderedBoxProduct', ['orderedBoxId', 'productId', 'name', 'price', 'unitType', 'quantity'], {orderedBoxId, productId: p.id, name: p.name, price: product.price, unitType: p.unitType, quantity: p.quantity}).subscribe(_ => {});
+                        }
+                      });
+                    }
+                    for(let p of o.extraProducts) {
+                      db.insert('historicOrderedProduct', ['orderId', 'productId', 'name', 'unitType', 'price', 'quantity'], {orderId, productId: p.id, name: p.name, unitType: p.unitType, price: p.price, quantity: p.quantity}).subscribe(_ => {});
+                    }
+                  })
+                }
+              }
+            });
+          });
+        });
+        return Observable.of(deliveryId);
+      });
+  }
+
+  cancelDelivery(deliveryId: number, db: Db): Observable<void> {
+    return db.execute('delete from historicOrderedBoxProduct where id in (select hobp.id from historicOrderedBoxProduct hobp join historicOrderedBox hob on hobp.orderedBoxId = hob.id join historicOrder ho on hob.orderId = ho.id where ho.deliveryId = @deliveryId)', {deliveryId})
+      .mergeMap(() => db.execute('delete from historicOrderedBox where id in (select hob.id from historicOrderedBox hob join historicOrder ho on hob.orderId = ho.id where ho.deliveryId = @deliveryId)', {deliveryId}))
+      .mergeMap(() => db.execute('delete from historicOrderedProduct where id in (select hop.id from historicOrderedProduct hop join historicOrder ho on hop.orderId = ho.id where ho.deliveryId = @deliveryId)', {deliveryId}))
+      .mergeMap(() => db.execute('delete from historicOrder where deliveryId = @deliveryId', {deliveryId}))
+      .mergeMap(() => db.delete('delivery', deliveryId));
+  }
+  
+
+  private getBoxesWithProducts(queryParams: any, db: Db): Observable<BoxWithProducts[]> {
+    return db.allWithReduce<BoxWithProducts>(
+      ' select b.id, b.name, b.price, p.id productId, p.name productName, bp.quantity productQuantity, p.unitType productUnitType from box b' 
+    + ' left join box_product bp on bp.boxId = b.id'
+    + ' left join product p on p.id = bp.productId'
+    + ' order by b.name, p.name',
+      {},
+      queryParams,
+      rows => {
+        let result: BoxWithProducts[] = [];
+        for(let r of rows) {
+          let box = result.find(b => b.id == r.id);
+          if(!box) {
+            box = new BoxWithProducts(r.id, r.name, r.price, []);
+            result.push(box);
+          }
+          if(r.productid) {
+            box.products.push(new ProductQuantity(r.productid, r.productname, r.productquantity, r.productunittype));
+          }
+        }
+        return result;
+      });
+  }
+  
+  getAllProducts(queryParams: any, db: Db): Observable<Product[]> {
+    return db.all<Product>(
+      ' select p.id, p.name, p.price, p.unitType, p.unitQuantity'
+    + ' from product p'
+    + ' order by p.name',
+      {}, queryParams, r => new Product(r.id, r.name, r.price, r.unittype, r.unitquantity));
   }
 }
 

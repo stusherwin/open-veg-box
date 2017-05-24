@@ -49,37 +49,47 @@ export let getRounds = function(authorize: (req: any, res: any, next:() => void)
 
   rounds.post('/:id', function(req: any, res: any, next: any) {
     roundsService.update(req.params.id, req.body, req.db)
-                .subscribe(() => res.sendStatus(200), next);
+                 .subscribe(() => res.sendStatus(200), next);
   });
 
   rounds.put('/', function(req: any, res: any, next: any) {
     roundsService.add(req.body, req.db)
-                .subscribe(id => res.json({id}), next);
+                 .subscribe(id => res.json({id}), next);
   });
 
   rounds.delete('/:id', function(req: any, res: any, next: any) {
     roundsService.delete(req.params.id, req.db)
-                .subscribe(() => res.sendStatus(200), next);
+                 .subscribe(() => res.sendStatus(200), next);
   });
 
   rounds.put('/:id/customers/:customerId', function(req: any, res: any, next: any) {
     roundsService.addCustomer(req.params.id, req.params.customerId, req.db)
-                .subscribe(() => res.sendStatus(200), next);
+                 .subscribe(() => res.sendStatus(200), next);
   });
 
   rounds.delete('/:id/customers/:customerId', function(req: any, res: any, next: any) {
     roundsService.removeCustomer(req.params.id, req.params.customerId, req.db)
-                .subscribe(() => res.sendStatus(200), next);
+                 .subscribe(() => res.sendStatus(200), next);
   });
 
   rounds.post('/:id/customers/:customerId/excludeFromNextDelivery', function(req: any, res: any, next: any) {
     roundsService.excludeCustomerFromNextDelivery(req.params.id, req.params.customerId, req.db)
-                .subscribe(() => res.sendStatus(200), next);
+                 .subscribe(() => res.sendStatus(200), next);
   });
 
   rounds.post('/:id/customers/:customerId/includeInNextDelivery', function(req: any, res: any, next: any) {
     roundsService.includeCustomerInNextDelivery(req.params.id, req.params.customerId, req.db)
-                .subscribe(() => res.sendStatus(200), next);
+                 .subscribe(() => res.sendStatus(200), next);
+  });
+
+  rounds.put('/:id/deliveries', function(req: any, res: any, next: any) {
+    roundsService.createDelivery(req.params.id, req.db)
+                 .subscribe(id => res.json({id}), next);
+  });
+
+  rounds.delete('/:id/deliveries/:deliveryId', function(req: any, res: any, next: any) {
+    roundsService.cancelDelivery(req.params.deliveryId, req.db)
+                 .subscribe(() => res.sendStatus(200), next);
   });
 
   return rounds;

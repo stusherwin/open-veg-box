@@ -2,6 +2,9 @@
   <div class="row" style="height: 0"></div>
   <div class="row totals">
     <h3>Total products</h3>
+    <div *ngIf="!productList.totals.length">
+      <p>No products.</p>
+    </div>
     <table>
       <tr *ngFor="let p of productList.totals">
         <td>{{p.name}}</td>

@@ -127,6 +127,22 @@ export class RoundService {
     return this.http.post('api/rounds/' + id + '/customers/' + customerId + '/includeInNextDelivery', '', options)
                     .map(res => {});
   }
+
+  createDelivery(id: number): Observable<number> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.put('api/rounds/' + id + '/deliveries', '', options)
+                    .map(res => res.json().id);
+  }
+
+  cancelDelivery(id: number, deliveryId: number): Observable<void> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.delete('api/rounds/' + id + '/deliveries/' + deliveryId, options)
+                    .map(res => {});
+  }
 }
 
 export class Round {

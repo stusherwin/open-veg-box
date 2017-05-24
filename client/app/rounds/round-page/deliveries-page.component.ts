@@ -40,22 +40,30 @@ export class DeliveriesModel {
   }
 
   newDelivery() {
-    this.deliveries.unshift(new DeliveryModel(0, this.nextDeliveryDate, this));
-    let nextDeliveryDate = this.getNextDeliveryDateAfter(this.nextDeliveryDate);
-    this.updateNextDeliveryDate(nextDeliveryDate);
+    this.service.update(this.round.id, {nextDeliveryDate: this.nextDeliveryDate}).subscribe(() => {
+      this.service.createDelivery(this.round.id).subscribe(id => {
+        this.deliveries.unshift(new DeliveryModel(id, this.nextDeliveryDate, this));
+        this.round.deliveries.unshift(new Delivery(id, this.nextDeliveryDate));
+        let nextDeliveryDate = this.getNextDeliveryDateAfter(this.nextDeliveryDate);
+        this.updateNextDeliveryDate(nextDeliveryDate);
+      });
+    });
   }
 
   canUncomplete(delivery: DeliveryModel) {
     return delivery == this.deliveries[0];
   }
 
-  uncomplete(delivery: DeliveryModel) {
-    Arrays.remove(this.deliveries, delivery);
-    let startDate = this.deliveries.length
-      ? this.deliveries[0].date
-      : Dates.addDays(new Date(), -1);
-    let nextDeliveryDate = this.getNextDeliveryDateAfter(startDate);
-    this.updateNextDeliveryDate(nextDeliveryDate);
+  uncomplete(delivery: DeliveryModel) { 
+    this.service.cancelDelivery(this.round.id, delivery.id).subscribe(() => {
+      Arrays.remove(this.deliveries, delivery);
+      Arrays.removeWhere(this.round.deliveries, d => d.id == delivery.id);
+      let startDate = this.deliveries.length
+        ? this.deliveries[0].date
+        : Dates.addDays(new Date(), -1);
+      let nextDeliveryDate = this.getNextDeliveryDateAfter(startDate);
+      this.updateNextDeliveryDate(nextDeliveryDate);
+    });
   }
 
   get canDecNextDeliveryDate() {
