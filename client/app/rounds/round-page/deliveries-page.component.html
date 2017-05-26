@@ -9,7 +9,7 @@
           <tr>
             <th style="width: 90px">Next delivery:</th>
             <td style="width: 400px">
-                {{model.nextDeliveryDate | date:'yMMMEEEEd'}}
+                {{model.nextDeliveryDate | dateString}}
               <a cc-button small icon="down-open"
                   (click)="model.decNextDeliveryDate()"
                   *ngIf="model.canDecNextDeliveryDate"></a>
@@ -55,7 +55,7 @@
     </div>
     <div class="row" *ngFor="let delivery of model.deliveries">
       <div class="details">
-        <h4 style="display: inline-block">{{delivery.date | date:'yMMMEEEEd'}}</h4>
+        <h4 style="display: inline-block">{{delivery.date | dateString}}</h4>
         <table class="contact-details" style="width: auto; margin-left: -5px">
           <tr>
             <th style="width: 90px">Order total:</th>

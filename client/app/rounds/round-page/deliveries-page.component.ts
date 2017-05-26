@@ -5,10 +5,10 @@ import { Validators } from '@angular/common'
 import { EditableSelectComponent } from '../../shared/editable-select.component'
 import { Round, Delivery, RoundService } from '../round.service'
 import { ButtonComponent } from '../../shared/button.component'
-import { Dates } from '../../shared/dates'
+import { DateString, Dates } from '../../shared/dates'
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { Arrays } from '../../shared/arrays'
-import { MoneyPipe } from '../../shared/pipes'
+import { DateStringPipe, MoneyPipe } from '../../shared/pipes'
 
 export class DeliveryWeekday { index: number; name: string }
 
@@ -25,7 +25,11 @@ export class DeliveriesModel {
   ];
   deliveryWeekday: DeliveryWeekday
   deliveries: DeliveryModel[]
-  nextDeliveryDate: Date;
+
+  get nextDeliveryDate() {
+    return this.round.getNextDeliveryDate();
+  }
+
   orderCount: number = 0;
   orderTotal: number = 0;
 
@@ -36,10 +40,6 @@ export class DeliveriesModel {
     this.deliveries = round.deliveries.map(d => new DeliveryModel(d.id, d.date, d.orderCount, d.orderTotal, this));
     this.deliveryWeekday = this.weekdays[round.deliveryWeekday];
     
-    let startDate = this.deliveries.length
-      ? this.deliveries[0].date
-      : Dates.addDays(new Date(), -1);
-    this.nextDeliveryDate = round.nextDeliveryDate && round.nextDeliveryDate >= new Date() ? round.nextDeliveryDate : this.getNextDeliveryDateAfter(startDate);
     this.service.getOrderList(round.id).subscribe(ol =>{
       this.orderCount = ol.orders.filter(o => !o.excluded).length;
       this.orderTotal = ol.totalCost;
@@ -47,7 +47,7 @@ export class DeliveriesModel {
   }
 
   newDelivery() {
-    this.service.update(this.round.id, {nextDeliveryDate: this.nextDeliveryDate}).subscribe(() => {
+    this.service.updateNextDeliveryDate(this.round.id, this.nextDeliveryDate).subscribe(() => {
       this.service.createDelivery(this.round.id).subscribe(result => {
         this.deliveries.unshift(new DeliveryModel(result.id, this.nextDeliveryDate, result.orderCount, result.orderTotal, this));
         this.round.deliveries.unshift(new Delivery(result.id, this.nextDeliveryDate, result.orderCount, result.orderTotal));
@@ -65,21 +65,23 @@ export class DeliveriesModel {
     this.service.cancelDelivery(this.round.id, delivery.id).subscribe(() => {
       Arrays.remove(this.deliveries, delivery);
       Arrays.removeWhere(this.round.deliveries, d => d.id == delivery.id);
-      let startDate = this.deliveries.length
-        ? this.deliveries[0].date
-        : Dates.addDays(new Date(), -1);
-      let nextDeliveryDate = this.getNextDeliveryDateAfter(startDate);
+      let nextDeliveryDate: DateString = null;
+
+      if(this.deliveries.length) {
+        nextDeliveryDate = this.getNextDeliveryDateAfter(this.deliveries[0].date);
+      }
+
       this.updateNextDeliveryDate(nextDeliveryDate);
     });
   }
 
   get canDecNextDeliveryDate() {
-    let dec = this.getNextDeliveryDateAfter(Dates.addDays(this.nextDeliveryDate, -8))
-    return !this.deliveries.length || Dates.getDatePart(dec) > Dates.getDatePart(this.deliveries[0].date);
+    let dec = this.getNextDeliveryDateAfter(this.nextDeliveryDate.addDays(-8))
+    return !this.deliveries.length || dec.isAfter(this.deliveries[0].date);
   }
 
   decNextDeliveryDate() {
-    let nextDeliveryDate = this.getNextDeliveryDateAfter(Dates.addDays(this.nextDeliveryDate, -8));
+    let nextDeliveryDate = this.getNextDeliveryDateAfter(this.nextDeliveryDate.addDays(-8));
     this.updateNextDeliveryDate(nextDeliveryDate);    
   }
 
@@ -88,40 +90,36 @@ export class DeliveriesModel {
     this.updateNextDeliveryDate(nextDeliveryDate);
   }
 
-  getNextDeliveryDateAfter(startDateExclusive: Date) {
-    return Dates.getNextDayOfWeekAfter(startDateExclusive, this.deliveryWeekday.index);
+  getNextDeliveryDateAfter(startDateExclusive: DateString): DateString {
+    return startDateExclusive.getNextDayOfWeek(this.deliveryWeekday.index);
   }
 
   updateDeliveryWeekday(weekday: DeliveryWeekday) {
     this.service.update(this.round.id, {deliveryWeekday: weekday.index}).subscribe(() => {
       this.deliveryWeekday = weekday;
       this.round.deliveryWeekday = weekday.index;
-
-      let startDate = this.ensureAtLeast(this.deliveries[0], Dates.addDays(this.nextDeliveryDate, -7));
-      let nextDeliveryDate = this.getNextDeliveryDateAfter(startDate);
-      this.updateNextDeliveryDate(nextDeliveryDate);
     });
   }
 
-  updateNextDeliveryDate(date: Date) {
-    this.service.update(this.round.id, {nextDeliveryDate: date}).subscribe(() => {
-      this.nextDeliveryDate = date;
+  updateNextDeliveryDate(date: DateString) {
+    this.service.updateNextDeliveryDate(this.round.id, date).subscribe(() => {
+      this.round.nextDeliveryDate = date;
     });
   }
 
-  private ensureAtLeast(delivery: DeliveryModel, date: Date) {
+  private ensureAtLeast(delivery: DeliveryModel, date: DateString) {
     if(!delivery) {
       return date;
     }
 
-    return Dates.max(date, delivery.date);
+    return DateString.max(date, delivery.date);
   }
 }
 
 export class DeliveryModel {
   constructor(
     public id: number,
-    public date: Date,
+    public date: DateString,
     public orderCount: number,
     public orderTotal: number,
     private deliveries: DeliveriesModel) {
@@ -140,7 +138,7 @@ export class DeliveryModel {
   selector: 'cc-deliveries-page',
   templateUrl: 'app/rounds/round-page/deliveries-page.component.html',
   directives: [EditableSelectComponent, ButtonComponent, ROUTER_DIRECTIVES],
-  pipes: [MoneyPipe],
+  pipes: [MoneyPipe, DateStringPipe],
   providers: [/*EditableService*/]
 })
 export class RoundDeliveriesPageComponent {

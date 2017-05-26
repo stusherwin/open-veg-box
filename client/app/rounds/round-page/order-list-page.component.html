@@ -3,7 +3,7 @@
     <a cc-button right icon="basket" class="selected" text="Order list" [routerLink]="['../OrderList']"></a>
     <a cc-button right icon="carrot" text="Product list" [routerLink]="['../ProductList']"></a>
   </div>
-  <h3><i class="icon-clipboard"></i>{{nextDeliveryDate | date:'yMMMEEEEd'}}</h3>
+  <h3><i class="icon-clipboard"></i>{{nextDeliveryDate | dateString}}</h3>
 </div>
 <div class="row-view-new no-hover order-list" *ngIf="orderList">
   <div class="row" style="height: 0"></div>

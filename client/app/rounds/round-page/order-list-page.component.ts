@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, Inject, forwardRef } from '@angular/core';
 import { Round, RoundService, CustomerOrderList, CustomerOrder } from '../round.service'
 import { ProductQuantity } from '../../products/product'
-import { MoneyPipe } from '../../shared/pipes'; 
+import { DateStringPipe, MoneyPipe } from '../../shared/pipes'; 
 import { ProductQuantityComponent } from '../../products/product-quantity.component'
 import { RoundPageService } from './round-page.component'
 import { DeliveryPageService } from './delivery-page.component'
-import { Dates } from '../../shared/dates'
+import { DateString, Dates } from '../../shared/dates'
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { ButtonComponent } from '../../shared/button.component'
 
@@ -13,7 +13,7 @@ import { ButtonComponent } from '../../shared/button.component'
   selector: 'cc-order-list-page',
   templateUrl: 'app/rounds/round-page/order-list-page.component.html',
   styleUrls: ['app/rounds/round-page/order-list-page.component.css'],
-  pipes: [MoneyPipe],
+  pipes: [MoneyPipe, DateStringPipe],
   directives: [ProductQuantityComponent, ROUTER_DIRECTIVES, ButtonComponent]
 })
 export class OrderListPageComponent implements OnInit {
@@ -23,22 +23,23 @@ export class OrderListPageComponent implements OnInit {
   }
 
   orderList: CustomerOrderList;
-  nextDeliveryDate: Date;
+  nextDeliveryDate: DateString;
 
   ngOnInit() {
     this.roundService.getOrderList(this.roundPage.round.id)
                      .subscribe(o => { this.orderList = o; console.log(o); });
 
-    let startDate = this.roundPage.round.deliveries.length
-      ? this.roundPage.round.deliveries[0].date
-      : Dates.addDays(new Date(), -1);
+    // let startDate = this.roundPage.round.deliveries.length
+    //   ? this.roundPage.round.deliveries[0].date
+    //   : DateString.today().addDays(-1);
     
-    this.nextDeliveryDate = this.roundPage.round.nextDeliveryDate && this.roundPage.round.nextDeliveryDate >= new Date()? this.roundPage.round.nextDeliveryDate : this.getNextDeliveryDateAfter(startDate);
+    // this.nextDeliveryDate = this.roundPage.round.nextDeliveryDate && this.roundPage.round.nextDeliveryDate.isOnOrAfter(DateString.today())? this.roundPage.round.nextDeliveryDate : this.getNextDeliveryDateAfter(startDate);
+    this.nextDeliveryDate = this.roundPage.round.getNextDeliveryDate();
   }
 
-  getNextDeliveryDateAfter(startDateExclusive: Date) {
-    return Dates.getNextDayOfWeekAfter(startDateExclusive, this.roundPage.round.deliveryWeekday);
-  }
+  // getNextDeliveryDateAfter(startDateExclusive: DateString): DateString {
+  //   return startDateExclusive.getNextDayOfWeek(this.roundPage.round.deliveryWeekday);
+  // }
 
   exclude(o: CustomerOrder) {
     this.roundService.excludeCustomerFromNextDelivery(this.roundPage.round.id, o.id).subscribe(() => {

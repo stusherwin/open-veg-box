@@ -3,7 +3,7 @@
     <a cc-button right icon="carrot" text="Product list" *ngIf="delivery" [class.selected]="isCurrent(['./ProductList'])" [routerLink]="['./ProductList']"></a>
     <a cc-button right icon="basket" text="Order list" *ngIf="delivery" [class.selected]="isCurrent(['./OrderList'])" [routerLink]="['./OrderList']"></a>
   </div>
-  <h3><i class="icon-truck"></i>{{loading ? '' : (delivery? (delivery.date | date:'yMMMEEEEd') : 'Delivery not found')}}</h3>
+  <h3><i class="icon-truck"></i>{{loading ? '' : (delivery? (delivery.date | dateString) : 'Delivery not found')}}</h3>
 </div>
 <div class="loading-indicator" *ngIf="loading"><i class="icon-spin3 animate-spin"></i></div>
 <router-outlet *ngIf="delivery"></router-outlet>

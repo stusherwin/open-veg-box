@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/observable/combineLatest'
 import { ButtonComponent } from '../../shared/button.component'
 import { RoundPageService } from './round-page.component'
+import { DateStringPipe } from '../../shared/pipes'
 
 export class DeliveryPageService {
   delivery: Delivery;
@@ -18,6 +19,7 @@ export class DeliveryPageService {
   selector: 'cc-delivery-page',
   templateUrl: 'app/rounds/round-page/delivery-page.component.html',
   directives: [ROUTER_DIRECTIVES, SectionHeaderComponent, ButtonComponent],
+  pipes: [DateStringPipe],
   providers: [DeliveryPageService]
 })
 

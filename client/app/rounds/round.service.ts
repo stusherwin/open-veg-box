@@ -2,6 +2,7 @@ import { ProductQuantity } from '../products/product'
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { DateString } from '../shared/dates'
 
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
@@ -33,15 +34,13 @@ export class RoundService {
     return this.http.get('/api/rounds/' + id)
                     .map(res => {
                       let json = res.json();
-                      let round = new Round(json.id, json.name, json.deliveryWeekday, new Date(json.nextDeliveryDate), json.customers, json.deliveries.map((d: any) => new Delivery(d.id, new Date(d.date), d.orderCount, d.orderTotal)))
-                      console.log(round);
-                      return round;
+                      return new Round(json.id, json.name, json.deliveryWeekday, DateString.fromJSONString(json.nextDeliveryDate), json.customers, json.deliveries.map((d: any) => new Delivery(d.id, DateString.fromJSONString(d.date), d.orderCount, d.orderTotal)));
                     });
   }
 
   getProductList(id: number): Observable<ProductList> {
     return this.http.get('/api/rounds/' + id + '/product_list/')
-                    .map(res => { console.log(res.json()); return res.json(); });
+                    .map(res => res.json());
   }
 
   getOrderList(id: number): Observable<CustomerOrderList> {
@@ -56,9 +55,7 @@ export class RoundService {
                       if(!json) {
                         return null;
                       }
-                      let delivery = new Delivery(json.id, new Date(json.date), json.orderCount, json.orderTotal);
-                      console.log(delivery);
-                      return delivery;
+                      return new Delivery(json.id, DateString.fromJSONString(json.date), json.orderCount, json.orderTotal);
                     });
   }
 
@@ -84,6 +81,14 @@ export class RoundService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
+    return this.http.post('api/rounds/' + id, JSON.stringify(params), options)
+                    .map(res => {});
+  }
+
+  updateNextDeliveryDate(id: number, date: DateString) {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    let params = date? {nextDeliveryDate: date.toString()} : {nextDeliveryDate: null};
     return this.http.post('api/rounds/' + id, JSON.stringify(params), options)
                     .map(res => {});
   }
@@ -150,9 +155,14 @@ export class Round {
     public id: number,
     public name:string,
     public deliveryWeekday: number,
-    public nextDeliveryDate: Date,
+    public nextDeliveryDate: DateString,
     public customers: RoundCustomer[],
     public deliveries: Delivery[]) {
+  }
+ 
+  getNextDeliveryDate(): DateString {
+    return this.nextDeliveryDate ||
+      DateString.today().addDays(-1).getNextDayOfWeek(this.deliveryWeekday);
   }
 }
 
@@ -204,7 +214,7 @@ export class CustomerOrderItem {
 export class Delivery {
   constructor(
     public id: number,
-    public date: Date,
+    public date: DateString,
     public orderCount: number,
     public orderTotal: number
   ) {

@@ -64,7 +64,6 @@ export class RoundsService {
           }
           if(r.deliveryid && !round.deliveries.find(d => d.id == r.deliveryid)) {
             let delivery = new Delivery(r.deliveryid, r.id, r.deliverydate, parseInt(r.deliveryordercount), r.deliveryordertotal);
-            console.log(delivery);
             round.deliveries.push(delivery);
           }
         }
@@ -219,7 +218,6 @@ export class RoundsService {
           }
         }
 
-        console.log(delivery);
         return delivery;
       });
   }
@@ -378,7 +376,9 @@ export class RoundsService {
 
   createDelivery(id: number, db: Db): Observable<DeliveryCreateResult> {
     return this.get(id, db)
-      .mergeMap(r => db.insert('delivery', ['roundId', 'date'], {roundId: r.id, date: r.nextDeliveryDate }))
+      .mergeMap(r => {
+        return db.insert('delivery', ['roundId', 'date'], {roundId: r.id, date: r.nextDeliveryDate })
+      })
       .mergeMap(deliveryId => this.getOrderList(id, db).map(orderList => ({deliveryId, orderList})))
       .mergeMap(({deliveryId, orderList}) => {
         this.getBoxesWithProducts({}, db).subscribe(boxes => {

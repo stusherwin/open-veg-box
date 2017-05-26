@@ -1,4 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { DateString } from './dates'
 
 @Pipe({name: 'money'})
 export class MoneyPipe implements PipeTransform {
@@ -60,5 +62,16 @@ export class DefaultToPipe implements PipeTransform {
     }
 
     return value.replace(/\s/g, '').length ? value : defaultValue;
+  }
+}
+
+@Pipe({name: 'dateString'})
+export class DateStringPipe implements PipeTransform {
+  transform(value: DateString): string {
+    if(!value) {
+      return '';
+    }
+
+    return new DatePipe().transform(value.toDate(), 'yMMMEEEEd');
   }
 }

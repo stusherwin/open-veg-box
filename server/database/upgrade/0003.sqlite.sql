@@ -12,7 +12,7 @@ CREATE TABLE historicOrder(
   id integer primary key NOT NULL, 
   customerId integer NOT NULL REFERENCES customer(id),
   deliveryId integer NOT NULL REFERENCES delivery(id),
-  total: number
+  total real NOT NULL
 );
 
 CREATE TABLE historicOrderedBox(
@@ -44,7 +44,7 @@ CREATE TABLE historicOrderedProduct(
   quantity real NOT NULL
 );
 
-insert into historicOrder(id, customerId, deliveryId) values(1, 1, 1);
+insert into historicOrder(id, customerId, deliveryId, total) values(1, 1, 1, 45.0);
 
 insert into historicOrderedBox(id, orderId, boxId, name, price, quantity)
 values(1, 1, 1, 'Box box (old)', 21.0, 2);
@@ -61,7 +61,7 @@ values(1, 6, 'Apples (old)', 'perKg', 1.2, 3);
 insert into historicOrderedProduct(orderId, productId, name, unitType, price, quantity)
 values(1, 1, 'Potatoes (old)', 'perKg', 1, 3);
 
-insert into historicOrder(id, customerId, deliveryId) values(2, 2, 1);
+insert into historicOrder(id, customerId, deliveryId, total) values(2, 2, 1, 39.8);
 
 insert into historicOrderedBox(id, orderId, boxId, name, price, quantity)
 values(2, 2, 1, 'Box box (old)', 21.0, 1);
