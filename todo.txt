@@ -151,3 +151,4 @@ Editable
 * Disable email button in section header if customer has no email address
 * Delivery page blows up if delivery not found
 * Completing delivery ignores delivery day if recently changed
+* Remove price from historicOrderedBoxProduct

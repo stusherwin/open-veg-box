@@ -382,26 +382,23 @@ export class RoundsService {
       .mergeMap(deliveryId => this.getOrderList(id, db).map(orderList => ({deliveryId, orderList})))
       .mergeMap(({deliveryId, orderList}) => {
         this.getBoxesWithProducts({}, db).subscribe(boxes => {
-          this.getAllProducts({}, db).subscribe(products => {
-            for(let o of orderList.orders) {
-              if(!o.excluded) {
-                db.insert('historicOrder', ['customerId', 'deliveryId', 'total'], {customerId: o.id, deliveryId, total: o.totalCost}).subscribe(orderId => {
-                  for(let b of o.boxes) {
-                    db.insert('historicOrderedBox', ['orderId', 'boxId', 'name', 'price', 'quantity'], {orderId, boxId: b.id, name: b.name, price: b.price, quantity: b.quantity}).subscribe(orderedBoxId => {
-                    let box = boxes.find(x => x.id == b.id);
-                      for(let p of box.products) {
-                        let product = products.find(x => x.id == p.id);
-                        db.insert('historicOrderedBoxProduct', ['orderedBoxId', 'productId', 'name', 'price', 'unitType', 'quantity'], {orderedBoxId, productId: p.id, name: p.name, price: product.price, unitType: p.unitType, quantity: p.quantity}).subscribe(_ => {});
-                      }
-                    });
-                  }
-                  for(let p of o.extraProducts) {
-                    db.insert('historicOrderedProduct', ['orderId', 'productId', 'name', 'unitType', 'price', 'quantity'], {orderId, productId: p.id, name: p.name, unitType: p.unitType, price: p.price, quantity: p.quantity}).subscribe(_ => {});
-                  }
-                })
-              }
+          for(let o of orderList.orders) {
+            if(!o.excluded) {
+              db.insert('historicOrder', ['customerId', 'deliveryId', 'total'], {customerId: o.id, deliveryId, total: o.totalCost}).subscribe(orderId => {
+                for(let b of o.boxes) {
+                  db.insert('historicOrderedBox', ['orderId', 'boxId', 'name', 'price', 'quantity'], {orderId, boxId: b.id, name: b.name, price: b.price, quantity: b.quantity}).subscribe(orderedBoxId => {
+                  let box = boxes.find(x => x.id == b.id);
+                    for(let p of box.products) {
+                      db.insert('historicOrderedBoxProduct', ['orderedBoxId', 'productId', 'name', 'unitType', 'quantity'], {orderedBoxId, productId: p.id, name: p.name, unitType: p.unitType, quantity: p.quantity}).subscribe(_ => {});
+                    }
+                  });
+                }
+                for(let p of o.extraProducts) {
+                  db.insert('historicOrderedProduct', ['orderId', 'productId', 'name', 'unitType', 'price', 'quantity'], {orderId, productId: p.id, name: p.name, unitType: p.unitType, price: p.price, quantity: p.quantity}).subscribe(_ => {});
+                }
+              })
             }
-          });
+          }
         });
 
         return Observable.of({id: deliveryId, orderCount: orderList.orders.filter(o => !o.excluded).length, orderTotal: orderList.totalCost});
@@ -439,14 +436,6 @@ export class RoundsService {
         }
         return result;
       });
-  }
-  
-  getAllProducts(queryParams: any, db: Db): Observable<Product[]> {
-    return db.all<Product>(
-      ' select p.id, p.name, p.price, p.unitType, p.unitQuantity'
-    + ' from product p'
-    + ' order by p.name',
-      {}, queryParams, r => new Product(r.id, r.name, r.price, r.unittype, r.unitquantity));
   }
 }
 

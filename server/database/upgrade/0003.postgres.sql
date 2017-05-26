@@ -33,7 +33,6 @@ begin
       productId integer not null,
       name text not null,
       unitType text not null,
-      price real not null,
       quantity real not null
     );
 
