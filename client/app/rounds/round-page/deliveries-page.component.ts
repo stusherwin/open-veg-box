@@ -98,6 +98,10 @@ export class DeliveriesModel {
     this.service.update(this.round.id, {deliveryWeekday: weekday.index}).subscribe(() => {
       this.deliveryWeekday = weekday;
       this.round.deliveryWeekday = weekday.index;
+      if(this.round.nextDeliveryDate) {
+        let nextDeliveryDate = this.getNextDeliveryDateAfter(this.round.nextDeliveryDate.addDays(-1))
+        this.updateNextDeliveryDate(nextDeliveryDate);
+      }
     });
   }
 
