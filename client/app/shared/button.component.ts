@@ -17,7 +17,7 @@ export class ButtonComponent implements OnInit {
 
   @Input('small')
   smallAttr: boolean
-  @HostBinding('class.button-new-small')
+  @HostBinding('class.button-new-small-1')
   get isSmall() {
     return this.smallAttr != undefined;
   }

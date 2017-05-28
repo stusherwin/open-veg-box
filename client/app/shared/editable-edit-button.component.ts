@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, 
 
 @Component({
   template: `
-    <a #button class="button-new-small editable-button"
+    <a #button class="button-new-small-1 editable-button"
       tabindex="1"
       (click)="onClick(false)"
       (keydown.Enter)="onClick(true)"

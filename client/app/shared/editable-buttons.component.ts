@@ -2,14 +2,14 @@ import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, 
 
 @Component({
   template: `
-    <a class="button-new-small"
+    <a class="button-new-small-1"
       *ngIf="!invalid"
       tabindex="1"
       (click)="onOk(false)"
       (keydown.Enter)="onOk(true)">
       <i class="icon-ok"></i>
     </a>
-    <a class="button-new-small"
+    <a class="button-new-small-1"
       tabindex="1"
       (click)="onCancel(false)"
       (keydown.Enter)="onCancel(true)"><i class="icon-cancel"></i>
