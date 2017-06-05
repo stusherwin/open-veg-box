@@ -30,6 +30,14 @@ export class DeliveriesModel {
     return this.round.getNextDeliveryDate();
   }
 
+  get delivering(): DeliveryModel {
+    return this.deliveries.length? this.deliveries[0] : null;
+  }
+
+  get pastDeliveries(): DeliveryModel[] {
+    return this.deliveries.slice(1);
+  }
+
   orderCount: number = 0;
   orderTotal: number = 0;
 

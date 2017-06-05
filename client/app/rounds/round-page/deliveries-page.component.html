@@ -38,22 +38,50 @@
         </table>
       </div>
       <div class="actions">
-        <a cc-button right icon="basket" text="Order list" [routerLink]="['../OrderList']"></a>
-        <a cc-button right icon="carrot" text="Product list" [routerLink]="['../ProductList']"></a>
-        <a cc-button right icon="ok" text="Complete" (click)="model.newDelivery()"></a>
+        <a cc-button right icon="basket" text="Edit orders" [routerLink]="['../OrderList']"></a>
+        <a cc-button right icon="carrot" text="Check product list" [routerLink]="['../ProductList']"></a>
+        <a cc-button right icon="ok" text="Ready to deliver" (click)="model.newDelivery()"></a>
       </div>
     </div>
   </div>
-  <h4 class="row-header"><i class="icon-ok"></i>Complete</h4>
+  <h4 class="row-header"><i class="icon-truck"></i>Delivering</h4>
   <div class="row-view-new no-hover">
     <div class="row" style="height: 0;padding: 0">
     </div>
-    <div class="row" *ngIf="!model.deliveries.length">
-      <div class="details">
-        No completed deliveries.
+    <div class="row" *ngIf="!model.delivering">
+      <div class="details" style="padding-left: 0">
+        No deliveries ready.
       </div>
     </div>
-    <div class="row" *ngFor="let delivery of model.deliveries">
+    <div class="row" *ngIf="model.delivering">
+      <div class="details">
+        <h4 style="display: inline-block">{{model.delivering.date | dateString}}</h4>
+        <table class="contact-details" style="width: auto; margin-left: -5px">
+          <tr>
+            <th style="width: 90px">Order total:</th>
+            <td style="width: 400px">
+              <span [innerHTML]="model.delivering.orderTotal | money:true"></span> ({{model.delivering.orderCount}} order{{model.delivering.orderCount == 1? '' : 's'}})
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="actions">
+        <a cc-button right icon="basket" text="View orders" [routerLink]="['../Delivery', {deliveryId: model.delivering.id}, 'OrderList']"></a>
+        <a cc-button right icon="carrot" text="View product list" [routerLink]="['../Delivery', {deliveryId: model.delivering.id}, 'ProductList']"></a>
+        <a cc-button right icon="cancel" text="Cancel" (click)="model.delivering.uncomplete()"></a>
+      </div>
+    </div>
+  </div>
+  <h4 class="row-header"><i class="icon-history"></i>Past deliveries</h4>
+  <div class="row-view-new no-hover">
+    <div class="row" style="height: 0;padding: 0">
+    </div>
+    <div class="row" *ngIf="!model.pastDeliveries.length">
+      <div class="details" style="padding-left: 0">
+        No past deliveries.
+      </div>
+    </div>
+    <div class="row" *ngFor="let delivery of model.pastDeliveries">
       <div class="details">
         <h4 style="display: inline-block">{{delivery.date | dateString}}</h4>
         <table class="contact-details" style="width: auto; margin-left: -5px">
@@ -66,11 +94,8 @@
         </table>
       </div>
       <div class="actions">
-        <a cc-button right icon="basket" text="Order list" [routerLink]="['../Delivery', {deliveryId: delivery.id}, 'OrderList']"></a>
-        <a cc-button right icon="carrot" text="Product list" [routerLink]="['../Delivery', {deliveryId: delivery.id}, 'ProductList']"></a>
-        <a cc-button right icon="cancel" text="Cancel"
-          (click)="delivery.uncomplete()"
-          *ngIf="delivery.canUncomplete"></a>
+        <a cc-button right icon="basket" text="View orders" [routerLink]="['../Delivery', {deliveryId: delivery.id}, 'OrderList']"></a>
+        <a cc-button right icon="carrot" text="View product list" [routerLink]="['../Delivery', {deliveryId: delivery.id}, 'ProductList']"></a>
       </div>
     </div>
   </div>
