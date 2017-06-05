@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Inject, forwardRef } from '@angular/core';
 import { Round, RoundService } from '../round.service'
 import { Customer } from '../../customers/customer'
 import { CustomerService } from '../../customers/customer.service'
-import { RoundCustomersPageComponent } from './customers-page.component'
+import { RoundDetailsPageComponent } from './details-page.component'
 import { RoundDeliveriesPageComponent } from './deliveries-page.component'
 import { EmailPageComponent } from './email-page.component'
 import { RouteParams } from '@angular/router-deprecated';
@@ -28,8 +28,8 @@ export class RoundPageService {
 @RouteConfig([
   {
     path: '',
-    name: 'Customers',
-    component: RoundCustomersPageComponent
+    name: 'Details',
+    component: RoundDetailsPageComponent
   },
   {
     path: 'email',

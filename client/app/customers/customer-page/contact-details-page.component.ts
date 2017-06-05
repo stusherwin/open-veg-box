@@ -4,9 +4,6 @@ import { PreserveLinesPipe } from '../../shared/pipes'
 import { Customer } from '../customer'
 import { CustomerPageService } from './customer-page.component'
 import { CustomerService } from '../customer.service'
-import { EditableEditButtonComponent } from '../../shared/editable-edit-button.component'
-import { EditableButtonsComponent } from '../../shared/editable-buttons.component'
-import { TextComponent, TextAreaComponent } from '../../shared/input.component'
 import { Validators } from '@angular/common'
 import { EditableTextComponent } from '../../shared/editable-text.component'
 import { EditableTextAreaComponent } from '../../shared/editable-textarea.component'
@@ -14,7 +11,7 @@ import { EditableTextAreaComponent } from '../../shared/editable-textarea.compon
 @Component({
   selector: 'cc-contact-details-page',
   templateUrl: 'app/customers/customer-page/contact-details-page.component.html',
-  directives: [EditableEditButtonComponent, TextComponent, EditableButtonsComponent, EditableTextComponent, EditableTextAreaComponent],
+  directives: [EditableTextComponent, EditableTextAreaComponent],
   pipes: [PreserveLinesPipe]
 })
 export class ContactDetailsPageComponent implements OnInit {

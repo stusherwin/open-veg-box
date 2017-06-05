@@ -1,16 +1,10 @@
 <div class="row">
   <div class="details">
-    <cc-editable-heading key="roundName-{{round.id}}"
-                         [(value)]="round.name" (valueChange)="onUpdate()"
-                         [validators]="roundNameValidators"
-                         [messages]="{required: 'Round name is required'}">
-    </cc-editable-heading>
+    <h3>{{round.name}}</h3>
     <p style="font-size: 95%">{{round.customers.length? ('' + round.customers.length) : 'No'}} customer{{round.customers.length == 1? '' : 's'}}</p>
   </div>
   <div class="actions">
-    <button cc-button right icon="mail-dark" text="Email" [disabled]="!canEmail" [routerLink]="['../Round', {roundId: round.id}, 'Email']"></button>
-    <a cc-button right icon="person" text="Customers" [routerLink]="['../Round', {roundId: round.id}, 'Customers']"></a>
-    <a cc-button right icon="truck" text="Deliveries" [routerLink]="['../Round', {roundId: round.id}, 'Deliveries', 'Deliveries']"></a>
+    <a cc-button right icon="edit" text="Edit" [routerLink]="['../Round', {roundId: round.id}, 'Details']"></a>
     <a cc-button right icon="trash" text="Delete" (click)="onDelete()"></a>
   </div>
 </div>
