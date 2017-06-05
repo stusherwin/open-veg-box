@@ -3,6 +3,7 @@ import {Observable} from 'rxjs/Observable';
 import {Db} from '../shared/db';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/first';
+import 'rxjs/add/observable/of';
 
 export class CustomersService {
   fields: string[] = ['firstName', 'surname', 'address', 'tel1', 'tel2', 'email'];
@@ -96,6 +97,53 @@ export class CustomersService {
     }
   }
   
+  getPastOrders(id: number, db: Db): Observable<ApiPastOrder[]> {
+    // return Observable.of([
+    //   {date: new Date('2017-06-01T00:00:00.000Z'), totalCost: 100, itemCount: 3, boxes: [
+    //     {name: 'Some Box', price: 10.99, quantity: 2, unitType: 'each', totalCost: 21.98}
+    //   ], extraProducts: [
+    //     {name: 'Some Produuct', price: 0.74, quantity: 1, unitType: 'perKg', totalCost: 0.74}
+    //   ]},
+    //   {date: new Date('2017-05-15T00:00:00.000Z'), totalCost: 87, itemCount: 1, boxes: [], extraProducts: []},
+    //   {date: new Date('2017-05-03T00:00:00.000Z'), totalCost: 10.5, itemCount: 0, boxes: [], extraProducts: []}
+    // ]);
+
+    return db.allWithReduce<ApiPastOrder>(
+      ' select orderId, deliveryDate, orderTotalCost, itemType, itemId, itemName, price, quantity, unittype, totalCost from'
+    + ' (select ho.id orderId, d.date deliveryDate, ho.total orderTotalCost, \'product\' itemType, hop.productId itemId, hop.name itemName, hop.price, hop.unitType,'
+    + ' hop.quantity, hop.price * hop.quantity totalCost'
+    + ' from historicOrder ho'
+    + ' inner join delivery d on d.id = ho.deliveryId'
+    + ' inner join historicOrderedProduct hop on hop.orderId = ho.id'
+    + ' where ho.customerId = @id'
+    + ' union'
+    + ' select ho.id orderId, d.date deliveryDate, ho.total orderTotalCost, \'box\' itemType, hob.boxId itemId, hob.name itemName, hob.price, \'each\' unitType,'
+    + ' hob.quantity, hob.price * hob.quantity totalCost'
+    + ' from historicOrder ho'
+    + ' inner join delivery d on d.id = ho.deliveryId'
+    + ' inner join historicOrderedBox hob on hob.orderId = ho.id'
+    + ' where ho.customerId = @id) x'
+    + ' order by deliveryDate desc, itemType, itemName',
+      {id}, {}, rows => {
+        let orders: ApiPastOrder[] = []
+        for(let r of rows) {
+          let order = orders.find(o => o.id == r.orderid);
+          if(!order) {
+            order = {id: r.orderid, date: r.deliverydate, totalCost: r.ordertotalcost, boxes: [], extraProducts: []};
+            orders.push(order);
+          }
+          if(r.itemtype == 'box') {
+            let box: ApiPastOrderItem = {name: r.itemname, price: r.price, unitType: r.unittype, quantity: r.quantity, totalCost: r.totalcost};
+            order.boxes.push(box)
+          } else if(r.itemtype == 'product') {
+            let product: ApiPastOrderItem = {name: r.itemname, price: r.price, unitType: r.unittype, quantity: r.quantity, totalCost: r.totalcost};
+            order.extraProducts.push(product)
+          }
+        }
+        return orders;
+      });
+  }
+  
   add(params: any, db: Db): Observable<number> {
     return db.insert('customer', this.fields, params);
   }
@@ -107,4 +155,20 @@ export class CustomersService {
   delete(id: number, db: Db): Observable<void> {
     return db.delete('customer', id);
   }
+}
+
+export class ApiPastOrder {
+  id: number;
+  date: Date;
+  totalCost: number;
+  boxes: ApiPastOrderItem[];
+  extraProducts: ApiPastOrderItem[];
+}
+
+export class ApiPastOrderItem {
+  name: string;
+  price: number;
+  quantity: number;
+  unitType: string;
+  totalCost: number;
 }

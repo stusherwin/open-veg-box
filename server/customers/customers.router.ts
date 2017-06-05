@@ -26,6 +26,11 @@ export let getCustomers = function(authorize: (req: any, res: any, next:() => vo
                     .subscribe(customer => res.json(customer), next);
   });
 
+  customers.get('/:id/past-orders', function(req: any, res: any, next: any) {
+    customersService.getPastOrders(req.params.id, req.db)
+                    .subscribe(customers => res.json(customers), next);
+  });
+
   customers.post('/:id', function(req: any, res: any, next: any) {
     customersService.update(req.params.id, req.body, req.db)
                     .subscribe(() => res.sendStatus(200), next);

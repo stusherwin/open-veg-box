@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/delay';
 
 const paramsWhiteList = { p: 'page', ps: 'pageSize' };
 
@@ -49,6 +50,11 @@ export class CustomerService {
                     .map(ps => ps.map(this.hydrate));
   }
 
+  getPastOrders(id: number): Observable<ApiPastOrder[]> {
+    return this.http.get('/api/customers/' + id + '/past-orders')
+                    .map(res => res.json())
+  }
+
   add(params: any): Observable<number> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
@@ -80,4 +86,20 @@ export class CustomerService {
 
    return new CustomerWithOrder(c.id, c.firstName, c.surname, c.address, c.tel1, c.tel2, c.email, c.order);
   }
+}
+
+export class ApiPastOrder {
+  id: number;
+  date: string;
+  totalCost: number;
+  boxes: ApiPastOrderItem[];
+  extraProducts: ApiPastOrderItem[];
+}
+
+export class ApiPastOrderItem {
+  name: string;
+  price: number;
+  quantity: number;
+  unitType: string;
+  totalCost: number;
 }

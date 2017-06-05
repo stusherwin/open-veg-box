@@ -1,11 +1,55 @@
-<div class="row-view-new no-hover">
-  <div class="row" style="height: 0;padding: 0">
+<div class="deliveries">
+  <h4 class="row-header"><i class="icon-clipboard"></i>Current order: <span innerHTML="{{page.customer.order.total | money:true}}"></span></h4>
+  <div class="row-view-new no-hover">
+    <div class="row" style="height: 0;padding: 0">
+    </div>
+    <div class="row">
+      <div class="details">
+        <cc-order [order]="page.customer.order" [boxes]="page.boxes" [products]="page.products">
+        </cc-order>
+      </div>
+    </div>
   </div>
-  <div class="row">
-    <div class="details">
-      <h3>Current order: <span innerHTML="{{page.customer.order.total | money:true}}"></span></h3>
-      <cc-order [order]="page.customer.order" [boxes]="page.boxes" [products]="page.products">
-      </cc-order>
+  <h4 class="row-header"><i class="icon-history"></i>Past orders</h4>
+  <div class="row-view-new no-hover">
+    <div class="row" style="height: 0;padding: 0">
+    </div>
+    <div class="row" *ngIf="model.loading">
+      <div class="details" style="padding-left: 0">
+        <i style="font-size: 14px; margin-right:5px;position: relative;top:-2px;" class="icon-spin3 animate-spin"></i>Loading...
+      </div>
+    </div>
+    <div class="row" *ngIf="!model.loading && !model.pastOrders.length">
+      <div class="details" style="padding-left: 0">
+        No past orders.
+      </div>
+    </div>
+    <div class="row" *ngFor="let order of model.pastOrders">
+      <div class="details">
+        <h4 style="display: inline-block">{{order.date | dateString}}</h4>
+        <div style="margin-left: -5px"><span [innerHTML]="order.totalCost | money:true"></span> ({{order.boxCount | count:'box':'no'}}, {{order.extraProductCount | count:'extra product':'no'}})</div>
+        <table *ngIf="order.expanded" style="margin-left: -10px;margin-top: 20px;">
+          <tr *ngFor="let b of order.boxes">
+            <td>{{b.name}}</td>
+            <td><cc-product-quantity [quantity]="b.quantity" [unitType]="b.unitType"></cc-product-quantity></td>
+            <td class="money" [innerHTML]="b.totalCost | money:true"></td>
+          </tr>
+          <tr *ngFor="let p of order.extraProducts">
+            <td>{{p.name}}</td>
+            <td><cc-product-quantity [quantity]="p.quantity" [unitType]="p.unitType"></cc-product-quantity></td>
+            <td class="money" [innerHTML]="p.totalCost | money:true">
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td [innerHTML]="order.totalCost | money:true" class="money order-total"></td>
+          </tr>
+        </table>
+      </div>
+      <div class="actions">
+        <a cc-button right icon="down-open" *ngIf="!order.expanded" text="More details" (click)="order.expanded = true"></a>
+        <a cc-button right icon="up-open" *ngIf="order.expanded" text="Less details" (click)="order.expanded = false"></a>
+      </div>
     </div>
   </div>
 </div>

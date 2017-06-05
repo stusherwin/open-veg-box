@@ -1058,6 +1058,10 @@ input[type="text"].price {
   margin-top: -0.5px;
   margin-left: 0px;
 }
+.button-new i.icon-up-open::before {
+  margin-top: -1.5px;
+  margin-left: 0px;
+}
 button.button-new {
   padding-top: 0;
   padding-bottom: 0;

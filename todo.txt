@@ -138,17 +138,16 @@ Editable
 * Bug: if no properties whitelisted, get sql error
 * OnDestroy: unsubscribe to observables!
 * button-new: transparent background is preventing hover highlight
-* send-emails - cancel button out of alignment
 
 * Add row validation
 
 * Section title descenders being cut off (see round Chompton & Digby)
 * Fix editable-select and cc-select (getText and getValue consistency)
-* Upgrade sql scripts
-* Add deliveryWeekday to Round
-* Deliveries server-side (copy orders)
 * Prompt when re-preparing a delivery when orders have changed.
 * Disable email button in section header if customer has no email address
-* Delivery page blows up if delivery not found
-* Completing delivery ignores delivery day if recently changed
-* Remove price from historicOrderedBoxProduct
+* Figure out model/component design properly
+* Loading service - all components within a page need to be loaded before displayed?
+* Build out all data needed for a page - query API
+* Get rid of hydrate methods, api objects should map 1-1 with json
+* Section header/breadcrumb service - how do components below containing component alter its contents?
+* Prevent delivery with no orders (server + client side)?

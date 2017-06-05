@@ -41,7 +41,7 @@ export class RoundsService {
     + ' r.id, r.name, r.deliveryWeekday, r.nextDeliveryDate,'
     + ' c.id customerId, c.firstName || \' \' || c.surname customerName, c.address customerAddress, c.email customerEmail,'
     + ' d.id deliveryId, d.date deliveryDate, rc.excludedFromNextDelivery,'
-    + ' count(ho.id) deliveryOrderCount, sum(ho.total) deliveryOrderTotal'
+    + ' count(ho.id) deliveryOrderCount, coalesce(sum(ho.total), 0) deliveryOrderTotal'
     + ' from round r' 
     + ' left join round_customer rc on rc.roundId = r.id'
     + ' left join customer c on c.id = rc.customerId'

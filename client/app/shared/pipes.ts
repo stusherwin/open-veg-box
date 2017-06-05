@@ -75,3 +75,24 @@ export class DateStringPipe implements PipeTransform {
     return new DatePipe().transform(value.toDate(), 'yMMMEEEEd');
   }
 }
+
+@Pipe({name: 'count'})
+export class CountPipe implements PipeTransform {
+  transform(value: number, itemName: string = 'item', zeroText?: string): string {
+    let result = (value || 0) + ''
+    if(result == '0' && zeroText) {
+      result = zeroText;
+    }
+    result += ' ' + itemName;
+
+    if(value != 1) {
+      if(result.endsWith('s') || result.endsWith('x') || result.endsWith('sh')) {
+        result += 'es'
+      } else {
+        result += 's';
+      }
+    }
+
+    return result;
+  }
+}
