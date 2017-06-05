@@ -8,12 +8,13 @@ import { DateString, Dates } from '../../shared/dates'
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { ButtonComponent } from '../../shared/button.component'
 import { DateStringPipe } from '../../shared/pipes';
+import { SectionHeaderComponent } from '../../structure/section-header.component'
 
 @Component({
   selector: 'cc-product-list-page',
   templateUrl: 'app/rounds/round-page/product-list-page.component.html',
   styleUrls: ['app/rounds/round-page/product-list-page.component.css'],
-  directives: [ProductQuantityComponent, ROUTER_DIRECTIVES, ButtonComponent],
+  directives: [ProductQuantityComponent, ROUTER_DIRECTIVES, ButtonComponent, SectionHeaderComponent],
   pipes: [DateStringPipe]
 })
 export class ProductListPageComponent implements OnInit {
@@ -34,7 +35,7 @@ export class ProductListPageComponent implements OnInit {
     //   : DateString.today().addDays(-1);
     
     // this.nextDeliveryDate = this.roundPage.round.nextDeliveryDate && this.roundPage.round.nextDeliveryDate.isOnOrAfter(DateString.today()) ? this.roundPage.round.nextDeliveryDate : this.getNextDeliveryDateAfter(startDate);
-    this.roundPage.round.getNextDeliveryDate();
+    this.nextDeliveryDate = this.roundPage.round.getNextDeliveryDate();
   }
 
   // getNextDeliveryDateAfter(startDateExclusive: DateString): DateString {

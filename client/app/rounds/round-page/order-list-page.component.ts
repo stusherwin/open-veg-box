@@ -8,13 +8,14 @@ import { DeliveryPageService } from './delivery-page.component'
 import { DateString, Dates } from '../../shared/dates'
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { ButtonComponent } from '../../shared/button.component'
+import { SectionHeaderComponent } from '../../structure/section-header.component'
 
 @Component({
   selector: 'cc-order-list-page',
   templateUrl: 'app/rounds/round-page/order-list-page.component.html',
   styleUrls: ['app/rounds/round-page/order-list-page.component.css'],
   pipes: [MoneyPipe, DateStringPipe],
-  directives: [ProductQuantityComponent, ROUTER_DIRECTIVES, ButtonComponent]
+  directives: [ProductQuantityComponent, ROUTER_DIRECTIVES, ButtonComponent, SectionHeaderComponent]
 })
 export class OrderListPageComponent implements OnInit {
   constructor(private roundService: RoundService,

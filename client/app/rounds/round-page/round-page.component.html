@@ -1,4 +1,4 @@
-<cc-section-header headerIcon="map-signs" [headerTitle]="loading ? '' : (round?.name || 'Round not found')">
+<cc-section-header headerIcon="map-signs" [headerTitle]="loading ? '' : (round?.name || 'Round not found')" [breadcrumbs]="[{title: 'Rounds', routerLink: ['../Rounds']}]">
   <a cc-button icon="person" text="Customers" *ngIf="round" [class.selected]="isCurrent(['./Customers'])" [routerLink]="['./Customers']"></a>
   <a cc-button icon="truck" text="Deliveries" *ngIf="round" [class.selected]="isCurrent(['./Deliveries', 'Deliveries'])" [routerLink]="['./Deliveries', 'Deliveries']"></a>
   <a cc-button icon="mail-dark" text="Email" *ngIf="round" [class.selected]="isCurrent(['./Email'])" [routerLink]="['./Email', {fromRound: true}]"></a>

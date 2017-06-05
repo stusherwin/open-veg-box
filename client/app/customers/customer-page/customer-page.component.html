@@ -1,4 +1,4 @@
-<cc-section-header headerIcon="person" [headerTitle]="loading? '' : (customer?.name || 'Customer not found')">
+<cc-section-header headerIcon="person" [headerTitle]="loading? '' : (customer?.name || 'Customer not found')" [breadcrumbs]="[{title: 'Customers', routerLink: ['../Customers']}]">
   <a cc-button icon="doc-text" text="Details" *ngIf="customer" [class.selected]="isCurrent(['./Details'])" [routerLink]="['./Details']"></a>
   <a cc-button icon="mail-dark" text="Email" *ngIf="customer" [class.selected]="isCurrent(['./Email'])" [routerLink]="['./Email', {fromCustomer: true}]"></a>
 </cc-section-header>
