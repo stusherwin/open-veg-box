@@ -1,7 +1,7 @@
 <cc-section-header headerIcon="map-signs" [headerTitle]="loading ? '' : (round?.name || 'Round not found')" [breadcrumbs]="[{title: 'Rounds', routerLink: ['../Rounds']}]">
   <a cc-button icon="doc-text" text="Details" *ngIf="round" [class.selected]="isCurrent(['./Details'])" [routerLink]="['./Details']"></a>
   <a cc-button icon="truck" text="Deliveries" *ngIf="round" [class.selected]="isCurrent(['./Deliveries', 'Deliveries'])" [routerLink]="['./Deliveries', 'Deliveries']"></a>
-  <a cc-button icon="mail-dark" text="Email" *ngIf="round" [class.selected]="isCurrent(['./Email'])" [routerLink]="['./Email', {fromRound: true}]"></a>
+  <a cc-button icon="mail-dark" text="Email" *ngIf="round" [class.selected]="isCurrent(['./Email'])" [routerLink]="['./Email']"></a>
 </cc-section-header>
 <div class="loading-indicator" *ngIf="loading"><i class="icon-spin3 animate-spin"></i></div>
 <router-outlet *ngIf="round"></router-outlet>
