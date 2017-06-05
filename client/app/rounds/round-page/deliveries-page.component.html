@@ -9,12 +9,12 @@
           <tr>
             <th style="width: 90px">Next delivery:</th>
             <td style="width: 400px">
-                {{model.nextDeliveryDate | dateString}}
-              <a cc-button small icon="down-open"
+              <button cc-button small icon="left-open"
                   (click)="model.decNextDeliveryDate()"
-                  *ngIf="model.canDecNextDeliveryDate"></a>
-              <a cc-button small icon="up-open"
-                  (click)="model.incNextDeliveryDate()"></a>
+                  [disabled]="!model.canDecNextDeliveryDate"></button>
+                {{model.nextDeliveryDate | dateString}}
+              <button cc-button small icon="right-open"
+                  (click)="model.incNextDeliveryDate()"></button>
             </td>
           </tr>
           <tr>

@@ -1239,7 +1239,6 @@ form {
   position: relative;
       // vertical-align: middle;
 
-
   &:before {
     position: absolute;
     left: calc(~"50% - " @outerSize / 2);
@@ -1257,6 +1256,7 @@ form {
     height: 11px;
     position: absolute;
     left: 0;
+    top: 0;
     // background: #fff;
       vertical-align: top;
 
@@ -1310,6 +1310,20 @@ form {
     }
   }
 
+  i.icon-left-open {
+    &:before {
+      margin-top: 0.5px;
+      margin-left: -1px;
+    }
+  }
+
+  i.icon-right-open {
+    &:before {
+      margin-top: 0.5px;
+      margin-left: 1px;
+    }
+  }
+
   // i.icon-ok {
   //   .buttonIconNudge(0px; -0.5px);
   // }
@@ -1342,4 +1356,41 @@ form {
   // i.icon-down-open {
   //   .buttonIconNudge(0px; -0.5px);
   // }
+}
+
+button.button-new-small-1 {
+  cursor: pointer;
+  position: relative;
+  top: -6px;
+  // padding-top: 3px;
+  padding: 0;
+  border: none;
+  i {
+    margin: 0;
+  }
+
+  &[disabled] {
+    cursor: default;
+
+    &:before {
+      background: rgba(187,187,187, 0.2);
+      box-shadow: rgba(187,187,187, 0.2) 0 2px 5px 0 inset;
+    }
+
+    // border: 1px solid rgba(187,187,187, 0.2);
+    i:before {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    &:hover, &:focus {
+      &:before {
+        background: rgba(187,187,187, 0.2);
+        box-shadow: rgba(187,187,187, 0.2) 0 2px 5px 0 inset;
+      }
+      // border: 1px solid rgba(187,187,187, 0.2);
+      i:before {
+        color: rgba(255, 255, 255, 0.5);
+      }
+    }
+  }
 }

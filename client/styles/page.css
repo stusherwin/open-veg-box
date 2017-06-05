@@ -1163,6 +1163,7 @@ form.submitted textarea.ng-invalid ~ .icon-warning {
   height: 11px;
   position: absolute;
   left: 0;
+  top: 0;
   vertical-align: top;
 }
 .button-new-small-1 i:before {
@@ -1195,4 +1196,41 @@ form.submitted textarea.ng-invalid ~ .icon-warning {
 }
 .button-new-small-1 i.icon-down-open:before {
   margin-top: 0px;
+}
+.button-new-small-1 i.icon-left-open:before {
+  margin-top: 0.5px;
+  margin-left: -1px;
+}
+.button-new-small-1 i.icon-right-open:before {
+  margin-top: 0.5px;
+  margin-left: 1px;
+}
+button.button-new-small-1 {
+  cursor: pointer;
+  position: relative;
+  top: -6px;
+  padding: 0;
+  border: none;
+}
+button.button-new-small-1 i {
+  margin: 0;
+}
+button.button-new-small-1[disabled] {
+  cursor: default;
+}
+button.button-new-small-1[disabled]:before {
+  background: rgba(187, 187, 187, 0.2);
+  box-shadow: rgba(187, 187, 187, 0.2) 0 2px 5px 0 inset;
+}
+button.button-new-small-1[disabled] i:before {
+  color: rgba(255, 255, 255, 0.5);
+}
+button.button-new-small-1[disabled]:hover:before,
+button.button-new-small-1[disabled]:focus:before {
+  background: rgba(187, 187, 187, 0.2);
+  box-shadow: rgba(187, 187, 187, 0.2) 0 2px 5px 0 inset;
+}
+button.button-new-small-1[disabled]:hover i:before,
+button.button-new-small-1[disabled]:focus i:before {
+  color: rgba(255, 255, 255, 0.5);
 }
