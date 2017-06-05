@@ -76,11 +76,4 @@
       </table>      
     </div>
   </div>
-  <div class="row">
-    <div class="details">
-      <h3>Current order: <span innerHTML="{{page.customer.order.total | money:true}}"></span></h3>
-      <cc-order [order]="page.customer.order" [boxes]="page.boxes" [products]="page.products">
-      </cc-order>
-    </div>
-  </div>
 </div>
