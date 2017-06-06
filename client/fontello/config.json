@@ -301,6 +301,18 @@
       "src": "elusive"
     },
     {
+      "uid": "f279f25007794fa6837ff78fe94b216e",
+      "css": "money",
+      "code": 61654,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "9854f7f091bd4fdf9b8735ed66667b9d",
+      "css": "pound",
+      "code": 61780,
+      "src": "fontawesome"
+    },
+    {
       "uid": "64a8a034b254911459be3c60bce7183d",
       "css": "send-mail",
       "code": 59419,

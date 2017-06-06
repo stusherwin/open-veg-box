@@ -36,8 +36,10 @@
 .icon-down-open:before { content: '\e822'; } /* '' */
 .icon-clipboard:before { content: '\e823'; } /* '' */
 .icon-spin3:before { content: '\e832'; } /* '' */
+.icon-money:before { content: '\f0d6'; } /* '' */
 .icon-mail-dark:before { content: '\f0e0'; } /* '' */
 .icon-doc-text:before { content: '\f0f6'; } /* '' */
+.icon-pound:before { content: '\f154'; } /* '' */
 .icon-cubes:before { content: '\f1b3'; } /* '' */
 .icon-history:before { content: '\f1da'; } /* '' */
 .icon-hourglass-2:before { content: '\f252'; } /* '' */

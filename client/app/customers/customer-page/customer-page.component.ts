@@ -7,6 +7,7 @@ import { RouteConfig, ROUTER_DIRECTIVES, Router } from '@angular/router-deprecat
 import { SectionHeaderComponent } from '../../structure/section-header.component'
 import { ContactDetailsPageComponent } from './contact-details-page.component'
 import { OrdersPageComponent } from './orders-page.component'
+import { PaymentsPageComponent } from './payments-page.component'
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/combineLatest';
 import { BoxService } from '../../boxes/box.service'
@@ -40,6 +41,11 @@ export class CustomerPageService {
     path: 'orders',
     name: 'Orders',
     component: OrdersPageComponent
+  },
+  {
+    path: 'payments',
+    name: 'Payments',
+    component: PaymentsPageComponent
   },
   {
     path: 'email',
