@@ -38,7 +38,7 @@
         </table>
       </div>
       <div class="actions">
-        <a cc-button right icon="basket" text="Edit orders" [routerLink]="['../OrderList']"></a>
+        <a cc-button right icon="shopping-basket" text="Edit orders" [routerLink]="['../OrderList']"></a>
         <a cc-button right icon="carrot" text="Check product list" [routerLink]="['../ProductList']"></a>
         <a cc-button right icon="ok" text="Ready to deliver" (click)="model.newDelivery()"></a>
       </div>
@@ -66,7 +66,7 @@
         </table>
       </div>
       <div class="actions">
-        <a cc-button right icon="basket" text="View orders" [routerLink]="['../Delivery', {deliveryId: model.delivering.id}, 'OrderList']"></a>
+        <a cc-button right icon="shopping-basket" text="View orders" [routerLink]="['../Delivery', {deliveryId: model.delivering.id}, 'OrderList']"></a>
         <a cc-button right icon="carrot" text="View product list" [routerLink]="['../Delivery', {deliveryId: model.delivering.id}, 'ProductList']"></a>
         <a cc-button right icon="cancel" text="Cancel" (click)="model.delivering.uncomplete()"></a>
       </div>
@@ -94,7 +94,7 @@
         </table>
       </div>
       <div class="actions">
-        <a cc-button right icon="basket" text="View orders" [routerLink]="['../Delivery', {deliveryId: delivery.id}, 'OrderList']"></a>
+        <a cc-button right icon="shopping-basket" text="View orders" [routerLink]="['../Delivery', {deliveryId: delivery.id}, 'OrderList']"></a>
         <a cc-button right icon="carrot" text="View product list" [routerLink]="['../Delivery', {deliveryId: delivery.id}, 'ProductList']"></a>
       </div>
     </div>

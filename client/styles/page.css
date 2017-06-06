@@ -428,6 +428,10 @@ input[type="text"].price {
   margin-top: -1.5px;
   margin-left: 0px;
 }
+.button-new i.icon-shopping-basket::before {
+  margin-top: 0px;
+  margin-left: -1px;
+}
 button.button-new {
   padding-top: 0;
   padding-bottom: 0;

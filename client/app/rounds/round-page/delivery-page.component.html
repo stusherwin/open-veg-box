@@ -1,6 +1,6 @@
-<cc-section-header headerIcon="truck" [headerTitle]="loading ? '' : (delivery? (delivery.date | dateString) : 'Delivery not found')" [breadcrumbs]="[{title: 'Rounds', routerLink: ['../../../Rounds']}, {title: roundPage.round.name, routerLink: ['../Deliveries']}]">
+<cc-section-header headerIcon="truck" [headerTitle]="loading ? '' : (delivery? (delivery.date | dateString) : 'Delivery not found')" [breadcrumbs]="[{title: 'Rounds', routerLink: ['../../../Rounds']}, {title: roundPage.round.name, routerLink: ['../../Details']}, {title: 'Deliveries', routerLink: ['../Deliveries']}]">
   <a cc-button right icon="carrot" text="Product list" *ngIf="delivery" [class.selected]="isCurrent(['./ProductList'])" [routerLink]="['./ProductList']"></a>
-  <a cc-button right icon="basket" text="Order list" *ngIf="delivery" [class.selected]="isCurrent(['./OrderList'])" [routerLink]="['./OrderList']"></a>
+  <a cc-button right icon="shopping-basket" text="Orders" *ngIf="delivery" [class.selected]="isCurrent(['./OrderList'])" [routerLink]="['./OrderList']"></a>
 </cc-section-header>
 <div class="loading-indicator" *ngIf="loading"><i class="icon-spin3 animate-spin"></i></div>
 <router-outlet *ngIf="delivery"></router-outlet>
