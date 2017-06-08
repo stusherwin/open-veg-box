@@ -8,12 +8,15 @@
         <table class="contact-details" style="float: none; width: auto;">
           <tr>
             <th style="width: 90px;vertical-align: middle">Amount:</th>
-            <td style="width: 250px">
-              <input type="radio" name="paymentAmount" id="full" value="full" [checked]="model.paymentAmountOptions == 'full'" (change)="model.paymentAmountOptions = $event.target.value" /><label for="full">Full amount <span class="muted"><span [innerHTML]="-model.currentBalance | money:true"></span></span></label>
+            <td style="width: 250px" *ngIf="model.currentBalance < 0">
+              <input type="radio" name="paymentAmount" id="outstanding" value="outstanding" [checked]="model.paymentAmountOptions == 'outstanding'" (change)="model.paymentAmountOptions = $event.target.value" /><label for="outstanding">Outstanding <span class="muted"><span [innerHTML]="-model.currentBalance | money:true"></span></span></label>
             </td>
-            <td style="width: 400px">
+            <td style="width: 400px" *ngIf="model.currentBalance < 0">
               <input type="radio" name="paymentAmount" id="otherAmount" value="otherAmount" [checked]="model.paymentAmountOptions == 'otherAmount'" (change)="model.paymentAmountOptions = $event.target.value" /><label for="otherAmount">Another amount:</label>
               <span style="margin-left: 10px">&pound;<cc-number cssClass="price" (inputFocus)="model.paymentAmountOptions = 'otherAmount'" style="width: 80px;margin-left: 5px;" [(value)]="model.paymentAmount" [decimalPrecision]="2" [control]="paymentAmountControl"></cc-number></span>
+            </td>
+            <td colspan="2" *ngIf="model.currentBalance >= 0">
+              &pound;<cc-number cssClass="price" (inputFocus)="model.paymentAmountOptions = 'otherAmount'" style="width: 80px;margin-left: 5px;" [(value)]="model.paymentAmount" [decimalPrecision]="2" [control]="paymentAmountControl"></cc-number>
             </td>
           </tr>
           <tr>

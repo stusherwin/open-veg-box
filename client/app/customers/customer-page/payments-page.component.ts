@@ -50,7 +50,7 @@ export class PastPaymentsModel {
   pastPaymentsTotal: number;
   pastPayments: PastPaymentModel[] = []
   paymentDateOptions: string = 'today'
-  paymentAmountOptions: string = 'full'
+  paymentAmountOptions: string = 'outstanding'
   paymentAmount: number = 0;
   paymentDateYear: number
   paymentDateMonth: number
@@ -75,7 +75,7 @@ export class PastPaymentsModel {
   }
 
   pay() {
-    let amount = this.paymentAmountOptions == 'full' ? -this.currentBalance : this.paymentAmount;
+    let amount = (this.currentBalance < 0 && this.paymentAmountOptions == 'outstanding') ? -this.currentBalance : this.paymentAmount;
     let date = this.paymentDateOptions == 'today' ? this.todaysDate : this.paymentDate;
     let notes = this.paymentNotes;
     this.pastPayments.unshift(new PastPaymentModel(date, amount, notes));
@@ -83,7 +83,7 @@ export class PastPaymentsModel {
     this.currentBalance += amount;
     this.paymentNotes = '';
     this.paymentAmount = undefined;
-    this.paymentAmountOptions = 'full';
+    this.paymentAmountOptions = 'outstanding';
     this.paymentDateOptions = 'today';
     this.paymentDateYear = undefined
     this.paymentDateMonth = undefined
