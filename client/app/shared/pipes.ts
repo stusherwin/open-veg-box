@@ -67,12 +67,12 @@ export class DefaultToPipe implements PipeTransform {
 
 @Pipe({name: 'dateString'})
 export class DateStringPipe implements PipeTransform {
-  transform(value: DateString): string {
+  transform(value: DateString, format: string = 'yMMMEEEEd'): string {
     if(!value) {
       return '';
     }
 
-    return new DatePipe().transform(value.toDate(), 'yMMMEEEEd');
+    return new DatePipe().transform(value.toDate(), format);
   }
 }
 

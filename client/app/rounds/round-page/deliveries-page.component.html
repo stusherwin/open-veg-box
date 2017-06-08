@@ -56,7 +56,7 @@
     <div class="row" *ngIf="model.delivering">
       <div class="details">
         <h4 style="display: inline-block">{{model.delivering.date | dateString}}</h4>
-        <table class="contact-details" style="width: auto; margin-left: -5px">
+        <table class="contact-details" style="float: none; width: auto; margin-left: -5px">
           <tr>
             <th style="width: 90px">Order total:</th>
             <td style="width: 400px">
@@ -84,7 +84,7 @@
     <div class="row" *ngFor="let delivery of model.pastDeliveries">
       <div class="details">
         <h4 style="display: inline-block">{{delivery.date | dateString}}</h4>
-        <table class="contact-details" style="width: auto; margin-left: -5px">
+        <table class="contact-details" style="float: none; width: auto; margin-left: -5px">
           <tr>
             <th style="width: 90px">Order total:</th>
             <td style="width: 400px">

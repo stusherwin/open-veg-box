@@ -63,7 +63,10 @@ export class TextComponent extends InputComponent implements OnInit {
           [(ngModel)]="stringValue"
           (ngModelChange)="updateValue($event)"
           [ngFormControl]="control"
-          tabindex="1" />
+          tabindex="1"
+          (focus)="inputFocus.emit($event)"
+          (blur)="inputBlur.emit($event)"
+          [placeholder]="placeholder" />
   `,
   selector: 'cc-number',
   directives: [FORM_DIRECTIVES]
@@ -87,8 +90,17 @@ export class NumberComponent extends InputComponent implements OnInit {
   @Input()
   control: Control
 
+  @Input()
+  placeholder: string = ''
+
   @Output()
   valueChange = new EventEmitter<number>()
+
+  @Output()
+  inputFocus = new EventEmitter<any>()
+
+  @Output()
+  inputBlur = new EventEmitter<any>()
 
   @ViewChild('input')
   input: ElementRef;
@@ -112,6 +124,10 @@ export class NumberComponent extends InputComponent implements OnInit {
   }
 
   private toStringValue(value: number): string {
+    if(!value) {
+      return '';
+    }
+
     if(this.fixedDecimals) {
       return value.toFixed(this.decimalPrecision);
     }

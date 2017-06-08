@@ -1,1 +1,69 @@
-<h3>Payments....</h3>
+<div class="deliveries">
+  <h4 class="row-header"><i class="icon-clipboard"></i>Outstanding balance: <span [innerHTML]="model.outstandingBalance | money:true"></span></h4>
+  <div class="row-view-new no-hover">
+    <div class="row" style="height: 0;padding: 0">
+    </div>
+    <div class="row">
+      <div class="details" style="padding-left: 0" *ngIf="model.outstandingBalance">
+        <table class="contact-details" style="float: none; width: auto;">
+          <tr>
+            <th style="width: 90px;vertical-align: middle">Amount:</th>
+            <td style="width: 250px">
+              <input type="radio" name="paymentAmount" id="full" value="full" [checked]="model.paymentAmountOptions == 'full'" (change)="model.paymentAmountOptions = $event.target.value" /><label for="full">Full amount <span class="muted"><span [innerHTML]="model.outstandingBalance | money:true"></span></span></label>
+            </td>
+            <td style="width: 400px">
+              <input type="radio" name="paymentAmount" id="otherAmount" value="otherAmount" [checked]="model.paymentAmountOptions == 'otherAmount'" (change)="model.paymentAmountOptions = $event.target.value" /><label for="otherAmount">Another amount:</label>
+              <span style="margin-left: 10px">&pound;<cc-number cssClass="price" (inputFocus)="model.paymentAmountOptions = 'otherAmount'" style="width: 80px;margin-left: 5px;" [(value)]="model.paymentAmount" [decimalPrecision]="2" [control]="paymentAmountControl"></cc-number></span>
+            </td>
+          </tr>
+          <tr>
+            <th style="width: 90px;vertical-align: middle">Date:</th>
+            <td style="width: 250px">
+              <input type="radio" name="paymentDate" id="today" value="today" [checked]="model.paymentDateOptions == 'today'" (change)="model.paymentDateOptions = $event.target.value" tabindex="1" /><label for="today">Today <span class="muted">{{model.todaysDate | dateString:'yMMMd'}}</span></label>
+            </td>
+            <td style="width: 400px">
+              <input type="radio" name="paymentDate" id="otherDate" value="otherDate" [checked]="model.paymentDateOptions == 'otherDate'" (change)="model.paymentDateOptions = $event.target.value" tabindex="1" /><label for="otherDate">Another date:</label>
+              <cc-number cssClass="date-day" (inputFocus)="model.paymentDateOptions = 'otherDate'" [(value)]="model.paymentDateDay" [decimalPrecision]="0" [control]="paymentDateDayControl" placeholder="DD" style="margin-left: 10px" ></cc-number>
+              /
+              <cc-number cssClass="date-month" (inputFocus)="model.paymentDateOptions = 'otherDate'" [(value)]="model.paymentDateMonth" [decimalPrecision]="0" [control]="paymentDateMonthControl" placeholder="MM" ></cc-number>
+              /
+              <cc-number cssClass="date-year" (inputFocus)="model.paymentDateOptions = 'otherDate'" [(value)]="model.paymentDateYear" [decimalPrecision]="0" [control]="paymentDateYearControl" placeholder="YYYY" ></cc-number>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="details" style="padding-left: 0" *ngIf="!model.outstandingBalance">
+        No outstanding balance to be paid.
+      </div>      
+      <div class="actions">
+        <a cc-button right icon="ok" text="Make payment" (click)="model.pay()" *ngIf="model.outstandingBalance"></a>
+      </div>
+    </div>
+  </div>
+  <h4 class="row-header">
+    <i class="icon-history"></i>Past payments:
+    <span innerHTML="{{model.pastPaymentsTotal | money:true}}"></span>
+  </h4>
+  <div class="row-view-new no-hover">
+    <div class="row" style="height: 0;padding: 0">
+    </div>
+    <div class="row" *ngIf="model.loading">
+      <div class="details" style="padding-left: 0">
+        <i style="font-size: 14px; margin-right:5px;position: relative;top:-2px;" class="icon-spin3 animate-spin"></i>Loading...
+      </div>
+    </div>
+    <div class="row" *ngIf="!model.loading && !model.pastPayments.length">
+      <div class="details" style="padding-left: 0">
+        No past payments.
+      </div>
+    </div>
+    <div class="row" *ngFor="let payment of model.pastPayments">
+      <div class="details">
+        <h4 style="display: inline-block">{{payment.date | dateString}}</h4>
+        <div style="margin-left: -5px"><span [innerHTML]="payment.amount | money:true"></span></div>
+      </div>
+      <div class="actions">
+      </div>
+    </div>
+  </div>
+</div>

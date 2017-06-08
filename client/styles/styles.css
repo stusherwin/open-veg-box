@@ -1876,6 +1876,15 @@ button.button-new-small-1[disabled]:hover i:before,
 button.button-new-small-1[disabled]:focus i:before {
   color: rgba(255, 255, 255, 0.5);
 }
+.date-day {
+  width: 32px;
+}
+.date-month {
+  width: 38px;
+}
+.date-year {
+  width: 50px;
+}
 .home {
   background: #579532;
   padding-top: 120px;
