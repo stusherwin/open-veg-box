@@ -151,3 +151,7 @@ Editable
 * Get rid of hydrate methods, api objects should map 1-1 with json
 * Section header/breadcrumb service - how do components below containing component alter its contents?
 * Prevent delivery with no orders (server + client side)?
+* Edit past payments?
+* Edit past deliveries?
+* Radio button alignment 
+* Number component setting value programmatically doesn't work

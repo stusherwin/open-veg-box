@@ -4,10 +4,25 @@ import { DateString } from './dates'
 
 @Pipe({name: 'money'})
 export class MoneyPipe implements PipeTransform {
-  transform(value: number, forcePounds: boolean): string {
-    return forcePounds || (value || 0) >= 1
-      ? '&pound;' + value.toFixed(2)
-      : ((value || 0) * 100).toFixed(0) + 'p';
+  transform(value: number, forcePounds: boolean, markNegative: boolean): string {
+    let isPounds = forcePounds || (value || 0) >= 1;
+    let valueString = isPounds
+      ? value.toFixed(2)
+      : ((value || 0) * 100).toFixed(0);
+    
+    if(markNegative && value < 0) {
+      valueString = valueString.substring(1);
+    }
+
+    let valueStringWithCurrency = isPounds
+      ? '&pound;' + valueString
+      : valueString + 'p';
+
+    if(markNegative && value < 0) {
+      return '<span style="color: red">-' + valueStringWithCurrency + '</span>';
+    } else {
+      return valueStringWithCurrency;
+    }
   }
 }
 

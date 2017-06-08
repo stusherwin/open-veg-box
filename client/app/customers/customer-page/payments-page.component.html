@@ -1,15 +1,15 @@
 <div class="deliveries">
-  <h4 class="row-header"><i class="icon-clipboard"></i>Outstanding balance: <span [innerHTML]="model.outstandingBalance | money:true"></span></h4>
+  <h4 class="row-header"><i class="icon-clipboard"></i>Current balance: <span [innerHTML]="model.currentBalance | money:true:true"></span></h4>
   <div class="row-view-new no-hover">
     <div class="row" style="height: 0;padding: 0">
     </div>
     <div class="row">
-      <div class="details" style="padding-left: 0" *ngIf="model.outstandingBalance">
+      <div class="details" style="padding-left: 0">
         <table class="contact-details" style="float: none; width: auto;">
           <tr>
             <th style="width: 90px;vertical-align: middle">Amount:</th>
             <td style="width: 250px">
-              <input type="radio" name="paymentAmount" id="full" value="full" [checked]="model.paymentAmountOptions == 'full'" (change)="model.paymentAmountOptions = $event.target.value" /><label for="full">Full amount <span class="muted"><span [innerHTML]="model.outstandingBalance | money:true"></span></span></label>
+              <input type="radio" name="paymentAmount" id="full" value="full" [checked]="model.paymentAmountOptions == 'full'" (change)="model.paymentAmountOptions = $event.target.value" /><label for="full">Full amount <span class="muted"><span [innerHTML]="-model.currentBalance | money:true"></span></span></label>
             </td>
             <td style="width: 400px">
               <input type="radio" name="paymentAmount" id="otherAmount" value="otherAmount" [checked]="model.paymentAmountOptions == 'otherAmount'" (change)="model.paymentAmountOptions = $event.target.value" /><label for="otherAmount">Another amount:</label>
@@ -30,13 +30,15 @@
               <cc-number cssClass="date-year" (inputFocus)="model.paymentDateOptions = 'otherDate'" [(value)]="model.paymentDateYear" [decimalPrecision]="0" [control]="paymentDateYearControl" placeholder="YYYY" ></cc-number>
             </td>
           </tr>
+          <tr>
+            <th style="width: 90px;vertical-align: top;padding-top: 6px">Notes:</th>
+            <td colspan="2">
+              <textarea style="width: 100%; height: 100px;" [(ngModel)]="model.paymentNotes"></textarea>
+            </td>
         </table>
       </div>
-      <div class="details" style="padding-left: 0" *ngIf="!model.outstandingBalance">
-        No outstanding balance to be paid.
-      </div>      
       <div class="actions">
-        <a cc-button right icon="ok" text="Make payment" (click)="model.pay()" *ngIf="model.outstandingBalance"></a>
+        <a cc-button right icon="ok" text="Make payment" (click)="model.pay()"></a>
       </div>
     </div>
   </div>
@@ -60,7 +62,10 @@
     <div class="row" *ngFor="let payment of model.pastPayments">
       <div class="details">
         <h4 style="display: inline-block">{{payment.date | dateString}}</h4>
-        <div style="margin-left: -5px"><span [innerHTML]="payment.amount | money:true"></span></div>
+        <div style="margin-left: -5px"><span [innerHTML]="payment.amount | money:true:true"></span></div>
+        <div *ngIf="payment.hasNotes" style="margin-left: -5px;margin-top: 10px">
+          {{payment.notes | preserveLines}}
+        </div>
       </div>
       <div class="actions">
       </div>

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, Inject, forwardRef, ViewChildren, QueryList, EventEmitter, ViewChild, ElementRef, Renderer, ChangeDetectorRef } from '@angular/core';
 import { CustomerModel } from './customer.model'
 import { OrderComponent } from '../orders/order.component'
-import { MoneyPipe, DateStringPipe, CountPipe } from '../../shared/pipes'
+import { MoneyPipe, DateStringPipe, CountPipe, PreserveLinesPipe } from '../../shared/pipes'
 import { Customer } from '../customer'
 import { CustomerPageService } from './customer-page.component'
 import { CustomerService } from '../customer.service'
@@ -16,26 +16,37 @@ import { Control, Validators, FORM_DIRECTIVES, FormBuilder, ControlGroup } from 
 export class ApiPastPayment {
   date: string;
   amount: number;
+  notes: string;
 }
 
 export class ApiPastPayments {
-  outstandingBalance: number;
+  currentBalance: number;
   pastPaymentsTotal: number;
   pastPayments: ApiPastPayment[];
 }
 
 export class PastPaymentModel {
-  date: DateString
-  amount: number
+  constructor(
+    public date: DateString,
+    public amount: number,
+    public notes: string
+  ) {
+  }
 
-  constructor(api: ApiPastPayment) {
-    this.date = DateString.fromJSONString(api.date);
-    this.amount = api.amount;
+  get hasNotes(): boolean {
+    return this.notes && !!this.notes.replace(/\s/g, '').length;
+  }
+
+  static fromApi(api: ApiPastPayment) {
+    return new PastPaymentModel(
+      DateString.fromJSONString(api.date),
+      api.amount,
+      api.notes);
   }
 }
 
 export class PastPaymentsModel {
-  outstandingBalance: number;
+  currentBalance: number;
   pastPaymentsTotal: number;
   pastPayments: PastPaymentModel[] = []
   paymentDateOptions: string = 'today'
@@ -44,6 +55,7 @@ export class PastPaymentsModel {
   paymentDateYear: number
   paymentDateMonth: number
   paymentDateDay: number
+  paymentNotes: string
   todaysDate: DateString = DateString.fromDate(new Date());
   loading = true;
 
@@ -56,18 +68,26 @@ export class PastPaymentsModel {
   }
 
   load(api: ApiPastPayments) {
-    this.outstandingBalance = api.outstandingBalance;
+    this.currentBalance = api.currentBalance;
     this.pastPaymentsTotal = api.pastPaymentsTotal;
-    this.pastPayments = api.pastPayments.map(p => new PastPaymentModel(p));
+    this.pastPayments = api.pastPayments.map(p => PastPaymentModel.fromApi(p));
     this.loading = false;
   }
 
   pay() {
-    let amount = this.paymentAmountOptions == 'full' ? this.outstandingBalance : this.paymentAmount;
+    let amount = this.paymentAmountOptions == 'full' ? -this.currentBalance : this.paymentAmount;
     let date = this.paymentDateOptions == 'today' ? this.todaysDate : this.paymentDate;
-    this.pastPayments.unshift({date, amount});
+    let notes = this.paymentNotes;
+    this.pastPayments.unshift(new PastPaymentModel(date, amount, notes));
     this.pastPaymentsTotal = this.pastPayments.reduce((t,p) => t + p.amount, 0);
-    this.outstandingBalance -= amount;
+    this.currentBalance += amount;
+    this.paymentNotes = '';
+    this.paymentAmount = undefined;
+    this.paymentAmountOptions = 'full';
+    this.paymentDateOptions = 'today';
+    this.paymentDateYear = undefined
+    this.paymentDateMonth = undefined
+    this.paymentDateDay = undefined
   }
 }
 
@@ -75,7 +95,7 @@ export class PastPaymentsModel {
   selector: 'cc-payments-page',
   templateUrl: 'app/customers/customer-page/payments-page.component.html',
   directives: [OrderComponent, ButtonComponent, NumberComponent],
-  pipes: [MoneyPipe, DateStringPipe, CountPipe]
+  pipes: [MoneyPipe, DateStringPipe, CountPipe, PreserveLinesPipe]
 })
 export class PaymentsPageComponent implements OnInit {
   model: PastPaymentsModel
@@ -97,11 +117,11 @@ export class PaymentsPageComponent implements OnInit {
     this.paymentDateYearControl = new Control('', Validators.compose([NumberComponent.isNumeric, NumberComponent.isGreaterThanZero]))
     this.model = new PastPaymentsModel();
     this.model.load({
-      outstandingBalance: 123,
+      currentBalance: -123,
       pastPaymentsTotal: 100,
       pastPayments: [
-        {date: '2017-06-01T00:00:00.000Z', amount: 10},
-        {date: '2017-05-25T00:00:00.000Z', amount: 12.5}
+        {date: '2017-06-01T00:00:00.000Z', amount: 10, notes: null},
+        {date: '2017-05-25T00:00:00.000Z', amount: 12.5, notes: 'A note here'}
       ]
     })
   }

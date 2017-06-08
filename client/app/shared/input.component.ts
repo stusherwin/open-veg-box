@@ -78,8 +78,15 @@ export class NumberComponent extends InputComponent implements OnInit {
   @Input()
   cssClass: string;
 
+  private __value: number;
   @Input()
-  value: number;
+  get value(): number {
+    return this.__value;
+  }
+  set value(v: number) {
+    this.__value = v;
+    this.stringValue = this.toStringValue(v);
+  }
 
   @Input()
   fixedDecimals: boolean = false;
