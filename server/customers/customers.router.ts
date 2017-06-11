@@ -28,7 +28,12 @@ export let getCustomers = function(authorize: (req: any, res: any, next:() => vo
 
   customers.get('/:id/past-orders', function(req: any, res: any, next: any) {
     customersService.getPastOrders(req.params.id, req.db)
-                    .subscribe(customers => res.json(customers), next);
+                    .subscribe(orders => res.json(orders), next);
+  });
+
+  customers.get('/:id/past-payments', function(req: any, res: any, next: any) {
+    customersService.getPastPayments(req.params.id, req.db)
+                    .subscribe(payments => res.json(payments), next);
   });
 
   customers.post('/:id', function(req: any, res: any, next: any) {
@@ -44,6 +49,11 @@ export let getCustomers = function(authorize: (req: any, res: any, next:() => vo
   customers.delete('/:id', function(req: any, res: any, next: any) {
     customersService.delete(req.params.id, req.db)
                     .subscribe(() => res.sendStatus(200), next);
+  });
+
+  customers.post('/:id/make-payment', function(req: any, res: any, next: any) {
+    customersService.makePayment(req.params.id, req.body, req.db)
+                    .subscribe(response => res.json(response), next);
   });
 
   return customers;

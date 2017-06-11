@@ -155,3 +155,4 @@ Editable
 * Edit past deliveries?
 * Radio button alignment 
 * Number component setting value programmatically doesn't work
+* Payment validation

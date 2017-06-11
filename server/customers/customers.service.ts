@@ -143,6 +143,19 @@ export class CustomersService {
         return orders;
       });
   }
+
+  pastPayments = {
+    currentBalance: -1233,
+    pastPaymentsTotal: 120,
+    pastPayments: [
+      {date: '2017-06-01T00:00:00.000Z', amount: 10, notes: null},
+      {date: '2017-05-25T00:00:00.000Z', amount: 12.5, notes: 'A note here'}
+    ]
+  };
+
+  getPastPayments(id: number, db: Db): Observable<ApiPastPayments> {
+    return Observable.of(this.pastPayments);
+  }
   
   add(params: any, db: Db): Observable<number> {
     return db.insert('customer', this.fields, params);
@@ -154,6 +167,19 @@ export class CustomersService {
 
   delete(id: number, db: Db): Observable<void> {
     return db.delete('customer', id);
+  }
+
+  makePayment(id: number, request: ApiMakePaymentRequest, db: Db): Observable<ApiMakePaymentResponse> {
+    this.pastPayments.currentBalance += request.amount;
+    this.pastPayments.pastPaymentsTotal += request.amount;
+    let newPastPayment = {date: request.date, amount: request.amount, notes: request.notes}
+    this.pastPayments.pastPayments.unshift(newPastPayment);
+
+    return Observable.of({
+      newCurrentBalance: this.pastPayments.currentBalance,
+      newPastPaymentsTotal: this.pastPayments.pastPaymentsTotal,
+      newPastPayment: newPastPayment
+    });
   }
 }
 
@@ -171,4 +197,28 @@ export class ApiPastOrderItem {
   quantity: number;
   unitType: string;
   totalCost: number;
+}
+
+export class ApiPastPayment {
+  date: string;
+  amount: number;
+  notes: string;
+}
+
+export class ApiPastPayments {
+  currentBalance: number;
+  pastPaymentsTotal: number;
+  pastPayments: ApiPastPayment[];
+}
+
+export class ApiMakePaymentRequest {
+  date: string;
+  amount: number;
+  notes: string;
+}
+
+export class ApiMakePaymentResponse {
+  newCurrentBalance: number;
+  newPastPaymentsTotal: number;
+  newPastPayment: ApiPastPayment;
 }

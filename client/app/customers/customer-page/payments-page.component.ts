@@ -10,20 +10,7 @@ import { ButtonComponent } from '../../shared/button.component'
 import { ProductQuantityComponent } from '../../products/product-quantity.component'
 import { NumberComponent } from '../../shared/input.component'
 import { Control, Validators, FORM_DIRECTIVES, FormBuilder, ControlGroup } from '@angular/common'
-
-
-// import { ApiPastPayments, ApiPastPayment } from '../customer.service'
-export class ApiPastPayment {
-  date: string;
-  amount: number;
-  notes: string;
-}
-
-export class ApiPastPayments {
-  currentBalance: number;
-  pastPaymentsTotal: number;
-  pastPayments: ApiPastPayment[];
-}
+import { ApiPastPayments, ApiPastPayment } from '../customer.service'
 
 export class PastPaymentModel {
   constructor(
@@ -46,8 +33,8 @@ export class PastPaymentModel {
 }
 
 export class PastPaymentsModel {
-  currentBalance: number;
-  pastPaymentsTotal: number;
+  currentBalance: number = 0;
+  pastPaymentsTotal: number = 0;
   pastPayments: PastPaymentModel[] = []
   paymentDateOptions: string = 'today'
   paymentAmountOptions: string = 'outstanding'
@@ -59,6 +46,9 @@ export class PastPaymentsModel {
   todaysDate: DateString = DateString.fromDate(new Date());
   loading = true;
 
+  constructor(private customerId: number, private service: CustomerService) {
+  }
+
   get paymentDate(): DateString {
     if(!this.paymentDateYear || !this.paymentDateMonth || !this.paymentDateDay) {
       return null;
@@ -67,27 +57,32 @@ export class PastPaymentsModel {
     return new DateString(this.paymentDateYear, this.paymentDateMonth, this.paymentDateDay);
   }
 
-  load(api: ApiPastPayments) {
-    this.currentBalance = api.currentBalance;
-    this.pastPaymentsTotal = api.pastPaymentsTotal;
-    this.pastPayments = api.pastPayments.map(p => PastPaymentModel.fromApi(p));
-    this.loading = false;
+  load() {
+    this.service.getPastPayments(this.customerId).subscribe(api => {
+      this.currentBalance = api.currentBalance;
+      this.pastPaymentsTotal = api.pastPaymentsTotal;
+      this.pastPayments = api.pastPayments.map(p => PastPaymentModel.fromApi(p));
+      this.loading = false;
+    });    
   }
 
   pay() {
     let amount = (this.currentBalance < 0 && this.paymentAmountOptions == 'outstanding') ? -this.currentBalance : this.paymentAmount;
     let date = this.paymentDateOptions == 'today' ? this.todaysDate : this.paymentDate;
     let notes = this.paymentNotes;
-    this.pastPayments.unshift(new PastPaymentModel(date, amount, notes));
-    this.pastPaymentsTotal = this.pastPayments.reduce((t,p) => t + p.amount, 0);
-    this.currentBalance += amount;
-    this.paymentNotes = '';
-    this.paymentAmount = undefined;
-    this.paymentAmountOptions = 'outstanding';
-    this.paymentDateOptions = 'today';
-    this.paymentDateYear = undefined
-    this.paymentDateMonth = undefined
-    this.paymentDateDay = undefined
+
+    this.service.makePayment(this.customerId, {date: date.toString(), amount, notes}).subscribe(response => {
+      this.pastPayments.unshift(PastPaymentModel.fromApi(response.newPastPayment));
+      this.pastPaymentsTotal = response.newPastPaymentsTotal;
+      this.currentBalance = response.newCurrentBalance;
+      this.paymentNotes = '';
+      this.paymentAmount = undefined;
+      this.paymentAmountOptions = 'outstanding';
+      this.paymentDateOptions = 'today';
+      this.paymentDateYear = undefined
+      this.paymentDateMonth = undefined
+      this.paymentDateDay = undefined
+    })
   }
 }
 
@@ -115,14 +110,7 @@ export class PaymentsPageComponent implements OnInit {
     this.paymentDateDayControl = new Control('', Validators.compose([NumberComponent.isNumeric, NumberComponent.isGreaterThanZero]))
     this.paymentDateMonthControl = new Control('', Validators.compose([NumberComponent.isNumeric, NumberComponent.isGreaterThanZero]))
     this.paymentDateYearControl = new Control('', Validators.compose([NumberComponent.isNumeric, NumberComponent.isGreaterThanZero]))
-    this.model = new PastPaymentsModel();
-    this.model.load({
-      currentBalance: -123,
-      pastPaymentsTotal: 100,
-      pastPayments: [
-        {date: '2017-06-01T00:00:00.000Z', amount: 10, notes: null},
-        {date: '2017-05-25T00:00:00.000Z', amount: 12.5, notes: 'A note here'}
-      ]
-    })
+    this.model = new PastPaymentsModel(this.page.customer.id, this.customerService);
+    this.model.load();
   }
 }

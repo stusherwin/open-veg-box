@@ -55,6 +55,11 @@ export class CustomerService {
                     .map(res => res.json())
   }
 
+  getPastPayments(id: number): Observable<ApiPastPayments> {
+    return this.http.get('/api/customers/' + id + '/past-payments')
+                    .map(res => res.json())
+  }
+
   add(params: any): Observable<number> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
@@ -77,6 +82,14 @@ export class CustomerService {
 
     return this.http.delete('api/customers/' + id, options)
                     .map(res => {});
+  }
+
+  makePayment(id: number, request: ApiMakePaymentRequest): Observable<ApiMakePaymentResponse> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post('api/customers/' + id + '/make-payment', JSON.stringify(request), options)
+                    .map(res => res.json());
   }
 
   private hydrate(c: any) {
@@ -102,4 +115,28 @@ export class ApiPastOrderItem {
   quantity: number;
   unitType: string;
   totalCost: number;
+}
+
+export class ApiPastPayment {
+  date: string;
+  amount: number;
+  notes: string;
+}
+
+export class ApiPastPayments {
+  currentBalance: number;
+  pastPaymentsTotal: number;
+  pastPayments: ApiPastPayment[];
+}
+
+export class ApiMakePaymentRequest {
+  date: string;
+  amount: number;
+  notes: string;
+}
+
+export class ApiMakePaymentResponse {
+  newCurrentBalance: number;
+  newPastPaymentsTotal: number;
+  newPastPayment: ApiPastPayment;
 }
