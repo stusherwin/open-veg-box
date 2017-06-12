@@ -23,6 +23,7 @@ export class NumberComponent extends InputComponent implements OnInit {
   @Input()
   cssClass: string;
 
+  private __valueUpdatingInternally = false;
   private __value: number;
   @Input()
   get value(): number {
@@ -30,7 +31,9 @@ export class NumberComponent extends InputComponent implements OnInit {
   }
   set value(v: number) {
     this.__value = v;
-    this.stringValue = this.toStringValue(v);
+    if(!this.__valueUpdatingInternally) {
+      this.stringValue = this.toStringValue(v);
+    }
   }
 
   @Input()
@@ -66,10 +69,12 @@ export class NumberComponent extends InputComponent implements OnInit {
   }
 
   updateValue(stringValue: string) {
+    this.__valueUpdatingInternally = true;
     this.value = this.toDecimalValue(stringValue);
     this.valueChange.emit(this.value);
     this.changeDetector.detectChanges();
-  }
+    setTimeout(() => this.__valueUpdatingInternally = false);
+ }
 
   focus() {
     this.renderer.invokeElementMethod(this.input.nativeElement, 'focus', []);

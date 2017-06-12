@@ -9,6 +9,7 @@ import { DateString } from '../../shared/dates'
 import { ButtonComponent } from '../../shared/button.component'
 import { ProductQuantityComponent } from '../../products/product-quantity.component'
 import { NumberComponent } from '../../shared/number.component'
+import { DateComponent } from '../../shared/date.component'
 import { Control, Validators, FORM_DIRECTIVES, FormBuilder, ControlGroup } from '@angular/common'
 import { ApiPastPayments, ApiPastPayment } from '../customer.service'
 
@@ -39,22 +40,12 @@ export class PastPaymentsModel {
   paymentDateOptions: string = 'today'
   paymentAmountOptions: string = 'outstanding'
   paymentAmount: number = 0;
-  paymentDateYear: number
-  paymentDateMonth: number
-  paymentDateDay: number
+  paymentDate: DateString
   paymentNotes: string
   todaysDate: DateString = DateString.fromDate(new Date());
   loading = true;
 
   constructor(private customerId: number, private service: CustomerService) {
-  }
-
-  get paymentDate(): DateString {
-    if(!this.paymentDateYear || !this.paymentDateMonth || !this.paymentDateDay) {
-      return null;
-    }
-    
-    return new DateString(this.paymentDateYear, this.paymentDateMonth, this.paymentDateDay);
   }
 
   load() {
@@ -79,9 +70,7 @@ export class PastPaymentsModel {
       this.paymentAmount = undefined;
       this.paymentAmountOptions = 'outstanding';
       this.paymentDateOptions = 'today';
-      this.paymentDateYear = undefined
-      this.paymentDateMonth = undefined
-      this.paymentDateDay = undefined
+      this.paymentDate = undefined
     })
   }
 }
@@ -89,15 +78,13 @@ export class PastPaymentsModel {
 @Component({
   selector: 'cc-payments-page',
   templateUrl: 'app/customers/customer-page/payments-page.component.html',
-  directives: [OrderComponent, ButtonComponent, NumberComponent],
+  directives: [OrderComponent, ButtonComponent, NumberComponent, DateComponent],
   pipes: [MoneyPipe, DateStringPipe, CountPipe, PreserveLinesPipe]
 })
 export class PaymentsPageComponent implements OnInit {
   model: PastPaymentsModel
   paymentAmountControl: Control
-  paymentDateDayControl: Control
-  paymentDateMonthControl: Control
-  paymentDateYearControl: Control
+  paymentDateControl: Control
 
   constructor(
     @Inject(forwardRef(() => CustomerPageService))
@@ -107,9 +94,7 @@ export class PaymentsPageComponent implements OnInit {
 
   ngOnInit() {
     this.paymentAmountControl = new Control('', Validators.compose([NumberComponent.isNumeric, NumberComponent.isGreaterThanZero]))
-    this.paymentDateDayControl = new Control('', Validators.compose([NumberComponent.isNumeric, NumberComponent.isGreaterThanZero]))
-    this.paymentDateMonthControl = new Control('', Validators.compose([NumberComponent.isNumeric, NumberComponent.isGreaterThanZero]))
-    this.paymentDateYearControl = new Control('', Validators.compose([NumberComponent.isNumeric, NumberComponent.isGreaterThanZero]))
+    this.paymentDateControl = new Control('', Validators.compose([NumberComponent.isNumeric, NumberComponent.isGreaterThanZero]))
     this.model = new PastPaymentsModel(this.page.customer.id, this.customerService);
     this.model.load();
   }

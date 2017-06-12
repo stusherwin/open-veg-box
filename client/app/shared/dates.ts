@@ -1,8 +1,8 @@
 export class DateString {
   constructor(
-    private year: number,
-    private month: number,
-    private day: number
+    public year: number,
+    public month: number,
+    public day: number
   ) {
   }
 

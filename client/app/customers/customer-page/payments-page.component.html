@@ -30,11 +30,7 @@
             <td style="width: 400px">
               <input type="radio" name="paymentDate" id="otherDate" value="otherDate" [checked]="model.paymentDateOptions == 'otherDate'" (change)="model.paymentDateOptions = $event.target.value" tabindex="1" />
               <label for="otherDate">Another date:</label>
-              <cc-number cssClass="date-day" (inputFocus)="model.paymentDateOptions = 'otherDate'" [(value)]="model.paymentDateDay" [decimalPrecision]="0" [control]="paymentDateDayControl" placeholder="DD" style="margin-left: 10px" ></cc-number>
-              /
-              <cc-number cssClass="date-month" (inputFocus)="model.paymentDateOptions = 'otherDate'" [(value)]="model.paymentDateMonth" [decimalPrecision]="0" [control]="paymentDateMonthControl" placeholder="MM" ></cc-number>
-              /
-              <cc-number cssClass="date-year" (inputFocus)="model.paymentDateOptions = 'otherDate'" [(value)]="model.paymentDateYear" [decimalPrecision]="0" [control]="paymentDateYearControl" placeholder="YYYY" ></cc-number>
+              <cc-date (inputFocus)="model.paymentDateOptions = 'otherDate'" [(value)]="model.paymentDate" [control]="paymentDateControl" style="margin-left: 10px" ></cc-date>
             </td>
           </tr>
           <tr>
