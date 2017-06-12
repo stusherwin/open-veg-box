@@ -44,6 +44,7 @@ export class PastPaymentsModel {
   paymentNotes: string
   todaysDate: DateString = DateString.fromDate(new Date());
   loading = true;
+  makingPayment = false;
 
   constructor(private customerId: number, private service: CustomerService) {
   }
@@ -57,7 +58,15 @@ export class PastPaymentsModel {
     });    
   }
 
-  pay() {
+  startPayment() {
+    this.makingPayment = true;
+  }
+
+  cancelPayment() {
+    this.makingPayment = false;
+  }
+
+  completePayment() {
     let amount = (this.currentBalance < 0 && this.paymentAmountOptions == 'outstanding') ? -this.currentBalance : this.paymentAmount;
     let date = this.paymentDateOptions == 'today' ? this.todaysDate : this.paymentDate;
     let notes = this.paymentNotes;
@@ -70,7 +79,8 @@ export class PastPaymentsModel {
       this.paymentAmount = undefined;
       this.paymentAmountOptions = 'outstanding';
       this.paymentDateOptions = 'today';
-      this.paymentDate = undefined
+      this.paymentDate = undefined;
+      this.makingPayment = false;
     })
   }
 }

@@ -1,5 +1,7 @@
 <div class="deliveries">
-  <h4 class="row-header"><i class="icon-clipboard"></i>Current order: <span innerHTML="{{page.customer.order.total | money:true}}"></span></h4>
+  <div class="row-header">
+    <h4><i class="icon-clipboard"></i>Current order: <span innerHTML="{{page.customer.order.total | money:true}}"></span></h4>
+  </div>
   <div class="row-view-new no-hover">
     <div class="row" style="height: 0;padding: 0">
     </div>
@@ -10,7 +12,9 @@
       </div>
     </div>
   </div>
-  <h4 class="row-header"><i class="icon-history"></i>Past orders</h4>
+  <div class="row-header">
+    <h4><i class="icon-history"></i>Past orders</h4>
+  </div>
   <div class="row-view-new no-hover">
     <div class="row" style="height: 0;padding: 0">
     </div>

@@ -1208,13 +1208,48 @@ form {
     margin-bottom: 10px;
   }
   
-  h4.row-header {
-    margin-top: 10px;
-    margin-left: 5px;
+  .row-header {
+    h4 {
+      margin-top: 10px;
+      margin-left: 5px;
 
-    i {
-      &:before {
-        color: #999;
+      i {
+        &:before {
+          color: #999;
+        }
+      }
+    }
+
+    .button-new {
+      float: right;
+      clear: right;
+      margin-top: 20px;
+      margin-right: 10px;
+
+      .buttonNewColors(#999; #fff;#ddd; #ddd; #fff);
+      .buttonShadow(#bbb);
+      
+      &:hover, &.hover {
+        .buttonNewColors(@boxProductHover; #fff; @boxProductHover; lighten(@boxProductHover, 20%); #fff);
+        .buttonShadow(lighten(@boxProductHover, 10%); darken(@boxProductHover, 5%));
+      }
+
+      &:focus {
+        .buttonNewColors(@boxProductHover; #fff; @boxProductHover; lighten(@boxProductHover, 20%); #fff);
+        .buttonShadow(lighten(@boxProductHover, 10%); darken(@boxProductHover, 5%));
+      }
+
+      &:first-child {
+        margin-top: 15px;
+      }
+    }
+    
+    button.button-new {
+      &[disabled] {
+        &, &:hover, &:focus {
+        .buttonNewColors(#ccc; #fff; #eaeaea; #eaeaea; #fff);
+        .buttonShadow(#eaeaea);
+        }
       }
     }
   }

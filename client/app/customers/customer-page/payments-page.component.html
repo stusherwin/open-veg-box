@@ -1,10 +1,29 @@
 <div class="deliveries">
-  <h4 class="row-header"><i class="icon-clipboard"></i>Current balance: <span [innerHTML]="model.currentBalance | money:true:true"></span></h4>
+  <div class="row-header">
+    <h4>
+      <i class="icon-clipboard"></i>Current balance: <span [innerHTML]="model.currentBalance | money:true:true"></span>
+    </h4>
+  </div>
   <div class="row-view-new no-hover">
     <div class="row" style="height: 0;padding: 0">
     </div>
     <div class="row">
-      <div class="details" style="padding-left: 0">
+      <div class="details" style="padding-left: 0;">
+      </div>
+    </div>
+  </div>
+  <div class="row-header">
+    <a cc-button right icon="pound" text="Make payment" (click)="model.startPayment()" *ngIf="!model.makingPayment"></a>
+    <h4>
+      <i class="icon-history"></i>Past payments:
+      <span innerHTML="{{model.pastPaymentsTotal | money:true}}"></span>
+    </h4>
+  </div>
+  <div class="row-view-new no-hover">
+    <div class="row" style="height: 0;padding: 0" *ngIf="!model.makingPayment">
+    </div>
+    <div class="row focused" *ngIf="model.makingPayment">
+      <div class="details" style="padding-left: 0;margin-top: -5px; margin-bottom: -5px;display: block;">
         <table class="contact-details" style="float: none; width: auto;">
           <tr>
             <th style="width: 90px;vertical-align: middle">Amount:</th>
@@ -41,16 +60,9 @@
         </table>
       </div>
       <div class="actions">
-        <a cc-button right icon="ok" text="Make payment" (click)="model.pay()"></a>
+        <a cc-button right icon="ok" text="Save" (click)="model.completePayment()"></a>
+        <a cc-button right icon="cancel" text="Cancel" (click)="model.cancelPayment()"></a>
       </div>
-    </div>
-  </div>
-  <h4 class="row-header">
-    <i class="icon-history"></i>Past payments:
-    <span innerHTML="{{model.pastPaymentsTotal | money:true}}"></span>
-  </h4>
-  <div class="row-view-new no-hover">
-    <div class="row" style="height: 0;padding: 0">
     </div>
     <div class="row" *ngIf="model.loading">
       <div class="details" style="padding-left: 0">

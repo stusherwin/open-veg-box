@@ -1134,12 +1134,98 @@ form.submitted textarea.ng-invalid ~ .icon-warning {
   margin-left: -5px;
   margin-bottom: 10px;
 }
-.deliveries h4.row-header {
+.deliveries .row-header h4 {
   margin-top: 10px;
   margin-left: 5px;
 }
-.deliveries h4.row-header i:before {
+.deliveries .row-header h4 i:before {
   color: #999;
+}
+.deliveries .row-header .button-new {
+  float: right;
+  clear: right;
+  margin-top: 20px;
+  margin-right: 10px;
+  color: #999;
+}
+.deliveries .row-header .button-new::before {
+  border-color: #ddd;
+}
+.deliveries .row-header .button-new i {
+  background-color: #ddd;
+  color: #fff;
+}
+.deliveries .row-header .button-new::before {
+  background: #fff;
+}
+.deliveries .row-header .button-new i {
+  box-shadow: #bbb 0 2px 5px 0 inset;
+}
+.deliveries .row-header .button-new:hover,
+.deliveries .row-header .button-new.hover {
+  color: #ffa011;
+}
+.deliveries .row-header .button-new:hover::before,
+.deliveries .row-header .button-new.hover::before {
+  border-color: #ffc977;
+}
+.deliveries .row-header .button-new:hover i,
+.deliveries .row-header .button-new.hover i {
+  background-color: #ffa011;
+  color: #fff;
+}
+.deliveries .row-header .button-new:hover::before,
+.deliveries .row-header .button-new.hover::before {
+  background: #fff;
+}
+.deliveries .row-header .button-new:hover i,
+.deliveries .row-header .button-new.hover i {
+  box-shadow: #ffb444 0 2px 5px 0 inset, #f69400 0 -2px 5px 0 inset;
+}
+.deliveries .row-header .button-new:focus {
+  color: #ffa011;
+}
+.deliveries .row-header .button-new:focus::before {
+  border-color: #ffc977;
+}
+.deliveries .row-header .button-new:focus i {
+  background-color: #ffa011;
+  color: #fff;
+}
+.deliveries .row-header .button-new:focus::before {
+  background: #fff;
+}
+.deliveries .row-header .button-new:focus i {
+  box-shadow: #ffb444 0 2px 5px 0 inset, #f69400 0 -2px 5px 0 inset;
+}
+.deliveries .row-header .button-new:first-child {
+  margin-top: 15px;
+}
+.deliveries .row-header button.button-new[disabled],
+.deliveries .row-header button.button-new[disabled]:hover,
+.deliveries .row-header button.button-new[disabled]:focus {
+  color: #ccc;
+}
+.deliveries .row-header button.button-new[disabled]::before,
+.deliveries .row-header button.button-new[disabled]:hover::before,
+.deliveries .row-header button.button-new[disabled]:focus::before {
+  border-color: #eaeaea;
+}
+.deliveries .row-header button.button-new[disabled] i,
+.deliveries .row-header button.button-new[disabled]:hover i,
+.deliveries .row-header button.button-new[disabled]:focus i {
+  background-color: #eaeaea;
+  color: #fff;
+}
+.deliveries .row-header button.button-new[disabled]::before,
+.deliveries .row-header button.button-new[disabled]:hover::before,
+.deliveries .row-header button.button-new[disabled]:focus::before {
+  background: #fff;
+}
+.deliveries .row-header button.button-new[disabled] i,
+.deliveries .row-header button.button-new[disabled]:hover i,
+.deliveries .row-header button.button-new[disabled]:focus i {
+  box-shadow: #eaeaea 0 2px 5px 0 inset;
 }
 .order-list .excluded h3,
 .order-list .excluded p {
