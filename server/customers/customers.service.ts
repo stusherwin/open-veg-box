@@ -98,16 +98,6 @@ export class CustomersService {
   }
   
   getPastOrders(id: number, db: Db): Observable<ApiPastOrder[]> {
-    // return Observable.of([
-    //   {date: new Date('2017-06-01T00:00:00.000Z'), totalCost: 100, itemCount: 3, boxes: [
-    //     {name: 'Some Box', price: 10.99, quantity: 2, unitType: 'each', totalCost: 21.98}
-    //   ], extraProducts: [
-    //     {name: 'Some Produuct', price: 0.74, quantity: 1, unitType: 'perKg', totalCost: 0.74}
-    //   ]},
-    //   {date: new Date('2017-05-15T00:00:00.000Z'), totalCost: 87, itemCount: 1, boxes: [], extraProducts: []},
-    //   {date: new Date('2017-05-03T00:00:00.000Z'), totalCost: 10.5, itemCount: 0, boxes: [], extraProducts: []}
-    // ]);
-
     return db.allWithReduce<ApiPastOrder>(
       ' select orderId, deliveryDate, orderTotalCost, itemType, itemId, itemName, price, quantity, unittype, totalCost from'
     + ' (select ho.id orderId, d.date deliveryDate, ho.total orderTotalCost, \'product\' itemType, hop.productId itemId, hop.name itemName, hop.price, hop.unitType,'
@@ -154,7 +144,26 @@ export class CustomersService {
   };
 
   getPastPayments(id: number, db: Db): Observable<ApiPastPayments> {
-    return Observable.of(this.pastPayments);
+    return db.all<ApiPastPayment>(
+      ' select p.id, p.date, p.amount, p.notes'
+    + ' from payment p'
+    + ' where p.customerId = @id'
+    + ' order by p.date desc, p.id desc',
+      {id}, {}, r => ({id: r.id, date: r.date, amount: r.amount, notes: r.notes}))
+    .mergeMap(payments => db.single<ApiPastPayments>(
+      ' select coalesce(sum(o.total), 0) totalOwed'
+    + ' from historicOrder o'
+    + ' where o.customerId = @id',
+      {id}, r => {
+        let totalOwed: number = r.totalowed;
+        let totalPaid: number = payments.reduce((t, p) => t + p.amount, 0);
+
+        return {
+          currentBalance: totalPaid - totalOwed,
+          pastPaymentsTotal: totalPaid,
+          pastPayments: payments
+        }
+      }))
   }
   
   add(params: any, db: Db): Observable<number> {
@@ -170,16 +179,30 @@ export class CustomersService {
   }
 
   makePayment(id: number, request: ApiMakePaymentRequest, db: Db): Observable<ApiMakePaymentResponse> {
-    this.pastPayments.currentBalance += request.amount;
-    this.pastPayments.pastPaymentsTotal += request.amount;
-    let newPastPayment = {date: request.date, amount: request.amount, notes: request.notes}
-    this.pastPayments.pastPayments.unshift(newPastPayment);
-
-    return Observable.of({
-      newCurrentBalance: this.pastPayments.currentBalance,
-      newPastPaymentsTotal: this.pastPayments.pastPaymentsTotal,
-      newPastPayment: newPastPayment
-    });
+    return db.insert('payment', ['customerId', 'date', 'amount', 'notes'], {customerId: id, date: request.date, amount: request.amount, notes: request.notes || ''})
+    .mergeMap(paymentId => db.single<{paymentId: number, totalPaid: number}>(
+      ' select coalesce(sum(p.amount), 0) totalPaid'
+    + ' from payment p'
+    + ' where p.customerId = @id',
+      {id}, r => ({paymentId, totalPaid: r.totalpaid})))
+    .mergeMap(({paymentId, totalPaid}) => db.single<ApiMakePaymentResponse>(
+      ' select coalesce(sum(o.total), 0) totalOwed'
+    + ' from historicOrder o'
+    + ' where o.customerId = @id',
+      {id}, r => {
+        let totalOwed: number = r.totalowed;
+        
+        return {
+          newCurrentBalance: totalPaid - totalOwed,
+          newPastPaymentsTotal: totalPaid,
+          newPastPayment: {
+            id: paymentId,
+            amount: request.amount,
+            date: request.date,
+            notes: request.notes
+          }
+        }
+      }));
   }
 }
 
@@ -200,6 +223,7 @@ export class ApiPastOrderItem {
 }
 
 export class ApiPastPayment {
+  id: number;
   date: string;
   amount: number;
   notes: string;

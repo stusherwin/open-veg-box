@@ -156,3 +156,7 @@ Editable
 * Radio button alignment 
 * Number component setting value programmatically doesn't work
 * Payment validation
+* Fix number component - ngModel implementation?
+* Extract Date component
+* Format date parts with padding zeroes
+* Fix database layer - remove multiple round-trip service methods
