@@ -8,7 +8,7 @@ import { CustomerService } from '../customer.service'
 import { DateString } from '../../shared/dates'
 import { ButtonComponent } from '../../shared/button.component'
 import { ProductQuantityComponent } from '../../products/product-quantity.component'
-import { NumberComponent } from '../../shared/input.component'
+import { NumberComponent } from '../../shared/number.component'
 import { Control, Validators, FORM_DIRECTIVES, FormBuilder, ControlGroup } from '@angular/common'
 import { ApiPastPayments, ApiPastPayment } from '../customer.service'
 

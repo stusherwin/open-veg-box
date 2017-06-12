@@ -3,7 +3,7 @@ import { Customer } from '../customer'
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
 import { ValidatableComponent } from '../../shared/validatable.component';
 import { AddCustomerModel } from './customer.model'
-import { TextComponent } from '../../shared/input.component'
+import { TextComponent } from '../../shared/text.component'
 import { Control, Validators, FORM_DIRECTIVES, FormBuilder, ControlGroup } from '@angular/common'
 import { ButtonComponent } from '../../shared/button.component'
 

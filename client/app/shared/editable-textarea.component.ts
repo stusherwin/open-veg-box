@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, Inject, forwardRef, ViewChildren, QueryList, EventEmitter, ViewChild, ElementRef, Renderer, ChangeDetectorRef, HostListener } from '@angular/core';
 import { Control, Validators, FORM_DIRECTIVES, FormBuilder, ControlGroup } from '@angular/common'
-import { TextComponent, TextAreaComponent } from './input.component'
+import { TextComponent } from './text.component'
+import { TextAreaComponent } from './textarea.component'
 import { EditableEditButtonComponent } from './editable-edit-button.component'
 import { EditableButtonsComponent } from './editable-buttons.component'
 import { PreserveLinesPipe } from './pipes'

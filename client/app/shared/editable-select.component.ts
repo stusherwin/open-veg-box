@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, Inject, forwardRef, ViewChildren, QueryList, EventEmitter, ViewChild, ElementRef, Renderer, ChangeDetectorRef, HostListener } from '@angular/core';
 import { Control, Validators, FORM_DIRECTIVES, FormBuilder, ControlGroup } from '@angular/common'
-import { SelectComponent } from './input.component'
+import { SelectComponent } from './select.component'
 import { EditableEditButtonComponent } from './editable-edit-button.component'
 import { EditableButtonsComponent } from './editable-buttons.component'
 import { EditableService } from './editable.service'
