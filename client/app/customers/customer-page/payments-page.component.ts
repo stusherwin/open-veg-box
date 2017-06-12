@@ -12,6 +12,8 @@ import { NumberComponent } from '../../shared/number.component'
 import { DateComponent } from '../../shared/date.component'
 import { Control, Validators, FORM_DIRECTIVES, FormBuilder, ControlGroup } from '@angular/common'
 import { ApiPastPayments, ApiPastPayment } from '../customer.service'
+import { EditableSelectComponent } from '../../shared/editable-select.component'
+import { EditableTextAreaComponent } from '../../shared/editable-textarea.component'
 
 export class PastPaymentModel {
   constructor(
@@ -33,7 +35,7 @@ export class PastPaymentModel {
   }
 }
 
-export class PastPaymentsModel {
+export class PaymentsModel {
   currentBalance: number = 0;
   pastPaymentsTotal: number = 0;
   pastPayments: PastPaymentModel[] = []
@@ -45,6 +47,9 @@ export class PastPaymentsModel {
   todaysDate: DateString = DateString.fromDate(new Date());
   loading = true;
   makingPayment = false;
+  paymentMethod = 'Invoice';
+  paymentDetails = 'Some details go here...'
+  paymentMethodOptions = ['Credit/debit card', 'Direct debit', 'Invoice'];
 
   constructor(private customerId: number, private service: CustomerService) {
   }
@@ -88,13 +93,14 @@ export class PastPaymentsModel {
 @Component({
   selector: 'cc-payments-page',
   templateUrl: 'app/customers/customer-page/payments-page.component.html',
-  directives: [OrderComponent, ButtonComponent, NumberComponent, DateComponent],
+  directives: [OrderComponent, ButtonComponent, NumberComponent, DateComponent, EditableSelectComponent, EditableTextAreaComponent],
   pipes: [MoneyPipe, DateStringPipe, CountPipe, PreserveLinesPipe]
 })
 export class PaymentsPageComponent implements OnInit {
-  model: PastPaymentsModel
+  model: PaymentsModel
   paymentAmountControl: Control
   paymentDateControl: Control
+  paymentDetailsValidators: Validators = Validators.compose([])
 
   constructor(
     @Inject(forwardRef(() => CustomerPageService))
@@ -105,7 +111,7 @@ export class PaymentsPageComponent implements OnInit {
   ngOnInit() {
     this.paymentAmountControl = new Control('', Validators.compose([NumberComponent.isNumeric, NumberComponent.isGreaterThanZero]))
     this.paymentDateControl = new Control('', Validators.compose([NumberComponent.isNumeric, NumberComponent.isGreaterThanZero]))
-    this.model = new PastPaymentsModel(this.page.customer.id, this.customerService);
+    this.model = new PaymentsModel(this.page.customer.id, this.customerService);
     this.model.load();
   }
 }

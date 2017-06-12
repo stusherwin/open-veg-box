@@ -160,3 +160,8 @@ Editable
 * Extract Date component
 * Format date parts with padding zeroes
 * Fix database layer - remove multiple round-trip service methods
+* Payment methods
+* Order discounts
+* Collection points
+* Bug: Payment page causing high CPU usage???
+* Bug: Textarea ok/cancel buttons have moved to bottom of control

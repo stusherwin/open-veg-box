@@ -9,6 +9,27 @@
     </div>
     <div class="row">
       <div class="details" style="padding-left: 0;">
+        <table class="contact-details">
+          <tr>
+            <th>Payment method:</th>
+            <td>
+              <cc-editable-select key="paymentMethod"
+                                  [(value)]="model.paymentMethod"
+                                  [options]="model.paymentMethodOptions">
+              </cc-editable-select>
+            </td>
+          </tr>
+        </table>
+        <table class="contact-details">
+          <tr>
+            <th>Payment details:</th>
+            <td>
+              <cc-editable-textarea key="paymentDetails"
+                                    [(value)]="model.paymentDetails">
+              </cc-editable-textarea>
+            </td>
+          </tr>
+        </table>
       </div>
     </div>
   </div>
