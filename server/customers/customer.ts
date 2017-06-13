@@ -1,26 +1,20 @@
 export class Customer {
-  constructor(id: number, firstName:string, surname: string, address: string, tel1: string, tel2: string, email: string) {
-    this.id = id;
-    this.firstName = firstName;
-    this.surname = surname;
-    this.address = address;
-    this.tel1 = tel1;
-    this.tel2 = tel2;
-    this.email = email;
+  constructor(
+    public id: number,
+    public firstName:string,
+    public surname: string,
+    public address: string,
+    public tel1: string,
+    public tel2: string,
+    public email: string,
+    public paymentMethod: string,
+    public paymentDetails: string) {
   }
-    
-  id: number;
-  firstName: string;
-  surname: string;
-  address: string;
-  tel1: string;
-  tel2: string;
-  email: string;
 }
 
 export class CustomerWithOrder extends Customer {
-  constructor(id: number, firstName:string, surname: string, address: string, tel1: string, tel2: string, email: string, order: Order) {
-    super(id, firstName, surname, address, tel1, tel2, email);
+  constructor(id: number, firstName:string, surname: string, address: string, tel1: string, tel2: string, email: string, paymentMethod: string, paymentDetails: string, order: Order) {
+    super(id, firstName, surname, address, tel1, tel2, email, paymentMethod, paymentDetails);
     this.order = order;
   }
 

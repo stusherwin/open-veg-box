@@ -6,7 +6,7 @@ import 'rxjs/add/operator/first';
 import 'rxjs/add/observable/of';
 
 export class CustomersService {
-  fields: string[] = ['firstName', 'surname', 'address', 'tel1', 'tel2', 'email'];
+  fields: string[] = ['firstName', 'surname', 'address', 'tel1', 'tel2', 'email', 'paymentMethod', 'paymentDetails'];
 
   getAll(queryParams: any, db: Db): Observable<Customer[]> {
     if(queryParams.orders) {
@@ -19,7 +19,7 @@ export class CustomersService {
   private allWithOrders(queryParams: any, params: any, db: Db, whereClause: string): Observable<Customer[]> {
     return db.allWithReduce<CustomerWithOrder>(
       ' select'
-    + '  c.id, c.firstname, c.surname, c.address, c.tel1, c.tel2, c.email'
+    + '  c.id, c.firstname, c.surname, c.address, c.tel1, c.tel2, c.email, c.paymentMethod, c.paymentDetails'
     + ', o.id orderid'
     + ', ob.boxId boxid, ob.quantity boxquantity'
     + ', b.name boxname, b.price boxprice'
@@ -42,7 +42,7 @@ export class CustomersService {
 
           if(!customer) {
             let order = new Order(r.orderid, r.id, [], [], 0);
-            customer = new CustomerWithOrder(r.id, r.firstname, r.surname, r.address, r.tel1, r.tel2, r.email, order);
+            customer = new CustomerWithOrder(r.id, r.firstname, r.surname, r.address, r.tel1, r.tel2, r.email, r.paymentmethod, r.paymentdetails, order);
             customers.push(customer);
           }
 
@@ -71,19 +71,19 @@ export class CustomersService {
   
   private all(queryParams: any, db: Db): Observable<Customer[]> {
     return db.all<Customer>(
-      ' select c.id, c.firstname, c.surname, c.address, c.tel1, c.tel2, c.email from customer c' 
+      ' select c.id, c.firstname, c.surname, c.address, c.tel1, c.tel2, c.email, c.paymentMethod, c.paymentDetails from customer c' 
     + ' left join round_customer rc on rc.customerId = c.id'
     + ' order by c.surname, c.firstname',
-      {}, queryParams, r => new Customer(r.id, r.firstname, r.surname, r.address, r.tel1, r.tel2, r.email));
+      {}, queryParams, r => new Customer(r.id, r.firstname, r.surname, r.address, r.tel1, r.tel2, r.email, r.paymentmethod, r.paymentdetails));
   }
   
   getAllHavingNoRound(queryParams: any, db: Db): Observable<Customer[]> {
     return db.all<Customer>(
-      ' select c.id, c.firstname, c.surname, c.address, c.tel1, c.tel2, c.email from customer c' 
+      ' select c.id, c.firstname, c.surname, c.address, c.tel1, c.tel2, c.email, c.paymentMethod, c.paymentDetails from customer c' 
     + ' left join round_customer rc on rc.customerId = c.id'
     + ' where rc.roundId is null'
     + ' order by c.surname, c.firstname',
-      {}, queryParams, r => new Customer(r.id, r.firstname, r.surname, r.address, r.tel1, r.tel2, r.email));
+      {}, queryParams, r => new Customer(r.id, r.firstname, r.surname, r.address, r.tel1, r.tel2, r.email, r.paymentmethod, r.paymentdetails));
   }
 
   get(id: number, queryParams: any, db: Db): Observable<Customer> {
@@ -91,9 +91,9 @@ export class CustomersService {
       return this.allWithOrders(queryParams, {id}, db, 'where c.id = @id').map(cs => cs.length? cs[0] : null);
     } else {
       return db.single<Customer>(
-      ' select c.id, c.firstname, c.surname, c.address, c.tel1, c.tel2, c.email from customer c'
+      ' select c.id, c.firstname, c.surname, c.address, c.tel1, c.tel2, c.email, c.paymentMethod, c.paymentDetails from customer c'
     + ' where c.id = @id',
-      {id}, r => new Customer(r.id, r.firstname, r.surname, r.address, r.tel1, r.tel2, r.email));
+      {id}, r => new Customer(r.id, r.firstname, r.surname, r.address, r.tel1, r.tel2, r.email, r.paymentmethod, r.paymentdetails));
     }
   }
   
@@ -171,6 +171,7 @@ export class CustomersService {
   }
 
   update(id: number, params: any, db: Db): Observable<void> {
+    console.log(params);
     return db.update('customer', this.fields, id, params);
   }
 

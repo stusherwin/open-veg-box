@@ -13,7 +13,7 @@ import { ButtonComponent } from '../../shared/button.component'
   directives: [ROUTER_DIRECTIVES, ValidatableComponent, TextComponent, ButtonComponent],
 })
 export class ListPageAddComponent implements OnInit {
-  customer = new Customer(0, '', '', '', '', '', '');
+  customer = new Customer(0, '', '', '', '', '', '', 'card', '');
   adding: boolean;
   rowFocused: boolean;
 

@@ -27,8 +27,6 @@ export class CustomerModel {
     this.tel2 = _customer.tel2;
     this.email = _customer.email;
     this.update = (properties: {[property: string]: any}) => {
-      console.log('update customer ' + _customer.id + ':');
-      console.log(properties);
       customerService.update(_customer.id, properties).subscribe(() => {
         for(let p in properties) {
           _customer[p] = properties[p];

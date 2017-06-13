@@ -1,7 +1,4 @@
 do $$
-declare orderId1 integer;
-declare orderId2 integer;
-
 begin
   if not exists (select * from upgrade where scriptname = '0003') 
   then

@@ -15,7 +15,10 @@
             <td>
               <cc-editable-select key="paymentMethod"
                                   [(value)]="model.paymentMethod"
-                                  [options]="model.paymentMethodOptions">
+                                  [options]="model.paymentMethodOptions"
+                                  textProperty="name"
+                                  valueProperty="value"
+                                  (valueChange)="model.update({paymentMethod:$event.value})">
               </cc-editable-select>
             </td>
           </tr>
@@ -25,7 +28,8 @@
             <th>Payment details:</th>
             <td>
               <cc-editable-textarea key="paymentDetails"
-                                    [(value)]="model.paymentDetails">
+                                    [(value)]="model.paymentDetails"
+                                    (valueChange)="model.update({paymentDetails:$event})">
               </cc-editable-textarea>
             </td>
           </tr>

@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, Inject, forwardRef, ViewChildren, Que
 import { CustomerModel } from './customer.model'
 import { OrderComponent } from '../orders/order.component'
 import { MoneyPipe, DateStringPipe, CountPipe, PreserveLinesPipe } from '../../shared/pipes'
-import { Customer } from '../customer'
+import { Customer, PaymentMethod, paymentMethods } from '../customer'
 import { CustomerPageService } from './customer-page.component'
 import { CustomerService } from '../customer.service'
 import { DateString } from '../../shared/dates'
@@ -47,15 +47,17 @@ export class PaymentsModel {
   todaysDate: DateString = DateString.fromDate(new Date());
   loading = true;
   makingPayment = false;
-  paymentMethod = 'Invoice';
-  paymentDetails = 'Some details go here...'
-  paymentMethodOptions = ['Credit/debit card', 'Direct debit', 'Invoice'];
+  paymentMethodOptions = paymentMethods;
+  paymentMethod: PaymentMethod;
+  paymentDetails: string;
 
-  constructor(private customerId: number, private service: CustomerService) {
+  constructor(private customer: Customer, private service: CustomerService) {
+    this.paymentMethod = paymentMethods.find(p => p.value == customer.paymentMethod);
+    this.paymentDetails = customer.paymentDetails;
   }
 
   load() {
-    this.service.getPastPayments(this.customerId).subscribe(api => {
+    this.service.getPastPayments(this.customer.id).subscribe(api => {
       this.currentBalance = api.currentBalance;
       this.pastPaymentsTotal = api.pastPaymentsTotal;
       this.pastPayments = api.pastPayments.map(p => PastPaymentModel.fromApi(p));
@@ -76,7 +78,7 @@ export class PaymentsModel {
     let date = this.paymentDateOptions == 'today' ? this.todaysDate : this.paymentDate;
     let notes = this.paymentNotes;
 
-    this.service.makePayment(this.customerId, {date: date.toString(), amount, notes}).subscribe(response => {
+    this.service.makePayment(this.customer.id, {date: date.toString(), amount, notes}).subscribe(response => {
       this.pastPayments.unshift(PastPaymentModel.fromApi(response.newPastPayment));
       this.pastPaymentsTotal = response.newPastPaymentsTotal;
       this.currentBalance = response.newCurrentBalance;
@@ -88,6 +90,14 @@ export class PaymentsModel {
       this.makingPayment = false;
     })
   }
+  
+  update(properties: {[property: string]: any}) {
+    this.service.update(this.customer.id, properties).subscribe(() => {
+      for(let p in properties) {
+        this.customer[p] = properties[p];
+      }
+    });
+  };
 }
 
 @Component({
@@ -111,7 +121,7 @@ export class PaymentsPageComponent implements OnInit {
   ngOnInit() {
     this.paymentAmountControl = new Control('', Validators.compose([NumberComponent.isNumeric, NumberComponent.isGreaterThanZero]))
     this.paymentDateControl = new Control('', Validators.compose([NumberComponent.isNumeric, NumberComponent.isGreaterThanZero]))
-    this.model = new PaymentsModel(this.page.customer.id, this.customerService);
+    this.model = new PaymentsModel(this.page.customer, this.customerService);
     this.model.load();
   }
 }
