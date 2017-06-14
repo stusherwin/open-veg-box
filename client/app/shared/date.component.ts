@@ -1,78 +1,59 @@
 import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, ElementRef, OnInit, Renderer, ViewChildren, QueryList, Directive, HostListener, HostBinding, AfterViewInit, ContentChildren, ChangeDetectorRef } from '@angular/core';
-import { Control, Validators, FORM_DIRECTIVES, FormBuilder, ControlGroup } from '@angular/common'
+import { Control, Validators, FORM_DIRECTIVES, FormBuilder, ControlGroup, ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/common'
 import { InputComponent, ValidationResult } from './input.component'
 import { DateString } from './dates'
 
 @Component({
   template: `
     <input type="text" class="date-day" #day
-           style="margin-left: 10px"
-           [(ngModel)]="dayStringValue"
-           (ngModelChange)="updateDay($event)"
-           [ngFormControl]="control"
+           [value]="dayStringValue"
+           (change)="updateDay($event.target.value)"
+           (keyup)="updateDay($event.target.value)"
            placeholder="DD"
            tabindex="1"
            (focus)="inputFocus.emit($event)"
            (blur)="inputBlur.emit($event)" />
     /
-    <input type="text" class="date-month" #month
-           [(ngModel)]="monthStringValue"
-           (ngModelChange)="updateMonth($event)"
-           [ngFormControl]="control"
+    <input type="text" class="date-month"
+           [value]="monthStringValue"
+           (change)="updateMonth($event.target.value)"
+           (keyup)="updateMonth($event.target.value)"
            placeholder="MM"
            tabindex="1"
            (focus)="inputFocus.emit($event)"
            (blur)="inputBlur.emit($event)" />
     /
-    <input type="text" class="date-year" #year
-           [(ngModel)]="yearStringValue"
-           (ngModelChange)="updateYear($event)"
-           [ngFormControl]="control"
+    <input type="text" class="date-year"
+           [value]="yearStringValue"
+           (change)="updateYear($event.target.value)"
+           (keyup)="updateYear($event.target.value)"
            placeholder="YYYY"
            tabindex="1"
            (focus)="inputFocus.emit($event)"
            (blur)="inputBlur.emit($event)" />
   `,
   selector: 'cc-date',
-  directives: [FORM_DIRECTIVES]
+  directives: [FORM_DIRECTIVES],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => DateComponent),
+      multi: true,
+    }
+  ]
 })
-export class DateComponent extends InputComponent implements OnInit {
+export class DateComponent extends InputComponent implements OnInit, ControlValueAccessor {
   dayStringValue: string = '';
   monthStringValue: string = '';
   yearStringValue: string = '';
   isValid: boolean = true;
 
-  @Input()
-  cssClass: string;
-
-  private __valueUpdatingInternally = false;
-  private __value: DateString;
-  @Input()
-  get value(): DateString {
-    return this.__value;
+  private get value(): DateString {
+    return new DateString(
+      this.toDecimalValue(this.yearStringValue),
+      this.toDecimalValue(this.monthStringValue),
+      this.toDecimalValue(this.dayStringValue))
   }
-
-  set value(v: DateString) {
-    this.__value = v;
-
-    if(!this.__valueUpdatingInternally) {
-      if(v) {
-        this.dayStringValue = this.toStringValue(v.day, 2);
-        this.monthStringValue = this.toStringValue(v.month, 2);
-        this.yearStringValue = this.toStringValue(v.year, 4);
-      } else {
-        this.dayStringValue = '';
-        this.monthStringValue = '';
-        this.yearStringValue = '';
-      }
-    }
-  }
-
-  @Input()
-  control: Control
-
-  @Output()
-  valueChange = new EventEmitter<DateString>()
 
   @Output()
   inputFocus = new EventEmitter<any>()
@@ -81,13 +62,7 @@ export class DateComponent extends InputComponent implements OnInit {
   inputBlur = new EventEmitter<any>()
 
   @ViewChild('day')
-  day: ElementRef;
-
-  @ViewChild('month')
-  month: ElementRef;
-
-  @ViewChild('year')
-  year: ElementRef;
+  private day: ElementRef;
 
   constructor(private changeDetector: ChangeDetectorRef, private renderer: Renderer) {
     super();
@@ -105,28 +80,40 @@ export class DateComponent extends InputComponent implements OnInit {
     }
   }
 
+  private propogateChange = (_: any) => {}
+
+  writeValue(value: DateString) {
+   if(value) {
+      this.dayStringValue = this.toStringValue(value.day, 2);
+      this.monthStringValue = this.toStringValue(value.month, 2);
+      this.yearStringValue = this.toStringValue(value.year, 4);
+    } else {
+      this.dayStringValue = '';
+      this.monthStringValue = '';
+      this.yearStringValue = '';
+    }
+  }
+
+  registerOnChange(fn: any) {
+    this.propogateChange = fn;
+  }
+
+  registerOnTouched(fn: any) {
+  }
+
   updateDay(stringValue: string) {
-    this.__valueUpdatingInternally = true;
-    this.value = new DateString(this.toDecimalValue(this.yearStringValue), this.toDecimalValue(this.monthStringValue), this.toDecimalValue(stringValue));
-    this.valueChange.emit(this.value);
-    this.changeDetector.detectChanges();
-    setTimeout(() => this.__valueUpdatingInternally = false);
+    this.dayStringValue = stringValue;
+    this.propogateChange(this.value);
   }
 
   updateMonth(stringValue: string) {
-    this.__valueUpdatingInternally = true;   
-    this.value = new DateString(this.toDecimalValue(this.yearStringValue), this.toDecimalValue(stringValue), this.toDecimalValue(this.dayStringValue));
-    this.valueChange.emit(this.value);
-    this.changeDetector.detectChanges();
-    setTimeout(() => this.__valueUpdatingInternally = false);
+    this.monthStringValue = stringValue;
+    this.propogateChange(this.value);    
   }
 
   updateYear(stringValue: string) {
-    this.__valueUpdatingInternally = true;   
-    this.value = new DateString(this.toDecimalValue(stringValue), this.toDecimalValue(this.monthStringValue), this.toDecimalValue(this.dayStringValue));
-    this.valueChange.emit(this.value);
-    this.changeDetector.detectChanges();
-    setTimeout(() => this.__valueUpdatingInternally = false);
+    this.yearStringValue = stringValue;
+    this.propogateChange(this.value);
   }
 
   focus() {
@@ -155,4 +142,33 @@ export class DateComponent extends InputComponent implements OnInit {
 
     return parseFloat(parsed.toFixed(0));
   }
+
+  static isValidDate(control: Control): ValidationResult {
+    let date = <DateString>control.value;
+    if(!date) {
+      return null;
+    }
+    
+    if(!date.day || !date.month || !date.year) {
+      return {invalidDate: true};
+    }
+    
+    if(Date.parse(date.toString()) == NaN) {
+      return {nonExistentDate: true};
+    }
+ 
+    return null;
+  }
+
+  static isAfter1900(control: Control): ValidationResult {let date = <DateString>control.value;
+    if(!date) {
+      return null;
+    }
+
+    if(date.year < 1900) {
+      return {before1900: true};
+    }
+    
+    return null;
+  }  
 }

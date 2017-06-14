@@ -1974,6 +1974,13 @@ button.button-new-small-1[disabled]:focus i:before {
 .date-year {
   width: 50px;
 }
+.ng-invalid .date-day,
+.ng-invalid .date-month,
+.ng-invalid .date-year {
+  border: 1px solid #ff4f4f;
+  box-shadow: #ff9c9c 0px 0px 3px 0px, #ff9c9c 0px 0px 3px 0px inset;
+  background: #fff2f2;
+}
 input[type="radio"] {
   margin-left: 0px;
   margin-top: 5px;

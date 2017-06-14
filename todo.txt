@@ -130,7 +130,6 @@ TODO (now)
 * Make button-new-small structure same as button-new
 * Make button-new background white
 * Border around button-new-small on hover
-* Chrome border wierdness
 
 Editable
 ========
@@ -153,14 +152,9 @@ Editable
 * Prevent delivery with no orders (server + client side)?
 * Edit past payments?
 * Edit past deliveries?
-* Radio button alignment 
-* Number component setting value programmatically doesn't work
-* Payment validation
 * Fix number component - ngModel implementation?
-* Extract Date component
 * Format date parts with padding zeroes
 * Fix database layer - remove multiple round-trip service methods
-* Payment methods
 * Order discounts
 * Collection points
 * Bug: Textarea ok/cancel buttons have moved to bottom of control
@@ -172,3 +166,5 @@ Editable
 * Money validation should prevent values more precise than 2dp
 * Huge amount of files being loaded over - investigate bundling - webpack? angular2 production mode?
 * Need server-side validation to mirror all client-side validation
+* Convert number component (and other components) to implement ControlValueAccessor
+* Redo add forms + email form to use validation-warning + Angular2 form validation

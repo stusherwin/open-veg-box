@@ -102,11 +102,10 @@
               <td style="width: 400px">
                 <input type="radio" name="paymentDate" id="otherDate" value="otherDate" [checked]="model.paymentDateOptions == 'otherDate'" (change)="model.paymentDateOptions = $event.target.value;paymentDateControl.updateValueAndValidity()" tabindex="1" />
                 <label for="otherDate">Another date:</label>
-                <cc-date style="margin-left: 10px"
-                         (inputFocus)="model.paymentDateOptions = 'otherDate'"
-                         (valueChange)="setPaymentDateValidationMessage()"
-                         [(value)]="model.paymentDate"
-                         [control]="paymentDateControl">
+                <cc-date (inputFocus)="model.paymentDateOptions = 'otherDate'"
+                         (ngModelChange)="setPaymentDateValidationMessage()"
+                         [(ngModel)]="model.paymentDate"
+                         [ngFormControl]="paymentDateControl">
                 </cc-date>
                 <span class="validation-warning"
                       *ngIf="paymentSubmitted && !paymentDateControl.valid"

@@ -108,7 +108,7 @@ export class PaymentsModel {
 @Component({
   selector: 'cc-payments-page',
   templateUrl: 'app/customers/customer-page/payments-page.component.html',
-  directives: [OrderComponent, ButtonComponent, NumberComponent, DateComponent, EditableSelectComponent, EditableTextAreaComponent],
+  directives: [OrderComponent, ButtonComponent, NumberComponent, DateComponent, EditableSelectComponent, EditableTextAreaComponent, FORM_DIRECTIVES],
   pipes: [MoneyPipe, DateStringPipe, CountPipe, PreserveLinesPipe]
 })
 export class PaymentsPageComponent implements OnInit {
@@ -119,10 +119,10 @@ export class PaymentsPageComponent implements OnInit {
   paymentDateControl: Control
   form: ControlGroup;
   paymentSubmitted = false;
-  paymentAmountValidationMessage: string;
-  paymentDateValidationMessage: string;
+  paymentAmountValidationMessage: string = '';
+  paymentDateValidationMessage: string = '';
   paymentAmountMessages = {required: 'Amount must not be empty', zero: 'Amount must not be zero', notNumeric: 'Amount must be a number'};
-  paymentDateMessages = {required: 'Date must not be empty'};
+  paymentDateMessages = {required: 'Date must not be empty', invalidDate: 'Date must be correctly entered', nonExistentDate: 'Date must be a date that actually exists', before1900: 'Date must at least be in the 20th century!'};
 
   constructor(
     private builder: FormBuilder,
@@ -133,8 +133,8 @@ export class PaymentsPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.paymentAmountControl = new Control('', Validators.compose([this.paymentAmountMaybeRequired.bind(this), NumberComponent.isNumeric, NumberComponent.isNotZero]))
-    this.paymentDateControl = new Control('', Validators.compose([this.paymentDateMaybeRequired.bind(this)]))
+    this.paymentAmountControl = new Control('', Validators.compose([NumberComponent.isNumeric, NumberComponent.isNotZero, this.paymentAmountMaybeRequired.bind(this)]))
+    this.paymentDateControl = new Control('', Validators.compose([DateComponent.isValidDate, DateComponent.isAfter1900, this.paymentDateMaybeRequired.bind(this)]))
 
     this.form = this.builder.group({
       paymentAmount: this.paymentAmountControl,
@@ -205,7 +205,8 @@ export class PaymentsPageComponent implements OnInit {
   }
 
   paymentDateMaybeRequired(control: Control): ValidationResult {
-    if(this.model.paymentDateOptions == 'otherDate' && !control.value) {
+    let date = <DateString>control.value;
+    if(this.model.paymentDateOptions == 'otherDate' && !date) {
       return {'required': true};
     }
  
