@@ -18,6 +18,7 @@ import { DateString } from './dates'
     <input type="text" class="date-month" #month
            [(ngModel)]="monthStringValue"
            (ngModelChange)="updateMonth($event)"
+           [ngFormControl]="control"
            placeholder="MM"
            tabindex="1"
            (focus)="inputFocus.emit($event)"
@@ -26,6 +27,7 @@ import { DateString } from './dates'
     <input type="text" class="date-year" #year
            [(ngModel)]="yearStringValue"
            (ngModelChange)="updateYear($event)"
+           [ngFormControl]="control"
            placeholder="YYYY"
            tabindex="1"
            (focus)="inputFocus.emit($event)"

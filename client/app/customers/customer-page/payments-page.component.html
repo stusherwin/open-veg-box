@@ -38,7 +38,7 @@
     </div>
   </div>
   <div class="row-header">
-    <a cc-button right icon="pound" text="Make payment" (click)="model.startPayment()" *ngIf="!model.makingPayment"></a>
+    <a cc-button right icon="pound" text="Make payment" (click)="startPayment()" *ngIf="!model.makingPayment"></a>
     <h4>
       <i class="icon-history"></i>Past payments:
       <span innerHTML="{{model.pastPaymentsTotal | money:true}}"></span>
@@ -48,46 +48,85 @@
     <div class="row" style="height: 0;padding: 0" *ngIf="!model.makingPayment">
     </div>
     <div class="row focused" *ngIf="model.makingPayment">
-      <div class="details" style="padding-left: 0;margin-top: -5px; margin-bottom: -5px;display: block;">
-        <table class="contact-details" style="float: none; width: auto;">
-          <tr>
-            <th style="width: 90px;vertical-align: middle">Amount:</th>
-            <td style="width: 250px" *ngIf="model.currentBalance < 0">
-              <input type="radio" name="paymentAmount" id="outstanding" value="outstanding" [checked]="model.paymentAmountOptions == 'outstanding'" (change)="model.paymentAmountOptions = $event.target.value" />
-              <label for="outstanding">Outstanding <span class="muted"><span [innerHTML]="-model.currentBalance | money:true"></span></span></label>
-            </td>
-            <td style="width: 400px" *ngIf="model.currentBalance < 0">
-              <input type="radio" name="paymentAmount" id="otherAmount" value="otherAmount" [checked]="model.paymentAmountOptions == 'otherAmount'" (change)="model.paymentAmountOptions = $event.target.value" />
-              <label for="otherAmount">Another amount:</label>
-              <span style="margin-left: 10px">&pound;<cc-number cssClass="price" (inputFocus)="model.paymentAmountOptions = 'otherAmount'" style="width: 80px;margin-left: 5px;" [(value)]="model.paymentAmount" [decimalPrecision]="2" [control]="paymentAmountControl"></cc-number></span>
-            </td>
-            <td colspan="2" *ngIf="model.currentBalance >= 0">
-              &pound;<cc-number cssClass="price" (inputFocus)="model.paymentAmountOptions = 'otherAmount'" style="width: 80px;margin-left: 5px;" [(value)]="model.paymentAmount" [decimalPrecision]="2" [control]="paymentAmountControl"></cc-number>
-            </td>
-          </tr>
-          <tr>
-            <th style="width: 90px;vertical-align: middle">Date:</th>
-            <td style="width: 250px">
-              <input type="radio" name="paymentDate" id="today" value="today" [checked]="model.paymentDateOptions == 'today'" (change)="model.paymentDateOptions = $event.target.value" tabindex="1" />
-              <label for="today">Today <span class="muted">{{model.todaysDate | dateString:'yMMMd'}}</span></label>
-            </td>
-            <td style="width: 400px">
-              <input type="radio" name="paymentDate" id="otherDate" value="otherDate" [checked]="model.paymentDateOptions == 'otherDate'" (change)="model.paymentDateOptions = $event.target.value" tabindex="1" />
-              <label for="otherDate">Another date:</label>
-              <cc-date (inputFocus)="model.paymentDateOptions = 'otherDate'" [(value)]="model.paymentDate" [control]="paymentDateControl" style="margin-left: 10px" ></cc-date>
-            </td>
-          </tr>
-          <tr>
-            <th style="width: 90px;vertical-align: top;padding-top: 6px">Notes:</th>
-            <td colspan="2">
-              <textarea style="width: 100%; height: 100px;" [(ngModel)]="model.paymentNotes" tabindex="1"></textarea>
-            </td>
-        </table>
-      </div>
-      <div class="actions">
-        <a cc-button right icon="ok" text="Save" (click)="model.completePayment()"></a>
-        <a cc-button right icon="cancel" text="Cancel" (click)="model.cancelPayment()"></a>
-      </div>
+      <form [class.submitted]="paymentSubmitted" [class.invalid]="paymentSubmitted && !form.valid">
+        <div class="details" style="padding-left: 0;margin-top: -5px; margin-bottom: -5px;display: block;">
+          <table class="contact-details" style="float: none; width: auto;">
+            <tr>
+              <th style="width: 90px;vertical-align: middle">Amount:</th>
+              <td style="width: 250px" *ngIf="model.paymentAmountOptionsVisible">
+                <input type="radio" name="paymentAmount" id="outstanding" value="outstanding" [checked]="model.paymentAmountOptions == 'outstanding'" (change)="model.paymentAmountOptions = $event.target.value" />
+                <label for="outstanding">Outstanding <span class="muted"><span [innerHTML]="-model.currentBalance | money:true"></span></span></label>
+              </td>
+              <td style="width: 400px" *ngIf="model.paymentAmountOptionsVisible">
+                <input type="radio" name="paymentAmount" id="otherAmount" value="otherAmount" [checked]="model.paymentAmountOptions == 'otherAmount'" (change)="model.paymentAmountOptions = $event.target.value" />
+                <label for="otherAmount">Another amount:</label>
+                <span style="margin-left: 10px">
+                  &pound;
+                  <cc-number cssClass="price"
+                             style="width: 80px;margin-left: 5px;"
+                             (inputFocus)="model.paymentAmountOptions = 'otherAmount'"
+                             (valueChange)="setPaymentAmountValidationMessage()"
+                             [(value)]="model.paymentAmount"
+                             [decimalPrecision]="2"
+                             [control]="paymentAmountControl">
+                  </cc-number>
+                </span>
+                <span class="validation-warning"
+                      *ngIf="paymentSubmitted && !paymentAmountControl.valid"
+                      [title]="paymentAmountValidationMessage">
+                  <i class="icon-warning"></i>
+                </span>
+              </td>
+              <td colspan="2" *ngIf="!model.paymentAmountOptionsVisible">
+                &pound;
+                <cc-number cssClass="price"
+                           style="width: 80px;margin-left: 5px;"
+                           (valueChange)="setPaymentAmountValidationMessage()"
+                           [(value)]="model.paymentAmount"
+                           [decimalPrecision]="2"
+                           [control]="paymentAmountControl">
+                </cc-number>
+                <span class="validation-warning"
+                      *ngIf="paymentSubmitted && !paymentAmountControl.valid"
+                      [title]="paymentAmountValidationMessage">
+                  <i class="icon-warning"></i>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <th style="width: 90px;vertical-align: middle">Date:</th>
+              <td style="width: 250px">
+                <input type="radio" name="paymentDate" id="today" value="today" [checked]="model.paymentDateOptions == 'today'" (change)="model.paymentDateOptions = $event.target.value;paymentDateControl.updateValueAndValidity()" tabindex="1" />
+                <label for="today">Today <span class="muted">{{model.todaysDate | dateString:'yMMMd'}}</span></label>
+              </td>
+              <td style="width: 400px">
+                <input type="radio" name="paymentDate" id="otherDate" value="otherDate" [checked]="model.paymentDateOptions == 'otherDate'" (change)="model.paymentDateOptions = $event.target.value;paymentDateControl.updateValueAndValidity()" tabindex="1" />
+                <label for="otherDate">Another date:</label>
+                <cc-date style="margin-left: 10px"
+                         (inputFocus)="model.paymentDateOptions = 'otherDate'"
+                         (valueChange)="setPaymentDateValidationMessage()"
+                         [(value)]="model.paymentDate"
+                         [control]="paymentDateControl">
+                </cc-date>
+                <span class="validation-warning"
+                      *ngIf="paymentSubmitted && !paymentDateControl.valid"
+                      [title]="paymentDateValidationMessage">
+                  <i class="icon-warning"></i>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <th style="width: 90px;vertical-align: top;padding-top: 6px">Notes:</th>
+              <td colspan="2">
+                <textarea style="width: 100%; height: 100px;" [(ngModel)]="model.paymentNotes" tabindex="1"></textarea>
+              </td>
+          </table>
+        </div>
+        <div class="actions">
+          <button cc-button right icon="ok" text="Save" (click)="completePayment()" [disabled]="paymentSubmitted && !form.valid"></button>
+          <a cc-button right icon="cancel" text="Cancel" (click)="cancelPayment()"></a>
+        </div>
+      </form>
     </div>
     <div class="row" *ngIf="model.loading">
       <div class="details" style="padding-left: 0">

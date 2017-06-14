@@ -168,3 +168,7 @@ Editable
 * Move email button to contact details page? Allow navigation to different pages when writing email (popup like gmail)
 * unicode in sqlite? £ symbol doesn't display properly. (sqlite3 in windows doesn't seem to support unicode, grr - https://stackoverflow.com/questions/38482132/sqlite-utf-8-encoding#38483093)
   - best to just move guest db to postgres anyway if hosting on heroku...
+* Takes 2 clicks for month/year of date component to focus
+* Money validation should prevent values more precise than 2dp
+* Huge amount of files being loaded over - investigate bundling - webpack? angular2 production mode?
+* Need server-side validation to mirror all client-side validation

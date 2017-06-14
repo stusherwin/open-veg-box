@@ -822,7 +822,7 @@ button.button-new-small[disabled]:focus i:before {
   background: #ff4f4f;
   box-shadow: #ff4f4f 0 2px 5px 0 inset;
 }
-.editable-background.invalid .validation-warning {
+.validation-warning {
   display: inline-block;
   width: 15px;
   height: 15px;
@@ -837,12 +837,12 @@ button.button-new-small[disabled]:focus i:before {
   top: -2px;
   margin-right: -2px;
 }
-.editable-background.invalid .validation-warning i {
+.validation-warning i {
   display: inline-block;
   vertical-align: middle;
   text-align: center;
 }
-.editable-background.invalid .validation-warning i::before {
+.validation-warning i::before {
   vertical-align: middle;
   position: relative;
   display: inline-block;
@@ -1226,6 +1226,9 @@ form.submitted textarea.ng-invalid ~ .icon-warning {
 .deliveries .row-header button.button-new[disabled]:hover i,
 .deliveries .row-header button.button-new[disabled]:focus i {
   box-shadow: #eaeaea 0 2px 5px 0 inset;
+}
+.deliveries form {
+  display: table-row;
 }
 .order-list .excluded h3,
 .order-list .excluded p {

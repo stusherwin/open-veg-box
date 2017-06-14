@@ -14,6 +14,7 @@ import { Control, Validators, FORM_DIRECTIVES, FormBuilder, ControlGroup } from 
 import { ApiPastPayments, ApiPastPayment } from '../customer.service'
 import { EditableSelectComponent } from '../../shared/editable-select.component'
 import { EditableTextAreaComponent } from '../../shared/editable-textarea.component'
+import { ValidationResult } from '../../shared/input.component'
 
 export class PastPaymentModel {
   constructor(
@@ -51,6 +52,10 @@ export class PaymentsModel {
   paymentMethod: PaymentMethod;
   paymentDetails: string;
 
+  get paymentAmountOptionsVisible() {
+    return this.currentBalance < 0;
+  }
+
   constructor(private customer: Customer, private service: CustomerService) {
     this.paymentMethod = paymentMethods.find(p => p.value == customer.paymentMethod);
     this.paymentDetails = customer.paymentDetails;
@@ -67,6 +72,11 @@ export class PaymentsModel {
 
   startPayment() {
     this.makingPayment = true;
+    this.paymentNotes = '';
+    this.paymentAmount = undefined;
+    this.paymentAmountOptions = 'outstanding';
+    this.paymentDateOptions = 'today';
+    this.paymentDate = undefined;
   }
 
   cancelPayment() {
@@ -82,11 +92,6 @@ export class PaymentsModel {
       this.pastPayments.unshift(PastPaymentModel.fromApi(response.newPastPayment));
       this.pastPaymentsTotal = response.newPastPaymentsTotal;
       this.currentBalance = response.newCurrentBalance;
-      this.paymentNotes = '';
-      this.paymentAmount = undefined;
-      this.paymentAmountOptions = 'outstanding';
-      this.paymentDateOptions = 'today';
-      this.paymentDate = undefined;
       this.makingPayment = false;
     })
   }
@@ -108,20 +113,102 @@ export class PaymentsModel {
 })
 export class PaymentsPageComponent implements OnInit {
   model: PaymentsModel
+  paymentDetailsValidators: Validators = Validators.compose([])
+  
   paymentAmountControl: Control
   paymentDateControl: Control
-  paymentDetailsValidators: Validators = Validators.compose([])
+  form: ControlGroup;
+  paymentSubmitted = false;
+  paymentAmountValidationMessage: string;
+  paymentDateValidationMessage: string;
+  paymentAmountMessages = {required: 'Amount must not be empty', zero: 'Amount must not be zero', notNumeric: 'Amount must be a number'};
+  paymentDateMessages = {required: 'Date must not be empty'};
 
   constructor(
+    private builder: FormBuilder,
     @Inject(forwardRef(() => CustomerPageService))
     private page: CustomerPageService,
     private customerService: CustomerService) {
+    this.model = new PaymentsModel(this.page.customer, this.customerService);
   }
 
   ngOnInit() {
-    this.paymentAmountControl = new Control('', Validators.compose([NumberComponent.isNumeric, NumberComponent.isGreaterThanZero]))
-    this.paymentDateControl = new Control('', Validators.compose([NumberComponent.isNumeric, NumberComponent.isGreaterThanZero]))
-    this.model = new PaymentsModel(this.page.customer, this.customerService);
+    this.paymentAmountControl = new Control('', Validators.compose([this.paymentAmountMaybeRequired.bind(this), NumberComponent.isNumeric, NumberComponent.isNotZero]))
+    this.paymentDateControl = new Control('', Validators.compose([this.paymentDateMaybeRequired.bind(this)]))
+
+    this.form = this.builder.group({
+      paymentAmount: this.paymentAmountControl,
+      paymentDate: this.paymentDateControl
+    })
+
     this.model.load();
+  }
+
+  setPaymentAmountValidationMessage() {
+    if(!this.paymentSubmitted || this.paymentAmountControl.valid) {
+      this.paymentAmountValidationMessage = '';
+      return;
+    }
+
+    for(let e in this.paymentAmountControl.errors) {
+      this.paymentAmountValidationMessage = this.paymentAmountMessages[e] ? this.paymentAmountMessages[e] : e;
+      return;
+    }
+  }
+
+  setPaymentDateValidationMessage() {
+    if(!this.paymentSubmitted || this.paymentDateControl.valid) {
+      this.paymentDateValidationMessage = '';
+      return;
+    }
+
+    for(let e in this.paymentDateControl.errors) {
+      this.paymentDateValidationMessage = this.paymentDateMessages[e] ? this.paymentDateMessages[e] : e;
+      return;
+    }
+  }
+
+  startPayment() {
+    this.paymentSubmitted = false;
+    this.model.startPayment();
+  }
+
+  completePayment() {
+    this.paymentSubmitted = true;
+
+    if(!this.form.valid) {
+      if(!this.paymentAmountControl.valid) {
+        this.setPaymentAmountValidationMessage();
+      }
+
+      if(!this.paymentDateControl.valid) {
+        this.setPaymentDateValidationMessage();
+      }
+
+      return;
+    }
+
+    this.model.completePayment();
+  }
+
+  cancelPayment() {
+    this.model.cancelPayment();
+  }
+
+  paymentAmountMaybeRequired(control: Control): ValidationResult {
+    let required = !this.model.paymentAmountOptionsVisible || this.model.paymentAmountOptions == 'otherAmount';
+    if(required && !control.value) {
+      return {'required': true};
+    }
+ 
+    return null;
+  }
+
+  paymentDateMaybeRequired(control: Control): ValidationResult {
+    if(this.model.paymentDateOptions == 'otherDate' && !control.value) {
+      return {'required': true};
+    }
+ 
+    return null;
   }
 }

@@ -113,6 +113,14 @@ export class NumberComponent extends InputComponent implements OnInit {
     return null;
   }
 
+  static isNotZero(control: Control): ValidationResult { 
+    if (parseFloat(control.value) == 0) {
+      return { "zero": true };
+    }
+ 
+    return null;
+  }
+
   static isNumeric(control: Control): ValidationResult { 
     if (isNaN(parseFloat(control.value))) {
       return { "notNumeric": true };
