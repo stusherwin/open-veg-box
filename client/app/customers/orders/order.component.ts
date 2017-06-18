@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, ElementRef, OnInit, Renderer, ViewChildren, QueryList } from '@angular/core';
 import { Order, OrderItem } from './order'
 import { OrderSectionComponent } from './order-section.component'
+import { OrderDiscountsSectionComponent } from './order-discounts-section.component'
 import { OrderService } from './order.service'
 import { MoneyPipe } from '../../shared/pipes'
 import { Product } from '../../products/product'
@@ -11,7 +12,7 @@ import { OrderModel } from './order.model'
 @Component({
   selector: 'cc-order',
   templateUrl: 'app/customers/orders/order.component.html',
-  directives: [OrderSectionComponent],
+  directives: [OrderSectionComponent, OrderDiscountsSectionComponent],
   providers: [OrderService],
   pipes: [MoneyPipe]
 })

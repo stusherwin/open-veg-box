@@ -16,7 +16,7 @@ import { UnitPrice, UnitType, unitTypes } from '../products/product';
       <span class="editable-display" [style.visibility]="editing? 'hidden' : 'visible'">
         <span class="editable-display-value" [innerHTML]="value.price | money"></span>
         <span class="muted">{{ unitTypeName(value.unitType) }}</span>
-        <cc-editable-button #edit [key]="key" icon="edit" *ngIf="!editing" (click)="startEdit()" (focus)="focused = true" (blur)="focused = false"></cc-editable-button>
+        <cc-editable-button #edit [key]="key" icon="edit" *ngIf="!editing" (action)="startEdit()" (focus)="focused = true" (blur)="focused = false"></cc-editable-button>
       </span>
       <form class="editable-background" [class.submitted]="submitted" [class.invalid]="submitted && !control.valid" *ngIf="editing">
         &pound;<cc-number #number

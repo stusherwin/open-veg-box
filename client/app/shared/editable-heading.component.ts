@@ -12,7 +12,7 @@ import { EditableService } from './editable.service'
       <span class="editable-display" [style.visibility]="editing? 'hidden' : 'visible'">
         <h3 class="editable-display-value" *ngIf="value">{{value}}</h3>
         <h3 class="editable-display-value muted" *ngIf="!value">None</h3>
-        <cc-editable-button #edit [key]="key" icon="edit" *ngIf="!editing" (click)="startEdit()" (focus)="focused = true" (blur)="focused = false"></cc-editable-button>
+        <cc-editable-button #edit [key]="key" icon="edit" *ngIf="!editing" (action)="startEdit()" (focus)="focused = true" (blur)="focused = false"></cc-editable-button>
       </span>
       <form class="editable-background" [class.submitted]="submitted" [class.invalid]="submitted && !control.valid" *ngIf="editing">
         <cc-text #text

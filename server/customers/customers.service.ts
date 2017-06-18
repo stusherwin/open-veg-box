@@ -1,4 +1,4 @@
-import {Customer, CustomerWithOrder, Order, OrderItem} from './customer'
+import {Customer, CustomerWithOrder, Order, OrderItem, OrderDiscount} from './customer'
 import {Observable} from 'rxjs/Observable';
 import {Db} from '../shared/db';
 import 'rxjs/add/operator/mergeMap';
@@ -25,12 +25,14 @@ export class CustomersService {
     + ', b.name boxname, b.price boxprice'
     + ', op.productId productid, op.quantity productquantity'
     + ', p.name productname, p.unitType productunittype, p.price productprice'
+    + ', d.id discountId, d.name discountName, d.total discountTotal'
     + ' from customer c'
     + ' left join [order] o on o.customerId = c.id'
     + ' left join order_box ob on ob.orderId = o.id'
     + ' left join box b on b.id = ob.boxId'
     + ' left join order_product op on op.orderId = o.id'
     + ' left join product p on p.id = op.productId'
+    + ' left join orderDiscount d on d.orderId = o.id'
     + ' ' + whereClause
     + ' order by c.surname, c.firstname, b.name, p.name',
       params,
@@ -41,7 +43,7 @@ export class CustomersService {
           let customer = customers.find(c => c.id == r.id);
 
           if(!customer) {
-            let order = new Order(r.orderid, r.id, [], [], 0);
+            let order = new Order(r.orderid, r.id, [], [], [], 0);
             customer = new CustomerWithOrder(r.id, r.firstname, r.surname, r.address, r.tel1, r.tel2, r.email, r.paymentmethod, r.paymentdetails, order);
             customers.push(customer);
           }
@@ -57,12 +59,19 @@ export class CustomersService {
               customer.order.extraProducts.push(new OrderItem(r.productid, r.productname, r.productprice, r.productquantity, r.productunittype, r.productprice * r.productquantity));
             }
           }
+          
+          if(r.discountid) {
+            if(customer.order.discounts.findIndex(d => d.id == r.discountid) == -1) {
+              customer.order.discounts.push(new OrderDiscount(r.discountid, r.discountname, r.discounttotal));
+            }
+          }
         }
 
         for(let customer of customers) {
           customer.order.total =
             customer.order.boxes.reduce((total, b) => total + b.total, 0)
-            + customer.order.extraProducts.reduce((total, p) => total + p.total, 0);
+            + customer.order.extraProducts.reduce((total, p) => total + p.total, 0)
+            + customer.order.discounts.reduce((total, d) => total + d.total, 0);
         }
 
         return customers;

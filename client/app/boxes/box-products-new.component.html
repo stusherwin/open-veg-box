@@ -22,7 +22,7 @@
                             icon="add"
                             *ngIf="!model.adding && model.productsAvailable.length"
                             [tabindex]="1"
-                            (click)="startAdd()">
+                            (action)="startAdd()">
         </cc-editable-button>
         <span *ngIf="model.adding || !model.productsAvailable.length">&nbsp;</span>
       </cc-td>

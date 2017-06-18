@@ -168,3 +168,11 @@ Editable
 * Need server-side validation to mirror all client-side validation
 * Convert number component (and other components) to implement ControlValueAccessor
 * Redo add forms + email form to use validation-warning + Angular2 form validation
+* Editable-edit-button 
+  * rename to editable-button
+  * Remove tabindex
+  * (click) event fires twice - once for click EventEmitter, once for DOM click on element
+  * Convert to directive?
+* Money - display negative values: -£10.00 or (£10.00) or color red?
+  * Editing discount - prevent entering negative values
+* Historic order discounts

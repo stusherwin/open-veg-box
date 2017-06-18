@@ -45,5 +45,20 @@ export let getOrder = function(authorize: (req: any, res: any, next:() => void) 
                 .subscribe(order => res.json(order), next);
   });
 
+  order.put('/:id/discounts', function(req: any, res: any, next: any) {
+    orderService.addDiscount(req.params.id, req.body, req.db)
+                .subscribe(order => res.json(order), next);
+  });
+
+  order.post('/:id/discounts/:discountId', function(req: any, res: any, next: any) {
+    orderService.updateDiscount(req.params.id, req.params.discountId, req.body, req.db)
+                .subscribe(order => res.json(order), next);
+  });
+
+  order.delete('/:id/discounts/:discountId', function(req: any, res: any, next: any) {
+    orderService.removeDiscount(req.params.id, req.params.discountId, req.db)
+                .subscribe(order => res.json(order), next);
+  });
+
   return order; 
 } 

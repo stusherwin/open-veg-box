@@ -1,0 +1,11 @@
+<cc-td>{{model.name}}</cc-td>
+<cc-td>&nbsp;</cc-td>
+<cc-td class="total"
+       [innerHTML]="model.editingTotal | money:true"
+       [class.modified]="model.editingTotal != model.total">
+</cc-td>
+<cc-td class="action">
+  <a cc-button small icon="trash" #removeBtn
+     (click)="removeItem(false)"
+     (keydown.Enter)="removeItem(true)"></a>
+</cc-td>

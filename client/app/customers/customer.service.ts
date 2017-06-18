@@ -1,4 +1,5 @@
 import { Customer, CustomerWithOrder } from './customer'
+import { Order, OrderItem, OrderDiscount } from './orders/order'
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -97,7 +98,14 @@ export class CustomerService {
       return null;
     }
 
-   return new CustomerWithOrder(c.id, c.firstName, c.surname, c.address, c.tel1, c.tel2, c.email, c.paymentMethod, c.paymentDetails, c.order);
+   return new CustomerWithOrder(c.id, c.firstName, c.surname, c.address, c.tel1, c.tel2, c.email, c.paymentMethod, c.paymentDetails,
+      new Order(
+        c.order.id,
+        c.order.customerId,
+        c.order.boxes.map((b:any) => new OrderItem(b.id, b.name, b.price, b.quantity, b.unitType, b.total)),
+        c.order.extraProducts.map((p:any) => new OrderItem(p.id, p.name, p.price, p.quantity, p.unitType, p.total)),
+        (c.order.discounts || [{id: 123, name: 'Stu', total: -10}]).map((d:any) => new OrderDiscount(d.id, d.name, d.total)),
+        c.order.total));
   }
 }
 

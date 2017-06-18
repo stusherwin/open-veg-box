@@ -1,33 +1,29 @@
 export class Order {
-  constructor(id: number, customerId: number, boxes: OrderItem[], extraProducts: OrderItem[], total: number) {
-    this.id = id;
-    this.customerId = customerId;
-    this.boxes = boxes;
-    this.extraProducts = extraProducts;
-    this.total = total;
+  constructor(
+    public id: number,
+    public customerId: number,
+    public boxes: OrderItem[],
+    public extraProducts: OrderItem[],
+    public discounts: OrderDiscount[],
+    public total: number) {
   }
-
-  id: number;
-  customerId: number;
-  boxes: OrderItem[];
-  extraProducts: OrderItem[];
-  total: number;
 }
 
 export class OrderItem {
-  constructor(id: number, name: string, price: number, quantity: number, unitType: string, total: number) {
-    this.id = id;
-    this.name = name;
-    this.price = price;
-    this.quantity = quantity;
-    this.unitType = unitType;
-    this.total = total;
+  constructor(
+    public id: number,
+    public name: string,
+    public price: number,
+    public quantity: number,
+    public unitType: string,
+    public total: number) {
   }
+}
 
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-  unitType: string;
-  total: number;
+export class OrderDiscount {
+  constructor(
+    public id: number,
+    public name: string,
+    public total: number) {
+  }
 }

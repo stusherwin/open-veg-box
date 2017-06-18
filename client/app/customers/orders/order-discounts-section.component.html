@@ -1,0 +1,24 @@
+  <cc-tr-header class="order-header">
+    <cc-td>Discounts</cc-td>
+    <cc-td>&nbsp;</cc-td>
+    <!--<cc-td>&nbsp;</cc-td>-->
+    <cc-td>&nbsp;</cc-td>
+    <cc-td class="action">
+      <cc-editable-button #addBtn
+                          icon="add"
+                          *ngIf="!model.adding"
+                          [tabindex]="1"
+                          (action)="startAdd()">
+      </cc-editable-button>
+      <span *ngIf="model.adding">&nbsp;</span>
+    </cc-td>
+  </cc-tr-header>
+  <cc-tr *ngIf="!model.adding && !model.items.length">
+    <cc-td>No discounts</cc-td>
+    <cc-td>&nbsp;</cc-td>
+    <!--<cc-td>&nbsp;</cc-td>-->
+    <cc-td class="total" [innerHTML]="0 | money:true"></cc-td>
+    <cc-td>&nbsp;</cc-td>
+  </cc-tr>
+  <cc-tr cc-order-discount key="discounts-{{item.id}}" *ngFor="let item of model.items; let i = index; trackBy:getItemId" [model]="item" (remove)="itemRemoved(i, $event)">
+  </cc-tr>

@@ -22,7 +22,7 @@ export class EditableEditButtonComponent implements OnInit {
   tabindex: number = 9999
   
   @Output()
-  click = new EventEmitter<boolean>()
+  action = new EventEmitter<boolean>()
   
   @Output()
   focus = new EventEmitter<any>()
@@ -40,7 +40,8 @@ export class EditableEditButtonComponent implements OnInit {
   }
 
   private onClick(keydown: boolean) {
-    this.click.emit(keydown);
+    console.log('onClick')
+    this.action.emit(keydown);
   }
 
   takeFocus() {
