@@ -135,7 +135,8 @@ export class RoundsService {
   getOrderList(id: number, db: Db): Observable<CustomerOrderList> {
     return db.singleWithReduce<CustomerOrderList>(
       ' select customerId, customerName, address, itemType, itemId, itemName, price, quantity, unittype, totalCost, excluded from'
-    + ' (select c.id customerId, c.firstName || \' \' || c.surname customerName, c.address, \'product\' itemType, p.id itemId, p.name itemName, p.price, p.unitType, op.quantity, p.price * op.quantity totalCost,'
+    + ' (select c.id customerId, c.firstName || \' \' || c.surname customerName, c.address,'
+    + '\'product\' itemType, p.id itemId, p.name itemName, p.price, p.unitType, op.quantity, p.price * op.quantity totalCost,'
     + ' rc.excludedFromNextDelivery excluded'
     + ' from round r'
     + ' inner join round_customer rc on rc.roundId = r.id'
@@ -145,7 +146,8 @@ export class RoundsService {
     + ' inner join product p on p.id = op.productId'
     + ' where r.id = @id'
     + ' union'
-    + ' select c.id customerId, c.firstName || \' \' || c.surname customerName, c.address, \'box\' itemType, b.id itemId, b.name itemName, b.price, \'each\' unitType, ob.quantity, b.price * ob.quantity totalCost,'
+    + ' select c.id customerId, c.firstName || \' \' || c.surname customerName, c.address,'
+    + '\'box\' itemType, b.id itemId, b.name itemName, b.price, \'each\' unitType, ob.quantity, b.price * ob.quantity totalCost,'
     + ' rc.excludedFromNextDelivery excluded'
     + ' from round r'
     + ' inner join round_customer rc on rc.roundId = r.id'
@@ -153,6 +155,16 @@ export class RoundsService {
     + ' inner join [order] o on o.customerId = c.id'
     + ' inner join order_box ob on ob.orderId = o.id'
     + ' inner join box b on b.id = ob.boxId'
+    + ' where r.id = @id'
+    + ' union'
+    + ' select c.id customerId, c.firstName || \' \' || c.surname customerName, c.address,'
+    + '\'discount\' itemType, d.id itemId, d.name itemName, 0 price, \'\' unitType, 0 quantity, d.total totalCost,'
+    + ' rc.excludedFromNextDelivery excluded'
+    + ' from round r'
+    + ' inner join round_customer rc on rc.roundId = r.id'
+    + ' inner join customer c on c.id = rc.customerId'
+    + ' inner join [order] o on o.customerId = c.id'
+    + ' inner join orderDiscount d on d.orderId = o.id'
     + ' where r.id = @id) x'
     + ' order by customerName, itemType, itemName',
       {id}, rows => {
@@ -165,6 +177,7 @@ export class RoundsService {
               address: r.address,
               boxes: [],
               extraProducts: [],
+              discounts: [],
               excluded: r.excluded
             }
           }
@@ -179,8 +192,10 @@ export class RoundsService {
           };
           if(r.itemtype == 'box') {
             customers[r.customerid].boxes.push(item);
-          } else {
+          } else if(r.itemtype == 'product') {
             customers[r.customerid].extraProducts.push(item);
+          } else if(r.itemtype == 'discount') {
+            customers[r.customerid].discounts.push(item);
           }
         }
 
@@ -190,7 +205,8 @@ export class RoundsService {
           .forEach((c: CustomerOrder) => {
             _.sortBy(c.boxes, 'name');
             _.sortBy(c.extraProducts, 'name');
-            c.totalCost = _.chain(c.boxes).concat(c.extraProducts).sumBy('totalCost').value();
+            _.sortBy(c.discounts, 'name');
+            c.totalCost = _.chain(c.boxes).concat(c.extraProducts).concat(c.discounts).sumBy('totalCost').value();
           })
           .sortBy('name')
           .value();
@@ -305,7 +321,8 @@ export class RoundsService {
               name: r.customername,
               address: r.address,
               boxes: [],
-              extraProducts: []
+              extraProducts: [],
+              discounts: []
             }
           }
 
@@ -469,6 +486,7 @@ export class CustomerOrder {
   totalCost: number;
   boxes: CustomerOrderItem[];
   extraProducts: CustomerOrderItem[];
+  discounts: CustomerOrderItem[];
   excluded: boolean;
 }
 

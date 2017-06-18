@@ -28,6 +28,11 @@
         <td><cc-product-quantity [quantity]="p.quantity" [unitType]="p.unitType"></cc-product-quantity></td>
         <td class="money" [innerHTML]="p.totalCost | money:true">
       </tr>
+      <tr *ngFor="let d of o.discounts">
+        <td>{{d.name}}</td>
+        <td>&nbsp;</td>
+        <td class="money" [innerHTML]="d.totalCost | money:true">
+      </tr>
       <tr>
         <td></td>
         <td></td>
