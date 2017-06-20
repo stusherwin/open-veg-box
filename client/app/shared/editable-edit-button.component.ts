@@ -40,7 +40,6 @@ export class EditableEditButtonComponent implements OnInit {
   }
 
   private onClick(keydown: boolean) {
-    console.log('onClick')
     this.action.emit(keydown);
   }
 

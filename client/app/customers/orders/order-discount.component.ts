@@ -43,9 +43,9 @@ export class OrderDiscountComponent implements OnInit {
   }
   
   @ViewChild('removeBtn')
-  removeBtn: ElementRef;
+  removeBtn: ButtonComponent;
 
-  constructor(private renderer: Renderer, private builder: FormBuilder, 
+  constructor(private builder: FormBuilder, 
   @Inject(forwardRef(() => EditableService))
   private editableService: EditableService
   ) {
@@ -61,6 +61,6 @@ export class OrderDiscountComponent implements OnInit {
   }
 
   focusRemove() {
-    this.renderer.invokeElementMethod(this.removeBtn.nativeElement, 'focus', []);
+    this.removeBtn.focus();
   }
 }

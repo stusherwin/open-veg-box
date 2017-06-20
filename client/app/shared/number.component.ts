@@ -1,40 +1,37 @@
 import { Component, Input, Output, EventEmitter, ViewChild, forwardRef, Inject, ElementRef, OnInit, Renderer, ViewChildren, QueryList, Directive, HostListener, HostBinding, AfterViewInit, ContentChildren, ChangeDetectorRef } from '@angular/core';
-import { Control, Validators, FORM_DIRECTIVES, FormBuilder, ControlGroup } from '@angular/common'
+import { Control, Validators, FORM_DIRECTIVES, FormBuilder, ControlGroup, ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS, Validator } from '@angular/common'
 import { InputComponent, ValidationResult } from './input.component'
 
 @Component({
   template: `
     <input type="text" class="{{cssClass}}" #input
-          [(ngModel)]="stringValue"
-          (ngModelChange)="updateValue($event)"
-          [ngFormControl]="control"
+          [value]="stringValue"
+          (change)="updateValue($event.target.value)"
+          (keyup)="updateValue($event.target.value)"
           tabindex="1"
           (focus)="inputFocus.emit($event)"
           (blur)="inputBlur.emit($event)"
           [placeholder]="placeholder" />
   `,
   selector: 'cc-number',
-  directives: [FORM_DIRECTIVES]
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => NumberComponent),
+      multi: true,
+    },,
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => NumberComponent),
+      multi: true,
+    } 
+  ]
 })
-export class NumberComponent extends InputComponent implements OnInit {
+export class NumberComponent extends InputComponent implements OnInit, ControlValueAccessor, Validator {
   stringValue: string;
-  isValid: boolean = true;
 
   @Input()
   cssClass: string;
-
-  private __valueUpdatingInternally = false;
-  private __value: number;
-  @Input()
-  get value(): number {
-    return this.__value;
-  }
-  set value(v: number) {
-    this.__value = v;
-    if(!this.__valueUpdatingInternally) {
-      this.stringValue = this.toStringValue(v);
-    }
-  }
 
   @Input()
   fixedDecimals: boolean = false;
@@ -43,13 +40,13 @@ export class NumberComponent extends InputComponent implements OnInit {
   decimalPrecision: number;
 
   @Input()
-  control: Control
+  negative: boolean = false;
+
+  @Input()
+  required: boolean = false;
 
   @Input()
   placeholder: string = ''
-
-  @Output()
-  valueChange = new EventEmitter<number>()
 
   @Output()
   inputFocus = new EventEmitter<any>()
@@ -65,16 +62,12 @@ export class NumberComponent extends InputComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.stringValue = this.toStringValue(this.value);
   }
 
   updateValue(stringValue: string) {
-    this.__valueUpdatingInternally = true;
-    this.value = this.toDecimalValue(stringValue);
-    this.valueChange.emit(this.value);
-    this.changeDetector.detectChanges();
-    setTimeout(() => this.__valueUpdatingInternally = false);
- }
+    this.stringValue = stringValue;
+    this.propogateChange(this.toDecimalValue(stringValue));
+  }
 
   focus() {
     this.renderer.invokeElementMethod(this.input.nativeElement, 'focus', []);
@@ -83,6 +76,10 @@ export class NumberComponent extends InputComponent implements OnInit {
   private toStringValue(value: number): string {
     if(!value) {
       return '';
+    }
+
+    if(this.negative) {
+      value = -value;
     }
 
     if(this.fixedDecimals) {
@@ -96,34 +93,85 @@ export class NumberComponent extends InputComponent implements OnInit {
     return result;
   }
 
-  private toDecimalValue(value: string): number {
-    var parsed = parseFloat(value);
+  private toDecimalValue(stringValue: string): number {
+    var parsed = parseFloat(stringValue);
     if( isNaN(parsed) ) {
+      return undefined;
+    }
+
+    if(this.negative && parsed < 0) {
       return 0;
     }
 
-    return parseFloat(parsed.toFixed(this.decimalPrecision));
+    let value = parseFloat(parsed.toFixed(this.decimalPrecision));
+
+    if(this.negative) {
+      value = -value;
+    }
+
+    return value;
+  }
+
+  private propogateChange = (_: any) => {}
+
+  writeValue(value: number) {
+   if(value) {
+      this.stringValue = this.toStringValue(value);
+    } else {
+      this.stringValue = '';
+    }
+  }
+
+  registerOnChange(fn: any) {
+    this.propogateChange = fn;
+  }
+
+  registerOnTouched(fn: any) {
+  } 
+  
+  public validate(control: Control): ValidationResult {
+    if(!this.stringValue.replace(/\s/g, '').length) {
+      return { "required": true };
+    }
+
+    if (isNaN(parseFloat(this.stringValue))) {
+      return { "notNumeric": true };
+    }
+ 
+    return null;
   }
 
   static isGreaterThanZero(control: Control): ValidationResult { 
-    if (parseFloat(control.value) <= 0) {
+    if(control.value == undefined) {
+      return null;
+    }
+
+    if(control.value <= 0) {
       return { "notGreaterThanZero": true };
     }
  
     return null;
   }
 
-  static isNotZero(control: Control): ValidationResult { 
-    if (parseFloat(control.value) == 0) {
-      return { "zero": true };
+  static isLessThanZero(control: Control): ValidationResult { 
+    if(control.value == undefined) {
+      return null;
+    }
+
+    if(control.value >= 0) {
+      return { "notLessThanZero": true };
     }
  
     return null;
   }
 
-  static isNumeric(control: Control): ValidationResult { 
-    if (isNaN(parseFloat(control.value))) {
-      return { "notNumeric": true };
+  static isNotZero(control: Control): ValidationResult { 
+    if(control.value == undefined) {
+      return null;
+    }
+
+    if(control.value == 0) {
+      return { "zero": true };
     }
  
     return null;

@@ -33,7 +33,6 @@ import { DateString } from './dates'
            (blur)="inputBlur.emit($event)" />
   `,
   selector: 'cc-date',
-  directives: [FORM_DIRECTIVES],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -46,7 +45,6 @@ export class DateComponent extends InputComponent implements OnInit, ControlValu
   dayStringValue: string = '';
   monthStringValue: string = '';
   yearStringValue: string = '';
-  isValid: boolean = true;
 
   private get value(): DateString {
     return new DateString(

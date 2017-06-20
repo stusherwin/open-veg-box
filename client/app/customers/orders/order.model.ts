@@ -58,9 +58,10 @@ export class OrderModel {
   }
 
   addBox(boxId: number, quantity: number): Observable<any> {
-    console.log('add box')
     return this._service.addBox(this._order.id, boxId, {quantity})
-                        .do(o => this._order.total = o.newOrderTotal);
+                        .do(o => {
+                          this._order.total = o.newOrderTotal;
+                        });
   }
 
   updateBox(boxId: number, quantity: number): Observable<any> {
@@ -112,11 +113,11 @@ export class OrderSectionModel {
   addingItemQuantity: number;
 
   constructor(
-      items: OrderItem[],
+      private _items: OrderItem[],
       private _allItems: IOrderAvailableItem[],
       private _order: OrderModel,
       private _itemType: string) {
-    this.items = items.map(i => new OrderItemModel(i.id, i.name, i.price, i.quantity, i.unitType, this));
+    this.items = _items.map(i => new OrderItemModel(i.id, i.name, i.price, i.quantity, i.unitType, this));
     this.addingItem = this.itemsAvailable[0];
     this.addingItemQuantity = 1;
   }
@@ -156,6 +157,7 @@ export class OrderSectionModel {
 
     this._order['add' + this._itemType](this.addingItem.id, this.addingItemQuantity).subscribe(() => {
       console.log('completeAdd (back from server)')
+      this._items.unshift(new OrderItem(this.addingItem.id, this.addingItem.name, this.addingItem.price, this.addingItemQuantity, this.addingItem.unitType, this.addingItem.price * this.addingItemQuantity))
       this.items.unshift(new OrderItemModel(this.addingItem.id, this.addingItem.name, this.addingItem.price, this.addingItemQuantity, this.addingItem.unitType, this));
       this.adding = false;
     });
@@ -167,12 +169,17 @@ export class OrderSectionModel {
 
   removeItem(item: OrderItemModel) {
     this._order['remove' + this._itemType](item.id).subscribe(() => {
+      Arrays.removeWhere(this._items, i => i.id == item.id);
       Arrays.remove(this.items, item);
     })
   }
 
   updateItem(itemId: number, quantity: number): Observable<any> {
-    return this._order['update' + this._itemType](itemId, quantity);
+    return this._order['update' + this._itemType](itemId, quantity).do(() => {
+      let item = this._items.find(i => i.id == itemId);
+      item.quantity = quantity;
+      item.total = item.price * item.quantity;
+    });
   }
 }
 
@@ -227,9 +234,9 @@ export class OrderDiscountsSectionModel {
   addingItemTotal: number;
 
   constructor(
-      items: OrderDiscount[],
+      private _items: OrderDiscount[],
       private _order: OrderModel) {
-    this.items = items.map(i => new OrderDiscountModel(i.id, i.name, i.total, this));
+    this.items = _items.map(i => new OrderDiscountModel(i.id, i.name, i.total, this));
     this.addingItemTotal = 0;
     this.addingItemName = '';
   }
@@ -240,13 +247,13 @@ export class OrderDiscountsSectionModel {
 
   get editingTotal(): number {
     return this.items.reduce((total, i) => total + i.editingTotal, 0) +
-      this.addingItemTotal;
+      (this.addingItemTotal || 0);
   }
 
   startAdd() {
     console.log('startAdd')
     this.adding = true;
-    this.addingItemTotal = -10;
+    this.addingItemTotal = 0;
     this.addingItemName = 'Manual discount';
   }
 
@@ -255,6 +262,7 @@ export class OrderDiscountsSectionModel {
 
     this._order.addDiscount(this.addingItemName, this.addingItemTotal).subscribe(id => {
       console.log('completeAdd (back from server)')
+      this._items.unshift(new OrderDiscount(id, this.addingItemName, this.addingItemTotal));
       this.items.unshift(new OrderDiscountModel(id, this.addingItemName, this.addingItemTotal, this));
       this.adding = false;
       this.addingItemTotal = 0;
@@ -264,18 +272,23 @@ export class OrderDiscountsSectionModel {
 
   cancelAdd() {
     this.adding = false;
-    this.addingItemTotal = 0;
+    this.addingItemTotal = undefined;
     this.addingItemName = '';
   }
 
   removeItem(item: OrderDiscountModel) {
     this._order.removeDiscount(item.id).subscribe(_ => {
+      Arrays.removeWhere(this._items, i => i.id == item.id);
       Arrays.remove(this.items, item);
     })
   }
 
   updateItem(discountId: number, name: string, total: number): Observable<any> {
-    return this._order.updateDiscount(discountId, name, total);
+    return this._order.updateDiscount(discountId, name, total).do(() => {
+      let item = this._items.find(i => i.id == discountId);
+      item.name = name;
+      item.total = total;
+    });;
   }
 }
 

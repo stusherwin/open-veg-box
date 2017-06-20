@@ -13,6 +13,35 @@
       <span *ngIf="model.adding">&nbsp;</span>
     </cc-td>
   </cc-tr-header>
+  <form class="cc-tr add-row editable-background"
+         *ngIf="model.adding"
+         [class.submitted]="submitted"
+         [class.invalid]="submitted && !amount.valid">
+    <cc-td>{{model.addingItemName}}</cc-td>
+    <cc-td>&nbsp;</cc-td>
+    <!--<cc-td>&nbsp;</cc-td>-->
+    <cc-td>
+      -&pound;<cc-number cssClass="order-quantity" #amountCmpt
+                 [decimalPrecision]="2"
+                 [negative]="true"
+                 [required]="true"
+                 [(ngModel)]="model.addingItemTotal"
+                 (ngModelChange)="setValidationMessage()"
+                 [ngFormControl]="amount">
+      </cc-number>
+    </cc-td>
+    <cc-td class="action">
+      <span class="validation-warning"
+            *ngIf="submitted && !amount.valid"
+            [title]="amountValidationMessage">
+        <i class="icon-warning"></i>
+      </span>
+      <cc-editable-buttons [invalid]="submitted && !amount.valid"
+                           (ok)="completeAdd($event)"
+                           (cancel)="cancelAdd()">
+      </cc-editable-buttons>
+    </cc-td>
+  </form>
   <cc-tr *ngIf="!model.adding && !model.items.length">
     <cc-td>No discounts</cc-td>
     <cc-td>&nbsp;</cc-td>
@@ -20,5 +49,5 @@
     <cc-td class="total" [innerHTML]="0 | money:true"></cc-td>
     <cc-td>&nbsp;</cc-td>
   </cc-tr>
-  <cc-tr cc-order-discount key="discounts-{{item.id}}" *ngFor="let item of model.items; let i = index; trackBy:getItemId" [model]="item" (remove)="itemRemoved(i, $event)">
+  <cc-tr cc-order-discount #itemCmpt key="discounts-{{item.id}}" *ngFor="let item of model.items; let i = index; trackBy:getItemId" [model]="item" (remove)="itemRemoved(i, $event)">
   </cc-tr>

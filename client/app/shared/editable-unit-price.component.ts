@@ -20,11 +20,12 @@ import { UnitPrice, UnitType, unitTypes } from '../products/product';
       </span>
       <form class="editable-background" [class.submitted]="submitted" [class.invalid]="submitted && !control.valid" *ngIf="editing">
         &pound;<cc-number #number
-                 [(value)]="editingValue.price"
-                 (valueChange)="setValidationMessage()"
+                 [required]="true"
+                 [(ngModel)]="editingValue.price"
+                 (ngModelChange)="setValidationMessage()"
                  [fixedDecimals]="true"
                  [decimalPrecision]="2"
-                 [control]="control"
+                 [ngFormControl]="control"
                  [messages]="messages">
         </cc-number>
         <cc-select [(value)]="editingValue.unitType"
@@ -44,7 +45,7 @@ import { UnitPrice, UnitType, unitTypes } from '../products/product';
       </form>
     </div>
   `,
-  directives: [EditableEditButtonComponent, NumberComponent, SelectComponent, EditableButtonsComponent],
+  directives: [EditableEditButtonComponent, NumberComponent, SelectComponent, EditableButtonsComponent, FORM_DIRECTIVES],
   pipes: [MoneyPipe]
 })
 export class EditableUnitPriceComponent implements OnInit {
@@ -87,7 +88,7 @@ export class EditableUnitPriceComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.control = new Control('', Validators.compose([NumberComponent.isNumeric, NumberComponent.isGreaterThanZero, ...this.validators]))
+    this.control = new Control('', Validators.compose([NumberComponent.isGreaterThanZero, ...this.validators]))
     this.form = this.builder.group({
       control: this.control
     })

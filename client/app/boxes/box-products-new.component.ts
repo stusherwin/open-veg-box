@@ -81,7 +81,7 @@ export class BoxProductsComponent implements OnInit {
       return null;
     };
 
-    this.quantity = new Control('', Validators.compose([Validators.required, NumberComponent.isNumeric, NumberComponent.isGreaterThanZero, validateQuantity]))
+    this.quantity = new Control('', Validators.compose([NumberComponent.isGreaterThanZero, validateQuantity]))
     this.form = this.builder.group({
       quantity: this.quantity
     })

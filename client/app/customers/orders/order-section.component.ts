@@ -75,7 +75,7 @@ export class OrderSectionComponent implements OnInit {
       return null;
     };
 
-    this.quantity = new Control('', Validators.compose([Validators.required, NumberComponent.isNumeric, NumberComponent.isGreaterThanZero, validateQuantity]))
+    this.quantity = new Control('', Validators.compose([NumberComponent.isGreaterThanZero, validateQuantity]))
     this.form = this.builder.group({
       quantity: this.quantity
     })
@@ -111,20 +111,22 @@ export class OrderSectionComponent implements OnInit {
     if(!this.quantity.valid) {
       this.setValidationMessage();
     } else {
-      if(this.model.itemsAvailable.length > 1) {
-        let sub = this.addBtn.changes.subscribe((l: QueryList<EditableEditButtonComponent>) => {
-          if(l.length) {
-            l.first.takeFocus();
-            sub.unsubscribe();
-          }
-        });
-      } else {
-        let sub = this.itemCmpts.changes.subscribe((l: QueryList<OrderItemComponent>) => {
-          if(l.length) {
-            l.first.focusRemove();
-            sub.unsubscribe();
-          }
-        });
+      if(keydown) {
+        if(this.model.itemsAvailable.length > 1) {
+          let sub = this.addBtn.changes.subscribe((l: QueryList<EditableEditButtonComponent>) => {
+            if(l.length) {
+              l.first.takeFocus();
+              sub.unsubscribe();
+            }
+          });
+        } else {
+          let sub = this.itemCmpts.changes.subscribe((l: QueryList<OrderItemComponent>) => {
+            if(l.length) {
+              l.first.focusRemove();
+              sub.unsubscribe();
+            }
+          });
+        }
       }
       this.model.completeAdd();
     }

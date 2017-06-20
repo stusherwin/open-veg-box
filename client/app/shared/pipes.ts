@@ -10,7 +10,7 @@ export class MoneyPipe implements PipeTransform {
       ? value.toFixed(2)
       : ((value || 0) * 100).toFixed(0);
     
-    if(markNegative && value < 0) {
+    if(value < 0) {
       valueString = valueString.substring(1);
     }
 
@@ -18,8 +18,12 @@ export class MoneyPipe implements PipeTransform {
       ? '&pound;' + valueString
       : valueString + 'p';
 
-    if(markNegative && value < 0) {
-      return '<span style="color: red">-' + valueStringWithCurrency + '</span>';
+    if(value < 0) {
+      if(markNegative) {
+        return '<span style="color: red">-' + valueStringWithCurrency + '</span>';
+      } else {
+        return '-' + valueStringWithCurrency;
+      }
     } else {
       return valueStringWithCurrency;
     }

@@ -64,11 +64,12 @@
                   &pound;
                   <cc-number cssClass="price"
                              style="width: 80px;margin-left: 5px;"
+                             [required]="true"
                              (inputFocus)="model.paymentAmountOptions = 'otherAmount'"
-                             (valueChange)="setPaymentAmountValidationMessage()"
-                             [(value)]="model.paymentAmount"
+                             [(ngModel)]="model.paymentAmount"
+                             (ngModelChange)="setPaymentAmountValidationMessage()"
                              [decimalPrecision]="2"
-                             [control]="paymentAmountControl">
+                             [ngFormControl]="paymentAmountControl">
                   </cc-number>
                 </span>
                 <span class="validation-warning"
@@ -81,10 +82,11 @@
                 &pound;
                 <cc-number cssClass="price"
                            style="width: 80px;margin-left: 5px;"
-                           (valueChange)="setPaymentAmountValidationMessage()"
-                           [(value)]="model.paymentAmount"
+                           [required]="true"
+                           [(ngModel)]="model.paymentAmount"
+                           (ngModelChange)="setPaymentAmountValidationMessage()"
                            [decimalPrecision]="2"
-                           [control]="paymentAmountControl">
+                           [ngFormControl]="paymentAmountControl">
                 </cc-number>
                 <span class="validation-warning"
                       *ngIf="paymentSubmitted && !paymentAmountControl.valid"

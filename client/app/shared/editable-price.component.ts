@@ -16,11 +16,12 @@ import { MoneyPipe } from './pipes'
       </span>
       <form class="editable-background" [class.submitted]="submitted" [class.invalid]="submitted && !control.valid" *ngIf="editing">
         &pound;<cc-number #number
-                 [(value)]="editingValue"
-                 (valueChange)="setValidationMessage()"
+                 [required]="true"
+                 [(ngModel)]="editingValue"
+                 (ngModelChange)="setValidationMessage()"
                  [fixedDecimals]="true"
                  [decimalPrecision]="2"
-                 [control]="control"
+                 [ngFormControl]="control"
                  [messages]="messages">
         </cc-number>
         <span class="validation-warning"
@@ -35,7 +36,7 @@ import { MoneyPipe } from './pipes'
       </form>
     </div>
   `,
-  directives: [EditableEditButtonComponent, NumberComponent, EditableButtonsComponent],
+  directives: [EditableEditButtonComponent, NumberComponent, EditableButtonsComponent, FORM_DIRECTIVES],
   pipes: [MoneyPipe]
 })
 export class EditablePriceComponent implements OnInit {
@@ -75,7 +76,7 @@ export class EditablePriceComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.control = new Control('', Validators.compose([NumberComponent.isNumeric, NumberComponent.isGreaterThanZero, ...this.validators]))
+    this.control = new Control('', Validators.compose([NumberComponent.isGreaterThanZero, ...this.validators]))
     this.form = this.builder.group({
       control: this.control
     })

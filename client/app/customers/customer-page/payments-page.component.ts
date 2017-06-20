@@ -133,7 +133,7 @@ export class PaymentsPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.paymentAmountControl = new Control('', Validators.compose([NumberComponent.isNumeric, NumberComponent.isNotZero, this.paymentAmountMaybeRequired.bind(this)]))
+    this.paymentAmountControl = new Control('', Validators.compose([NumberComponent.isNotZero, this.paymentAmountMaybeRequired.bind(this)]))
     this.paymentDateControl = new Control('', Validators.compose([DateComponent.isValidDate, DateComponent.isAfter1900, this.paymentDateMaybeRequired.bind(this)]))
 
     this.form = this.builder.group({

@@ -27,10 +27,11 @@
     <cc-td>
       <span *ngIf="model.addingItem.unitType == 'each'">x</span>
       <cc-number cssClass="order-quantity"
-            [decimalPrecision]="model.addingItem.unitType == 'each'? 0 : 3"
-            [(value)]="model.addingItemQuantity"
-            (valueChange)="setValidationMessage()"
-            [control]="quantity">
+                 [required]="true"
+                 [decimalPrecision]="model.addingItem.unitType == 'each'? 0 : 3"
+                 [(ngModel)]="model.addingItemQuantity"
+                 (ngModelChange)="setValidationMessage()"
+                 [ngFormControl]="quantity">
       </cc-number>
       <span *ngIf="model.addingItem.unitType == 'perKg'">Kg</span>
     </cc-td>

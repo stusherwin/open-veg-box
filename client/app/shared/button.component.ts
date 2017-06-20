@@ -42,9 +42,16 @@ export class ButtonComponent implements OnInit {
 
   constructor(
     @Inject(forwardRef(() => EditableService))
-    private service: EditableService) {
+    private service: EditableService,
+    @Inject(ElementRef)
+    private el: ElementRef,
+    private renderer: Renderer) {
   }
 
   ngOnInit() {
+  }
+
+  focus() {
+    this.renderer.invokeElementMethod(this.el.nativeElement, 'focus', []);
   }
 }
