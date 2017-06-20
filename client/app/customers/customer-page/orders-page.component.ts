@@ -46,10 +46,12 @@ export class PastOrderModel {
 
 export class PastOrdersModel {
   pastOrders: PastOrderModel[] = []
+  pastOrdersTotal: number = 0;
   loading = true;
 
   ordersLoaded(pastOrders: ApiPastOrder[]) {
     this.pastOrders = pastOrders.map(o => new PastOrderModel(o));
+    this.pastOrdersTotal = pastOrders.reduce((t, o) => t += o.totalCost, 0);
     this.loading = false;
   }
 }

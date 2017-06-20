@@ -13,7 +13,7 @@
     </div>
   </div>
   <div class="row-header">
-    <h4><i class="icon-history"></i>Past orders</h4>
+    <h4><i class="icon-history"></i>Past orders: <span [innerHTML]="model.pastOrdersTotal | money:true"></span></h4>
   </div>
   <div class="row-view-new no-hover">
     <div class="row" style="height: 0;padding: 0">
