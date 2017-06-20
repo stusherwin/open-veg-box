@@ -1,5 +1,4 @@
 import {Db} from './shared/db'
-import {SqliteDb} from './shared/sqlitedb'
 import {PostgresDb} from './shared/postgresdb'
 import {ConfigService} from './config/config.service'
 
@@ -25,8 +24,6 @@ mainDb.all<{id: number, db: Db}>(
   switch(r.dbtype) {
     case 'postgres':
       return {id: r.id, db: new PostgresDb(r.connectionstring)};
-    case 'sqlite':
-      return {id: r.id, db: new SqliteDb(r.connectionstring)};
     default:
       return {id: r.id, db: null};
   }

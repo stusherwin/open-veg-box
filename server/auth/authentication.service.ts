@@ -8,8 +8,6 @@ import 'rxjs/add/observable/fromPromise'
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/mergeMap';
 import {Db} from '../shared/db'
-import {SqliteDb} from '../shared/sqlitedb'
-import {PostgresDb} from '../shared/postgresdb'
 import {BehaviorSubject} from 'rxjs/BehaviorSubject'
 
 export class AuthenticationService {

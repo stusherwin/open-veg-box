@@ -13,10 +13,7 @@ Auth
 
 Database
 ========
-* Split out schema sql from data
-* Implement sqlite backup strategy
 * Hash/salt passwords in main db
-* Database schema updates
 
 Deployment
 ==========
@@ -62,9 +59,6 @@ Bugs
 * Customer phone has extra top margin on small screen
 * Box products seems to think column widths are wider than they should be
 * row details should have constant padding
-* When cancel cc-numeric by pressing Escape and click to edit again, retains previously edited value
-  (blur event fires when clicking on control to edit again, so thinks it was user input)
-* cc-numeric is dodgy. Make this use ngModel somehow?
 * When server error happens, breaks website?
 
 Ideas
@@ -77,23 +71,14 @@ Ideas
 * Catch tabbing away in active-elements then handle it specifically as a tabbed-away event 
   in container components?
 
-Tidy up
-=======
-* Rename editable-value-new, editable-value
-
 TODO (now)
 ==========
 * Prices should be integers in pence, not floating point!!
 * Use trackBy with ngFor to clean up box-products
 * round-customers add button not highlighted when hovering over certain area
 * queryparams not whitelisted on server side
-* Should be two types of orders - dynamic and historic. 
-  Customer -> Order
-  Round ->* Delivery ->* HistoricOrder
-                     ->* HistoricProductQuantity ?
 * Need to archive products/boxes not delete them (only delete if not used!)
 * Add blurb/useful links to each section on home page?
-
 * When adding, adds to end then when comes back from server is sorted.
 * Sort boxes/product in select by name
 * Products should added from the top, but displayed in alphabetical order when reloaded from server
@@ -160,8 +145,6 @@ Editable
 * Bug: Textarea ok/cancel buttons have moved to bottom of control
 * Textarea display/edit widths not the same (shows up in long lines of text)
 * Move email button to contact details page? Allow navigation to different pages when writing email (popup like gmail)
-* unicode in sqlite? £ symbol doesn't display properly. (sqlite3 in windows doesn't seem to support unicode, grr - https://stackoverflow.com/questions/38482132/sqlite-utf-8-encoding#38483093)
-  - best to just move guest db to postgres anyway if hosting on heroku...
 * Takes 2 clicks for month/year of date component to focus
 * Money validation should prevent values more precise than 2dp
 * Huge amount of files being loaded over - investigate bundling - webpack? angular2 production mode?
@@ -177,5 +160,4 @@ Editable
   * Editing discount - prevent entering negative values
 * Historic order discounts
 * Product list & order list should be other way round in delivery page header
-* Bug: sqlite delivery product list doesn't show products in boxes for Betty Barnes (latest delivery)
 * Product list: group products by box
