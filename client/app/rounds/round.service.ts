@@ -199,6 +199,7 @@ export class CustomerOrder {
   totalCost: number;
   boxes: CustomerOrderItem[];
   extraProducts: CustomerOrderItem[];
+  discounts: CustomerOrderItem[];
   excluded: boolean;
 }
 

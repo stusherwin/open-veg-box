@@ -310,6 +310,14 @@ export class RoundsService {
     + ' from historicOrder ho'
     + ' inner join customer c on c.id = ho.customerId'
     + ' inner join historicOrderedBox hob on hob.orderId = ho.id'
+    + ' where ho.deliveryId = @deliveryId'
+    + ' union'
+    + ' select c.id customerId, c.firstName || \' \' || c.surname customerName, c.address,'
+    + ' \'discount\' itemType, hod.discountId itemId, hod.name itemName, 0 price, \'\' unitType,'
+    + ' 0 quantity, hod.total totalCost'
+    + ' from historicOrder ho'
+    + ' inner join customer c on c.id = ho.customerId'
+    + ' inner join historicOrderDiscount hod on hod.orderId = ho.id'
     + ' where ho.deliveryId = @deliveryId) x'
     + ' order by customerName, itemType, itemName',
       {deliveryId}, rows => {
@@ -336,8 +344,10 @@ export class RoundsService {
           };
           if(r.itemtype == 'box') {
             customers[r.customerid].boxes.push(item);
-          } else {
+          } else if(r.itemtype == 'product') {
             customers[r.customerid].extraProducts.push(item);
+          } else if(r.itemtype == 'discount') {
+            customers[r.customerid].discounts.push(item);
           }
         }
 
@@ -347,7 +357,8 @@ export class RoundsService {
           .forEach((c: CustomerOrder) => {
             _.sortBy(c.boxes, 'name');
             _.sortBy(c.extraProducts, 'name');
-            c.totalCost = _.chain(c.boxes).concat(c.extraProducts).sumBy('totalCost').value();
+            _.sortBy(c.discounts, 'name');
+            c.totalCost = _.chain(c.boxes).concat(c.extraProducts).concat(c.discounts).sumBy('totalCost').value();
           })
           .sortBy('name')
           .value();
@@ -404,14 +415,19 @@ export class RoundsService {
               db.insert('historicOrder', ['customerId', 'deliveryId', 'total'], {customerId: o.id, deliveryId, total: o.totalCost}).subscribe(orderId => {
                 for(let b of o.boxes) {
                   db.insert('historicOrderedBox', ['orderId', 'boxId', 'name', 'price', 'quantity'], {orderId, boxId: b.id, name: b.name, price: b.price, quantity: b.quantity}).subscribe(orderedBoxId => {
-                  let box = boxes.find(x => x.id == b.id);
+                    let box = boxes.find(x => x.id == b.id);
                     for(let p of box.products) {
                       db.insert('historicOrderedBoxProduct', ['orderedBoxId', 'productId', 'name', 'unitType', 'quantity'], {orderedBoxId, productId: p.id, name: p.name, unitType: p.unitType, quantity: p.quantity}).subscribe(_ => {});
                     }
                   });
                 }
+
                 for(let p of o.extraProducts) {
                   db.insert('historicOrderedProduct', ['orderId', 'productId', 'name', 'unitType', 'price', 'quantity'], {orderId, productId: p.id, name: p.name, unitType: p.unitType, price: p.price, quantity: p.quantity}).subscribe(_ => {});
+                }
+
+                for(let d of o.discounts) {
+                  db.insert('historicOrderDiscount', ['orderId', 'discountId', 'name', 'total'], {orderId, discountId: d.id, name: d.name, total: d.totalCost}).subscribe(_ => {});
                 }
               })
             }
@@ -426,11 +442,11 @@ export class RoundsService {
     return db.execute('delete from historicOrderedBoxProduct where id in (select hobp.id from historicOrderedBoxProduct hobp join historicOrderedBox hob on hobp.orderedBoxId = hob.id join historicOrder ho on hob.orderId = ho.id where ho.deliveryId = @deliveryId)', {deliveryId})
       .mergeMap(() => db.execute('delete from historicOrderedBox where id in (select hob.id from historicOrderedBox hob join historicOrder ho on hob.orderId = ho.id where ho.deliveryId = @deliveryId)', {deliveryId}))
       .mergeMap(() => db.execute('delete from historicOrderedProduct where id in (select hop.id from historicOrderedProduct hop join historicOrder ho on hop.orderId = ho.id where ho.deliveryId = @deliveryId)', {deliveryId}))
+      .mergeMap(() => db.execute('delete from historicOrderDiscount where id in (select hod.id from historicOrderDiscount hod join historicOrder ho on hod.orderId = ho.id where ho.deliveryId = @deliveryId)', {deliveryId}))
       .mergeMap(() => db.execute('delete from historicOrder where deliveryId = @deliveryId', {deliveryId}))
       .mergeMap(() => db.delete('delivery', deliveryId));
   }
   
-
   private getBoxesWithProducts(queryParams: any, db: Db): Observable<BoxWithProducts[]> {
     return db.allWithReduce<BoxWithProducts>(
       ' select b.id, b.name, b.price, p.id productId, p.name productName, bp.quantity productQuantity, p.unitType productUnitType from box b' 

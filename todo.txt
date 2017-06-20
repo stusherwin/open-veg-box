@@ -176,3 +176,6 @@ Editable
 * Money - display negative values: -£10.00 or (£10.00) or color red?
   * Editing discount - prevent entering negative values
 * Historic order discounts
+* Product list & order list should be other way round in delivery page header
+* Bug: sqlite delivery product list doesn't show products in boxes for Betty Barnes (latest delivery)
+* Product list: group products by box
