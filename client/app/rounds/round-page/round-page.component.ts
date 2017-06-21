@@ -5,6 +5,7 @@ import { CustomerService } from '../../customers/customer.service'
 import { RoundDetailsPageComponent } from './details-page.component'
 import { RoundDeliveriesPageComponent } from './deliveries-page.component'
 import { EmailPageComponent } from './email-page.component'
+import { CollectionPointsPageComponent } from './collection-points-page.component'
 import { RouteParams } from '@angular/router-deprecated';
 import { RouteConfig, ROUTER_DIRECTIVES, Router } from '@angular/router-deprecated';
 import { SectionHeaderComponent } from '../../structure/section-header.component'
@@ -35,6 +36,11 @@ export class RoundPageService {
     path: 'email',
     name: 'Email',
     component: EmailPageComponent
+  },
+  {
+    path: 'collection-points',
+    name: 'CollectionPoints',
+    component: CollectionPointsPageComponent
   },
   {
     path: 'deliveries/...',
