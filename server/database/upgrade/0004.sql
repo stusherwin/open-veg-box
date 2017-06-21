@@ -2,6 +2,8 @@ do $$
 begin
   if not exists (select * from upgrade where scriptname = '0004') 
   then
+    drop table if exists payment cascade;
+
     create table payment(
       id serial primary key not null, 
       customerId integer not null references customer(id),

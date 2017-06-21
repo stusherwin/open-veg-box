@@ -2,6 +2,11 @@ do $$
 begin
   if not exists (select * from upgrade where scriptname = '0003') 
   then
+    drop table if exists historicOrderedBoxProduct cascade;
+    drop table if exists historicOrderedBox cascade;
+    drop table if exists historicOrderedProduct cascade;
+    drop table if exists historicOrder cascade;
+ 
     alter table round add nextDeliveryDate date null;
     
     alter table round_customer add excludedFromNextDelivery integer null;

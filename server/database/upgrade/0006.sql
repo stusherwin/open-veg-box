@@ -2,7 +2,9 @@ do $$
 begin
   if not exists (select * from upgrade where scriptname = '0006') 
   then
-    CREATE TABLE orderDiscount(
+   drop table if exists orderDiscount cascade;
+
+   CREATE TABLE orderDiscount(
       id serial primary key NOT NULL, 
       orderId integer NOT NULL REFERENCES "order"(id),
       name text NOT NULL,

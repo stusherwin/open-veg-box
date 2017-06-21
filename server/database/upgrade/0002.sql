@@ -2,6 +2,8 @@ do $$
 begin
   if not exists (select * from upgrade where scriptname = '0002') 
   then
+    drop table if exists delivery cascade;
+ 
     create table delivery(
       id serial primary key not null,
       roundId integer not null,

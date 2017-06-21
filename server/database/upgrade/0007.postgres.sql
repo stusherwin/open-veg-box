@@ -2,6 +2,8 @@ do $$
 begin
   if not exists (select * from upgrade where scriptname = '0007') 
   then
+    drop table if exists historicOrderDiscount cascade;
+
     create table historicOrderDiscount(
       id serial primary key not null,       
       orderId integer not null references historicOrder(id),

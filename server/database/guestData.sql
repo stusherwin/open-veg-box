@@ -27,6 +27,10 @@ declare hob_ho_CA_dR1_20170102_bBig integer;
 declare ho_CB_dR1_20170102 integer;
 declare hob_ho_CB_dR1_20170102_bBig integer;
 declare hob_ho_CB_dR1_20170102_bMed integer;
+declare cpA integer;
+declare cpB integer;
+declare cpC integer;
+declare cpD integer;
 begin
   delete from historicOrderedBoxProduct;
   alter sequence historicOrderedBoxProduct_id_seq restart with 1;
@@ -34,10 +38,14 @@ begin
   alter sequence historicOrderedBox_id_seq restart with 1;
   delete from historicOrderedProduct;
   alter sequence historicOrderedProduct_id_seq restart with 1;
+  delete from historicOrderDiscount;
+  alter sequence historicOrderDiscount_id_seq restart with 1;
   delete from historicOrder;
   alter sequence historicOrder_id_seq restart with 1;
   delete from delivery;
   alter sequence delivery_id_seq restart with 1;
+  delete from collectionPoint;
+  alter sequence collectionPoint_id_seq restart with 1;
   delete from round_customer;
   delete from round;
   alter sequence round_id_seq restart with 1;
@@ -45,6 +53,8 @@ begin
   alter sequence payment_id_seq restart with 1;
   delete from order_box;
   delete from order_product;
+  delete from orderDiscount;
+  alter sequence orderDiscount_id_seq restart with 1;
   delete from "order";
   alter sequence order_id_seq restart with 1;
   delete from customer;
@@ -101,6 +111,16 @@ begin
   select id from round where name = 'Ableton & Biddleton' into rAB;
   select id from round where name = 'Chompton & Digby' into rCD;
 
+  insert into collectionPoint (roundId, name, address) values(rAB, 'Ableton Post Office', '1 The Lane, Ableton');
+  insert into collectionPoint (roundId, name, address) values(rAB, 'The Dog & Duck, Biddleton', '1 Main Street, Biddleton');
+  insert into collectionPoint (roundId, name, address) values(rCD, 'Veggie Cafe, Chompton', '1 High Street, Chompton');
+  insert into collectionPoint (roundId, name, address) values(rCD, 'Jim''s House, Digby', '1 Jim Street, Digby');
+
+  select id from collectionPoint where name = 'Ableton Post Office' into cpA;
+  select id from collectionPoint where name = 'The Dog & Duck, Biddleton' into cpB;
+  select id from collectionPoint where name = 'Veggie Cafe, Chompton' into cpC;
+  select id from collectionPoint where name = 'Jim''s House, Digby' into cpD;
+
   insert into customer (firstName, surname, address, tel1, email, paymentMethod, paymentDetails) values('Andrew', 'Atkinson','10 Acacia Avenue
 Ableton
 A11 1AA','07324 358774','andrew@atkinson.com', 'card', 'Card number: 0123 4567 8901 2345');
@@ -122,10 +142,10 @@ D44 4DD','07324 358774','derek@draper.com', 'cash', 'Pays in cash every 4 weeks'
   select id from customer where firstName = 'Christine' into cC;
   select id from customer where firstName = 'Derek' into cD;
 
-  insert into round_customer (roundId, customerId, excludedFromNextDelivery) values(rAB, cA, 0);
-  insert into round_customer (roundId, customerId, excludedFromNextDelivery) values(rAB, cB, 0);
-  insert into round_customer (roundId, customerId, excludedFromNextDelivery) values(rCD, cC, 0);
-  insert into round_customer (roundId, customerId, excludedFromNextDelivery) values(rCD, cD, 0);
+  insert into round_customer (roundId, customerId, excludedFromNextDelivery, collectionPointId) values(rAB, cA, 0, null);
+  insert into round_customer (roundId, customerId, excludedFromNextDelivery, collectionPointId) values(rAB, cB, 0, cpB);
+  insert into round_customer (roundId, customerId, excludedFromNextDelivery, collectionPointId) values(rCD, cC, 0, cpC);
+  insert into round_customer (roundId, customerId, excludedFromNextDelivery, collectionPointId) values(rCD, cD, 0, null);
 
   insert into "order" (customerId) values(cA);
   insert into "order" (customerId) values(cB);

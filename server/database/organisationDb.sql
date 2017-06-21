@@ -1,5 +1,16 @@
 DO $$
 BEGIN  
+  drop table if exists round_customer cascade;
+  drop table if exists round cascade;
+  drop table if exists order_box cascade;
+  drop table if exists order_product cascade;
+  drop table if exists "order" cascade;
+  drop table if exists customer cascade;
+  drop table if exists box_product cascade;
+  drop table if exists box cascade;
+  drop table if exists product cascade;
+  drop table if exists upgrade cascade;
+
   CREATE TABLE round(id serial primary key NOT NULL, name text NOT NULL);
   CREATE TABLE customer(id serial primary key NOT NULL, firstName text NOT NULL, surname text NOT NULL, address text, tel1 text null, tel2 text null, email text null);
   CREATE TABLE round_customer(
