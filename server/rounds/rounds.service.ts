@@ -4,6 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import {Db} from '../shared/db';
 import {Box, BoxWithProducts} from '../boxes/box'
 import {Product} from '../products/product'
+import {Objects} from '../shared/objects';
 import 'rxjs/add/operator/mergeMap';
 let _ = require('lodash');
 
@@ -402,6 +403,19 @@ export class RoundsService {
         {id, customerId});
   }
 
+  updateCustomer(id: number, customerId: number, params: any, db: Db): Observable<void> {
+    let whiteListed = Objects.whiteList(params, ['name', 'address']);
+    let columns = Object.getOwnPropertyNames(whiteListed);
+
+    return db.execute(
+        ' update round_customer'
+      + ' set '
+      + columns.map((f:string) => f + ' = @' + f).join(', ')
+      + ' where roundId = @id and customerId = @customerId',
+      Objects.extend(whiteListed, {id, customerId})
+    );
+  }
+
   createDelivery(id: number, db: Db): Observable<DeliveryCreateResult> {
     return this.get(id, db)
       .mergeMap(r => {
@@ -445,6 +459,28 @@ export class RoundsService {
       .mergeMap(() => db.execute('delete from historicOrderDiscount where id in (select hod.id from historicOrderDiscount hod join historicOrder ho on hod.orderId = ho.id where ho.deliveryId = @deliveryId)', {deliveryId}))
       .mergeMap(() => db.execute('delete from historicOrder where deliveryId = @deliveryId', {deliveryId}))
       .mergeMap(() => db.delete('delivery', deliveryId));
+  }
+
+  getCollectionPoints(id: number, db: Db): Observable<CollectionPoint[]> {
+    return db.all<CollectionPoint>(
+        ' select c.id, c.name, c.address'
+      + ' from collectionPoint c '
+      + ' where c.roundId = @roundId'
+      + ' order by c.name', {roundId: id}, {},
+      r => new CollectionPoint(r.id, r.name, r.address));
+  }
+
+  addCollectionPoint(id: number, params: any, db: Db): Observable<number> {
+    return db.insert('collectionPoint', ['roundId', 'name', 'address'], 
+      Objects.extend(params, {roundId: id}));
+  }
+  
+  removeCollectionPoint(id: number, collectionPointId: number, db: Db): Observable<void> {
+    return db.delete('collectionPoint', collectionPointId);
+  }
+
+  updateCollectionPoint(id: number, collectionPointId: number, params: any, db: Db): Observable<void> {
+    return db.update('collectionPoint', ['name', 'address'], collectionPointId, params);
   }
   
   private getBoxesWithProducts(queryParams: any, db: Db): Observable<BoxWithProducts[]> {
@@ -513,4 +549,13 @@ export class CustomerOrderItem {
   quantity: number;
   unitType: string;
   totalCost: number;
+}
+
+export class CollectionPoint {
+  constructor(
+    public id: number,
+    public name: string,
+    public address: string
+  ) {
+  }
 }

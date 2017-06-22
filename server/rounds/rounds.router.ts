@@ -67,6 +67,11 @@ export let getRounds = function(authorize: (req: any, res: any, next:() => void)
                  .subscribe(() => res.sendStatus(200), next);
   });
 
+  rounds.post('/:id/customers/:customerId', function(req: any, res: any, next: any) {
+    roundsService.updateCustomer(req.params.id, req.params.customerId, req.body, req.db)
+                 .subscribe(() => res.sendStatus(200), next);
+  });
+
   rounds.delete('/:id/customers/:customerId', function(req: any, res: any, next: any) {
     roundsService.removeCustomer(req.params.id, req.params.customerId, req.db)
                  .subscribe(() => res.sendStatus(200), next);
@@ -89,6 +94,26 @@ export let getRounds = function(authorize: (req: any, res: any, next:() => void)
 
   rounds.delete('/:id/deliveries/:deliveryId', function(req: any, res: any, next: any) {
     roundsService.cancelDelivery(req.params.deliveryId, req.db)
+                 .subscribe(() => res.sendStatus(200), next);
+  });
+
+  rounds.get('/:id/collection-points/', function(req: any, res: any, next: any) {
+    roundsService.getCollectionPoints(req.params.id, req.db)
+                 .subscribe(result => res.json(result), next);
+  });
+
+  rounds.put('/:id/collection-points/', function(req: any, res: any, next: any) {
+    roundsService.addCollectionPoint(req.params.id, req.body, req.db)
+                 .subscribe(id => res.json({id}), next);
+  });
+
+  rounds.post('/:id/collection-points/:collectionPointId', function(req: any, res: any, next: any) {
+    roundsService.updateCollectionPoint(req.params.id, req.params.collectionPointId, req.body, req.db)
+                 .subscribe(() => res.sendStatus(200), next);
+  });
+
+  rounds.delete('/:id/collection-points/:collectionPointId', function(req: any, res: any, next: any) {
+    roundsService.removeCollectionPoint(req.params.id, req.params.collectionPointId, req.db)
                  .subscribe(() => res.sendStatus(200), next);
   });
 

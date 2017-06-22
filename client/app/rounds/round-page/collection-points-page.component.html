@@ -1,9 +1,63 @@
-<div class="row-view-new no-hover">
-  <div class="row" style="height: 0;padding: 0">
+<div class="loading-indicator" *ngIf="!model.loaded"><i class="icon-spin3 animate-spin"></i></div>
+<div class="deliveries">
+  <div class="row-header">
+    <a cc-button right icon="add" text="Add collection point" (click)="startAdd()" *ngIf="!model.adding" style="margin-bottom: 13px"></a>
   </div>
-  <div class="row">
-    <div class="details">
-      Collection points page yo
+  <div class="row-view-new no-hover">
+    <div class="row" style="height: 0;padding: 0" *ngIf="!model.adding">
+    </div>
+    <div class="row focused" *ngIf="model.adding">
+      <form [class.submitted]="submitted" [class.invalid]="submitted && !form.valid">
+        <div class="details" style="padding-left: 0;margin-top: -5px; margin-bottom: -5px;display: block;">
+          <table class="contact-details" style="float: none; width: auto;">
+            <tr>
+              <th style="width: 90px;vertical-align: middle">Name:</th>
+              <td style="width: 250px">
+                <cc-text [(value)]="model.addingName"
+                         (valueChange)="setNameValidationMessage()"
+                         [control]="nameControl">
+                </cc-text>
+                <span class="validation-warning"
+                      *ngIf="submitted && !nameControl.valid"
+                      [title]="nameValidationMessage">
+                  <i class="icon-warning"></i>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <th style="width: 90px;vertical-align: middle">Address:</th>
+              <td style="width: 250px">
+                <cc-textarea [(value)]="model.addingAddress"
+                             (valueChange)="setAddressValidationMessage()"
+                             [control]="addressControl">
+                </cc-textarea>
+                <span class="validation-warning"
+                      *ngIf="submitted && !addressControl.valid"
+                      [title]="addressValidationMessage">
+                  <i class="icon-warning"></i>
+                </span>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="actions">
+          <button cc-button right icon="ok" text="Save" (click)="completeAdd()" [disabled]="submitted && !form.valid"></button>
+          <a cc-button right icon="cancel" text="Cancel" (click)="cancelAdd()"></a>
+        </div>
+      </form>
+    </div>
+    <div class="row" *ngIf="model.loaded && !model.collectionPoints.length">
+      <p>There are no collection points yet.</p>
+    </div>
+    <div *ngIf="model.loaded">
+      <div class="row" *ngFor="let c of model.collectionPoints">
+        <div class="details">
+          {{c.name}}
+        </div>
+        <div class="actions">
+          <a cc-button right icon="trash" text="Delete" (click)="c.remove()"></a>
+        </div>
+      </div>
     </div>
   </div>
 </div>

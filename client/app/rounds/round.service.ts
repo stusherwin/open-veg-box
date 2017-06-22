@@ -39,12 +39,12 @@ export class RoundService {
   }
 
   getProductList(id: number): Observable<ProductList> {
-    return this.http.get('/api/rounds/' + id + '/product_list/')
+    return this.http.get('/api/rounds/' + id + '/product_list')
                     .map(res => res.json());
   }
 
   getOrderList(id: number): Observable<CustomerOrderList> {
-    return this.http.get('/api/rounds/' + id + '/order_list/')
+    return this.http.get('/api/rounds/' + id + '/order_list')
                     .map(res => res.json());
   }
 
@@ -60,12 +60,12 @@ export class RoundService {
   }
 
   getDeliveryProductList(id: number, deliveryId: number): Observable<ProductList> {
-    return this.http.get('/api/rounds/' + id + '/deliveries/' + deliveryId + '/product_list/')
+    return this.http.get('/api/rounds/' + id + '/deliveries/' + deliveryId + '/product_list')
                     .map(res => res.json());
   }
 
   getDeliveryOrderList(id: number, deliveryId: number): Observable<CustomerOrderList> {
-    return this.http.get('/api/rounds/' + id + '/deliveries/' + deliveryId + '/order_list/')
+    return this.http.get('/api/rounds/' + id + '/deliveries/' + deliveryId + '/order_list')
                     .map(res => res.json());
   }
 
@@ -148,6 +148,27 @@ export class RoundService {
     return this.http.delete('api/rounds/' + id + '/deliveries/' + deliveryId, options)
                     .map(res => {});
   }
+
+  getCollectionPoints(id: number): Observable<CollectionPoint[]> {
+    return this.http.get('/api/rounds/' + id + '/collection-points')
+                    .map(res => res.json());
+  }
+
+  addCollectionPoint(id: number, params: any): Observable<number> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.put('api/rounds/' + id + '/collection-points', JSON.stringify(params), options)
+                    .map(res => res.json().id);
+  }
+
+  removeCollectionPoint(id: number, collectionPointId: number): Observable<void> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.delete('api/rounds/' + id + '/collection-points/' + collectionPointId, options)
+                    .map(res => {});
+  }
 }
 
 export class Round {
@@ -226,4 +247,10 @@ export class DeliveryCreateResult {
   id: number;
   orderCount: number;
   orderTotal: number;
+}
+
+export class CollectionPoint {
+  id: number;
+  name: string;
+  address: string;
 }
