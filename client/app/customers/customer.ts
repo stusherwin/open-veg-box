@@ -42,12 +42,10 @@ export class CustomerWithOrder extends Customer {
     email: string,
     paymentMethod: string,
     paymentDetails: string,
-    order: Order) {
+    public order: Order,
+    public collectionPointId: number) {
     super(id, firstName, surname, address, tel1, tel2, email, paymentMethod, paymentDetails);
-    this.order = order;
   }
-
-  order: Order;
 }
 
 export class PaymentMethod {

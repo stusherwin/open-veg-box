@@ -11,7 +11,7 @@ import { EditableService } from './editable.service'
     <div class="editable editable-text" [class.editable-display-clickable]="!editing" [class.hover]="focused" (click)="startEdit()">
       <span class="editable-display" [style.visibility]="editing? 'hidden' : 'visible'">
         <span class="editable-display-value" *ngIf="value">{{getText(value)}}</span>
-        <span class="editable-display-value muted" *ngIf="!value">None</span>
+        <span class="editable-display-value muted" *ngIf="!value">{{noneSelectedText}}</span>
         <cc-editable-button #edit [key]="key" icon="edit" *ngIf="!editing" (action)="startEdit()" (focus)="focused = true" (blur)="focused = false"></cc-editable-button>
       </span>
       <form class="editable-background" *ngIf="editing">
@@ -20,7 +20,9 @@ import { EditableService } from './editable.service'
                    (valueChange)="valueChanged($event)"
                    [options]="options"
                    [textProperty]="textProperty"
-                   [valueProperty]="valueProperty">
+                   [valueProperty]="valueProperty"
+                   [optional]="optional"
+                   [noneSelectedText]="noneSelectedText">
         </cc-select>
         <cc-editable-buttons (ok)="ok()"
                              (cancel)="cancel()">
@@ -52,6 +54,12 @@ export class EditableSelectComponent implements OnInit {
   @Input()
   options: any[]
 
+  @Input()
+  optional: boolean;
+
+  @Input()
+  noneSelectedText: string = 'None';
+
   @Output()
   valueChange = new EventEmitter<any>()
 
@@ -71,10 +79,18 @@ export class EditableSelectComponent implements OnInit {
   }
 
   getText(value: any) {
+    if(!value) {
+      return this.noneSelectedText;
+    }
+
     return this.textProperty ? value[this.textProperty] : value;
   }
 
   getValue(value: any) {
+    if(!value) {
+      return null;
+    }
+
     return this.valueProperty ? value[this.valueProperty] : value;
   }
 

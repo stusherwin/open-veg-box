@@ -67,11 +67,6 @@ export let getRounds = function(authorize: (req: any, res: any, next:() => void)
                  .subscribe(() => res.sendStatus(200), next);
   });
 
-  rounds.post('/:id/customers/:customerId', function(req: any, res: any, next: any) {
-    roundsService.updateCustomer(req.params.id, req.params.customerId, req.body, req.db)
-                 .subscribe(() => res.sendStatus(200), next);
-  });
-
   rounds.delete('/:id/customers/:customerId', function(req: any, res: any, next: any) {
     roundsService.removeCustomer(req.params.id, req.params.customerId, req.db)
                  .subscribe(() => res.sendStatus(200), next);

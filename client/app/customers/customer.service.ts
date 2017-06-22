@@ -105,7 +105,8 @@ export class CustomerService {
         c.order.boxes.map((b:any) => new OrderItem(b.id, b.name, b.price, b.quantity, b.unitType, b.total)),
         c.order.extraProducts.map((p:any) => new OrderItem(p.id, p.name, p.price, p.quantity, p.unitType, p.total)),
         (c.order.discounts || [{id: 123, name: 'Stu', total: -10}]).map((d:any) => new OrderDiscount(d.id, d.name, d.total)),
-        c.order.total));
+        c.order.total),
+      c.collectionPointId);
   }
 }
 

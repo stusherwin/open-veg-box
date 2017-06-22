@@ -8,6 +8,7 @@ import { InputComponent, ValidationResult } from './input.component'
             tabindex="1"
             [ngModel]="value"
             (ngModelChange)="valueChange.emit($event)">
+      <option *ngIf="optional" [ngValue]="null">{{noneSelectedText}}</option>
       <option *ngFor="let o of options" [ngValue]="getValue(o)">{{getText(o)}}</option>
     </select>
   `,
@@ -28,6 +29,12 @@ export class SelectComponent extends InputComponent implements OnInit {
 
   @Input()
   options: any[]
+
+  @Input()
+  optional: boolean;
+
+  @Input()
+  noneSelectedText: string = 'None';
 
   @ViewChild('select')
   select: ElementRef;

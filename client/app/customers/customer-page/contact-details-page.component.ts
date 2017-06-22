@@ -7,11 +7,12 @@ import { CustomerService } from '../customer.service'
 import { Validators } from '@angular/common'
 import { EditableTextComponent } from '../../shared/editable-text.component'
 import { EditableTextAreaComponent } from '../../shared/editable-textarea.component'
+import { EditableSelectComponent } from '../../shared/editable-select.component'
 
 @Component({
   selector: 'cc-contact-details-page',
   templateUrl: 'app/customers/customer-page/contact-details-page.component.html',
-  directives: [EditableTextComponent, EditableTextAreaComponent],
+  directives: [EditableTextComponent, EditableTextAreaComponent, EditableSelectComponent],
   pipes: [PreserveLinesPipe]
 })
 export class ContactDetailsPageComponent implements OnInit {

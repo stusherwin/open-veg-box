@@ -72,6 +72,20 @@
             </cc-editable-text>
           </td>
         </tr>
+        <tr>
+          <th>Deliver order to:</th>
+          <td>
+            <cc-editable-select key="collection-point"
+                                [(value)]="model.collectionPoint"
+                                [options]="model.collectionPointOptions"
+                                textProperty="name"
+                                valueProperty="id"
+                                (valueChange)="model.updateCollectionPoint($event)"
+                                [optional]="true"
+                                noneSelectedText="Customer's address">
+            </cc-editable-select>
+          </td>
+        </tr>
       </table>      
     </div>
   </div>

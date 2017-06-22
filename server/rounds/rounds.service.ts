@@ -403,19 +403,6 @@ export class RoundsService {
         {id, customerId});
   }
 
-  updateCustomer(id: number, customerId: number, params: any, db: Db): Observable<void> {
-    let whiteListed = Objects.whiteList(params, ['name', 'address']);
-    let columns = Object.getOwnPropertyNames(whiteListed);
-
-    return db.execute(
-        ' update round_customer'
-      + ' set '
-      + columns.map((f:string) => f + ' = @' + f).join(', ')
-      + ' where roundId = @id and customerId = @customerId',
-      Objects.extend(whiteListed, {id, customerId})
-    );
-  }
-
   createDelivery(id: number, db: Db): Observable<DeliveryCreateResult> {
     return this.get(id, db)
       .mergeMap(r => {

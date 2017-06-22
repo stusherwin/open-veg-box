@@ -14,6 +14,11 @@ export class CustomerModel {
   tel1: string;
   tel2: string;
   email: string;
+  collectionPoint: {id: number, name: string};
+  collectionPointOptions = [
+    {id: 1, name: 'Point A'},
+    {id: 2, name: 'Point B'}
+  ];
 
   constructor(
     private _customer: CustomerWithOrder,
@@ -26,6 +31,8 @@ export class CustomerModel {
     this.tel1 = _customer.tel1;
     this.tel2 = _customer.tel2;
     this.email = _customer.email;
+    this.collectionPoint = this.collectionPointOptions.find(c => c.id == _customer.collectionPointId) || null;
+
     this.update = (properties: {[property: string]: any}) => {
       customerService.update(_customer.id, properties).subscribe(() => {
         for(let p in properties) {
@@ -36,4 +43,12 @@ export class CustomerModel {
   }
 
   update: (properties: {[property: string]: any}) => void;
+
+  updateCollectionPoint(value: {id: number, name: string}) {
+    if(!value) {
+      console.log('none');
+    } else {
+      console.log(value.id);
+    }
+  }
 }
