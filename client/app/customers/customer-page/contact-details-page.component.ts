@@ -25,6 +25,7 @@ export class ContactDetailsPageComponent implements OnInit {
       private page: CustomerPageService,
       private customerService: CustomerService) {
     this.model = new CustomerModel(page.customer, customerService);
+    this.model.load();
   }
 
   ngOnInit() {

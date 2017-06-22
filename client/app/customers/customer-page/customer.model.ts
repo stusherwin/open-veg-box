@@ -15,14 +15,11 @@ export class CustomerModel {
   tel2: string;
   email: string;
   collectionPoint: {id: number, name: string};
-  collectionPointOptions = [
-    {id: 1, name: 'Point A'},
-    {id: 2, name: 'Point B'}
-  ];
+  collectionPointOptions: {id: number, name: string}[] = []
 
   constructor(
     private _customer: CustomerWithOrder,
-    customerService: CustomerService
+    private _service: CustomerService
   ) {
     this.id = _customer.id;
     this.firstName = _customer.firstName;
@@ -31,15 +28,22 @@ export class CustomerModel {
     this.tel1 = _customer.tel1;
     this.tel2 = _customer.tel2;
     this.email = _customer.email;
-    this.collectionPoint = this.collectionPointOptions.find(c => c.id == _customer.collectionPointId) || null;
 
     this.update = (properties: {[property: string]: any}) => {
-      customerService.update(_customer.id, properties).subscribe(() => {
+      _service.update(_customer.id, properties).subscribe(() => {
         for(let p in properties) {
           _customer[p] = properties[p];
         }
       });
     };
+  }
+
+  load() {
+    this._service.getCollectionPoints(this.id)
+      .subscribe(cp => {
+         this.collectionPointOptions = cp.map(c => ({id: c.id, name: c.name}))
+         this.collectionPoint = this.collectionPointOptions.find(c => c.id == this._customer.collectionPointId) || null;
+      })
   }
 
   update: (properties: {[property: string]: any}) => void;

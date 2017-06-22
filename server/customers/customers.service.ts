@@ -26,6 +26,7 @@ export class CustomersService {
     + ', op.productId productid, op.quantity productquantity'
     + ', p.name productname, p.unitType productunittype, p.price productprice'
     + ', d.id discountId, d.name discountName, d.total discountTotal'
+    + ', rc.collectionPointId'
     + ' from customer c'
     + ' left join [order] o on o.customerId = c.id'
     + ' left join order_box ob on ob.orderId = o.id'
@@ -33,6 +34,7 @@ export class CustomersService {
     + ' left join order_product op on op.orderId = o.id'
     + ' left join product p on p.id = op.productId'
     + ' left join orderDiscount d on d.orderId = o.id'
+    + ' left join round_customer rc on rc.customerId = c.id'
     + ' ' + whereClause
     + ' order by c.surname, c.firstname, b.name, p.name',
       params,
@@ -44,7 +46,7 @@ export class CustomersService {
 
           if(!customer) {
             let order = new Order(r.orderid, r.id, [], [], [], 0);
-            customer = new CustomerWithOrder(r.id, r.firstname, r.surname, r.address, r.tel1, r.tel2, r.email, r.paymentmethod, r.paymentdetails, order);
+            customer = new CustomerWithOrder(r.id, r.firstname, r.surname, r.address, r.tel1, r.tel2, r.email, r.paymentmethod, r.paymentdetails, order, r.collectionpointid);
             customers.push(customer);
           }
 
@@ -214,6 +216,16 @@ export class CustomersService {
         }
       }));
   }
+
+  getCollectionPoints(id: number, db: Db): Observable<ApiCollectionPoint[]> {
+    return db.all<ApiCollectionPoint>(
+        ' select cp.id, cp.name'
+      + ' from round_customer rc'
+      + ' join collectionPoint cp on cp.roundId = rc.roundId'
+      + ' where rc.customerId = @id'
+      + ' order by cp.name', {id}, {},
+      r => ({id: r.id, name: r.name}));
+  }
 }
 
 export class ApiPastOrder {
@@ -255,4 +267,9 @@ export class ApiMakePaymentResponse {
   newCurrentBalance: number;
   newPastPaymentsTotal: number;
   newPastPayment: ApiPastPayment;
+}
+
+export class ApiCollectionPoint {
+  id: number;
+  name: string;
 }

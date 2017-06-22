@@ -13,12 +13,14 @@ export class Customer {
 }
 
 export class CustomerWithOrder extends Customer {
-  constructor(id: number, firstName:string, surname: string, address: string, tel1: string, tel2: string, email: string, paymentMethod: string, paymentDetails: string, order: Order) {
+  constructor(id: number, firstName:string, surname: string, address: string, tel1: string, tel2: string, email: string, paymentMethod: string, paymentDetails: string, order: Order, collectionPointId: number) {
     super(id, firstName, surname, address, tel1, tel2, email, paymentMethod, paymentDetails);
     this.order = order;
+    this.collectionPointId = collectionPointId;
   }
 
   order: Order;
+  collectionPointId: number;
 }
 
 export class Order {

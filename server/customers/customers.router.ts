@@ -55,6 +55,11 @@ export let getCustomers = function(authorize: (req: any, res: any, next:() => vo
     customersService.makePayment(req.params.id, req.body, req.db)
                     .subscribe(response => res.json(response), next);
   });
+  
+  customers.get('/:id/collection-points', function(req: any, res: any, next: any) {
+    customersService.getCollectionPoints(req.params.id, req.db)
+                    .subscribe(orders => res.json(orders), next);
+  });
 
   return customers;
 };

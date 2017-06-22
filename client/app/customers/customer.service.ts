@@ -29,7 +29,7 @@ export class CustomerService {
   getAllWithOrders(queryParams: {[key: string]: string}): Observable<CustomerWithOrder[]> {
     return this.http.get('/api/customers?orders=true&' + this.toQueryString(queryParams))
                     .map(res => res.json())
-                    .map(ps => ps.map(this.hydrate));
+                    .map(ps => ps.map(this.hydrateWithOrder));
   }
 
   get(id: number): Observable<Customer> {
@@ -41,7 +41,7 @@ export class CustomerService {
   getWithOrder(id: number): Observable<CustomerWithOrder> {
     return this.http.get('/api/customers/' + id + '/?orders=true')
                     .map(res => res.json())
-                    .map(this.hydrate);
+                    .map(this.hydrateWithOrder);
  
  }
 
@@ -93,7 +93,20 @@ export class CustomerService {
                     .map(res => res.json());
   }
 
-  private hydrate(c: any) {
+  getCollectionPoints(id: number): Observable<ApiCollectionPoint[]> {
+    return this.http.get('/api/customers/' + id + '/collection-points')
+                    .map(res => res.json());
+  }
+
+  private hydrate(c: any): Customer {
+    if(!c) {
+      return null;
+    }
+
+   return new Customer(c.id, c.firstName, c.surname, c.address, c.tel1, c.tel2, c.email, c.paymentMethod, c.paymentDetails);
+  }
+
+  private hydrateWithOrder(c: any): CustomerWithOrder {
     if(!c) {
       return null;
     }
@@ -148,4 +161,9 @@ export class ApiMakePaymentResponse {
   newCurrentBalance: number;
   newPastPaymentsTotal: number;
   newPastPayment: ApiPastPayment;
+}
+
+export class ApiCollectionPoint {
+  id: number;
+  name: string;
 }
