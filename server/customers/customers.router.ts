@@ -61,5 +61,10 @@ export let getCustomers = function(authorize: (req: any, res: any, next:() => vo
                     .subscribe(orders => res.json(orders), next);
   });
 
+  customers.post('/:id/set-collection-point', function(req: any, res: any, next: any) {
+    customersService.setCollectionPoint(req.params.id, req.body, req.db)
+                    .subscribe(() => res.sendStatus(200), next);
+  });
+
   return customers;
 };

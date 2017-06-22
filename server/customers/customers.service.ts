@@ -226,6 +226,13 @@ export class CustomersService {
       + ' order by cp.name', {id}, {},
       r => ({id: r.id, name: r.name}));
   }
+
+  setCollectionPoint(id: number, params: any, db: Db): Observable<void> {
+    return db.execute(
+      ' update round_customer set collectionPointId = @collectionPointId'
+    + ' where customerId = @id',
+      {id, collectionPointId: params.collectionPointId})
+  }
 }
 
 export class ApiPastOrder {

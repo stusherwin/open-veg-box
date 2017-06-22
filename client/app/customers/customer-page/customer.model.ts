@@ -48,11 +48,7 @@ export class CustomerModel {
 
   update: (properties: {[property: string]: any}) => void;
 
-  updateCollectionPoint(value: {id: number, name: string}) {
-    if(!value) {
-      console.log('none');
-    } else {
-      console.log(value.id);
-    }
+  setCollectionPoint(value: {id: number, name: string}) {
+    this._service.setCollectionPoint(this.id, value? value.id: null).subscribe(() => {});
   }
 }

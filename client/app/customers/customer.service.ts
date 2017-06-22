@@ -98,6 +98,14 @@ export class CustomerService {
                     .map(res => res.json());
   }
 
+  setCollectionPoint(id: number, collectionPointId: number): Observable<void> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post('api/customers/' + id + '/set-collection-point', JSON.stringify({collectionPointId}), options)
+                    .map(res => {});
+  }
+
   private hydrate(c: any): Customer {
     if(!c) {
       return null;
