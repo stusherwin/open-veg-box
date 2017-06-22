@@ -169,6 +169,14 @@ export class RoundService {
     return this.http.delete('api/rounds/' + id + '/collection-points/' + collectionPointId, options)
                     .map(res => {});
   }
+
+  updateCollectionPoint(id: number, collectionPointId: number, params: any): Observable<void> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post('api/rounds/' + id + '/collection-points/' + collectionPointId, JSON.stringify(params), options)
+                    .map(res => {});
+  }
 }
 
 export class Round {

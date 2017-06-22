@@ -885,9 +885,14 @@ form {
   .editable-display {
     .editable-display-value {
       display: inline-block;
-      min-height: 60px;
       line-height: 1.2em;
       margin-bottom: 5px;
+    }
+
+    &.expanded {
+      .editable-display-value {
+        min-height: 60px;
+      }
     }
     
     .button-new-small, .validation-warning, .button-new-small-1 {

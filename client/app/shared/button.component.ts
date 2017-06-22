@@ -35,9 +35,12 @@ export class ButtonComponent implements OnInit {
   @Input()
   text: string
 
+  @Input()
+  key: string;
+
   @HostListener('click')
   click() {
-    this.service.endEdit()
+    this.service.startEdit(this.key);
   }
 
   constructor(
@@ -49,9 +52,18 @@ export class ButtonComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.key = this.key || ButtonComponent.createRandomKey()
   }
 
   focus() {
     this.renderer.invokeElementMethod(this.el.nativeElement, 'focus', []);
+  }
+
+  static createRandomKey(): string {
+    let array: number[] = [];
+    for(let i = 0; i < 25; i++) {
+      array[i] = Math.floor(Math.random() * 255);
+    }
+    return btoa(String.fromCharCode(...array));
   }
 }

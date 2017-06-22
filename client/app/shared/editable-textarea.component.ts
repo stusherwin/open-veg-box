@@ -11,10 +11,10 @@ import { EditableService } from './editable.service'
   selector: 'cc-editable-textarea',
   template: `
     <div class="editable editable-textarea" [class.editable-display-clickable]="!editing" [class.hover]="focused" (click)="startEdit()">
-      <span class="editable-display" [style.visibility]="editing? 'hidden' : 'visible'">
+      <span class="editable-display" [style.visibility]="editing? 'hidden' : 'visible'" [class.expanded]="!collapsed || editing">
         <div class="editable-display-value" #display>
           <span *ngIf="value" innerHTML="{{value | preserveLines}}"></span>
-          <span class="muted" *ngIf="!value">None</span>
+          <span class="muted" *ngIf="!value">{{defaultValue}}</span>
         </div>
         <cc-editable-button #edit [key]="key" icon="edit" *ngIf="!editing" (click)="startEdit()" (focus)="focused = true" (blur)="focused = false"></cc-editable-button>
       </span>
@@ -64,6 +64,12 @@ export class EditableTextAreaComponent implements OnInit {
   @Input()
   messages: any
 
+  @Input()
+  collapsed: boolean
+
+  @Input()
+  defaultValue: string = 'None'
+
   @Output()
   valueChange = new EventEmitter<string>()
 
@@ -105,11 +111,14 @@ export class EditableTextAreaComponent implements OnInit {
 
     this.service.startEdit(this.key);
     
-    this.textAreaHeight = this.display.nativeElement.getBoundingClientRect().height + 5;
+    setTimeout(() => {
+      this.textAreaHeight = this.display.nativeElement.getBoundingClientRect().height + 5;
+      this.changeDetector.detectChanges();
+    });
+
     this.submitted = false;
     this.editingValue = this.value;
     this.editing = true;
-    this.changeDetector.detectChanges();
 
     let sub = this.text.changes.subscribe((l: QueryList<TextComponent>) => {
       if(l.length) {

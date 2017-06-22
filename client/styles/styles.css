@@ -1529,9 +1529,11 @@ form.submitted textarea.ng-invalid ~ .icon-warning {
 }
 .editable-textarea .editable-display .editable-display-value {
   display: inline-block;
-  min-height: 60px;
   line-height: 1.2em;
   margin-bottom: 5px;
+}
+.editable-textarea .editable-display.expanded .editable-display-value {
+  min-height: 60px;
 }
 .editable-textarea .editable-display .button-new-small,
 .editable-textarea .editable-display .validation-warning,

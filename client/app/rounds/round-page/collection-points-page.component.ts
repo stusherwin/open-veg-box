@@ -4,6 +4,8 @@ import { RoundPageService } from './round-page.component'
 import { EditableService } from '../../shared/editable.service'
 import { RoundService, Round, CollectionPoint } from '../round.service'
 import { EditableTextComponent } from '../../shared/editable-text.component'
+import { EditableHeadingComponent } from '../../shared/editable-heading.component'
+import { EditableTextAreaComponent } from '../../shared/editable-textarea.component'
 import { ButtonComponent } from '../../shared/button.component'
 import { TextComponent } from '../../shared/text.component'
 import { TextAreaComponent } from '../../shared/textarea.component'
@@ -21,6 +23,10 @@ export class CollectionPointModel {
 
   remove() {
     this._model.remove(this);
+  }
+
+  update(params: any) {
+    this._model.update(this, params);
   }
 }
 
@@ -62,13 +68,17 @@ export class CollectionPointsModel {
     this._service.removeCollectionPoint(this._round.id, collectionPoint.id).subscribe(() => 
       Arrays.remove(this.collectionPoints, collectionPoint));
   }
+
+  update(collectionPoint: CollectionPointModel, params: any) {
+    this._service.updateCollectionPoint(this._round.id, collectionPoint.id, params).subscribe(() => {})
+  }
 }
 
 @Component({
   selector: 'cc-collection-points-page',
   templateUrl: 'app/rounds/round-page/collection-points-page.component.html',
-  directives: [RoundCustomersComponent, EditableTextComponent, ButtonComponent, TextComponent, TextAreaComponent],
-  providers: [/*EditableService*/]
+  directives: [RoundCustomersComponent, EditableTextComponent, EditableTextAreaComponent, EditableHeadingComponent, ButtonComponent, TextComponent, TextAreaComponent],
+  providers: [EditableService]
 })
 export class CollectionPointsPageComponent implements OnInit {
   model: CollectionPointsModel;
@@ -79,18 +89,21 @@ export class CollectionPointsPageComponent implements OnInit {
   nameValidationMessage: string = '';
   addressValidationMessage: string = '';
   nameMessages = {required: 'Name must not be empty'};
-  addressMessages = {required: 'Address must not be empty'};
-  
+  addressMessages = {};
+  nameValidators = [Validators.required];
+  addressValidators: any[] = [];
+
   constructor(
     private builder: FormBuilder,
     @Inject(forwardRef(() => RoundPageService))
     private page: RoundPageService,
-    private roundService: RoundService) {
+    private roundService: RoundService,
+    private editableService: EditableService) {
   }
 
   ngOnInit() {
     this.nameControl = new Control('', Validators.compose([Validators.required]))
-    this.addressControl = new Control('', Validators.compose([Validators.required]))
+    this.addressControl = new Control('', Validators.compose([]))
 
     this.form = this.builder.group({
       name: this.nameControl,
@@ -105,6 +118,12 @@ export class CollectionPointsPageComponent implements OnInit {
   startAdd() {
     this.submitted = false;
     this.model.startAdd();
+    
+    this.editableService.currentlyEditing.subscribe((key: string) => {
+      if(this.model.adding && key != 'add') {
+        this.cancelAdd();
+      }
+    })
   }
 
   completeAdd() {

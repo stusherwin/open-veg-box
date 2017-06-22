@@ -1,9 +1,9 @@
-<div class="loading-indicator" *ngIf="!model.loaded"><i class="icon-spin3 animate-spin"></i></div>
 <div class="deliveries">
   <div class="row-header">
-    <a cc-button right icon="add" text="Add collection point" (click)="startAdd()" *ngIf="!model.adding" style="margin-bottom: 13px"></a>
+    <a cc-button right icon="add" key="add" text="Add collection point" (click)="startAdd()" *ngIf="!model.adding" style="margin-bottom: 13px"></a>
   </div>
-  <div class="row-view-new no-hover">
+  <div class="loading-indicator" *ngIf="!model.loaded"><i class="icon-spin3 animate-spin"></i></div>
+  <div class="row-view-new no-hover" *ngIf="model.loaded">
     <div class="row" style="height: 0;padding: 0" *ngIf="!model.adding">
     </div>
     <div class="row focused" *ngIf="model.adding">
@@ -25,7 +25,7 @@
               </td>
             </tr>
             <tr>
-              <th style="width: 90px;vertical-align: middle">Address:</th>
+              <th style="width: 90px;vertical-align: top;padding-top: 7px">Address:</th>
               <td style="width: 250px">
                 <cc-textarea [(value)]="model.addingAddress"
                              (valueChange)="setAddressValidationMessage()"
@@ -46,17 +46,28 @@
         </div>
       </form>
     </div>
-    <div class="row" *ngIf="model.loaded && !model.collectionPoints.length">
+    <div class="row" *ngIf="!model.collectionPoints.length">
       <p>There are no collection points yet.</p>
     </div>
-    <div *ngIf="model.loaded">
-      <div class="row" *ngFor="let c of model.collectionPoints">
-        <div class="details">
-          {{c.name}}
-        </div>
-        <div class="actions">
-          <a cc-button right icon="trash" text="Delete" (click)="c.remove()"></a>
-        </div>
+    <div class="row" *ngFor="let c of model.collectionPoints">
+      <div class="details">
+        <cc-editable-heading key="name-{{c.id}}"
+                             [(value)]="c.name"
+                             (valueChange)="c.update({name: $event})"
+                             [validators]="nameValidators"
+                             [messages]="{required: 'Name is required'}">
+        </cc-editable-heading>
+        <cc-editable-textarea key="address-{{c.id}}"
+                              [(value)]="c.address"
+                              (valueChange)="c.update({address: $event})"
+                              [validators]="addressValidators"
+                              [messages]="{}"
+                              [collapsed]="true"
+                              defaultValue="No address">
+        </cc-editable-textarea>
+      </div>
+      <div class="actions">
+        <a cc-button right icon="trash" text="Delete" (click)="c.remove()"></a>
       </div>
     </div>
   </div>

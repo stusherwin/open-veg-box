@@ -15,9 +15,4 @@ export class EditableService {
       this._currentlyEditingSubject.next(key);
     }
   }
-
-  endEdit() {
-    this._currentlyEditing = null;
-    this._currentlyEditingSubject.next(null);
-  }
 }
