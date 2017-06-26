@@ -23,8 +23,10 @@ mainDb.all<{id: number, db: Db}>(
 + ' from organisation o', {}, {}, r => {
   switch(r.dbtype) {
     case 'postgres':
+      console.log('dbtype: ' + r.dbtype);
       return {id: r.id, db: new PostgresDb(r.connectionstring)};
     default:
+      console.log('dbtype: ' + r.dbtype);
       return {id: r.id, db: null};
   }
 })
