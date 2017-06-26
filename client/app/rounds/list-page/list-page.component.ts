@@ -11,7 +11,7 @@ import 'rxjs/add/operator/last';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/combineLatest';
 import { SectionHeaderComponent } from '../../structure/section-header.component'
-import { Arrays } from '../../shared/Arrays'
+import { Arrays } from '../../shared/arrays'
 import { ButtonComponent } from '../../shared/button.component'
 
 @Component({

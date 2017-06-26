@@ -28,13 +28,13 @@ export class ConfigService {
     } catch(ex) {
       try {
         this.email = {  
-          fromName: process.env.EMAIL_FROM_NAME,
-          fromAddress: process.env.EMAIL_FROM_ADDRESS,
-          smtpConnection: process.env.EMAIL_SMTP_CONNECTION
+          fromName: process.env['EMAIL_FROM_NAME'],
+          fromAddress: process.env['EMAIL_FROM_ADDRESS'],
+          smtpConnection: process.env['EMAIL_SMTP_CONNECTION']
         }
-        this.connectionString = process.env.DATABASE_URL;
+        this.connectionString = process.env['DATABASE_URL'];
       } catch(ex) {
       }
     }
   }
-}
+}2
