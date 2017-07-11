@@ -7,6 +7,7 @@ import { LoggedInRouterOutlet } from './auth/logged-in-router-outlet';
 import { SectionComponent } from './structure/section.component';
 import { NotFoundPageComponent } from './not-found-page.component';
 import { EditableService } from './shared/editable.service'
+import { TestPageComponent } from './test-page.component';
 
 @Component({
   selector: 'body',
@@ -25,6 +26,11 @@ import { EditableService } from './shared/editable.service'
     path: 'login',
     name: 'Login',
     component: LoginPageComponent
+  },
+  {
+    path: 'test',
+    name: 'Test',
+    component: TestPageComponent
   },
   {
     path: '...',

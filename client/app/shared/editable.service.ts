@@ -6,7 +6,7 @@ export class EditableService {
   private _currentlyEditingSubject = new Subject<string>();
 
   get currentlyEditing(): Observable<string> {
-    return this._currentlyEditingSubject;
+    return this._currentlyEditingSubject.asObservable();
   }
 
   startEdit(key: string) {
