@@ -8,7 +8,17 @@
     "experimentalDecorators": true,
     "removeComments": false,
     "noImplicitAny": true,
-    "suppressImplicitAnyIndexErrors": true
+    "suppressImplicitAnyIndexErrors": true,
+	"lib": ["dom", "es6"],
+    "types": [
+            // add node as an option
+            "node"
+         ],
+         // typeRoots option has been previously configured
+         "typeRoots": [
+            // add path to @types
+            "node_modules/@types"
+         ]
   },
   "exclude": [
     "node_modules"
