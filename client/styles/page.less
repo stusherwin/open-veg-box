@@ -1168,44 +1168,6 @@ form {
   margin-left: -5px;
 }
 
-// Unsure: should edit button have a background?
-// [icon=edit] {
-//   > .button-new-small.editable-button {
-//     background: none;
-//     box-shadow: none;
-
-//     i:before {
-//       color: #bbb;
-//     }
-
-//     &:hover, &:focus {
-//       background: @boxProductHover;
-//       box-shadow: @boxProductHover 0 2px 5px 0 inset;
-
-//       i::before {
-//         // color: @boxProductHover;
-//         color: white;
-//       }     
-//     }
-//   }
-// }
-
-// .editable-display-clickable {
-//   &:hover, &.hover {
-//     [icon=edit] {
-//       > .button-new-small.editable-button {
-//         background: @boxProductHover;
-//         box-shadow: @boxProductHover 0 2px 5px 0 inset;
-
-//         i::before {
-//           // color: @boxProductHover;
-//           color: white;
-//         }
-//       }
-//     }
-//   }
-// }
-
 .deliveries {
   h4 {
     display: inline-block;
@@ -1481,5 +1443,49 @@ input[type="radio"] {
 
   &:focus + label {
     border: 1px dashed #f8c77e;
+  }
+}
+
+// Unsure: should edit button have a background?
+[icon=edit] {
+  > .button-new-small-1.editable-button {
+    &:before {
+      background: none;
+      box-shadow: none;
+    }
+
+    i:before {
+      color: #bbb;
+    }
+
+    &:hover, &:focus {
+      &:before {
+        background: none;
+        box-shadow: none;
+      }
+
+      i::before {
+        background: none;
+        box-shadow: none;
+        color: @boxProductHover;
+        // color: white;
+      }     
+    }
+  }
+}
+
+.editable-display-clickable {
+  &:hover, &.hover {
+    [icon=edit] {
+      > .button-new-small-1.editable-button {
+        //background: @boxProductHover;
+        // box-shadow: @boxProductHover 0 2px 5px 0 inset;
+
+        i::before {
+          color: @boxProductHover;
+          // color: white;
+        }
+      }
+    }
   }
 }

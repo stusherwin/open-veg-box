@@ -1362,3 +1362,25 @@ input[type="radio"] + label {
 input[type="radio"]:focus + label {
   border: 1px dashed #f8c77e;
 }
+[icon=edit] > .button-new-small-1.editable-button:before {
+  background: none;
+  box-shadow: none;
+}
+[icon=edit] > .button-new-small-1.editable-button i:before {
+  color: #bbb;
+}
+[icon=edit] > .button-new-small-1.editable-button:hover:before,
+[icon=edit] > .button-new-small-1.editable-button:focus:before {
+  background: none;
+  box-shadow: none;
+}
+[icon=edit] > .button-new-small-1.editable-button:hover i::before,
+[icon=edit] > .button-new-small-1.editable-button:focus i::before {
+  background: none;
+  box-shadow: none;
+  color: #ffa011;
+}
+.editable-display-clickable:hover [icon=edit] > .button-new-small-1.editable-button i::before,
+.editable-display-clickable.hover [icon=edit] > .button-new-small-1.editable-button i::before {
+  color: #ffa011;
+}
